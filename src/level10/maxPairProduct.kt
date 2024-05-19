@@ -1,6 +1,7 @@
 package level10
 
 import java.util.Scanner
+import kotlin.time.times
 
 fun main() {
     // Let us take the first input from the console
@@ -54,5 +55,6 @@ fun main() {
 
     // Printing the product of the two largest numbers available
 //    println("The product of the two largest number is: ${firstLargestNumber * secondLargestNumber}")
-    println((firstLargestNumber * secondLargestNumber).toLong())
+    val result: Long = firstLargestNumber.toLong() * secondLargestNumber.toLong()
+    println(result)
 }
