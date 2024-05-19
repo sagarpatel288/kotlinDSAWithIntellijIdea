@@ -54,5 +54,5 @@ fun main() {
 
     // Printing the product of the two largest numbers available
 //    println("The product of the two largest number is: ${firstLargestNumber * secondLargestNumber}")
-    println(firstLargestNumber * secondLargestNumber)
+    println((firstLargestNumber * secondLargestNumber).toLong())
 }
