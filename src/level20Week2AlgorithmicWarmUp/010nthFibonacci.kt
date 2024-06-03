@@ -9,8 +9,10 @@ import java.util.Scanner
 fun main() {
 
     fun printNthFibonacci(nthFibonacci: Int): Long {
-        if (nthFibonacci == 0) return 0L
-        if (nthFibonacci == 1) return 1L
+        // If it is 0, the last digit is 0.
+        // If it is 1, the last digit is 1.
+        // Anything less than or equal to 1, returns the number itself.
+        if (nthFibonacci <= 1) return nthFibonacci.toLong()
         var a = 0L
         var b = 1L
         var result = 0L
