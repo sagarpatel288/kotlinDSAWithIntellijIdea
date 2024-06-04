@@ -53,6 +53,8 @@ fun main() {
             // (A + B) mod C = (A mod C + B mod C) mod C
             // Modular Addition: When we use the modular addition:
             // (21 mod 7 + 34 mod 7) mod 7 = (0 + 6) mod 7 = 6. So, the answer is 6. <------------------------------
+            // Instead of doing sum of two large numbers and then applying modulo on the result,
+            // we better find modulo of each number, do addition of each result, and then apply the modulo on the result.
             // Let us assume that the reducedN (nth fibonacci) is f(21) and the modulo is 17.
             // Naive algorithm: result = previous + current, previous = current, current = result
             // In the end, result % modulo
