@@ -64,6 +64,7 @@ fun main() {
             length += 1
 
             if (previous == 0L && next == 1L) {
+                // Stop when the sequence repeats
                 return length
             }
         }
