@@ -36,6 +36,16 @@ fun main() {
         var current = 1L
         var result = 0L
         val history = mutableListOf(previous, current)
+        // We already have F(0) and F(1). Hence, we start from 2.
+        // For example, let us assume that the nthFibonacci is 5.
+        // The nthFibonacci is our upper limit and it is 5.
+        // We are looking for the value of F(5).
+        // If we start from 0, it will go up to and including 7.
+        // Because, then 0 for F(2), 1 for F(3), 2 for F(4), 3 for F(5), 4 for F(6), 5 for F(7) which is wrong.
+        // If we really want to start from 0, then we should subtract 2 from the nthFibonacci. I.e., nthFibonacci - 2,
+        // acknowledging the fact that we already have two values.
+        // So, the upper limit will be nthFibonacci - 2 = 5 - 2 = 3.
+        // In that case, 0 for F(2), 1 for F(3), 2 for F(4), 3 for F(5), which is fine.
         for (i in 2..nthFibonacci) {
             // We want to find the remainder of nth fibonacci number for a given modulo.
             // The next fibonacci number is an addition of the last two fibonacci numbers.

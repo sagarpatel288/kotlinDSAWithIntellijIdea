@@ -16,6 +16,15 @@ fun main() {
         if (reducedN <= 1L) return reducedN
         var previous = 0L
         var current = 1L
+        // We already have F(0) and F(1). Hence, we start from 2.
+        // For example, let us assume that the reducedN is 5.
+        // The reducedN is our upper limit and it is 5.
+        // We are looking for the value of F(5).
+        // If we start from 0, it will go up to and including 7.
+        // Because, then 0 for F(2), 1 for F(3), 2 for F(4), 3 for F(5), 4 for F(6), 5 for F(7) which is wrong.
+        // If we really want to start from 0, then we should subtract 2 from the reducedN. I.e., reducedN - 2,
+        // acknowledging the fact that we already have two values. So, the upper limit will be reducedN - 2 = 5 - 2 = 3.
+        // In that case, 0 for F(2), 1 for F(3), 2 for F(4), 3 for F(5), which is fine.
         for (i in 2..reducedN) {
             // Imagine you are adding two large numbers, but you only care about the last digit of the result.
             // Instead of adding the entire numbers, you can add their last digits

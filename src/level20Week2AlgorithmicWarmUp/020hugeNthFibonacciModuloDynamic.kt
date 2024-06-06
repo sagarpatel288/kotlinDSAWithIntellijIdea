@@ -13,11 +13,40 @@ fun main() {
      */
     fun getFibonacciModulo(reducedN: Long, modulo: Long): Long {
         if (reducedN <= 1L) return reducedN
+        // F(0) % modulo
         var previous = 0L
+        // F(1) % modulo
         var current = 1L
+        // We already have F(0) and F(1). Hence, we start from 2.
+        // For example, let us assume that the reducedN is 5.
+        // The reducedN is our upper limit and it is 5.
+        // We are looking for the value of F(5).
+        // If we start from 0, it will go up to and including 7.
+        // Because, then 0 for F(2), 1 for F(3), 2 for F(4), 3 for F(5), 4 for F(6), 5 for F(7) which is wrong.
+        // If we really want to start from 0, then we should subtract 2 from the reducedN. I.e., reducedN - 2,
+        // acknowledging the fact that we already have two values. So, the upper limit will be reducedN - 2 = 5 - 2 = 3.
+        // In that case, 0 for F(2), 1 for F(3), 2 for F(4), 3 for F(5), which is fine.
         for (i in 2..reducedN) {
-            // We want to find the remainder of nth fibonacci number for a given modulo.
+            // When we use `% modulo`, we talk about remainders.
+            // We want to find the remainder of reducedN fibonacci number for a given modulo.
+            // Essentially, we track remainders.
             // The next fibonacci number is an addition of the last two fibonacci numbers.
+            // But, instead of the true value of the next fibonacci number, we are interested in its remainder.
+            // Hence, we use modulo. I.e. (previous + next) % modulo.
+            // Let us assume that the reducedN (nth fibonacci) is f(21) and the modulo is 17.
+            // Naive algorithm: result = previous + current, previous = current, current = result
+            // In the end, result % modulo
+            // A collection of the Naive fibonacci numbers
+            // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946]
+            // So, what did we do? 0 (previous) + 1 (current) = 1 (result), 1 + 1 = 2, 2 + 1 = 3, 3 + 2 = 5, 5 + 3 = 8..
+            // So, basically: a + b and in the end, what did we get? F(21) = 10946, which is a result of a + b,
+            // where a = 4181 and b = 6765.
+            // F(21) = 10946 % 17 = 15 <----------------------------------------------------------------------------
+            // Modular arithmetic: result = (previous + current) % modulo, previous = current, current = result
+            // In the end, result is our answer.
+            // A collection of the Modular Addition for each fibonacci number
+            // [0, 1, 1, 2, 3, 5, 8, 13, 4, 0, 4, 4, 8, 12, 3, 15, 1, 16, 0, 16, 16, 15]
+            // F(21) = 15 (Magic?) <--------------------------------------------------------------------------------
             // Naive fibonacci:
             // Let us take the known fibonacci numbers for a while and understand how it works.
             // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
@@ -32,17 +61,6 @@ fun main() {
             // (A + B) mod C = (A mod C + B mod C) mod C
             // Modular Addition: When we use the modular addition:
             // (21 mod 7 + 34 mod 7) mod 7 = (0 + 6) mod 7 = 6. So, the answer is 6. <------------------------------
-            // Let us assume that the reducedN (nth fibonacci) is f(21) and the modulo is 17.
-            // Naive algorithm: result = previous + current, previous = current, current = result
-            // In the end, result % modulo
-            // A collection of the Naive fibonacci numbers
-            // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946]
-            // F(21) = 10946 % 17 = 15 <----------------------------------------------------------------------------
-            // Modular arithmetic: result = (previous + current) % modulo, previous = current, current = result
-            // In the end, result is our answer.
-            // A collection of the Modular Addition for each fibonacci number
-            // [0, 1, 1, 2, 3, 5, 8, 13, 4, 0, 4, 4, 8, 12, 3, 15, 1, 16, 0, 16, 16, 15]
-            // F(21) = 15 <-----------------------------------------------------------------------------------------
             // To learn more about Modular Arithmetic:
             // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/modular-addition-and-subtraction
             // So, if we are doing modulo on a sum of two large numbers,
@@ -68,6 +86,11 @@ fun main() {
      * The point at which it (the sequence or pattern of remainders) starts repeating itself, is our Pisano period.
      * So, in our example, for modulo 10, the Pisano period is 60.
      * I.e. After 60, the sequence (result) of `f(n) % 10` starts repeating itself.
+     * Hence, if we are finding `f(64) % 10`, we can get the same answer by taking the much smaller number.
+     * I.e. 64 % our Pisano period = 64 % 60 = 4 is our much smaller equivalent number.
+     * Then, we can do 4 % our modulo = f(4) % 10 = 3.
+     * Mathematical Insight:
+     * For a given modulo m, the nth fibonacci number a, f(a) % m = f(b) % m where b = a % p and p = The Pisano period.
      */
     fun getPisanoPeriod(modulo: Long): Long {
         // Notice that the nth fibonacci remainder sequence starts with 0 and 1.
