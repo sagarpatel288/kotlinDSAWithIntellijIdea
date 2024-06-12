@@ -1,14 +1,12 @@
 package level20Week2AlgorithmicWarmUp
 
+import java.util.Scanner
+
 fun main() {
 
-    val firstInput = readln().toLong()
-    val secondInput = readln().toLong()
-    if (firstInput >= secondInput) {
-        println(getGcd(firstInput, secondInput))
-    } else {
-        println(getGcd(secondInput, firstInput))
-    }
+    val firstInput = Scanner(System.`in`).nextLong()
+    val secondInput = Scanner(System.`in`).nextLong()
+    println(getGcd(firstInput, secondInput))
 }
 
 /**
@@ -22,7 +20,7 @@ fun main() {
  *
  * keep doing gcd(b, a % b) until the remainder becomes 0.
  */
-fun getGcd(larger: Long, smaller: Long): Long {
-    if (smaller == 0L) return larger
-    return getGcd(smaller, larger % smaller)
+fun getGcd(first: Long, second: Long): Long {
+    if (second == 0L) return first
+    return getGcd(second, first % second)
 }
