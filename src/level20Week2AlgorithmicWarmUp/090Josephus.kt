@@ -2,6 +2,8 @@ package level20Week2AlgorithmicWarmUp
 
 fun main() {
 
+    var iteration = 0L
+
     /**
      * There are a total of [numberOfRebels] rebels.
      * And after every [killingFactorInterval] interval, the rebel on that position dies.
@@ -100,6 +102,8 @@ fun main() {
      *
      */
     fun getSurvivor(numberOfRebels: Long, killingFactorInterval: Long): Long {
+        iteration++
+        println(": :getSurvivor: iteration: $iteration numberOfRebels: $numberOfRebels killingFactorInterval: $killingFactorInterval")
         if (numberOfRebels == 1L) return 0L
         return (getSurvivor(numberOfRebels -1L, killingFactorInterval) + killingFactorInterval) % numberOfRebels
     }
