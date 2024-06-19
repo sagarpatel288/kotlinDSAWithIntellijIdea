@@ -8,6 +8,8 @@ fun main() {
      * There are a total of [numberOfRebels] rebels.
      * And after every [killingFactorInterval] interval, the rebel on that position dies.
      * We want to find the original position of the survivor - the only rebel that survives and everyone else dies.
+     * We get initial [numberOfRebels] and we eliminate one rebel according to the [killingFactorInterval].
+     * We repeat this process until there is only one rebel left.
      * For example, let us assume that there are a total of 5 rebels and the killing factor interval is 3.
      * The position always starts with 0.
      * So, we have A at 0, B at 1, C at 2, D at 3, and E at 4 rebels.
@@ -101,14 +103,79 @@ fun main() {
      * If we add k to the new position and then perform % n to the result, we get the original position.
      *
      */
-    fun getSurvivor(numberOfRebels: Long, killingFactorInterval: Long): Long {
+    fun getSurvivorRecursively(numberOfRebels: Long, killingFactorInterval: Long): Long {
         iteration++
-        println(": :getSurvivor: iteration: $iteration numberOfRebels: $numberOfRebels killingFactorInterval: $killingFactorInterval")
         if (numberOfRebels == 1L) return 0L
-        return (getSurvivor(numberOfRebels -1L, killingFactorInterval) + killingFactorInterval) % numberOfRebels
+        return (getSurvivorRecursively(numberOfRebels -1L, killingFactorInterval) + killingFactorInterval) % numberOfRebels
     }
 
-    val numberOfRebels = readln().toLong()
-    val killingFactorInterval = readln().toLong()
-    println(getSurvivor(numberOfRebels, killingFactorInterval))
+    /**
+     * There are a total of [numberOfRebels] rebels.
+     * And after every [killingFactorInterval] interval, the rebel on that position dies.
+     * We want to find the original position of the survivor - the only rebel that survives and everyone else dies.
+     * We get initial [numberOfRebels] and we eliminate one rebel according to the [killingFactorInterval].
+     * We repeat this process until there is only one rebel left.
+     * We have seen one perspective to look at it in the above [getSurvivorRecursively] function.
+     * There is one more perspective to look at it, and it is more efficient than the recursive approach.
+     * Recursive approach can introduce stack overflow when [numberOfRebels] is too large,
+     * because each function call creates an object.
+     * The iterative approach is comparatively safe.
+     * The iterative approach is based on the pre-computed fact that:
+     * `newSurvivorPosition = (previousSurvivorPosition + killingFactorInterval) % i`
+     * where i = `for (i in 1..numberOfRebels)`.
+     *
+     * For example:
+     * When n = 1, the survivor position is 0.
+     * When n = 2, the survivor position (LHS) is 1 = RHS => (previousSurvivorPosition + k) % i = (0 + 3) % 2 = 3 % 2 = 1.
+     * When n = 3, the survivor position (LHS) is 1 = RHS => (previousSurvivorPosition + k) % i = (1 + 3) % 3 = 4 % 3 = 1.
+     * When n = 4, the survivor position (LHS) is 0 = RHS => (previousSurvivorPosition + k) % i = (1 + 3) % 4 = 4 % 4 = 0.
+     * When n = 5, the survivor position (LHS) is 3 = RHS => (previousSurvivorPosition + k) % i = (0 + 3) % 5 = 3 % 5 = 3.
+     * When n = 6, the survivor position (LHS) is 0 = RHS => (previousSurvivorPosition + k) % i = (3 + 3) % 6 = 6 % 6 = 0.
+     * When n = 7, the survivor position (LHS) is 3 = RHS => (previousSurvivorPosition + k) % i = (0 + 3) % 7 = 3 % 7 = 3.
+     * When n = 8, the survivor position (LHS) is 6 = RHS => (previousSurvivorPosition + k) % i = (3 + 3) % 8 = 6 % 8 = 6
+     * When n = 9, the survivor position (LHS) is 0 = RHS => (previousSurvivorPosition + k) % i = (6 + 3) % 9 = 9 % 9 = 0.
+     * When n = 10, the survivor position (LHS) is 3 = RHS => (previousSurvivorPosition + k) % i = (0 + 3) % 10 = 3 % 10 = 3.
+     *
+     * We can see that LHS = RHS. The formula is correct.
+     */
+    fun getSurvivorIteratively(numberOfRebels: Long, killingFactorInterval: Long): Long {
+        // If there is only one rebel, the survivor position is 0.
+        var survivorPosition = 0L
+        // We already know the case when there is only one rebel.
+        // Hence, we start with 2 and go up to the given number of rebels.
+        for (i in 2..numberOfRebels) {
+            survivorPosition = (survivorPosition + killingFactorInterval) % i
+        }
+        return survivorPosition
+    }
+
+    fun start() {
+        try {
+            println("Press 1 to solve with the iterative solution, 2 for the recursive solution, 3 for both, or any other key to exit.")
+            val input = readln().toInt()
+            val isIterative = input == 1
+            val isRecursive = input == 2
+            val isIterativeAndRecursiveComparison = input == 3
+
+            println("Please enter the number of rebels")
+            val numberOfRebels = readln().toLong()
+
+            println("Please enter the killing interval factor")
+            val killingFactorInterval = readln().toLong()
+
+            if (isIterative) {
+                println(getSurvivorIteratively(numberOfRebels, killingFactorInterval))
+            } else if (isRecursive) {
+                println(getSurvivorRecursively(numberOfRebels, killingFactorInterval))
+            } else if (isIterativeAndRecursiveComparison) {
+                println(getSurvivorIteratively(numberOfRebels, killingFactorInterval))
+                println(getSurvivorRecursively(numberOfRebels, killingFactorInterval))
+            }
+            start()
+        } catch (e: Exception) {
+            println(": :Terminating with exception: $e")
+        }
+    }
+
+    start()
 }
