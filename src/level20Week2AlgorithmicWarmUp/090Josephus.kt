@@ -125,15 +125,38 @@ fun main() {
      * where i = `for (i in 1..numberOfRebels)`.
      *
      * For example:
+     *
+     * | Iteration (i) 	| i <br>= Number of rebels 	| Previous Survivor<br>Position 	| newSurvivorPos <br>= (prevSurvivorPos + k) % i 	| New Survivor<br>Position 	|
+     * |---------------	|--------------------------	|-------------------------------	|------------------------------------------------	|--------------------------	|
+     * | 1             	| 1                        	| 0                             	| (0 + 3) % 1 = 0                                	| 0                        	|
+     * | 2             	| 2                        	| 0                             	| (0 + 3) % 2 = 1                                	| 1                        	|
+     * | 3             	| 3                        	| 1                             	| (1 + 3) % 3 = 1                                	| 1                        	|
+     * | 4             	| 4                        	| 1                             	| (1 + 3) % 4 = 0                                	| 0                        	|
+     * | 5             	| 5                        	| 0                             	| (0 + 3) % 5 = 3                                	| 3                        	|
+     * | 6             	| 6                        	| 3                             	| (3 + 3) % 6 = 0                                	| 0                        	|
+     * | 7             	| 7                        	| 0                             	| (0 + 3) % 7 = 3                                	| 3                        	|
+     * | 8             	| 8                        	| 3                             	| (3 + 3) % 8 = 6                                	| 6                        	|
+     * | 9             	| 9                        	| 6                             	| (6 + 3) % 9 = 0                                	| 0                        	|
+     * | 10            	| 10                       	| 0                             	| (0 + 3) % 10 = 3                               	| 3                        	|
+     *
      * When n = 1, the survivor position is 0.
+     *
      * When n = 2, the survivor position (LHS) is 1 = RHS => (previousSurvivorPosition + k) % i = (0 + 3) % 2 = 3 % 2 = 1.
+     *
      * When n = 3, the survivor position (LHS) is 1 = RHS => (previousSurvivorPosition + k) % i = (1 + 3) % 3 = 4 % 3 = 1.
+     *
      * When n = 4, the survivor position (LHS) is 0 = RHS => (previousSurvivorPosition + k) % i = (1 + 3) % 4 = 4 % 4 = 0.
+     *
      * When n = 5, the survivor position (LHS) is 3 = RHS => (previousSurvivorPosition + k) % i = (0 + 3) % 5 = 3 % 5 = 3.
+     *
      * When n = 6, the survivor position (LHS) is 0 = RHS => (previousSurvivorPosition + k) % i = (3 + 3) % 6 = 6 % 6 = 0.
+     *
      * When n = 7, the survivor position (LHS) is 3 = RHS => (previousSurvivorPosition + k) % i = (0 + 3) % 7 = 3 % 7 = 3.
+     *
      * When n = 8, the survivor position (LHS) is 6 = RHS => (previousSurvivorPosition + k) % i = (3 + 3) % 8 = 6 % 8 = 6
+     *
      * When n = 9, the survivor position (LHS) is 0 = RHS => (previousSurvivorPosition + k) % i = (6 + 3) % 9 = 9 % 9 = 0.
+     *
      * When n = 10, the survivor position (LHS) is 3 = RHS => (previousSurvivorPosition + k) % i = (0 + 3) % 10 = 3 % 10 = 3.
      *
      * We can see that LHS = RHS. The formula is correct.
