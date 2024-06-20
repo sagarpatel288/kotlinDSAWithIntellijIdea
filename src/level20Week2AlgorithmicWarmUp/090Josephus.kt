@@ -1,5 +1,7 @@
 package level20Week2AlgorithmicWarmUp
 
+import kotlin.system.exitProcess
+
 fun main() {
 
     var iteration = 0L
@@ -179,6 +181,10 @@ fun main() {
             val isIterative = input == 1
             val isRecursive = input == 2
             val isIterativeAndRecursiveComparison = input == 3
+
+            if (input !in intArrayOf(1,2,3)) {
+                exitProcess(200)
+            }
 
             println("Please enter the number of rebels")
             val numberOfRebels = readln().toLong()
