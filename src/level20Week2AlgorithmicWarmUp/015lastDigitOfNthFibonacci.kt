@@ -12,7 +12,7 @@ fun main() {
      * We want to print the last digit of a long number.
      * So, we use modulo. Any number modulo 10 gives the last digit of the number.
      */
-    fun getFibonacciModulo(reducedN: Long, modulo: Long): Long {
+    fun getFibonacciLastDigit(reducedN: Long, modulo: Long): Long {
         if (reducedN <= 1L) return reducedN
         var previous = 0L
         var current = 1L
@@ -113,7 +113,7 @@ fun main() {
         // Let us find the last digit of the much smaller equivalent fibonacci number.
         // Any number modulo 10 gives the last digit!
         // So, we pass 10 as a modulo value.
-        return getFibonacciModulo(reducedN, 10L)
+        return getFibonacciLastDigit(reducedN, 10L)
     }
 
     // Take the input
@@ -122,8 +122,12 @@ fun main() {
     // Read the input
     val nthFibonacci = scanner.nextLong()
 
-    // Print the last digit of the nth fibonacci value.
-    // Any number modulo 10 gives the last digit of the number.
-    // So, we pass 10 as a modulo value.
+    // Prints the last digit of the nth fibonacci value.
+    // Thought process and Key-points that solve the problem:
+    // Pre-requisite:
+    // Understand the definition of Fibonacci series
+    // Key-lemma:
+    // 1. The Pisano period that reduces the complexity and improves the efficiency.
+    // 2. Modular arithmetic.
     println(getFibonacciLastDigit(nthFibonacci))
 }
