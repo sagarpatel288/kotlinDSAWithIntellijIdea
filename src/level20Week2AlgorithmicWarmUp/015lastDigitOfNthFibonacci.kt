@@ -63,6 +63,9 @@ fun main() {
             // we can take the last digit of each (1 from 21 and 4 from 34),
             // sum up them (1 + 4), and we would still get the same answer: 5 <---------------------
             // The last digit of 21 + 34 = 5 and the last digit of 1 + 4 = 5 remain same. <---------
+            // Applying the modular arithmetic theory
+            // (a + b) % m = {(a % m) + (b % m)} % m
+            // The variables previous and next are already the result of individual element % modular
             // And then what we want to observe is the sequence or pattern of such last digits.
             // I.e., We get nth fibonacci value, and then we perform nth fibonacci value % modulo to get the last digit.
             // Then, we want to spot the point at which the sequence of `f(n) % modulo` starts repeating itself.
