@@ -102,7 +102,9 @@ fun main() {
         val pisanoPeriod = findPisanoPeriod(10L)
 
         // We reduce the input (nth fibonacci number) modulo pisanoPeriod to get a much smaller equivalent of the input!
-        // E.g., 4 mod 10 and 64 mod 10 will give the same answer: 3
+        // E.g., F(4) mod 10 and F(64) mod 10 will give the same answer: 3.
+        // Where F(4) is the 4th element in the Fibonacci series and F(64) is the 64th element in the Fibonacci series.
+        // Note that this is an element or index, not the value itself.
         val reducedN = (nthFibonacci % pisanoPeriod)
 
         // Let us find the last digit of the much smaller equivalent fibonacci number.
