@@ -87,8 +87,13 @@ fun main() {
      */
     fun getLastDigitOfPartialSumOfNthFibonacci(start: Long, end: Long): Long {
         val pisanoPeriod = getPisanoPeriod(10L)
+        // Key Point: m == n
         if (start == end) {
             if (start == 0L) return 0
+            // Key point:
+            // When m == n, it is actually F(n) % m = Last digit of nth Fibonacci number.
+            // How? Because if F(m, n) = From the starting point F(m) + F(m+1) +..+ up to the end point F(n)
+            // then, F(m, n) = F(n) because it starts and ends at the same n.
             val reducedN = start % pisanoPeriod
             return getLastDigitOfNthFibonacci(reducedN)
         }

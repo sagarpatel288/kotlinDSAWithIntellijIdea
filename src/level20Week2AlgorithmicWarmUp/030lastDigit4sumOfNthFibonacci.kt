@@ -54,9 +54,9 @@ fun reduceNthFibonacci(nthFibonacci: Long, modulo: Long): Long {
 }
 
 fun getPisanoPeriod(modulo: Long): Long {
-    // F(0) % modulo
+    // F(0) % modulo = a % m
     var previousRemainder = 0L
-    // F(1) % modulo
+    // F(1) % modulo = b % m
     var nextRemainder = 1L
     // The point at which we notice that the sequence pattern of the remainders repeats itself
     // The Pisano length always starts with 0.
@@ -64,6 +64,7 @@ fun getPisanoPeriod(modulo: Long): Long {
     // The Pisano period is always less than or equal to modulo squared
     // The Pisano iteration always starts with 0.
     for (i in 0..(modulo * modulo)) {
+        // Modular arithmetic = (a + b) % m = {(a % m) + (b % m)} % m = {(previous) + (next)} % m
         val newRemainder = (previousRemainder + nextRemainder) % modulo
         previousRemainder = nextRemainder
         nextRemainder = newRemainder
