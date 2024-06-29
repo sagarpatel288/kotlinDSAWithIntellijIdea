@@ -1,7 +1,41 @@
 package level30Module3AlgorithmExercise
 
 /**
- * The name of the problem can be: maximumShopping as well - just to be positive.
+ * The name of the problem can be maximumShopping as well - just to be positive.
+ * So, here is the thought process.
+ * The problem statement gives the following data:
+ * Total number of items, maximum capacity of a backpack, and
+ * Total cost of each Item along with available units.
+ * The problem statement or core requirement is to fill a backpack with the items
+ * in such a way that the total cost becomes maximum.
+ * So:
+ * 1. We need to take the maximum units of the costlier Item first. It will be a descending order.
+ * So, the costlier Item will go first until the backpack is full (reaches the maximum capacity)
+ * or the Item runs out of stock. Then, the less costly Item will go. The last Item will be the cheapest one.
+ * 2. So, we got a certain order (descending order where the costlier Item goes first and the cheapest Item goes last)
+ * to fill the backpack.
+ * 3. How do we find the costlier Item? We need to calculate the `price per unit`.
+ * The order is sorted by the descending order of the `price per unit.`
+ * 4. How do we calculate the `price per unit`? It's a simple math. Cost / Weight.
+ * 5. Here is the catch. We need to make sure that the `price per unit` is of type `Double`.
+ * For example, if the cost is `500`, the weight is `30`, and we take the `price per unit` as `Int`, then we get
+ * `price per unit = 16`. It means that if we do `price per unit` multiplied by `weight`,
+ * it should give us the total cost, which is `500`. But it gives `16 * 30 = 480`!
+ * So, keep in mind that the `price per unit` will be of type `Double`.
+ * 6. Ok, so we have `price per unit`, and we need to sort the given items
+ * by the descending order of the `price per unit`.
+ * This means that we will save (store) the given items into a collection so that we can sort them.
+ * 7. To sort the collection of items by the descending order of the `price per unit`,
+ * the element type of the collection must have the property `price per unit.`
+ * It means that we need to create a custom data class where we can have this `price per unit` property.
+ * 8. The data class will have the following properties:
+ * Total cost of the Item, available units, and price per unit.
+ * We get the first two properties from the user input. So, they will be the constructor properties.
+ * We will use those properties to create the additional property `price per unit.`
+ * 9. So, we get user input for each Item; we store it in a collection where the element data type will be a custom
+ * one (e.g., Item), and the item data class will have a computed property called `price per unit` using which we will
+ * sort the collection by descending order (highest `price per unit` to lowest `price per unit`)
+ * once we have all the items.
  */
 fun main() {
 
@@ -21,13 +55,17 @@ fun main() {
      * Fill the backpack starting with the maximum price per unit until we reach the [backpackCapacity].
      */
     fun getMaximumLootValue(backpackCapacity: Int, listOfItems: List<Item>): Double {
-        // Key Point: New variable to store the Sort by price per unit by descending order!
+        // Key Point: New variable to store the "Sort by price per unit by descending order!"
         val sortedItems = listOfItems.sortedByDescending {
             it.pricePerUnit
         }
         var totalValue = 0.0
         var availableCapacity = backpackCapacity
         for (i in sortedItems) {
+            // key point:
+            // We need to keep this in mind that as we fill the backpack,
+            // the available capacity of the backpack is reduced by the units we have taken.
+            // And once the available capacity becomes 0, we need to break the loop and return.
             if (availableCapacity == 0) break
             // Key-lemma: minOf
             // We take whatever the minimum out of these two: item.totalAvailableWeight, availableCapacity.
