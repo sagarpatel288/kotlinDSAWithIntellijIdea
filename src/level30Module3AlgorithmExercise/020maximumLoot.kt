@@ -86,7 +86,10 @@ fun main() {
 
     // Key Points:
     // 1. The for loop.
-    // 2. A data class to add to a collection so that we can sort it by the price per unit.
+    // 2. The for loop starts with 1 instead of 0 because what we have is the total number of items, not the indices.
+    // So, it is basically the size.
+    // If we want to start it with 0, then we can give the end point in the traditional `size-1` way. It is also OK.
+    // 3. A data class to add to a collection so that we can sort it by the price per unit.
     for (i in 1..totalItemsAndBackpackCapacity[0]) {
         val totalCostAndTotalAvailableUnits = readln().split(" ").map {
             it.toInt()
