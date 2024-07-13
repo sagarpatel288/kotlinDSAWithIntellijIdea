@@ -50,7 +50,7 @@ fun main() {
      *
      * 2
      *
-     * I see here is that there is no fixed limit on the number of children.
+     * What I see here is that there is no fixed limit on the number of children.
      * We only have a total number of prizes (n candies to give as prizes).
      * This means that we can distribute the limited number of prizes among the unlimited number of children
      * in our own way with a few mentioned conditions.
