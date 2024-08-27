@@ -8,10 +8,16 @@ fun main() {
      * Represent a positive integer as the sum of the maximum number of pairwise distinct positive integers.
      * Input: A positive integer n. Output: The maximum k such that n can be represented as the sum a1 +···+ak of k distinct positive integers.
      *
-     * You are organising a competition for children and have n candies to give as prizes. You would like to use these candies for top k places in this competition with a restriction that a higher place gets a larger number of candies. To make as many children happy as possible, you need to find the largest value of k for which it is possible.
+     * You are organising a competition for children and have n candies to give as prizes.
+     * You would like to use these candies for top k places in this competition with a restriction that
+     * a higher place gets a larger number of candies.
+     * To make as many children happy as possible, you need to find the largest value of k for which it is possible.
      *
      * Input format. An integer n.
-     * Output format. In the first line, output the maximum number k such that n can be represented as the sum of k pairwise distinct positive integers. In the second line, output k pairwise distinct positive integers that sum up to n (if there are multiple such representations, output any of them).
+     * Output format. In the first line, output the maximum number k such that
+     * n can be represented as the sum of k pairwise distinct positive integers.
+     * In the second line, output k pairwise distinct positive integers that sum up to n
+     * (if there are multiple such representations, output any of them).
      * Constraints. 1 ≤ n ≤ 109.
      * Sample 1.
      *
