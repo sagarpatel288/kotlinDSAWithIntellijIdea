@@ -109,6 +109,7 @@ fun main() {
     fun largestConcatenatedNumber(listOfIntegers: List<String>): String {
         // Sort the result of two strings (concatenation) in descending order
         val sortedIntegers = listOfIntegers.sortedWith { a, b ->
+            // Descending order
             (b + a).compareTo(a + b)
         }
         // After sorting, the list sortedIntegers will have the largest concatenated results at the front (beginning).
