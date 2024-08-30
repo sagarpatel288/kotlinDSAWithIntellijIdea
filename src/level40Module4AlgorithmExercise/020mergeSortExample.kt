@@ -48,6 +48,7 @@ fun main() {
             // The left part (startIndex to mid) where the mid-index becomes the endIndex.
             divide(array, startIndex, mid)
             // The right part (mid + 1 to endIndex) where the mid + 1 becomes the startIndex.
+            // The below function will get executed only after the above first recursive call is completed.
             divide(array, mid + 1, endIndex)
             // Only after the above two recursive calls are completed, this call will happen.
             conquer(array, startIndex, mid, endIndex)
