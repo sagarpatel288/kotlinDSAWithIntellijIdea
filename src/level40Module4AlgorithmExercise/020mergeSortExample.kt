@@ -42,8 +42,12 @@ fun main() {
         println(" :divide: array: ${array.toList()} count: $count startIndex: $startIndex endIndex: $endIndex")
         count++
         if (startIndex < endIndex) {
+            // A better way to find the mid that limits the number within the type boundary.
+            // i.e., If we do (startIndex + endIndex) /2, the addition can cross the `integer` boundary!
             val mid = startIndex + (endIndex - startIndex) / 2
+            // The left part (startIndex to mid) where the mid-index becomes the endIndex.
             divide(array, startIndex, mid)
+            // The right part (mid + 1 to endIndex) where the mid + 1 becomes the startIndex.
             divide(array, mid + 1, endIndex)
             conquer(array, startIndex, mid, endIndex)
         }
