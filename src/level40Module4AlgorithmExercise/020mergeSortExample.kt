@@ -49,6 +49,7 @@ fun main() {
             divide(array, startIndex, mid)
             // The right part (mid + 1 to endIndex) where the mid + 1 becomes the startIndex.
             divide(array, mid + 1, endIndex)
+            // Only after the above two recursive calls are completed, this call will happen.
             conquer(array, startIndex, mid, endIndex)
         }
     }
