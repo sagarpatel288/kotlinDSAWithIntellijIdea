@@ -25,7 +25,7 @@ fun main() {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfLeft++]
         }
 
-        println(" :conquer: after the first while loop: before adding the remaining right part: tempArray: ${tempArray.toList()}")
+        println(" :conquer: after the second while loop: before adding the remaining right part: tempArray: ${tempArray.toList()}")
         while (currentIndexOfRight <= endIndex) {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfRight++]
         }
