@@ -12,7 +12,7 @@ fun main() {
         var currentIndexOfSortedArray = 0
 
         while (currentIndexOfLeft <= mid && currentIndexOfRight <= endIndex) {
-            println("\n :conquer: :tempArray: ${tempArray.toList()} startIndex: $startIndex currentIndexOfLeft: $currentIndexOfLeft mid: $mid endIndex: $endIndex currentIndexOfRight: $currentIndexOfRight leftElement: ${array[currentIndexOfLeft]} rightElement: ${array[currentIndexOfRight]} currentIndexOfSortedArray: $currentIndexOfSortedArray \n")
+            println("\n :conquer: incomingArray: ${array.toList()} :tempArray: ${tempArray.toList()} startIndex: $startIndex currentIndexOfLeft: $currentIndexOfLeft mid: $mid endIndex: $endIndex currentIndexOfRight: $currentIndexOfRight leftElement: ${array[currentIndexOfLeft]} rightElement: ${array[currentIndexOfRight]} currentIndexOfSortedArray: $currentIndexOfSortedArray \n")
             if (array[currentIndexOfLeft] <= array[currentIndexOfRight]) {
                 tempArray[currentIndexOfSortedArray++] = array[currentIndexOfLeft++]
             } else {
