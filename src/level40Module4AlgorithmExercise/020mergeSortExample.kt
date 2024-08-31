@@ -2,7 +2,8 @@ package level40Module4AlgorithmExercise
 
 fun main() {
 
-    var count = 1
+    var divideFunCount = 1
+    var ifOfDivideCount = 1
 
     fun conquer(array: IntArray, startIndex: Int, mid: Int, endIndex: Int) {
         val tempArray = IntArray(endIndex - startIndex + 1)
@@ -41,13 +42,12 @@ fun main() {
     }
 
     fun divide(array: IntArray, startIndex: Int, endIndex: Int) {
-        println(" :divide: array: ${array.toList()} count: $count startIndex: $startIndex endIndex: $endIndex")
-        count++
+        println(" :divide: array: ${array.toList()} divideFunCount: ${divideFunCount++} startIndex: $startIndex endIndex: $endIndex")
         if (startIndex < endIndex) {
             // A better way to find the mid that limits the number within the type boundary.
             // i.e., If we do (startIndex + endIndex) /2, the addition can cross the `integer` boundary!
             val mid = startIndex + (endIndex - startIndex) / 2
-            println(" :divide: midIndex: $mid")
+            println(" :divide: ifOfDivideCount: ${ifOfDivideCount++} midIndex: $mid ")
             // The left part (startIndex to mid) where the mid-index becomes the endIndex.
             divide(array, startIndex, mid)
             // The right part (mid + 1 to endIndex) where the mid + 1 becomes the startIndex.
