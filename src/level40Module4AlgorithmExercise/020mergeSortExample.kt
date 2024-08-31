@@ -20,18 +20,17 @@ fun main() {
             }
         }
 
-        println(" :conquer: after the first while loop: before adding remaining parts: tempArray: ${tempArray.toList()}")
+        println(" :conquer: after the first while loop: before adding the remaining left part: tempArray: ${tempArray.toList()}")
         while (currentIndexOfLeft <= mid) {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfLeft++]
-            println(" :conquer: after adding all the left: tempArray: ${tempArray.toList()} \n")
         }
 
+        println(" :conquer: after the first while loop: before adding the remaining right part: tempArray: ${tempArray.toList()}")
         while (currentIndexOfRight <= endIndex) {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfRight++]
-            println(" :conquer: after adding all the right: tempArray: ${tempArray.toList()} \n")
         }
 
-       println(" :conquer: after if-else: sorted tempArray: ${tempArray.toList()} \n")
+       println(" :conquer: after if-else and all the while loops: sorted tempArray: ${tempArray.toList()} \n")
 
         for (i in tempArray.indices) {
             print(" :conquer: copying from the tempArray: ${tempArray.toList()} startIndex: $startIndex i: $i \n")
