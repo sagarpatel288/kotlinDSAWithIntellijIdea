@@ -11,7 +11,7 @@ fun main() {
         var currentIndexOfSortedArray = 0
 
         while (currentIndexOfLeft <= mid && currentIndexOfRight <= endIndex) {
-            println("\n :conquer: :tempArray: ${tempArray.toList()} startIndex: $startIndex mid: $mid endIndex: $endIndex leftElement: ${array[currentIndexOfLeft]} rightElement: ${array[currentIndexOfRight]} \n")
+            println("\n :conquer: :tempArray: ${tempArray.toList()} startIndex: $startIndex currentIndexOfLeft: $currentIndexOfLeft mid: $mid endIndex: $endIndex currentIndexOfRight: $currentIndexOfRight leftElement: ${array[currentIndexOfLeft]} rightElement: ${array[currentIndexOfRight]} currentIndexOfSortedArray: $currentIndexOfSortedArray \n")
             if (array[currentIndexOfLeft] <= array[currentIndexOfRight]) {
                 tempArray[currentIndexOfSortedArray++] = array[currentIndexOfLeft++]
             } else {
@@ -21,16 +21,18 @@ fun main() {
 
         while (currentIndexOfLeft <= mid) {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfLeft++]
+            println(" :conquer: after adding all the left: tempArray: ${tempArray.toList()} \n")
         }
 
         while (currentIndexOfRight <= endIndex) {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfRight++]
+            println(" :conquer: after adding all the right: tempArray: ${tempArray.toList()} \n")
         }
 
-       println(" :conquer: sorted tempArray: ${tempArray.toList()} \n")
+       println(" :conquer: after if-else: sorted tempArray: ${tempArray.toList()} \n")
 
         for (i in tempArray.indices) {
-            print(" :conquer: tempArray: ${tempArray.toList()} startIndex: $startIndex i: $i \n")
+            print(" :conquer: copying from the tempArray: ${tempArray.toList()} startIndex: $startIndex i: $i \n")
             array[startIndex + i] = tempArray[i]
         }
 
