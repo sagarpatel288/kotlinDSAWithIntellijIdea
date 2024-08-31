@@ -20,6 +20,7 @@ fun main() {
             }
         }
 
+        println(" :conquer: after the first while loop: before adding remaining parts: tempArray: ${tempArray.toList()}")
         while (currentIndexOfLeft <= mid) {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfLeft++]
             println(" :conquer: after adding all the left: tempArray: ${tempArray.toList()} \n")
