@@ -36,9 +36,7 @@ fun main() {
             print(" :conquer: copying from the tempArray: ${tempArray.toList()} startIndex: $startIndex i: $i \n")
             array[startIndex + i] = tempArray[i]
         }
-
         println(" :conquer: sortedArray: ${array.toList()} \n")
-
     }
 
     fun divide(array: IntArray, startIndex: Int, endIndex: Int) {
