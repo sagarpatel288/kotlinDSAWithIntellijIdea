@@ -34,6 +34,17 @@ fun main() {
 
         for (i in tempArray.indices) {
             print(" :conquer: copying from the tempArray: ${tempArray.toList()} startIndex: $startIndex i: $i \n")
+            // Why `startIndex + i`? Because the tempArray will always start with the index 0,
+            // and it does not represent always the correct associated / corresponding index of the original array,
+            // where we are putting the elements by copying from the tempArray.
+            // The size of the tempArray can be different at different stages/iterations.
+            // For example, if the problem is [51, 42, 33, 24, 60], then at some point, the tempArray can have size 2
+            // for the right side part [24, 60].
+            // If we simply take i, 60 can go to the second place at index 1 in the original array,
+            // which will give the wrong answer.
+            // The `startIndex + i` saves us. So, 60 is at i = 1 in the tempArray and `startIndex` would be 3.
+            // So, we would place 60 at the `startIndex + i` = `3 + 1` = 4th index in the original array
+            // which is the correct one.
             array[startIndex + i] = tempArray[i]
         }
         println(" :conquer: sortedArray: ${array.toList()} \n")
