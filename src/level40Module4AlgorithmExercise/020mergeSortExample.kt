@@ -54,7 +54,7 @@ fun main() {
             // The `startIndex + i` saves us. So, 60 is at i = 1 in the tempArray and `startIndex` would be 3.
             // So, we would place 60 at the `startIndex + i` = `3 + 1` = 4th index in the original array
             // which is the correct one.
-            array[i] = tempArray[i]
+            array[startIndex + i] = tempArray[i]
         }
         println(" :conquer: sortedArray: ${array.toList()} \n")
     }
