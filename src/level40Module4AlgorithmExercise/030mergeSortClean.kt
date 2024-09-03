@@ -1,5 +1,14 @@
 package level40Module4AlgorithmExercise
 
+/**
+ * Explain `Merge Sort` with an example:
+ *
+ * Merge Sort is a "divide and conquer" sorting algorithm.
+ * It works by breaking down a list into smaller sublists until each sublist contains only one element
+ * (which is considered sorted by itself, and it is our base case),
+ * and then merging those sublists back together in a sorted order.
+ * This approach ensures that the final output is a sorted list.
+ */
 fun main() {
 
     fun conquer(array: IntArray, startIndex: Int, midIndex: Int, endIndex: Int) {
