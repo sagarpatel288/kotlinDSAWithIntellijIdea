@@ -1,5 +1,14 @@
 package level40Module4AlgorithmExercise
 
+/**
+ * Explain `Merge Sort` with an example:
+ *
+ * Merge Sort is a "divide and conquer" sorting algorithm.
+ * It works by breaking down a list into smaller sublists until each sublist contains only one element
+ * (which is considered sorted by itself, and it is our base case),
+ * and then merging those sublists back together in a sorted order.
+ * This approach ensures that the final output is a sorted list.
+ */
 fun main() {
 
     var divideFunCount = 1
@@ -45,7 +54,7 @@ fun main() {
             // The `startIndex + i` saves us. So, 60 is at i = 1 in the tempArray and `startIndex` would be 3.
             // So, we would place 60 at the `startIndex + i` = `3 + 1` = 4th index in the original array
             // which is the correct one.
-            array[startIndex + i] = tempArray[i]
+            array[i] = tempArray[i]
         }
         println(" :conquer: sortedArray: ${array.toList()} \n")
     }
