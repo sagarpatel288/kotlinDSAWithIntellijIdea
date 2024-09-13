@@ -179,6 +179,10 @@ fun main() {
          * Conclusion:
          * `original value` of the input array maps to `value - minValue` of the countArray as an index.
          * The value of the index of the countArray represents the frequency count (repetition).
+         * Later, if we want to find the count frequency (repetition) of a particular value, and we have the original
+         * value, we can use the above formula to first get the corresponding (associated) index
+         * (that maps the original value) of the countArray, and then, we can take the value of that particular index
+         * of the countArray that represents the frequency count (repetition).
          * This formula helps to understand the mapping between the countArray and the original input array
          * during normalisation and de-normalisation.
          */
