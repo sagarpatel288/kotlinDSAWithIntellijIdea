@@ -185,10 +185,10 @@ fun main() {
             // Take the value from the original array.
             val value = array[i]
             // Take the position from the countArray.
-            val position = countArray[value] - 1
+            val position = countArray[value - minValue] - 1
             println(": :countSort: reverse travelling: i $i value: $value position: $position")
             // Reduce the repetition by 1 as we have already taken 1 occurrence.
-            countArray[value]--
+            countArray[value - minValue]--
             // Place the value at the position in the resulting sort array.
             sortedArray[position] = value
         }
