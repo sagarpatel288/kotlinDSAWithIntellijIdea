@@ -206,17 +206,17 @@ fun main() {
          * It means, the associated element that maps to this index will occupy 3 positions (We counted the repetition,
          * and count does not start with 0. Hence, we will stick to this count representation as of now).
          * Hence, it is obvious that the second element will start after the first element finishes all its
-         * allocated positions. So, the second element will start from the fourth position.
+         * allocated positions/seats. So, the second element will start from the fourth position/seat.
          *
          * Now, if the second element has 2 as a value, then the third element will start from the:
-         * (3 positions for the firs element) + (2 positions for the second element) = 5th position.
+         * (3 positions for the firs element) + (2 positions for the second element) = 5th position/seat.
          * ...and so on...
          *
          * Hence, the formula is:
-         * The element countArray[index] starts after countArray[index - 1] and occupies countArray[index] positions.
+         * The element countArray[index] starts after countArray[index - 1] and occupies countArray[index] positions/seats.
          *
          * So now, the indices of the countArray represents the original elements and the value of each index
-         * in the countArray represents the corresponding allocated positions for the element.
+         * in the countArray represents the corresponding allocated positions/seats for the element.
          */
         for (i in 1..<countArray.size) {
             println(": :countSort: shifting positions: i: $i countArray[i]: ${countArray[i]} i-1: ${countArray[i - 1]}")
@@ -231,7 +231,17 @@ fun main() {
         val sortedArray = IntArray(array.size)
 
         /**
-         * Start taking the values from the right side of the original array.
+         * Key-point:
+         * Start taking the values from the right side of the original array to make it a stable solution.
+         * The stable solution keeps the position orders of the original values as it is.
+         *
+         * As we know, the original value maps as an index in the countArray.
+         * So, if we remember the formula, it is:
+         * original value = `value - minValue` index of the countArray.
+         * And if we remember, the value of this index (of the countArray) represents allocated positions/seats now.
+         * Also, we got these allocated positions/seats using the count (repetition).
+         * The count system starts with 1 and the index system starts with 0.
+         * So, if we want to map the allocated positions/seats to indices, we subtract the value by 1.
          */
         for (i in array.indices.reversed()) {
             // Take the value from the original array.
@@ -246,7 +256,7 @@ fun main() {
             // Hence, the target (resultant) indexPosition = countArray[index - minValue] - 1.
             val indexPosition = countArray[value - minValue] - 1
             println(": :countSort: reverse travelling: i $i value: $value countArrayValue: ${countArray[value - minValue]} position: $indexPosition")
-            // Reduce the repetition by 1 as we have already taken 1 occurrence.
+            // Reduce the repetition by 1 as we have already taken 1 occurrence/position.
             countArray[value - minValue]--
             // Place the value at the position in the resulting sort array.
             sortedArray[indexPosition] = value
