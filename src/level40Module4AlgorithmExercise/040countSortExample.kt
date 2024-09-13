@@ -194,6 +194,7 @@ fun main() {
         println(": :countSort: countArray: ${countArray.toList()}")
 
         /**
+         * Key-Point:
          * Shift and assign the positions.
          * As we know, the indices of the countArray represents or maps to the original elements of the input and
          * the values of the countArray represents repetitions (count frequency) of each element of the input.
