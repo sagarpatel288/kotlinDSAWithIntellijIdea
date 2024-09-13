@@ -176,7 +176,7 @@ fun main() {
          * Here, the original value (1) is the `original value - minValue` = `1 - (-5)` = 6th index of the count array.
          * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
-         * Conclusion:
+         * Key-point, Conclusion:
          * `original value` of the input array maps to `value - minValue` of the countArray as an index.
          * The value of the index of the countArray represents the frequency count (repetition).
          * Later, if we want to find the count frequency (repetition) of a particular value, and we have the original
@@ -195,6 +195,28 @@ fun main() {
 
         /**
          * Shift and assign the positions.
+         * As we know, the indices of the countArray represents or maps to the original elements of the input and
+         * the values of the countArray represents repetitions (count frequency) of each element of the input.
+         * Now, using these count frequency (repetitions) of each element, we will convert (or say, map or associate)
+         * the counts into corresponding positions.
+         *
+         * We apply count as allocated positions.
+         *
+         * For example, let us say, if the first index of the countArray has 3 as a value.
+         * It means, the associated element that maps to this index will occupy 3 positions (We counted the repetition,
+         * and count does not start with 0. Hence, we will stick to this count representation as of now).
+         * Hence, it is obvious that the second element will start after the first element finishes all its
+         * allocated positions. So, the second element will start from the fourth position.
+         *
+         * Now, if the second element has 2 as a value, then the third element will start from the:
+         * (3 positions for the firs element) + (2 positions for the second element) = 5th position.
+         * ...and so on...
+         *
+         * Hence, the formula is:
+         * The element countArray[index] starts after countArray[index - 1] and occupies countArray[index] positions.
+         *
+         * So now, the indices of the countArray represents the original elements and the value of each index
+         * in the countArray represents the corresponding allocated positions for the element.
          */
         for (i in 1..<countArray.size) {
             println(": :countSort: shifting positions: i: $i countArray[i]: ${countArray[i]} i-1: ${countArray[i - 1]}")
