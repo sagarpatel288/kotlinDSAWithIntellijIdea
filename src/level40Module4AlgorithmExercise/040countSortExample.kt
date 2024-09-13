@@ -96,6 +96,8 @@ fun main() {
          * Thus, we convert actual element (-5) into an index (0). So, the corresponding (associated) index for the
          * element (-5) is index (0) (i.e., the index 0 represents the element -5) and an index cannot be a negative
          * value. So, we use normalisation.
+         * Here, the original value (-5) is the `original value - minValue` = `-5 - (-5)` = 0th index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
          * The second element: -3 - (minValue) = -3 - (-5) = -3 + 5 = Index 2. => Occurs once.
          * So, countArray[2]++ => countArray[2] = Value 1.
@@ -107,54 +109,78 @@ fun main() {
          * However, for now, it will be 2 once.
          * So, we converted the actual element (-3) into an index (2) and it has the value 1.
          * The index (2) represents the element (-3).
+         * Here, the original value (-3) is the `original value - minValue` = `-3 - (-5)` = 2nd index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
          * The third element: -4 - (minValue) = -4 - (-5) = -4 + 5 = Index 1. => Occurs once.
          * So, countArray[1]++ => countArray[1] = Value 1.
          * Here, we converted the actual element (-4) into an index (1) and it has the value 1.
          * I.e., So far, it (the element "-4" = index 1) has occurred once.
          * The index (1) represents the element (-4).
+         * Here, the original value (-4) is the `original value - minValue` = `-4 - (-5)` = 1st index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
          * The fourth element: -5 - (minValue) = -5 - (-5) = -5 + 5 = Index 0. => Occurs twice.
          * So, countArray[0]++ => countArray[0] = 1 (existed) + 1 = Value 2.
          * Here, we converted the actual element (-5) into an index (0) and it has the value 2.
          * I.e., So far, it (the element "-5" = index 0) has occurred twice.
          * The index (0) represents the element (-5).
+         * Here, the original value (-5) is the `original value - minValue` = `-5 - (-5)` = 0th index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
          * The fifth element: 1 - (minValue) = 1 - (-5) = 1 + 5 = Index 6. => Occurs once.
          * So, countArray[6]++ => countArray[6] = Value 1.
          * Here, we converted the actual element (1) into an index (6) and it has the value 1.
          * I.e., So far, it (the element "1" = index 6) has occurred once.
          * The index (6) represents the element (1).
+         * Here, the original value (1) is the `original value - minValue` = `1 - (-5)` = 6th index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
          * The sixth element: 0 - (minValue) = 0 - (-5) = 0 + 5 = Index 5. => Occurs once.
          * So, countArray[5]++ => countArray[5] = Value 1.
          * Here, we converted the actual element (0) into an index (5) and it has the value 1.
          * I.e., So far, it (the element "0" = index 5) has occurred once.
          * The index (5) represents the element (0).
+         * Here, the original value (0) is the `original value - minValue` = `0 - (-5)` = 5th index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
          * The seventh element: 1 - (minValue) = 1 - (-5) = 1 + 5 = Index 6. => Occurs twice.
          * So, countArray[6]++ => countArray[6] = 1 (existed) + 1 = Value 2.
          * Here, we converted the actual element (1) into an index (6) and it has the value 2.
          * I.e., So far, it (the element "1" = index 6) has occurred twice.
          * The index (6) represents the element (1).
+         * Here, the original value (1) is the `original value - minValue` = `1 - (-5)` = 6th index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
          * The eighth element: 0 - (minValue) = 0 - (-5) = 0 + 5 = Index 5. => Occurs twice.
          * So, countArray[5]++ => countArray[5] = 1 (existed) + 1 = Value 2.
          * Here, we converted the actual element (0) into an index (5) and it has the value 2.
          * I.e., So far, it (the element "0" = index 5) has occurred twice.
          * The index (5) represents the element (0).
+         * Here, the original value (0) is the `original value - minValue` = `0 - (-5)` = 5th index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
          * The ninth element: 2 - (minValue) = 2 - (-5) = 2 + 5 = Index 7. => Occurs once.
          * So, countArray[7]++ => countArray[7] = Value 1.
          * Here, we converted the actual element (2) into an index (7) and it has the value 1.
          * I.e., So far, it (the element "2" = index 7) has occurred once.
          * The index (7) represents the element (2).
+         * Here, the original value (2) is the `original value - minValue` = `2 - (-5)` = 7th index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
          *
          * The tenth element: 1 - (minValue) = 1 - (-5) = 1 + 5 = Index 6. => Occurs thrice.
          * So, countArray[6]++ => countArray[6] = 2 (existed) + 1 = Value 3.
          * Here, we converted the actual element (1) into an index (6) and it has the value 3.
          * I.e., So far, it (the element "1" = index 6) has occurred thrice.
          * The index (6) represents the element (1).
+         * Here, the original value (1) is the `original value - minValue` = `1 - (-5)` = 6th index of the count array.
+         * This formula helps to understand the mapping between the countArray and the original input array during de-normalisation.
+         *
+         * Conclusion:
+         * `original value` of the input array maps to `value - minValue` of the countArray as an index.
+         * The value of the index of the countArray represents the frequency count (repetition).
+         * This formula helps to understand the mapping between the countArray and the original input array
+         * during normalisation and de-normalisation.
          */
         for (number in array) {
             println(": :countSort: input number: $number minValue: $minValue: number - minValue: ${number - minValue}")
@@ -184,13 +210,20 @@ fun main() {
         for (i in array.indices.reversed()) {
             // Take the value from the original array.
             val value = array[i]
-            // Take the position from the countArray.
-            val position = countArray[value - minValue] - 1
-            println(": :countSort: reverse travelling: i $i value: $value position: $position")
+            // Take the index position from the countArray.
+            // We subtract by 1 because the value at countArray[index] has used counting that starts from 1 and
+            // what we need is index position that starts with 0. Hence, countArray[index] - 1.
+            // Also, while taking the value from the countArray[index], we subtract minValue to de-normalise.
+            // Another way to look at it is, if we remember, we have converted the original values into corresponding
+            // indices to get positive indices. So, the `value` of the original input array, is `value - minValue` index
+            // of the countArray.
+            // Hence, the target (resultant) indexPosition = countArray[index - minValue] - 1.
+            val indexPosition = countArray[value - minValue] - 1
+            println(": :countSort: reverse travelling: i $i value: $value countArrayValue: ${countArray[value - minValue]} position: $indexPosition")
             // Reduce the repetition by 1 as we have already taken 1 occurrence.
             countArray[value - minValue]--
             // Place the value at the position in the resulting sort array.
-            sortedArray[position] = value
+            sortedArray[indexPosition] = value
         }
 
         println(sortedArray.toList())
