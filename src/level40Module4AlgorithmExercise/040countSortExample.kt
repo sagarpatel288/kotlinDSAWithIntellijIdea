@@ -193,9 +193,10 @@ fun main() {
             sortedArray[position] = value
         }
 
-        println(array.toList())
+        println(sortedArray.toList())
     }
 
     val array = intArrayOf(-5, -3, -4, -5, 1, 0, 1, 0, 2, 1)
-    countSort(array)
+    val input = intArrayOf(-1, 1, -3)
+    countSort(input)
 }
