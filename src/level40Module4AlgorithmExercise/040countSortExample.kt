@@ -279,31 +279,35 @@ fun main() {
          * Start taking the values from the right side of the original array to make it a stable solution.
          * The stable solution keeps the position orders of the original values as it is.
          *
+         * How do we get the original value from the original input array?
+         * original element value = originalInputArray[index]
+         *
          * As we know, the original value maps as an index in the countArray.
          * So, if we remember the formula, it is:
          * original value = `value - minValue` index of the countArray.
          * And if we remember, the value of this index (of the countArray) represents allocated positions/seats now.
-         * Also, we got these allocated positions/seats using the count (repetition).
+         * Also, we got these allocated positions/seats using the occurrences count (repetition).
          * The count system starts with 1 and the index system starts with 0.
          * So, if we want to map the allocated positions/seats to indices, we subtract the value by 1.
+         * Thus, the target (resultant) index position = countArray[original element value - minValue] - 1.
+         *
+         * So now, we have the value and the corresponding target index position.
+         *
+         * Once we take and allocate a seat (shifting) from the countArray to the resultantArray,
+         * we should reduce that from the countArray.
+         * So, countArray[original element value - minValue]--
+         *
          */
         for (i in array.indices.reversed()) {
             // Take the value from the original array.
             val value = array[i]
             // Take the index position from the countArray.
-            // We subtract by 1 because the value at countArray[index] has used counting that starts from 1 and
-            // what we need is index position that starts with 0. Hence, countArray[index] - 1.
-            // Also, while taking the value from the countArray[index], we subtract minValue to de-normalise.
-            // Another way to look at it is, if we remember, we have converted the original values into corresponding
-            // indices to get positive indices. So, the `value` of the original input array, is `value - minValue` index
-            // of the countArray.
-            // Hence, the target (resultant) indexPosition = countArray[index - minValue] - 1.
             val indexPosition = countArray[value - minValue] - 1
             println(": :countSort: reverse travelling: i $i value: $value countArrayValue: ${countArray[value - minValue]} position: $indexPosition")
-            // Reduce the repetition by 1 as we have already taken 1 occurrence/position.
-            countArray[value - minValue]--
             // Place the value at the position in the resulting sort array.
             sortedArray[indexPosition] = value
+            // Reduce the repetition by 1 as we have already taken 1 occurrence/position.
+            countArray[value - minValue]--
         }
 
         println(sortedArray.toList())
