@@ -210,6 +210,32 @@ fun main() {
 
         println(": :countSort: countArray: ${countArray.toList()}")
 
+        //region Unstable solution
+        // Key-point:
+        // If maintaining the order of the original elements does not matter, we can provide the solution
+        // as per the below code.
+        // What?
+        // The indices are already sorted by now.
+        // And we know that each index represents (maps to) the corresponding original element.
+        // And we also know that the values of these indices are the counts (occurrences, repetition) for each element.
+        // So, we access the indices and values from the countArray one by one.
+        // We take the original input array only, we start with index 0,
+        // place the elements and repeat according to its count value.
+        // With each placement, we increase the index of the original input array to move forward as one element can
+        // occupy only one position (seat).
+        // Also, we know that to normalise the elements, we subtracted each element by `minValue`.
+        // Hence, while placing the original element back from the countArray to the original input array,
+        // we add the `minValue` to each element.
+        /*var index = 0
+        for ((element, count) in countArray.withIndex()) {
+            println(": :countSort: unstable solution: index: $index element: $element count: $count")
+            repeat(count) {
+                array[index++] = element + minValue
+            }
+        }
+        println(": :countSort: unstable solution: output: ${array.toList()}")*/
+        //endregion
+
         /**
          * Key-Point:
          * Shift and assign the positions.
@@ -285,5 +311,5 @@ fun main() {
 
     val array = intArrayOf(-5, -3, -4, -5, 1, 0, 1, 0, 2, 1)
     val input = intArrayOf(-1, 1, -3)
-    countSort(input)
+    countSort(array)
 }
