@@ -252,9 +252,11 @@ fun main() {
          * Hence, it is obvious that the second element will start after the first element finishes all its
          * allocated positions/seats. So, the second element will start from the fourth position/seat.
          *
-         * Now, if the second element has 2 as a value, then the third element will start from the:
-         * (3 positions for the firs element) + (2 positions for the second element) = 5th position/seat.
-         * ...and so on...
+         * Note that what we get here is the ending (last) allocated position/seat as a value for the index.
+         * For example, as we said, if the first element (0th index) has 3 seats and the second element (1st index)
+         * has 2 allocated positions/seats, then the first element (0th index) gets the same value as 3,
+         * but the second element (1st index) gets the updated value as:
+         * (3 positions for the first element) + (2 positions for the second element) = 5th position/seat.
          *
          * Hence, the formula is:
          * The element countArray[index] starts after countArray[index - 1] and occupies countArray[index] positions/seats.
