@@ -7,12 +7,14 @@ fun main() {
      * A[-5, -3, -4, -5, 1, 0, 1, 0, 2, 1].
      *
      * The count sort is a non-comparison based algorithm to sort the given input.
+     * Non-comparison based algorithm means, we do not compare elements with each other.
+     * In other words, we sort elements without comparing them with each other.
      * We use the count sort algorithm when the maximum value element of the given input,
      * does not grow faster than the size of the input.
      * Here, we find the maximum value element and create a count array starting from the minimum value element up to
      * the maximum value element.
-     * Then, we store the frequency (repetition) count for each element.
-     * Based on the frequency, we adjust the position and finally provide the sorted array.
+     * Then, we store the occurrences (repetition) count for each element.
+     * Based on the occurrences, we adjust the position and finally provide the sorted array.
      * Let us consider an example of: A[-5, -3, -4, -5, 1, 0, 1, 0, 2, 1].
      * The minValue is -5 and maxValue is 2. The size of the array is 10.
      */
@@ -27,12 +29,16 @@ fun main() {
         }
 
         /**
+         * First, we find the `minValue` and the `maxValue`. Why?
+         * We find the `minValue` and the `maxValue` to get the range.
          * If the minValue is null, print the input and return (complete the function here).
          * For our example, [-5, -3, -4, -5, 1, 0, 1, 0, 2, 1], the minValue is -5.
          */
         val minValue = array.minOrNull() ?: return println(array.toList())
 
         /**
+         * We find the `minValue` and the `maxValue`. Why?
+         * We find the `minValue` and the `maxValue` to get the range.
          * If the maxValue is null, print the input and return (complete the function here).
          * For our example, [-5, -3, -4, -5, 1, 0, 1, 0, 2, 1], the maxValue is 2.
          */
@@ -42,7 +48,9 @@ fun main() {
 
 
         /**
-         * We need a count array where we can store the frequency (repetition) count.
+         * Based on the `minValue` and `maxValue`, we get a range (size).
+         * Based on the size, we create a countArray. Why do we create the countArray?
+         * We need a count array where we can store the occurrences (repetition) count.
          * In our example, A[-5, -3, -4, -5, 1, 0, 1, 0, 2, 1],
          * -5 comes 2 times, -3 comes 1 time, -4 comes 1 time, 1 comes 3 times, 0 comes 2 times, and 2 comes once.
          * So, what we do is, we take these values (we refer to them as keys actually as they can internally represent
@@ -52,7 +60,7 @@ fun main() {
          * So, the count array will have a total of 7 indices, and a size of 8.
          * We know that the indices gets ascending order sequence, and it cannot be a negative value.
          * To solve that, we will use normalisation. But first, we need to find the size of the count array.
-         * And then we store respective (associated, corresponding) frequency count for each index.
+         * And then we store respective (associated, corresponding) occurrences count for each index.
          * For example, the index -5 gets the value 2 as it comes 2 times. It means, -5 will have a value as 2.
          * the index -3 gets the value 1 as it comes 1 time, the index -4 gets the value 1 as it comes once,
          * the index 1 gets the value 3 as it comes 3 times, the index 0 gets the value 2 as it comes twice,
@@ -76,23 +84,35 @@ fun main() {
 
 
         /**
-         * Count frequency of repetition for each element for the input array and store it to the count array.
+         * Key-point:
+         * What?
+         * Map (convert) each element of the input to an index (such that the index represents the original element),
+         * Count occurrences (repetition) of each element of the input, and store it to the count array as a value.
+         *
+         * Why?
+         * When we map (convert) the original elements into indices, we almost sort the elements, because
+         * indices are already sort by nature. The indices start with 0, and goes up to the last element.
+         * And as a value of each index, we store the occurrences, so that we get to know that how many seats (indices)
+         * a particular element will occupy.
+         *
+         * How?
          * We iterate through the original array, access each element, and increase the corresponding count.
          * While doing this, we also need to consider negative numbers and normalise it.
          * To normalise a negative number means to make it a positive number, and we do it by subtracting the minimum
          * value from all the elements.
-         * Why do we normalise? Because, we will be using indices to represent the actual elements and
-         * then these indices will have a value that would represent the number of count (frequency, repetition)
+         * We subtract each and every element by `minValue`. So, it does not change the size of the count array.
+         * But, Why do we normalise?
+         * Because, we will be using indices to represent the actual elements and indices cannot be negative.
+         * These indices will have a value that would represent the number of occurrence count (repetition)
          * for each (corresponding, associated) element.
+         *
+         * Example, please?
          * For our example, A[-5, -3, -4, -5, 1, 0, 1, 0, 2, 1],
          * The first element: -5 - (minValue) = -5 - (-5) = -5 + 5 = Index 0 => Occurs once.
          * So, countArray[0]++ => countArray[0] = Value 1.
          * It means, we have the element (key, value, or whatever you call it) 0 once.
          * As we can see, -5 is index 0 after the normalisation, and
          * it has the value 1 which means, it has occurred once.
-         * At the time of de-normalisation, we would add the minValue to get the actual element value.
-         * So, it will be 0 + minValue = 0 + (-5) = -5 once.
-         * However, for now, it will be 0 once.
          * Thus, we convert actual element (-5) into an index (0). So, the corresponding (associated) index for the
          * element (-5) is index (0) (i.e., the index 0 represents the element -5) and an index cannot be a negative
          * value. So, we use normalisation.
@@ -104,9 +124,6 @@ fun main() {
          * It means, we have the element 2 once.
          * As we can see, -3 is index 2 after the normalisation, and it has the value 1 which means,
          * it has occurred once.
-         * Again, we will get the actual value at the time of de-normalisation.
-         * So, during the de-normalisation, we will add the `minValue` and it will be: 2 + (-5) = -3 once.
-         * However, for now, it will be 2 once.
          * So, we converted the actual element (-3) into an index (2) and it has the value 1.
          * The index (2) represents the element (-3).
          * Here, the original value (-3) is the `original value - minValue` = `-3 - (-5)` = 2nd index of the count array.
@@ -178,11 +195,11 @@ fun main() {
          *
          * Key-point, Conclusion:
          * `original value` of the input array maps to `value - minValue` of the countArray as an index.
-         * The value of the index of the countArray represents the frequency count (repetition).
-         * Later, if we want to find the count frequency (repetition) of a particular value, and we have the original
-         * value, we can use the above formula to first get the corresponding (associated) index
-         * (that maps the original value) of the countArray, and then, we can take the value of that particular index
-         * of the countArray that represents the frequency count (repetition).
+         * The value of the index of the countArray represents the count (repetition, occurrences).
+         * Later, if we want to find the occurrence count (repetition) of a particular value,
+         * and we have the original value, we can use the above formula to first get the corresponding (associated)
+         * index (that maps the original value) of the countArray, and then, we can take the value of that particular index
+         * of the countArray that represents the occurrence count (repetition).
          * This formula helps to understand the mapping between the countArray and the original input array
          * during normalisation and de-normalisation.
          */
@@ -197,8 +214,8 @@ fun main() {
          * Key-Point:
          * Shift and assign the positions.
          * As we know, the indices of the countArray represents or maps to the original elements of the input and
-         * the values of the countArray represents repetitions (count frequency) of each element of the input.
-         * Now, using these count frequency (repetitions) of each element, we will convert (or say, map or associate)
+         * the values of the countArray represents occurrence count (repetitions) of each element of the input.
+         * Now, using these occurrence count (repetitions) of each element, we will convert (or say, map or associate)
          * the counts into corresponding positions.
          *
          * We apply count as allocated positions.
