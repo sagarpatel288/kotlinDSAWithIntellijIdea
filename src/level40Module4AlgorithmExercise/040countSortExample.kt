@@ -334,9 +334,11 @@ fun main() {
          * How do we get the original value from the original input array?
          * original element value = originalInputArray[index]
          *
+         * Where do we find this value of the original input array in the countArray?
+         * As an index in the countArray.
          * As we know, the original value maps as an index in the countArray.
-         * So, if we remember the formula, it is:
-         * original value = `value - minValue` index of the countArray.
+         * And, if we remember the formula, the formula is:
+         * original value of the input array = `original value - minValue` index of the countArray.
          * And if we remember, the value of this index (of the countArray) represents allocated positions/seats now.
          * Also, we got these allocated positions/seats using the occurrences count (repetition).
          * The count system starts with 1 and the index system starts with 0.
@@ -345,9 +347,11 @@ fun main() {
          *
          * So now, we have the value and the corresponding target index position.
          *
-         * Once we take and allocate a seat (shifting) from the countArray to the resultantArray,
+         * And once we take and allocate a seat (shifting) from the countArray to the resultantArray,
          * we should reduce that from the countArray.
          * So, countArray[original element value - minValue]--
+         * So that when we see the reservation chart (occupied seats), we get the correct information of the available
+         * seats.
          *
          */
         for (i in array.indices.reversed()) {
