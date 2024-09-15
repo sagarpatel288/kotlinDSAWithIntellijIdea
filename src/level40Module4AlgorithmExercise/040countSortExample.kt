@@ -281,17 +281,19 @@ fun main() {
          * Hence, it is obvious that the second element will start after the first element finishes all its
          * allocated positions/seats. So, the second element will start from the fourth position/seat.
          *
-         * Note that what we get here is the ending (last) allocated position/seat as a value for the index.
+         * Note that what we get here is the ending (last) allocated position/seat (or a cumulative count)
+         * as a value for the index.
          * For example, as we said, if the first element (0th index) has 3 seats and the second element (1st index)
          * has 2 allocated positions/seats, then the first element (0th index) gets the same value as 3,
          * but the second element (1st index) gets the updated value as:
-         * (3 positions for the first element) + (2 positions for the second element) = 5th position/seat.
+         * (3 positions for the first element) + (2 positions for the second element) = 5th position/seat, that is a
+         * cumulative count.
          *
          * Hence, the formula is:
          * The element countArray[index] starts after countArray[index - 1] and occupies countArray[index] positions/seats.
          *
          * So now, the indices of the countArray represents the original elements and the value of each index
-         * in the countArray represents the corresponding allocated positions/seats for the element.
+         * in the countArray represents the cumulative count of allocated positions/seats up to the element.
          */
         for (i in 1..<countArray.size) {
             println(": :countSort: shifting positions: i: $i countArray[i]: ${countArray[i]} i-1: ${countArray[i - 1]}")
@@ -339,17 +341,19 @@ fun main() {
          * As we know, the original value maps as an index in the countArray.
          * And, if we remember the formula, the formula is:
          * original value of the input array = `original value - minValue` index of the countArray.
-         * And if we remember, the value of this index (of the countArray) represents allocated positions/seats now.
-         * Also, we got these allocated positions/seats using the occurrences count (repetition).
+         * And if we remember, the value of this index (of the countArray) represents cumulative count
+         * (cumulative allocated positions/seats) now.
+         * Also, we got this cumulative count (cumulative allocated positions/seats) using the occurrences count (repetition).
          * The count system starts with 1 and the index system starts with 0.
          * For example, during the counting of the occurrences of each element, when we find the first occurrence,
          * we placed (assigned) the value 1 for the element and not 0.
          * (Recall the code available a few steps back): `countArray[element - minValue]++`.
          * Here, when we say `++`, it starts with 1.
-         * So, if we want to map the allocated positions/seats to indices, we subtract the value by 1.
+         * So, if we want to map the cumulative count (cumulative allocated positions/seats) to indices,
+         * we subtract the value by 1.
          * We subtract the value by 1, because we want to find the position/seat that is based on the index system,
          * that starts with 0, and not the count system, that starts with 1.
-         * Subtracting by 1 (The `- 1`) part here basically converts count into a position/seat that is based on the
+         * The "Subtracting by 1 (The `- 1`)" part here basically converts count into a position/seat that is based on the
          * index system.
          * For example, if we have two elements, placed in a row, one element per index (seat),
          * first element is at the first index, and the second element is at the second index, and if we want to find
@@ -359,6 +363,7 @@ fun main() {
          * one element per index, then what will be the index (position, seat) number of the last element?
          * As we know, that the index system starts with 0, and the count system starts with 1, so we simply
          * subtract the count 5 by 1, which gives us the index number 4, for the last element.
+         * So basically, index position = count value - 1.
          * Thus, the target (resultant) index position = countArray[original element value - minValue] - 1.
          *
          * So now, we have the value and the corresponding target index position.
