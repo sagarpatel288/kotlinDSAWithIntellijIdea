@@ -95,6 +95,15 @@ fun main() {
          * And as a value of each index, we store the occurrences, so that we get to know that how many seats (indices)
          * a particular element will occupy.
          *
+         * For example, let us assume that there are 5 groups (elements) to purchase a movie ticket.
+         * However, the members of each group are mixed and unorganized. So, we ask each member about the associated
+         * group and increase the count for the group. At the end, we find the total members for each group.
+         * So, this particular step is like counting the members for each group.
+         * There can be the same group type, i.e., element-key, but the underlying property, such as,
+         * ID, hashCode, or memory can be different.
+         * In that case, it is important to maintain the correct order to achieve the stability.
+         * Also, there can be the same number of members (occurrence count) for two or more groups.
+         *
          * How?
          * We iterate through the original array, access each element, and increase the corresponding count.
          * While doing this, we also need to consider negative numbers and normalise it.
@@ -238,14 +247,34 @@ fun main() {
 
         /**
          * Key-Point:
-         * Shift and assign the positions.
+         * What?
+         * Cumulative count.
          * As we know, the indices of the countArray represents or maps to the original elements of the input and
          * the values of the countArray represents occurrence count (repetitions) of each element of the input.
-         * Now, using these occurrence count (repetitions) of each element, we will convert (or say, map or associate)
-         * the counts into corresponding positions.
+         * Now, we will perform and store cumulative count.
+         * For example, the current value (count) of the second element will become a cumulative count as:
+         * (The count of the first element + the count of the second element).
+         * Similarly, the current value (count) of the third element will become:
+         * (The count of the first element + the count of the second element + the count of the third element).
          *
-         * We apply count as allocated positions.
+         * Why?
+         * It will tell us how many more elements are there less than or equal to the value of the current element.
+         * For example, if the value of third element (2nd index) in the countArray is 4, it means, there are
+         * 4 more elements in a queue waiting to be placed.
          *
+         * For example, imagine you have a line of people waiting to buy movie tickets.
+         * Each person knows how many people are ahead of them in the line.
+         * This information allows each person to determine their exact position in the line.
+         * Similarly, in our counting sort, the cumulative count helps each number determine its position
+         * in the sorted array by knowing how many numbers are ahead of it (or equal to it).
+         *
+         * So, it is like: First, we counted members for each group, and now, we are counting total members up to a
+         * particular member to understand how many members are ahead (or equal) to this particular member.
+         *
+         * So, we convert (or say, map or associate) the individual occurrence counts into the cumulative count to get
+         * corresponding relative positions.
+         *
+         * How?
          * For example, let us say, if the first index of the countArray has 3 as a value.
          * It means, the associated element that maps to this index will occupy 3 positions (We counted the repetition,
          * and count does not start with 0. Hence, we will stick to this count representation as of now).
@@ -278,9 +307,30 @@ fun main() {
 
         /**
          * Key-point:
+         * What?
          * Start taking the values from the right side of the original array to make it a stable solution.
          * The stable solution keeps the position orders of the original values as it is.
          *
+         * Why?
+         * Think of this as assigning seats to people based on their ticket numbers.
+         * The cumulative count tells us the "seat number" for each person.
+         * As each person sits down, the count is decremented to keep track of the next available seat for people.
+         * So that when we see the reservation chart (occupied seats), we get the correct information of the available
+         * seats.
+         *
+         * Ok, but why to traverse from reverse?
+         * Traversing in reverse ensures that the sort remains stable.
+         * Stability means that if two elements are equal,
+         * their relative order in the input is preserved in the sorted output.
+         * So, it is like as if we start allocating seats from the bottom and move towards the top.
+         * For example, if member A and member B have the same group type 1, and
+         * if member A comes first in the group, then during the seat allocation,
+         * as we traverse from reverse, we first allocate the seat to member B, the bottom seat, and
+         * then we allocate the seat to member A, the top seat.
+         * We can understand this by the following visual as well:
+         * res/level40Module4AlgorithmExercise/countSortResultantArrayPt3.png
+         *
+         * How?
          * How do we get the original value from the original input array?
          * original element value = originalInputArray[index]
          *
