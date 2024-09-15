@@ -212,9 +212,9 @@ fun main() {
          * This formula helps to understand the mapping between the countArray and the original input array
          * during normalisation and de-normalisation.
          */
-        for (number in array) {
-            println(": :countSort: input number: $number minValue: $minValue: number - minValue: ${number - minValue}")
-            countArray[number - minValue]++
+        for (element in array) {
+            println(": :countSort: input element: $element minValue: $minValue: element - minValue: ${element - minValue}")
+            countArray[element - minValue]++
         }
 
         println(": :countSort: countArray: ${countArray.toList()}")
@@ -342,6 +342,10 @@ fun main() {
          * And if we remember, the value of this index (of the countArray) represents allocated positions/seats now.
          * Also, we got these allocated positions/seats using the occurrences count (repetition).
          * The count system starts with 1 and the index system starts with 0.
+         * For example, during the counting of the occurrences of each element, when we find the first occurrence,
+         * we placed (assigned) the value 1 for the element and not 0.
+         * (Recall the code available a few steps back): `countArray[element - minValue]++`.
+         * Here, when we say `++`, it starts with 1.
          * So, if we want to map the allocated positions/seats to indices, we subtract the value by 1.
          * Thus, the target (resultant) index position = countArray[original element value - minValue] - 1.
          *
