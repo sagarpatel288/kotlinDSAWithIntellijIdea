@@ -347,6 +347,8 @@ fun main() {
          * (Recall the code available a few steps back): `countArray[element - minValue]++`.
          * Here, when we say `++`, it starts with 1.
          * So, if we want to map the allocated positions/seats to indices, we subtract the value by 1.
+         * We subtract the value by 1, because we want to find the position/seat that is based on the index system,
+         * that starts with 0, and not the count system, that starts with 1.
          * Thus, the target (resultant) index position = countArray[original element value - minValue] - 1.
          *
          * So now, we have the value and the corresponding target index position.
