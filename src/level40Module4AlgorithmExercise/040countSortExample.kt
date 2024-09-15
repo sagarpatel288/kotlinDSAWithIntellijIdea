@@ -351,6 +351,14 @@ fun main() {
          * that starts with 0, and not the count system, that starts with 1.
          * Subtracting by 1 (The `- 1`) part here basically converts count into a position/seat that is based on the
          * index system.
+         * For example, if we have two elements, placed in a row, one element per index (seat),
+         * first element is at the first index, and the second element is at the second index, and if we want to find
+         * the index (position, seat) number of the second element, what do we do? We simply subtract by 1, right?
+         * Another example, if we have 5 (which is total count) elements,
+         * and we want to place each element at a particular index,
+         * one element per index, then what will be the index (position, seat) number of the last element?
+         * As we know, that the index system starts with 0, and the count system starts with 1, so we simply
+         * subtract the count 5 by 1, which gives us the index number 4, for the last element.
          * Thus, the target (resultant) index position = countArray[original element value - minValue] - 1.
          *
          * So now, we have the value and the corresponding target index position.
