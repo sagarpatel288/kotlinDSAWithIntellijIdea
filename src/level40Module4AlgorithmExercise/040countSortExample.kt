@@ -17,6 +17,14 @@ fun main() {
      * Based on the occurrences, we adjust the position and finally provide the sorted array.
      * Let us consider an example of: A[-5, -3, -4, -5, 1, 0, 1, 0, 2, 1].
      * The minValue is -5 and maxValue is 2. The size of the array is 10.
+     *
+     * TL;DR: (Key-points):
+     * 1. max - min + 1 = Range (Size)
+     * 2. countArray[element - min]++ = Count occurrences with normalisation
+     * 3. countArray[i] = countArray[i - 1] + countArray[i] => Cumulative count from 1..<countArray.size
+     * 4. input.indices.reversed(), take original value from input[i],
+     * find target index position using the countArray as countArray[value - min] - 1,
+     * resultArray[target index position] = value, and then mark the seat as allocated by countArray[value - min]--
      */
     fun countSort(array: IntArray) {
 
