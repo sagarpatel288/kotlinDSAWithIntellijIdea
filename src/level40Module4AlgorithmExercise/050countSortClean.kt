@@ -10,13 +10,19 @@ fun main() {
             return
         }
         // Find an element that has the Maximum value.
-        // If we find null, it means, all the elements are null in the input array.
-        // In that case, we simply print the input array and return (complete) the function.
-        val max = inputArray.maxOrNull() ?: return println(inputArray.toList())
+        var max = inputArray[0]
 
         // Find an element that has the minimum value.
-        // If we find that the min value is null, we simply print the input array and return (complete) the function.
-        val min = inputArray.minOrNull() ?: return println(inputArray.toList())
+        var min = inputArray[1]
+
+        for (element in inputArray) {
+            if (element < min) {
+                min = element
+            }
+            if (element > max) {
+                max = element
+            }
+        }
 
         // Size of the countArray
         val countArray = IntArray(max - min + 1)
@@ -46,6 +52,6 @@ fun main() {
         println(result.toList())
     }
 
-    val input = intArrayOf(3, -1, 0, -3,  3)
+    val input = intArrayOf(3, -1, 0, -3, 3)
     countSort(input)
 }
