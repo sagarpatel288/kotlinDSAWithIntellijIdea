@@ -40,6 +40,9 @@ fun main() {
          * First, we find the `minValue` and the `maxValue`. Why?
          * We find the `minValue` and the `maxValue` to get the range.
          * For our example, [-5, -3, -4, -5, 1, 0, 1, 0, 2, 1], the minValue is -5.
+         *
+         * Complexity:
+         * The space complexity of this variable is: O(1).
          */
         var minValue = array[0]
 
@@ -47,12 +50,18 @@ fun main() {
          * We find the `minValue` and the `maxValue`. Why?
          * We find the `minValue` and the `maxValue` to get the range.
          * For our example, [-5, -3, -4, -5, 1, 0, 1, 0, 2, 1], the maxValue is 2.
+         *
+         * Complexity:
+         * The space complexity of this variable is O(1).
          */
         var maxValue = array[0]
 
         /**
          * With a single iteration, we find both the [minValue] and the [maxValue].
          * If we use `array.minOrNull()` and `array.maxOrNull()`, then we iterate the input array two times.
+         *
+         * Complexity:
+         * The time complexity of this operation is O(n).
          */
         for (element in array) {
             if (element < minValue) {
@@ -98,6 +107,17 @@ fun main() {
          * to include both the starting value (minValue) and the ending value (maxValue).
          * Hence, the formula for the size is: maxValue - minValue + 1.
          * As we initialize the integer array with the size, all the indices will have the default value 0.
+         *
+         * Complexity:
+         * The space complexity of this variable is O(k) where k = max - min + 1 = the size of the countArray.
+         * Note that, this is not the size of the original input array. The original input array can have independent
+         * duplicate values across different indices, and it can also miss many values between the max and the min.
+         * For example: inputArray[-3, 3, -3, 3] => size = 4.
+         * However, the countArray gets the range of values, starting from the min to the max.
+         * The countArray covers all the values between and including the max and the min.
+         * For the same example: countArray[-3, -2, -1, 0, 1, 2, 3] => size = 7.
+         * Hence, the size of both original input array and countArray can grow independently.
+         * It depends on these two values: max and min.
          */
         val countArray = IntArray(maxValue - minValue + 1)
 
@@ -230,6 +250,9 @@ fun main() {
          * of the countArray that represents the occurrence count (repetition).
          * This formula helps to understand the mapping between the countArray and the original input array
          * during normalisation and de-normalisation.
+         *
+         * Complexity:
+         * The time complexity of this step is: O(n).
          */
         for (element in array) {
             println(": :countSort: input element: $element minValue: $minValue: element - minValue: ${element - minValue}")
@@ -313,6 +336,13 @@ fun main() {
          *
          * So now, the indices of the countArray represents the original elements and the value of each index
          * in the countArray represents the cumulative count of allocated positions/seats up to the element.
+         *
+         * Complexity Analysis:
+         * We travel according to the size of the [countArray].
+         * We cannot denote the size of the [countArray] by `n` as we have already taken it for the input array.
+         * So, if the size of the [countArray] is k, where k = max - min + 1,
+         * then the time complexity of this step is: O(k).
+         *
          */
         for (i in 1..<countArray.size) {
             println(": :countSort: shifting positions: i: $i countArray[i]: ${countArray[i]} i-1: ${countArray[i - 1]}")
@@ -322,7 +352,10 @@ fun main() {
         println(": :countSort: countArray after position shifting: ${countArray.toList()}")
 
         /**
-         * Take the value from the original array and position from the count array
+         * Take the value from the original array and position from the count array.
+         *
+         * Complexity:
+         * The space complexity of this step is: O(n), where n is the size of the original input array.
          */
         val sortedArray = IntArray(array.size)
 
@@ -393,6 +426,24 @@ fun main() {
          * So that when we see the reservation chart (occupied seats), we get the correct information of the available
          * seats.
          *
+         * Complexity:
+         * The time complexity of this step is: O(n).
+         *
+         * Total (overall) complexity of the whole count sort algorithm:
+         *
+         * Time complexity:
+         * O(n) to decide min and max
+         * + O(n) counting the occurrences with normalisation
+         * + O(k) cumulative count
+         * + O(n) allocating seats, preparing the final sorted resultant array
+         * = 3-Big-O(n) + O(k)
+         * = O(n + k) because:
+         * 1. We drop the constants (it is 3 here) in Big-O notation.
+         * 2. n and k grows independently as we have seen that while declaring the count array,
+         * where n is the size of the original input array and k is the size of the count array.
+         *
+         * Hence, the overall time complexity of the entire count sort algorithm is: O(n + k).
+         * Similarly, the overall space complexity of the entire count sort algorithm is: O(n + k).
          */
         for (i in array.indices.reversed()) {
             // Take the value from the original array.
