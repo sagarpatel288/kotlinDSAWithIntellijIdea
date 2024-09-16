@@ -39,18 +39,29 @@ fun main() {
         /**
          * First, we find the `minValue` and the `maxValue`. Why?
          * We find the `minValue` and the `maxValue` to get the range.
-         * If the minValue is null, print the input and return (complete the function here).
          * For our example, [-5, -3, -4, -5, 1, 0, 1, 0, 2, 1], the minValue is -5.
          */
-        val minValue = array.minOrNull() ?: return println(array.toList())
+        var minValue = array[0]
 
         /**
          * We find the `minValue` and the `maxValue`. Why?
          * We find the `minValue` and the `maxValue` to get the range.
-         * If the maxValue is null, print the input and return (complete the function here).
          * For our example, [-5, -3, -4, -5, 1, 0, 1, 0, 2, 1], the maxValue is 2.
          */
-        val maxValue = array.maxOrNull() ?: return println(array.toList())
+        var maxValue = array[0]
+
+        /**
+         * With a single iteration, we find both the [minValue] and the [maxValue].
+         * If we use `array.minOrNull()` and `array.maxOrNull()`, then we iterate the input array two times.
+         */
+        for (element in array) {
+            if (element < minValue) {
+                minValue = element
+            }
+            if (element > maxValue) {
+                maxValue = element
+            }
+        }
 
         println(": :countSort: maxValue: $maxValue minValue: $minValue")
 
