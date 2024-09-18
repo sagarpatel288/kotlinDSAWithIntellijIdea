@@ -25,6 +25,32 @@ fun main() {
      * 4. input.indices.reversed(), take original value from input[i],
      * find target index position using the countArray as countArray[value - min] - 1,
      * resultArray[target index position] = value, and then mark the seat as allocated by countArray[value - min]--
+     *
+     * When to use?
+     * It is an efficient sorting algorithm for sorting integers when the range of values (minimum to maximum)
+     * is not significantly larger than the number of elements to be sorted.
+     *
+     * For example, if we have an array A[3, 1, 2, 3, 2, 1, 4, 3], we can see that the range of values are
+     * 1 to 4, and it is not significantly larger than the number of elements (= size of the array = n) that is 8.
+     *
+     * Pros:
+     * The time complexity of the counting sort algorithm is almost linear, i.e., O(n)
+     * that is lower than the other fastest comparison based sorting algorithm such as a merge sort algorithm
+     * whose time complexity is slightly higher, i.e., O(n log n).
+     *
+     * Cons:
+     * To use the counting sort algorithm, the range of values, especially the maximum value element
+     * must not grow faster (or larger) than the size of the input array.
+     *
+     * For example, if we have an array A[3, 1, 2, 3, 2, 1, 4, 3], we can see that the range of values are 1 to 4
+     * where the maximum value element is 4, and it is not significantly larger than the number of elements
+     * (= size of the array = n) that is 8. Here, we can use the counting sort algorithm.
+     *
+     * However, if we have an array of size 100 (= n) and the maximum value is 100,00 (= n raised to the power of 2),
+     * then the max value here grows faster than the size of the input array as we increase the maximum value
+     * while keeping the size of the array the same.
+     * Here, we better use the merge sort algorithm than the counting sort algorithm.
+     *
      */
     fun countSort(array: IntArray) {
 
