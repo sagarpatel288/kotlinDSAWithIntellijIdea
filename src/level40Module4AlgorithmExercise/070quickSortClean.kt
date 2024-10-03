@@ -19,8 +19,7 @@ fun main() {
                 }
             }
         }
-        partitionIndex++
-        swapElements(input, partitionIndex, end)
+        swapElements(input, ++partitionIndex, end)
         return partitionIndex
     }
 
