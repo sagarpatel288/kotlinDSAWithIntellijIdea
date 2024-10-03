@@ -50,7 +50,7 @@ fun main() {
         }
     }
 
-    val input = intArrayOf(5, 2, 9, -5, -2, -9, 0)
+    val input = intArrayOf(-3, 8, -2, 1, 6, -5, 3, 4)
     quickSort(input, 0, input.lastIndex)
     println(": :main: sortedArray: ${input.toList()}")
 }
