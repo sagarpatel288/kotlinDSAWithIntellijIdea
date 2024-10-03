@@ -29,6 +29,9 @@ fun main() {
                 }
             }
         }
+        //This is for printing, understanding, and acknowledgement purpose.
+        // Otherwise, we could have used pre-increment while calling the swapElements function and it would work.
+        // The actual code can use: swapElements(input, ++partitionIndex, end) without first doing partitionIndex++ separately.
         partitionIndex++
         println(": :getPartitionIndex: $getPartitionIndexFunCount before swapping: input: ${input.toList()} start: $start end: $end pivot: $pivot partitionIndex: $partitionIndex")
         swapElements(input, partitionIndex, end)
