@@ -2,9 +2,11 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-.idea/caches
+.idea/caches/
+.idea/caches/deviceStreaming.xml
 .idea/misc.xml
 .idea/runConfigurations.xml
+
 
 ### Eclipse ###
 .apt_generated
