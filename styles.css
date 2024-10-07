@@ -70,12 +70,20 @@
   font-style: italic;
 }
 
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
 body {
+    font-family: 'Roboto', Arial, sans-serif;
     background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-    padding: 20px;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
 }
 
 h1 {
