@@ -1,5 +1,5 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
@@ -8,7 +8,7 @@ body {
 }
 
 h1 {
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: 700; /* Bold */
     color: #444;
     font-size: 2em;
