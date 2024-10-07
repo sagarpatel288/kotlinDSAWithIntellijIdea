@@ -1,10 +1,22 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const fileList = document.getElementById('file-list');
     const sortOptions = document.getElementById('sort-options');
-    
+    const loader = document.getElementById('loader');
+    const messageBox = document.getElementById('message-box');
+    const messageText = document.getElementById('message-text');
+    const closeMessageButton = document.getElementById('close-message');
+
     const username = 'sagarpatel288';
     const repo = 'kotlinDSAWithIntellijIdea';
     let kotlinFiles = [];
+
+    // Show loader initially
+    loader.style.display = 'block';
+
+    // Close message box
+    closeMessageButton.addEventListener('click', () => {
+        messageBox.style.display = 'none';
+    });
 
     // Fetch all Kotlin files recursively from the repository
     async function fetchKotlinFiles(path = '') {
@@ -17,11 +29,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (Array.isArray(data)) {
                 for (const item of data) {
+                    console.log(item); // Print each item to see available properties
                     if (item.type === 'dir') {
                         // Recursively fetch Kotlin files in subdirectories
                         await fetchKotlinFiles(item.path);
                     } else if (item.type === 'file' && item.name.endsWith('.kt')) {
-                        kotlinFiles.push({ name: item.name, url: item.html_url, date: new Date(item.git_url) });
+                        kotlinFiles.push({ name: item.name, url: item.html_url, date: new Date() });
                     }
                 }
             } else {
@@ -29,6 +42,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         } catch (error) {
             console.error('Error fetching file list:', error);
+            showMessage('Error fetching file list. Please try again later.', 'error');
+        } finally {
+            // Hide loader after fetching is done
+            loader.style.display = 'none';
         }
     }
 
@@ -42,6 +59,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             link.textContent = file.name;
             fileList.appendChild(link);
         });
+    }
+
+    // Show message box
+    function showMessage(message, type) {
+        messageText.textContent = message;
+        messageBox.className = `message-box ${type}`;
+        messageBox.style.display = 'block';
     }
 
     // Sort and render the file list based on selected option
