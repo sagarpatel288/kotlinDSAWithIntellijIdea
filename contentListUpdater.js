@@ -1,45 +1,10 @@
-async function fetchFiles() {
-    try {
-
-        const response = await fetch('https://api.github.com/repos/sagarpatel288/kotlinDSAWithIntelliJIdea/contents');
-
-        // Check if response is successful
-        if (!response.ok) {
-            throw new Error('Failed to fetch repository content');
-        } else {
-            console.log("Success!")
-        }
-
-        const data = await response.json();
-        const fileList = document.getElementById('file-list');
-
-        // Filter Kotlin files and sort them by name
-        const ktFiles = data.filter(item => item.name.endsWith('.kt'));
-        ktFiles.sort((a, b) => a.name.localeCompare(b.name));
-
-        // Create links for each Kotlin file
-        ktFiles.forEach(file => {
-            const fileLink = document.createElement('a');
-            fileLink.href = file.html_url; // GitHub link to the file
-            fileLink.textContent = file.name;
-            fileLink.target = '_blank';
-            fileList.appendChild(fileLink);
-            fileList.appendChild(document.createElement('br'));
-        });
-    } catch (error) {
-        console.error('Error fetching files:', error);
-        document.getElementById('file-list').textContent = 'Error loading files.';
-    }
-}
-
-// Execute the function to fetch and display files
-fetchFiles();
-
 document.addEventListener('DOMContentLoaded', async () => {
     const fileList = document.getElementById('file-list');
-
+    const sortOptions = document.getElementById('sort-options');
+    
     const username = 'sagarpatel288';
     const repo = 'kotlinDSAWithIntellijIdea';
+    let kotlinFiles = [];
 
     // Fetch all Kotlin files recursively from the repository
     async function fetchKotlinFiles(path = '') {
@@ -52,12 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     // Recursively fetch Kotlin files in subdirectories
                     await fetchKotlinFiles(item.path);
                 } else if (item.type === 'file' && item.name.endsWith('.kt')) {
-                    // Create a link element for Kotlin files
-                    const link = document.createElement('a');
-                    link.href = item.html_url;
-                    link.className = 'file-link';
-                    link.textContent = item.name;
-                    fileList.appendChild(link);
+                    kotlinFiles.push({ name: item.name, url: item.html_url, date: new Date(item.git_url) });
                 }
             }
         } catch (error) {
@@ -65,7 +25,44 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    // Render the list of Kotlin files
+    function renderFileList(files) {
+        fileList.innerHTML = '';
+        files.forEach(file => {
+            const link = document.createElement('a');
+            link.href = file.url;
+            link.className = 'file-link';
+            link.textContent = file.name;
+            fileList.appendChild(link);
+        });
+    }
+
+    // Sort and render the file list based on selected option
+    sortOptions.addEventListener('change', () => {
+        const option = sortOptions.value;
+        let sortedFiles = [...kotlinFiles];
+
+        switch (option) {
+            case 'ascending':
+                sortedFiles.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'descending':
+                sortedFiles.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            case 'latest':
+                sortedFiles.sort((a, b) => b.date - a.date);
+                break;
+            case 'oldest':
+                sortedFiles.sort((a, b) => a.date - b.date);
+                break;
+            default:
+                break;
+        }
+
+        renderFileList(sortedFiles);
+    });
+
     // Start fetching Kotlin files from the root of the repository
     await fetchKotlinFiles();
+    renderFileList(kotlinFiles);
 });
-
