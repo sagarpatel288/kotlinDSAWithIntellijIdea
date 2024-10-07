@@ -1,24 +1,25 @@
 @font-face {
-    font-family: Roboto;
+    font-family: 'Roboto';
     src: url('fonts/Roboto.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
 }
 
+
 body {
-    font-family: Roboto;
+    font-family: 'Roboto', Arial, sans-serif;
     background-color: #f4f4f4;
-        color: #333;
-        line-height: 1.6;
-        margin: 0;
-        padding: 20px;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
 }
 
 h1 {
-    font-weight: 700; /* Bold */
     color: #444;
-    font-size: 2em;
+    font-size: 2.5em;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 a {
@@ -43,6 +44,7 @@ a:hover {
     display: block;
     padding: 10px;
     border-bottom: 1px solid #eaeaea;
+    color: #333;
 }
 
 .file-link:last-child {
