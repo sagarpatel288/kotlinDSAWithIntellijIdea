@@ -10,15 +10,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function fetchKotlinFiles(path = '') {
         try {
             const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
             const data = await response.json();
 
-            for (const item of data) {
-                if (item.type === 'dir') {
-                    // Recursively fetch Kotlin files in subdirectories
-                    await fetchKotlinFiles(item.path);
-                } else if (item.type === 'file' && item.name.endsWith('.kt')) {
-                    kotlinFiles.push({ name: item.name, url: item.html_url, date: new Date(item.git_url) });
+            if (Array.isArray(data)) {
+                for (const item of data) {
+                    if (item.type === 'dir') {
+                        // Recursively fetch Kotlin files in subdirectories
+                        await fetchKotlinFiles(item.path);
+                    } else if (item.type === 'file' && item.name.endsWith('.kt')) {
+                        kotlinFiles.push({ name: item.name, url: item.html_url, date: new Date(item.git_url) });
+                    }
                 }
+            } else {
+                console.error('Unexpected data format:', data);
             }
         } catch (error) {
             console.error('Error fetching file list:', error);
