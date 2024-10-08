@@ -19,9 +19,10 @@ const fetch = require('node-fetch');
                 throw new Error(`Network response was not ok for path: ${path}`);
             }
             const data = await response.json();
-
+            console.log('Fetched Data:', data); // Log fetched data
             if (Array.isArray(data)) {
                 for (const item of data) {
+                    console.log('Processing Item:', item); // Log each item being processed
                     if (item.type === 'dir') {
                         // Recursively fetch Kotlin files in subdirectories
                         await fetchKotlinFiles(item.path);
