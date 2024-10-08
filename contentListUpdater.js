@@ -10,10 +10,11 @@ const fetch = require('node-fetch');
 
     async function fetchKotlinFiles(path = '') {
         try {
-            const headers = {
-                Authorization: `token ${accessToken}`
-            };
-            const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}?t=${new Date().getTime()}`);
+             const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}?t=${new Date().getTime()}`, {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`, // Ensure token is added if required
+                        },
+                    });
             if (!response.ok) {
                 throw new Error(`Network response was not ok for path: ${path}`);
             }
