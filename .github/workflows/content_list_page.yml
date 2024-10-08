@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Configure Git user
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
       # Step 1: Checkout the 'github_pages_from_main' branch
       - name: Checkout github_pages_from_main branch
         uses: actions/checkout@v4
@@ -27,11 +32,6 @@ jobs:
           git checkout github_pages_from_main
           git pull origin main --allow-unrelated-histories
           git merge main
-
-      - name: Configure Git user
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
 
       # Step 3: Ensure files.json exists
       - name: Create files.json if it does not exist
