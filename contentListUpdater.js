@@ -15,7 +15,7 @@ const fetch = require('node-fetch');
             };
             const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, { headers });
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(`Network response was not ok for path: ${path}`);
             }
             const data = await response.json();
 
@@ -30,7 +30,7 @@ const fetch = require('node-fetch');
                 }
             }
         } catch (error) {
-            console.error('Error fetching file list:', error);
+            console.error(`Error fetching file list for path ${path}:`, error);
         }
     }
 

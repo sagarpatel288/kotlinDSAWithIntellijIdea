@@ -91,6 +91,31 @@
             renderFileList(kotlinFiles);
         });
     </script>
+    <script>
+        async function loadFiles() {
+            try {
+                    const timestamp = new Date().getTime();
+                    const response = await fetch(`files.json?t=${timestamp}`);
+                    if (!response.ok) {
+                      throw new Error('Failed to fetch files');
+                    }
+                    const files = await response.json();
+                    const fileList = document.getElementById('file-list');
+                      fileList.innerHTML = ''; // Clear existing content
+                      files.forEach(file => {
+                        const link = document.createElement('a');
+                        link.href = file.url;
+                        link.textContent = file.name;
+                        link.className = 'file-link';
+                        fileList.appendChild(link);
+                      });
+          } catch (error) {
+            console.error('Error loading files:', error);
+            document.getElementById('file-list').textContent = 'Error loading files. Please try again later.';
+          }
+        }
+        loadFiles();
+    </script>
     <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
