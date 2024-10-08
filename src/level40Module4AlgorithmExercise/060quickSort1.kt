@@ -1,7 +1,7 @@
 package level40Module4AlgorithmExercise
 
 /**
- * Explain quickSort.
+ * Explain or demonstrate quickSort.
  */
 fun main() {
 
