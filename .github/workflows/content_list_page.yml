@@ -31,7 +31,16 @@ jobs:
             echo "[]" > files.json
           fi
 
-      # Step 4: Run the JavaScript script to update the files.json
+      # Step 4: Commit and push changes to github_pages_from_main
+      - name: Commit and push changes to github_pages_from_main
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add files.json
+          git commit -m 'Update files.json with latest Kotlin files' || echo "No changes to commit"
+          git push origin github_pages_from_main
+
+      # Step 5: Run the JavaScript script to update the files.json
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -44,15 +53,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: node updateContentGitHubActionsGitHubPages.js
-
-      # Step 5: Commit and push changes to github_pages_from_main
-      - name: Commit and push changes to github_pages_from_main
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add files.json
-          git commit -m 'Update files.json with latest Kotlin files' || echo "No changes to commit"
-          git push origin github_pages_from_main
 
   deploy:
     needs: update-content
