@@ -2,10 +2,10 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-.idea/caches/
-.idea/caches/deviceStreaming.xml
-.idea/misc.xml
-.idea/runConfigurations.xml
+/.idea/caches/deviceStreaming.xml
+/.idea/misc.xml
+/.idea/runConfigurations.xml
+/temp.html
 
 ### Eclipse ###
 .apt_generated
@@ -32,6 +32,3 @@ bin/
 ### Mac OS ###
 .DS_Store
 /src/practice/
-
-### Project Specific ###
-temp.html
