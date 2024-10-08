@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Install dependencies
+        run: npm install node-fetch  # Install dependencies if needed (like node-fetch)
+
       - name: Run update script
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
@@ -29,7 +32,7 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add files.json  # or files.json if using JSON
+          git add files.json  # or index.html if using index.html
           git commit -m 'Update files.json with latest Kotlin files' || echo "No changes to commit"
           git push
 
