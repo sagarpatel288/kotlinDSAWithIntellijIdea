@@ -82,5 +82,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TOKEN }}
-          publish_branch: github_pages_from_main
           publish_dir: ./kotlinDSAWithIntellijIdea
+          destination_branch: gh-pages  # Specify the branch to deploy to
