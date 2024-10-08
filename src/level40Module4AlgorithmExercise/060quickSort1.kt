@@ -1,5 +1,8 @@
 package level40Module4AlgorithmExercise
 
+/**
+ * Explain quickSort.
+ */
 fun main() {
 
     var quickSortFunCount = 0
