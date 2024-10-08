@@ -16,6 +16,9 @@ jobs:
         with:
           ref: github_pages_from_main
 
+      - name: Configure Git Pull Strategy
+        run: git config pull.rebase false # Use 'true' for rebase or 'ff only' for fast-forward only
+
       # Step 2: Merge changes from 'main' into 'github_pages_from_main'
       - name: Merge main into github_pages_from_main
         run: |
