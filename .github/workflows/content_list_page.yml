@@ -31,7 +31,6 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.TOKEN }}@github.com/${{ github.repository }}.git
           git checkout github_pages_from_main
           git pull origin main --allow-unrelated-histories -X theirs
-          git merge main
 
       # Step 3: Ensure files.json exists
       - name: Create files.json if it does not exist
