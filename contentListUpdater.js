@@ -13,7 +13,7 @@ const fetch = require('node-fetch');
             const headers = {
                 Authorization: `token ${accessToken}`
             };
-            const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, { headers });
+            const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}?t=${new Date().getTime()}`);
             if (!response.ok) {
                 throw new Error(`Network response was not ok for path: ${path}`);
             }
