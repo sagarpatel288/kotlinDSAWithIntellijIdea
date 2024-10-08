@@ -55,6 +55,8 @@ jobs:
 
       # Step 5: Commit and push changes to github_pages_from_main
       - name: Commit and push changes to github_pages_from_main
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
