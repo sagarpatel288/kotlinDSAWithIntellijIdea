@@ -26,7 +26,7 @@ jobs:
       - name: Run update script
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: node contentListUpdater.js  # Run the JavaScript file to generate files.json
+        run: node updateContentGitHubActionsGitHubPages.js  # Run the JavaScript file to generate files.json
 
       - name: Commit and push changes to main
         run: |
