@@ -18,14 +18,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         messageBox.style.display = 'none';
     });
 
-    const accessToken = process.env.GITHUB_TOKEN;
-
     // Fetch all Kotlin files recursively from the repository
     async function fetchKotlinFiles(path = '') {
         try {
             const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}?t=${new Date().getTime()}`, {
                                     headers: {
-                                        'Authorization': `Bearer ${accessToken}`, // Ensure token is added if required
+                                        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`, // Ensure token is added if required
                                     },
                                 });
             if (!response.ok) {
@@ -108,4 +106,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Error writing to files.json:', error);
     }
-})();
+});
