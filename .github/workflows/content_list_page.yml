@@ -23,10 +23,14 @@ jobs:
       - name: Install dependencies
         run: npm install node-fetch  # Install dependencies if needed (like node-fetch)
 
-      - name: Run update script
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: node updateContentGitHubActionsGitHubPages.js  # Run the JavaScript file to generate files.json
+      - name: Checkout github_pages_from_main branch
+        run: git checkout github_pages_from_main
+
+      - name: Merge main into github_pages_from_main
+        run: |
+          git pull origin main
+          git merge main
+          git push origin github_pages_from_main  
 
       - name: Commit and push changes to main
         run: |
@@ -36,14 +40,10 @@ jobs:
           git commit -m 'Update files.json with latest Kotlin files' || echo "No changes to commit"
           git push origin main
 
-      - name: Checkout github_pages_from_main branch
-        run: git checkout github_pages_from_main
-
-      - name: Merge main into github_pages_from_main
-        run: |
-          git pull origin main
-          git merge main
-          git push origin github_pages_from_main
+      - name: Run update script
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        run: node updateContentGitHubActionsGitHubPages.js  # Run the JavaScript file to generate files.json
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
