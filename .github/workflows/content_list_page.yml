@@ -51,7 +51,7 @@ jobs:
       - name: Run update script
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: node updateContentGitHubActionsGitHubPages.js
+        run: node updateContentGitHubActionsGitHubPages.mjs
 
       # Step 5: Commit and push changes to github_pages_from_main
       - name: Commit and push changes to github_pages_from_main
