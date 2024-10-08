@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function loadFiles() {
         try {
             const timestamp = new Date().getTime();  // Prevent caching
-            const response = await fetch(`files.json?t=${timestamp}`);
+            const response = await fetch(`files.json`);
             if (!response.ok) throw new Error('Failed to fetch files');
 
             kotlinFiles = await response.json();
