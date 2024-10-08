@@ -29,8 +29,10 @@ const fetch = require('node-fetch');
       }
 
       const data = await response.json();
+      console.log('Fetched Data:', data); // Log fetched data
       if (Array.isArray(data)) {
         for (const item of data) {
+          console.log('Processing Item:', item); // Log each item being processed
           if (item.type === 'dir') {
             await fetchKotlinFiles(item.path);
           } else if (item.type === 'file' && item.name.endsWith('.kt')) {
