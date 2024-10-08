@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - github_pages_from_main
 
 jobs:
   update-content:
