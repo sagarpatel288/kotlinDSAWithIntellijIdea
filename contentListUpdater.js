@@ -1,109 +1,53 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    const fileList = document.getElementById('file-list');
-    const sortOptions = document.getElementById('sort-options');
-    const loader = document.getElementById('loader');
-    const messageBox = document.getElementById('message-box');
-    const messageText = document.getElementById('message-text');
-    const closeMessageButton = document.getElementById('close-message');
+/**
+* contentListUpdater.js (Node.js environment)
+* This script should run in a Node.js environment (like GitHub Actions) to fetch data from the GitHub API
+* and create files.json.
+* It uses fs to write files.json and process.env.GITHUB_TOKEN for authentication.
+* Environment Separation: Ensure server-side code runs in GitHub Actions and client-side code runs in the browser.
+* Sorting and UI: Handle sorting and UI interactions in the browser.
+* Loading and Messages: Use the browser script to manage loading states and display messages.
+* This separation ensures that each part of your application runs in the correct environment without errors.
+*/
 
-    const username = 'sagarpatel288';
-    const repo = 'kotlinDSAWithIntellijIdea';
-    let kotlinFiles = [];
+const fs = require('fs');
+const fetch = require('node-fetch');
 
-    // Show loader initially
-    loader.style.display = 'block';
+(async () => {
+  const username = 'sagarpatel288';
+  const repo = 'kotlinDSAWithIntellijIdea';
+  const accessToken = process.env.GITHUB_TOKEN;
+  let kotlinFiles = [];
 
-    // Close message box
-    closeMessageButton.addEventListener('click', () => {
-        messageBox.style.display = 'none';
-    });
-
-    // Fetch all Kotlin files recursively from the repository
-    async function fetchKotlinFiles(path = '') {
-        try {
-            const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}?t=${new Date().getTime()}`, {
-                                    headers: {
-                                        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`, // Ensure token is added if required
-                                    },
-                                });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            console.log('Fetched Data:', data); // Log fetched data
-            if (Array.isArray(data)) {
-                for (const item of data) {
-                    console.log('Processing Item:', item); // Log each item being processed
-                    if (item.type === 'dir') {
-                        // Recursively fetch Kotlin files in subdirectories
-                        await fetchKotlinFiles(item.path);
-                    } else if (item.type === 'file' && item.name.endsWith('.kt')) {
-                        kotlinFiles.push({ name: item.name, url: item.html_url, date: new Date() });
-                    }
-                }
-            } else {
-                console.error('Unexpected data format:', data);
-            }
-        } catch (error) {
-            console.error('Error fetching file list:', error);
-            showMessage('Error fetching file list. Please try again later.', 'error');
-        } finally {
-            // Hide loader after fetching is done
-            loader.style.display = 'none';
-        }
-    }
-
-    // Render the list of Kotlin files
-    function renderFileList(files) {
-        fileList.innerHTML = '';
-        files.forEach(file => {
-            const link = document.createElement('a');
-            link.href = file.url;
-            link.className = 'file-link';
-            link.textContent = file.name;
-            fileList.appendChild(link);
-        });
-    }
-
-    // Show message box
-    function showMessage(message, type) {
-        messageText.textContent = message;
-        messageBox.className = `message-box ${type}`;
-        messageBox.style.display = 'block';
-    }
-
-    // Sort and render the file list based on selected option
-    sortOptions.addEventListener('change', () => {
-        const option = sortOptions.value;
-        let sortedFiles = [...kotlinFiles];
-
-        switch (option) {
-            case 'ascending':
-                sortedFiles.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case 'descending':
-                sortedFiles.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            case 'latest':
-                sortedFiles.sort((a, b) => b.date - a.date);
-                break;
-            case 'oldest':
-                sortedFiles.sort((a, b) => a.date - b.date);
-                break;
-            default:
-                break;
-        }
-
-        renderFileList(sortedFiles);
-    });
-
-    // Start fetching Kotlin files from the root of the repository
-    await fetchKotlinFiles();
-    // Write fetched Kotlin files to files.json
+  async function fetchKotlinFiles(path = '') {
     try {
-        fs.writeFileSync('files.json', JSON.stringify(kotlinFiles, null, 2));
-        console.log('files.json has been saved with the latest Kotlin files.');
+      const headers = {
+        Authorization: `Bearer ${accessToken}`
+      };
+      const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}?t=${new Date().getTime()}`, { headers });
+      if (!response.ok) {
+        throw new Error(`Network response was not ok for path: ${path}`);
+      }
+
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        for (const item of data) {
+          if (item.type === 'dir') {
+            await fetchKotlinFiles(item.path);
+          } else if (item.type === 'file' && item.name.endsWith('.kt')) {
+            kotlinFiles.push({ name: item.name, url: item.html_url });
+          }
+        }
+      }
     } catch (error) {
-        console.error('Error writing to files.json:', error);
+      console.error(`Error fetching file list for path ${path}:`, error);
     }
-});
+  }
+
+  try {
+    await fetchKotlinFiles();
+    fs.writeFileSync('files.json', JSON.stringify(kotlinFiles, null, 2));
+    console.log('files.json has been saved with the latest Kotlin files.');
+  } catch (error) {
+    console.error('Error writing to files.json:', error);
+  }
+})();
