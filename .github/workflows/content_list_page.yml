@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '0 0 * * *' # Optional: Run daily at midnight
 
 jobs:
   update-github-pages:
@@ -24,20 +26,28 @@ jobs:
       - name: Run update script
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          npm install node-fetch
-          node contentListUpdater.js
+        run: node contentListUpdater.js  # Run the JavaScript file to generate files.json
 
-      - name: Commit and push changes
+      - name: Commit and push changes to main
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add files.json  # or index.html if using index.html
+          git add files.json
           git commit -m 'Update files.json with latest Kotlin files' || echo "No changes to commit"
-          git push
+          git push origin main
+
+      - name: Checkout github_pages_from_main branch
+        run: git checkout github_pages_from_main
+
+      - name: Merge main into github_pages_from_main
+        run: |
+          git pull origin main
+          git merge main
+          git push origin github_pages_from_main
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TOKEN }}
-          publish_dir: ./kotlinDSAWithIntellijIdea  # Specify the directory containing the website
+          publish_branch: github_pages_from_main  # Deploy branch for GitHub Pages
+          publish_dir: ./  # Directory containing the website files
