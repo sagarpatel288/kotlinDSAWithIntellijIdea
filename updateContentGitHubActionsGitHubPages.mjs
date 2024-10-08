@@ -8,7 +8,7 @@
 * Loading and Messages: Use the browser script to manage loading states and display messages.
 * This separation ensures that each part of your application runs in the correct environment without errors.
 */
-const fs = require('fs');
+import fs from 'fs';
 import fetch from 'node-fetch';  // Use 'import' instead of 'require'
 
 (async () => {
