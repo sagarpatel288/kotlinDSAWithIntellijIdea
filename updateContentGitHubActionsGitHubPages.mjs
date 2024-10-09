@@ -70,6 +70,7 @@ import fetch from 'node-fetch';
    * If you call fetchKotlinFiles() without providing a path, it will default to an empty string.
    */
   async function fetchKotlinFiles(path = '') {
+      console.log('Sagar: Executing fetchKotlinFiles')
     try {
       // We need to pass header that includes a token while working with GitHub APIs smoothly.
       const headers = {
