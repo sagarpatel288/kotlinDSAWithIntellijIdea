@@ -65,6 +65,7 @@ jobs:
       - name: Run update script
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          # This is the script that will run on GitHub (This is not a browser script).
         run: node updateContentGitHubActionsGitHubPages.mjs
 
       # Step 9: Commit and push changes to github_pages_from_main
