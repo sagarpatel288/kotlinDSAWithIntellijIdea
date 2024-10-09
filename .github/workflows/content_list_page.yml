@@ -1,4 +1,4 @@
-name: Update Content List and Deploy to GitHub Pages
+name: Update GitHub Pages
 
 on:
   push:
