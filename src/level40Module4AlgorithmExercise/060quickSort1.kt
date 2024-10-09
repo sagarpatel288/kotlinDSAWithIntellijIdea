@@ -2,6 +2,8 @@ package level40Module4AlgorithmExercise
 
 /**
  * Explain or demonstrate quickSort.
+ * The array (input) is not sorted or nearly sorted.
+ * The array (input) does not contain any duplicate element.
  */
 fun main() {
 
