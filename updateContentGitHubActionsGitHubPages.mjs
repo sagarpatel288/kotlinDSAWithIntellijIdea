@@ -70,7 +70,6 @@ import fetch from 'node-fetch';
    * If you call fetchKotlinFiles() without providing a path, it will default to an empty string.
    */
   async function fetchKotlinFiles(path = '') {
-      console.log('Sagar: Executing fetchKotlinFiles')
     try {
       // We need to pass header that includes a token while working with GitHub APIs smoothly.
       const headers = {
@@ -94,16 +93,14 @@ import fetch from 'node-fetch';
           if (item.type === 'dir') {
             await fetchKotlinFiles(item.path);
           } else if (item.type === 'file' && item.name.endsWith('.kt')) {
-              // Fetch additional details for each file to get dates
+              // Fetch additional details for each file to get dates (createdDate and modifiedDate)
               const commitInfo = await fetch(`https://api.github.com/repos/${username}/${repo}/commits?path=${item.path}`, { headers });
                 if (!commitInfo.ok) {
-                  throw new Error(`Sagar: Failed to fetch commit details for ${filePath}`);
+                  throw new Error(`Failed to fetch commit details for ${item.name}`);
                 }
                 const commits = await commitInfo.json();
                 const createdDate = commits[commits.length - 1].commit.author.date;
-                console.log("Sagar: createdDate: ", createdDate)
                 const modifiedDate = commits[0].commit.author.date;
-                console.log("Sagar: modifiedDate: ", modifiedDate)
                 kotlinFiles.push({
                                 name: item.name,
                                 url: item.html_url,
@@ -114,7 +111,7 @@ import fetch from 'node-fetch';
         }
       }
     } catch (error) {
-      console.error(`Sagar: Error fetching file list for path ${path}:`, error);
+      console.error(`Error fetching file list for path ${path}:`, error);
     }
   }
 
@@ -126,8 +123,8 @@ import fetch from 'node-fetch';
   try {
     await fetchKotlinFiles();
     fs.writeFileSync('files.json', JSON.stringify(kotlinFiles, null, 2));
-    console.log('Sagar: files.json has been saved with the latest Kotlin files.');
+    console.log('files.json has been saved with the latest Kotlin files.');
   } catch (error) {
-    console.error('Sagar: Error writing to files.json:', error);
+    console.error('Error writing to files.json:', error);
   }
 })();
