@@ -100,7 +100,6 @@ import fetch from 'node-fetch';
                   throw new Error(`Sagar: Failed to fetch commit details for ${filePath}`);
                 }
                 const commits = await commitInfo.json();
-                console.log("Sagar: fileDetails: ", commits)
                 const createdDate = commits[commits.length - 1].commit.author.date;
                 console.log("Sagar: createdDate: ", createdDate)
                 const modifiedDate = commits[0].commit.author.date;

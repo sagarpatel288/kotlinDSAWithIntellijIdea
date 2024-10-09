@@ -116,10 +116,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 sortedFiles.sort((a, b) => b.name.localeCompare(a.name));
                 break;
             case 'latest':
-                sortedFiles.sort((a, b) => new Date(b.date) - new Date(a.date));
+                sortedFiles.sort((a, b) => new Date(b.modifiedDate) - new Date(a.modifiedDate));
                 break;
             case 'oldest':
-                sortedFiles.sort((a, b) => new Date(a.date) - new Date(b.date));
+                sortedFiles.sort((a, b) => new Date(a.createdDate) - new Date(b.createdDate));
                 break;
             default:
                 break;
