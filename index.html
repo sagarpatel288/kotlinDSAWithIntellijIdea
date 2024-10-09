@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotlin DSA Practice Files</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="updateContentBrowserScript.js"></script>
+    <!--<script>
+        &lt;!&ndash;Client-Side JavaScript:&ndash;&gt;
+        &lt;!&ndash;This script runs in the browser to load and display files.json.&ndash;&gt;
+        &lt;!&ndash;It handles sorting and UI interactions.&ndash;&gt;
+        &lt;!&ndash;Environment Separation:&ndash;&gt;
+        &lt;!&ndash;Ensure server-side code runs in GitHub Actions and client-side code runs in the browser.&ndash;&gt;
+        &lt;!&ndash;Sorting and UI: Handle sorting and UI interactions in the browser.&ndash;&gt;
+        &lt;!&ndash;Loading and Messages: Use the browser script to manage loading states and display messages.&ndash;&gt;
+        &lt;!&ndash;This separation ensures that each part of your application runs in the correct environment without errors.&ndash;&gt;
+        document.addEventListener('DOMContentLoaded', async () => {
+          const fileList = document.getElementById('file-list');
+          const sortOptions = document.getElementById('sort-options');
+          const loader = document.getElementById('loader');
+          const messageBox = document.getElementById('message-box');
+          const messageText = document.getElementById('message-text');
+          const closeMessageButton = document.getElementById('close-message');
+
+          let kotlinFiles = [];
+
+          loader.style.display = 'block';
+
+          closeMessageButton.addEventListener('click', () => {
+            messageBox.style.display = 'none';
+          });
+
+          async function loadFiles() {
+            try {
+              const timestamp = new Date().getTime();
+              const response = await fetch(`files.json?t=${timestamp}`);
+              if (!response.ok) throw new Error('Failed to fetch files');
+
+              kotlinFiles = await response.json();
+              renderFileList(kotlinFiles);
+            } catch (error) {
+              console.error('Error loading files:', error);
+              showMessage('Error loading files. Please try again later.', 'error');
+            } finally {
+              loader.style.display = 'none';
+            }
+          }
+
+          function renderFileList(files) {
+            fileList.innerHTML = '';
+            files.forEach(file => {
+              const link = document.createElement('a');
+              link.href = file.url;
+              link.textContent = file.name;
+              link.className = 'file-link';
+              fileList.appendChild(link);
+            });
+          }
+
+          function showMessage(message, type) {
+            messageText.textContent = message;
+            messageBox.className = `message-box ${type}`;
+            messageBox.style.display = 'block';
+          }
+
+          sortOptions.addEventListener('change', () => {
+            const option = sortOptions.value;
+            let sortedFiles = [...kotlinFiles];
+
+            switch (option) {
+              case 'ascending':
+                sortedFiles.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+              case 'descending':
+                sortedFiles.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+              case 'latest':
+                sortedFiles.sort((a, b) => new Date(b.date) - new Date(a.date));
+                break;
+              case 'oldest':
+                sortedFiles.sort((a, b) => new Date(a.date) - new Date(b.date));
+                break;
+              default:
+                break;
+            }
+
+            renderFileList(sortedFiles);
+          });
+
+          await loadFiles();
+        });
+    </script>-->
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #c9d1d9;
+            text-align: center;
+            padding: 20px;
+        }
+        .file-link {
+            display: block;
+            color: #58a6ff;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+        .file-link:hover {
+            text-decoration: underline;
+        }
+        #sort-options {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<h1>Kotlin DSA Practice Files</h1>
+<div id="loader" class="loader">Loading...</div>
+
+<div id="message-box" class="message-box" style="display: none;">
+    <span id="message-text"></span>
+    <button id="close-message">Close</button>
+</div>
+
+<!-- Sorting Options -->
+<label for="sort-options"></label><select id="sort-options">
+    <option value="default">Default</option>
+    <option value="ascending">Ascending</option>
+    <option value="descending">Descending</option>
+    <option value="latest">Latest to Old</option>
+    <option value="oldest">Old to Latest</option>
+</select>
+
+<!-- File List -->
+<div id="file-list">
+    <!-- The file list will be populated here dynamically -->
+</div>
+</body>
+</html>

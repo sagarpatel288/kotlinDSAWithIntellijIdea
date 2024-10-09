@@ -1,0 +1,86 @@
+name: Update GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-content:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure Git user
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      # Step 1: Checkout the 'github_pages_from_main' branch
+      - name: Checkout github_pages_from_main branch
+        uses: actions/checkout@v4
+        with:
+          ref: github_pages_from_main
+
+      - name: Configure Git Pull Strategy
+        run: git config pull.rebase false # Use 'true' for rebase or 'ff only' for fast-forward only
+
+      # Step 2: Merge changes from 'main' into 'github_pages_from_main'
+      - name: Merge main into github_pages_from_main
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.TOKEN }}@github.com/${{ github.repository }}.git
+          git checkout github_pages_from_main
+          git pull origin main --allow-unrelated-histories -X theirs
+
+      # Step 3: Ensure files.json exists
+      - name: Create files.json if it does not exist
+        run: |
+          if [ ! -f files.json ]; then
+            echo "[]" > files.json
+          fi
+
+      # Step 4: Run the JavaScript script to update the files.json
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install node-fetch
+
+      - name: Run update script
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        run: node updateContentGitHubActionsGitHubPages.mjs
+
+      # Step 5: Commit and push changes to github_pages_from_main
+      - name: Commit and push changes to github_pages_from_main
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add files.json
+          git commit -m 'Update files.json with latest Kotlin files' || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.TOKEN }}@github.com/${{ github.repository }}.git HEAD:github_pages_from_main
+
+  deploy:
+    needs: update-content
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 6: Deploy the content to GitHub Pages
+      - name: Checkout github_pages_from_main branch
+        uses: actions/checkout@v3
+        with:
+          ref: github_pages_from_main
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_dir: ./kotlinDSAWithIntellijIdea
+          destination_branch: gh-pages  # Specify the branch to deploy to
