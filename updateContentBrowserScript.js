@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', async () => {
      */
     function renderFileList(files) {
         fileList.innerHTML = '';
-        files.forEach(file => {
+        files.forEach((file, index) => {
             const link = document.createElement('a');
             link.href = file.url;
-            link.textContent = file.name;
+            link.textContent = `${index + 1}. ${file.name}`; // Add serial number before the file name
             link.className = 'file-link';
             fileList.appendChild(link);
         });
