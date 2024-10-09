@@ -93,12 +93,24 @@ import fetch from 'node-fetch';
           if (item.type === 'dir') {
             await fetchKotlinFiles(item.path);
           } else if (item.type === 'file' && item.name.endsWith('.kt')) {
-            kotlinFiles.push({ name: item.name, url: item.html_url });
+              // Fetch additional details for each file to get dates
+              const fileDetailsResponse = await fetch(item.url, { headers });
+              if (!fileDetailsResponse.ok) {
+                  throw new Error(`Failed to fetch file details for ${item.name}: ${fileDetailsResponse.statusText}`);
+              }
+              const fileDetails = await fileDetailsResponse.json();
+              console.log("Sagar: fileDetails", fileDetails)
+              kotlinFiles.push({
+                                name: item.name,
+                                url: item.html_url,
+                                createdDate: fileDetails.created_at,
+                                modifiedDate: fileDetails.updated_at,
+                               });
           }
         }
       }
     } catch (error) {
-      console.error(`Error fetching file list for path ${path}:`, error);
+      console.error(`Sagar: Error fetching file list for path ${path}:`, error);
     }
   }
 
@@ -110,8 +122,8 @@ import fetch from 'node-fetch';
   try {
     await fetchKotlinFiles();
     fs.writeFileSync('files.json', JSON.stringify(kotlinFiles, null, 2));
-    console.log('files.json has been saved with the latest Kotlin files.');
+    console.log('Sagar: files.json has been saved with the latest Kotlin files.');
   } catch (error) {
-    console.error('Error writing to files.json:', error);
+    console.error('Sagar: Error writing to files.json:', error);
   }
 })();
