@@ -3,8 +3,10 @@ name: Update GitHub Pages
 on:
   push:
     branches:
-      - main
+      # We want to trigger the workflow action whenever there is a push to the main branch.
+      - main # Note that it requires the yml file to be a part of this branch to trigger the workflow action.
 
+# We need the write permission for the workflow actions because it writes to a json file and push changes
 permissions:
   contents: write
   pull-requests: write
@@ -14,49 +16,58 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Configure the Git user to be used for all the git operations below
       - name: Configure Git user
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-      # Step 1: Checkout the 'github_pages_from_main' branch
+      # Step 2: Checkout the 'github_pages_from_main' branch
       - name: Checkout github_pages_from_main branch
         uses: actions/checkout@v4
         with:
           ref: github_pages_from_main
 
+      # Step 3: Configure the git pull strategy to be used while performing the pull and merge
       - name: Configure Git Pull Strategy
         run: git config pull.rebase false # Use 'true' for rebase or 'ff only' for fast-forward only
 
-      # Step 2: Merge changes from 'main' into 'github_pages_from_main'
+      # Step 4: Merge changes from 'origin/main' into 'github_pages_from_main'
+      # Note that we have to specify the merge conflict resolution
+      # And we specify that it is ok to have different point of time of creation
+      # of both the target and destination branches (a.k.a., allow unrelated histories)
+      # and that we would always accept the changes from origin/main over the destination branch.
+      # It means, the base (origin/main) takes priority over the one that pulls the changes.
       - name: Merge main into github_pages_from_main
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.TOKEN }}@github.com/${{ github.repository }}.git
           git checkout github_pages_from_main
           git pull origin main --allow-unrelated-histories -X theirs
 
-      # Step 3: Ensure files.json exists
+      # Step 5: Ensure files.json exists
       - name: Create files.json if it does not exist
         run: |
           if [ ! -f files.json ]; then
             echo "[]" > files.json
           fi
 
-      # Step 4: Run the JavaScript script to update the files.json
+      # Step 6: Run the JavaScript script to update the files.json
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # Step 7: Install dependencies that our script may need to run properly
       - name: Install dependencies
         run: npm install node-fetch
 
+      # Step 8: Run the script
       - name: Run update script
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: node updateContentGitHubActionsGitHubPages.mjs
 
-      # Step 5: Commit and push changes to github_pages_from_main
+      # Step 9: Commit and push changes to github_pages_from_main
       - name: Commit and push changes to github_pages_from_main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
@@ -72,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 6: Deploy the content to GitHub Pages
+      # Step 10: Make sure to check out to the same branch that we set up in repository/settings/pages/deployment branch
       - name: Checkout github_pages_from_main branch
         uses: actions/checkout@v3
         with:
@@ -83,4 +94,6 @@ jobs:
         with:
           github_token: ${{ secrets.TOKEN }}
           publish_dir: ./kotlinDSAWithIntellijIdea
-          destination_branch: gh-pages  # Specify the branch to deploy to
+          # The GitHub workflow action will push the changes to this branch
+          # It is a good idea to have GitHub pages related changes on a separate and a dedicated branch
+          destination_branch: gh-pages  # This is a standard, common GitHub bot branch that takes control from this point
