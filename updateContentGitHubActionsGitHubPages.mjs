@@ -60,6 +60,44 @@ import fetch from 'node-fetch';
   let kotlinFiles = [];
 
   /*
+   * GitHub does not provide any information about createdDate and modifiedDate for a particular file.
+   * We have to go through all the commits associated with the file.
+   * We consider the first commit date as a createdDate and the last commit date as a modifiedDate for the file.
+   */
+  async function fetchCommitDates(item) {
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
+
+    let commits = [];
+    let page = 1;
+    let isLastPage = false;
+
+    while (!isLastPage) {
+      const commitInfo = await fetch(`https://api.github.com/repos/${username}/${repo}/commits?path=${item.path}&page=${page}&per_page=100`, { headers });
+
+      if (!commitInfo.ok) {
+        throw new Error(`Failed to fetch commit details for ${item.name}`);
+      }
+
+      const commitData = await commitInfo.json();
+      commits = commits.concat(commitData);
+
+      if (commitData.length < 100) {
+        isLastPage = true;
+      } else {
+        page++;
+      }
+    }
+
+    // Extract the created and modified dates from the fetched commits.
+    const createdDate = commits[commits.length - 1].commit.author.date;
+    const modifiedDate = commits[0].commit.author.date;
+
+    return { createdDate, modifiedDate };
+  }
+
+  /*
    * This is a function declaration in JavaScript.
    * The async keyword is used to declare an asynchronous function.
    * An async function always returns a Promise.
@@ -94,19 +132,13 @@ import fetch from 'node-fetch';
             await fetchKotlinFiles(item.path);
           } else if (item.type === 'file' && item.name.endsWith('.kt')) {
               // Fetch additional details for each file to get dates (createdDate and modifiedDate)
-              const commitInfo = await fetch(`https://api.github.com/repos/${username}/${repo}/commits?path=${item.path}`, { headers });
-                if (!commitInfo.ok) {
-                  throw new Error(`Failed to fetch commit details for ${item.name}`);
-                }
-                const commits = await commitInfo.json();
-                const createdDate = commits[commits.length - 1].commit.author.date;
-                const modifiedDate = commits[0].commit.author.date;
-                kotlinFiles.push({
-                                name: item.name,
-                                url: item.html_url,
-                                createdDate: createdDate,
-                                modifiedDate: modifiedDate,
-                               });
+              const { createdDate, modifiedDate } = await fetchCommitDates(item);
+              kotlinFiles.push({
+                            name: item.name,
+                            url: item.html_url,
+                            createdDate: createdDate,
+                            modifiedDate: modifiedDate,
+                           });
           }
         }
       }
