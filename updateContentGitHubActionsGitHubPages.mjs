@@ -95,17 +95,19 @@ import fetch from 'node-fetch';
             await fetchKotlinFiles(item.path);
           } else if (item.type === 'file' && item.name.endsWith('.kt')) {
               // Fetch additional details for each file to get dates
-              const fileDetailsResponse = await fetch(item.url, { headers });
-              if (!fileDetailsResponse.ok) {
-                  throw new Error(`Failed to fetch file details for ${item.name}: ${fileDetailsResponse.statusText}`);
-              }
-              const fileDetails = await fileDetailsResponse.json();
-              console.log("Sagar: fileDetails", fileDetails)
+              const commitInfo = await fetch(`https://api.github.com/repos/${username}/${repo}/commits?path=${item.path}`, { headers });
+                if (!commitInfo.ok) {
+                  throw new Error(`Sagar: Failed to fetch commit details for ${filePath}`);
+                }
+                const commits = await commitInfo.json();
+                const createdDate = commits[commits.length - 1].commit.author.date;
+                const modifiedDate = commits[0].commit.author.date;
+              console.log("Sagar: fileDetails", commits)
               kotlinFiles.push({
                                 name: item.name,
                                 url: item.html_url,
-                                createdDate: fileDetails.created_at,
-                                modifiedDate: fileDetails.updated_at,
+                                createdDate: createdDate,
+                                modifiedDate: modifiedDate,
                                });
           }
         }
