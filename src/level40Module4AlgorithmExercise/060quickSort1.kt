@@ -1,7 +1,7 @@
 package level40Module4AlgorithmExercise
 
 /**
- * Explain or demonstrate quickSort algorithm.
+ * Explain or demonstrate quickSort algorithm. (aka, deterministic quicksort or fixed pivot quicksort).
  * Please note that: (Disclaimer, Pre-Note, Conditions, Known data and facts, etc.)
  * The array (input) is not sorted or nearly sorted.
  * The array (input) does not contain any duplicate element.
@@ -11,6 +11,8 @@ fun main() {
     var quickSortFunCount = 0
     var getPartitionIndexFunCount = 0
     var swapElementsFunCount = 0
+    var iterationCount = 0
+    var markerChangeCount = 0
 
     /**
      * Why?
@@ -137,12 +139,15 @@ fun main() {
         getPartitionIndexFunCount++
         val pivot = input[end]
         var partitionIndex = start - 1
-        println(": :getPartitionIndex: $getPartitionIndexFunCount input: ${input.toList()} start: $start end: $end pivot: $pivot initialPartitionIndex: $partitionIndex")
+        println(": :getPartitionIndex: funCount: $getPartitionIndexFunCount input: ${input.toList()} start: $start end: $end pivot: $pivot initialPartitionIndex: $partitionIndex")
         for (j in start..<end) {
+            println(": :getPartitionIndex: iterationCount: ${++iterationCount}")
             if (input[j] <= pivot) {
                 partitionIndex++
+                markerChangeCount++
+                println(": :getPartitionIndex: markerChangeCount: $markerChangeCount")
                 if (partitionIndex != j) {
-                    println(": :getPartitionIndex: $getPartitionIndexFunCount input: ${input.toList()} partitionIndex: $partitionIndex j: $j")
+                    println(": :getPartitionIndex: funCount: $getPartitionIndexFunCount markerChangeCount: $markerChangeCount input: ${input.toList()} partitionIndex: $partitionIndex j: $j")
                     swapElements(input, partitionIndex, j)
                 }
             }
@@ -179,7 +184,7 @@ fun main() {
      */
     fun quickSort(input: IntArray, start: Int, end: Int) {
         quickSortFunCount++
-        println(": :quickSort: $quickSortFunCount input: ${input.toList()} start: $start end: $end")
+        println(": :quickSort: funCount: $quickSortFunCount input: ${input.toList()} start: $start end: $end")
         if (start < end) {
             val partitionIndex = getPartitionIndex(input, start, end)
             println(": :quickSort: $quickSortFunCount input: ${input.toList()} start: $start end: $end partitionIndex received: $partitionIndex endIndexOfLeftPart: ${partitionIndex - 1}")
@@ -192,7 +197,9 @@ fun main() {
     }
 
     val input = intArrayOf(-3, 8, -2, 1, 6, -5, 3, 4)
-    val temp = intArrayOf(9, 8, 6, 5, 7)
-    quickSort(input, 0, input.lastIndex)
-    println(": :main: sortedArray: ${input.toList()}")
+    val temp = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8)
+//    quickSort(input, 0, input.lastIndex)
+    quickSort(temp, 0, temp.lastIndex)
+//    println(": :main: sortedArray: ${input.toList()}")
+    println(": :main: sortedArray: ${temp.toList()}")
 }
