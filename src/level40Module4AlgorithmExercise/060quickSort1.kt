@@ -3,7 +3,7 @@ package level40Module4AlgorithmExercise
 /**
  * Explain or demonstrate quickSort algorithm. (aka, deterministic quicksort or fixed pivot quicksort).
  * Please note that: (Disclaimer, Pre-Note, Conditions, Known data and facts, etc.)
- * The array (input) is not sorted or nearly sorted.
+ * The array (input) is not sorted or nearly sorted. The array is not reversed.
  * The array (input) does not contain any duplicate element.
  */
 fun main() {
