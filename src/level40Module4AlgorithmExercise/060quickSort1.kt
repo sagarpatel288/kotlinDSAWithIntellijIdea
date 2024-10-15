@@ -140,8 +140,15 @@ fun main() {
         val pivot = input[end]
         // We want to start the marker confirmation from the [start] index position for the given range.
         // The [start] index position does not have to be 0 always.
-        // Because, we may get different ranges for the different parts (left, and right) of the given input array.
+        // Because, the [input] array does not have to be a full array always.
+        // We may get different ranges for the different parts (left, and right) of the given input array.
+        // The partition index must be within the given range, between [start] and [end] indices (positions).
         // So, we don't start the marker index from -1. We start from [start] - 1.
+        // For example, if someone asks us to check the arrangement for the seats 8 to 16,
+        // we start marking the check from the seat number 8, not from 0.
+        // That's why our partitionIndex (a.k.a., a markerIndex) starts from [start] - 1, and not from -1.
+        // [start - 1] indicates that we have not confirmed and tested ok any seat yet, but when we do,
+        // the first seat will be [start], which can be 0, but it does not have to be 0 always.
         var partitionIndex = start - 1
         println(": :getPartitionIndex: funCount: $getPartitionIndexFunCount input: ${input.toList()} start: $start end: $end pivot: $pivot initialPartitionIndex: $partitionIndex")
         for (j in start..<end) {
