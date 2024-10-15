@@ -333,10 +333,12 @@ fun main() {
         }
     }
 
-    val input = intArrayOf(-3, 8, -2, 1, 6, -5, 3, 4)
-    val temp = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8)
-//    quickSort(input, 0, input.lastIndex)
-    quickSort(temp, 0, temp.lastIndex)
-//    println(": :main: sortedArray: ${input.toList()}")
-    println(": :main: sortedArray: ${temp.toList()}")
+    fun getInputArray(): IntArray {
+//        intArrayOf(1, 2, 3, 4, 5, 6, 7, 8)
+        return intArrayOf(-3, 8, -2, 1, 6, -5, 3, 4)
+    }
+
+    val input = getInputArray()
+    quickSort(input, 0, input.lastIndex)
+    println(": :main: sortedArray: ${input.toList()}")
 }
