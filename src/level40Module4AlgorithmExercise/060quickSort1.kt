@@ -285,13 +285,20 @@ fun main() {
      *
      * 2.1. However, a special observation is, we don't create new separate array to achieve the same. Instead, we use
      * indices. We use the range. We know, that 7 is at its final and correct position. So now, we need to do the same
-     * exercise for the indices, ranging from 0 to 1 and for the indices, ranging from index position 3 to 4.
+     * exercise for the indices, ranging from the index position 0 to 1, that is [6, 5],
+     * and for the indices, ranging from the index position 3 to 4, that is [8, 9].
      *
      * 2.1.1. So, what we use here is, a range. We fix one element at its final and correct position in the sorted array,
      * then we need remaining parts, remaining ranges. So that, we can do the same exercise for each part (range), and
      * fix each element at its final and correct position in the sorted array.
      *
-     * And with each iteration, this range can have different start and end indices.
+     * That means, we would do the same exercise (a.k.a., recursion), for the remaining part [6, 5] and [8, 9].
+     * The array up to this point is: [6, 5, 7, 8, 9].
+     * We can see that the left part, [6, 5] has the start index position 0 and the end-index position 1.
+     * And we can see that the right part, [8, 9] has the start index position 3 and the end-index position 4.
+     *
+     * We can see that with each iteration, we can get different ranges, and
+     * these ranges can have different start and end indices.
      * To know this start and end indices, we have these [start] and [end] parameters here!
      *
      * TL;DR: We need [start], and [end]:
