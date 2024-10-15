@@ -175,12 +175,130 @@ fun main() {
      * The partition index is an index that has been resolved and marked as tested okay.
      * It conveys that the element at partition index is in its final and correct position in the final sorted array.
      * It means, we get two remaining parts to resolve:
-     * The left part, start index to partitionIndex - 1 and the right part, partitionIndex + 1 to end index.
+     * The left part, that ranges from the start index to partitionIndex - 1 and
+     * the right part, that ranges from the partitionIndex + 1 to the end index.
      * We recursively call this function for each part until the size of a sub-array becomes 1.
      * However, we do not create separate arrays.
      * The partition function adjusts (modifies) the original array using indices only.
      * So, to determine whether the range is valid or not, we compare the start and end indices.
      * The start index will be less than then end index if the range contains at least 2 elements.
+     * Also, in addition to validating the range, we use [start] and [end] indices to select a pivot within this range,
+     * to compare the elements within this range,
+     * to fix the final and correct position of the selected pivot within this range,
+     * and to get a partition index within this range.
+     *
+     * More detailed elaboration:
+     *
+     * Why [input], [start], and [end] parameters?
+     *
+     * The answer lies in understanding what we do in the quick sort algorithm.
+     * So, the answer is: We need them to do whatever we do in the quick sort algorithm.
+     *
+     * So, what do we do in the quicksort algorithm?
+     *
+     * We sort the input array using the comparison.
+     * For comparison, we select a pivot (the reference).
+     *
+     * And what do we do in the comparison?
+     * If we find that the element is less than or equal to the pivot, we keep the element to the left of the pivot.
+     * If we find that the element is greater than the pivot, we keep the element to the right of the pivot.
+     *
+     * Why and how?
+     * Why?
+     * In a sorted array, a smaller element sits left to the greater element.
+     * And a greater element, sits right to the smaller element.
+     *
+     * How do we do this? Please elaborate more on this.
+     *
+     * We select a pivot. We compare each element with the pivot.
+     * To compare each element, we iterate through the given range.
+     *
+     * We take a marker index whose value indicates a position that confirms a correct and sorted arrangement up to that point.
+     * We take an iteration index, whose job will be to compare each element one by one with the pivot.
+     *
+     * We want to make sure that the elements smaller than or equal to the pivot element, stay to the left of the pivot.
+     * If we find a greater element than the pivot, we continue our iteration to find an element that is smaller than
+     * or equal to the pivot. If we find such an element, smaller than or equal to the pivot, we swap its position with
+     * the greater element. This exercise ensures that a smaller element stays left to the greater element.
+     *
+     * Difficult to visualize? Let us understand it with an example:
+     *
+     * For example: Suppose the input is: [9, 8, 6, 5, 7]
+     * We select 7 as a pivot. We compare 9 with 7 and learn that it is greater than the pivot.
+     * The marker index does not confirm the first position (index) as tested ok.
+     * So, we continue our iteration to find an element that is smaller than or equal to the pivot.
+     * Next, we find 8, which is also greater than the pivot.
+     * So, we continue moving forward the iteration index.
+     * Next, we find 6, which is indeed smaller than the pivot.
+     * So, we swap its position with the greater element that we found earlier.
+     * The marker index gives the past position and the iteration index gives the current position.
+     * Using it, we swap the positions of the greater and the smaller elements.
+     * So, 6 gets the position of 9, which is at index 0, and 9 gets the old position of 6, which is at index 2.
+     * The marker index marks the first index (0) as confirmed and tested ok.
+     * So, the array becomes: [6, 8, 9, 5, 7].
+     * The marker confirms that on the first index position (0), the element is smaller than or equal to the pivot.
+     * The marker stays at first index position that confirms that up to this point, all the elements are either
+     * smaller than or equal to the pivot.
+     * The iteration index continues the journey till the end of the given range.
+     *
+     * Later, the iteration index finds one more smaller element (5) at index (3) than the pivot (7).
+     * The marker has confirmed and tested the first index position (0) ok, now its second index position (1)'s turn.
+     * So, we swap the positions of 8 and 5.
+     * The array was: [6, 8, 9, 5, 7].
+     * The array becomes: [6, 5, 9, 8, 7].
+     * The marker confirms that on the second index position (1), the element is smaller than or equal to the pivot.
+     * The marker stays at the second index position (1) that confirms that up to this point, all the elements are either
+     * smaller than or equal to the pivot.
+     * And the iteration index has already finished its end-1 coverage.
+     *
+     * If we observe, we kept expanding the region of the elements that are smaller than or equal to the pivot, and
+     * we kept pushing the elements that are greater than the pivot to the boundary line.
+     *
+     * By the time the iteration index reaches end-1 index, we know that the element after marker is either equal to the
+     * pivot element or greater than the pivot element.
+     *
+     * So, the exercise confirms that the elements after the marker index, are either equal to or greater than
+     * the pivot element, except the last element that we have selected as a pivot.
+     *
+     * So, if we swap the pivot element with marker + 1, we can confirm that all the elements to the left of the pivot
+     * are smaller than or equal to the pivot element, and all the elements to the right of the pivot, are greater than
+     * the pivot.
+     *
+     * How? Is it? Difficult to visualize? Let us do it and see.
+     *
+     * What is the current marker position? Index 2, right?
+     * Let us swap the marker + 1 position with the pivot position.
+     * The marker position was at index 2, so the position we need to swap with the pivot is index 3 (element 9).
+     * So, the current array [6, 5, 9, 8, 7] becomes [6, 5, 7, 8, 9].
+     *
+     * A couple of magical observations here:
+     * 1. In the end of this exercise for the given range, the pivot element finds its final and correct position in the
+     * sorted array. We can see that, the pivot element 7 is at index 2 and in the final sorted array [5, 6, 7, 8, 9]
+     * also, the position of the element 7 is at index 2. It means, the exercise fixes the pivot element at its final
+     * and correct position.
+     *
+     * 2. We can also see that all the elements smaller than or equal to the pivot element are to the left of the pivot,
+     * and all the elements greater than the pivot element are to the right of the pivot.
+     *
+     * Essentially, what we get here is: Two parts. And if we consider each part as a separate array (hypothetically),
+     * and repeat the same exercise for it, we would get one more element at its final and correct position.
+     *
+     * 2.1. However, a special observation is, we don't create new separate array to achieve the same. Instead, we use
+     * indices. We use the range. We know, that 7 is at its final and correct position. So now, we need to do the same
+     * exercise for the indices, ranging from 0 to 1 and for the indices, ranging from index position 3 to 4.
+     *
+     * 2.1.1. So, what we use here is, a range. We fix one element at its final and correct position in the sorted array,
+     * then we need remaining parts, remaining ranges. So that, we can do the same exercise for each part (range), and
+     * fix each element at its final and correct position in the sorted array.
+     *
+     * And with each iteration, this range can have different start and end indices.
+     * To know this start and end indices, we have these [start] and [end] parameters here!
+     *
+     * TL;DR: We need [start], and [end]:
+     * To get a partition index for the given range.
+     * And we need [input] to iterate through it, so that we can compare each element with a pivot, and swap positions
+     * in such a way that all the elements smaller than or equal to the pivot, stays left to the pivot, and all the
+     * elements greater than the pivot, stays right to the pivot.
      */
     fun quickSort(input: IntArray, start: Int, end: Int) {
         quickSortFunCount++
