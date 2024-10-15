@@ -6,7 +6,7 @@ import kotlin.random.Random
  * Explain (demonstrate, illustrate) the randomized quicksort algorithm.
  * OR:
  * Sort the given input array using the quicksort algorithm where (or handle the case when)
- * the input array can be already sorted, either in ascending or in descending order.
+ * the input array can be already sorted, either in ascending or in descending order (so, it can be a reversed array).
  * OR:
  * Sort the given input array using the quicksort algorithm and reduce the possibility
  * of worst-case runtime complexity O(n squared) to O(n log n).
@@ -26,14 +26,14 @@ import kotlin.random.Random
  * This allows us to reach the base case, where the problem size is 1, faster.
  * Consequently, we achieve a shallower recursion depth.
  *
- * How? Because, each recursion reduces the problem size faster (roughly at the rate of n2.).
+ * How? Because, each recursion reduces the problem size faster (roughly at the rate of n/2.).
  * So, we reach the base condition (where the problem size is 1) faster.
  *
  * Technically, when we use a random pivot and obtain a balanced partition,
  * we end up with roughly two equal parts of the original problem.
  * This means the random pivot divides the problem roughly as n/2.
  * According to the recursion relationship, we achieve log n levels (a logarithmic depth),
- * resulting in an overall runtime complexity of O(n log n).
+ * resulting in an overall runtime complexity of O(n log n) on an average.
  *
  * Conversely, if we use a fixed pivot position
  * (a.k.a. a deterministic, definite, or a predictive pivot position. E.g., either always the first or the last),
@@ -91,7 +91,8 @@ import kotlin.random.Random
  * |   4  	|           [1]          	|        1        	|     []    	|     []     	|         0         	|        3        	|
  * |   5  	|           [4]          	|        4        	|     []    	|     []     	|         0         	|        3        	|
  *
- * To compare the visualization,
+ * To visualize the comparison, to understand how [1, 2] and [4, 5] fall as having the same recursive depth (2), and
+ * to understand how come [1] and [4] have the same recursive depth [3], please check the below images:
  *
  * @see [quickSortPartitionImage01](res/level40Module4AlgorithmExercise/quickSortPartitionImage01.png)
  * @see [quickSortPartitionImage02](res/level40Module4AlgorithmExercise/quickSortPartitionImage02.png)
@@ -116,6 +117,8 @@ fun main() {
         println(": :getPartitionIndex: funCount: ${++getPartitionIndexFunCount}")
         // The `until` param of Random.nextInt(from, until) is exclusive (not included). Hence, we do: +1 to include it.
         val randomIndex = Random.nextInt(startIndex, endIndex + 1)
+        // We swap the random index-position with the last index-position.
+        // So that, everything else, all the other logic, will remain same as the deterministic (fixed pivot) quicksort.
         swapElements(input, randomIndex, endIndex)
         val pivot = input[endIndex]
         var markerIndex = startIndex - 1
@@ -142,10 +145,12 @@ fun main() {
         }
     }
 
-    val input = intArrayOf(-3, 8, -2, 1, 6, -5, 3, 4)
-    val temp = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8)
-//    quickSort(input, 0, input.lastIndex)
-    quickSort(temp, 0, temp.lastIndex)
-//    println(": :main: sortedArray: ${input.toList()}")
-    println(": :main: sortedArray: ${temp.toList()}")
+    fun getInput(): IntArray {
+//        intArrayOf(-3, 8, -2, 1, 6, -5, 3, 4)
+        return intArrayOf(1, 2, 3, 4, 5, 6, 7, 8)
+    }
+
+    val input = getInput()
+    quickSort(input, 0, input.lastIndex)
+    println(": :main: randomized quicksort: sortedArray: ${input.toList()}")
 }
