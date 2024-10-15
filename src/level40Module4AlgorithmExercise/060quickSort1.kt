@@ -49,7 +49,7 @@ fun main() {
      * it indicates that the range or region of the kid's area is expanding. Right?
      * Immediately following this area, we encounter the adult’s area. Right?
      * And then, it is up to us to decide whether to consider the pivot (reference) element
-     * as part of the kid’s area or the adult area. OK?
+     * as a part of the kid’s area or the adult area. OK?
      */
     fun swapElements(input: IntArray, positionOne: Int, positionTwo: Int) {
         swapElementsFunCount++
