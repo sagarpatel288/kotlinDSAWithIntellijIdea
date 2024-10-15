@@ -318,9 +318,9 @@ fun main() {
     fun quickSort(input: IntArray, start: Int, end: Int) {
         quickSortFunCount++
         println(": :quickSort: funCount: $quickSortFunCount input: ${input.toList()} start: $start end: $end")
-        // start < end confirms that the [input] array has more than one element.
         // start == end means the [input] array has one element.
         // start > end means, an invalid range, or an empty array.
+        // start < end confirms that the [input] array has more than one element.
         // start < end is our base condition.
         if (start < end) {
             val partitionIndex = getPartitionIndex(input, start, end)
