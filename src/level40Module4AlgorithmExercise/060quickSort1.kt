@@ -137,6 +137,9 @@ fun main() {
      */
     fun getPartitionIndex(input: IntArray, start: Int, end: Int): Int {
         getPartitionIndexFunCount++
+        // We select the last element as a pivot element here.
+        // It means, we will compare all the other elements between [start] and [end] range, with this pivot element.
+        // We don't want to compare the pivot element with itself. So, the comparison will go up to <end.
         val pivot = input[end]
         // We want to start the marker confirmation from the [start] index position for the given range.
         // The [start] index position does not have to be 0 always.
