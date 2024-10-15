@@ -296,6 +296,8 @@ fun main() {
      *
      * TL;DR: We need [start], and [end]:
      * To get a partition index for the given range.
+     * To find how much, how long, from when and up to which point we need to iterate through [input] to avoid repetition.
+     *
      * And we need [input] to iterate through it, so that we can compare each element with a pivot, and swap positions
      * in such a way that all the elements smaller than or equal to the pivot, stays left to the pivot, and all the
      * elements greater than the pivot, stays right to the pivot.
