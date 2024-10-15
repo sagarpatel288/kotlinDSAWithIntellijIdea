@@ -154,6 +154,11 @@ fun main() {
         // the first seat will be [start], which can be 0, but it does not have to be 0 always.
         var partitionIndex = start - 1
         println(": :getPartitionIndex: funCount: $getPartitionIndexFunCount input: ${input.toList()} start: $start end: $end pivot: $pivot initialPartitionIndex: $partitionIndex")
+
+        // This iteration compares all the elements between the [start] and the [end] range, with our pivot element.
+        // However, we have taken the last element as our pivot element,
+        // and we don't want to compare the pivot element with itself.
+        // So, the iteration goes up to <end, instead of <=end.
         for (j in start..<end) {
             println(": :getPartitionIndex: iterationCount: ${++iterationCount}")
             if (input[j] <= pivot) {
