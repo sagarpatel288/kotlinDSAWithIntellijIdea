@@ -302,6 +302,7 @@ fun main() {
      * To know this start and end indices, we have these [start] and [end] parameters here!
      *
      * TL;DR: We need [start], and [end]:
+     * To decide a pivot element within this range.
      * To get a partition index for the given range.
      * To find how much, how long, from when and up to which point we need to iterate through [input] to avoid repetition.
      * To decide the base condition for a recursion process or for an iterative process.
