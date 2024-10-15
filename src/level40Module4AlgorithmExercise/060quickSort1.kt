@@ -304,6 +304,12 @@ fun main() {
      * TL;DR: We need [start], and [end]:
      * To get a partition index for the given range.
      * To find how much, how long, from when and up to which point we need to iterate through [input] to avoid repetition.
+     * To decide the base condition for a recursion process or for an iterative process.
+     * For example,
+     * [start] == [end] means the [input] array has one element.
+     * [start] > [end] means, an invalid range, or an empty array.
+     * [start] < [end] means, the [input] has more than one element.
+     * [start] < [end] is our base condition.
      *
      * And we need [input] to iterate through it, so that we can compare each element with a pivot, and swap positions
      * in such a way that all the elements smaller than or equal to the pivot, stays left to the pivot, and all the
@@ -312,6 +318,10 @@ fun main() {
     fun quickSort(input: IntArray, start: Int, end: Int) {
         quickSortFunCount++
         println(": :quickSort: funCount: $quickSortFunCount input: ${input.toList()} start: $start end: $end")
+        // start < end confirms that the [input] array has more than one element.
+        // start == end means the [input] array has one element.
+        // start > end means, an invalid range, or an empty array.
+        // start < end is our base condition.
         if (start < end) {
             val partitionIndex = getPartitionIndex(input, start, end)
             println(": :quickSort: $quickSortFunCount input: ${input.toList()} start: $start end: $end partitionIndex received: $partitionIndex endIndexOfLeftPart: ${partitionIndex - 1}")
