@@ -138,6 +138,10 @@ fun main() {
     fun getPartitionIndex(input: IntArray, start: Int, end: Int): Int {
         getPartitionIndexFunCount++
         val pivot = input[end]
+        // We want to start the marker confirmation from the [start] index position for the given range.
+        // The [start] index position does not have to be 0 always.
+        // Because, we may get different ranges for the different parts (left, and right) of the given input array.
+        // So, we don't start the marker index from -1. We start from [start] - 1.
         var partitionIndex = start - 1
         println(": :getPartitionIndex: funCount: $getPartitionIndexFunCount input: ${input.toList()} start: $start end: $end pivot: $pivot initialPartitionIndex: $partitionIndex")
         for (j in start..<end) {
