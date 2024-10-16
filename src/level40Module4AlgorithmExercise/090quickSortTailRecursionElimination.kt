@@ -88,7 +88,7 @@ fun main() {
                 println(": :quickSort: right recursion finished for: input: ${input.toList()} start: $start end: $end partitionIndex: $partitionIndex")
 
                 // To handle the left part in the while loop, we need to update the `end` index/point/position.
-                // Once we update the `start` position, the control goes to the while loop with the updated values.
+                // Once we update the `end` position, the control goes to the while loop with the updated values.
                 end = partitionIndex - 1
                 println(": :quickSort: right recursion finished. new end? $end")
             }
