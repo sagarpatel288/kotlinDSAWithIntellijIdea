@@ -2,7 +2,15 @@ package level40Module4AlgorithmExercise
 
 import kotlin.random.Random
 
+/**
+ * Image reference: res/level40Module4AlgorithmExercise/RandomizedQuicksortTailCallOptimizationFlowDiagram.svg
+ */
 fun main() {
+
+    var quickSortFunCount = 0
+    var whileCount = 0
+    var getPartitionFunCount = 0
+    var swapFunCount = 0
 
     fun swapElements(input: IntArray, positionOne: Int, positionTwo: Int) {
         val temp = input[positionOne]
@@ -28,10 +36,13 @@ fun main() {
     }
 
     fun quickSort(input: IntArray, startIndex: Int, endIndex: Int) {
+        println(": :quickSort: funCount: ${++quickSortFunCount} input: ${input.toList()} startIndex: $startIndex endIndex: $endIndex")
         var start = startIndex
         var end = endIndex
         while (start < end) {
+            println(": :quickSort: whileCount: ${++whileCount} start: $start end: $end")
             val partitionIndex = getPartitionIndex(input, start, end)
+            println(": :quickSort: partitionIndex: $partitionIndex start: $start end: $end")
             if (partitionIndex - start < end - partitionIndex) {
                 quickSort(input,  start, partitionIndex - 1)
                 start = partitionIndex + 1
