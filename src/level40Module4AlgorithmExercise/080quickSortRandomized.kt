@@ -117,8 +117,20 @@ fun main() {
         println(": :getPartitionIndex: funCount: ${++getPartitionIndexFunCount}")
         // The `until` param of Random.nextInt(from, until) is exclusive (not included). Hence, we do: +1 to include it.
         val randomIndex = Random.nextInt(startIndex, endIndex + 1)
+        // Why do we swap the random index with the end index?
         // We swap the random index-position with the last index-position.
         // So that, everything else, all the other logic, will remain same as the deterministic (fixed pivot) quicksort.
+        // 1. If you remember, we select the pivot element from the selected random index, right?
+        // 2. And then, we compare all the other elements with the pivot, right?
+        // 3. If we swap the random index with the end index, we can simply iterate from start < end,
+        // where end will be our pivot, and we don't compare the pivot with itself, right?
+        // 4. Now, if we don't swap the random index position with the end index position,
+        // we have to add a condition during the iteration to avoid unnecessary swapping.
+        // E.g., if i == randomIndex, skip.
+        // And we need to handle proper adjustment to the iteration index and the marker (partition) index as well.
+        // E.g., whether to increase the marker (partition) index or not, if yes, then in which condition, etc.
+        // 4.1 That particular if condition will be executed for n times, where n is the size of the iteration (start < end).
+        // 4.2. We can avoid this unnecessary load by swapping the random index with the end index.
         swapElements(input, randomIndex, endIndex)
         val pivot = input[endIndex]
         var markerIndex = startIndex - 1
