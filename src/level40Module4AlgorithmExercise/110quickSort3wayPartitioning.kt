@@ -105,7 +105,7 @@ fun main() {
      *    Because, the card is not unknown anymore, and all the blue card should stay to the left of the blue marker.
      * 4. If we find that a card belongs to the middle region, we don't swap it with any other card.
      *    However, we increase the middle marker. Because, the card is not unknown anymore.
-     * 5. When we find that the middle marker crosses the red marker, we should end the iteration.
+     * 5. When we find that the middle marker crosses the red marker, we should stop the iteration.
      */
     fun quickSort(input: IntArray, start: Int, end: Int) {
         if (start >= end) return
@@ -113,32 +113,32 @@ fun main() {
         val randomIndex = Random.nextInt(start, end + 1)
         swapElements(input, randomIndex, end)
         val pivot = input[end]
-        var lessThan = start
-        var greaterThan = end
-        var mid = start
-        println(": :quickSort: input: after random pivot: ${input.toList()} pivot: $pivot lessThan: $lessThan greaterThan: $greaterThan")
-        while (mid <= greaterThan) {
-            println(": :quickSort: input: loop: ${input.toList()} mid: $mid lessThan: $lessThan greaterThan: $greaterThan start: $start end: $end")
+        var lessThanMarker = start
+        var greaterThanMarker = end
+        var currentPointer = start
+        println(": :quickSort: input: after random pivot: ${input.toList()} pivot: $pivot lessThan: $lessThanMarker greaterThan: $greaterThanMarker")
+        while (currentPointer <= greaterThanMarker) {
+            println(": :quickSort: input: loop: ${input.toList()} mid: $currentPointer lessThan: $lessThanMarker greaterThan: $greaterThanMarker start: $start end: $end")
             when {
-                input[mid] < pivot -> {
-                    println(": :quickSort: lessThan: $lessThan input: ${input.toList()} mid: $mid")
-                    swapElements(input, lessThan, mid)
-                    lessThan++
-                    mid++
+                input[currentPointer] < pivot -> {
+                    println(": :quickSort: lessThan: $lessThanMarker input: ${input.toList()} mid: $currentPointer")
+                    swapElements(input, lessThanMarker, currentPointer)
+                    lessThanMarker++
+                    currentPointer++
                 }
-                input[mid] > pivot -> {
-                    println(": :quickSort: greaterThan: $greaterThan input: ${input.toList()} mid: $mid")
-                    swapElements(input, mid, greaterThan)
-                    greaterThan--
+                input[currentPointer] > pivot -> {
+                    println(": :quickSort: greaterThan: $greaterThanMarker input: ${input.toList()} mid: $currentPointer")
+                    swapElements(input, currentPointer, greaterThanMarker)
+                    greaterThanMarker--
                 }
                 else -> {
-                    mid++
-                    println(": :quickSort: mid: $mid")
+                    currentPointer++
+                    println(": :quickSort: mid: $currentPointer")
                 }
             }
         }
-        quickSort(input, start, lessThan - 1)
-        quickSort(input, greaterThan + 1, end)
+        quickSort(input, start, lessThanMarker - 1)
+        quickSort(input, greaterThanMarker + 1, end)
     }
 
     fun getInput(): IntArray {
