@@ -120,8 +120,11 @@ fun main() {
         val randomIndex = Random.nextInt(start, end + 1)
         swapElements(input, randomIndex, end)
         val pivot = input[end]
+        // The `lessThanMarker` confirms that all the elements less than the pivot are to the left side of it.
         var lessThanMarker = start
+        // The `greaterThanMarker` confirms that all the elements greater than the pivot are to the right side of it.
         var greaterThanMarker = end
+        // The `currentPointer` represents the current unorganized position b/w the given range from start to end.
         var currentPointer = start
         println(": :quickSort: input: -----------------after random pivot: ${input.toList()} pivot: $pivot lessThan: $lessThanMarker greaterThan: $greaterThanMarker")
         while (currentPointer <= greaterThanMarker) {
@@ -132,7 +135,11 @@ fun main() {
                     if (currentPointer != lessThanMarker && input[currentPointer] != input[lessThanMarker]) {
                         swapElements(input, lessThanMarker, currentPointer)
                     }
+                    // The increment to the `lessThanMarker` confirms that all the elements less than the pivot stays
+                    // to the left side of the `lessThanMarker`.
                     lessThanMarker++
+                    // The increment to the `currentPointer` confirms that we have organized the current position,
+                    // and now it is time to move on.
                     currentPointer++
                     println(": :quickSort: after swap: lessThan: $lessThanMarker currentPointer: $currentPointer input: ${input.toList()}")
                 }
@@ -141,10 +148,19 @@ fun main() {
                     if (input[currentPointer] != input[greaterThanMarker]) {
                         swapElements(input, currentPointer, greaterThanMarker)
                     }
+                    // The decrement of the `greaterThanMarker` confirms that all the elements greater than the pivot,
+                    // stays to the right side of the `greaterThanMarker`.
                     greaterThanMarker--
+                    // Why don't we increment the currentPointer?
+                    // Because we have not checked the element we received from the old position of the `greaterThanMarker`
+                    // during the swapping procedure, we have yet to unbox the gift.
+                    // We have sent our well-known gift (which is greater than the pivot),
+                    // but we are unaware of what we have received in return!
                     println(": :quickSort: after swap: greaterThan: $greaterThanMarker currentPointer: $currentPointer input: ${input.toList()}")
                 }
                 else -> {
+                    // The increment to the `currentPointer` confirms that we have organized the current position,
+                    // and now it is time to move on.
                     currentPointer++
                     println(": :quickSort: elseEqual: Now, current: $currentPointer")
                 }
