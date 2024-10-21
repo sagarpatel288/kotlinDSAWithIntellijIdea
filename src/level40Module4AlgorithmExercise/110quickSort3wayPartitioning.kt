@@ -93,7 +93,8 @@ fun main() {
      * So, the array becomes: [blue, blue, white, white, red, red].
      * The blue marker is at index 2.
      * The red marker is at index 3.
-     * The middle or current marker is at index ?. If you notice, once the middle or current marker crosses the red marker, there is no
+     * The middle or current marker is at index ?.
+     * If you notice, once the middle or current marker crosses the red marker, there is no
      * unknown value left!! We have already finished the iteration and sorted the cards!! (Magic!)!.
      *
      * 1. We start with middle or current and blue markers at the first index (start) and the red marker at the last index (end).
@@ -106,6 +107,12 @@ fun main() {
      * 4. If we find that a card belongs to the middle region, we don't swap it with any other card.
      *    However, we increase the middle or current marker. Because, the card is not unknown anymore.
      * 5. When we find that the middle or current marker crosses the red marker, we should stop the iteration.
+     *
+     * Now, when we have numbers, less than, equal to, and greater than variables instead of colors,
+     * the concept remains the same, but at the end of the process, similar to the randomized quicksort,
+     * we fix the final and correct position of a pivot element.
+     *
+     * And then, we repeat the process for the left part and the right part, until the range contains only 1 element.
      */
     fun quickSort(input: IntArray, start: Int, end: Int) {
         if (start >= end) return
