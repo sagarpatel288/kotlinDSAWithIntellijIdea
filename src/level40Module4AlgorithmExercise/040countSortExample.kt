@@ -250,6 +250,17 @@ fun main() {
 
         println(": :countSort: maxValue: $maxValue minValue: $minValue")
 
+        /**
+         * If [minValue] and [maxValue] are equal,
+         * It means that all the elements in the given input array hold the same value.
+         * In that case, we don't need to do anything.
+         * We can say that the given input array is already sorted.
+         *
+         */
+        if (minValue == maxValue) {
+            println(": :countSort: ${array.toList()}")
+            return
+        }
 
         /**
          * This is when the guard draws columns on the wall.
