@@ -2,8 +2,26 @@ package level40Module4AlgorithmExercise
 
 import kotlin.random.Random
 
+/**
+ * Explain and demonstrate:
+ * 3-way-partitioning or Dutch National Flag partitioning in quicksort.
+ * OR
+ * Sort the given array where majority elements are duplicate.
+ * OR
+ * Sort the given array using 3-way-partitioning or Dutch National Flag partitioning in quicksort.
+ * OR
+ * Sort the given array where all the elements less than a pivot element stay to the left side of the pivot,
+ * all the elements equal to the pivot elements stay in the middle,
+ * and all the elements greater than the pivot stay to the right side of the pivot.
+ */
 fun main() {
 
+    /**
+     * We have already explained swapping.
+     * @see
+     * [quickSort](src/level40Module4AlgorithmExercise/060quickSort1.kt)
+     * [level40Module4AlgorithmExercise.060quickSort1.kt.main]()
+     */
     fun swapElements(input: IntArray, positionOne: Int, positionTwo: Int) {
         val temp = input[positionOne]
         input[positionOne] = input[positionTwo]
