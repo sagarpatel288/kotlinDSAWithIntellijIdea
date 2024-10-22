@@ -197,6 +197,7 @@ fun main() {
         /**
          * If the size of the input array is less than or equal to 1, print the input array and return.
          * We print the input as an indication that the array which has only one element, is already sorted!
+         * There is only 1 kid to watch the movie! We don't need to establish a sorting order in that case!
          */
         if (array.size <= 1) {
             println(array.toList())
@@ -204,6 +205,8 @@ fun main() {
         }
 
         /**
+         * This is when the guard gives the `Youngest` label to the first kid.
+         *
          * First, we find the `minValue` and the `maxValue`. Why?
          * We find the `minValue` and the `maxValue` to get the range.
          * For our example, [-5, -3, -4, -5, 1, 0, 1, 0, 2, 1], the minValue is -5.
@@ -214,6 +217,8 @@ fun main() {
         var minValue = array[0]
 
         /**
+         * This is when the guard gives the `Oldest` label to the first kid.
+         *
          * We find the `minValue` and the `maxValue`. Why?
          * We find the `minValue` and the `maxValue` to get the range.
          * For our example, [-5, -3, -4, -5, 1, 0, 1, 0, 2, 1], the maxValue is 2.
@@ -224,6 +229,10 @@ fun main() {
         var maxValue = array[0]
 
         /**
+         * This is when the guard compares each kid with the selected kid
+         * and transfers the `Youngest` label if he finds the younger kid
+         * and transfers the `Oldest` label when he finds the older kid.
+         *
          * With a single iteration, we find both the [minValue] and the [maxValue].
          * If we use `array.minOrNull()` and `array.maxOrNull()`, then we iterate the input array two times.
          *
@@ -243,6 +252,8 @@ fun main() {
 
 
         /**
+         * This is when the guard draws columns on the wall.
+         *
          * Based on the `minValue` and `maxValue`, we get a range (size).
          * Based on the size, we create a countArray.
          *
@@ -295,6 +306,8 @@ fun main() {
 
 
         /**
+         * This is when the kids move into their respective columns based on their age in the story.
+         *
          * Key-point:
          * What?
          * Map (convert) each element of the input to an index (such that the index represents the original element),
@@ -460,6 +473,8 @@ fun main() {
         //endregion
 
         /**
+         * This is when the guard writes cumulative number in front of each column.
+         *
          * Key-Point:
          * What?
          * Cumulative count.
@@ -533,6 +548,8 @@ fun main() {
         println(": :countSort: countArray after position shifting: ${countArray.toList()}")
 
         /**
+         * This is the theater or the seats in the story.
+         *
          * Take the value from the original array and position from the count array.
          *
          * Complexity:
@@ -541,6 +558,9 @@ fun main() {
         val sortedArray = IntArray(array.size)
 
         /**
+         * This is when the guard calls each kid, starting from the oldest column.
+         * This is when the guard starts iterating from the last column and allocates seats.
+         *
          * Key-point:
          * What?
          * Start taking the values from the right side of the original array to make it a stable solution.
@@ -635,6 +655,7 @@ fun main() {
             // Place the value at the position in the resulting sort array.
             sortedArray[indexPosition] = value
             // Reduce the repetition by 1 as we have already taken 1 occurrence/position.
+            // This represents the guard reducing the cumulative number after allocating the seat in the story.
             countArray[value - minValue]--
         }
 
