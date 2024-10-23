@@ -92,6 +92,7 @@ fun main() {
         var currentIndexOfRight = mid + 1
         var currentIndexOfSortedArray = 0
 
+        // This while loop is to compare and then insert the elements.
         while (currentIndexOfLeft <= mid && currentIndexOfRight <= endIndex) {
             println("\n :conquer: incomingArray: ${array.toList()} :tempArray: ${tempArray.toList()} startIndex: $startIndex currentIndexOfLeft: $currentIndexOfLeft mid: $mid endIndex: $endIndex currentIndexOfRight: $currentIndexOfRight leftElement: ${array[currentIndexOfLeft]} rightElement: ${array[currentIndexOfRight]} currentIndexOfSortedArray: $currentIndexOfSortedArray \n")
             if (array[currentIndexOfLeft] <= array[currentIndexOfRight]) {
@@ -102,17 +103,27 @@ fun main() {
         }
 
         println(" :conquer: after the first while loop: before adding the remaining left part: tempArray: ${tempArray.toList()}")
+
+        // Note that these two while loops are outside (after) the first while loop.
+        // This while loop is to insert the remaining elements without comparison,
+        // because the right part has finished the iteration.
+        // Hence, we need to add all the remaining elements of the left part.
         while (currentIndexOfLeft <= mid) {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfLeft++]
         }
 
         println(" :conquer: after adding the remaining left part: before adding the remaining right part: tempArray: ${tempArray.toList()}")
+        // Similar to the above while loop, this while loop is to insert elements without comparison.
+        // Because, the left part has finished the iteration.
+        // Hence, we need to add all the remaining elements of the right part.
         while (currentIndexOfRight <= endIndex) {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfRight++]
         }
 
        println(" :conquer: after if-else and all the while loops: sorted tempArray: ${tempArray.toList()} \n")
 
+        // We have inserted the elements in sorted order in the temp array.
+        // Now, we need to use this temp array to insert the elements in sorted order in the original array.
         for (i in tempArray.indices) {
             print(" :conquer: copying from the tempArray: ${tempArray.toList()} startIndex: $startIndex i: $i \n")
             // Why `startIndex + i`? Because the tempArray will always start with the index 0,
