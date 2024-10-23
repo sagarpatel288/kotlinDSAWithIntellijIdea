@@ -165,6 +165,16 @@ fun main() {
                 partitionIndex++
                 markerChangeCount++
                 println(": :getPartitionIndex: markerChangeCount: $markerChangeCount")
+                // Assume a movie theater where we expect the seating arrangement from younger to older.
+                // Assume that there are two guards. 1. The partitionIndex. 2. The iteration j.
+                // They both start the iteration from the same point, together, which is the `start`.
+                // Once the partitionIndex checks the seat (tested OK or not-OK, it doesn't matter for j),
+                // he will inform the same to the iteration j, and iteration j will move on.
+                // If the partitionIndex finds an older kid on the seat instead of a younger kid, he would stop there,
+                // waiting for the iteration j to find any younger kid that they can exchange with the older kid.
+                // That's why the iteration j continues the journey, while the partitionIndex can lag behind.
+                // And if the partitionIndex is behind the iteration j, it means the partitionIndex
+                // has found an older kid that we need to exchange if the iteration j finds a younger kid.
                 if (partitionIndex != j) {
                     println(": :getPartitionIndex: funCount: $getPartitionIndexFunCount markerChangeCount: $markerChangeCount input: ${input.toList()} partitionIndex: $partitionIndex j: $j")
                     swapElements(input, partitionIndex, j)
