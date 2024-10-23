@@ -145,6 +145,9 @@ fun main() {
         // The `currentPointer` represents the current unorganized position b/w the given range from start to end.
         var currentPointer = start
         println(": :quickSort: input: -----------------after random pivot: ${input.toList()} pivot: $pivot lessThan: $lessThanMarker greaterThan: $greaterThanMarker")
+
+        // The while loop fixes the final and correct position of the pivot.
+        // We will still have to call the function recursively to fix the final and correct position of all the elements.
         while (currentPointer <= greaterThanMarker) {
             println(": :quickSort: loop: input: ${input.toList()} current: $currentPointer greaterThan: $greaterThanMarker")
             when {
@@ -184,6 +187,9 @@ fun main() {
                 }
             }
         }
+
+        // The while loop fixes the final and correct position of the pivot.
+        // We have to call the function recursively to fix the final and correct position of all the elements.
         quickSort(input, start, lessThanMarker - 1)
         quickSort(input, greaterThanMarker + 1, end)
     }
