@@ -38,22 +38,27 @@ fun main() {
         }
     }
 
-    fun divide(array: IntArray, startIndex: Int, endIndex: Int) {
-        if (array.size == 1) {
-            println("The array has only one element and hence, it is already sorted!")
+    fun divideAndConquer(array: IntArray, startIndex: Int, endIndex: Int) {
+        if (array.size <= 1) {
+            println(": :sorted: ${array.toList()}")
         }
         if (startIndex < endIndex) {
             // A better way to find the midIndex.
             // If we do (startIndex + endIndex) / 2, the addition can cross the integer boundary.
             val midIndex = startIndex + (endIndex - startIndex) / 2
             // Left half part of the incoming array.
-            divide(array, startIndex, midIndex)
+            divideAndConquer(array, startIndex, midIndex)
             // Right half part of the incoming array.
-            divide(array, midIndex + 1, endIndex)
+            divideAndConquer(array, midIndex + 1, endIndex)
             conquer(array, startIndex, midIndex, endIndex)
-            println(array.toList())
         }
     }
 
-    divide(intArrayOf(51, 42, 33, 24, 15), 0, 4)
+    fun getInput(): IntArray {
+        return intArrayOf(51, 42, 33, 24, 15)
+    }
+
+    val input = getInput()
+    divideAndConquer(input, 0, input.lastIndex)
+    println(": :main: sorted: ${input.toList()}")
 }
