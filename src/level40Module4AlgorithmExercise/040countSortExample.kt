@@ -159,10 +159,11 @@ fun main() {
      * The minValue is -5 and maxValue is 2. The size of the array is 10.
      *
      * TL;DR: (Key-points):
-     * 1. max - min + 1 = Range (Size)
-     * 2. countArray[element - min]++ = Count occurrences with normalization
-     * 3. countArray[i] = countArray[i - 1] + countArray[i] => Cumulative count from 1..<countArray.size
-     * 4. input.indices.reversed(), take original value from input[i],
+     * 1. Find boundaries (Min and Max)
+     * 2. Create a count array (Range/Size: max - min + 1)
+     * 3. Store occurrences / repetition with normalization: countArray[element - min]++
+     * 4. Store a cumulative count: countArray[i] = countArray[i - 1] + countArray[i] => from 1..<countArray.size
+     * 5. Traverse reverse: input.indices.reversed(), take original value from input[i],
      * find target index position using the countArray as countArray[value - min] - 1,
      * resultArray[target index position] = value, and then mark the seat as allocated by countArray[value - min]--
      *
