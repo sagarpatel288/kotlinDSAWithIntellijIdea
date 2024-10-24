@@ -3,6 +3,12 @@ package level30Module3AlgorithmExercise
 fun main() {
 
     /**
+     * Visual references:
+     *
+     * res/level30Module3AlgorithmExercise/distinctNumbers.png
+     *
+     * [Interactive Visual](https://discrete-math-puzzles.github.io/puzzles/balls-in-boxes/index.html)
+     *
      * Maximum Number of Prizes
      * Distinct Summands Problem
      * Represent a positive integer as the sum of the maximum number of pairwise distinct positive integers.
