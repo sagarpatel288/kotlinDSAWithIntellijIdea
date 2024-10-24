@@ -65,12 +65,15 @@ fun main() {
                 }
             }
 
-            // Get the element from the current index
-            val oldValue = input[i]
-            // Set the element at the current index from the element at the minIndex
-            input[i] = input[minIndex]
-            // Set the element of the current index at the index j.
-            input[minIndex] = oldValue
+            // Avoid unnecessary swapping
+            if (i != minIndex) {
+                // Get the element from the current index
+                val oldValue = input[i]
+                // Set the element at the current index from the element at the minIndex
+                input[i] = input[minIndex]
+                // Set the element of the current index at the index j.
+                input[minIndex] = oldValue
+            }
         }
         println(input)
     }
