@@ -352,6 +352,10 @@ fun main() {
      * elements greater than the pivot, stays right to the pivot.
      *
      * TL;DR, we need [input] for iteration and swapping.
+     *
+     * TL;DR / Key-points of the quicksort:
+     *
+     * Pivot, partitionIndex, and swapping.
      */
     fun quickSort(input: IntArray, start: Int, end: Int) {
         quickSortFunCount++
