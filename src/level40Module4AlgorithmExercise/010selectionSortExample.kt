@@ -75,9 +75,15 @@ fun main() {
         println(input)
     }
 
-    val inputArray = readln().split(" ").map {
+    /*val inputArray = readln().split(" ").map {
         it.toInt()
-    }.toMutableList()
+    }.toMutableList()*/
 
-    selectionSort(inputArray)
+    fun getInput(): IntArray {
+        return intArrayOf(-5, -3, -4, -5, 1, 0, 1, 0, 2, 1)
+    }
+
+    val input = getInput()
+
+    selectionSort(input.toMutableList())
 }
