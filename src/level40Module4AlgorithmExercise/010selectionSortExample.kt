@@ -1,5 +1,46 @@
 package level40Module4AlgorithmExercise
 
+/**
+ * Problem Statement Example --------------------------------
+ *
+ * Explain and demonstrate (illustrate) selection sort:
+ * OR
+ * Explain and demonstrate a sorting algorithm that is an in-place algorithm and has minimum space-complexity.
+ * OR
+ * Explain and demonstrate a sorting algorithm that is memory efficient (but with poor time-complexity).
+ *
+ * -------------------------------- Explanation
+ *
+ * Selection Sort is a simple sorting algorithm that sorts an array by repeatedly finding the minimum element
+ * (considering ascending order) from the unsorted portion of the array and moving it to the beginning.
+ * The algorithm maintains two sub-arrays:
+ *
+ * The sub-array that is already sorted.
+ *
+ * The remaining sub-array that is unsorted.
+ *
+ * Time-Complexity:
+ *
+ * The time-complexity of the selection sort is O(n squared) for all 3 cases (best, average, and worst).
+ *
+ * Space-Complexity:
+ *
+ * It is an in-place algorithm. It means, it does not require additional space for another array,
+ * except a constant amount of extra space. Hence, the space-complexity of the selection sort is O(1).
+ *
+ * How does the space complexity of the selection sort is O(1)?
+ * Why does the space complexity of the selection sort is O(1)?
+ *
+ * The selection sort uses a temporary variable to store `minIndex` and a `temp` variable during the swapping process.
+ * Both these temporary variables do not depend on the original input size.
+ *
+ * Apart from these two temporary variables, the selection sort does not create any additional and critical memory
+ * that depends on the size of the original input.
+ *
+ * Hence, we can say that, the space complexity of the selection sort is O(1).
+ *
+ *
+ */
 fun main() {
 
     fun selectionSort(input: MutableList<Int>) {
