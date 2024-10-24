@@ -133,6 +133,10 @@ fun main() {
      * And then, we repeat the process for the left part and the right part, until the range contains only 1 element.
      */
     fun quickSort(input: IntArray, start: Int, end: Int) {
+        if (input.size <= 1) {
+            println(": :quickSort: sorted: ${input.toList()}")
+            return
+        }
         if (start >= end) return
         println(": :quickSort: input: -----------------before random pivot: ${input.toList()} start: $start end: $end")
         val randomIndex = Random.nextInt(start, end + 1)
