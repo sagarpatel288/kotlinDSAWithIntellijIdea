@@ -129,7 +129,7 @@ fun main() {
      * 1. Convert the list of integers into a list of string
      * 2. Use custom comparator (b + a).compareTo(a + b).
      * 3. If the first element is 0, return 0.
-     * 4. Otherwise, list.joinToString("") to remove space and to join all the elements.
+     * 4. Otherwise, list.joinToString("") to remove space or default comma, and to join all the elements.
      * 5. And remove the list.
      *
      */
