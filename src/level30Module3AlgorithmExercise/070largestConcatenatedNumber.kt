@@ -3,6 +3,11 @@ package level30Module3AlgorithmExercise
 fun main() {
 
     /**
+     * Visualization reference:
+     *
+     * res/level30Module3AlgorithmExercise/concatenatingLargestNumber.png
+     * [Interactive visual](https://discrete-math-puzzles.github.io/puzzles/largest-number/index.html)
+     *
      * Maximum Salary
      * Largest Concatenate Problem
      * Compile the largest integer by concatenating the given integers.
