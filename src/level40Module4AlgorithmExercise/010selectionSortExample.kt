@@ -44,6 +44,10 @@ package level40Module4AlgorithmExercise
 fun main() {
 
     fun selectionSort(input: MutableList<Int>) {
+        if (input.size <= 1) {
+            println(": :selectionSort: sorted: ${input.toList()}")
+            return
+        }
         // Going through each index of the incoming list
         for (i in input.indices) {
             // Taking the current index and will compare it with the rest of the elements and indices.
