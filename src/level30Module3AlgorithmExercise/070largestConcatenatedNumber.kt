@@ -134,7 +134,8 @@ fun main() {
      *
      */
     fun largestConcatenatedNumber(listOfIntegers: List<String>): String {
-        // Sort the result of two strings (concatenation) in descending order
+        // Sort the result of two strings (concatenation) in descending order,
+        // and we need to store it to a variable.
         val sortedIntegers = listOfIntegers.sortedWith { a, b ->
             // The below line says:
             // Compare the concatenation of b + a and a + b, and then sort them in descending order.
