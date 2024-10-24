@@ -11,6 +11,10 @@ fun main() {
     }
 
     fun quickSort(input: IntArray, start: Int, end: Int) {
+        if (input.size <= 1) {
+            println(": :quickSort: sorted: ${input.toList()}")
+            return
+        }
         if (start < end) {
             val randomIndex = Random.nextInt(start, end + 1)
             swapElements(input, randomIndex, end)
