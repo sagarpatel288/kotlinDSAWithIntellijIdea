@@ -162,6 +162,10 @@ fun main() {
         for (j in start..<end) {
             println(": :getPartitionIndex: iterationCount: ${++iterationCount}")
             if (input[j] <= pivot) {
+
+                // When we find an element that is less than or equal to the pivot,
+                // we increase the partitionIndex. So that we can say, all the elements to the left of the partitionIndex
+                // are less than or equal to the pivot element.
                 partitionIndex++
                 markerChangeCount++
                 println(": :getPartitionIndex: markerChangeCount: $markerChangeCount")
