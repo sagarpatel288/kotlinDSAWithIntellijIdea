@@ -103,13 +103,41 @@ fun main() {
      *
      * Concatenations: "212" vs. "221"
      * Comparison: "221" is lexicographically larger, so "2" should come before "21" in the final number.
-     * Finalize the larger concatenation result: "221"
+     * Finalize the larger concatenation result: "221".
+     *
+     * Another example:
+     *
+     * Suppose we have two numbers 9 and 34.
+     * We need to determine whether "9" should come before "34" or vice versa.
+     *
+     * Concatenations:
+     *
+     * a = "9", b = "34"
+     * Concatenation 1: a + b = "934"
+     * Concatenation 2: b + a = "349"
+     *
+     * Comparison:
+     *
+     * ("34" + "9").compareTo("9" + "34")
+     * "349".compareTo("934")
+     * Result:
+     *
+     * "349" is less than "934", so the comparator would place "9" before "34".
+     *
+     * TL;DR: Concatenate (create) the largest number from the given integers.
+     *
+     * 1. Convert the list of integers into a list of string
+     * 2. Use custom comparator (b + a).compareTo(a + b).
+     * 3. If the first element is 0, return 0.
+     * 4. Otherwise, list.joinToString("") to remove space and to join all the elements.
+     * 5. And remove the list.
      *
      */
     fun largestConcatenatedNumber(listOfIntegers: List<String>): String {
         // Sort the result of two strings (concatenation) in descending order
         val sortedIntegers = listOfIntegers.sortedWith { a, b ->
-            // Descending order
+            // The below line says:
+            // Compare the concatenation of b + a and a + b, and then sort them in descending order.
             (b + a).compareTo(a + b)
         }
         // After sorting, the list sortedIntegers will have the largest concatenated results at the front (beginning).
