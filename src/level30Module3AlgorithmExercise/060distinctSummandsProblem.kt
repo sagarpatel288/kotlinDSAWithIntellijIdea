@@ -69,6 +69,20 @@ fun main() {
      *
      * [Interactive Reference](https://discrete-math-puzzles.github.io/puzzles/balls-in-boxes/index.html )
      *
+     * Let us say we have 4 prizes.
+     * We start with 0 and keep adding 1 to the last number until the sum exceeds n.
+     * So, we begin with 0 + 1 + 2 + 3 = 6. This exceeds the total prizes of 4.
+     * Therefore, we need to remove 3 (the last number). Hence, it becomes 0 + 1 + 2 = 3.
+     * Next, we add the remaining amount, 4 - 3 = 1, to the last number.
+     * So, it becomes 0 + 1 + (2 + 1) = 0 + 1 + 3.
+     *
+     * If we observe, we can see that we need to keep track of
+     * 1. The amount we need to add.
+     * 2. The summand.
+     * 3. The remaining amount.
+     *
+     * The amount we need to add starts at 1, and we continue increasing it by 1.
+     *
      * Let us do it for n = 8.
      *
      * | Step 	| Current Integer 	| Summands  	| Summands<br>Result 	| Remaining<br>(Total - Summands)  	| Next Integer<br>(Current + 1) 	|
@@ -77,17 +91,25 @@ fun main() {
      * | 2    	| 2               	| [1, 2]    	| 1 + 2 = 3          	| 8 - 3 = 5                        	| 3                             	|
      * | 3    	| 3               	| [1, 2, 3] 	| 1 + 2 + 3 = 6      	| 8 - 6 = 2                        	| 4                             	|
      *
-     *
-     *
      */
     fun distinctDistribution(total: Int): List<Int> {
+        // We start with 1, and we will keep increasing it by 1.
         var current = 1
+        // Initially, before adding any value, the summand is 0.
+        // Summand is the total of all the values we add.
         var summand = 0
+        // This is the bucket where we add our values.
         val mutableListOfDistinctSummand = mutableListOf<Int>()
+        // We continue adding the values as long as the summand is less than or equal to the given total value (limit).
         while(summand <= total) {
+            // We add values to our bucket.
             mutableListOfDistinctSummand.add(current)
+            // Key-point: Summand = summand + current value.
             summand += current
+            // We increase the value by 1.
             current++
+            // After increasing the value by 1, if we find that it exceeds to the remaining amount,
+            // we replace the last added value by: last added value + remaining value.
             val remainingAmount = total - summand
             if (current > remainingAmount) {
                 val lastElement = mutableListOfDistinctSummand[mutableListOfDistinctSummand.size - 1]
