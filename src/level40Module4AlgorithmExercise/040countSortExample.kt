@@ -6,6 +6,21 @@ fun main() {
      * Explain the count sort algorithm with an example or sort the following array using the counting sort algorithm.
      * A[-5, -3, -4, -5, 1, 0, 1, 0, 2, 1].
      *
+     * OR:
+     *
+     * Sort the given array (input) where:
+     * 1.
+     * The growth rate between the maximum element and size of the input grows at less than quadratic rate.
+     * That is, the difference between the maximum element and the input size is less than quadratic.
+     * 2.
+     * We want to maintain the runtime complexity to O(n log n) in best, average, and even in worst-case.
+     * 3.
+     * We want to maintain the space complexity to not exceed O(n).
+     *
+     * OR:
+     *
+     * Sort the given input (array) using a non-comparison based algorithm.
+     *
      * Sagar: Let me tell you a story!
      *
      *
