@@ -346,6 +346,8 @@ fun main() {
      * And we need [input] to iterate through it, so that we can compare each element with a pivot, and swap positions
      * in such a way that all the elements smaller than or equal to the pivot, stays left to the pivot, and all the
      * elements greater than the pivot, stays right to the pivot.
+     *
+     * TL;DR, we need [input] for iteration and swapping.
      */
     fun quickSort(input: IntArray, start: Int, end: Int) {
         quickSortFunCount++
