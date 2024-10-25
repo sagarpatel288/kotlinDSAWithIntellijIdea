@@ -11,7 +11,7 @@ fun main() {
      *
      * [Interactive Visual](https://discrete-math-puzzles.github.io/puzzles/touch-all-segments/index.html)
      *
-     * Covering Segments by Points Problem
+     * Covering Segments by Points Problem.
      * Find the minimum number of points needed to cover all given segments on a line.
      *
      * Input: A sequence of n segments [l1, r1],...,[ln, rn] on a line.
