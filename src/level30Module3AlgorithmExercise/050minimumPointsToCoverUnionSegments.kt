@@ -128,6 +128,13 @@ fun main() {
      *
      */
     fun minimumPointsToTouchAllTheSegments(listOfSegments: List<Pair<Int, Int>>): List<Int> {
+        // Regular checks
+        if (listOfSegments.isEmpty()) {
+            return emptyList()
+        }
+        if (listOfSegments.size == 1) {
+            return listOf(listOfSegments[0].second)
+        }
         // Create a bucket to store points that we need to touch.
         val mutableListOfCommonPoints = mutableListOf<Int>()
         // Sort the segments either by the starting point or the ending point in ascending order.
