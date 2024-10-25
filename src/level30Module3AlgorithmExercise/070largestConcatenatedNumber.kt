@@ -26,7 +26,7 @@ fun main() {
      * Output format. The largest number that can be composed out of a1,...,an.
      * Constraints.
      * 1 ≤ n ≤ 100;
-     * 1 ≤ ai ≤ 103 for all 1 ≤ i ≤ n.
+     * 1 ≤ ai ≤ 10^3 for all 1 ≤ i ≤ n.
      *
      * Sample 1.
      * Input:

@@ -37,7 +37,7 @@ fun main() {
      * Output the maximum value of (price1 · c1 +···+ priceN · cn),
      * where c1,...,cn is a permutation of clicks1,..., clicksN.
      *
-     * Constraints. 1 ≤ n ≤ 10 raised to the power of 3;  0 ≤ pricei, clicksi ≤ 10 to the power of 5 for all 1 ≤ i ≤ n.
+     * Constraints. 1 ≤ n ≤ 10^3;  0 ≤ pricei, clicksi ≤ 10^5 for all 1 ≤ i ≤ n.
      *
      * Sample 1.
      * Input:
