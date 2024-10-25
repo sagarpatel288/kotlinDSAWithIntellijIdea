@@ -24,6 +24,20 @@ fun main() {
      * For simplicity, we assume that when you enter the building,
      * you instantly collect the signatures of all tenants that are in the building at that time.
      *
+     * Input format.
+     *
+     * The first line of the input contains the number n of segments.
+     * Each of the following n lines contains two integers li and ri (separated by a space)
+     * defining the coordinates of endpoints of the i-th segment.
+     *
+     * Output format.
+     *
+     * The minimum number k of points on the first line and the integer coordinates of k points
+     * (separated by spaces) on the second line. You can output the points in any order.
+     * If there are multiple such sets of points, you can output any of them.
+     *
+     * Constraints. 1 ≤ n ≤100; 0 ≤ li ≤ ri ≤ 10^9 for all i.
+     *
      * The horizontal lines are segments.
      * All the segments are on vertical lines.
      * A point is a specific commonplace on both the horizontal line (segment) and the vertical line.

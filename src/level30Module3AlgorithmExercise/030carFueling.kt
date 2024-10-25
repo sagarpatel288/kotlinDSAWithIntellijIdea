@@ -32,7 +32,7 @@ fun main() {
      *
      * Constraints:
      *
-     * 1 ≤ d ≤ 105.
+     * 1 ≤ d ≤ 10^5.
      * 1 ≤ m ≤ 400.
      * 1 ≤ n ≤ 300.
      * 0 < stop1 < stop2 < ···< stopn < d.
