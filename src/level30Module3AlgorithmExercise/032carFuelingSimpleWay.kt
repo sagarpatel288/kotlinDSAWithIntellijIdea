@@ -122,57 +122,53 @@ fun main() {
      * | 5         	| 950              	| 0            	| -         	| -                     	| -                        	| -        	|
      *
      */
-    fun getMinimumRefills(totalDistanceToTravel: Int, tankCapacity: Int, stops: List<Int>): Int {
-        // This is important to understand that we start travelling from 0
-        var currentPosition = 0
-        // It is given that when we start our travelling, the fuel tank is full.
-        var currentFuel = tankCapacity
-        // When we start travelling from 0, the initial value of the numberOfRefills is 0.
-        var numberOfRefills = 0
+    fun getMinimumRefills(totalDistance: Int, fullTankFuel: Int, stops: List<Int>): Int {
         // It is important to understand that
         // stops do not include the starting point (0) and the last destination (totalDistanceToTravel)
         // E.g., if the `totalDistanceToTravel` is 500, the `stops` values do not include it.
         // So, we might receive the stops as follows: 100, 150, 250, 300, and 400.
         // See, it does not include the destination at `500` km.
         // Hence, adding the destination as the last stop.
-        val stopsIncludingDestination = stops + totalDistanceToTravel
+        val stopsIncludingDestination = stops + totalDistance
+        // It is given that when we start our travelling, the fuel tank is full.
+        var currentFuel = fullTankFuel
+        // This is important to understand that we start travelling from 0
+        var currentPosition = 0
+        // When we start travelling from 0, the initial value of the numberOfRefills is 0.
+        var numberOfRefills = 0
 
         // Each index represents a stop at a particular distance.
         // The value at each index is distance.
         for (i in stopsIncludingDestination.indices) {
-            // If the distance between the next stop and the current position is beyond the tank capacity,
-            // we don't get the chance to refill the tank and hence, we return -1.
+            // First, we check whether we can reach to the next stop with the current fuel or not.
             val nextStop = stopsIncludingDestination[i]
-            val distanceToNextStop = nextStop - currentPosition
-            if (distanceToNextStop > currentFuel) return -1
-            // The rate of decreasing the fuel is directly proportional to the distance we travel.
-            currentFuel -= distanceToNextStop
-            // Once we reach to the next stop, the stop becomes our current position.
-            currentPosition = nextStop
-
-            // i = next stop from the current position.
-            // i + 1 = two stops ahead from the current position.
-            // If we're not at the last stop (size - 1),
-            // AND we cannot reach the gas station after the next one (i + 1) with our current fuel,
-            // THEN we need to refill at the current gas station (at the current position).
-            if (i < stopsIncludingDestination.size - 1 && stopsIncludingDestination[i + 1] - currentPosition > currentFuel) {
-                // Refill the fuel. Full tank.
-                currentFuel = tankCapacity
-                // Increase the refill count as we refill the fuel.
+            val distanceToTravel = nextStop - currentPosition
+            // If required, refill fuel to reach to the next stop.
+            if (distanceToTravel > currentFuel) {
+                currentFuel = fullTankFuel
                 numberOfRefills++
             }
+            // If we find that, even with the full tank, we cannot reach to the next stop,
+            // return -1 to indicate that it is not possible to reach to the next stop.
+            if (distanceToTravel > currentFuel) {
+                return -1
+            }
+            // As we travel, the fuel is reduced.
+            // The deduction in fuel is directly proportional to the distance we travel.
+            currentFuel -= distanceToTravel
+            // Once we reach to the next stop, the stop becomes our current position.
+            currentPosition = nextStop
         }
         return numberOfRefills
     }
 
     val totalDistanceToTravel = readln().toInt()
-    val tankCapacity = readln().toInt()
-    val totalNumberOfStops = readln().toInt()
-    // It is important to understand that
-    // stops do not include the starting point (0) and the last destination (totalDistanceToTravel)
-    // E.g., if the `totalDistanceToTravel` is 500, the `stops` values do not include it.
+    val mileage = readln().toInt()
+    val numberOfStops = readln().toInt()
     val stops = readln().split(" ").map {
         it.toInt()
     }
-    println(getMinimumRefills(totalDistanceToTravel, tankCapacity, stops))
+
+    println(getMinimumRefills(totalDistanceToTravel, mileage, stops))
+
 }
