@@ -92,6 +92,7 @@ package level30Module3AlgorithmExercise
  * To achieve the value 180, the thief takes the entire first compound and the entire third compound.
  *
  * Sample 2.
+ *
  * Input:
  *
  * 1 10
@@ -99,6 +100,7 @@ package level30Module3AlgorithmExercise
  *
  * Output:
  * 166.6667
+ *
  * The thief should take ten pounds of the only available compound.
  *
  *
@@ -200,6 +202,6 @@ fun main() {
         listOfItems.add(Item(totalCostAndTotalAvailableUnits[0], totalCostAndTotalAvailableUnits[1]))
     }
 
-    // Key point: "%.4f".format
+    // Key point: "%.4f".format => It means, 4 digits after the decimal points.
     println("%.4f".format(getMaximumLootValue(totalItemsAndBackpackCapacity[1], listOfItems)))
 }
