@@ -5,6 +5,12 @@ import kotlin.system.exitProcess
 fun  main() {
 
     /**
+     * Problem Statement:
+     * Range Sum Queries Problem:
+     * Given an integer array and a set of ranges in it, compute the sum for the given range / each range.
+     *
+     * ----------------------- Explanation -----------------------
+     *
      * We have a collection [originalCollection].
      * We have an index pair [indexPair].
      * We need to find and give sum of all the elements between and inclusive of the index pair [indexPair].
