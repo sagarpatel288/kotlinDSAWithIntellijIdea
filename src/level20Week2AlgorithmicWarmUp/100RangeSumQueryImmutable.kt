@@ -23,6 +23,12 @@ fun  main() {
      * and we would keep the track of the total value.
      * but it takes O(N*Q) time complexity.
      *
+     * Consider an array [3, 5, 4, 2, 1, 9] and multiple queries asking for sums of sub-arrays:
+     *
+     * Suppose we have a query asking for the sum of elements between indices 1 and 4 (5, 4, 2, 1).
+     * We iterate through the elements between indices 1 and 4 to find the sum.
+     * If you get Q such queries, you would need to iterate through different ranges Q times.
+     *
      * So, as a better efficient solution, we use a prefixedSum collection.
      * Each element of the preFixedSum collection will be an accumulative sum from the index 0 up to the current index.
      * For example:
@@ -98,6 +104,19 @@ fun  main() {
      * So, the benefit is:
      * 1. We do not get the `IndexOutOfBound` exception when the left side is 0.
      * 2. We do not need to introduce an additional (special, extra) if condition when the left side is 0.
+     *
+     * Once we construct the prefix sum array, each query can be answered in O(1) time
+     * by subtracting the relevant values from the prefix sum array.
+     *
+     * Suppose we need to find the sum of elements from index 1 to 4. The result is given by:
+     * prefixSum[4 + 1] - prefixSum[1]
+     * Which would be 15 - 3 = 12.
+     *
+     * Constructing the prefix sum array requires O(N) time since we iterate over the array once.
+     * Each query, after constructing the prefix sum array, takes O(1) time to answer.
+     * Thus, for Q queries, the total runtime would be O(N + Q), which is far better than O(N * Q) for large N and Q.
+     *
+     * Hence, prefixed sum approach improves the performance (efficiency) by reducing the runtime.
      *
      * Check the visual reference:
      * res/level20Week2AlgorithmicWarmUp/rangeSumPrefixedSum.png
