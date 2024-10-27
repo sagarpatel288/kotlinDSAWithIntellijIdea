@@ -93,6 +93,11 @@ fun  main() {
      * 1. We do not get the `IndexOutOfBound` exception when the left side is 0.
      * 2. We do not need to introduce an additional (special, extra) if condition when the left side is 0.
      *
+     * Check the visual reference:
+     * res/level20Week2AlgorithmicWarmUp/rangeSumPrefixedSum.png
+     *
+     * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/088aa5f944f2fdea04dce1d79d06b7bfe3b586de/res/level20Week2AlgorithmicWarmUp/rangeSumPrefixedSum.png)
+     *
      */
     fun giveRangeSumQueriesImmutable(originalCollection: List<Int>, indexPair: List<Int>) {
         val preFixedSumCollection = IntArray(originalCollection.size + 1)
