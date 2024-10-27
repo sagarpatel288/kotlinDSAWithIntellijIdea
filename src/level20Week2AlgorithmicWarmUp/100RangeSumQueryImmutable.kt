@@ -29,6 +29,13 @@ fun  main() {
      * We iterate through the elements between indices 1 and 4 to find the sum.
      * If you get Q such queries, you would need to iterate through different ranges Q times.
      *
+     * Suppose the array has N elements.
+     * For each query, we are iterating through elements in a specific range.
+     * If you have Q queries and need to iterate through N elements each time (in the worst case),
+     * then the time taken is O(N) per query. It will be the runtime of each query.
+     * Hence, the total runtime for all queries becomes O(N * Q).
+     * So, for 1 query, it is O(N), then for Q queries, it becomes O(N * Q).
+     *
      * So, as a better efficient solution, we use a prefixedSum collection.
      * Each element of the preFixedSum collection will be an accumulative sum from the index 0 up to the current index.
      * For example:
@@ -115,6 +122,10 @@ fun  main() {
      * Constructing the prefix sum array requires O(N) time since we iterate over the array once.
      * Each query, after constructing the prefix sum array, takes O(1) time to answer.
      * Thus, for Q queries, the total runtime would be O(N + Q), which is far better than O(N * Q) for large N and Q.
+     *
+     * O(N) is the runtime of prefixed sum, because we do iteration to build the prefixed sum.
+     * And for 1 query, it takes O(1) runtime. Hence, for Q queries, it takes O(Q) runtime.
+     * Hence, the total runtime becomes O(N + Q).
      *
      * Hence, prefixed sum approach improves the performance (efficiency) by reducing the runtime.
      *
