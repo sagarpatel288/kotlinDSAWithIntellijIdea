@@ -123,10 +123,21 @@ fun  main() {
      *
      * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/088aa5f944f2fdea04dce1d79d06b7bfe3b586de/res/level20Week2AlgorithmicWarmUp/rangeSumPrefixedSum.png)
      *
+     * TL;DR:
+     *
+     * 1. Build a pre-defined accumulative sum array of size input + 1 and set [0] = 0.
+     * 2. Store cumulative sum to pre-defined sum array by iterating through the input array.
+     * 3. Cumulative sum formula: preSum[i + 1] = preSum[i] + input[i]
+     * 4. Range sum formula:
+     * for the given s(l, r), preSum[r + 1] - preSum[l].
+     *
      */
     fun giveRangeSumQueriesImmutable(originalCollection: List<Int>, indexPair: List<Int>) {
+        // Set the size of preSum as input + 1.
         val preFixedSumCollection = IntArray(originalCollection.size + 1)
+        // Set preSum[0] = 0.
         preFixedSumCollection[0] = 0
+        // Set the remaining cumulative values of the remaining indices by iterating and using the original input
         for (i in originalCollection.indices) {
             // for i = 0, prefixedSumCollection's 1 = prefixedSumCollection's 0 + originalCollection's 0
             // for i = 1, prefixedSumCollection's 2 = prefixedSumCollection's 1 + originalCollection's 1
@@ -134,8 +145,10 @@ fun  main() {
             // ...and so on...
             preFixedSumCollection[i + 1] = preFixedSumCollection[i] + originalCollection[i]
         }
+        // Give s(l, r)
         val rightEnd = indexPair[indexPair.size - 1]
         val leftEnd = indexPair[0]
+        // Use the formula: s(l, r) = preSum(r + 1) - preSum(l)
         println(preFixedSumCollection[rightEnd + 1] - preFixedSumCollection[leftEnd])
     }
 
