@@ -36,11 +36,25 @@ package level30Module3AlgorithmExercise
  *
  * 28 = 10 + 10 + 5 + 1 + 1 + 1.
  *
+ * ----------------------- Explanation -----------------------
+ *
+ * 1. We get the input (money).
+ * 2. We divide the money by highest value first: By 10.
+ * 3. The quotient represents number of coins, and the remainder represents the remaining amount.
+ * 4. We divide the remaining amount by the second-highest value: By 5.
+ * 5. Again, the quotient represents number of coins, and the remainder represents the remaining amount.
+ * 6. We don't need to divide the remaining amount by 1. We add the remaining amount to the number of coins needed.
+ *
  */
 fun main() {
 
     fun getMinimumCoinsNeeded(money: Long): Long {
+        // Handle the edge cases.
+        // If the money is less than 5, we need the total number of 1 INR coins equal to the given money.
         if (money <= 4L) return money
+        // If the money is equal to 5 or 10, we need only 1 coin.
+        // If the money is 5 INR, we need 1 coin of 5 INR.
+        // If the money is 10 INR, we need 1 coin of 10 INR.
         if (money == 5L || money == 10L) return 1
         var numberOfCoinsNeeded = 0L
         // numberOfCoinsNeeded = numberOfCoinsNeeded + (money / 10).
