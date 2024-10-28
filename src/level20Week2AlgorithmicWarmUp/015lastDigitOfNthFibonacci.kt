@@ -42,6 +42,15 @@ import java.util.Scanner
  *
  * F139 =50095301248058391139327916261.
  *
+ * ----------------------- Key-lemma (Key-point) -----------------------
+ *
+ * Calculating the nth Fibonacci number directly is computationally expensive,
+ * especially for large values of n (up to 10 to the 6th).
+ * By reducing n using the Pisano period,
+ * we only need to compute the Fibonacci number for a much smaller index, which is much faster.
+ *
+ * Let us see, understand, and learn it through a practical.
+ * We will use comments to help us understand the code.
  */
 fun main() {
 
