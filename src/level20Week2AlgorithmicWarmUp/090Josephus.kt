@@ -167,11 +167,12 @@ fun main() {
      * We have seen one perspective to look at it in the above [getSurvivorRecursively] function.
      * There is one more perspective to look at it, and it is more efficient than the recursive approach.
      * Recursive approach can introduce stack overflow when [numberOfRebels] is too large,
-     * because each function call creates an object.
+     * because each function call creates an object and until the function call is finished, the function occupies
+     * (reserves) stack memory.
      * The iterative approach is comparatively safe.
      * The iterative approach is based on the pre-computed fact that:
      * `newSurvivorPosition = (previousSurvivorPosition + killingFactorInterval) % i`
-     * where i = `for (i in 1..numberOfRebels)`.
+     * where i = `for (i in 2..numberOfRebels)`.
      *
      * For example:
      *
@@ -216,6 +217,7 @@ fun main() {
         // We already know the case when there is only one rebel.
         // Hence, we start with 2 and go up to the given number of rebels.
         for (i in 2..numberOfRebels) {
+            // This is the key-lemma (key-point) to solve the josephus problem.
             survivorPosition = (survivorPosition + killingFactorInterval) % i
         }
         return survivorPosition
