@@ -3,8 +3,17 @@ package level20Week2AlgorithmicWarmUp
 import java.util.Scanner
 
 /**
+ * Print n % m where n is the nth fibonacci number and m is the given modulo.
+ *
  * The fibonacci series example:
  * 0, 1, 1, 2, 3, 5, 8, 13...
+ *
+ * So, if n = 4 and m = 2,
+ * then print nth fibonacci number % m
+ * = 4th fibonacci number % 2
+ * = 3 % 2
+ * = 1.
+ * Hence, the expected answer of the given example is 1.
  */
 fun main() {
 
