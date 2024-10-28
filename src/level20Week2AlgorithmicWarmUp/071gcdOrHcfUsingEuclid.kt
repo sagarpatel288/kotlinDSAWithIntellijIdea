@@ -2,6 +2,10 @@ package level20Week2AlgorithmicWarmUp
 
 import java.util.Scanner
 
+/**
+ * Find GCD (The Greatest Common Divisor, a.k.a. HCF - Highest Common Factor)
+ * of the given pair.
+ */
 fun main() {
 
     /**
