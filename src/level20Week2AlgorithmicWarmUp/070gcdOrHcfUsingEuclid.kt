@@ -2,6 +2,15 @@ package level20Week2AlgorithmicWarmUp
 
 import java.util.Scanner
 
+/**
+ * Find GCD (The greatest common divisor, a.k.a. the highest common factor)
+ * of the given pair.
+ *
+ * GCD (Greatest Common Divisor) and HCF (Highest Common Factor) refer to the same concept in mathematics.
+ * Both terms describe the largest positive integer that divides two or more integers without leaving a remainder.
+ * Depending on the region or educational context, one term may be preferred over the other,
+ * but they are interchangeable in meaning.
+ */
 fun main() {
 
     val firstInput = Scanner(System.`in`).nextLong()
