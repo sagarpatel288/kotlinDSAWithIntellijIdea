@@ -3,8 +3,45 @@ package level20Week2AlgorithmicWarmUp
 import java.util.Scanner
 
 /**
+ * Last Digit of Fibonacci Number Problem:
+ *
+ * Compute the last digit of the n-th Fibonacci number.
+ *
+ * Input: An integer n.
+ *
+ * Output: The last digit of the n-th Fibonacci number.
+ *
+ * Input format. An integer n. Output format. The last digit of Fn.
+ *
+ * Constraints. 0 ≤ n ≤ 10 to the 6th (106).
+ *
  * Fibonacci series example:
  * 0, 1, 1, 2, 3, 5, 8, 13...
+ *
+ * Sample 1.
+ *
+ * Input:
+ *
+ * 3
+ *
+ * Output:
+ *
+ * 2
+ *
+ * F3 = 2.
+ *
+ * Sample 2.
+ *
+ * Input:
+ *
+ * 139
+ *
+ * Output:
+ *
+ * 1
+ *
+ * F139 =50095301248058391139327916261.
+ *
  */
 fun main() {
 
