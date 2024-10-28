@@ -3,6 +3,8 @@ package level20Week2AlgorithmicWarmUp
 import java.util.Scanner
 
 /**
+ * Write a program to print the fibonacci series up to the given number.
+ *
  * The fibonacci series example:
  * 0, 1, 1, 2, 3, 5, 8, 13...
  */
