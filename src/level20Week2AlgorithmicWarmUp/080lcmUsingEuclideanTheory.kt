@@ -2,6 +2,9 @@ package level20Week2AlgorithmicWarmUp
 
 import java.util.*
 
+/**
+ * Find LCM (The Least Common Multiple) of the given pair.
+ */
 fun main() {
 
     /**
