@@ -19,6 +19,35 @@ import kotlin.system.exitProcess
  *
  * The position of the survivor, denoted Josephus(n,k).
  *
+ * ----------------------- Explanation -----------------------
+ *
+ * Let us understand the problem first.
+ * 1. Input N represents the number of rebels.
+ * 2. The variable K represents interval.
+ * 3. All the rebels are killed until only 1 rebel is left alive.
+ * 4. We need to find the position of this rebel, who survives.
+ * 5. The killing starts from the index 0, and we count up to the interval k to kill a rebel.
+ * 6. So, for example, if we have n = 7 rebels, the array looks like below:
+ * At index 0, rebel r0. At index 1, rebel r1. At index 2, rebel r2.... up to At index 6, rebel r6.
+ * Rebels = [0, 1, 2, 3, 4, 5, 6] => [r0, r1, r2, r3, r4, r5, r6].
+ * 7. Now, if the interval k = 3, and the killing starts from the index 0, then:
+ * count 1 = index 0, count 2 = index 1, cunt 3 = index 2.
+ * 8. So, the rebel at index 2, that is k - 1 = 3 - 1 = 2, is killed first.
+ * 9. Hence, the new array becomes:
+ * Rebels = [0, 1, 2, 3, 4, 5] => [r0, r1, r3, r4, r5, r6] because the rebel r2 has been killed.
+ * 10. Then, we again count the interval k = 3.
+ * 11. From where? From rebel r3 itself.
+ * Why? Because we counted from r0 itself earlier. We count from where we start.
+ * Earlier, we started from the index 0, rebel r0. So, we counted count 1 = index 0 = r0.
+ * Similarly, this time we start from rebel r3. So, we count from r3.
+ * 12. And if we start counting from r3,
+ * count 1 = r3, count 2 = r4, count 3 = r5.
+ * 13. Hence, the rebel r5 will be killed.
+ * 14. So, the array becomes: [0, 1, 2, 3, 4] => [r0, r1, r3, r4, r6] because the rebel r5 has been killed.
+ * 15. Next, we start from r6, and this game of death continues until only 1 rebel is left.
+ * 16. We need to find the original position of this rebel who survives.
+ * For example, it will not be r2 = index 2 or r5 = index 5, because they have been killed.
+ *
  */
 fun main() {
 
