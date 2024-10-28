@@ -1,5 +1,14 @@
 package level20Week2AlgorithmicWarmUp
 
+/**
+ * Write a program to print the fibonacci series up to the given input number n.
+ *
+ * The fibonacci series example:
+ * 0, 1, 1, 2, 3, 5, 8, 13...
+ *
+ * So, if the input is 3, then print the fibonacci series up to:
+ * 0, 1, 1, 2
+ */
 fun main() {
 
     /**
