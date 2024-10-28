@@ -3,10 +3,12 @@ package level20Week2AlgorithmicWarmUp
 import java.util.Scanner
 
 /**
- * Write a program to print the fibonacci series up to the given number.
+ * Write a program to print the nth Fibonacci number, where n is the input.
  *
  * The fibonacci series example:
  * 0, 1, 1, 2, 3, 5, 8, 13...
+ *
+ * So, if n = 3, then print the 3rd fibonacci number, which is 2.
  */
 fun main() {
 
