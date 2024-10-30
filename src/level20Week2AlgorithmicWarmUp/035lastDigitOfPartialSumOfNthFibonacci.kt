@@ -46,7 +46,7 @@ fun main() {
      * What we find here, is known as the Pisano period, and we can find it if we know the value of the modular (mod).
      * We are already passing this required [modulo] to find the Pisano period.
      */
-    fun getPisanoPeriod(modulo: Long): Long {
+    fun getPisanoPeriodOfFibonacci(modulo: Long): Long {
         // F(0) % modulo = 0L
         var start = 0L
         // F(1) % modulo = 1L
@@ -113,7 +113,7 @@ fun main() {
      * = {(Fnp mod 10) - (Fmp mod 10)} mod 10
      */
     fun getLastDigitOfPartialSumOfNthFibonacci(start: Long, end: Long): Long {
-        val pisanoPeriod = getPisanoPeriod(10L)
+        val pisanoPeriod = getPisanoPeriodOfFibonacci(10L)
         if (start == end) {
             if (start == 0L) return 0
             val reducedN = start % pisanoPeriod

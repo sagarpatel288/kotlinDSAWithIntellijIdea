@@ -49,7 +49,7 @@ package level20Week2AlgorithmicWarmUp
 fun main() {
 
     val nthFibonacci = readln().toLong()
-    val pisanoLength = getPisanoLength(10L)
+    val pisanoLength = getPisanoLengthOfFibonacci(10L)
     val reducedN = nthFibonacci % pisanoLength
     val reducedNplusOne = (nthFibonacci + 1) % pisanoLength
     val reducedNmodulo = getNthFibonacciModulo(reducedN, 10L)
@@ -75,7 +75,7 @@ fun getNthFibonacciModulo(reducedN: Long, modulo: Long): Long {
     return current
 }
 
-fun getPisanoLength(modulo: Long): Long {
+fun getPisanoLengthOfFibonacci(modulo: Long): Long {
     // F(0) % m = 0 The first element of the remainders
     var previous = 0L
     // F(1) % m = 1 The second element of the remainders

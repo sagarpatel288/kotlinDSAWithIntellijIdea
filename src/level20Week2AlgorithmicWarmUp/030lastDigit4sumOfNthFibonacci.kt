@@ -128,11 +128,11 @@ fun lastDigitOfSumOfNthFibonacci(reducedN: Long, modulo: Long): Long {
 }
 
 fun reduceNthFibonacci(nthFibonacci: Long, modulo: Long): Long {
-    val pisanoPeriod = getPisanoPeriod(modulo)
+    val pisanoPeriod = getPisanoPeriodOfFibonacci(modulo)
     return nthFibonacci % pisanoPeriod
 }
 
-fun getPisanoPeriod(modulo: Long): Long {
+fun getPisanoPeriodOfFibonacci(modulo: Long): Long {
     // F(0) % modulo = a % m
     var previousRemainder = 0L
     // F(1) % modulo = b % m

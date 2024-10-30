@@ -92,7 +92,7 @@ fun main() {
      * Mathematical Insight:
      * For a given modulo m, the nth fibonacci number a, f(a) % m = f(b) % m where b = a % p and p = The Pisano period.
      */
-    fun getPisanoPeriod(modulo: Long): Long {
+    fun getPisanoPeriodOfFibonacci(modulo: Long): Long {
         // Notice that the nth fibonacci remainder sequence starts with 0 and 1.
         // Because the constraint is: 2 <= modulo <= 10 to the power 3rd.
         var previous = 0L
@@ -143,7 +143,7 @@ fun main() {
         // This point is known as Pisano period.
         // If we find it, we can take the equivalent smaller number of a large nth fibonacci number,
         // because the result of `f(n) % m` would be same for both of them.
-        val pisanoPeriod = getPisanoPeriod(modulo)
+        val pisanoPeriod = getPisanoPeriodOfFibonacci(modulo)
 
         // We reduce the input (nth fibonacci number) modulo pisanoPeriod to get a much smaller equivalent of the input!
         // E.g., 4 mod 10 and 64 mod 10 will give the same answer: 3

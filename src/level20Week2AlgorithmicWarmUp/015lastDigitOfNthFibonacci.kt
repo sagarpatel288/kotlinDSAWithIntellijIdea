@@ -127,7 +127,7 @@ fun main() {
      * So, basically, that's why we start our iteration from 0 instead of 2.
      *
      */
-    fun findPisanoPeriod(modulo: Long): Long {
+    fun findPisanoPeriodOfFibonacci(modulo: Long): Long {
         var previous = 0L
         var next = 1L
         var length = 0L
@@ -179,7 +179,7 @@ fun main() {
         // If we find it, we can take the equivalent smaller number of a large nth fibonacci number,
         // because the result of `f(n) % m` would be same for both of them.
         // We have our modulo as 10. Let us find out the Pisano period.
-        val pisanoPeriod = findPisanoPeriod(10L)
+        val pisanoPeriod = findPisanoPeriodOfFibonacci(10L)
 
         // We reduce the input (nth fibonacci number) modulo pisanoPeriod to get a much smaller equivalent of the input!
         // E.g., F(4) mod 10 and F(64) mod 10 will give the same answer: 3.
