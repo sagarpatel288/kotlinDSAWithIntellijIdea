@@ -49,6 +49,13 @@ import java.util.Scanner
  * By reducing n using the Pisano period,
  * we only need to compute the Fibonacci number for a much smaller index, which is much faster.
  *
+ * For a given modulo m, the nth Fibonacci number a,
+ * f(a) % m = f(b) % m where b = a % p and p = The Pisano period.
+ * Here, a is congruent to b mod m. I.e., a ≅ b mod m. It means that, a % m = b % m.
+ *
+ * We can also write it as, a ≅ b mod m.
+ * It means that, a mod m = b mod m. How to read it? We read it as “A is congruent to b mod m.”
+ *
  * Let us see, understand, and learn it through a practical.
  * We will use comments to help us understand the code.
  */
@@ -95,6 +102,30 @@ fun main() {
      * The point at which it starts repeating itself, is our Pisano period.
      * So, in our example, for modulo 10, the Pisano period is 60.
      * I.e. After 60, the sequence (result) of `f(n) % 10` starts repeating itself.
+     *
+     * Also, it is a precomputed fact that the Pisano period for a given modulo
+     * is less than or equal to modulus squared.
+     * It is based on the number theory properties of modular arithmetic.
+     *
+     * We start from 0 and iterate up to m squared = m * m where m is the given modulo.
+     *
+     * Let us assume that the given modulus is 2.
+     *
+     * | Iteration 	| Nth Fibonacci Symbol 	| Addition(Index) 	| Addition(Value)  	| Addition(Result) 	| Mod 2( % 2) 	| Length 	|
+     * |:---------:	|:--------------------:	|:---------------:	|:----------------:	|:----------------:	|:-----------:	|:------:	|
+     * |           	|         F(0)         	|     Initial     	|      Initial     	|         0        	|      0      	|        	|
+     * |           	|         F(1)         	|     Initial     	|      Initial     	|         1        	|      1      	|        	|
+     * |     0     	|         F(2)         	|   F(0) + F(1)   	|       0 + 1      	|         1        	|      1      	|    1   	|
+     * |     1     	|         F(3)         	|   F(1) + F(2)   	|       1 + 1      	|         2        	|      0      	|    2   	|
+     * |     2     	|         F(4)         	|   F(2) + F(3)   	|       1 + 0      	|         1        	|      1      	|    3   	|
+     *
+     * We are finding the Pisano length, after which the sequence repeats.
+     * Our initial pair is (0, 1), the first two elements.
+     * Now, we start counting from 0 and go up to the point where we find that the sequence pattern
+     * of the remainders repeats itself.
+     *
+     * So, basically, that's why we start our iteration from 0 instead of 2.
+     *
      */
     fun findPisanoPeriod(modulo: Long): Long {
         var previous = 0L
