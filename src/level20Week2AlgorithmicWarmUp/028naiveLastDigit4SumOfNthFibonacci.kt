@@ -115,7 +115,15 @@ fun sumOfNthFibonacciByModularAddition(nthFibonacci: Int, modulo: Int): Long {
     // S(n) = F(n+2) - 1. So, we subtract 1.
     // Key-point:
     // We add 10 because if the remainder is 0, subtracting 1 will give a negative number - that we want to avoid.
-    // In the end, % 10 to get the last digit.
+    // For example, the last digit so far we have calculated can be 0 at this moment.
+    // According to the formula, we would do, 0 - 1 = -1.
+    // We want to avoid the negative number. So, we add 10.
+    // Hence, it becomes: 0 - 1 + 10 = 9 % 10 = 9.
+    // Why do we do % 10 here at this stage also?
+    // Because, this is a common code. So, it applies even when we get 4 as a last digit after the above for loop.
+    // Now, when we do 4 - 1 + 10 = we get 13, and we do not want to return 13.
+    // Hence, the % 10 will make it: 13 % 10 = 3, the last digit we want.
+    // So, in the end, % 10 ensures that we get the last digit.
     return (nextRemainder - 1 + 10) % 10
 }
 
@@ -163,7 +171,15 @@ fun sumOfReducedNthFibonacci(nthFibonacci: Int, modulo: Int): Long {
     println(": :sumOfReducedNthFibonacci: (n+2) remainder: $nextRemainder")
     // S(n) = F(n+2) - 1. So, we subtract 1.
     // We add 10 because if the remainder is 0, subtracting 1 will give a negative number - that we want to avoid.
-    // In the end, % 10 to get the last digit.
+    // For example, the last digit so far we have calculated can be 0 at this moment.
+    // According to the formula, we would do, 0 - 1 = -1.
+    // We want to avoid the negative number. So, we add 10.
+    // Hence, it becomes: 0 - 1 + 10 = 9 % 10 = 9.
+    // Why do we do % 10 here at this stage also?
+    // Because, this is a common code. So, it applies even when we get 4 as a last digit after the above for loop.
+    // Now, when we do 4 - 1 + 10 = we get 13, and we do not want to return 13.
+    // Hence, the % 10 will make it: 13 % 10 = 3, the last digit we want.
+    // So, in the end, % 10 ensures that we get the last digit.
     return (nextRemainder - 1 + 10) % 10
 }
 

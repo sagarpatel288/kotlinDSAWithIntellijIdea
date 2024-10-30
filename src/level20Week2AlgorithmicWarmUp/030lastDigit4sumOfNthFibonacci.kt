@@ -112,6 +112,15 @@ fun lastDigitOfSumOfNthFibonacci(reducedN: Long, modulo: Long): Long {
     }
     // We subtract 1 because S(n) = F(n+2) - 1.
     // We add 10 because we want to avoid a negative number when the remainder is 0. (Key-point).
+    // For example, the last digit so far we have calculated can be 0 at this moment.
+    // According to the formula, we would do, 0 - 1 = -1.
+    // We want to avoid the negative number. So, we add 10.
+    // Hence, it becomes: 0 - 1 + 10 = 9 % 10 = 9.
+    // Why do we do % 10 here at this stage also?
+    // Because, this is a common code. So, it applies even when we get 4 as a last digit after the above for loop.
+    // Now, when we do 4 - 1 + 10 = we get 13, and we do not want to return 13.
+    // Hence, the % 10 will make it: 13 % 10 = 3, the last digit we want.
+    // So, in the end, % 10 ensures that we get the last digit.
     // We perform % 10 to get the last digit.
     // E.g., 3 % 10 and (3 + 10) = 13 % 10, both give 3 only. (Modular arithmetic)
     // Reference: https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/what-is-modular-arithmetic
