@@ -153,7 +153,7 @@ fun sumOfReducedNthFibonacci(nthFibonacci: Int, modulo: Int): Long {
     // According to the Pisano period theory, find the much smaller congruence number.
     // Because the modulo on the original large Fibonacci number and the modulo on the much smaller congruence number,
     // are the same.
-    val pisanoPeriod = findPisanoPeriod(modulo)
+    val pisanoPeriod = findPisanoPeriodOfFibonacci(modulo)
     val reducedN = (nthFibonacci + 2) % pisanoPeriod
     println(": :sumOfReducedNthFibonacci: pisanoPeriod: $pisanoPeriod reducedN: $reducedN")
     // F(0) % modulo
@@ -183,7 +183,7 @@ fun sumOfReducedNthFibonacci(nthFibonacci: Int, modulo: Int): Long {
     return (nextRemainder - 1 + 10) % 10
 }
 
-fun findPisanoPeriod(modulo: Int): Int {
+fun findPisanoPeriodOfFibonacci(modulo: Int): Int {
     // We are interested in tracking the pattern of remainders so that we can know when it repeats.
     // F(0) % modulo
     var previousRemainder = 0
