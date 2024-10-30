@@ -68,6 +68,7 @@ fun sumOfNthFibonacciByModularAddition(nthFibonacci: Int, modulo: Int): Long {
     println(": :sumOfNthFibonacciByModularAddition: fibonacciRemainderElements: $fibonacciRemainderElements")
     println(": :sumOfNthFibonacciByModularAddition: (n+2) remainder: $nextRemainder")
     // S(n) = F(n+2) - 1. So, we subtract 1.
+    // Key-point:
     // We add 10 because if the remainder is 0, subtracting 1 will give a negative number - that we want to avoid.
     // In the end, % 10 to get the last digit.
     return (nextRemainder - 1 + 10) % 10

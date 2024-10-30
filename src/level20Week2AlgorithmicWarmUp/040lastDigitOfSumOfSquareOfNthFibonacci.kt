@@ -19,6 +19,32 @@ package level20Week2AlgorithmicWarmUp
  * = {(np * np')} % m
  * Where np is the result of the (Fnp % m)
  * and np' is the result of the (Fnp' % m)
+ *
+ * How to remember? (This is a trick to remember something using the association principle, not a proof of the theory.):
+ *
+ * We remember 3 formulas in a sequence. We start with the sum.
+ *
+ * Sum of nth Fibonacci: S(n):
+ *
+ * Sum = a + b. a and b are two elements. n + 2. But, we were asked f(sum of nth). So, we do - 1.
+ * I.e. (n + 2) - 1. So, it is: f(n + 2) - 1.
+ *
+ *  Partial sum of n and m fibonacci: S(m, n):
+ *
+ *  Keep `(n + 2) - ` from the above equation as it is.
+ *  Now, The m is the remaining one part. m + 1.
+ *  So, f(n + 2) - f(m + 1).
+ *
+ *  Sum of square of nth Fibonacci:
+ *
+ *  After normal sum of fibonacci, we have this sum of square of fibonacci.
+ *  Keep f(m + 1) as it is from the above equation.
+ *  Square means, m * m, right? So, one m is the remaining part in the equation.
+ *  So, it is: f(m + 1) f(m).
+ *  Now, you take m or n, it doesn't matter.
+ *  So, it is: f(n + 1) f(n).
+ *  Also, the order doesn't matter in multiplication.
+ *  So, it is: f(n) * f(n + 1).
  */
 fun main() {
 
