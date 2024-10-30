@@ -1,5 +1,50 @@
 package level20Week2AlgorithmicWarmUp
 
+/**
+ * Problem Statement:
+ *
+ * Last Digit of the Sum of Fibonacci Numbers Problem:
+ *
+ * Compute the last digit of F0 + F1 +···+ Fn.
+ *
+ * Input: An integer n.
+ *
+ * Output: The last digit of F0 + F1 + ···+ Fn.
+ *
+ *
+ * Input format. An integer n.
+ *
+ * Output format. (F0+F1+···+Fn) mod 10.
+ *
+ * Constraints. 0 ≤ n ≤10^14.
+ *
+ * Sample 1.
+ *
+ * Input:
+ *
+ * 3
+ *
+ * Output:
+ *
+ * 4
+ *
+ * F0+F1+F2+F3 =0+1+1+2=4.
+ * 4 % 10 = 4.
+ *
+ * Sample 2.
+ *
+ * Input:
+ *
+ * 100
+ *
+ * Output:
+ *
+ * 5
+ *
+ * F0+···+F100 =927372692193078999175 % 10 = 5.
+ *
+ *
+ */
 fun main() {
 
     val nthFibonacci = readln().toInt()
