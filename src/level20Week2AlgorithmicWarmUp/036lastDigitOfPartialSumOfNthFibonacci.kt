@@ -129,7 +129,18 @@ fun main() {
         val reducedEndMod = getLastDigitOfNthFibonacci(reducedEndPlusTwo)
         val reducedStartMod = getLastDigitOfNthFibonacci(reducedStartPlusOne)
         // We need to make sure that we don't get a negative number.
-        // Hence, we are adding 10. Because, it will keep the last digit as it is.
+        // For example, the last digit so far we have calculated can be 0 at this moment.
+        // According to the formula, we would do, 0 - 1 = -1.
+        // We want to avoid the negative number. So, we add 10.
+        // Hence, it becomes: 0 - 1 + 10 = 9 % 10 = 9.
+        // Why do we do % 10 here at this stage also?
+        // Because, this is a common code.
+        // So, it applies even when we get one of the values as 4 as a last digit after the above code.
+        // Now, when we do 4 - 1 + 10 = we get 13, and we do not want to return 13.
+        // Hence, the % 10 will make it: 13 % 10 = 3, the last digit we want.
+        // So, in the end, % 10 ensures that we get the last digit.
+        // So, adding 10 does not change the last digit, and it saves us from the negative results.
+        // The final % 10 ensures that we get the right last digit.
         return (reducedEndMod - reducedStartMod + 10) % 10
     }
 
