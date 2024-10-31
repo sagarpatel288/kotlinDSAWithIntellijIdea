@@ -1,14 +1,28 @@
 package level20Week2AlgorithmicWarmUp
 
 /**
+ * Problem Statement:
+ *
+ * Last Digit of the Sum of Squares of Fibonacci Numbers Problem
+ * Compute the last digit of F0^2 +F1^2 +···+Fn^2.
+ *
+ * Input: An integer n.
+ * Output: The last digit of F0^2 +F1^2 +···+Fn^2.
+ *
+ * Hint:
+ * Since the brute force search algorithm for this problem is too slow (n may be as large as 1014),
+ * we need to come up with a simple formula for F0^2 +F1^2 +···+Fn^2.
+ *
+ * ----------------------- Explanation -----------------------
+ *
  * Last digit of sum of square of nth Fibonacci
  * = (Fn0 squared + Fn1 squared + .. + Fn squared) % m where m = 10 to take the last digit.
  *
  * Fn % m
  *
- * = {Fn (Fn+1)} % m
+ * = {Fn (Fn+1)} % m (This is the key-lemma, a formula that gives the sum of square of nth Fibonacci number.)
  *
- * = {(Fn % m) (Fn+1) % m} % m
+ * = {(Fn % m) (Fn+1) % m} % m (This is the simplification.)
  *
  * = {(Fnp % m) (Fnp' % m)} % m
  *
