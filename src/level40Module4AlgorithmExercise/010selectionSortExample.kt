@@ -27,8 +27,11 @@ package level40Module4AlgorithmExercise
  * to get the non-decreasing ascending order.
  *
  * For example, we start an iteration from 0 and go up to the last index of the input.
+ *
  * We assume that the first index is the minimum index and holds the smallest value,
  * which we compare with the rest of the indices.
+ *
+ * The comparison of i with the rest of the indices introduces a nested for loop from i + 1 up to the last index.
  *
  * If we find a smaller value than our minimum index, we take the minimum index label from the first index
  * and assign it to this smaller index.
