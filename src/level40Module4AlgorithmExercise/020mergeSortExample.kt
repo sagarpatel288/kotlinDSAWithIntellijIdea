@@ -1,13 +1,74 @@
 package level40Module4AlgorithmExercise
 
 /**
- * Explain `Merge Sort` with an example:
+ * Problem statement:
+ *
+ * Explain `Merge Sort` with an example or sort the given input array using the merge-sort algorithm:
+ * OR
+ * Sort the given array in such a way that the best, average, and worst-case runtime complexity remains O(n log n),
+ * and the space complexity does not increase more than O(n).
+ * OR
+ * Sort the given array using the divide and conquer technic.
+ *
+ * ----------------------- Explanation -----------------------
  *
  * Merge Sort is a "divide and conquer" sorting algorithm.
- * It works by breaking down a list into smaller sublists until each sublist contains only one element
+ * It works by breaking down a list into smaller sub-lists until each sublist contains only one element
  * (which is considered sorted by itself, and it is our base case),
- * and then merging those sublists back together in a sorted order.
+ * and then merging those sub-lists back together in a sorted order.
  * This approach ensures that the final output is a sorted list.
+ *
+ * How do we divide an array into sub-lists until the size of each sublist becomes 1?
+ *
+ * To divide the main array into sub-arrays until each sub-array has only one element
+ * (i.e., until each sub-array size is no more than 1), we do the following:
+ *
+ * With the help of the middle index. We recursively find the middle index, and each time, the array shrinks.
+ *
+ * And how do we find the middle index?
+ *
+ * `val mid = start + (end - start) / 2`
+ *
+ * What do we do after we find the middle index?
+ *
+ * Once we find the middle index, we divide the input array into two parts.
+ * From the start to the middle index, and from the middle + 1 to the end index.
+ * So, basically, we get a left part and a right part.
+ *
+ * Then, we compare each element from both parts. We insert the smaller element into the new list.
+ *
+ * The size of the new list will be `end - start + 1`.
+ *
+ * How do we compare? What do we do to compare each element from both parts?
+ *
+ * With the help of 3 pointers, iteration, and updating the original input array using the temporary sorted array.
+ *
+ * Pointers:
+ *
+ * We take three markers (pointers).
+ *
+ * One for the left part. The left part starts with the start index.
+ * Hence, the initial position of the left pointer will be the start index.
+ *
+ * One for the right part. The right part starts from the middle + 1 index.
+ * Hence, the initial position of the right pointer will be the middle + 1 index.
+ *
+ * One for the newly created list. It starts with the index 0. We increase it as we insert new elements into the list.
+ *
+ * Iteration:
+ *
+ * Now, as long as the left pointer is less than or equal to the middle index
+ * and the right pointer is less than or equal to the end index,
+ * we compare the elements of both the parts and insert the smallest element to the newly created list.
+ *
+ * Once a particular part is finished, we insert the remaining elements to the newly created list.
+ *
+ * Updating the original input array:
+ *
+ * Once the iteration is finished, we read the values from the newly created list,
+ * and update the original input array as per the below formula:
+ *
+ * `originalInputArray[start + i] = sortedArray[i]`
  *
  * Time Complexity:
  *
