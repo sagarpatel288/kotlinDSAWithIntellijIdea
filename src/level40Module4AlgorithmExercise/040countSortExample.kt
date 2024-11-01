@@ -13,7 +13,10 @@ fun main() {
      * The growth rate between the maximum element and size of the input grows at less than quadratic rate.
      * That is, the difference between the maximum element and the input size is less than quadratic.
      * 2.
-     * We want to maintain the runtime complexity to O(n log n) in best, average, and even in worst-case.
+     * We want to maintain the runtime complexity to O(n + k) in best, average, and even in worst-case,
+     * where n is the number of elements in the input array,
+     * and k is the difference between the maximum value and the minimum value of the input array.
+     * Also, k does not increase significantly larger (quadratic) than the size of the input array.
      * 3.
      * We want to maintain the space complexity to not exceed O(n).
      *
@@ -206,6 +209,32 @@ fun main() {
      * then the max value here grows faster than the size of the input array as we increase the maximum value
      * while keeping the size of the array the same.
      * Here, we better use the merge sort algorithm than the counting sort algorithm.
+     *
+     * Time Complexity:
+     *
+     * O(n + k): The counting sort algorithm runs in linear time,
+     * where n is the number of elements in the input array and
+     * k is the range of input values, also known as the difference between the maximum and the minimum value of the
+     * input array or the size of the count array.
+     *
+     * O(n) when we iterate through the original input array to build the count array, and then
+     * O(k) when we iterate through the count array to store the cumulative count.
+     *
+     * The added complexity of handling negative numbers does not affect the overall time complexity.
+     *
+     * Also, we drop the constants when we provide the Big-O value. That is why we drop the O(n) runtime complexity
+     * of the reversed iteration on the original input array.
+     *
+     * Note that, it is not a nested for loop. It is a separate for loop. That's why it has its own O(n) runtime
+     * complexity.
+     *
+     * So, instead of O(2n + k), we provide O(n + k).
+     *
+     * Space Complexity:
+     *
+     * O(k) to store the count array and O(n) to create a new and sorted array.
+     * We take these two major and dominant factors, and ignore space complexity of other small and temporary variables.
+     * So, the space complexity of the count sort algorithm is O(n + k).
      *
      */
     fun countSort(array: IntArray) {
