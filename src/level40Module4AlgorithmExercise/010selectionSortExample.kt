@@ -19,6 +19,31 @@ package level40Module4AlgorithmExercise
  *
  * The remaining sub-array that is unsorted.
  *
+ * What do we do exactly?
+ *
+ * We compare each index with all the remaining indices.
+ * While comparing, if we find an index that has a lower value element,
+ * then we swap the positions of the elements so that the lower value element gets the lower index value
+ * to get the non-decreasing ascending order.
+ *
+ * For example, we start an iteration from 0 and go up to the last index of the input.
+ * We assume that the first index is the minimum index and holds the smallest value,
+ * which we compare with the rest of the indices.
+ *
+ * If we find a smaller value than our minimum index, we take the minimum index label from the first index
+ * and assign it to this smaller index.
+ *
+ * We continue the iteration, performing the same action whenever we
+ * find an index that holds a value smaller than the minimum index.
+ *
+ * After the first iteration, if the minimum index is not equal to the current index of the iteration,
+ * we swap the values.
+ *
+ * We do this until we reach the last index.
+ *
+ * So, it's like we select the current index, assign it as the minimum index, compare it with the other elements,
+ * swap if necessary, and then select the next index. We do this up to the last index of the input.
+ *
  * Time-Complexity:
  *
  * The time-complexity of the selection sort is O(n squared) for all 3 cases (best, average, and worst).
