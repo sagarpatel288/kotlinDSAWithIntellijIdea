@@ -96,6 +96,15 @@ package coursera.ucSanDiego.module04DivideAndConquer
  * The recursion stack also takes O(log n) space, but it is lower than the space required by the temp array, O(n).
  * And as we take the dominant term, we can say that the space complexity of a merge-sort algorithm is O(n).
  *
+ * ----------------------- Knowledge: Lessons to learn and understand -----------------------
+ *
+ * The exercise teaches us:
+ *
+ * 1. How to sort a collection?
+ * 2. How to divide a collection?
+ * 3. How to merge a collection in ascending order?
+ * 4. How to validate the index range of a collection? (start <= end)
+ *
  */
 fun main() {
 
