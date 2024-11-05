@@ -5,6 +5,8 @@ package coursera.ucSanDiego.module04DivideAndConquer
  * Please note that: (Disclaimer, Pre-Note, Conditions, Known data and facts, etc.)
  * The array (input) is not sorted or nearly sorted. The array is not reversed.
  * The array (input) does not contain any duplicate element.
+ * Stability is not a concern here.
+ * The solution can have maximum time complexity as O(n log n) and maximum space complexity as O(log n).
  */
 fun main() {
 
