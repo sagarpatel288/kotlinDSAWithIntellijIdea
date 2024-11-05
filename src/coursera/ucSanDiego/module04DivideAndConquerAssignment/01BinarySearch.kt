@@ -59,6 +59,8 @@ fun main() {
 
     /**
      * [input] is already sorted.
+     * The time complexity of this solution is O(m log n) because we do binary search (log n) for m queries.
+     * The space complexity of the solution is O(m) to store the result, which is equivalent to the size of the query.
      */
     fun searchIndicesOfElements(input: List<Int>, queries: List<Int>): IntArray {
         val resultArray = IntArray(queries.size)
