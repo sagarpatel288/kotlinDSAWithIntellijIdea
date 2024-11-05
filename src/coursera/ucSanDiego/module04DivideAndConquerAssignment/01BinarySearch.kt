@@ -57,4 +57,31 @@ package coursera.ucSanDiego.module04DivideAndConquerAssignment
  */
 fun main() {
 
+    /**
+     * [input] is already sorted.
+     */
+    fun searchIndicesOfElements(input: List<Int>, queries: List<Int>): IntArray {
+        val resultArray = IntArray(queries.size)
+        for ((index, element) in queries.withIndex()) {
+            val resultIndex = input.binarySearch(element)
+            resultArray[index] = if (resultIndex < 0) -1 else resultIndex
+        }
+        return resultArray
+    }
+
+    // Remember this: How we take input.
+    val totalElements = readln().toInt()
+    // Remember this: How we convert the input into a list of desired type.
+    val input = readln().split(" ").map {
+        it.toInt()
+    }
+    val totalQueries = readln().toInt()
+    val queries = readln().split(" ").map {
+        it.toInt()
+    }
+
+    val result = searchIndicesOfElements(input, queries)
+
+    // Remember this: How we print the result as per request.
+    println(result.joinToString(" "))
 }
