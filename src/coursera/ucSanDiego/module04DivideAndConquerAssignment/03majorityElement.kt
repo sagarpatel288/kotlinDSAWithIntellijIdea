@@ -130,7 +130,6 @@ package coursera.ucSanDiego.module04DivideAndConquerAssignment
  * when support for the current one is exhausted.
  * This is the moment when the current candidate (element) becomes the new `currentMajor` element,
  * and at this point, the count is set to 1.
- *
  * Whenever the count reaches zero, the current element becomes the `currentMajor`, and the count is reset to 1.
  *
  * 5. Final Confirmation by a second pass to verify the favorite tradition reflects the final count check to ensure the
@@ -247,6 +246,13 @@ package coursera.ucSanDiego.module04DivideAndConquerAssignment
  * The counting and canceling out mechanism is what makes it so powerful,
  * allowing it to solve the problem in linear time while only using constant space.
  *
+ * TL;DR:
+ *
+ * 1. Count 0 and when the count is 0, the current element is the `currentMajority`.
+ * 2. Increment count for the same value and decrement for any other value.
+ * 3. When the count becomes 0 again, the current element is the `currentMajority`.
+ * 4. Count the occurrences of only the `currentMajority`. (The second phase, the second iteration)
+ *
  * Time Complexity:
  *
  * We iterate through the given input 2 times. So, 2N. We drop the constants in Big-O.
@@ -267,25 +273,31 @@ fun main() {
 
     fun majorityElement(input: List<Int>) {
         var currentMajority = input[0]
+        // Initially, set the count to 0.
         var count = 0
         for (element in input) {
+            // If the count is 0, the current element is the new `currentMajority` element.
             if (count == 0) {
                 currentMajority = element
             }
+            // Increase the count if the current element is equal to the `currentMajority` element.
             if (element == currentMajority) {
                 // Support, reinforce
                 count++
             } else {
-                // Cancel out
+                // Cancel out. Decrease the count if the current element is not equal to the `currentMajority` element.
                 count--
             }
         }
+        // Second phase. Reset the count to 0. This time, we count the occurrences of the `currentMajority` element.
         count = 0
+        // Iterate to count the occurrences of the `currentMajority` element.
         for (element in input) {
             if (element == currentMajority) {
                 count++
             }
         }
+        // If the `currentMajority` element occurs more than half times, it is the majority element.
         val result = if (count > (input.size / 2)) 1 else 0
         println(result)
     }
