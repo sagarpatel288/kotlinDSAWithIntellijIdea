@@ -53,6 +53,17 @@ package coursera.ucSanDiego.module04DivideAndConquerAssignment
  * Queries 8, 1, and 1 occur at positions 2, 0, and 0, respectively, while
  * queries 23 and 11 do not occur in the sequence of keys.
  *
+ * Time complexity:
+ * Each query uses a binary search and a binary search halves the problem.
+ * The time complexity of a binary search is O(log n) and for m queries, it is O(m log n).
+ *
+ * Space complexity:
+ * We store the result indices in a collection which has the same size of the given query list.
+ * Hence, the space complexity is O(m) where m is the size of the given query list.
+ *
+ * Coursera's Grader output:
+ * (Max time used: 0.62/2.50, max memory used: 80027648/536870912.)
+ *
  *
  */
 fun main() {

@@ -63,6 +63,9 @@ package coursera.ucSanDiego.module04DivideAndConquerAssignment
  * We create an array to store the resultant indices which has the same size of the given query list.
  * Hence, it is O(m) where m is the size of the query list.
  *
+ * Coursera's Grader output:
+ * (Max time used: 0.64/2.00, max memory used: 77828096/536870912.)
+ *
  */
 fun main() {
 
