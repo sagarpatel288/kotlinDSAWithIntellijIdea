@@ -96,6 +96,16 @@ package coursera.ucSanDiego.module04DivideAndConquer
  * The recursion stack also takes O(log n) space, but it is lower than the space required by the temp array, O(n).
  * And as we take the dominant term, we can say that the space complexity of a merge-sort algorithm is O(n).
  *
+ * ----------------------- Questions -----------------------
+ *
+ * 1. Why don't we simply divide the input into two parts and then call the conquer function,
+ * which compares each element of both sides and inserts the smaller element into the sorted array?
+ *
+ * Ans:
+ * While it is possible, the fact that neither the left nor the right part is sorted,
+ * increases the complexity and inefficiency when we attempt to insert the element into the sorted array.
+ *
+ *
  * ----------------------- Knowledge: Lessons to learn and understand -----------------------
  *
  * The exercise teaches us:
