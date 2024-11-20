@@ -117,6 +117,12 @@ fun main() {
 
     data class Point(val xAxis: Int, val yAxis: Int)
 
+    /**
+     * What do we do here?
+     *
+     * We calculate the distance between the two points on a 2D (x-axis, y-axis) plane using the
+     * Euclidean distance formula. Each point has an x-axis and a y-axis value.
+     */
     fun euclideanDistanceOfPoints(pointOne: Point, pointTwo: Point): Double {
         return sqrt(
             (
