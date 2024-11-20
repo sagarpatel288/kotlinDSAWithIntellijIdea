@@ -156,18 +156,15 @@ fun main() {
     }
 
     fun closestPointsRecursively(sortedPoints: List<Point>, start: Int, end: Int): Double {
-        if (sortedPoints.size <= 3) {
+        if (end - start <= 2) {
             return closestPointsByBruteForce(sortedPoints, start, end)
         }
 
-        val mid = sortedPoints.size / 2
+        val mid = start + (end - start) / 2
         val midX = sortedPoints[mid].xAxis
 
-        val leftPart = sortedPoints.subList(0, mid)
-        val rightPart = sortedPoints.subList(mid, sortedPoints.lastIndex)
-
-        val leftMinDistance = closestPointsRecursively(leftPart, start, mid)
-        val rightMinDistance = closestPointsRecursively(rightPart, mid + 1, end)
+        val leftMinDistance = closestPointsRecursively(sortedPoints, start, mid)
+        val rightMinDistance = closestPointsRecursively(sortedPoints, mid + 1, end)
 
         var minDistance = min(leftMinDistance, rightMinDistance)
 
