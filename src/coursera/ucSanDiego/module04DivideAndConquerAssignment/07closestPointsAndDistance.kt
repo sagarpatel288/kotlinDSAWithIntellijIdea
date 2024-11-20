@@ -185,15 +185,25 @@ fun main() {
         return minDistance
     }
 
+    /**
+     * What do we do here and why?
+     *
+     * Sort points by x-coordinate and y-coordinate initially.
+     * Imagine that we have a box. The box contains many pairs.
+     * Each pair has two points, and each point represents a coordinate.
+     * Therefore, each pair represents x and y coordinates.
+     * Now, we open the box, pick up each pair one by one, and place it in the space according to their coordinates.
+     * In the end, we have all the pairs in the space sorted by their coordinates.
+     * This will help us calculate the proper distance between each pair.
+     */
     fun closestPoints(points: List<Point>): Double {
-        // Sort points by x-coordinate and y-coordinate initially.
-        // Imagine that we have a box. The box contains many pairs.
-        // Each pair has two points, and each point represents a coordinate.
-        // Therefore, each pair represents x and y coordinates.
-        // Now, we open the box, pick up each pair one by one, and place it in the space according to their coordinates.
-        // In the end, we have all the pairs in the space sorted by their coordinates.
-        // This will help us calculate the proper distance between each pair.
+        // Sorting by x-axis is like arranging all the pairs in rows based on their x-coordinates.
+        // Imagine marking positions on a horizontal line and placing each pair where its x-coordinate matches.
+        // Now the pairs are aligned horizontally, making it easier to compute distances between nearby pairs along the x-axis.
         val sortedByX = points.sortedBy { it.xAxis }
+        // Sorting by y-axis is akin to arranging the same pairs vertically, focusing on their y-coordinates.
+        // This setup helps efficiently calculate distances for subsets of points constrained by y-coordinates,
+        // such as the “strip” in the closest pair problem.
         val sortedByY = points.sortedBy { it.yAxis }
         return closestPointsRecursively(sortedByX, sortedByY, 0, sortedByX.lastIndex)
     }
