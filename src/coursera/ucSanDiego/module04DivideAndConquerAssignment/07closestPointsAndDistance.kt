@@ -194,20 +194,42 @@ fun main() {
      * 	2.	Within a strip, consider a square of side  d  around a point  p .
      * 	3.	At most 7 points can fit in this square without violating the  d  minimum distance constraint.
      *
+     * The main geometric insight here is that, for any given point in the strip, it is sufficient to compare it
+     * with only the next min(7, strip.size) points in the sorted order.
+     *
+     * Why? Because points that are farther apart vertically than `minDistance` cannot possibly form a closer pair
+     * due to the constraints of Euclidean distance.
+     *
+     * Iteration:
+     *
+     * 	For each point i in the strip:
+     *
+     * 	1. Compare it with the next j points (up to 7 or the end of the list).
+     * 	2. Break early if the difference in the y-coordinates exceeds the current minDistance.
+     * 	3. Keep track of the minimum distance found during these comparisons.
+     *
+     * 	Outer loop: Iterate over each point in the strip.
+     *
+     * 	Inner loop: Compare only the next j points until the y-axis difference exceeds minDistance.
      *
      */
     fun closestPointsInStrip(sortedByY: List<Point>, midX: Int, minDistance: Double): Double {
         val strip = sortedByY.filter { abs(it.xAxis - midX) < minDistance }
         var minDistanceStrip = minDistance
+        // Iterate over each point in the strip.
         for (i in strip.indices) {
             // If we use `..<` instead of `until`, we may get the below error:
             // error: this declaration needs opt-in. Its usage must be marked with '@kotlin.ExperimentalStdlibApi' or '@OptIn(kotlin.ExperimentalStdlibApi::class)'
             // So, either update the language version or use until.
             // Compare each point with the next at most 7 points.
             // A point in the strip can only have at most 7 neighbors closer than minDistance.
-            // (Based on the geometric packing arguments)
+            // (Based on the geometric packing arguments).
+            // So, compare only the next j points, minOf(i + 7, strip.size)
+            // until the y-axis difference exceeds minDistance.
             for (j in i + 1 until minOf(i + 7, strip.size)) {
+                // If the y-distance exceeds minDistance, break early.
                 if ((strip[j].yAxis - strip[i].yAxis) >= minDistanceStrip) break
+                // Otherwise, calculate and update the minimum distance.
                 minDistanceStrip = min(minDistanceStrip, euclideanDistanceOfPoints(strip[i], strip[j]))
             }
         }
