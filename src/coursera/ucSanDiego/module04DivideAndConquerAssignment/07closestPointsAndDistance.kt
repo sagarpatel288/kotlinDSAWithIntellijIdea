@@ -149,6 +149,7 @@ fun main() {
             // So, either update the language version or use until.
             // Compare each point with the next at most 7 points.
             // A point in the strip can only have at most 7 neighbors closer than minDistance.
+            // (Based on the geometric packing arguments)
             for (j in i + 1 until minOf(i + 7, strip.size)) {
                 if ((strip[j].yAxis - strip[i].yAxis) >= minDistanceStrip) break
                 minDistanceStrip = min(minDistanceStrip, euclideanDistanceOfPoints(strip[i], strip[j]))
