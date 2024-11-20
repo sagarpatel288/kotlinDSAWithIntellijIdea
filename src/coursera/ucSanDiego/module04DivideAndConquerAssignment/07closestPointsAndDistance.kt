@@ -167,7 +167,7 @@ fun main() {
         val rightY = sortedByY.filter { it.xAxis > midX }
 
         val leftMinDistance = closestPointsRecursively(sortedByX, leftY, start, mid)
-        val rightMinDistance = closestPointsRecursively(sortedByX, rightY, mid, end)
+        val rightMinDistance = closestPointsRecursively(sortedByX, rightY, mid + 1, end)
 
         var minDistance = min(leftMinDistance, rightMinDistance)
 
