@@ -133,7 +133,7 @@ fun main() {
             // If we use `..<` instead of `until`, we may get the below error:
             // error: this declaration needs opt-in. Its usage must be marked with '@kotlin.ExperimentalStdlibApi' or '@OptIn(kotlin.ExperimentalStdlibApi::class)'
             // So, either update the language version or use until.
-            for (j in i + 1 .. end) {
+            for (j in i + 1..end) {
                 minDistance = min(minDistance, euclideanDistanceOfPoints(sortedPoints[i], sortedPoints[j]))
             }
         }
@@ -165,8 +165,11 @@ fun main() {
         val mid = start + (end - start) / 2
         val midX = sortedByX[mid].xAxis
 
-        val leftMinDistance = closestPointsRecursively(sortedByX, sortedByY, start, mid)
-        val rightMinDistance = closestPointsRecursively(sortedByX, sortedByY,mid + 1, end)
+        val leftY = sortedByY.filter { it.xAxis <= midX }
+        val rightY = sortedByY.filter { it.xAxis > midX }
+
+        val leftMinDistance = closestPointsRecursively(sortedByX, leftY, start, mid)
+        val rightMinDistance = closestPointsRecursively(sortedByX, rightY, mid, end)
 
         var minDistance = min(leftMinDistance, rightMinDistance)
 
@@ -178,7 +181,7 @@ fun main() {
     fun closestPoints(points: List<Point>): Double {
         val sortedByX = points.sortedBy { it.xAxis }
         val sortedByY = points.sortedBy { it.yAxis }
-        return closestPointsRecursively(sortedByX, sortedByY,0, sortedByX.lastIndex)
+        return closestPointsRecursively(sortedByX, sortedByY, 0, sortedByX.lastIndex)
     }
 
     val totalPairs = readln().toInt()
