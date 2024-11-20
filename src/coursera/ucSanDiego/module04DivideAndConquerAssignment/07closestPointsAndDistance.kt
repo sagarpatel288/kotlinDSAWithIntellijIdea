@@ -140,46 +140,45 @@ fun main() {
         return minDistance
     }
 
-    fun closestPointsInStrip(sortedPoints: List<Point>, minDistance: Double): Double {
+    fun closestPointsInStrip(sortedByY: List<Point>, midX: Int, minDistance: Double): Double {
+        val strip = sortedByY
+            .filter { abs(it.xAxis - midX) < minDistance }
+            .sortedBy { it.yAxis }
         var minDistanceStrip = minDistance
-        val sortedByYAxis = sortedPoints.sortedBy { it.yAxis }
-        for (i in sortedByYAxis.indices) {
+        for (i in strip.indices) {
             // If we use `..<` instead of `until`, we may get the below error:
             // error: this declaration needs opt-in. Its usage must be marked with '@kotlin.ExperimentalStdlibApi' or '@OptIn(kotlin.ExperimentalStdlibApi::class)'
             // So, either update the language version or use until.
-            for (j in i + 1 until sortedByYAxis.size) {
-                if ((sortedByYAxis[j].yAxis - sortedByYAxis[i].yAxis) >= minDistanceStrip) break
-                minDistanceStrip = min(minDistanceStrip, euclideanDistanceOfPoints(sortedByYAxis[i], sortedByYAxis[j]))
+            for (j in i + 1 until strip.size) {
+                if ((strip[j].yAxis - strip[i].yAxis) >= minDistanceStrip) break
+                minDistanceStrip = min(minDistanceStrip, euclideanDistanceOfPoints(strip[i], strip[j]))
             }
         }
         return minDistanceStrip
     }
 
-    fun closestPointsRecursively(sortedPoints: List<Point>, start: Int, end: Int): Double {
+    fun closestPointsRecursively(sortedByX: List<Point>, sortedByY: List<Point>, start: Int, end: Int): Double {
         if (end - start <= 2) {
-            return closestPointsByBruteForce(sortedPoints, start, end)
+            return closestPointsByBruteForce(sortedByX, start, end)
         }
 
         val mid = start + (end - start) / 2
-        val midX = sortedPoints[mid].xAxis
+        val midX = sortedByX[mid].xAxis
 
-        val leftMinDistance = closestPointsRecursively(sortedPoints, start, mid)
-        val rightMinDistance = closestPointsRecursively(sortedPoints, mid + 1, end)
+        val leftMinDistance = closestPointsRecursively(sortedByX, sortedByY, start, mid)
+        val rightMinDistance = closestPointsRecursively(sortedByX, sortedByY,mid + 1, end)
 
         var minDistance = min(leftMinDistance, rightMinDistance)
 
-        val strip = sortedPoints
-            .filter { abs(it.xAxis - midX) < minDistance }
-            .sortedBy { it.yAxis }
-
-        minDistance = min(minDistance, closestPointsInStrip(strip, minDistance))
+        minDistance = min(minDistance, closestPointsInStrip(sortedByY, midX, minDistance))
 
         return minDistance
     }
 
     fun closestPoints(points: List<Point>): Double {
-        val sortedPoints = points.sortedBy { it.xAxis }
-        return closestPointsRecursively(sortedPoints, 0, sortedPoints.lastIndex)
+        val sortedByX = points.sortedBy { it.xAxis }
+        val sortedByY = points.sortedBy { it.yAxis }
+        return closestPointsRecursively(sortedByX, sortedByY,0, sortedByX.lastIndex)
     }
 
     val totalPairs = readln().toInt()
