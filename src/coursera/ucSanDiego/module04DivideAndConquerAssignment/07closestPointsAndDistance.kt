@@ -141,9 +141,7 @@ fun main() {
     }
 
     fun closestPointsInStrip(sortedByY: List<Point>, midX: Int, minDistance: Double): Double {
-        val strip = sortedByY
-            .filter { abs(it.xAxis - midX) < minDistance }
-            .sortedBy { it.yAxis }
+        val strip = sortedByY.filter { abs(it.xAxis - midX) < minDistance }
         var minDistanceStrip = minDistance
         for (i in strip.indices) {
             // If we use `..<` instead of `until`, we may get the below error:
