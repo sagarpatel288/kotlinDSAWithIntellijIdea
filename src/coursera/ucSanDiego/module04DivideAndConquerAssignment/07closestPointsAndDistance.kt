@@ -91,9 +91,9 @@ import kotlin.math.abs
  *
  * ----------------------- References -----------------------
  *
- * res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07closestPointsDistance.png
+ * res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07a_closestPointsDistance.png
  *
- * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b313879762c83e25cdbdbbf0543ba89f7280d42a/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07closestPointsDistance.png)
+ * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b313879762c83e25cdbdbbf0543ba89f7280d42a/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07a_closestPointsDistance.png)
  *
  * ----------------------- Story Time -----------------------
  *
@@ -140,6 +140,62 @@ fun main() {
         return minDistance
     }
 
+    /**
+     * Reference images:
+     *
+     * res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07b_closestPointsStripConcept01.png
+     * [image01](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/6abcdbafac0bf968f456f7cd41673266c065e303/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07b_closestPointsStripConcept01.png)
+     *
+     * res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07b_closestPointsStripConcept02.png
+     * [image02](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/6abcdbafac0bf968f456f7cd41673266c065e303/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07b_closestPointsStripConcept02.png)
+     *
+     * res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07b_closestPointsStripConcept03.png
+     * [image03](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/6abcdbafac0bf968f456f7cd41673266c065e303/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/07b_closestPointsStripConcept03.png)
+     *
+     *
+     * The closest pair problem uses the divide and conquer approach.
+     *
+     * Divide: Split points into two halves based on x-coordinates.
+     *
+     * Conquer: Solve the problem for each half recursively.
+     *
+     * Combine: Find the closest pair across the dividing line.
+     *
+     * The strip plays a crucial role in the combine step, where we handle the pairs that might span across
+     * the two halves.
+     *
+     * If two points are in different halves, their x-coordinates are close to the dividing line.
+     * The distance between them can only be relevant if it is smaller than the minimum distance d found in
+     * the left and right halves.
+     *
+     * We only need to compare points within this vertical strip around the dividing line.
+     *
+     * The strip is a subset of points filtered from the original set.
+     * It includes only those points whose x-coordinates are within d distance of the dividing line.
+     *
+     * Limit Comparisons to 7 Points:
+     *
+     * For a point p, we only need to compare it with the next 7 points in the sorted strip.
+     * Why? Because in a `d * d` square (centered on p ), a maximum of 7 points can exist due to
+     * geometric packing arguments (explained below).
+     *
+     * Calculate Distances:
+     *
+     * For each point p, compare its distance with the next 7 points and update the minimum distance
+     * if a smaller one is found.
+     *
+     * Why Only i + 7 Points?
+     *
+     * Geometric Packing Argument:
+     *
+     * The bound of 7 comparisons comes from a mathematical observation about point placement in a  d * d  square:
+     *
+     * 	1.	The minimum distance between two points is  d .
+     * 	2.	Within a strip, consider a square of side  d  around a point  p .
+     * 	3.	At most 7 points can fit in this square without violating the  d  minimum distance constraint.
+     *
+     *
+     */
     fun closestPointsInStrip(sortedByY: List<Point>, midX: Int, minDistance: Double): Double {
         val strip = sortedByY.filter { abs(it.xAxis - midX) < minDistance }
         var minDistanceStrip = minDistance
@@ -158,8 +214,27 @@ fun main() {
         return minDistanceStrip
     }
 
+    /**
+     * What do we do here and why?
+     *
+     * We recursively divide the original larger problem into two smaller problems: left and right.
+     * We continue this process until the size of each problem is 3 or less.
+     * This makes it easier to find the distance between the points.
+     *
+     * We compare the minimum distance found in the left and right sections
+     * and take the smaller of the two.
+     *
+     * To account for the possible closest pair of points where one point is on the left side
+     * and another point is on the right side, we create a strip and find the minimum distance between the points
+     * within the strip.
+     *
+     * In the end, we compare the previously determined minimum distance (obtained from comparing the minimum distances
+     * of the left and right sections) with the minimum distance found within the strip.
+     *
+     * We take the minimum of the two.
+     */
     fun closestPointsRecursively(sortedByX: List<Point>, sortedByY: List<Point>, start: Int, end: Int): Double {
-        // Base case: Use brute force for small subsets
+        // Base case: Use brute force for small subsets.
         if (end - start <= 2) {
             return closestPointsByBruteForce(sortedByX, start, end)
         }
@@ -169,6 +244,21 @@ fun main() {
         val midX = sortedByX[mid].xAxis
 
         // Filter once for left and right subsets of points based on x-axis midpoint.
+        // The partition spans the area from top to bottom. We began at the bottom and will now cover the top area.
+        // Imagine that we have multiple row houses.
+        // If we want to divide the row houses into two parts, we don’t simply divide the floors (x-axis).
+        // We calculate and mark the midpoint on the floor, then draw a vertical line extending from the floor (bottom)
+        // to the ceiling (y-axis) as well.
+        // Imagine you’re an urban planner tasked with dividing a neighborhood of row houses into two regions,
+        // left and right, for better management. To do this:
+        //	1.	Start with the Floor Division: First, you calculate the midpoint along the row of houses,
+        //	dividing the area into a left side and a right side based on the floor (x-axis).
+        //	2.	Extend the Line Vertically: But wait, a simple horizontal floor split isn’t enough.
+        //	Houses might have balconies, rooftops, or even taller extensions.
+        //	To ensure no house is left out based on its vertical presence, you extend the division line upwards
+        //	along the ceiling (y-axis), effectively dividing the region into two fully enclosed sections.
+        //	3.	Assign Houses: Now, every house on the left of the line (both by its position on the floor and vertically)
+        //	goes into the left region. Similarly, all the houses on the right of the line belong to the right region.
         val leftY = sortedByY.filter { it.xAxis <= midX }
         val rightY = sortedByY.filter { it.xAxis > midX }
 
