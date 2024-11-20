@@ -212,7 +212,7 @@ fun main() {
      * 	other point. Instead, we compare each point with the next (noting that it is sorted) `minOf(i + 7, strip.size)`
      * 	points only because we leverage geometric packing arguments.
      *
-     * 	To understand it, imagine that we draw a circle with a radius of `minDistance` from a specific point in the
+     * 	To understand this, imagine that we draw a circle with a radius of `minDistance` from a specific point in the
      * 	strip area. Note that the strip area is sorted by the y-axis. Therefore, we search for another point solely in
      * 	one direction: downward. According to the geometric packing argument, there can be at most 7 points that can fit
      * 	within this area, allowing the point under inspection to pair with them and achieve a smaller distance than the
