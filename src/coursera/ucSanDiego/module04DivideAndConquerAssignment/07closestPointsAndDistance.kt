@@ -208,9 +208,25 @@ fun main() {
      * 	2. Break early if the difference in the y-coordinates exceeds the current minDistance.
      * 	3. Keep track of the minimum distance found during these comparisons.
      *
+     * 	We scan all the points of the strip, similar to brute force, but we do not compare each point with every single
+     * 	other point. Instead, we compare each point with the next (noting that it is sorted) `minOf(i + 7, strip.size)`
+     * 	points only because we leverage geometric packing arguments.
+     *
+     * 	To understand it, imagine that we draw a circle with a radius of `minDistance` from a specific point in the
+     * 	strip area. Note that the strip area is sorted by the y-axis. Therefore, we search for another point solely in
+     * 	one direction: downward. According to the geometric packing argument, there can be at most 7 points that can fit
+     * 	within this area, allowing the point under inspection to pair with them and achieve a smaller distance than the
+     * 	last known `minDistance`.
+     *
+     * If we attempt to fit more than 7 points, one of the pairs would result in a smaller distance than the last known
+     * `minDistance` without crossing the divider (vertical line) where both points would lie on the same side.
+     * This situation would have already been identified while searching for minDistance on the left and right sides
+     * separately.
+     *
      * 	Outer loop: Iterate over each point in the strip.
      *
-     * 	Inner loop: Compare only the next j points until the y-axis difference exceeds minDistance.
+     * 	Inner loop: Compare only the next j points `minOf(i + 7, strip.size)` until the y-axis difference exceeds
+     * 	`minDistance`.
      *
      */
     fun closestPointsInStrip(sortedByY: List<Point>, midX: Int, minDistance: Double): Double {
