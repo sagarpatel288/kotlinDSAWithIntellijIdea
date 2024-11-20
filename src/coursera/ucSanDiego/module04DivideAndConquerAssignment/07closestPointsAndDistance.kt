@@ -147,7 +147,7 @@ fun main() {
             // If we use `..<` instead of `until`, we may get the below error:
             // error: this declaration needs opt-in. Its usage must be marked with '@kotlin.ExperimentalStdlibApi' or '@OptIn(kotlin.ExperimentalStdlibApi::class)'
             // So, either update the language version or use until.
-            for (j in i + 1 until strip.size) {
+            for (j in i + 1 until minOf(i + 7, strip.size)) {
                 if ((strip[j].yAxis - strip[i].yAxis) >= minDistanceStrip) break
                 minDistanceStrip = min(minDistanceStrip, euclideanDistanceOfPoints(strip[i], strip[j]))
             }
