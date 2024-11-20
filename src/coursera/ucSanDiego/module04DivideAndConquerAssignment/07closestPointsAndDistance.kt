@@ -147,6 +147,8 @@ fun main() {
             // If we use `..<` instead of `until`, we may get the below error:
             // error: this declaration needs opt-in. Its usage must be marked with '@kotlin.ExperimentalStdlibApi' or '@OptIn(kotlin.ExperimentalStdlibApi::class)'
             // So, either update the language version or use until.
+            // Compare each point with the next at most 7 points.
+            // A point in the strip can only have at most 7 neighbors closer than minDistance.
             for (j in i + 1 until minOf(i + 7, strip.size)) {
                 if ((strip[j].yAxis - strip[i].yAxis) >= minDistanceStrip) break
                 minDistanceStrip = min(minDistanceStrip, euclideanDistanceOfPoints(strip[i], strip[j]))
@@ -156,27 +158,34 @@ fun main() {
     }
 
     fun closestPointsRecursively(sortedByX: List<Point>, sortedByY: List<Point>, start: Int, end: Int): Double {
+        // Base case: Use brute force for small subsets
         if (end - start <= 2) {
             return closestPointsByBruteForce(sortedByX, start, end)
         }
 
+        // Divide into two halves.
         val mid = start + (end - start) / 2
         val midX = sortedByX[mid].xAxis
 
+        // Filter once for left and right subsets of points based on x-axis midpoint.
         val leftY = sortedByY.filter { it.xAxis <= midX }
         val rightY = sortedByY.filter { it.xAxis > midX }
 
+        // Recursive calls for the left and the right halves.
         val leftMinDistance = closestPointsRecursively(sortedByX, leftY, start, mid)
         val rightMinDistance = closestPointsRecursively(sortedByX, rightY, mid + 1, end)
 
+        // Current minimum distance so far.
         var minDistance = min(leftMinDistance, rightMinDistance)
 
+        // Check for closer points in the strip. Handle the strip case.
         minDistance = min(minDistance, closestPointsInStrip(sortedByY, midX, minDistance))
 
         return minDistance
     }
 
     fun closestPoints(points: List<Point>): Double {
+        // Sort points by x-coordinate and y-coordinate initially.
         val sortedByX = points.sortedBy { it.xAxis }
         val sortedByY = points.sortedBy { it.yAxis }
         return closestPointsRecursively(sortedByX, sortedByY, 0, sortedByX.lastIndex)
@@ -190,6 +199,7 @@ fun main() {
     }
 
     val result = closestPoints(points)
+    // Ensure 4 decimal places.
     println("%.4f".format(result))
 
 }
