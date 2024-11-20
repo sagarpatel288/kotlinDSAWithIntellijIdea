@@ -127,6 +127,12 @@ fun main() {
         )
     }
 
+    /**
+     * What do we do here?
+     *
+     * In a brute force function, we compare every single point with every other point.
+     * This requires an outer for loop (i) and an inner for loop `(i + 1)..end`.
+     */
     fun closestPointsByBruteForce(sortedPoints: List<Point>, start: Int, end: Int): Double {
         var minDistance = Double.MAX_VALUE
         for (i in start..end) {
