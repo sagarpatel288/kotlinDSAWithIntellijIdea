@@ -1,5 +1,10 @@
 package coursera.ucSanDiego.module04DivideAndConquerAssignment
 
+import kotlin.math.min
+import kotlin.math.sqrt
+import kotlin.math.pow
+import kotlin.math.abs
+
 /**
  * ----------------------- Problem Statement -----------------------
  *
@@ -109,5 +114,85 @@ package coursera.ucSanDiego.module04DivideAndConquerAssignment
  *
  */
 fun main() {
+
+    data class Point(val xAxis: Int, val yAxis: Int)
+
+    fun euclideanDistanceOfPoints(pointOne: Point, pointTwo: Point): Double {
+        return sqrt(
+            (
+                    (pointOne.xAxis - pointTwo.xAxis).toDouble().pow(2)
+                            +
+                            (pointOne.yAxis - pointTwo.yAxis).toDouble().pow(2)
+                    )
+        )
+    }
+
+    fun closestPointsByBruteForce(sortedPoints: List<Point>, start: Int, end: Int): Double {
+        var minDistance = Double.MAX_VALUE
+        for (i in sortedPoints.indices) {
+            // If we use `..<` instead of `until`, we may get the below error:
+            // error: this declaration needs opt-in. Its usage must be marked with '@kotlin.ExperimentalStdlibApi' or '@OptIn(kotlin.ExperimentalStdlibApi::class)'
+            // So, either update the language version or use until.
+            for (j in i + 1 until sortedPoints.size) {
+                minDistance = min(minDistance, euclideanDistanceOfPoints(sortedPoints[i], sortedPoints[j]))
+            }
+        }
+        return minDistance
+    }
+
+    fun closestPointsInStrip(sortedPoints: List<Point>, minDistance: Double): Double {
+        var minDistanceStrip = minDistance
+        val sortedByYAxis = sortedPoints.sortedBy { it.yAxis }
+        for (i in sortedByYAxis.indices) {
+            // If we use `..<` instead of `until`, we may get the below error:
+            // error: this declaration needs opt-in. Its usage must be marked with '@kotlin.ExperimentalStdlibApi' or '@OptIn(kotlin.ExperimentalStdlibApi::class)'
+            // So, either update the language version or use until.
+            for (j in i + 1 until sortedByYAxis.size) {
+                if ((sortedByYAxis[j].yAxis - sortedByYAxis[i].yAxis) >= minDistanceStrip) break
+                minDistanceStrip = min(minDistanceStrip, euclideanDistanceOfPoints(sortedByYAxis[i], sortedByYAxis[j]))
+            }
+        }
+        return minDistanceStrip
+    }
+
+    fun closestPointsRecursively(sortedPoints: List<Point>, start: Int, end: Int): Double {
+        if (sortedPoints.size <= 3) {
+            return closestPointsByBruteForce(sortedPoints, start, end)
+        }
+
+        val mid = sortedPoints.size / 2
+        val midX = sortedPoints[mid].xAxis
+
+        val leftPart = sortedPoints.subList(0, mid)
+        val rightPart = sortedPoints.subList(mid, sortedPoints.lastIndex)
+
+        val leftMinDistance = closestPointsRecursively(leftPart, start, mid)
+        val rightMinDistance = closestPointsRecursively(rightPart, mid + 1, end)
+
+        var minDistance = min(leftMinDistance, rightMinDistance)
+
+        val strip = sortedPoints
+            .filter { abs(it.xAxis - midX) < minDistance }
+            .sortedBy { it.yAxis }
+
+        minDistance = min(minDistance, closestPointsInStrip(strip, minDistance))
+
+        return minDistance
+    }
+
+    fun closestPoints(points: List<Point>): Double {
+        val sortedPoints = points.sortedBy { it.xAxis }
+        return closestPointsRecursively(sortedPoints, 0, sortedPoints.lastIndex)
+    }
+
+    val totalPairs = readln().toInt()
+    val points = mutableListOf<Point>()
+    for (i in 1..totalPairs) {
+        val point = readln().split(" ").map { it.toInt() }
+        points.add(Point(point[0], point[1]))
+    }
+
+    val result = closestPoints(points)
+    println("%.4f".format(result))
 
 }
