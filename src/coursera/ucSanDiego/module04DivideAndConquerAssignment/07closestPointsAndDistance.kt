@@ -187,6 +187,12 @@ fun main() {
 
     fun closestPoints(points: List<Point>): Double {
         // Sort points by x-coordinate and y-coordinate initially.
+        // Imagine that we have a box. The box contains many pairs.
+        // Each pair has two points, and each point represents a coordinate.
+        // Therefore, each pair represents x and y coordinates.
+        // Now, we open the box, pick up each pair one by one, and place it in the space according to their coordinates.
+        // In the end, we have all the pairs in the space sorted by their coordinates.
+        // This will help us calculate the proper distance between each pair.
         val sortedByX = points.sortedBy { it.xAxis }
         val sortedByY = points.sortedBy { it.yAxis }
         return closestPointsRecursively(sortedByX, sortedByY, 0, sortedByX.lastIndex)
