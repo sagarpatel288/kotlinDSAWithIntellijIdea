@@ -76,6 +76,7 @@ fun main() {
     fun searchIndicesOfElements(input: List<Int>, queries: List<Int>): IntArray {
         val resultArray = IntArray(queries.size)
         for ((index, element) in queries.withIndex()) {
+            // Did you know that we can directly call `binarySearch` on a collection in Kotlin?
             val resultIndex = input.binarySearch(element)
             resultArray[index] = if (resultIndex < 0) -1 else resultIndex
         }
