@@ -40,7 +40,7 @@ fun main() {
      *
      * Notice that there are some repetitions.
      * For example, while trying to find F(5), we calculated F(3) twice, and F(2) thrice.
-     * This repetition causes the time complexity of this recursive solution as O(2^n) which is exponential.
+     * This repetition causes the time complexity of this recursive solution to be O(2^n) which is exponential.
      * The function starts from F(n) and goes down to F(0) to solve the problem using recursion.
      * Hence, this recursion stack causes the space-complexity to be O(n).
      */
