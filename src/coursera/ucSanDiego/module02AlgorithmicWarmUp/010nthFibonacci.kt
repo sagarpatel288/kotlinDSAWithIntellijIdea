@@ -15,6 +15,13 @@ import java.util.Scanner
 fun main() {
 
     /**
+     * We begin with the base cases F(1) and F(0), for which we know the values.
+     * We then gradually calculate F(2) all the way up to the specified F(n) using the principle that
+     * the value of F(n) is the sum of the two preceding Fibonacci numbers.
+     *
+     * This approach is known as the bottom-up approach or tabulation, which is a part of the dynamic programming.
+     * For now, it is enough to acknowledge that dynamic programming is an optimization of a recursive solution.
+     *
      * The time-complexity is O(n) because we iterate through the input once.
      * The space-complexity is O(1) because the variables we declare, define, and use do not depend on the input size.
      */
