@@ -20,10 +20,12 @@ fun main() {
         var a = 0L
         var b = 1L
         var result = 0L
+        println(": :printNthFibonacci: initially: a = $a, b = $b, and result = $result")
         for (i in 2..nthFibonacci) {
             result = a + b
             a = b
             b = result
+            println(": :printNthFibonacci: result = a + b = $result. New a = $a and b = $b")
         }
         return result
     }
