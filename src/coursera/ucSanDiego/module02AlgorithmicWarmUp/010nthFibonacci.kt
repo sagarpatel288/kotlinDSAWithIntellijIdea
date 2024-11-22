@@ -12,16 +12,25 @@ import java.util.Scanner
  */
 fun main() {
 
+    /**
+     * The time-complexity is O(n) because we iterate through the input once.
+     * The space-complexity is O(1) because the variables we declare, define, and use do not depend on the input size.
+     */
     fun printNthFibonacci(nthFibonacci: Int): Long {
         // If it is 0, the last digit is 0.
         // If it is 1, the last digit is 1.
         // Anything less than or equal to 1, returns the number itself.
         if (nthFibonacci <= 1) return nthFibonacci.toLong()
+        // The variables we use do not depend on the input size.
+        // Hence, the space-complexity is O(1).
         var a = 0L
         var b = 1L
         var result = 0L
         println(": :printNthFibonacci: initially: a = $a, b = $b, and result = $result")
+        // We iterate through the input once. So, it takes O(n) time-complexity.
         for (i in 2..nthFibonacci) {
+            // The operation a + b and the subsequent assignment operations are not dependent on the input size.
+            // Hence, it takes O(1) time complexity.
             result = a + b
             a = b
             b = result
