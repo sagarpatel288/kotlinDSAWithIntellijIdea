@@ -26,8 +26,8 @@ fun main() {
      * The space-complexity is O(1) because the variables we declare, define, and use do not depend on the input size.
      */
     fun printNthFibonacci(nthFibonacci: Int): Long {
-        // If it is 0, the last digit is 0.
-        // If it is 1, the last digit is 1.
+        // If it is F(0), the answer is 0.
+        // If it is F(1), the answer is 1.
         // Anything less than or equal to 1, returns the number itself.
         if (nthFibonacci <= 1) return nthFibonacci.toLong()
         // The variables we use do not depend on the input size.
