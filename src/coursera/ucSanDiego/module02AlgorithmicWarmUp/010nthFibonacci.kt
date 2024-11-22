@@ -28,6 +28,10 @@ fun main() {
         var result = 0L
         println(": :printNthFibonacci: initially: a = $a, b = $b, and result = $result")
         // We iterate through the input once. So, it takes O(n) time-complexity.
+        // F(0) and F(1) are known values. We use it to build F(2) and other subsequent F(n) up to the target F(n).
+        // So basically, we know the base-case, and we start with the base-case and gradually build the target.
+        // That is to say, we start from the bottom, and go upside.
+        // Hence, this approach is known as bottom-up approach, which is a type of the dynamic programming.
         for (i in 2..nthFibonacci) {
             // The operation a + b and the subsequent assignment operations are not dependent on the input size.
             // Hence, it takes O(1) time complexity.
