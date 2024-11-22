@@ -4,6 +4,8 @@ import java.util.Scanner
 
 /**
  * Write a program to print the nth Fibonacci number, where n is the input.
+ * Use the optimize version of the recursion (or optimize the recursive approach) to solve the problem.
+ * The time-complexity of the solution should not exceed O(n).
  *
  * The fibonacci series example:
  * 0, 1, 1, 2, 3, 5, 8, 13...
