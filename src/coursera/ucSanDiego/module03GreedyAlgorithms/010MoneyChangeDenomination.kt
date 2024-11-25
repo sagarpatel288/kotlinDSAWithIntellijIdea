@@ -45,6 +45,23 @@ package coursera.ucSanDiego.module03GreedyAlgorithms
  * 5. Again, the quotient represents number of coins, and the remainder represents the remaining amount.
  * 6. We don't need to divide the remaining amount by 1. We add the remaining amount to the number of coins needed.
  *
+ * ----------------------- Alert! -----------------------
+ *
+ * The greedy strategy works for certain coin systems called canonical coin systems
+ * (e.g., the US coin system of 1, 5, 10, 25). These systems are specifically designed so that the greedy approach
+ * always produces the optimal solution.
+ *
+ * In non-canonical coin systems (like 1, 8, and 20), the greedy approach can fail because the denominations are not
+ * structured in a way that ensures optimality.
+ *
+ * For example, we want to change 24 into coins, and the coin denominations are 1, 8, and 20.
+ * The greedy approach would select a coin of 20, followed by 4 coins of 1, resulting in a total of 5 coins.
+ * However, the optimal solution would be to use 3 coins of 8!
+ *
+ * We will explore how dynamic programming can address this issue later.
+ *
+ * For now, let us solve it using the greedy approach.
+ *
  */
 fun main() {
 
