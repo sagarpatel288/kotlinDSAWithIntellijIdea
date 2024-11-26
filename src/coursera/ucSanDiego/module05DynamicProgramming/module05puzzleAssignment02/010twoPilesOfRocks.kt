@@ -1,4 +1,4 @@
-package coursera.ucSanDiego.module05DynamicProgramming.module05puzzleProgram
+package coursera.ucSanDiego.module05DynamicProgramming.module05puzzleAssignment02
 
 /**
  *
