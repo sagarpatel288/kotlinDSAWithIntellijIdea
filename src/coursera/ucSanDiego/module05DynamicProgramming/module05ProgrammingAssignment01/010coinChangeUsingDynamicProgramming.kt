@@ -28,6 +28,15 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * The greedy approach would select a coin of 20, followed by 4 coins of 1, resulting in a total of 5 coins.
  * However, the optimal solution would be to use 3 coins of 8!
  *
+ * Similarly, if our coin denominations are 4, 10, and 25, and we want to make change for 41, the greedy approach would
+ * first take a coin of 25 (leaving a remaining amount of 41 - 25 = 16), followed by a coin of 10 (leaving a remaining
+ * amount of 16 - 10 = 6), followed by a coin of 4 (leaving a remaining amount of 6 - 4 = 2), ultimately concluding that
+ * the change is not possible (which is an incorrect answer)!
+ *
+ * In contrast, if we use dynamic programming (whether through recursion with memoization or a bottom-up approach),
+ * we find that the minimum number of coins needed consists of one coin of 25 and four coins of 4,
+ * resulting in 25 + (4 * 4) = 41, which is the correct answer.
+ *
  * ----------------------- Continue: Problem Statement -----------------------
  *
  * As we already know, a natural greedy strategy for the change problem does not work correctly for any set of
