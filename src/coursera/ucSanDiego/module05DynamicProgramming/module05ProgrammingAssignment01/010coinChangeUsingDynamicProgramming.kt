@@ -69,8 +69,32 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * 34 = 3 + 3 + 4 + 4 + 4 + 4 + 4 + 4 + 4.
  *
+ * ----------------------- Coursera's Grader Output -----------------------
+ *
+ * (Max time used: 0.09/2.00, max memory used: 44609536/536870912.)
+ *
  */
 fun main() {
 
+    fun minCoins(targetAmount: Int, coinDenominations: List<Int>): Int {
+        // An int array to store minimum number of coins for each target amount (bottom-up: 0 to targetAmount)
+        val minCoins = IntArray(targetAmount + 1) {Int.MAX_VALUE}
+        // The minimum number of coins needed for the target amount 0 is: 0.
+        minCoins[0] = 0
+        for (amount in 1..targetAmount) {
+            // Calculating the target amount with each coin
+            for (coin in coinDenominations) {
+                if (amount >= coin && minCoins[amount - coin] != Int.MAX_VALUE) {
+                    // Taking the result that gives the minimum number of coins
+                    minCoins[amount] = minOf(minCoins[amount], minCoins[amount - coin] + 1)
+                }
+            }
+        }
+        return minCoins[targetAmount]
+    }
 
+    val targetAmount = readln().toInt()
+    val coinDenominations = listOf(1, 3, 4)
+    val result = minCoins(targetAmount, coinDenominations)
+    println(result)
 }
