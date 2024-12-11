@@ -264,6 +264,15 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * res/coursera/ucSanDiego/module05DynamicProgramming/010coinChangeTabulation010.png
  * [Table](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5c2bd501ee249905ca50a5f618474aaa77c26271/res/coursera/ucSanDiego/module05DynamicProgramming/010coinChangeTabulation010.png)
  *
+ * ## ----------------------- Extra -----------------------
+ *
+ * 1. The solution (approach) we have used to solve the problem is known as the
+ * `dynamic programming using the bottom-up approach`.
+ *  1.1.: In this approach, we start from the base-case and proceed all the way up towards the target.
+ *  1.2.: The cheat-sheet (storage, container, `minCoins` array) we have used in the solution is known as
+ * `memoization (cache)` and it helps avoid re-calculation. The memoization (cache) technique significantly reduces the
+ * run-time cost.
+ *
  */
 fun main() {
 
