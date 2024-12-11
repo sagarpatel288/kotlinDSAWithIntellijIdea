@@ -256,6 +256,14 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * (Max time used: 0.09/2.00, max memory used: 44609536/536870912.)
  *
+ * ## ----------------------- Visual References (Technical) -----------------------
+ *
+ * res/coursera/ucSanDiego/module05DynamicProgramming/010coinChangeDiagramAndCode005.png
+ * [Technical image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5c2bd501ee249905ca50a5f618474aaa77c26271/res/coursera/ucSanDiego/module05DynamicProgramming/010coinChangeDiagramAndCode005.png)
+ *
+ * res/coursera/ucSanDiego/module05DynamicProgramming/010coinChangeTabulation010.png
+ * [Table](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5c2bd501ee249905ca50a5f618474aaa77c26271/res/coursera/ucSanDiego/module05DynamicProgramming/010coinChangeTabulation010.png)
+ *
  */
 fun main() {
 
