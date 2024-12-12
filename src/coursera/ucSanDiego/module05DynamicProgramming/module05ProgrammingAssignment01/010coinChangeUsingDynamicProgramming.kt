@@ -295,7 +295,9 @@ fun main() {
         // (a placeholder for "infinity").
         //
         // Step 1: Create an array to store the minimum number of coins for every amount from 0 to targetAmount.
-        // Why size `targetAmount + 1`? Because we need to store the result for amount `0` as well (1-based index).
+        // Why size `targetAmount + 1`?
+        // Because money starts from 1, whereas the array index starts from 0.
+        // We need to store the result for amount `0` as well (1-based index).
         // An int array to store minimum number of coins for each target amount (bottom-up: 0 to targetAmount).
         // Initialize with a very large value (infinity).
         // We initialize each index with `Int.MAX_VALUE` for the comparison purpose during `minOf`.
