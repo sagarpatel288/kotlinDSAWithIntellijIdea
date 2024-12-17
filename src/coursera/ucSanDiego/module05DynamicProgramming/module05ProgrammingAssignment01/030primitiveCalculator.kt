@@ -129,6 +129,268 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * This clearly shows that a naive greedy approach (trying the largest multiplication first at every step) leads to
  * more steps (5) than the DP approach (3 steps), thus failing to find the optimal solution.
  *
+ * ## ----------------------- Thought Process -----------------------
+ *
+ * To reach a number n, we can only come from:
+ *
+ * 1. n - 1 (subtracting 1).
+ *
+ * 2. n / 2 (if n is divisible by 2).
+ *
+ * 3. n / 3 (if n is divisible by 3).
+ *
+ * Each of these transitions adds one step to the total count.
+ * So, the minimum steps to reach n depend on the minimum steps to reach one of these three possible predecessors.
+ *
+ * And the same applies to each predecessor. So, this is a recursion, and we can continue until we reach the base case.
+ *
+ * The base case is, 0. When the target is 0, we need 0 steps to reach the target.
+ * Also, the problem statement indicates that the starting point is 1.
+ * So, if the target is 1, we need 0 steps to reach the target.
+ *
+ * As we know the base case, the problem can be solved by building up solutions for smaller numbers and using those to
+ * find the solution for larger numbers. This is called dynamic programming.
+ *
+ * This is a similar approach to what we have done recently in
+ * src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/010coinChangeUsingDynamicProgramming.kt
+ * [coin change dp](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5d36eb9619c8a13d0b6e57de316b2e3cc5397347/src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/010coinChangeUsingDynamicProgramming.kt)
+ *
+ * ### ----------------------- Dynamic Programming Insight: -----------------------
+ *
+ * Dynamic programming works by solving a problem incrementally. For this problem:
+ *
+ * 1. Start from 1 (the base case), which takes 0 steps to reach.
+ * 2. Gradually compute the minimum steps for 2, 3, 4, ..., up to n.
+ * 3. Use previously computed results to calculate the next number efficiently. We will explain this part as well.
+ *
+ * ### ----------------------- Key-Lemma (Core Idea): -----------------------
+ *
+ * To compute the minimum steps for a number i, use:
+ *
+ * ```
+ * operations[i] = 1 + min ( operations[i-1], operations[i/2](if divisible), operations[i/3](if divisible) )
+ * ```
+ *
+ * Here, `operations[i]` represents the minimum steps to reach `i`.
+ *
+ * ### ----------------------- Reconstructing the Path: -----------------------
+ *
+ * Once we know the minimum steps for n, we can backtrack to figure out the sequence of numbers:
+ *
+ * 1. Start at n.
+ * 2. Move to the predecessor (either n-1, n/2, or n/3) that led to the minimum steps.
+ * 3. Repeat until you reach 1.
+ *
+ * ### ----------------------- TL;DR: -----------------------
+ *
+ * 1. We know the base-case. So, start with the known base-case.
+ * 2. Store answers while going through bottom-to-top.
+ *      2.1.: We have 3 ways to reach the target. Hence, we will try all the 3 ways, and then use `minOf`.
+ * 3. Backtrack.
+ *
+ * ### ----------------------- Thoughts-to-code -----------------------
+ *
+ * #### The container (a cheat-sheet) to store the answers while going through the base-case (bottom) to top.
+ *
+ * ```
+ * val operations = IntArray(target + 1) // + 1 because the base-case starts from 1, but we need to include index 0 too.
+ * ```
+ *
+ * #### Storing the base-case answer:
+ *
+ * ```
+ * operations[1] = 0
+ * ```
+ *
+ * #### Going through the base-case (bottom) to top.
+ *
+ * ```
+ * for (number in 2..target) // Starts from 2 because we already know the base-case answer.
+ * ```
+ *
+ * #### Trying all the given ways and storing the answer that gives the minimum operations
+ *
+ * ```
+ * operations[i] = operations[i - 1] + 1 // One more operation from `operations[i-1]`.
+ * // If `i` is divisible by 2, we might have reached to `i` by multiplying 2 to `i/2`.
+ * // So, one more operation from `operations[i/2]`.
+ * if (i % 2 == 0) operations[i] = minOf(operations[i], operations[i/2] + 1)
+ * // Or if `i` is divisible by 3, we might have reached to `i` by multiplying 3 to `i/3`.
+ * // So, one more operation from `operations[i/3]`.
+ * if (i % 3 == 0) operations[i] = minOf(operations[i], operations[i/3] + 1)
+ * ```
+ *
+ * Why `+ 1`?
+ *
+ * Because it represents the step we take to move from a predecessor to the current number.
+ *
+ * The number of operations to reach to the `operations[i - 1]`, `operations[i/2]`, or `operations[i/3]` and then,
+ * from there to the `i`th number.
+ *
+ * Think of it like taking a series of steps on a staircase. Each step you take costs you “1” unit of effort.
+ * If you know how much effort (how many steps) it took to reach the step below you,
+ * then to stand on the next step (the next number), you’ll need that previous effort plus one more step.
+ * Similarly, if you could jump from a lower step
+ * (like half or a third of the current step number if it’s perfectly divisible), that jump also counts as
+ * just one operation. So, no matter which way you got there—by adding 1, doubling, or tripling — the cost of
+ * that particular move is always “one operation.”
+ *
+ * In other words:
+ *
+ * * `operations[i - 1] + 1` means: “The minimum operations to get to `i - 1` plus one more operation to get from
+ * `i - 1` to `i`.”
+ * * `operations[i/2] + 1` (if `i` is even) means: “The minimum operations to get to `i/2` plus one more operation to
+ * double that to get `i`.”
+ * * `operations[i/3] + 1` (if `i` is divisible by 3) means: “The minimum operations to get to `i/3` plus one operation
+ * to triple that to reach `i`.”
+ *
+ * For example, if `i` = 4, we might say:
+ * How many steps does it take to reach `4 - 1 = 3`?
+ * Well, 3 is less than 4, and since we are using the bottom-up approach, we must have saved the value of
+ * `operations[3]`. Let us assume that the value of `operations[3]` is 1. That is to say, 1 --> 3.
+ * We get to `3` from `1` when we multiply `1` directly with `3`. So, it is 1 step.
+ * And then to reach `4`, we have 3 options. We can either add 1, or multiply by 2 or 3.
+ * But, multiplying by 2 or 3 does not give a valid answer (it exceeds 4 instead of matching, reaching at 4).
+ * However, adding 1 reaches 4, and adding 1 is 1 operation. So, it is `operations[3] + 1`.
+ * It signifies (implies, says) that to reach `4`, it takes `1` more operation than the number of operations
+ * we took to reach `3`.
+ *
+ * #### Backtracking:
+ *
+ * Once we know how many moves it takes to get to `n`, we also want to know which moves to take (because we need to
+ * print that). We can start at `n` and trace back to `1`. For example:
+ *
+ * If `operations[6] = 2`, it tells us that it takes `2` steps to reach `6`.
+ * But how did we get there? Was it from 5, 3, or some other number?
+ *
+ * Backtracking answers this question by retracing the steps based on the logic used to compute `operations`.
+ *
+ * We can ask (the backtracking question):
+ *
+ * Did we come from `n-1`? Was that route the cheapest?
+ * Or if `n` is divisible by `2`, did we come from `n/2`?
+ * Or if `n` is divisible by `3`, did we come from `n/3`?
+ *
+ * Start at the Target Number (`n`):
+ *
+ * We know the minimum number of steps to reach `n` is stored in `operations[n]`.
+ * Add `n` to the sequence. It is a known stop (station) in our journey, because it is our destination.
+ * Now, we want to find the stations at which we stopped before arriving at the destination.
+ *
+ * Find the Predecessor of `n`:
+ *
+ * To find the number before `n` in the sequence, check which operation (from the three possible ones)
+ * gave the minimum value for `operations[n]`:
+ *
+ * 1. Subtract 1: Check if `operations[n] == operations[n-1] + 1`.
+ * 2. Divide by 2: If `n` is divisible by 2, check if `operations[n] == operations[n/2] + 1`.
+ * 3. Divide by 3: If `n` is divisible by 3, check if operations[n] == operations[n/3] + 1`.
+ *
+ * Move to this predecessor (let's call it k).
+ *
+ * Repeat Until You Reach 1:
+ *
+ * Keep repeating the process: add the current number to the sequence and find its predecessor.
+ * Stop when you reach 1.
+ *
+ * Reverse the Sequence:
+ *
+ * Since we are tracing backward from `n to 1`, the sequence will be in reverse order.
+ * Reverse it at the end to get the correct order from `1 to n`.
+ *
+ * Example Walkthrough to explain the idea, the strategy:
+ *
+ * Let’s take an example where
+ * n = 10.
+ *
+ * Step 1: Compute the `operations` Array:
+ *
+ * Using the dynamic programming logic:
+ *
+ * ```
+ * operations[1] = 0
+ * operations[2] = 1 (from 1 → 2)
+ * operations[3] = 1 (from 1 → 3 by multiplying 1 directly with 3)
+ * operations[4] = 2 (from 1 → 2 → 4)
+ * operations[5] = 3 (from 1 → 2 → 4 → 5)
+ * operations[6] = 2 (from 1 → 3 → 6)
+ * operations[7] = 3 (from 1 → 3 → 6 → 7)
+ * operations[8] = 3 (from 1 → 2 → 4 → 8)
+ * operations[9] = 2 (from 1 → 3 → 9)
+ * operations[10] = 3 (from 1 → 3 → 9 → 10)
+ * ```
+ *
+ * Step 2: Backtrack from n = 10:
+ *
+ * Start at 10:
+ *
+ * ```
+ * operations[10] = 3.
+ * ```
+ *
+ * Check predecessors:
+ *
+ * ```
+ * 10 → 9 (subtract 1): operations[9] + 1 = 2 + 1 = 3 (valid).
+ * 10 → 5 (divide by 2): operations[5] + 1 = 3 + 1 = 4 (not valid).
+ * 10 → 3 (divide by 3): Not possible (10 is not divisible by 3).
+ * ```
+ *
+ * Choose 9 as the predecessor.
+ *
+ * Move to 9:
+ *
+ * ```
+ * operations[9] = 2.
+ * ```
+ *
+ * Check predecessors:
+ *
+ * ```
+ * 9 → 8 (subtract 1): operations[8] + 1 = 3 + 1 = 4 (not valid).
+ * 9 → 3 (divide by 3): operations[3] + 1 = 1 + 1 = 2 (valid).
+ * ```
+ *
+ * Choose 3 as the predecessor.
+ *
+ * Move to 3:
+ *
+ * ```
+ * operations[3] = 1.
+ * ```
+ *
+ * Check predecessors:
+ * ```
+ * 3 → 2 (subtract 1): operations[2] + 1 = 1 + 1 = 2 (not valid).
+ * 3 → 1 (divide by 3): operations[1] + 1 = 0 + 1 = 1 (valid).
+ * ```
+ *
+ * Choose 1 as the predecessor.
+ *
+ * Stop at 1:
+ *
+ * Add 1 to the sequence.
+ *
+ * Step 3: Reverse the Sequence:
+ *
+ * The sequence traced backward is `[10, 9, 3, 1]`. Reverse it to get `[1, 3, 9, 10]`.
+ *
+ * And how do we convert this idea, thought, plan, strategy into the relevant code?
+ *
+ * ```
+ * var k = n // Start at the target number
+ * while (k > 1) {
+ *     sequence.add(k) // Add the current number to the sequence
+ *     when {
+ *         operations[k] == operations[k - 1] + 1 -> k -= 1 // Move to k-1
+ *         k % 2 == 0 && operations[k] == operations[k / 2] + 1 -> k /= 2 // Move to k/2
+ *         k % 3 == 0 && operations[k] == operations[k / 3] + 1 -> k /= 3 // Move to k/3
+ *     }
+ * }
+ * sequence.add(1) // Add the starting number
+ * sequence.reverse() // Reverse to get the correct order
+ *
+ * ```
  *
  */
 fun main() {
