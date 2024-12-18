@@ -131,15 +131,26 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * ## ----------------------- Thought Process -----------------------
  *
- * To reach a number n, we can only come from:
+ * We need to find minimum number of operations to reach `n`.
+ * So, we will try all the options (+1, *2, and *3) and use `minOf`.
  *
- * 1. n - 1 (subtracting 1).
+ * How do we use all the operations?
  *
- * 2. n / 2 (if n is divisible by 2).
+ * * `+1` indicates that we have arrived at `n` from `n - 1` using the `+1` operation on `n - 1`.
+ * * `*2` indicates that we have arrived at `n` from `n/2` using the `*2` operation on `n/2`.
+ * * `*3` indicates that we have arrived at `n` from `n/3` using the `*3` operation on `n/3`.
  *
- * 3. n / 3 (if n is divisible by 3).
+ * To reach a number `n`, we can only come from:
+ *
+ * 1. `n - 1` (subtracting 1).
+ *
+ * 2. `n / 2` (if `n` is divisible by 2).
+ *
+ * 3. `n / 3` (if `n` is divisible by 3).
  *
  * Each of these transitions adds one step to the total count.
+ * It can be one more operation of `+1` from `n - 1`, or one more operation of `*2` from `n/2`, or
+ * one more operation of `*3` from `n/3`.
  * So, the minimum steps to reach n depend on the minimum steps to reach one of these three possible predecessors.
  *
  * And the same applies to each predecessor. So, this is a recursion, and we can continue until we reach the base case.
@@ -173,13 +184,14 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * Here, `operations[i]` represents the minimum steps to reach `i`.
  *
- * ### ----------------------- Reconstructing the Path: -----------------------
+ * ### ----------------------- Reconstructing the Path (Backtracking): -----------------------
  *
- * Once we know the minimum steps for n, we can backtrack to figure out the sequence of numbers:
+ * Once we know the minimum steps for `n`, we can backtrack to figure out the sequence of numbers:
  *
- * 1. Start at n.
- * 2. Move to the predecessor (either n-1, n/2, or n/3) that led to the minimum steps.
+ * 1. Start at `n`.
+ * 2. Move to the predecessor (either `n-1`, `n/2`, or `n/3`) that led to the minimum steps.
  * 3. Repeat until you reach 1.
+ * 4. We will explain this in detail soon.
  *
  * ### ----------------------- TL;DR: -----------------------
  *
@@ -222,7 +234,9 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * Why `+ 1`?
  *
- * Because it represents the step we take to move from a predecessor to the current number.
+ * Because it represents the step we take to move from a predecessor to the current number
+ * (or from the previous to the next number - it depends on the perception, where we look at. Not a big deal.
+ * It always takes one step, one operation to move from one step to the next step).
  *
  * The number of operations to reach to the `operations[i - 1]`, `operations[i/2]`, or `operations[i/3]` and then,
  * from there to the `i`th number.
@@ -234,6 +248,20 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * (like half or a third of the current step number if it’s perfectly divisible), that jump also counts as
  * just one operation. So, no matter which way you got there—by adding 1, doubling, or tripling — the cost of
  * that particular move is always “one operation.”
+ *
+ * For example:
+ *
+ * We can reach the number `3` by:
+ *
+ *  * Either adding `+1` to `i - 1` = `3 - 1` = `2`. So, by adding `+1` to `2`.
+ *  * Or, by multiplying `* 3` to the `i / 3` = `3 / 3` = `1`. So, by multiplying `1` with `3`.
+ *  * In any of the above cases, it takes `1` operation.
+ *
+ * Similarly, we can reach the number `4` by:
+ *
+ * * Either adding `+1` to `i - 1` = `4 - 1` = `3`. So, by adding `+1` to `3`.
+ * * Or, by multiplying `*2` to the `i / 2` = `4 / 2` = `2`. So, by multiplying `2` with `2`.
+ * * In any of the above cases, it takes `1` operation.
  *
  * In other words:
  *
@@ -261,7 +289,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * print that). We can start at `n` and trace back to `1`. For example:
  *
  * If `operations[6] = 2`, it tells us that it takes `2` steps to reach `6`.
- * But how did we get there? Was it from 5, 3, or some other number?
+ * But how did we get there? Was it from 5, 3, or some other number? Which path did we take?
  *
  * Backtracking answers this question by retracing the steps based on the logic used to compute `operations`.
  *
@@ -282,13 +310,22 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * To find the number before `n` in the sequence, check which operation (from the three possible ones)
  * gave the minimum value for `operations[n]`:
  *
- * 1. Subtract 1: Check if `operations[n] == operations[n-1] + 1`.
- * 2. Divide by 2: If `n` is divisible by 2, check if `operations[n] == operations[n/2] + 1`.
- * 3. Divide by 3: If `n` is divisible by 3, check if operations[n] == operations[n/3] + 1`.
+ * * Subtract 1: Check if `operations[n] == operations[n-1] + 1`.
+ * If yes, we have arrived at `n` by adding `+1` to the `n - 1`.
  *
- * Move to this predecessor (let's call it k).
+ * * Divide by 2: If `n` is divisible by 2, check if `operations[n] == operations[n/2] + 1`.
+ * If yes, then we have arrived at `n` by multiplying `n/2` with `*2`.
  *
- * Repeat Until You Reach 1:
+ * * Divide by 3: If `n` is divisible by 3, check if `operations[n] == operations[n/3] + 1`.
+ * If yes, then we have arrived at `n` by multiplying `n/3` with `*3`.
+ *
+ * If the answer is `+1` to `n - 1`, then the predecessor is `n - 1`.
+ * If the answer is `*2` with `n/2`, then the predecessor is `n/2`.
+ * If the answer is `*3` with `n/3`, then the predecessor is `n/3`.
+ *
+ * If we call this predecessor `k`, then the backtracking path so far is `n --> k`.
+ * Add the predecessor to the sequence and move to this predecessor.
+ * Repeat the process until we reach 1.
  *
  * Keep repeating the process: add the current number to the sequence and find its predecessor.
  * Stop when you reach 1.
@@ -301,28 +338,28 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * Example Walkthrough to explain the idea, the strategy:
  *
  * Let’s take an example where
- * n = 10.
+ * `n = 10`.
  *
  * Step 1: Compute the `operations` Array:
  *
  * Using the dynamic programming logic:
  *
  * ```
- * operations[1] = 0
- * operations[2] = 1 (from 1 → 2)
- * operations[3] = 1 (from 1 → 3 by multiplying 1 directly with 3)
- * operations[4] = 2 (from 1 → 2 → 4)
- * operations[5] = 3 (from 1 → 2 → 4 → 5)
- * operations[6] = 2 (from 1 → 3 → 6)
- * operations[7] = 3 (from 1 → 3 → 6 → 7)
- * operations[8] = 3 (from 1 → 2 → 4 → 8)
- * operations[9] = 2 (from 1 → 3 → 9)
- * operations[10] = 3 (from 1 → 3 → 9 → 10)
+ * operations[1] = 0 // Zero step to reach `1`.
+ * operations[2] = 1 (from 1 → 2) // One step to reach `2`.
+ * operations[3] = 1 (from 1 → 3 by multiplying 1 directly with 3) // One step to reach `3`.
+ * operations[4] = 2 (from 1 → 2 → 4) // Two steps to reach `4`.
+ * operations[5] = 3 (from 1 → 2 → 4 → 5) // Three steps to reach `5`.
+ * operations[6] = 2 (from 1 → 3 → 6) // Two steps to reach `6`.
+ * operations[7] = 3 (from 1 → 3 → 6 → 7) // Three steps to reach `7`.
+ * operations[8] = 3 (from 1 → 2 → 4 → 8) // Three steps to reach `8`.
+ * operations[9] = 2 (from 1 → 3 → 9) // Two steps to reach `9`.
+ * operations[10] = 3 (from 1 → 3 → 9 → 10) // Three steps to reach `10`.
  * ```
  *
- * Step 2: Backtrack from n = 10:
+ * Step 2: Backtrack from `n = 10`:
  *
- * Start at 10:
+ * Start at `10`:
  *
  * ```
  * operations[10] = 3.
@@ -336,9 +373,10 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * 10 → 3 (divide by 3): Not possible (10 is not divisible by 3).
  * ```
  *
- * Choose 9 as the predecessor.
+ * Choose `9` as the predecessor. Add `9` to the sequence.
+ * So, it becomes `10 --> 9`.
  *
- * Move to 9:
+ * Move to `9`:
  *
  * ```
  * operations[9] = 2.
@@ -351,9 +389,10 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * 9 → 3 (divide by 3): operations[3] + 1 = 1 + 1 = 2 (valid).
  * ```
  *
- * Choose 3 as the predecessor.
+ * Choose `3` as the predecessor. Add `3` to the sequence.
+ * So, it becomes `10 --> 9 --> 3`.
  *
- * Move to 3:
+ * Move to `3`:
  *
  * ```
  * operations[3] = 1.
@@ -365,15 +404,15 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * 3 → 1 (divide by 3): operations[1] + 1 = 0 + 1 = 1 (valid).
  * ```
  *
- * Choose 1 as the predecessor.
+ * Choose `1` as the predecessor. Add `1` to the sequence.
+ * So, it becomes `10 --> 9 --> 3 --> 1`.
  *
- * Stop at 1:
- *
- * Add 1 to the sequence.
+ * Stop at `1`:
  *
  * Step 3: Reverse the Sequence:
  *
  * The sequence traced backward is `[10, 9, 3, 1]`. Reverse it to get `[1, 3, 9, 10]`.
+ * So, the stations at which we stopped are: 1, 3, 9, and 10.
  *
  * And how do we convert this idea, thought, plan, strategy into the relevant code?
  *
