@@ -29,7 +29,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * Output format: (Note, the underscore symbol `_` indicates a subscript.).
  *
- * In the first line, output the minimum number kof operations needed to get n from 1.
+ * In the first line, output the minimum number `k` of operations needed to get n from 1.
  * In the second line, output a sequence of intermediate numbers. That is, the second line should contain positive
  * integers a_0, a_1,..., a_k such that a_0 = 1, a_k = n and for all 1 ≤ i ≤ k, a_i is equal to either
  * a_(i−1) + 1, 2a_(i−1), or 3a_(i−1).
@@ -131,36 +131,171 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * ## ----------------------- Thought Process -----------------------
  *
- * We need to find minimum number of operations to reach `n`.
- * So, we will try all the options (+1, *2, and *3) and use `minOf`.
+ * * We need to find minimum number of operations to reach `n`.
+ * So, we will try all the options (`+1`, `*2`, and `*3`) for each number (station), and use `minOf`.
+ * To use `minOf`, we need to store (remember) each answer.
  *
- * How do we use all the operations?
+ * * How do we do that? How do we use all the operators? What do we do to store (save, remember) the answers?
+ * 
+ * * To store the answers, we can use an array: `operations`.
  *
- * * `+1` indicates that we have arrived at `n` from `n - 1` using the `+1` operation on `n - 1`.
- * * `*2` indicates that we have arrived at `n` from `n/2` using the `*2` operation on `n/2`.
- * * `*3` indicates that we have arrived at `n` from `n/3` using the `*3` operation on `n/3`.
+ * * `operations[n]` says the number of operations required to reach `n`.
+ * It means, the index `n` represents a number (a station), and the value represents corresponding (associated)
+ * number of operations required to reach `n`.
  *
- * To reach a number `n`, we can only come from:
+ * * We want to try each number (station). The base-case (starting point) is `1`.
+ * Hence, we don't need any step (0 steps) to reach `1`.
+ * So, for the base-case, we can say (store): `operations[1] = 0`.
  *
- * 1. `n - 1` (subtracting 1).
+ * * For the remaining numbers, from the number `2` to the target number, we can use a `loop`.
+ * ```
+ * for (i in 2..target)
+ * ```
+ * Note that we start from the base case (bottom) and drive (iterate) all the way up to the `target`.
+ * Hence, this approach is known as the bottom-up approach.
  *
- * 2. `n / 2` (if `n` is divisible by 2).
+ * * Now, we can reach a number (station) `i` in 3 ways: Either using `+1`, or using `*2`, or using `*3`.
  *
- * 3. `n / 3` (if `n` is divisible by 3).
+ * * `+1` indicates that we have arrived at `i` from `i - 1` using the `+1` operator on `i - 1`.
+ * It means that, the previous station was `i - 1`, and the current station is `i`.
+ * We can reach `i` from the previous station `i - 1` by using the `+1` operator on `i - 1`,
+ * and it is one more operation from `i - 1` to reach `i`.
+ *
+ * * `*2` indicates that we have arrived at `i` from `i/2` using the `*2` operator on `i/2`.
+ * It means that, the previous station was `i/2`, and the current station is `i`.
+ * If this is true, then dividing the current station `i` by `2` must give us a non-decimal, non-fractional,
+ * whole digit, an integer number.
+ * In other words, the current station `i` must be divisible by `2`.
+ *
+ * * How do we check whether the current number `i` is divisible by `2` or not?
+ * ```
+ * if (i % 2) == 0
+ * ```
+ * If this is true, we can reach `i` from the previous station `i/2` by using the `*2` operator on `i/2`,
+ * and it is one more operation from `i/2` to reach `i`.
+ *
+ * * `*3` indicates that we have arrived at `i` from `i/3` using the `*3` operator on `i/3`.
+ * It means that, the previous station was `i/3`, and the current station is `i`.
+ * If this is true, then dividing the current station `i` by `3` must give us a non-decimal, non-fractional,
+ * whole digit, an integer number.
+ * In other words, the current station `i` must be divisible by `3`.
+ *
+ * * How do we check whether the current number `i` is divisible by `3` or not?
+ * ```
+ * if (i % 3) == 0
+ * ```
+ * If this is true, we can reach `i` from the previous station `i/3` by using the `*3` operator on `i/3`,
+ * and it is one more operation from `i/3` to reach `i`.
+ *
+ * To reach a number `i`, we can only come from (the previous station can be):
+ *
+ * * `i - 1` (subtracting 1).
+ *
+ * * `i / 2` (if `i` is divisible by `2`).
+ *
+ * * `i / 3` (if `i` is divisible by `3`).
  *
  * Each of these transitions adds one step to the total count.
- * It can be one more operation of `+1` from `n - 1`, or one more operation of `*2` from `n/2`, or
- * one more operation of `*3` from `n/3`.
- * So, the minimum steps to reach n depend on the minimum steps to reach one of these three possible predecessors.
+ * It can be one more operation of `+1` from `i - 1`, or one more operation of `*2` from `i/2`, or
+ * one more operation of `*3` from `i/3`.
+ * So, the minimum steps to reach `i` depend on the minimum steps to reach one of these three possible predecessors.
  *
- * And the same applies to each predecessor. So, this is a recursion, and we can continue until we reach the base case.
+ * * How do we store the `minimum` of these three possible options?
+ * * We use `minOf`.
+ * * How do we use `minOf`?
+ * ```
+ * operations[i] = operations[i - 1] + 1
+ * if (i % 2 == 0) operations[i] = minOf(operations[i], operations[i/2] + 1)
+ * if (i % 3 == 0) operations[i] = minOf(operations[i], operations[i/3] + 1)
+ * ```
  *
- * The base case is, 0. When the target is 0, we need 0 steps to reach the target.
- * Also, the problem statement indicates that the starting point is 1.
- * So, if the target is 1, we need 0 steps to reach the target.
+ * * Ok, but what do we do after storing the number of minimum operations required to reach each number?
+ * * We also need to print the path we took to reach the destination. How do we do that?
  *
- * As we know the base case, the problem can be solved by building up solutions for smaller numbers and using those to
- * find the solution for larger numbers. This is called dynamic programming.
+ * * We use `backtracking`.
+ *
+ * * What is `backtracking`? What do we do there? How?
+ *
+ * * `Backtracking` uses the data that we have prepared so far to identify the path we took to reach the destination.
+ *
+ * * Let us understand what we do in `backtracking` and how we do it.
+ *
+ * * The `What` and `How` part of the `Backtracking`:
+ *
+ * * The `operations` array indicates the number of minimum operations required to reach each number (index).
+ * The value of the last index (the target number) already indicates the number of minimum operations required to
+ * reach it. However, the problem statement also asks us to print the steps, the paths we took to reach the
+ * target number.
+ *
+ * * Now, consider each number as a station and the target number as a destination.
+ * We know the last station. It is our target number, the destination.
+ * So, we will start from the destination, and go back to find the stations at which we stopped (the paths we took).
+ * * This is a backward journey. Hence, we call it `Backtracking`.
+ *
+ * * How do we do that?
+ * To start from the destination, and go back down to the starting point, we can use a `loop`.
+ * ```
+ * k = n // We start from the target number, the destination, the last station at which we stopped.
+ * while (k > 1) // We continue until we reach the starting point.
+ * ```
+ *
+ * * Now, we must have arrived at station `k` either:
+ * From `i - 1` using the `+1` operator, or from `i/2` using the `*2` operator, or from `i/3` using the `*3` operator.
+ *
+ * * How do we find which operator we have used to reach `k`? And how does it help identify the path we took?
+ *
+ * * The `k` in the `operations[k]` represents an index, a number, a station,
+ * and `operations[k-1]` indicates the previous station.
+ * * We know that we have used bottom-up approach, and we have covered each number up to the target number without
+ * missing any number. So, it is a continuous increment by 1. Recalling the loop:
+ * ```
+ * for (i in 2..target)
+ * ```
+ *
+ * * Now, it is a fact that we can always come (reach) `k` from `k-1` using the `+1` operator.
+ * For example, we can always reach to `4` from `3` using the `+1` operator on `3`.
+ * ```
+ * operations[k] = operations[k - 1] + 1 // This is always possible.
+ * ```
+ * * When we use `+1` operator to reach `k`, the previous station is `k - 1`.
+ * * Conclusion: The previous station was `k - 1`.
+ * * `k - 1` becomes the new current station, and we continue this process until we reach the base case.
+ *
+ * * However, when it comes to take the shortest path, minimum stops during the journey,
+ * we might have reached `k` from `k/2` using the `*2` operator.
+ * * For example, we can reach `4` from `2` using the `*2` operator.
+ *
+ * * How do we know if we have used `*2` operator on `k/2` to reach `k`?
+ * * This is possible only if `k` is divisible by `2`.
+ * * So, let us check that: Did we reach `k` from `k/2`?
+ * ```
+ * if (k % 2 == 0 && operations[k] == operations[k/2] + 1
+ * ```
+ * * If this condition is true, it means that `k` is divisible by `2`,
+ * and the difference between the `operations[k]` and `operations[k/2]` is `1`.
+ * * Hence, we can conclude that this additional operation (the difference) is `*2` on the `k/2` to reach `k`.
+ * * In other words, we can reach `k` directly from `k/2`, and it is possible if `k` is divisible by `2`, and
+ * when we use the `*2` operator on `k/2`.
+ * * It means that the previous station where we stopped was `k/2`. Then, we used `*2` operator on `k/2` to reach `k`.
+ * * Conclusion: The previous station was `k/2`.
+ * * `k/2` becomes the new current station, and we continue this process until we reach the base case.
+ *
+ * * Similarly, we might have arrived at `k` from `k/3` using the `*3` operator on `k/3`.
+ * So, let us check that: Did we reach `k` from `k/3`?
+ * ```
+ * if (k % 3 == 0 && operations[k] == operations[k/3] + 1
+ * ```
+ * * If this condition is true, it means that `k` is divisible by `3`, and the difference between
+ * `operations[k]` and `operations[k/3]` is `1`.
+ * * This additional operation (the difference) is `*3` operator on `k/3` to reach `k`.
+ * * It means that the previous station where we stopped was `k/3`. Then, we used `*3` operator on `k/3` to reach `k`.
+ * * Conclusion: The previous station where we stopped was `k/3`.
+ * * `k/3` becomes the new current station, and we continue this process until we reach the base case.
+ *
+ * * TL;DR:
+ *
+ * * We know the base case, we solve the problem by building up solutions for smaller numbers, from bottom to top,
+ * and use it to find the solution for larger numbers. This is called dynamic programming using the bottom-up approach.
  *
  * This is a similar approach to what we have done recently in
  * src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/010coinChangeUsingDynamicProgramming.kt
@@ -172,11 +307,11 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * 1. Start from 1 (the base case), which takes 0 steps to reach.
  * 2. Gradually compute the minimum steps for 2, 3, 4, ..., up to n.
- * 3. Use previously computed results to calculate the next number efficiently. We will explain this part as well.
+ * 3. Use previously computed results to calculate the next number efficiently.
  *
  * ### ----------------------- Key-Lemma (Core Idea): -----------------------
  *
- * To compute the minimum steps for a number i, use:
+ * To compute the minimum steps for a number `i`, use:
  *
  * ```
  * operations[i] = 1 + min ( operations[i-1], operations[i/2](if divisible), operations[i/3](if divisible) )
@@ -190,14 +325,13 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * 1. Start at `n`.
  * 2. Move to the predecessor (either `n-1`, `n/2`, or `n/3`) that led to the minimum steps.
- * 3. Repeat until you reach 1.
- * 4. We will explain this in detail soon.
+ * 3. Repeat until we reach 1.
  *
  * ### ----------------------- TL;DR: -----------------------
  *
  * 1. We know the base-case. So, start with the known base-case.
  * 2. Store answers while going through bottom-to-top.
- *      2.1.: We have 3 ways to reach the target. Hence, we will try all the 3 ways, and then use `minOf`.
+ *    * We have 3 ways to reach the target. Hence, we will try all the 3 ways, and then use `minOf`.
  * 3. Backtrack.
  *
  * ### ----------------------- Thoughts-to-code -----------------------
@@ -207,12 +341,17 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * ```
  * val operations = IntArray(target + 1) // + 1 because the base-case starts from 1, but we need to include index 0 too.
  * ```
+ * Here, each index of the `operations` array represents a number, a station in our journey
+ * whose final destination is the `target`.
  *
  * #### Storing the base-case answer:
  *
  * ```
  * operations[1] = 0
  * ```
+ * The value of each index represents (says, signifies, indicates) how many operations it takes to reach the number.
+ * For example, `operations[1] = 0` indicates that to reach the index (station) `1`, it takes `0` operation.
+ * (Because it is the starting point from where our journey begins.)
  *
  * #### Going through the base-case (bottom) to top.
  *
@@ -283,21 +422,25 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * It signifies (implies, says) that to reach `4`, it takes `1` more operation than the number of operations
  * we took to reach `3`.
  *
+ * _Remember that the `operations` array has stored the **number of minimum operations** required to reach `n`,
+ * where `n` is an index._
+ *
  * #### Backtracking:
  *
- * Once we know how many moves it takes to get to `n`, we also want to know which moves to take (because we need to
- * print that). We can start at `n` and trace back to `1`. For example:
+ * Once we know how many moves (operations) it takes to get to `n`, we also want to know which moves to take
+ * (because we need to print that). We can start at `n` and trace back to `1`. For example:
  *
  * If `operations[6] = 2`, it tells us that it takes `2` steps to reach `6`.
  * But how did we get there? Was it from 5, 3, or some other number? Which path did we take?
+ * At which stations did we stop before reaching `n`?
  *
  * Backtracking answers this question by retracing the steps based on the logic used to compute `operations`.
  *
  * We can ask (the backtracking question):
  *
- * Did we come from `n-1`? Was that route the cheapest?
- * Or if `n` is divisible by `2`, did we come from `n/2`?
- * Or if `n` is divisible by `3`, did we come from `n/3`?
+ * * Did we come from `n-1`? Was that route the cheapest?
+ * * Or if `n` is divisible by `2`, did we come from `n/2`?
+ * * Or if `n` is divisible by `3`, did we come from `n/3`?
  *
  * Start at the Target Number (`n`):
  *
@@ -307,7 +450,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * Find the Predecessor of `n`:
  *
- * To find the number before `n` in the sequence, check which operation (from the three possible ones)
+ * To find the number before `n` in the sequence, check which operator (from the three possible ones)
  * gave the minimum value for `operations[n]`:
  *
  * * Subtract 1: Check if `operations[n] == operations[n-1] + 1`.
@@ -319,9 +462,9 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * * Divide by 3: If `n` is divisible by 3, check if `operations[n] == operations[n/3] + 1`.
  * If yes, then we have arrived at `n` by multiplying `n/3` with `*3`.
  *
- * If the answer is `+1` to `n - 1`, then the predecessor is `n - 1`.
- * If the answer is `*2` with `n/2`, then the predecessor is `n/2`.
- * If the answer is `*3` with `n/3`, then the predecessor is `n/3`.
+ * * If the answer is `+1` to `n - 1`, then the predecessor is `n - 1`.
+ * * If the answer is `*2` with `n/2`, then the predecessor is `n/2`.
+ * * If the answer is `*3` with `n/3`, then the predecessor is `n/3`.
  *
  * If we call this predecessor `k`, then the backtracking path so far is `n --> k`.
  * Add the predecessor to the sequence and move to this predecessor.
@@ -431,10 +574,58 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * ```
  *
+ * ## ----------------------- Coursera's Grader Output -----------------------
+ * (Max time used: 0.11/3.00, max memory used: 46972928/536870912.)
+ *
  */
 fun main() {
 
+    fun minOperationsShortestPath(targetNumber: Int): Pair<Int, List<Int>> {
+        // A container to store the minimum number of operations required for each number.
+        val operationsPaths = IntArray(targetNumber + 1)
+        operationsPaths[1] = 0 // Starting point. It takes 0 operations to reach 1.
+        // Handle edge-cases.
+        if (targetNumber == 1) return 0 to mutableListOf(1)
+        // Bottom-up approach.
+        for (i in 2..targetNumber) {
+            // We can always reach `i` from `i - 1` using the `+1` operator on `i - 1`.
+            // For example, we can always reach `4` from `3` using the `+1` operator on `3`.
+            operationsPaths[i] = operationsPaths[i - 1] + 1
+            // Let us check if we can jump (reach) from `i/2` to `i`.
+            if (i % 2 == 0) {
+                // One more operation from the `i/2`, and it must be `*2`.
+                operationsPaths[i] = minOf(operationsPaths[i], operationsPaths[i/2] + 1)
+            }
+            // Let us check if we can jump (reach) from `i/3` to `i`.
+            if (i % 3 == 0) {
+                // One more operation from the `i/3`, and it must be `*3`.
+                operationsPaths[i] = minOf(operationsPaths[i], operationsPaths[i/3] + 1)
+            }
+        }
 
+        //Backtracking. Identifying the path, the stops, the stations from the beginning to the destination.
+        var currentNumber = targetNumber
+        val stops = mutableListOf<Int>()
+        while (currentNumber > 1) {
+            stops.add(currentNumber)
+            when {
+                operationsPaths[currentNumber] == operationsPaths[currentNumber - 1] + 1 -> {
+                    currentNumber -= 1
+                }
+                currentNumber % 2 == 0 && operationsPaths[currentNumber] == operationsPaths[currentNumber / 2] + 1 -> {
+                    currentNumber /= 2
+                }
+                currentNumber % 3 == 0 && operationsPaths[currentNumber] == operationsPaths[currentNumber / 3] + 1 -> {
+                    currentNumber /= 3
+                }
+            }
+        }
+        stops.add(currentNumber) //The starting point = 1.
+        return (operationsPaths.last() to stops.reversed())
+    }
 
     val input = readln().toInt()
+    val result = minOperationsShortestPath(input)
+    println(result.first)
+    println(result.second.joinToString(" "))
 }
