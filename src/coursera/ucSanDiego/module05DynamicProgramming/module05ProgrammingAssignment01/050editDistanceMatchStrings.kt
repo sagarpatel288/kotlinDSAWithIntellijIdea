@@ -425,10 +425,28 @@ fun main() {
         val targetLength = target.length
         val referenceLength = reference.length
         val operations = Array(targetLength + 1) { IntArray(referenceLength + 1) }
+        // Normally, we iterate from `0` to `length - 1` when we want to cover each character of a string.
+        // However, this is not just about covering each character of a single string. There's more.
+        // Here, we have created a 2D array of size (n + 1)(m + 1),
+        // where n is the length of the target string, and m is the length of the reference string.
+        // The `+1` of the `n + 1` indicates an additional (first) row for the target string,
+        // to cover the case when the target string has `0` character.
+        // Similarly, the `+1` of the `m + 1` indicates an additional (first) column for the reference string,
+        // to cover the case when the reference string has `0` character.
+        // Because of these additional (first) row/column, we can cover the cases
+        // where the target string has `0` character, but the reference string has a few characters,
+        // or where the reference string has `0` character, but the target string has a few characters,
+        // or where both the target and the reference strings are empty.
+        // These cases are the base cases.
+        // These cases are also known as initialization of the edit distance dynamic programming,
+        // which is mandatory for the correctness of the upcoming logic.
+        // In this sense, it is the base of the logic, and it is kind of a pre-computed key-lemma.
         for (i in 0..targetLength) {
+            // When `j` is 0, it indicates `0th` character, that is, an empty reference string.
             operations[i][0] = i
         }
         for (j in 0..referenceLength) {
+            // When `i` is 0, it indicates `0th` character, that is, an empty target string.
             operations[0][j] = j
         }
         for (i in 1..targetLength) {
@@ -456,6 +474,7 @@ fun main() {
                 if (target[i - 1] == reference[j - 1]) {
                     operations[i][j] = operations[i - 1][j - 1]
                 } else {
+                    // Variables to increase the readability and simplicity.
                     val costOfInsertion = operations[i][j - 1] + 1
                     val costOfDelete = operations[i - 1][j] + 1
                     val costOfReplacement = operations[i - 1][j - 1] + 1
