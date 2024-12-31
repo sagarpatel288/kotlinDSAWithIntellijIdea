@@ -485,6 +485,7 @@ fun main() {
                 }
             }
         }
+        // The bottom-last cell value is the result (minimum edit distance of the two strings).
         return operations[targetLength][referenceLength]
     }
 
