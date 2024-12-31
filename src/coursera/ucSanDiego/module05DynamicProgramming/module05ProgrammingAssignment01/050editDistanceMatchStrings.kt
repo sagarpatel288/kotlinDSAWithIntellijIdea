@@ -363,6 +363,8 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * ### ----------------------- Visual References (Technical Explanation) -----------------------
  *
+ * [History](https://youtu.be/d-Eq6x1yssU?si=QA9xUzBsNwIWI_ge)
+ *
  * [Image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/658890438ec5952058e296152c3d44fd66e8b2eb/res/coursera/ucSanDiego/module05DynamicProgramming/03editDistanceMatchString/003editDistance2dCalculation.png)
  *
  * #### ----------------------- Given Data -----------------------
@@ -441,6 +443,7 @@ fun main() {
         // These cases are also known as initialization of the edit distance dynamic programming,
         // which is mandatory for the correctness of the upcoming logic.
         // In this sense, it is the base of the logic, and it is kind of a pre-computed key-lemma.
+        // This is indeed a part of the wagner-fischer process/formula.
         for (i in 0..targetLength) {
             // When `j` is 0, it indicates `0th` character, that is, an empty reference string.
             operations[i][0] = i
