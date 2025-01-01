@@ -367,7 +367,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * [Image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/658890438ec5952058e296152c3d44fd66e8b2eb/res/coursera/ucSanDiego/module05DynamicProgramming/03editDistanceMatchString/003editDistance2dCalculation.png)
  *
- * #### ----------------------- Given Data -----------------------
+ * #### ----------------------- Data: Simplified 2D Table -----------------------
  *
  * | Target \ Reference 	| 0 	| P 	| O 	| R 	| T 	| S 	|
  * |--------------------	|---	|---	|---	|---	|---	|---	|
@@ -378,6 +378,19 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * | R                  	| 4 	| 4 	| 4 	| 3 	| 2 	| 3 	|
  * | T                  	| 5 	| 5 	| 5 	| 4 	| 3 	| 3 	|
  *
+ * #### ----------------------- Data: Detailed 2D Table -----------------------
+ *
+ * | i\j     	| 0 (”” )     	| 1 (“P”)     	| 2 (“O”)     	| 3 (“R”)     	| 4 (“T”)     	| 5 (“S”)     	|
+ * |---------	|-------------	|-------------	|-------------	|-------------	|-------------	|-------------	|
+ * | 0 (”” ) 	| dp[0,0] = 0 	| dp[0,1] = 1 	| dp[0,2] = 2 	| dp[0,3] = 3 	| dp[0,4] = 4 	| dp[0,5] = 5 	|
+ * | 1 (“S”) 	| dp[1,0] = 1 	| dp[1,1] = 1 	| dp[1,2] = 2 	| dp[1,3] = 3 	| dp[1,4] = 4 	| dp[1,5] = 4 	|
+ * | 2 (“H”) 	| dp[2,0] = 2 	| dp[2,1] = 2 	| dp[2,2] = 2 	| dp[2,3] = 3 	| dp[2,4] = 4 	| dp[2,5] = 5 	|
+ * | 3 (“O”) 	| dp[3,0] = 3 	| dp[3,1] = 3 	| dp[3,2] = 2 	| dp[3,3] = 3 	| dp[3,4] = 4 	| dp[3,5] = 5 	|
+ * | 4 (“R”) 	| dp[4,0] = 4 	| dp[4,1] = 4 	| dp[4,2] = 3 	| dp[4,3] = 2 	| dp[4,4] = 3 	| dp[4,5] = 4 	|
+ * | 5 (“T”) 	| dp[5,0] = 5 	| dp[5,1] = 5 	| dp[5,2] = 4 	| dp[5,3] = 3 	| dp[5,4] = 2 	| dp[5,5] = 3 	|
+ *
+ * `dp[0][j]` represents the cases when the target string is empty.
+ * Similarly, `dp[i][0]` represents the cases when the reference string is empty.
  *
  * #### ----------------------- When `target[i - 1] == reference[j - 1]`  -----------------------
  *
@@ -424,6 +437,9 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
 fun main() {
 
     fun minEditDistance(target: String, reference: String): Int {
+        // The 2D array that we use to store the values will be slightly larger,
+        // with an additional size of `+1` compared to the given strings,
+        // to cover the `empty` string cases.
         val targetLength = target.length
         val referenceLength = reference.length
         val operations = Array(targetLength + 1) { IntArray(referenceLength + 1) }
@@ -443,31 +459,55 @@ fun main() {
         // These cases are also known as initialization of the edit distance dynamic programming,
         // which is mandatory for the correctness of the upcoming logic.
         // In this sense, it is the base of the logic, and it is kind of a pre-computed key-lemma.
-        // This is indeed a part of the wagner-fischer process/formula.
+        // In fact, This is a part of the wagner-fischer process/formula who gave this logic.
         for (i in 0..targetLength) {
             // When `j` is 0, it indicates `0th` character, that is, an empty reference string.
+            // Fill `0th` column.
             operations[i][0] = i
         }
         for (j in 0..referenceLength) {
             // When `i` is 0, it indicates `0th` character, that is, an empty target string.
+            // Fill `0th` row.
             operations[0][j] = j
         }
+
+        // The number of rows are equal to `targetLength + 1`,
+        // and the number of columns are equal to `referenceLength + 1`.
+        // We have already covered the row at index 0, and the column at index 0 of the `operations` 2D array.
+        // It covered the cases of empty strings,
+        // where one of the two strings or both the strings are empty.
+        // Now, we start the iteration to fill the rows and columns from index (1,1),
+        // which signifies the row at index 1 and the column at index 1.
+        // That's why the pointers `i` and `j` start from `1`.
+        // We use the same pointers (`i` and `j`) to access the characters from the given strings.
+        // It means, to access the first character (or for that matter, any character) from the target string,
+        // we need to perform `target[i - 1]` = `target[1 - 1]` = `target[0]`.
+        // Similarly, to access the first character (or for that matter, any character) from the reference string,
+        // we need to perform `reference[j - 1]` = `reference[1 - 1]` = `reference[0]`.
+        // We iterate up to `targetLength` index to cover the last row, and `referenceLength` index to cover the last
+        // column of the `operations` 2D array.
+        // So, when we try to access the last character of each string, it becomes: `string[length - 1]` which is valid.
+        // For example, when the pointer `i` is `targetLength`, it becomes:
+        // `target[i - 1]` = `target[targetLength - 1]`, which is valid.
+        // Similarly, when the pointer `j` is `referenceLength`, it becomes:
+        // `reference[j - 1]` = `reference[referenceLength - 1]`, which is valid.
         for (i in 1..targetLength) {
             for (j in 1..referenceLength) {
-                // `i` and `j` start from 1, because we have already calculated the value of the 0th index,
-                // where the 0th index represents an empty string (an empty character).
+                // `i` and `j` start from 1, because we have already calculated the value of the 0th index (row/column),
+                // where the 0th index of the `operations` array represents an empty string (an empty character).
                 // If we again start from 0, it would overwrite the old and correct values.
                 // So, we start from 1.
                 // However, the target and reference strings are indexed from 0 to length - 1.
                 // If we compare target[1] == reference[1], then it would skip the first character of index 0.
                 // So, we use target[i - 1] == reference[j - 1], and it also prevents index out of bound exception,
                 // when the iteration reaches to the `targetLength` and `referenceLength`.
-                // So, when `i` and `j` are 1, the comparison looks like: target[0] == reference[0], and
+                // So, when `i` and `j` are 1, the comparison looks like: target[0] == reference[0],
+                // which compares the first character of each string, and
                 // when `i` is `targetLength` and `j` is `referenceLength`,
-                // the comparison looks like: target[targetLength - 1] == reference[referenceLength - 1].
-                // So, the `i`th character (or cell) of the `operations` array is at `i - 1` index in the `target`
-                // string, and the `j`th character (or cell) of the `operations` array is at `j - 1` index in the
-                // `reference` string.
+                // the comparison looks like: target[targetLength - 1] == reference[referenceLength - 1],
+                // which compares the last character of each string.
+                // So, the `i`th index of the `operations` array is `i - 1` index in the `target` string,
+                // and the `j`th index of the `operations` array is at `j - 1` index in the `reference` string.
                 // This also satisfies the value assignment.
                 // For example, if the first character of both the strings matches with each other,
                 // we use previously calculated value.
