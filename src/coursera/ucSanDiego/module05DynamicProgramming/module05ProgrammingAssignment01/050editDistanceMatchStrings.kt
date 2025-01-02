@@ -53,7 +53,6 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * 3
  *
  * The second string can be obtained from the first one by deleting s, substituting h for p, and inserting s.
- * This can be compactly visualized by the following alignment.
  *
  * Sample 2:
  *
@@ -101,7 +100,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * Each cell of the `target` column contains a single character of the target string.
  * Similarly, each cell of the `reference` column contains a single character (expected character) of the
  * reference string.
- * And each cell of the result column contains the number of operation it takes to match the character of the target
+ * And each cell of the result column contains the number of operations it takes to match the character of the target
  * string with the character of the reference string.
  *
  * We can consider the two columns as a 2D array, and the result column as a value for each cell (index).
@@ -134,6 +133,22 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * Here, `+ 1` of `n + 1` covers the case when the target string is empty, and `+ 1` of `m + 1` covers the case when
  * the reference string is empty.
+ *
+ * So, the size of the 2D array `operations` is one count more than the size (length) of the target string (row),
+ * and one count more than the size (length) of the reference string (column).
+ *
+ * | i\j     	| 0 (”” ) 	| 1 (“P”) 	| 2 (“O”) 	| 3 (“R”) 	| 4 (“T”) 	| 5 (“S”) 	|
+ * |---------	|---------	|---------	|---------	|---------	|---------	|---------	|
+ * | 0 (”” ) 	| dp[0,0] 	| dp[0,1] 	| dp[0,2] 	| dp[0,3] 	| dp[0,4] 	| dp[0,5] 	|
+ * | 1 (“S”) 	| dp[1,0] 	| dp[1,1] 	| dp[1,2] 	| dp[1,3] 	| dp[1,4] 	| dp[1,5] 	|
+ * | 2 (“H”) 	| dp[2,0] 	| dp[2,1] 	| dp[2,2] 	| dp[2,3] 	| dp[2,4] 	| dp[2,5] 	|
+ * | 3 (“O”) 	| dp[3,0] 	| dp[3,1] 	| dp[3,2] 	| dp[3,3] 	| dp[3,4] 	| dp[3,5] 	|
+ * | 4 (“R”) 	| dp[4,0] 	| dp[4,1] 	| dp[4,2] 	| dp[4,3] 	| dp[4,4] 	| dp[4,5] 	|
+ * | 5 (“T”) 	| dp[5,0] 	| dp[5,1] 	| dp[5,2] 	| dp[5,3] 	| dp[5,4] 	| dp[5,5] 	|
+ *
+ * Here, `dp[0,0]` indicates a case when both the target and reference strings are empty.
+ * `dp[i, 0]` indicates a case when only the reference string is empty.
+ * And `dp[0, j]` indicates a case when only the target string is empty.
  *
  * We start with one character at a time, compare it, select the operation, store the value, and move on.
  *
@@ -172,6 +187,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * that character. In fact, the reference string is empty.
  * So, to match the `ith` character of the target string with the `0th` character of the reference string,
  * we delete the `ith` character of the target string.
+ * We do the same while going through each character of the target string.
  * When the reference string is empty, and the target string is not empty (has certain characters), we need to delete
  * each character of the target string to match the reference string.
  *
@@ -201,6 +217,8 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * }
  * ```
  *
+ * (If you are wondering why we iterate up to `n` instead of `n - 1`, we will cover it shortly).
+ *
  * Similarly, if the target string is empty, we need to insert each character of the reference string.
  * For example, suppose the reference string is `ports` and the target string is ` `.
  * We go through each character of the reference string, and insert the character to the target string.
@@ -216,7 +234,65 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * }
  * ```
  *
+ * Now, you might wonder that unlike normal iterations where we iterate from `0` and go up to `length - 1`,
+ * the above code snippets show a `for loop` that starts from `0` and goes up to `length`.
+ * Well, because we use the same index pointer `i`, and `j` to `store` values to 2D array `operations`,
+ * and we use the same index pointer `i`, and `j` to `access` (`read`) the elements of the
+ * target string and the reference string.
+ *
+ * And we can understand it.
+ * The index starts from 0 for the `operations` 2D array, target string, and the reference string.
+ * Each character of the target string represents a row of the `operations` array.
+ * Each character of the reference string represents a column of the `operations` array.
+ *
+ * | i\j     	| 0 (”” ) 	| 1 (“P”) 	| 2 (“O”) 	| 3 (“R”) 	| 4 (“T”) 	| 5 (“S”) 	|
+ * |---------	|---------	|---------	|---------	|---------	|---------	|---------	|
+ * | 0 (”” ) 	| dp[0,0] 	| dp[0,1] 	| dp[0,2] 	| dp[0,3] 	| dp[0,4] 	| dp[0,5] 	|
+ * | 1 (“S”) 	| dp[1,0] 	| dp[1,1] 	| dp[1,2] 	| dp[1,3] 	| dp[1,4] 	| dp[1,5] 	|
+ * | 2 (“H”) 	| dp[2,0] 	| dp[2,1] 	| dp[2,2] 	| dp[2,3] 	| dp[2,4] 	| dp[2,5] 	|
+ * | 3 (“O”) 	| dp[3,0] 	| dp[3,1] 	| dp[3,2] 	| dp[3,3] 	| dp[3,4] 	| dp[3,5] 	|
+ * | 4 (“R”) 	| dp[4,0] 	| dp[4,1] 	| dp[4,2] 	| dp[4,3] 	| dp[4,4] 	| dp[4,5] 	|
+ * | 5 (“T”) 	| dp[5,0] 	| dp[5,1] 	| dp[5,2] 	| dp[5,3] 	| dp[5,4] 	| dp[5,5] 	|
+ *
+ * The rows of the `operations` 2D array are: 1 + target characters.
+ * So, the length (size) of the rows of the 2D array `operations` is `+1` than the length (size) of the target string.
+ * This additional `+1` row is the first row, before the `target` characters start.
+ *
+ * Similarly, the columns of the `operations` 2D array are: 1 + reference characters.
+ * So, the length (size) of the columns of the 2D array `operations` is `+1` than the length of the reference string.
+ * The additional `+1` column is the first column, before the `reference` characters tart.
+ *
+ * Now, when we look at the 2D array `operations`, it obviously starts with the index (0, 0).
+ * But, within the `operations` array, the `target` characters start from the index (1, 0) of the `operations` array,
+ * and the `reference` characters start from the index (0, 1) of the `operations` array.
+ *
+ * It means, the index pointer of the `operations` array is `+1` index ahead than the index pointer of the
+ * target string array, and the index pointer of the reference string array.
+ *
+ * For example, we read the first character of any string as `string[0]` where `0` is the index pointer.
+ * In other words, the first character of any string is at the `0th` index pointer.
+ *
+ * However, the index pointer of the first characters of the target string and the reference string are not at the
+ * (0, 0) index in the 2D array `operations`.
+ * The first character of the target string starts when the index pointer of the 2D array `operations` is `i = 1`,
+ * and the first character of the reference string starts when the index pointer of the 2D array `operations` is `j = 1`.
+ *
+ * So, to read the first character of the target string, we perform `target[i - 1]`,
+ * and to read the first character of the reference string, we perform `reference[j - 1]`.
+ *
+ * Similarly, when `i` = `targetLength`, it becomes the last row of the 2D array `operations`,
+ * and for the `target` string, it becomes `target[targetLength - 1]`,
+ * which gives the last character of the `target` string.
+ *
+ * Likewise, when `j` = `referenceLength`, it becomes the last column of the 2D array `operations`,
+ * and for the `reference` string, it becomes `reference[referenceLength - 1]`,
+ * which gives the last character of the `reference` string.
+ *
+ *
  * ### ----------------------- Bottom-up Process -----------------------
+ *
+ * Now, as we have covered the base-cases where either one of the two strings has `0` character,
+ * or both the strings are empty, we can move-on to consider that none of the two strings are empty.
  *
  * We compare each character of the target string with each character of the reference string.
  *
@@ -239,6 +315,14 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * When the character at `i` matches with the character at `j`, the pointer `i` says that
  * `I am done with the current character. Now, I have `i - 1` characters to cover.`, and the pointer `j` says that
  * `I am done with the current character. Now, I have `j - 1` characters to cover.`
+ *
+ * The more accurate (close to the actual theory) way to look at it is:
+ *
+ * ```
+ * If the current state `operations[i][j]` do not require any operation (because they match), it does not add any cost
+ * (it does not add any extra count to the number of operations required to match two strings).
+ * In other words, it costs the same as the previous cost.
+ * ```
  *
  * We can represent it with the below code:
  *
