@@ -17,8 +17,22 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * [Edit Distance](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/1801544f382beb3d55e53db02db4ac342e334ba2/src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/050editDistanceMatchStrings.kt)
  * problem.
  *
- *
  * To backtrack, we use the same method/s (condition/s).
+ *
+ *
+ * ## ----------------------- How to remember? -----------------------
+ *
+ * 1. Comparison means iteration (two nested for loops)
+ * 2. An iteration (loop) requires the end-limit. (What will be the end-point?)
+ * 3. We need to store the values. (What will be the data type of the container?)
+ * 4. We use Wagner-Fischer theory. (We use a 2D array, with the length of `(n + 1)(m + 1)`).
+ * 5. Formulas. (When characters match, no operation. When they don't, min cost of delete, insert, or substitute).
+ * 6. Backtracking starts with the last cell of the table. [Backtracking edit distance](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/dcb3a367bc47b095d37018006f07a6626eabce6c/src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/070editDistanceBacktrackReconstruct.kt)
+ * 7. Iteration uses an index pointer, and the last index of the 2D array is `length`.
+ * 8. And it is a 2D array. So, we use two index pointers.
+ * 9. If the characters match, no operation.
+ * 10. If they don't, compare the cost.
+ * 11. Don't forget to reduce `pointers`, and add `>0` checks to avoid `index out of bound` exception.
  *
  */
 fun main() {
