@@ -387,10 +387,11 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * 4. We put our index finger of the left hand on the row number (index) that the outer loop (`i`) represents.
  * 5. And we keep moving the index finger of the right hand on each cell, from left to right, column by column,
  * along with, and according to the index (`j`) of the inner loop.
- * 6. Once the inner loop finishes an iteration, the index of the outer loop changes.
- * 7. So, we change the position of our index finger of the left hand vertically, moving downwards, one step at a time,
- * row by row, along with, and according to the index `j` of the outer loop. This is indeed the step 4.
- * 8. Repeat step 5, 6, 7, and 8 until we finish the last index (`i`) of the outer loop,
+ * 6. This way, we compare the character of the outer loop with each character of the inner loop.
+ * 7. Once the inner loop finishes an iteration, the index of the outer loop changes.
+ * 8. So, we change the position of our index finger of the left hand vertically, moving downwards, one step at a time,
+ * row by row, along with, and according to the index `i` of the outer loop. This is indeed the step 4.
+ * 9. Repeat step 5, 6, 7, and 8 until we finish the last index (`i`) of the outer loop,
  * and the last index (`j`) of the inner loop.
  *
  * Now, during the comparison, we have two possibilities: Either they match, or they don't.
