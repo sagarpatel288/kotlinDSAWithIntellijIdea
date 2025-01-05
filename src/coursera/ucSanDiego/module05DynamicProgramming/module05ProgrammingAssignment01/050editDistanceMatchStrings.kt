@@ -168,6 +168,11 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * The length of the target string is `n`, and the length of the reference string is `m`.
  *
+ * ```
+ * val n = target.length
+ * val m = reference.length
+ * ```
+ *
  * To compare, we need two pointers. Let us assume that we have a pointer `i` to cover the target string, and
  * the pointer `j` to cover the reference string.
  *
@@ -304,7 +309,91 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * }
  * ```
  *
- * During the comparison, we have two possibilities: Either they match, or they don't.
+ * How do we compare one character of a string with another character of a different string?
+ *
+ * 1. We access and read the character from each string.
+ * 2. We compare the characters.
+ *
+ * How do we access and read a character from a string?
+ *
+ * We use:
+ *
+ * ```
+ * `string[index pointer]`
+ * ```
+ *
+ * For example, when we use `target[0]`, we get the character at index 0 (= first character) of the `target` string.
+ * If we use `target[1]`, we get the character at index 1 (= second character) of the `target` string.
+ * And so on.
+ *
+ * How do we compare the characters?
+ *
+ * Using the comparator operator:
+ *
+ * ```
+ * target[index pointer] == reference[index pointer]
+ * ```
+ *
+ * What will be the value of each `index pointer` during the comparison?
+ *
+ * ```
+ * The outer loop uses the outer index pointer.
+ * The inner loop uses the inner index pointer.
+ * ```
+ *
+ * For example,
+ *
+ * ```
+ * for (i in 1..n) corresponds to the `target` string as `n` = `target.length`.
+ * for (j in 1..m) corresponds to the `reference` string as `m = `reference.length`.
+ * ```
+ *
+ * The outer loop represents the iteration over the `target` string,
+ * and it denotes the index pointer as `i`.
+ * Hence, the target string uses the index pointer `i` to access and read the character.
+ *
+ * Similarly, the inner loop represents the iteration over the `reference` string,
+ * and it denotes the index pointer as `j`.
+ * Hence, the reference string uses the index pointer `j` to access and read the character.
+ *
+ * So, it looks like:
+ *
+ * ```
+ * for (i in 1..n) {
+ *     for (j in 1..m) {
+ *         if (target[i - 1] == reference[j - 1]) {
+ *         ...
+ *         } else {
+ *         ...
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * To visualize the process and progress,
+ *
+ * | i\j     	| 0 (”” ) 	| 1 (“P”) 	| 2 (“O”) 	| 3 (“R”) 	| 4 (“T”) 	| 5 (“S”) 	|
+ * |---------	|---------	|---------	|---------	|---------	|---------	|---------	|
+ * | 0 (”” ) 	| dp[0,0] 	| dp[0,1] 	| dp[0,2] 	| dp[0,3] 	| dp[0,4] 	| dp[0,5] 	|
+ * | 1 (“S”) 	| dp[1,0] 	| dp[1,1] 	| dp[1,2] 	| dp[1,3] 	| dp[1,4] 	| dp[1,5] 	|
+ * | 2 (“H”) 	| dp[2,0] 	| dp[2,1] 	| dp[2,2] 	| dp[2,3] 	| dp[2,4] 	| dp[2,5] 	|
+ * | 3 (“O”) 	| dp[3,0] 	| dp[3,1] 	| dp[3,2] 	| dp[3,3] 	| dp[3,4] 	| dp[3,5] 	|
+ * | 4 (“R”) 	| dp[4,0] 	| dp[4,1] 	| dp[4,2] 	| dp[4,3] 	| dp[4,4] 	| dp[4,5] 	|
+ * | 5 (“T”) 	| dp[5,0] 	| dp[5,1] 	| dp[5,2] 	| dp[5,3] 	| dp[5,4] 	| dp[5,5] 	|
+ *
+ * 1. Imagine the above table in front of you.
+ * 2. Now, the outer loop corresponds to the left hand.
+ * 3. And the inner loop corresponds to the right hand.
+ * 4. We put our index finger of the left hand on the row number (index) that the outer loop (`i`) represents.
+ * 5. And we keep moving the index finger of the right hand on each cell, from left to right, column by column,
+ * along with, and according to the index (`j`) of the inner loop.
+ * 6. Once the inner loop finishes an iteration, the index of the outer loop changes.
+ * 7. So, we change the position of our index finger of the left hand vertically, moving downwards, one step at a time,
+ * row by row, along with, and according to the index `j` of the outer loop. This is indeed the step 4.
+ * 8. Repeat step 5, 6, 7, and 8 until we finish the last index (`i`) of the outer loop,
+ * and the last index (`j`) of the inner loop.
+ *
+ * Now, during the comparison, we have two possibilities: Either they match, or they don't.
  *
  * Suppose, the character at `i` and the character at `j` matches with each-other.
  *
