@@ -54,7 +54,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * ```
  * // When the `rowString` is empty.
  * for (i in 0..columnString) {
- *     cell[i][0] = 0
+ *     cell[0][j] = 0
  * }
  * ```
  *
@@ -66,7 +66,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * ```
  * // When the `columnString` is empty.
  * for (j in 0..rowString) {
- *     cell[0][j] = 0
+ *     cell[i][0] = 0
  * }
  * ```
  *
