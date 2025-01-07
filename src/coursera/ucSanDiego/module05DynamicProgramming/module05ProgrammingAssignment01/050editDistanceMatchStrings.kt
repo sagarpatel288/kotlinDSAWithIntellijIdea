@@ -116,6 +116,21 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * val operations = Array(n) { IntArray(m) }
  * ```
  *
+ * The `Array(n)` represents an outer loop and the `IntArray(m)` represents an inner loop.
+ * In other words, the outer loop `Array(n)` are rows, and the inner loop `IntArray(m)` are columns.
+ * There are `n` rows, and `m` columns.
+ * Each row is of length `m`.
+ * This understanding is important when we iterate through rows and columns to fill-out each cell of the table.
+ *
+ * | rows / columns 	|        1        	| 2 	|        3        	| .. 	| .. 	|        m        	|
+ * |:--------------:	|:---------------:	|:-:	|:---------------:	|:--:	|:--:	|:---------------:	|
+ * |        1       	| (r, c) = (1, 1) 	|   	|                 	|    	|    	|                 	|
+ * |        2       	|                 	|   	| (r, c) = (2, 3) 	|    	|    	|                 	|
+ * |        3       	|                 	|   	|                 	|    	|    	|                 	|
+ * |       ..       	|                 	|   	|                 	|    	|    	|                 	|
+ * |       ..       	|                 	|   	|                 	|    	|    	|                 	|
+ * |        n       	|                 	|   	|                 	|    	|    	| (r, c) = (n, m) 	|
+ *
  * Now, the length measurement (count) starts with 1.
  * For example, 1 character = length is 1. For 2 characters, length is 2. And so on...
  * But, what about the case when length is 0? Either the target string, or the reference string, or both the strings
