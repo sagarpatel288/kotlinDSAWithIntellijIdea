@@ -224,6 +224,15 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  *
  * ```
+ * /**
+ *  * If `n` is the length of the target string, and `m` is the length of the reference string,
+ *  * and the 2D-array is `table[r][c]` = `operations[n + 1][m + 1]`,
+ *  * and we want to cover the case when the `reference string` is empty,
+ *  * we iterate from index `0` up to `n` to cover each row, because the size of the row is `n + 1`.
+ *  * And we hard-code the value for each column to `0` to indicate that there is no character.
+ *  * There is no further column to increase or proceed after `0`.
+ *  * Hence, the iteration becomes:
+ *  */
  * for (i in 0..n) {
  *     // `n` is the length of the target string.
  *     // The pointer `i` represents the target string, whereas the pointer `j` represents the reference string.
@@ -249,6 +258,15 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * is equal to the number of characters in the reference string.
  *
  * ```
+ * /**
+ *  * `m` is the length of the `reference string`.
+ *  * The size of the 2D-array is `table[r][c] = operations(n + 1)(m + 1)`,
+ *  * where, the size of the rows is `r = n + 1 = 0` when the `target string` is empty.
+ *  * However, we still have a non-empty size of columns, which is `m + 1`.
+ *  * So, we cover each column, from index `0` up to `m`.
+ *  * During the iteration, we do not increase the index of the row, because there is no row.
+ *  * Hence, the iteration becomes:
+ *  */
  * for (j in 0..m) {
  *     operations[0][j] = j
  * }
