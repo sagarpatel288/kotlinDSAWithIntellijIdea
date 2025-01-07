@@ -134,4 +134,31 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  */
 fun main() {
 
+    fun longestCommonSubsequence(refList: List<Int>, targetList: List<Int>): Int {
+        val table = Array(refList.size + 1) { IntArray(targetList.size + 1) }
+        for (i in 0..refList.size) {
+            table[i][0] = 0
+        }
+        for (j in 0..targetList.size) {
+            table[0][j] = 0
+        }
+        for (i in 1..refList.size) {
+            for (j in 1..targetList.size) {
+                if (refList[i - 1] == targetList[j - 1]) {
+                    table[i][j] = 1 + table[i - 1][j - 1]
+                } else {
+                    val topToDown = table[i - 1][j]
+                    val leftToRight = table[i][j - 1]
+                    table[i][j] = maxOf(topToDown, leftToRight)
+                }
+            }
+        }
+        return table[refList.size][targetList.size]
+    }
+
+    val totalRefElements = readln().toInt()
+    val refList = readln().split(" ").map { it.toInt() }
+    val totalTargetElements = readln().toInt()
+    val targetList = readln().split(" ").map { it.toInt() }
+    println(longestCommonSubsequence(refList, targetList))
 }
