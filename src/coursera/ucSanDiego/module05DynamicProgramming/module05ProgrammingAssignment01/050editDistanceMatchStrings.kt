@@ -226,7 +226,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * ```
  * /**
  *  * If `n` is the length of the target string, and `m` is the length of the reference string,
- *  * and the 2D-array is `table[r][c]` = `operations[n + 1][m + 1]`,
+ *  * and the 2D-array is `table[r][c]` = `operations(n + 1)(m + 1)`,
  *  * and we want to cover the case when the `reference string` is empty,
  *  * we iterate from index `0` up to `n` to cover each row, because the size of the row is `n + 1`.
  *  * And we hard-code the value for each column to `0` to indicate that there is no character.
