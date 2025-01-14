@@ -91,6 +91,49 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * }
  * ```
  *
+ * We read the values from the given sequences, and store the longest common sub-sequence value in the 2D-table.
+ * When we find a match, the longest common sequence value is just a normal, 1-step,
+ * incremental values like 0,1,2,3,4,... etc.
+ *
+ * The number conveys the total number of longest common sub-sequences we have found.
+ * For example, when we find one, it becomes 1.
+ * When we find another (one more), it becomes 2.
+ *
+ * Here, we can think of the latest value (`2`) as a result of adding `1` to the previously known value `1`.
+ * So, when we find a new match, it is like: `1 + previous (existing) known LCS value`.
+ * Before we found the 2nd match, the previous (existing) known LCS value was 1.
+ * Hence, the new LCS value becomes: 1 + 1 = 2.
+ * Now, the existing known LCS value is 2.
+ *
+ * If we find another (one more) match, then again:
+ * The new LCS value becomes: 1 + previous (existing) known LCS value, which is 2.
+ * So, the new LCS value becomes: 1 + 2 = 3.
+ * Now, the existing known LCS value is 3.
+ * And so on...
+ *
+ * So, if `rowString[i - 1] == columnString[j - 1]`, then we have one more match (+1) then the last stored value.
+ * Hence, we do: `cell[i][j] = 1 + cell[i - 1][j - 1]`, which simply signifies that we found one more match.
+ *
+ * So, add 1 to the last total number of longest common subsequence value, and the last value is stored in
+ * `cell[i - 1][j - 1]`. So, we add 1 and it becomes: `1 + cell[i - 1][j - 1]` for the current pointers.
+ *
+ * Another way to think of it is, `cell[i - 1][j - 1]` is a carried-forward (as it is) value,
+ * that represents the total number of LCS we have found so far.
+ * So, if we find a new match, it adds `one more` to the existing total number of LCS.
+ *
+ * Hence, the concept (idea) translates into the below code:
+ *
+ * ```
+ * cell[i][j] = 1 + cell[i - 1][j - 1]
+ * ```
+ *
+ * And, when the characters or integers of the two sequences don't match,
+ * we take the maximum LCS we have stored so far, and it signifies (translates) into the below code:
+ *
+ * ```
+ * cell[i][j] = maxOf( cell[i - 1][j], cell[i][j - 1] )
+ * ```
+ *
  * We compare each character of the `rowString` with each character of the `columnString`.
  * We start with the first row.
  * We put the index finger of the left-hand on the first row,
