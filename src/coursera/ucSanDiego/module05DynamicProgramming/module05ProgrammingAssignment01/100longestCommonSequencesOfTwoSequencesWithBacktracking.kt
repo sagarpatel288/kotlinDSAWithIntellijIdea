@@ -41,11 +41,13 @@ fun main() {
     fun longestCommonSequencesBacktracking(refList: List<Int>, targetList: List<Int>, table: Array<IntArray>) {
         var refIndexPointer = refList.size
         var targetIndexPointer = targetList.size
+        val matchedElements = mutableListOf<Int>()
         while (refIndexPointer > 0 || targetIndexPointer > 0) {
             if (refIndexPointer > 0
                 && targetIndexPointer > 0
                 && refList[refIndexPointer - 1] == targetList[targetIndexPointer - 1]) {
                 println("Matches: Reference element is: ${refList[refIndexPointer - 1]} and Target element is: ${targetList[targetIndexPointer - 1]}")
+                matchedElements.add(refList[refIndexPointer - 1])
                 refIndexPointer--
                 targetIndexPointer--
             } else {
@@ -58,6 +60,7 @@ fun main() {
                 }
             }
         }
+        println("Matched elements are: ${matchedElements.reversed().joinToString(" ")}")
     }
 
     val refSize = readln().toInt()
