@@ -70,6 +70,18 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * }
  * ```
  *
+ * * Note:
+ * Instead of taking two `for loops` to fill the first (0th index) row and column,
+ * we can simply initialize the table with the default value `0`, and it will work.
+ *
+ * ```
+ * val table = Array(sequenceOne.size + 1) {
+ *     IntArray(sequenceTwo.size + 1) {
+ *         0
+ *     }
+ * }
+ * ```
+ *
  * Now, based on the `Diff` program of `James Hunt and Douglas Mcilroy`,
  * if the index pointer of a row is `i`, and the index pointer of a column is `j`,
  * then the value of the `cell (i, j)` is:
@@ -179,6 +191,10 @@ fun main() {
 
     fun longestCommonSubsequence(refList: List<Int>, targetList: List<Int>): Int {
         val table = Array(refList.size + 1) { IntArray(targetList.size + 1) }
+        // Note that, instead of the below two `for-loops`, we can simply initialize the `table` with the
+        // default value `0`.
+        // In that case, we can skip the first two `for-loops`, and directly start with the last `for loop`.
+        // It will be a concise code.
         for (i in 0..refList.size) {
             table[i][0] = 0
         }
