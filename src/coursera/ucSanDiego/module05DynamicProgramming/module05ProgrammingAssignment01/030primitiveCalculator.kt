@@ -143,6 +143,14 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * It means, the index `n` represents a number (a station), and the value represents corresponding (associated)
  * number of operations required to reach `n`.
  *
+ * * It means, the size of the `operations` array must be `n + 1`,
+ * so that we can store the value for `operations[n]`.
+ * If we take the size of the `operations` array as `n - 1`, then
+ * as soon as we try to store or read the value for `operations[n]`,
+ * we will get the `index out of bound` exception.
+ *
+ * * So, the size of the `operations` array will be `n + 1`.
+ *
  * * We want to try each number (station). The base-case (starting point) is `1`.
  * Hence, we don't need any step (0 steps) to reach `1`.
  * So, for the base-case, we can say (store): `operations[1] = 0`.
