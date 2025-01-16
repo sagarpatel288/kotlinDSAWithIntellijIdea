@@ -662,6 +662,7 @@ fun main() {
         // to cover the `empty` string cases.
         val targetLength = target.length
         val referenceLength = reference.length
+        // Define a 2D-array = Array(n) { m } (or say, Array(i) { j }, however we can remember!)
         val operations = Array(targetLength + 1) { IntArray(referenceLength + 1) }
         // Normally, we iterate from `0` to `length - 1` when we want to cover each character of a string.
         // However, this is not just about covering each character of a single string. There's more.
