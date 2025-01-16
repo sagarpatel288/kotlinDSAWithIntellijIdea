@@ -48,10 +48,12 @@ fun main() {
         }
         var prevRow = IntArray(shorterList.size + 1)
         var currRow = IntArray(shorterList.size + 1)
+        // We can replace this first `for loop` with default initialization to `0` for the `prevRow`.
         for (i in 0..prevRow.lastIndex) {
             prevRow[i] = 0
         }
         for (i in 1..longerList.size) {
+            // We don't have to assign the value `0` if we initialize the `currRow` with the default value `0`.
             currRow[0] = 0
             for (j in 1..shorterList.size) {
                 if (longerList[i - 1] == shorterList[j - 1]) {

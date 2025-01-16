@@ -245,6 +245,7 @@ fun main() {
         var prev = IntArray(shorter.length + 1)
         var curr = IntArray(shorter.length + 1)
 
+        // When one of the strings is empty
         for (i in 0..shorter.length) {
             prev[i] = i
         }
