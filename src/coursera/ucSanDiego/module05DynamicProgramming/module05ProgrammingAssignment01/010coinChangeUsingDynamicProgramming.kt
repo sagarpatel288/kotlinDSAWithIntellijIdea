@@ -143,6 +143,31 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * You loop through every amount (1 to targetAmount) and for each amount,
  * you try using each coin denomination (1, 3, and 4).
  *
+ * * **Note:**
+ *
+ * ```
+ * // For each amount, I will try all the coins.
+ * for (amount in 1..targetAmount) {
+ *     for (coin in coinDenominations) {
+ *     ...
+ *     }
+ * }
+ * ```
+ * * The above part is important.
+ * * This particular note will be more clear when we re-visit this example problem after completing
+ * the dynamic programming module.
+ * * When we know that we need to use the dynamic programming with the bottom-up approach,
+ * and we need to find the `min` for the target, we use the nested `for loops` somewhat like below:
+ *
+ * ```
+ * for (target in start..end) {
+ *     for (option in optionList) {
+ *     // This way, we try the target with each available option to find the `min`.
+ *     ...
+ *     }
+ * }
+ * ```
+ *
  * ### Episode-04: Check if we can use the coin
  *
  * Before you use a coin, you check if it’s possible to use it for the current amount. Specifically, you check:
