@@ -265,7 +265,13 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * ```
  * operations[k] = operations[k - 1] + 1 // This is always possible.
  * ```
- * * When we use `+1` operator to reach `k`, the previous station is `k - 1`.
+ * * When we use `+1` operator to reach `k`, the previous station is `k - 1`. Let us elaborate more on this.
+ * * The `operations[k]` gives the number of minimum operations required to reach the station `k`.
+ * * Similarly, `operations[k - 1]` gives the number of minimum operations required to reach the station `k - 1`.
+ * * Now, if the number of minimum operations required to reach `k`, that is `operations[k]`, is one more (+1),
+ * than the number of minimum operations required to reach `k - 1`, that is `operations[k - 1]`,
+ * then, we can conclude that the previous station was `k - 1`,
+ * and using the `+1` operator, we reached the station `k`.
  * * Conclusion: The previous station was `k - 1`.
  * * `k - 1` becomes the new current station, and we continue this process until we reach the base case.
  *
