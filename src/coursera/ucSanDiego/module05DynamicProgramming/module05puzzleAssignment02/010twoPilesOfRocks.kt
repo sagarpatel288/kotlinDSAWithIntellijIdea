@@ -25,6 +25,8 @@ fun main() {
     data class Pile(val left: Int, val right: Int) : Comparable<Pile> {
         // The custom comparator to print the logs in sorted, intuitive, predictable, easy-to-understand,
         // and ascending order.
+        // For example, (left, right) =>
+        // (0, 1), (0, 2)...(0, 10), (1, 1), (1, 2)..(1, 10)..(2, 1), (2, 2)..(2, 10)..(3, 1), (3, 2)..(3, 10)..(10, 10)
         override fun compareTo(other: Pile): Int {
             return compareValuesBy(this, other, { it.left }, { it.right })
         }
