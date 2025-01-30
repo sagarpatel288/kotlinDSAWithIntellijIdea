@@ -149,7 +149,9 @@ fun main() {
             // Does it provide a winning position to the opponent? If so, it is a `losing move` for us.
             // Conversely, if it leads to a losing position for the opponent, it means it is a `winning move` for us.
             // So, if any of the available moves result into a winning configuration,
-            // then it is a losing configuration for the current player.
+            // then the current set up (configuration) is a losing configuration for the current player.
+            // Similarly, if any of the available moves result into a losing configuration,
+            // then the current set up (configuration) is a winning configuration for the current player.
             // The current player should take a move in such a way that the resulting configuration is a losing
             // configuration. It means, when it is the opponent's turn, the opponent gets a losing configuration.
             return !canWin
