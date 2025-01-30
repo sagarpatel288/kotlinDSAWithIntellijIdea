@@ -124,14 +124,20 @@ fun main() {
                 // so there’s no need to evaluate the remaining moves.
                 // Short-Circuit Optimization: The `||` operator stops evaluating further moves as soon as
                 // a winning move is found, saving unnecessary computation.
+                // If the current player take one rock from each pile,
+                // does it result into a winning configuration or a losing configuration?
                 canWin = canWin || fillResults(left - 1, right - 1)
             }
             if (left > 0) {
                 // Take one rock from the left pile.
+                // If the current player take one rock from the left pile,
+                // does it result into the winning configuration or a losing configuration?
                 canWin = canWin || fillResults(left - 1, right)
             }
             if (right > 0) {
                 // Take one rock from the right pile.
+                // If the current player take one rock from the right pile,
+                // does it result into the winning configuration or a losing configuration?
                 canWin = canWin || fillResults(left, right - 1)
             }
 
@@ -142,6 +148,10 @@ fun main() {
             // Why opposite? Because we have calculated what the `canWin` result will be after we make a move.
             // Does it provide a winning position to the opponent? If so, it is a `losing move` for us.
             // Conversely, if it leads to a losing position for the opponent, it means it is a `winning move` for us.
+            // So, if any of the available moves result into a winning configuration,
+            // then it is a losing configuration for the current player.
+            // The current player should take a move in such a way that the resulting configuration is a losing
+            // configuration. It means, when it is the opponent's turn, the opponent gets a losing configuration.
             return !canWin
         }
     }
