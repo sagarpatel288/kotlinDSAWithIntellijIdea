@@ -1,5 +1,8 @@
 package coursera.ucSanDiego.module05DynamicProgramming.module05puzzleAssignment02
 
+/**
+ * Clean code.
+ */
 fun main() {
 
     data class Pile(val leftSide: Int, val rightSide: Int) : Comparable<Pile> {
