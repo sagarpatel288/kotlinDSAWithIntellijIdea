@@ -21,7 +21,24 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05puzzleAssignment0
  */
 fun main() {
 
-    // Data class to represent the state of the piles
+    /**
+     *
+     * At any given time, we might have certain rocks in one pile, and certain rocks in another pile.
+     * We need to package up (lock? store? snapshot?) this information into a single object as a state.
+     * That's why, the Data class `Pile`, to represent the state of the piles.
+     * So that we can figure out whether a particular state is a winning configuration or not.
+     * It means that we will have several different states (arrangements) and the associated conclusion (Boolean?),
+     * that we will log (record, store) into a sheet (Map?).
+     * Once we fill the entire sheet, we can simply look up the sheet for any given configuration
+     * (certain number of rocks in pile one, and certain number of rocks in pile two),
+     * and output (inform, result, determine, conclude, say) that whether the given configuration is a
+     * winning configuration or not.
+     *
+     * We can name these two piles as top and bottom, or left and right.
+     *
+     * @param left Represents the number of rocks in the left pile.
+     * @param right Represents the number of rocks in the right pile.
+     */
     data class Pile(val left: Int, val right: Int) : Comparable<Pile> {
         // The custom comparator to print the logs in sorted, intuitive, predictable, easy-to-understand,
         // and ascending order.
@@ -33,12 +50,16 @@ fun main() {
 
         // The custom `toString` method provides a clear and easily understandable representation of the
         // `Pile` data class.
+        // When we print the `Pile` object, we need to know which `int` represents which `pile`.
+        // Hence, adding explicit `left=` and `right=` gives a clear picture of how many rocks are there in each pile.
         override fun toString(): String {
             return "Pile(left=$left, right=$right)"
         }
     }
 
     class Game {
+        // The `map` is our sheet where we store (log, record) the conclusion for a particular configuration,
+        // to understand whether the given configuration is a winning configuration or not.
         val resultMap: MutableMap<Pile, Boolean> = mutableMapOf()
 
         // Initialize the result map with base cases and calculate results
@@ -102,6 +123,8 @@ fun main() {
             // Why opposite? Because we have calculated what the `canWin` result will be after we make a move.
             // Does it provide a winning position to the opponent? If so, it is a `losing move` for us.
             // Conversely, if it leads to a losing position for the opponent, it means it is a `winning move` for us.
+            // The current player should try to set (give) the resultant configuration
+            // (the configuration after taking the move) as a losing configuration for the opponent to win the game.
             resultMap[currentPile]?.let { return !it }
 
             // A boolean variable that represents whether the current player can win from the current state of the piles
@@ -154,6 +177,8 @@ fun main() {
             // then the current set up (configuration) is a winning configuration for the current player.
             // The current player should take a move in such a way that the resulting configuration is a losing
             // configuration. It means, when it is the opponent's turn, the opponent gets a losing configuration.
+            // In other words, the current player should try to set (give) the resultant configuration
+            // (the configuration after taking the move) as a losing configuration for the opponent to win the game.
             return !canWin
         }
     }
