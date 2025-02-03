@@ -178,7 +178,8 @@ fun main() {
                 canWin = canWin || fillResults(left, right - 1)
             }
 
-            // Store the result (winning state for the opponent)
+            // Store the result.
+            // The reader, the caller of this function (current player) performs the storage operation.
             resultMap[currentPile] = canWin
 
             // Return the result for the current player (opposite of the stored result).
@@ -193,6 +194,12 @@ fun main() {
             // configuration. It means, when it is the opponent's turn, the opponent gets a losing configuration.
             // In other words, the current player should try to set (give) the resultant configuration
             // (the configuration after taking the move) as a losing configuration for the opponent to win the game.
+            // The reader, the caller of this function returns the opposite because the vantage point of the
+            // reader, the caller of this function is opposite than the other (next) player,
+            // who is receiving this return value.
+            // We return the vantage point of the other (next) player who is receiving this return value.
+            // And the vantage point of the opponent (next, other) player is opposite than our vantage point.
+            // Hence, we return the opposite.
             return !canWin
         }
     }
