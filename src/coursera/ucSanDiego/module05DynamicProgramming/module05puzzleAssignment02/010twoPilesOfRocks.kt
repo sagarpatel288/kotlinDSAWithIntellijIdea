@@ -35,6 +35,9 @@ fun main() {
      * winning configuration or not.
      *
      * We can name these two piles as top and bottom, or left and right.
+     * We implement the `Comparable<Pile>` interface to make the collection of piles eligible for the `sortedBy` call.
+     * Without implementing the `Comparable<Pile>` interface, the `sortedBy` call on the collection of piles will give
+     * us a compile-time error.
      *
      * @param left Represents the number of rocks in the left pile.
      * @param right Represents the number of rocks in the right pile.
@@ -208,7 +211,9 @@ fun main() {
     val game = Game()
     game.initializeResults(10)
 
-    // Print the computed results
+    // Print the computed results.
+    // If we did not implement the `Comparable` interface, then `sortedBy { it.key }` would have given a compile-time
+    // error.
     game.resultMap.entries.sortedBy { it.key }.forEach { (pile, result) ->
         println("$pile -> $result")
     }
