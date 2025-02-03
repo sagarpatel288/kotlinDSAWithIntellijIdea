@@ -131,6 +131,14 @@ fun main() {
             // Conversely, if it leads to a losing position for the opponent, it means it is a `winning move` for us.
             // The current player should try to set (give) the resultant configuration
             // (the configuration after taking the move) as a losing configuration for the opponent to win the game.
+            // It is very important to understand this perspective.
+            // The incoming parameters or arguments, left and right, is a configuration that we get,
+            // the reader (caller) of this function gets, and not the configuration that we give.
+            // Now, the vantage point of the two players are opposite.
+            // So, we flip the value.
+            // For example, if the previous player has already set it (stored value) as a "winning configuration",
+            // then we have to flip it because as a reader, as a caller of this function, we get that configuration,
+            // and it becomes a "losing configuration" for us.
             resultMap[currentPile]?.let { return !it }
 
             // A boolean variable that represents whether the current player can win from the current state of the piles
