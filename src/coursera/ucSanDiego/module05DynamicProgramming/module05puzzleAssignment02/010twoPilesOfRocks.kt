@@ -42,8 +42,14 @@ fun main() {
     data class Pile(val left: Int, val right: Int) : Comparable<Pile> {
         // The custom comparator to print the logs in sorted, intuitive, predictable, easy-to-understand,
         // and ascending order.
-        // For example, (left, right) =>
-        // (0, 1), (0, 2)...(0, 10), (1, 1), (1, 2)..(1, 10)..(2, 1), (2, 2)..(2, 10)..(3, 1), (3, 2)..(3, 10)..(10, 10)
+        // For example,
+        // The comparator takes two elements, and it will first compare their `left` variables.
+        // Let us assume that these two elements are (0, 3), and (0, 2).
+        // If the left variables are the same, then the comparator compares the `right` variables.
+        // So, as we first compare the `left` variables, the sorted result looks like below:
+        // (0, 2) and then (0, 3).
+        // If the maximum number of rocks is 10 for each pile, then the final sorted result looks like below:
+        // (0, 1), (0, 2)...(0, 10), (1, 1), (1, 2)..(1, 10)..(2, 1), (2, 2)..(2, 10)..(3, 1), (3, 2)..(3, 10)..(10, 10).
         override fun compareTo(other: Pile): Int {
             return compareValuesBy(this, other, { it.left }, { it.right })
         }
