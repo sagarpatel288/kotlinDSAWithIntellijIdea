@@ -157,6 +157,11 @@ fun main() {
             // This is known as memoization in dynamic programming.
             // We start with the top (higher or upper value than the base cases) and reduce the problem size until it
             // becomes a base case. This approach is called the top-down approach in dynamic programming.
+            // We try all the possible moves to see if there is a possibility of the winning configuration.
+            // We try all the possible moves and then store the result.
+            // Maybe one of the moves, or multiple moves give (set) a winning configuration,
+            // or maybe none of the moves give (set) the winning configuration.
+            // Whatever the result we get after trying all the possible moves, we store it.
             if (left > 0 && right > 0) {
                 // Take one rock from both the piles.
                 // If `canWin` is already true, the expression remains true, and no further evaluation is needed.
