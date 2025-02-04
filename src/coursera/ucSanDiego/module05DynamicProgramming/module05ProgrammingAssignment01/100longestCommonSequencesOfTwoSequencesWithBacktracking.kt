@@ -51,8 +51,8 @@ fun main() {
                 refIndexPointer--
                 targetIndexPointer--
             } else {
-                val prevRow = table[refIndexPointer - 1][targetIndexPointer]
-                val prevColumn = table[refIndexPointer][targetIndexPointer - 1]
+                val prevRow = if (refIndexPointer > 0) table[refIndexPointer - 1][targetIndexPointer] else Int.MIN_VALUE
+                val prevColumn = if (targetIndexPointer > 0) table[refIndexPointer][targetIndexPointer - 1] else Int.MIN_VALUE
                 if (prevRow > prevColumn) {
                     refIndexPointer--
                 } else {
