@@ -248,19 +248,32 @@ fun main() {
         var prev = IntArray(shorter.length + 1)
         var curr = IntArray(shorter.length + 1)
 
-        // When one of the strings is empty
+        // When one of the strings is empty.
+        // Visualize: We are filling the first row.
+        // The columns keeps changing (incrementally and horizontal) to fill each cell of the first row.
         for (i in 0..shorter.length) {
             prev[i] = i
         }
 
         // The outer for loop represents the longer string (rows). It moves vertically, Row by row.
+        // To understand:
+        // Visualize:
+        // Put your left index finger on the row (outer for loop) and move your right index finger horizontally to fill
+        // each cell of the row.
+        // Once we fill the entire row, the inner for loop gets finished, and the outer for loop changes the row.
+        // Hence, the outer for loop moves vertical and downwards to change the row.
         for (i in 1..longer.length) {
             // As soon as we start the iteration for the vertical rows,
             // the first index of the current array is always equal to the length up to the
             // current vertical row character.
             // Because, the first column considers the case where the string that represents the columns, is empty.
+            // To understand:
+            // Visualize: We are filling each cell of the first column.
+            // The row keeps changing (incrementally and vertically) to fill each cell of the first column.
             curr[0] = i
             // The inner for loop represents the shorter string (columns). It moves horizontally. Column by column.
+            // The inner for loop fills each cell of the row.
+            // The inner for loop moves horizontal and increments the column index.
             for (j in 1..shorter.length) {
                 // Compare the character of the longer string with each character of the shorter string.
                 if (longer[i - 1] == shorter[j - 1]) {
