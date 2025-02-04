@@ -6,6 +6,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * [Edit Distance](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/be74523bc7fb51c51d6418039bdc885dcadc55eb/src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/050editDistanceMatchStrings.kt)
  * [Edit Distance with backtracking](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/be74523bc7fb51c51d6418039bdc885dcadc55eb/src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/070editDistanceBacktrackReconstruct.kt)
  * [Edit distance space optimized without backtracking image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/038340fcade8a36e29cdb2ea60e0d35faf054f69/res/coursera/ucSanDiego/module05DynamicProgramming/03editDistanceMatchStringSpaceOptimized/003editDistanceSpaceOptimized.png)
+ * [Edit Distance Space Optimized Without Backtracking Image 02](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/7d7bfba61c5f9cfd24bfd36e2421532f151a0aef/res/coursera/ucSanDiego/module05DynamicProgramming/03editDistanceMatchStringSpaceOptimized/003editDistanceSpaceOptimizedExample.png)
  *
  * # ----------------------- Explanation: -----------------------
  *
@@ -50,6 +51,8 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * In other words (and this is an interesting perspective), if we take a closer look at the table,
  * the `current cell (i)`, depends on the `(i) of the previous` row for the delete operation,
  * `i - 1 of the current` row for the insert operation, and `i - 1 of the previous` row for the substitute operation.
+ *
+ * [Image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/7d7bfba61c5f9cfd24bfd36e2421532f151a0aef/res/coursera/ucSanDiego/module05DynamicProgramming/03editDistanceMatchStringSpaceOptimized/003editDistanceSpaceOptimizedExample.png)
  *
  * | Previous Row 	| prev ( i - 1 ) 	| prev ( i ) 	|
  * |:------------:	|:--------------:	|:----------:	|
@@ -250,8 +253,14 @@ fun main() {
             prev[i] = i
         }
 
+        // The outer for loop represents the longer string (rows). It moves vertically, Row by row.
         for (i in 1..longer.length) {
+            // As soon as we start the iteration for the vertical rows,
+            // the first index of the current array is always equal to the length up to the
+            // current vertical row character.
+            // Because, the first column considers the case where the string that represents the columns, is empty.
             curr[0] = i
+            // The inner for loop represents the shorter string (columns). It moves horizontally. Column by column.
             for (j in 1..shorter.length) {
                 // Compare the character of the longer string with each character of the shorter string.
                 if (longer[i - 1] == shorter[j - 1]) {
@@ -263,6 +272,11 @@ fun main() {
                     curr[j] = minOf(deleteCost, insertCost, substituteCost)
                 }
             }
+            // Once we fill the entire array (covering each column), and before we change the row,
+            // the current becomes the previous.
+            // Or in other words, we assign the current array to the previous array.
+            // In this way, the variable `prev` now represents the `curr` array.
+            // We assign the old `prev` to the `curr` to reduce the garbage.
             val temp = prev
             prev = curr
             curr = temp
