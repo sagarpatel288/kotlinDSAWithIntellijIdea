@@ -152,6 +152,9 @@ fun main() {
         // E.g., cost = 500, totalWeight = 30,
         // If the `pricePerUnit` is `Int`, then it becomes `16`
         // and if we do `16` * `30`, it gives us `480` instead of `500`!
+        // Key point:
+        // Also, cost/weight gives dollar per pound or dollar per kilogram, etc. - How much does it cost per pound?
+        // Whereas, weight/cost gives pound per dollar, kilogram per dollar, etc. - How much weight do we get per dollar?
         val pricePerUnit: Double = (cost.toDouble() / totalAvailableWeight.toDouble())
     }
 
