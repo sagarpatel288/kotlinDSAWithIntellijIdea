@@ -13,6 +13,7 @@ fun main() {
         }
         val result = mutableListOf<Int>()
         for (range in queries) {
+            // The queries are 1-based indexing.
             if (range.start <= 0 || range.end > input.size) {
                 println("Invalid range: start: ${range.start} end: ${range.end} for the input size: ${input.size}")
                 continue
