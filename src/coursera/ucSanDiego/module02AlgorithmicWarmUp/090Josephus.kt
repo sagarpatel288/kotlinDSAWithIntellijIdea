@@ -151,6 +151,16 @@ fun main() {
      * How? f(n, k) becomes f(n-1, k) after one rebel dies.
      * If we add k to the new position and then perform % n to the result, we get the original position.
      *
+     * # How to remember? (Refer the above tables side-by-side to understand).
+     *
+     * 1. We have n rebels. When one rebel dies, we are left with n - 1.
+     * 2. The next person after the rebel who has died recently, will be the survivor. Right?
+     * 3. The next counting starts from the survivor.
+     * 4. Hence, position shifts from 0 to + k when it is n - 1.
+     * 5. So, it becomes: f(n, k) = f(n - 1, k) + k
+     * 6. However, we want to make sure that + k does not exceed the total.
+     * 7. Hence, it becomes: f(n, k) = ( f(n - 1, k) + k ) % n
+     *
      */
     fun getSurvivorRecursively(numberOfRebels: Long, killingFactorInterval: Long): Long {
         iteration++
@@ -166,10 +176,13 @@ fun main() {
      * We repeat this process until there is only one rebel left.
      * We have seen one perspective to look at it in the above [getSurvivorRecursively] function.
      * There is one more perspective to look at it, and it is more efficient than the recursive approach.
+     *
      * Recursive approach can introduce stack overflow when [numberOfRebels] is too large,
      * because each function call creates an object and until the function call is finished, the function occupies
      * (reserves) stack memory.
-     * The iterative approach is comparatively safe.
+     *
+     * The iterative approach is comparatively safe. It does not have any recursive call.
+     * It uses constant memory inside the loop.
      * The iterative approach is based on the pre-computed fact that:
      * `newSurvivorPosition = (previousSurvivorPosition + killingFactorInterval) % i`
      * where i = `for (i in 2..numberOfRebels)`.
@@ -210,6 +223,17 @@ fun main() {
      * When n = 10, the survivor position (LHS) is 3 = RHS => (previousSurvivorPosition + k) % i = (0 + 3) % 10 = 3 % 10 = 3.
      *
      * We can see that LHS = RHS. The formula is correct.
+     *
+     * # How to remember? (Please refer to the above examples and tables side-by-side as a reference).
+     *
+     * 1. For the recursion approach, we started from `n` and we kept decreasing `n -1` until we found the answer from
+     * the base case. That was the top-to-bottom approach.
+     * 2. Here, for the iteration approach, we start from 1.
+     * 3. If there is only 1 person, the person survives and the survivor position will be 0.
+     * 4. If we add 1 more person, the survivor position shifts by the interval factor.
+     * 5. So, it becomes: survivor = survivor + intervalFactor
+     * 6. However, we want to make sure that `+ intervalFactor` does not exceed the available people.
+     * 7. Hence, it becomes: survivor = ( survivor + intervalFactor ) % i, where `i` is keep changing from 2 to n.
      */
     fun getSurvivorIteratively(numberOfRebels: Long, killingFactorInterval: Long): Long {
         // If there is only one rebel, the survivor position is 0.
