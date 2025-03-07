@@ -18,6 +18,8 @@ import java.util.Scanner
 fun main() {
 
     fun printNthFibonacciModulo(nthFibonacci: Int, modulo: Int): Long {
+        if (modulo == 0) throw IllegalArgumentException("Modulo cannot be 0!")
+        if (modulo == 1) return 0L
         // If it is 0, the last digit is 0.
         // If it is 1, the last digit is 1.
         // Anything less than or equal to 1, returns the number itself.
@@ -37,6 +39,8 @@ fun main() {
     }
 
     fun printNthFibonacciModuloArithmetically(nthFibonacci: Int, modulo: Int): Long {
+        if (modulo == 0) throw IllegalArgumentException("Modulo cannot be 0")
+        if (modulo == 1) return 0L
         // If it is 0, the last digit is 0.
         // If it is 1, the last digit is 1.
         // Anything less than or equal to 1, returns the number itself.
@@ -93,6 +97,8 @@ fun main() {
             // The purpose of doing % modulo is to keep the result within the modulo range.
             // The modulo operation ensures that the result stays within the range of 0 to m-1, where m is modulo.
             result = (previous + current) % modulo
+            val test = ((previous % modulo) + (current % modulo)) % modulo
+            println("complex combined equation expression result: $result simplification: $test")
             history.add(result)
             previous = current
             current = result
