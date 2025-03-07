@@ -122,8 +122,11 @@ fun lastDigitOfSumOfNthFibonacci(reducedN: Long, modulo: Long): Long {
     // Hence, the % 10 will make it: 13 % 10 = 3, the last digit we want.
     // So, in the end, % 10 ensures that we get the last digit.
     // We perform % 10 to get the last digit.
-    // E.g., 3 % 10 and (3 + 10) = 13 % 10, both give 3 only. (Modular arithmetic)
+    // E.g., 3 % 10 and (3 + 10) = 13 % 10, both give 3 only. (Modular arithmetic).
     // Reference: https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/what-is-modular-arithmetic
+    // In short:
+    // + 10 to avoid negative number, but `+ 10` can also be resulted into more than 1 digit answer.
+    // So, to limit the answer after adding `+10`, we also perform `% 10` and get the last digit (single digit) answer.
     return (nextRemainder - 1 + 10) % 10
 }
 
