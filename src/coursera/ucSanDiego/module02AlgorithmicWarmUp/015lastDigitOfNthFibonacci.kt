@@ -128,6 +128,7 @@ fun main() {
      *
      */
     fun findPisanoPeriodOfFibonacci(modulo: Long): Long {
+        if (modulo == 0L) throw IllegalArgumentException("Modulo cannot be 0")
         var previous = 0L
         var next = 1L
         var length = 0L
