@@ -18,6 +18,8 @@ fun main() {
         var previous = 0
         var current = 1
         val fibonacciList = mutableListOf(previous, current)
+        // `upTo - 2` because we have already taken the first two elements.
+        // Or we can also do: `i in 3..upTo`
         for (i in 0..upTo - 2) {
             val newCurrent = previous + current
             fibonacciList.add(newCurrent)
