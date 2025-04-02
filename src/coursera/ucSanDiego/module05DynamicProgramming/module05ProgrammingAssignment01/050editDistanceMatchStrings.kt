@@ -229,7 +229,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *  * and the 2D-array is `table(row size)(column size)` = `operations(n + 1)(m + 1)`,
  *  * and we want to cover the case when the `reference string` is empty,
  *  * we iterate from index `0` up to `n` to cover each row, because the size of the row is `n + 1`.
- *  * And we hard-code the value for each column to `0` to indicate that there is no character.
+ *  * And we hard-code the value for each cell of the 0th column to `0` to indicate that there is no reference character.
  *  * There is no further column to increase or proceed after `0`.
  *  * Hence, the iteration becomes:
  *  */
@@ -242,7 +242,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *     // The value represents the number of operations required to match the target string with the reference string.
  *     // If the reference string is empty, we need to delete each character of the target string.
  *     // In this case, the number of operations it takes is equal to the number of characters in the target string.
- *     operations[i][0] = i
+ *     operations[i][0] = i // Fills 0th column.
  * }
  * ```
  *
@@ -264,11 +264,11 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *  * where, the size of the rows is `r = n + 1 = 0` when the `target string` is empty.
  *  * However, we still have a non-empty size of columns, which is `m + 1`.
  *  * So, we cover each column, from index `0` up to `m`.
- *  * During the iteration, we do not increase the index of the row, because there is no row.
+ *  * During the iteration, we do not increase the index of the row, because the target string is empty.
  *  * Hence, the iteration becomes:
  *  */
  * for (j in 0..m) {
- *     operations[0][j] = j
+ *     operations[0][j] = j // Fills 0th row.
  * }
  * ```
  *
@@ -294,11 +294,11 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * The rows of the `operations` 2D array are: 1 + target characters.
  * So, the length (size) of the rows of the 2D array `operations` is `+1` than the length (size) of the target string.
- * This additional `+1` row is the first row, before the `target` characters start.
+ * This additional `+1` row is the first row, before the `target` characters start. So, the 0th row.
  *
  * Similarly, the columns of the `operations` 2D array are: 1 + reference characters.
  * So, the length (size) of the columns of the 2D array `operations` is `+1` than the length of the reference string.
- * The additional `+1` column is the first column, before the `reference` characters tart.
+ * The additional `+1` column is the first column, before the `reference` characters tart. The 0th column.
  *
  * Now, when we look at the 2D array `operations`, it obviously starts with the index (0, 0).
  * But, within the `operations` array, the `target` characters start from the index (1, 0) of the `operations` array,
@@ -383,11 +383,11 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * The outer loop represents the iteration over the `target` string,
  * and it denotes the index pointer as `i`.
- * Hence, the target string uses the index pointer `i` to access and read the character.
+ * Hence, the target string uses the index pointer `i` to access and read the characters of the target string.
  *
  * Similarly, the inner loop represents the iteration over the `reference` string,
  * and it denotes the index pointer as `j`.
- * Hence, the reference string uses the index pointer `j` to access and read the character.
+ * Hence, the reference string uses the index pointer `j` to access and read the characters of the reference string.
  *
  * So, it looks like:
  *
@@ -420,8 +420,8 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * 4. We put our index finger of the left hand on the row number (index) that the outer loop (`i`) represents.
  * 5. And we keep moving the index finger of the right hand on each cell, from left to right, column by column,
  * along with, and according to the index (`j`) of the inner loop.
- * 6. This way, we compare the character of the outer loop with each character of the inner loop.
- * 7. Once the inner loop finishes an iteration, the index of the outer loop changes.
+ * 6. This way, we compare the character of the outer loop (i) with each character of the inner loop (j).
+ * 7. Once the inner loop finishes the iteration, the index of the outer loop (i) changes.
  * 8. So, we change the position of our index finger of the left hand vertically, moving downwards, one step at a time,
  * row by row, along with, and according to the index `i` of the outer loop. This is indeed the step 4.
  * 9. Repeat step 5, 6, 7, and 8 until we finish the last index (`i`) of the outer loop,
@@ -444,7 +444,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * ```
  * If the current state `operations[i][j]` do not require any operation (because they match), it does not add any cost
  * (it does not add any extra count to the number of operations required to match two strings).
- * In other words, it costs the same as the previous cost.
+ * In other words, it costs the same as the previous cost: `operations[i - 1][j - 1]`
  * ```
  *
  * We can represent it with the below code:
@@ -541,7 +541,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  * Similarly, if we perform the replace operation, both the pointers `i`, and `j` move on.
  *
  * Let us continue the example and progress.
- * The pointer `i` is at the character `s` of the target `short` (currently, `sorts`).
+ * The pointer `i` is at the first character `s` of the target `short` (currently, `sorts`).
  * The pointer `j` is at the character `p` of the target `ports`.
  *
  * We select the replace operation. So, we replace the character `s` of the target `short` with the character `p`.
