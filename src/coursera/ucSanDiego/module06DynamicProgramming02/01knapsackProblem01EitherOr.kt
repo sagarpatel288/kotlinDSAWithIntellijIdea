@@ -348,6 +348,10 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * We take a container (table) of size (n + 1)(W + 1).
  * Hence, the space complexity is also O(n * W).
+ *
+ * # ----------------------- Coursera's Grader Output -----------------------
+ *
+ * Good job! (Max time used: 0.11/4.00, max memory used: 54890496/536870912.)
  */
 fun main() {
 
