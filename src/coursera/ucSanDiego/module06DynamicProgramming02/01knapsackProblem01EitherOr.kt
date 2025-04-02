@@ -336,6 +336,18 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * 1. The table (2D array) size to store the values. --> + 1 --> Size + 1, Options + 1, Target + 1, End + 1, Items + 1.
  * 2. Bottom-up journey (iteration). It will start from 0 or 1, and will go up to the target, limit, end point.
  *
+ * # ----------------------- Complexity Analysis -----------------------
+ *
+ * ## ----------------------- Time Complexity Analysis -----------------------
+ *
+ * We have two nested for loops. If the number of items are `n`,
+ * and the maximum weight capacity of the knapsack is, `W,`
+ * then the time complexity is O(n * W).
+ *
+ * ## ----------------------- Space Complexity Analysis -----------------------
+ *
+ * We take a container (table) of size (n + 1)(W + 1).
+ * Hence, the space complexity is also O(n * W).
  */
 fun main() {
 
