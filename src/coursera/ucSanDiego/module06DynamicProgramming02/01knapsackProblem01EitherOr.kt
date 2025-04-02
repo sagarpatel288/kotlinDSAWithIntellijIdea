@@ -358,7 +358,7 @@ fun main() {
     fun maxShopping(capacity: Int, items: List<Int>) {
         // A container (table) of size + 1 to cover the 0th row and 0th column cases.
         val table = Array(items.size + 1) { IntArray(capacity + 1) }
-        // The outside item loop stars from 1 as we have already covered the 0th row.
+        // The outside item loop starts from 1 as we have already covered the 0th row.
         for (i in 1..items.size) {
             // The inside weight loop starts from 1 as we have already covered the 0th column.
             for (weight in 1..capacity) {
