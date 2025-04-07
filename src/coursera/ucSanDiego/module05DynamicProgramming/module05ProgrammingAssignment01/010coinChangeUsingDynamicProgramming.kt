@@ -20,7 +20,7 @@ package coursera.ucSanDiego.module05DynamicProgramming.module05ProgrammingAssign
  *
  * The minimum number of coins with denominations 1, 3, and 4 that changes money.
  *
- * ## ----------------------- Recapitulation -----------------------
+ * ## ----------------------- Recapitulation: Greedy Approach Vs. Dynamic Programming Example  -----------------------
  *
  * The greedy strategy works for certain coin systems called canonical coin systems
  * (e.g., the US coin system of 1, 5, 10, 25). These systems are specifically designed so that the greedy approach
