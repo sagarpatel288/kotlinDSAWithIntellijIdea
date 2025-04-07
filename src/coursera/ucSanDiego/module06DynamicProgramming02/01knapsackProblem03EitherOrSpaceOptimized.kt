@@ -37,6 +37,19 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * Also, as we mentioned earlier, we start the item iteration as usual, bottom-up, but,
  * for the weights, we iterate from top-down (max to min), up to the weight of the currently selected item.
  *
+ * Why up to the weight of the currently selected item only instead of 1?
+ *
+ * Because when the weight is less than the currently selected item,
+ * we cannot take the currently selected item anyway.
+ *
+ * In that case, it is best to use the existing value where the item weight does not exceed the current weight capacity.
+ *
+ * Stay tuned to understand what is the existing value and other things.
+ *
+ * Let us understand one step at a time.
+ *
+ * Let us understand the iteration part first.
+ *
  * Let us translate it into the code:
  *
  * ```
@@ -66,7 +79,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * Now, we take the first item.
  * Again, we start from the maximum weight capacity 10, and iterate till the weight capacity becomes equal to the
- * weight capacity of the currently selected item, which is 4.
+ * weight capacity of the currently selected item, which is 1.
  *
  * Let us see how it looks:
  *
@@ -96,6 +109,8 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * If it cannot include the currently selected item, then we don't change the existing value.
  * The existing value is the same as an optimal value without the currently selected item.
+ *
+ * If we can include the currently selected item, and want to include the currently selected item:
  *
  * We can include the currently selected item only if the weight of the currently selected item is less than or equal
  * to the current weight capacity.
@@ -170,7 +185,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * }
  * ```
  *
- * The `array[weight]` represents the value from the previous row.
+ * The `array[weight]` represents the existing value from the previous row.
  * So, it represents the value without including the currently selected item.
  *
  * The `item + ` indicates that we are including (have included) the currently selected item.
@@ -178,11 +193,132 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * And the ` + array[weight - item]` represents the optimal value for the remaining weight that we might get after
  * adding the currently selected item.
  *
+ * So, it becomes:
+ *
+ * ```
+ * cell(1, 10)
+ * = array[10]
+ * = maxOf ( array[10], 1 + array[10 - 1] )
+ * = maxOf ( 0 (existing value without adding the current item weight 1), 1 + array [ 9 ] )
+ * = maxOf ( 0, 1 + 0 )
+ * = 1
+ * ```
+ * So, the table becomes:
+ *
+ * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+ * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
+ * |       0      	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 1 (Weight 1) 	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	|  1 	|
+ * | 2 (Weight 4) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 3 (Weight 8) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ *
+ * Similarly, the entire row will become:
+ *
+ * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+ * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
+ * |       0      	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 1 (Weight 1) 	| 0 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	|  1 	|
+ * | 2 (Weight 4) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 3 (Weight 8) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ *
+ * Now, when we start (reach) the item 2 weight 4, it will get the existing values as below:
+ *
+ * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+ * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
+ * |       0      	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 1 (Weight 1) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 2 (Weight 4) 	| 0 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	|  1 	|
+ * | 3 (Weight 8) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ *
+ * The weight iteration starts from 10 and will go up to the currently selected item weight, 4.
+ * Current cell(2, 10):
+ * ```
+ * = cell(2, 10)
+ * = array[10]
+ * = maxOf ( array[10], 4 + array[10 - 4] )
+ * = maxOf ( 1, 4 + array[6] )
+ * = maxOf (1, 4 + 1 )
+ * = maxOf (1, 5)
+ * = 5
+ * ```
+ *
+ * So, the table becomes:
+ *
+ * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+ * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
+ * |       0      	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 1 (Weight 1) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 2 (Weight 4) 	| 0 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	|  5 	|
+ * | 3 (Weight 8) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ *
+ * Similarly, the entire row (item 2 weight 4) will get the values as below:
+ *
+ * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+ * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
+ * |       0      	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 1 (Weight 1) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 2 (Weight 4) 	| 0 	| 1 	| 1 	| 1 	| 4 	| 5 	| 5 	| 5 	| 5 	| 5 	|  5 	|
+ * | 3 (Weight 8) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ *
+ * Now, when we go to the item 3 weight 8, it will get the existing values as below:
+ *
+ * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+ * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
+ * |       0      	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 1 (Weight 1) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 2 (Weight 4) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 3 (Weight 8) 	| 0 	| 1 	| 1 	| 1 	| 4 	| 5 	| 5 	| 5 	| 5 	| 5 	|  5 	|
+ *
+ * The current cell is cell(3, 10). It will get the value as below:
+ *
+ * ```
+ * cell(3, 10)
+ * = array[10]
+ * = maxOf ( existing value without current item, current item weight + array[10 - current item weight] )
+ * = maxOf ( array[10], 8 + array[10 - 8] )
+ * = maxOf ( 5, 8 + array[2] )
+ * = maxOf ( 5, 8 + 1 )
+ * = maxOf ( 5, 9 )
+ * = 9
+ * ```
+ *
+ * So, the table becomes:
+ *
+ * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+ * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
+ * |       0      	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 1 (Weight 1) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 2 (Weight 4) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 3 (Weight 8) 	| 0 	| 1 	| 1 	| 1 	| 4 	| 5 	| 5 	| 5 	| 5 	| 5 	|  9 	|
+ *
+ * Similarly, the entire row will get the values as below:
+ *
+ * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+ * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
+ * |       0      	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 1 (Weight 1) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 2 (Weight 4) 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ * | 3 (Weight 8) 	| 0 	| 1 	| 1 	| 1 	| 4 	| 5 	| 5 	| 5 	| 8 	| 9 	|  9 	|
+ *
+ *
+ * And the answer is:
+ * ```
+ * = array[capacity]
+ * = array[10]
+ * = 9
+ * ```
  */
 fun main() {
 
     fun maxShopping(capacity: Int, items: List<Int>) {
-
+        // Container
+        val container = IntArray(capacity + 1)
+        for (item in items) {
+            for (weight in capacity downTo item) {
+                container[weight] = maxOf(container[weight], item + container[weight - item])
+            }
+        }
+        println(container[capacity])
     }
 
     val capacityAndItems = readln().split(" ").map { it.toInt() }
