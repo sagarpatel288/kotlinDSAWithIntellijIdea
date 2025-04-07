@@ -307,6 +307,53 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * = array[10]
  * = 9
  * ```
+ *
+ * # ----------------------- Why did we go max to min for the weight iteration? -----------------------
+ *
+ * Because, if we go from min to max, and when we want to add the optimal value for the remaining weight,
+ * what we get is the optimal value including the current item, and not excluding the current item.
+ *
+ * For example, let us say, the maximum weight capacity of the knapsack is 10,
+ * and the weights are 4, 1, 8.
+ *
+ * Now, the cell(1, 4..7) will have the values 4.
+ * The container gets the default value, 0.
+ * And when we reach the weight 8, the formula:
+ * ```
+ * cell(1, 8)
+ * = array[8]
+ * = maxOf (array[8], 4 + array[8 - 4])
+ * ```
+ * Now, the part: ```array[8 - 4]``` represents the value for the current item, 4.
+ * And it is, 4. So, the answer becomes 4 + 4 = 8, which is wrong, because:
+ *
+ * 1. We cannot repeat the same item weight!
+ *
+ * So, when we start from min to max weight iteration,
+ * when we try to add the remaining weight or the previous weight,
+ * we get the value of the current weight,
+ * and it leads to the repetition, which is not allowed in the problem.
+ *
+ * # ----------------------- Complexity Analysis -----------------------
+ *
+ * ## ----------------------- Time Complexity Analysis -----------------------
+ *
+ * We use two for loops, one inside another.
+ * A weight loop inside the item loop.
+ * ```
+ * So, the time complexity is: O(number of items * maximum weight capacity of the knapsack)
+ * = O(n * W)
+ * ```
+ *
+ * ## ----------------------- Space Complexity Analysis -----------------------
+ *
+ * We use one 1D array of size maximum weight capacity of the knapsack + 1.
+ * We ignore constants.
+ * ```
+ * So, the space complexity is:
+ * = O(Maximum weight capacity of the knapsack)
+ * = O(W)
+ * ```
  */
 fun main() {
 
