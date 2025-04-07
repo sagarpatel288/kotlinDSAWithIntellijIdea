@@ -71,6 +71,33 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * # ----------------------- Base Explanation: Base Thought Process -----------------------
  *
+ * ## ---------------------- Why does the Greedy approach fail? How? ----------------------
+ *
+ * Greedy Approach Vs. Dynamic Programming:
+ *
+ * Recall the history (Recapitulation, Flash back):
+ * src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/010coinChangeUsingDynamicProgramming.kt
+ *
+ * If the target amount to change is 24, and coin denominations are 1, 8, and 20.
+ * The greedy approach would take 1 coin of 20, and 4 coins of 1, resulting in a total of 5 coins.
+ * However, the dynamic programming would take 3 coins of 8, resulting in a total of only 3 coins.
+ *
+ * Coming back to the present problem (Present):
+ *
+ * Let us understand that with a simple example.
+ * Let us assume that the maximum weight capacity of the knapsack is 10.
+ * And we have 4 items with weight: 3, 4, 6, and 8.
+ *
+ * Now, a greedy approach will pick up the maximum weight 8 first.
+ * However, there is no other item left using which we can fill the bag without exceeding the limit, which is 10.
+ *
+ * Now, a dynamic programming approach would consider and try each option, store each result, and pick up the best.
+ * So, the dynamic programming approach can pick up the items having weights of 4, and 6. Hence, the total becomes 10.
+ * This way, we could maximize the weight without exceeding the maximum capacity of the knapsack.
+ * We could fill more items, more weight, more values, than the greedy approach.
+ *
+ * Conclusion: Dynamic Programming is more reliable, and optimal than the Greedy approach. Especially, for this example.
+ *
  * ## How do we solve a problem using dynamic programming approach? What do we do in a dynamic programming?
  *
  * ### 1. Bottom-up approach:
