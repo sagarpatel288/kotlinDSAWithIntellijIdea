@@ -667,6 +667,40 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * the number of subset requirement is reduced (decreased) to k - 1 with the remaining elements.
  * ```
  *
+ * Also, if we have successfully formed `k - 1` partitions,
+ * then the remaining elements must form the last remaining partition.
+ * Because, we have started the process only after confirming that:
+ *
+ * point-01: `totalSum % k == 0,`
+ * point-02: By the time we are left with only one subset to form, math says it will be true.
+ *
+ * Why? How?
+ *
+ * Let us revisit the example.
+ *
+ * The input is:
+ *
+ * ```
+ * 6
+ *
+ * 3 4 6 9 7 10
+ * ```
+ *
+ * Initially, the total number of subset requirement is `k = 3.`
+ *
+ * Now, according to our progress where only 1 subset is remained,
+ * we have successfully formed `k - 1` subsets as below:
+ *
+ * ```
+ * [3, 10], [4, 9]
+ * ```
+ *
+ * The remaining elements automatically forms the remaining `k - 1` subset as below:
+ *
+ * ```
+ * [6, 7]
+ * ```
+ *
  * So, we can add this to our base condition as below:
  *
  * ```
@@ -695,7 +729,187 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * to the `target sum.` So, definitely the `Current sum.`
  * ```
  *
+ * So, the function can be:
  *
+ * ```
+ * fun canPartition(startIndex: Int, subsets: Int, currentSum: Int)
+ * ```
+ *
+ * What will be the return type?
+ *
+ * ```
+ * The following question:
+ * "Will it be possible to form the k partitions with equal sums with the remaining elements?"
+ * clearly suggests the return type to be "Boolean."
+ * ```
+ *
+ * So, the function header becomes:
+ *
+ * ```
+ * fun canPartition(startIndex: Int, subsets: Int, currentSum: Int): Boolean
+ * ```
+ *
+ * Let us add the base cases to the function body.
+ *
+ * ```
+ * fun canPartition(startIndex: Int, subsets: Int, currentSum: Int): Boolean {
+ *     // if the number of subset requirement is 1, return true.
+ *     // Because, at this stage, we must have confirmed that the remaining elements can form the last remaining subset.
+ *     if (subsets == 1) return true
+ *
+ *     // if the `currentSum` is equal to the `targetSum`, we are done with the "current number of subset requirements."
+ *     // Hence, reduce the number of subset requirement by 1 and repeat the process.
+ *     // We will need to check all the elements from the beginning (0th index),
+ *     // and the `currentSum` will also reset to 0 for the upcoming (next) subset.
+ *     if (currentSum == targetSum) return canPartition(0, subsets - 1, 0)
+ *
+ *     // After the base cases, here comes the actual logic, the core part,
+ *     // where we try each element for the current number of subset requirement.
+ * }
+ * ```
+ *
+ * How do we try each element? Using a loop.
+ *
+ * ```
+ * fun canPartition(startIndex: Int, subsets: Int, currentSum: Int): Boolean {
+ *     // if the number of subset requirement is 1, return true.
+ *     // Because, at this stage, we must have confirmed that the remaining elements can form the last remaining subset.
+ *     if (subsets == 1) return true
+ *
+ *     // if the `currentSum` is equal to the `targetSum`, we are done with the "current number of subset requirements."
+ *     // Hence, reduce the number of subset requirement by 1 and repeat the process.
+ *     // We will need to check all the elements from the beginning (0th index),
+ *     // and the `currentSum` will also reset to 0 for the upcoming (next) subset.
+ *     if (currentSum == targetSum) return canPartition(0, subsets - 1, 0)
+ *
+ *     // After the base cases, here comes the actual logic, the core part,
+ *     // where we try each element for the current number of subset requirement.
+ *    for (i in startIndex..<values.size) {
+ *        // Before we select and finalize an element for the current subset,
+ *        // we need to check something.
+ *    }
+ * }
+ * ```
+ *
+ * Before we finalize (confirm, select) any element, what will be the condition? What do we need to check?
+ *
+ * 1. How do we check whether the element has already been selected for any subset or not? Using the boolean array.
+ * 2. If we add the value of the current element to the `currentSum,` the result must be less than or equal to the
+ * `targetSum.`
+ *
+ * ```
+ * 1. The element must not be selected (locked).
+ * 2. If we select the current element, it will add the value to the `currentSum.`
+ * The resultant `currentSum` must be equal to or less than the `targetSum.`
+ * ```
+ *
+ * So, the function becomes:
+ *
+ * ```
+ * fun canPartition(startIndex: Int, subsets: Int, currentSum: Int): Boolean {
+ *     // if the number of subset requirement is 1, return true.
+ *     // Because, at this stage, we must have confirmed that the remaining elements can form the last remaining subset.
+ *     if (subsets == 1) return true
+ *
+ *     // if the `currentSum` is equal to the `targetSum`, we are done with the "current number of subset requirements."
+ *     // Hence, reduce the number of subset requirement by 1 and repeat the process.
+ *     // We will need to check all the elements from the beginning (0th index),
+ *     // and the `currentSum` will also reset to 0 for the upcoming (next) subset.
+ *     if (currentSum == targetSum) return canPartition(0, subsets - 1, 0)
+ *
+ *     // After the base cases, here comes the actual logic, the core part,
+ *     // where we try each element for the current number of subset requirement.
+ *    for (i in startIndex..<values.size) {
+ *        // Before we select and finalize an element for the current subset,
+ *        // we need to check 2 things.
+ *        if (!selected[i] && currentSum + values[i] <= targetSum) {
+ *           // Finalize (lock, select) the element for the current subset.
+ *           selected[i] = true
+ *           // Now, select the next index for the current subset and
+ *           // pass the current sum argument value as `currentSum + values[i]`.
+ *           // if that returns true, decrease the number of subset requirement.
+ *        }
+ *    }
+ * }
+ * ```
+ *
+ * How do we determine whether selecting the current element is an optimal solution or not?
+ *
+ * If we select (consider, lock) the current element as a part of the current subset,
+ * will the remaining elements can form the remaining subsets?
+ *
+ * ```
+ * if selecting (considering) the current element as a part of the current subset is a right decision,
+ * the remaining elements will form the remaining subsets.
+ * Otherwise, deselect (unlock) the element.
+ * ```
+ *
+ * 1. The `remaining elements` start with selected `index i + 1`.
+ * 2. The number of subset requirement remains as it is at this point.
+ * We change it only when the `currentSum` becomes equal to the `targetSum.`
+ * Hence, no change in the number of subset requirement at this moment.
+ * 3. Selecting the current element increases the `currentSum,` as: `currentSum + values[i]`
+ * 4. Deselect (unlock) the element = `selected[i] = false`.
+ *
+ * This translates to the below code:
+ *
+ * ```
+ * if (canPartition(i + 1, subsets, currentSum + values[i]) return true
+ * selected[i] = false
+ * ```
+ *
+ * Hence, the function becomes:
+ *
+ * ```
+ * fun canPartition(startIndex: Int, subsets: Int, currentSum: Int): Boolean {
+ *     // if the number of subset requirement is 1, return true.
+ *     // Because, at this stage, we must have confirmed that the remaining elements can form the last remaining subset.
+ *     if (subsets == 1) return true
+ *
+ *     // if the `currentSum` is equal to the `targetSum`, we are done with the "current number of subset requirements."
+ *     // Hence, reduce the number of subset requirement by 1 and repeat the process.
+ *     // We will need to check all the elements from the beginning (0th index),
+ *     // and the `currentSum` will also reset to 0 for the upcoming (next) subset.
+ *     if (currentSum == targetSum) return canPartition(0, subsets - 1, 0)
+ *
+ *     // After the base cases, here comes the actual logic, the core part,
+ *     // where we try each element for the current number of subset requirement.
+ *    for (i in startIndex..<values.size) {
+ *        // Before we select and finalize an element for the current subset,
+ *        // we need to check 2 things.
+ *        if (!selected[i] && currentSum + values[i] <= targetSum) {
+ *           // Finalize (lock, select) the element for the current subset.
+ *           selected[i] = true
+ *           // Now, select the next index for the current subset and
+ *           // pass the current sum argument value as `currentSum + values[i]`.
+ *           // if that returns true, decrease the number of subset requirement.
+ *           if (canPartition(i + 1, subsets, currentSum + values[i]) return true
+ *           selected[i] = false
+ *        }
+ *    }
+ * }
+ * ```
+ *
+ * What will be the default return type of the function?
+ *
+ * Let us see.
+ *
+ * Before we return a default value, we try all the configurations.
+ * And if we successfully form and set all the valid configurations, we return true.
+ *
+ * If we have tried all the combinations, and could not form the required configuration,
+ * we declare that the given input values does not form valid k partitions with equal sums.
+ *
+ * ```
+ * Declare that the given input values does not form valid k partitions with equal sums.
+ * ```
+ *
+ * This explanation suggests (translates to) the default value to be `false`.
+ *
+ * Other observations:
+ *
+ * Point-1. We need and use a few values inside the recursive function `canPartition,`
+ * which are `targetSum,` and `selected` boolean array. It means, we need to define these values outside.
  *
  */
 fun main() {
@@ -711,29 +925,29 @@ fun main() {
         val targetSum = totalSum / 3
 
         // Boolean array to track whether an element has been used in a subset.
-        val visited = BooleanArray(values.size) { false }
+        val selected = BooleanArray(values.size) { false }
 
         // Helper function to recursively attempt partitioning into subsets.
-        fun canPartition(k: Int, currentSum: Int, startIndex: Int): Boolean {
+        fun canPartition(startIndex: Int, subsets: Int, currentSum: Int): Boolean {
             // If only one subset is left to fill, it means the remaining elements naturally form the last subset.
-            if (k == 1) return true
+            if (subsets == 1) return true
 
             // If the current subset reaches the target sum, start forming the next subset.
-            if (currentSum == targetSum) return canPartition(k - 1, 0, 0)
+            if (currentSum == targetSum) return canPartition(0, subsets - 1, 0)
 
             // Try to add each unvisited element to the current subset.
             for (i in startIndex..<values.size) {
-                println("Subset: $k current sum: $currentSum selected: ${visited.toList()}")
+                println("Subset: $subsets current sum: $currentSum selected: ${selected.toList()}")
                 // Check if the element can be added without exceeding the target sum.
-                if (!visited[i] && currentSum + values[i] <= targetSum) {
+                if (!selected[i] && currentSum + values[i] <= targetSum) {
                     // Mark the element as visited.
-                    visited[i] = true
+                    selected[i] = true
 
                     // Recursively attempt to form the current subset.
-                    if (canPartition(k, currentSum + values[i], i + 1)) return true
+                    if (canPartition(i + 1, subsets, currentSum + values[i])) return true
 
                     // Backtrack: unmark the element and try the next possibility.
-                    visited[i] = false
+                    selected[i] = false
                 }
             }
 
@@ -742,7 +956,7 @@ fun main() {
         }
 
         // Start the partitioning process with 3 subsets, an initial sum of 0, and starting index 0.
-        return if (canPartition(3, 0, 0)) 1 else 0
+        return if (canPartition(0, 3, 0)) 1 else 0
     }
 
     // Read the number of integers (not actually used in the function).
