@@ -1,5 +1,10 @@
 package coursera.ucSanDiego.module06DynamicProgramming02
 
+/**
+ * # ----------------------- Coursera's Grader Output -----------------------
+ *
+ * Good job! (Max time used: 0.09/4.00, max memory used: 43331584/536870912.)
+ */
 fun main() {
 
     fun canPartitionWithEqualSums(values: List<Int>, subsets: Int): Boolean {
