@@ -911,6 +911,42 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * Point-1. We need and use a few values inside the recursive function `canPartition,`
  * which are `targetSum,` and `selected` boolean array. It means, we need to define these values outside.
  *
+ * # ----------------------- Complexity Analysis -----------------------
+ *
+ * ## ----------------------- Time Complexity Analysis -----------------------
+ *
+ * Reference image:
+ * res/coursera/ucSanDiego/module06DynamicProgramming02/02equalSumPartition/05_kPartitionsWithEqualSumRecursionComplexityTree.png
+ *
+ * Explanation:
+ *
+ * 1. Initially, we have only 1 element, and for each element, we have 2 choices: Either we select it or not.
+ * It means, at level 1 = Depth is 1 => 1 element = 2 possibilities = 2 operations.
+ * We can write 2 operations as 2^1 where the exponent 1 indicates the number of elements to consider.
+ *
+ * 2. Similarly, at level 2 = Depth is 2 => 2 elements = 4 possibilities = 4 operations.
+ * We can write 4 operations as 2^2 where the exponent 2 indicates the number of elements to consider.
+ *
+ * 3. Then, at level 3 = Depth is 3 and there are 3 elements = 8 possibilities = 8 operations.
+ * We can write 8 operations as 2^3 where the exponent 3 indicates the number of elements to consider.
+ *
+ * 4. The pattern suggests that we will have n levels where n is the number of elements.
+ * The pattern also suggests that at level n, the number of operations will be 2^n.
+ * If we consider the number of operations at each level, sum up them, and take the dominant term,
+ * it turns out to be 2^n when the number of elements to consider is n.
+ *
+ * 5. Hence, the time complexity of the K-Partitions with Equal Sum using recursion is O(2^n).
+ *
+ * ## ----------------------- Space Complexity -----------------------
+ *
+ * Other than small variables, the maximum memory we use is by taking the boolean array of the input size.
+ * Also, the recursion stack is directly proportional to the number of elements, n.
+ * Hence, the space complexity is O(n).
+ *
+ * # ----------------------- Coursera's Grader Output -----------------------
+ *
+ * Good job! (Max time used: 0.09/4.00, max memory used: 43331584/536870912.)
+ *
  */
 fun main() {
     // This function attempts to partition the array into three subsets with equal sum.
