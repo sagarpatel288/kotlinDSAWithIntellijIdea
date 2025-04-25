@@ -66,7 +66,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * 5 - 8 + 7 x 4 - 8 + 9
  * ```
  *
- * ## ----------------------- **_Key-point: 1_** -----------------------
+ * ## --------- **_Key-point: 1: The last operation that splits the expression_** -----------
  *
  * The parentheses define an order in the Arithmetic operation.
  *
@@ -88,11 +88,23 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * The important observation here is:
  *
+ * If `5 - 8 + 7 * 4 - 8 + 9` is a range of indices starting from `i to j`,
+ * and the last operation Op_k = *, then:
+ *
  * ```
  * For the given range (i, j), where i < j, we can split the expression into two subproblems as (i, k) and (k + 1, j).
  * ```
  *
- * ## ----------------------- _**Key-point: 2**_ -----------------------
+ * In our example:
+ *
+ * The expression is `5 - 8 + 7 * 4 - 8 + 9`,
+ * The range is from `i` to `j`,
+ * The last operation for a moment (assumption) is `op_k = *`,
+ * Which splits the original expression into two parts,
+ * `(i, k)` = `5 - 8 + 7`, and
+ * `(k + 1, j)` = `4 - 8 + 9`.
+ *
+ * ## ----------------------- _**Key-point: 2: Maximizing an expression**_ -----------------------
  *
  * Now, to maximize the arithmetic expression value, these two subsets must be an optimal solution.
  * What we want to convey here is that, to be the maximum arithmetic expression (the original problem),
@@ -115,14 +127,14 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * In other words, for the original problem to produce the maximum value,
  * both of these subproblems must also yield the maximum value.
  *
- * ## ----------------------- _**Key-point: 3**_ -----------------------
+ * ## ----------------------- _**Key-point: 3: Max or Min? The Subtraction Example. **_ -----------------------
  *
  * However, knowing or considering only the maximum value is not enough. Why?
  * Because, if the last operation was subtraction, then we would want the subexpression one (minuend)
  * to be as large as possible, but the subexpression two (subtrahend) should be as small as possible to produce
  * the maximum value of the arithmetic operation. Right?
  *
- * ## ----------------------- _**Key-point: 4**_ -----------------------
+ * ## ----------------------- _**Key-point: 4: The four combinations**_ -----------------------
  *
  * That means we need to consider at least four combinations for two sub-expressions as below:
  *
@@ -135,7 +147,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * Out of these four combinations, we take the one that gives us the maximum value.
  *
- * ## ----------------------- _**Key-point: 5: An important observation. An interesting pattern.**_ ------------------
+ * ## ----------------------- _**Key-point: 5: What do a row, column, and a cell represent? **_ ------------------
  *
  * What happens when we place all the elements into a 2D-Matrix Table?
  *
@@ -207,20 +219,20 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * For the given expression `5 - 8 + 7 * 4 - 8 + 9`, each row signifies the below meanings:
  *
  * ```
- * 0th row indicates the operation/s between the element/s at 0th index, `5`. So, no operation.
- * 1st row indicates the operation/s between the elements at 0 and 1st indices, `5` and `8`.
- * So, only one operation is available and possible between them: `(5 - 8)`.
- *
- * 2nd row indicates the operation/s between the elements at index 0, 1, and 2 => `5`, `8`, and `7`.
- * In this case, we have multiple combinations.
- * It can be `(5 - 8) + 7` or `5 - (8 + 7)`.
- * Out of these two possibilities, the combination `(5 - 8) + 7` gives the maximum result(4),
- * whereas the combination `5 - (8 + 7)` gives the minimum result (-10).
- *
- * Similarly, 3rd row indicates the operations between the elements at index 0, 1, 2, and 3 => 5, 8, 7, and 4.
- * 4th row indicates the operations between the elements at index 0, 1, 2, 3, and 4 => 5, 8, 7, 4, and 8.
- * And 5th row indicates the operations between the elements at index 0, 1, 2, 3, 4, and 5 => 5, 8, 7, 4, 8, and 9.
+ * 1. Each row signifies (represents) the starting index (digit, number) of a sub-expression.
+ * 2. Each column signifies (represents) the end index (digit, number) of a sub-expression.
  * ```
+ *
+ * For example (Focus on the respective index of each digit/number of an expression):
+ * * The `cell(0, 0)` represents a single number `5` (the smallest possible sub-expression = the base case).
+ * * The `cell(5, 5)` represents a single number `9`.
+ * * The `cell(0, 1)` represents a sub-expression `5 - 8`.
+ * * The `cell(4, 5)` represents a sub-expression `8 + 9`.
+ * * The `cell(0, 2)` represents a sub-expression `5 - 8 + 7`.
+ * * The `cell(3, 5)` represents a sub-expression `4 - 8 + 9`.
+ * * The `cell(0, 3)` represents a sub-expression `5 - 8 + 7 * 4`.
+ * * The `cell(2, 5)` represents a sub-expression `7 * 4 - 8 + 9`.
+ * * And so on...
  *
  * ## ----------------------- _**Key-point: 6: Two Tables**_ -----------------------
  *
@@ -229,7 +241,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * But how do we fill the tables?
  *
- * ## ---------- _**Key-point: 7: The Process: Filling Up The Two Tables = Placing The Parentheses**_ ----------
+ * ## ---------- _**Key-point: 7: The Process: Filling Up The Two Tables: Part-01: Introduction. **_ ----------
  *
  * Let us do this gradually. We have the following input:
  *
@@ -267,7 +279,8 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * We can represent it in the table form as below:
  *
  * References:
- * res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/07twoElements.png
+ * 1. res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/07twoElements.png
+ * 2. res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/08allTwoElements.png
  *
  * Expression: `5 - 8 + 7 * 4 - 8 + 9`
  *
@@ -300,7 +313,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * What about the case when there are more than two elements?
  *
- * ## ----------------------- _**Key-Point: 8: Minimum And Maximum Table**_ -----------------------
+ * ## --------------- _**Key-Point: 8: Filling Up The Two Tables: Part-02: Minimum & Maximum Values **_ -------------
  *
  * When there are more than two elements in an arithmetic expression, we can have multiple combinations.
  * Out of these combinations, there must be one combination that gives us the minimum result,
@@ -318,7 +331,8 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * As below:
  *
  * References:
- * res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/09minimumMaximum.png
+ * 1. res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/09minimumMaximum.png
+ * 2. res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/11allThreeElements.png
  *
  * Minimum:
  *
@@ -442,8 +456,10 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * |   4   	|   	|       	|           	|               	|         8         	|         8 + 9         	|
  * |   5   	|   	|       	|           	|               	|                   	|           9           	|
  *
- * Reference:
- * res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/13fourElements.png
+ * References:
+ * 1. res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/13fourElements.png
+ * 2. res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/15fourElementsExample02.png
+ * 3. res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/17fourElementsTable.png
  *
  * ```
  * 1. 5 - (8 + 7 * 4)
@@ -535,7 +551,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * |   4   	|   	|    	|    	|    	|  8 	| 17 	|
  * |   5   	|   	|    	|    	|    	|    	|  9 	|
  *
- * If we fill each cell in both the minimum and the maximum tables, they look like as shown below:
+ * If we fill each cell in both the minimum and the maximum tables, they look as shown below:
  *
  * References:
  * res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/21theCompleteTablesBothMinAndMaxForAllElements.png
@@ -564,27 +580,511 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * Ok. What do we do with these tables? How does that help? How do we convert them into code?
  *
- * ## ----------------------- Key-Point: 09: The pattern of filling the table -----------------------
+ * ## ------------------ Key-Point: 09: Filling Up The Tables: Part-03: The Code Conversion -------------------
+ *
+ * ### ----------------------- Chapter 01: The Operator Iteration < n -----------------------
  *
  * We can see that there is a pattern in the way we filled the table.
  * The pattern looks like this:
  *
  * ```
- * 1. First, we filled single elements.
- * 2. Then, we filled pairs of two elements.
- * 3. Then, we filled pairs of three elements.
+ * 1. First, we filled single elements. There was no operator.
+ * 2. Then, we filled pairs of two elements. There was `1` operator between the two numbers.
+ * 3. Then, we filled pairs of three elements. There were `2` operators among the three numbers.
  * 4. and so on...
  * ```
  *
- * ## ----------------------- Other important Observations: Key-Points -----------------------
+ * In other words, we can say that:
+ *
+ * ```
+ * We start with each and every single element, where there is no other element or operator.
+ * In that case, the length of the number of operators included is 0, as it contains no operators.
+ *
+ * Then, we gradually increase the length of the number of operators to be included (considered).
+ * For example, first, the length of the number of operators included is 1, so we filled all the pairs of two elements.
+ *
+ * Then, for length 2, we filled all the pairs of three elements.
+ * And so on...
+ *
+ * We do this until we cover all the operators.
+ *
+ * The `length` indicates the number of operators we are considering.
+ * Each operator splits the problem into a pair.
+ * And each pair is a subproblem.
+ * ```
+ *
+ * It further leads to the following pattern:
+ *
+ * ```
+ * We start with the operator iteration. The iteration that gradually covers each operator one by one,
+ * starting from `length = 1` up to the `length = equal to number of operators` available in the original expression.
+ * ```
+ *
+ * There is one more observation related to the length of the operators we include.
+ *
+ * ```
+ * The length of the number of operators included defines the length of a sub-expression.
+ * ```
+ *
+ * For example, when `length = 1`, the length of a sub-expression becomes 2.
+ * For example, `5 - 8`, `8 + 7`, `7 * 4`, `4 - 8`, `8 + 9`, etc.
+ *
+ * Similarly, when `length = 2`, the length of a sub-expression becomes 3.
+ * For example, `5 - 8 + 7`, `8 + 7 * 4`, `7 * 4 - 8`, `4 - 8 + 9`, etc.
+ *
+ * And so on...
+ *
+ * Now, the original expression is: `5 - 8 + 7 * 4 - 8 + 9`
+ * We can see that there are `n = 6 digits` and `n - 1 = 6 - 1 = 5` operators.
+ * Hence, the range of the `operator iteration` is from `1 to n (exclusive)` or from `1 to n - 1 (inclusive)`.
+ *
+ * So, we can say that:
+ *
+ * ```
+ * The upper-bound (end) index of the `operator iteration` will be `n` (exclusive) or `n - 1` (inclusive).
+ * ```
+ *
+ * Hence, the `operator iteration` looks as shown below:
+ *
+ * ```
+ * // Operator iteration that defines the length of a sub-expression.
+ * for (length in 1..<n) {
+ *
+ * }
+ * ```
+ *
+ * ### ----------------------- Chapter 02: The Numbers (Digits) Iteration < n - length  -----------------------
+ *
+ * Now, within the operator iteration, we make pairs because each operator splits the expression.
+ * To make pairs, we need to iterate through the numbers to pick up the numbers.
+ *
+ * For example, the expression is `5 - 8 + 7 * 4 - 8 + 9`.
+ * The operator iteration starts from length `1` and goes up to `n` (exclusive) or `n - 1` (inclusive).
+ *
+ * Let us assume that the current length is `1`.
+ * It means, as we discussed earlier, there will be `1` operator.
+ * It will form pairs of two elements. 1 element left and 1 right of the operator.
+ *
+ * How do we make pairs? A pair comprises digits, and digits are the parts of the expression.
+ *
+ * The expression is: `5 - 8 + 7 * 4 - 8 + 9`.
+ *
+ * It means that we need to cover all the digits (numbers) to make pairs of digits.
+ *
+ * Let us call the iteration that covers all the digits (numbers), the `numbers iteration` or `digits iteration`.
+ *
+ * Now, we want to cover each digit (number).
+ * So, we might think that we would start from 0 and go up to `n - 1` = `6 - 1` = `5`.
+ * However, if we go up to `n - 1` = index `5`, then what will be the pair?
+ * For example, if we go up to `index 5` = `9`, what will be the next element to pair with it?
+ *
+ * Then, up to which point can the `number iteration` go?
+ * What will be the `upper bound (end index)` of the `number iteration`?
+ *
+ * Now, the expression is: `5 - 8 + 7 * 4 - 8 + 9`.
+ * The total number of digits in the expression is `n = 6`.
+ *
+ * When the length is 1, we could go up to index `4` in the `number iteration` to make the last pair `[8, 9]`.
+ * The upper-bound index `4` (inclusive) is less than `n - length` = `6 - 1` = `5` (exclusive).
+ *
+ * If the length is 2, we can go up to index `3` in the `number iteration` to make the last pair `[4, 8 9]`.
+ * Again, the upper-bound index `3` (inclusive) is less than `n - length` = `6 - 2` = `4` (exclusive).
+ *
+ * If the length is 3, we can go up to index `2` in the `number iteration` to make the last pair `[7, 4, 8, 9]`.
+ * Again, the upper-bound index `2` (inclusive) is less than `n - length` = `6 - 3` = `3` (exclusive).
+ *
+ * If the length is 4, we can go up to index `1` in the `number iteration` to make the last pair `[8, 7, 4, 8, 9]`.
+ * Again, the upper-bound index `1` (inclusive) is less than `n - length` = `6 - 4` = `2` (exclusive).
+ *
+ * If the length is 5, we can go up to index `0` in the `number iteration` to make the last pair `[5, 8, 7, 4, 8, 9]`.
+ * Again, the upper-bound index `0` (inclusive) is less than `n - length` = `6 - 5` = `1` (exclusive).
+ *
+ * So, we can say that:
+ *
+ * ```
+ * The upper-bound index (end-index) of the `number iteration` will be `n - length` (exclusive).
+ * ```
+ *
+ * Hence, the `number iteration` looks as shown below:
+ *
+ * ```
+ * // Operator iteration that defines the length of a sub-expression
+ * for (length in 1..<n) {
+ *     // Number (digits) iteration that defines the start-index of a sub-expression
+ *     for (i in 0..<n-length) {
+ *         // Stop index (end-index) for each pair?
+ *     }
+ * }
+ * ```
+ *
+ * ### ----------------------- Chapter: 03: The Stop-Index Of A Pair: j = i + length  -----------------------
+ *
+ * Now, let us understand how many "number" elements each pair includes based on the `length` value,
+ * and what the end index will be for each pair.
+ *
+ * Well, there is always `+1` numbers than the length of the operators included.
+ *
+ * For example, when the length is 1, each pair (subproblem) contains 2 elements.
+ * For example, `5 + 8`, `8 - 7`, `7 * 4`, `4 - 8`, and `8 + 9`.
+ * In the form of indices, it is `[0, 1], [1, 2], [2, 3], [3, 4], and [4, 5]`.
+ *
+ * Notice that we iterate through all the numbers to make pairs based on the `length` value.
+ * Within this number iteration, the starting index is gradually increasing from 0.
+ *
+ * For example, in `[0, 1]`, the start index is `0`.
+ * For `[1, 2]`, the start index is `1`.
+ * For `[2, 3]`, the start index is `2`.
+ * And so on...
+ *
+ * Let us understand how we decide the end index (upper bound) for each pair.
+ *
+ * In other words (reflective questions):
+ *
+ * For the original expression: `5 - 8 + 7 * 4 - 8 + 9`
+ *
+ * What to do when length is 1, start index is 0, and we want to stop at index 1 to form a pair of `[0, 1]`?
+ * Well, let us use the data (values) we have. Length = 1 and start index i = 0.
+ * Can we say that the desired (expected) stop index (1) = i (current start index = 0) + length (1) = 1?
+ * It seems true for `[0, 1]`. But we need to verify it for other cases also.
+ *
+ * What to do when length is 1, start index is 1, and we want to stop at index 2 to form a pair of `[1, 2]`?
+ * Again, stop index 2 = Current start index (i = 1) + length (1) = 2. Looks good.
+ *
+ * What to do when length is 1, start index is 2, and we want to stop at index 3 to form a pair of `[2, 3]`?
+ * Again, stop index 3 = Current start index (i = 2) + length (1) = 3. It worked.
+ *
+ * It seems that the stop index for a pair is `i + length`. We will verify it for different lengths.
+ *
+ * What to do when length is 2, start index is 0, and we want to stop at index 2 to form a pair of `[0, 1, 2]`?
+ *
+ * Again, when the length is 2, each pair of subproblems contains 3 elements.
+ * For example, `5 + 8 - 7`, `8 - 7 * 4`, `7 * 4 - 8`, `4 - 8 + 9`.
+ * In the form of indices, it is `[0, 1, 2], [1, 2, 3], [2, 3, 4], [3, 4, 5]`.
+ *
+ * Again, the upper bound (end-index, inclusive) for each pair is `i + length` during the iteration.
+ * For example, when i = 0, we get `0 (i) + 2 (length)` = `2 (inclusive stop index)` up to 2nd index = [0, 1, 2].
+ *
+ * The last index that formed the last pair is index 3 with the last pair [3, 4, 5].
+ * The iteration of making pairs stopped at index 3 when the length is 2.
+ * Because, if we consider index 4, there are not enough `number` elements left to make a pair of 3.
+ *
+ * So again, the stop index for each pair is `i + length` = `3 + 2` = `5`.
+ *
+ * Similarly:
+ * What to do when length is 3, start index is 0, and we want to stop at index 3 to form a pair of `[0, 1, 2, 3]`?
+ * Again, the stop index `i + length` = `0 + 3` = `3`.
+ *
+ * And so on...
+ *
+ * So, we can say that:
+ *
+ * ```
+ * The end index of each pair is `i + length` (inclusive).
+ * ```
+ *
+ * So, what will be the code of this iteration?
+ *
+ * ```
+ * // Operator iteration that defines the length of a sub-expression.
+ * for (length in 1..<n) {
+ *     // Numbers (Digits) iteration that defines the start-index of a sub-expression.
+ *     for (i in 0..<n - length) {
+ *         // Stop index of each pair.
+ *         val j = i + length
+ *         // A subexpression that includes operator(s).
+ *
+ *     }
+ * }
+ * ```
+ *
+ * ### ----------------------- Chapter: 04: Include Operators: < j -----------------------
+ *
+ * Now, a sub-expression consists of both the number(s) (digits) and operator(s).
+ * I mean, to call the pair `[5, 8]` a sub-expression, it must include the operator between them, right?
+ * So that it will become a sub-expression as `(5 - 8)`.
+ *
+ * How do we pick up and include the operator(s)?
+ *
+ * Let us understand this with a tiny (toy) example.
+ *
+ * The original expression is: `5 - 8 + 7 * 4 - 8 + 9`
+ *
+ * Let us analyze the indices of a small sub-expression `5 - 8`.
+ * The length of the number of operators to be included is `1`.
+ * The `start index` of the sub-expression is `0`.
+ * The `end (stop) index (inclusive)` of the pair is `i + length` = `1`.
+ * The start index of the operator is `k = start index of the sub-expression = 0`.
+ * The last operator is just before (exclusive) the stop(end) index of the pair (`1`).
+ * The last operator index is `0`, which is `< stop-index of the pair`.
+ *
+ * Let us take another example.
+ *
+ * Let us assume that the sub-expression is `8 + 7 * 4`.
+ * The length of the number of operators to be included is `2`.
+ * The start-index of the sub-expression is `1`.
+ * The start-index of the operator is `k = start index of the sub-expression = 1`.
+ * The stop-index (inclusive) of the pair is `i + length` = `0 + 2` = `2`.
+ * The last operator is at index just before (exclusive) the stop-index of the pair (`2`).
+ * The last operator index is `1`, which is `< stop-index of the pair`.
+ *
+ * Let us take one last example.
+ *
+ * Let us assume the sub-expression is `7 * 4 - 8 + 9`.
+ * Here, the length of the number of operators to be included is `3`.
+ * The start-index of the sub-expression is `2`.
+ * The start-index of the operator is `k = start index of the sub-expression = 2`.
+ * The stop-index of the pair is `i + length` = `2 + 3` = `5`.
+ * The last operator is at index just before (exclusive) the stop-index of the pair (`5`).
+ * The last operator is at index `4`, which is again, `< stop-index of the pair`.
+ *
+ * So, can we say that:
+ *
+ * ```
+ * The start-index of the operator is `k = start-index of the sub-expression`,
+ * and the stop-index of the operator is `k < stop-index of the pair`.
+ * ```
+ *
+ * In other words,
+ *
+ * ```
+ * The range of the iteration that includes the operator(s) starts at the same start-index of the sub-expression,
+ * and stops before the stop-index of the pair.
+ * ```
+ *
+ * So, the code translation is:
+ *
+ * ```
+ * // Operator iteration that defines the length of a sub-expression
+ * for (length in 1..<n) {
+ *     // Number (Digit) iteration that defines the start-index of a sub-expression
+ *     for (i in 0..<n - length) {
+ *         // Stop-index of a pair
+ *         j = i + length
+ *         // Sub-expression iteration that includes operator(s)
+ *         for (k in i..<j) {
+ *             // Different combinations of the sub-expression using the operator at index k as a split point.
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * Ok, what's next?
+ *
+ * ### ----------------------- _**Chapter: 05: Calculating The Four Combinations**_  -----------------------
+ *
+ * The original expression is: `5 - 8 + 7 * 4 - 8 + 9`
+ *
+ * Let us assume that at some point, we have a sub-expression as below:
+ *
+ * The sub-expression is: `8 + 7 * 4 - 8`.
+ * The length of the number of operators included is `3`.
+ * The start-index of the sub-expression is `1`.
+ * The end-index of the sub-expression is `4`.
+ * The start-index of the operator iteration will be the same as the start-index of the sub-expression, which is `1`.
+ * The innermost iteration, which splits the current sub-expression into different combinations,
+ * starts with the operator at the same index as the start-index of the sub-expression, which is `index 1 = +`,
+ * and continues the iteration to form different combinations until the operator reaches the index,
+ * just before (exclusive) the end-index of the pair (sub-expression).
+ *
+ * What does this mean?
+ *
+ * The innermost iteration will cover the operators `index 1 = +`, `index 2 = *`, and `index 3 = -` in order.
+ *
+ * What does that mean? How does it split the sub-expression?
+ *
+ * Each selection of an operator signifies that the currently selected operator is the last operator.
+ * Each selected operator acts as a split point to form different combinations.
+ *
+ * For example, when the operator is `index 1 = +`, it splits the sub-expression as `8 + (7 * 4 - 8)`.
+ * Similarly, when the operator is `index 2 = *`, it splits the sub-expression as `8 + 7 * (4 - 8)`.
+ * And finally, when the operator is `index 3 = -`, it splits the sub-expression as `(8 + 7 * 4) - 8`.
+ *
+ * We can see that, as it happens in any classical Dynamic Programming,
+ * Each part we get after splitting the subexpression is obviously smaller than the subexpression, and
+ * It is something we have already computed.
+ *
+ * For example, when the `+` operator becomes the split point, we get `8 + (7 * 4 - 8)`.
+ * Here, each part is obviously smaller than the original subexpression `8 + 7 * 4 - 8`.
+ * Also, each part, `8` and `7 * 4 - 8`, has been computed already.
+ *
+ * When did we compute each part before splitting the subexpression? How?
+ *
+ * Well, we know that after handling the base case where there is only a single element, and no operator,
+ * We started with the `length = 1`, where the `length` signifies the number of operators to include.
+ * Then, we gradually increased the length up to `< n`.
+ *
+ * ```
+ * // Operator length iteration that defines the length of a sub-expression
+ * for (length in 1..<n) {
+ *     // Number (Digit) iteration that defines the start-index of the sub-expression
+ *     for (i in 0..<n - length) {
+ *         // Stop-index of each sub-expression pair
+ *         val j = i + length
+ *         // Split-point iteration to form different combinations
+ *         for (k in i..<j) {
+ *
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * It means that, before we compute the example sub-expression `8 + 7 * 4 - 8`, where the `operator length` is `3`,
+ * We must have computed all combinations with `operator length` 0 (base case), 1, and 2.
+ *
+ * Ok. How do we use these pre-computed results of smaller subproblems to solve the larger subproblem or problem?
+ *
+ * Or, in other words, where do we find these pre-computed results of the smaller subproblems?
+ * So that we can use it to solve the larger subproblem or problem.
+ *
+ * Well, where do we store the result? In the `Minimum` and `Maximum` tables only, right?
+ * And we have already seen it before; in which cell we store the results for a particular expression.
+ *
+ * For example, we have the sub-expression `8 + 7 * 4 - 8`,
+ * And at the moment, the `+` operator is the last operator that splits the sub-expression.
+ * So, we get two sub-expressions as `8` and `7 * 4 - 8`.
+ *
+ * Now, the original expression is: `5 - 8 + 7 * 4 - 8 + 9`.
+ * The total numbers (digits) are: [5, 8, 7, 4, 8, 9].
+ * The total operators are: [-, +, *, -, +].
+ *
+ * Now, the sub-expression in the hand is: `8 + 7 * 4 - 8`.
+ * So, the current length of the number of operators to include is: `length = 3`.
+ * The start-index of the sub-expression is `i = 1`.
+ * The end-index is `j = i + length = 1 + 3 = 4`.
+ * That is why `8` of `4 - 8` is the last number (digit) in the sub-expression `8 + 7 * 4 - 8`.
+ * The range of operators that can split the sub-expression is `k in i..<j`.
+ * It means the operators that can split the sub-expression are `k in 1..<4` = `+, *, and -`.
+ * The index range of these operators is [1, 2, 3].
+ * Currently, the split operator is at index `k = 1 = +`,
+ * we get the left part `8`, which is stored at `cell(1, 1)`,
+ * and we get the right part `7 * 4 - 8`, which is stored at `cell(2, 4)`.
+ *
+ * References:
+ * res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/21theCompleteTablesBothMinAndMaxForAllElements.png
+ *
+ * So, can we say that the left part is `cell(i, k)` = `cell(1, 1)`,
+ * and the right part is `cell(k + 1, j)` = `cell(2, 4)`?
+ *
+ * Let us confirm (verify) it for a couple more examples.
+ *
+ * The next split operator in the process is at index `k = 2 = *`.
+ * We get the left part `8 + 7`, which is stored at `cell(1, 2)`,
+ * and we get the right part `4 - 8`, which is stored at `cell(3, 4)`.
+ *
+ * Again, the left part `cell(1, 2)` = `cell(i, k)`,
+ * and the right part `cell(3, 4)` = `cell(k + 1, j)`.
+ *
+ * Let us take one last example.
+ *
+ * The split operator is at index `k = 3 = -`.
+ * The left part is `8 + 7 * 4`, which is stored at `cell(1, 3)`,
+ * and the right part is `8`, which is stored at `cell(4, 4)`.
+ *
+ * Again, the left part `cell(1, 3)` = `cell(i, k)`,
+ * and the right part `cell(4, 4)` = `cell(k + 1, j)`.
+ *
+ * It means that to get the left part, we can use `cell(i, k)`,
+ * and to get the right part, we can use `cell(k + 1, j)`.
+ *
+ * So,
+ *
+ * ```
+ * To get the left part: cell[i, k],
+ * To get the right part: cell[k + 1, j].
+ * ```
+ *
+ * What do we do after getting these parts?
+ *
+ * If you remember, we need to use the four combinations to get the higher value for the expression we split.
+ *
+ * Each part has two values:
+ * The minimum value, stored in the `Minimum` table,
+ * and the maximum value, stored in the `Maximum` table.
+ *
+ * So, it becomes:
+ *
+ * ```
+ * min[i, k], max[i, k],
+ * min[k + 1, j], max[k + 1, j].
+ * ```
+ *
+ * The combination of these four values can give us two values for the expression we split:
+ * The Minimum Value and The Maximum Value.
+ *
+ * Once we get these minimum and maximum values for each combination of `8 + 7 * 4 - 8`,
+ * We move on to the next sub-expression, which can be: `7 * 4 - 8 + 9` for `length = 3`.
+ *
+ * We cover all possible combinations for `length = 3, 4, 5`,
+ * And finally get the result in `cell(0, 5)` of the maximum table.
+ * Because the `cell(0, 5)` of the maximum table represents the maximum value when `length = 5`,
+ * And the start index is `0`. So, it is `5 - 8 + 7 * 4 - 8 + 9`, which is the original expression.
+ *
+ * Wait. How do we use those four combinations? And what happened to the split point operator itself?
+ *
+ * ### ----------------------- Chapter: 06: Split point operator -----------------------
+ *
+ * Once we have the split point operator and the four combinations, we calculate the values as below:
+ *
+ * ```
+ * min(i, k) op min(k + 1, j),
+ * min(i, k) op max(k + 1, j),
+ * max(i, k) op max(k + 1, j), and
+ * max(i, k) op min(k + 1, j) where `op` is our split operator.
+ * ```
+ * Let us translate it into code:
+ *
+ * ```
+ * // Length of number of operators to include that defines the length of a sub-expression
+ * for (length in 1..<n) {
+ *     // The start-index of a sub-expression for each possible sub-expression for the given length
+ *     for (i in 0..<n - length) {
+ *         // The end-index of a sub-expression that starts with `i` and must be of length `length`.
+ *         val j = i + length
+ *         // Splitting the sub-expression into different combinations using the available operators within the sub-expression
+ *         for (k in i..<j) {
+ *             val op = operators[k]
+ *             val one = calculate(min[i][k], min[k + 1][j], op)
+ *             val two = calculate(min[i][k], max[k + 1][j], op)
+ *             val three = calculate(max[i][k], max[k + 1][j], op)
+ *             val four = calculate(max[i][k], min[k + 1][j], op)
+ *             val min = minOf(one, two, three, four)
+ *             val max = maxOf(one, two, three, four)
+ *             min[i][j] = min
+ *             max[i][j] = max
+ *         }
+ *     }
+ * }
+ *
+ * // A function that calculates simple math between two numbers using the given operator
+ * fun calculate(a: Int, b: Int, operator: String): Int {
+ *     return when(operator) {
+ *            "+" -> a + b
+ *            "-" -> a - b
+ *            "*" -> a * b
+ *            else -> throw IllegalArgumentException()
+ *     }
+ * }
+ *
+ * ```
+ *
+ * We can conclude that:
+ *
+ * ```
+ * 1. We start with the `length` of the operators. Length represents the number of operators included.
+ * We start with `1` and iterate up to the length equal to the number of operators in the original expression.
+ * 2. For each `length`, we iterate up to (exclusive) `n - length` for the `number iteration` to make different pairs.
+ * 3. For each pair, the start index is `i`, and the end index is `i + length` (inclusive).
+ * ```
+ *
+ * ## ----------------------- Important Observations: Summary Of The Key-Points -----------------------
  *
  * ```
  * 1. For the given range (i, j), we can split it into two subproblems as (i, k) and (k + 1, j).
  * 2. We need four combinations.
  * 3. We need two tables to store all four combinations' minimum and maximum values.
  * 4. When the values of i and j are the same, it indicates a single element.
- * 5. First, we fill single elements, then pairs of two, then pairs of three, and so on until we get one single pair
- * of the entire original problem.
+ * 5. We start with `length = 1`, and then we gradually increase the value of the `length`
+ * to increase the size (length) of the pairs until the `length` becomes the length of the original problem.
  * 6. The maximum table cell (0, 5) gives the final maximum value.
  * It covers the complete, final, single pair of `n` elements where `n` is the number of `numbers` in the given
  * expression. For example, the expression `5 - 8 + 7 * 4 - 8 + 9` has six numbers. So, `n = 6`.
@@ -592,12 +1092,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * which is the original problem.
  * ```
  *
- *
- *
- *
- *
  */
 fun main() {
-
 
 }
