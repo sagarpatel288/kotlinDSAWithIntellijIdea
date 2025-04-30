@@ -826,6 +826,14 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * 3.2. If `*` between `7 * 4` is the last operation, it becomes `( ( 8 + 7 ) * 4 ) - 8 = 52` (**_maximum_**).
  * ```
  *
+ * Observe that:
+ *
+ * ```
+ * We consider each operator as the last operator for the same expression.
+ * Then, we evaluate all the results and update the minimum and maximum values accordingly.
+ * Finally, we assign these minimum and maximum values to the respective (relevant) tables.
+ * ```
+ *
  * So, the table looks as shown below:
  *
  * References:
