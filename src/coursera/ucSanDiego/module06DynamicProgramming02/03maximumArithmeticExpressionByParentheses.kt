@@ -56,7 +56,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * Why and How 200? Because 200 = (5−((8 + 7) ×(4−(8 + 9))))
  *
- * # ----------------------- Thought Process & Translating it into the code -----------------------
+ * # ----------------------- Thought Process & Translating it into the code: Part-01 -----------------------
  *
  * ## ----------------------- Objective: Understanding the pattern: -----------------------
  *
@@ -65,6 +65,295 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * ```
  * 5 - 8 + 7 x 4 - 8 + 9
  * ```
+ *
+ * ## ----------------------- _** 01: The Characteristics, Pattern, and Approach**_ -----------------------
+ *
+ * _**Prerequisites (A few examples and practice of dynamic programming):**_
+ * * src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/050editDistanceMatchStrings.kt
+ * * src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/090longestCommonSubsequenceOfTwoSequencesStrings.kt
+ * * src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/120lcsOfThreeSequences.kt
+ * * src/coursera/ucSanDiego/module05DynamicProgramming/module05puzzleAssignment02/010twoPilesOfRocks.kt
+ * * src/coursera/ucSanDiego/module05DynamicProgramming/module05puzzleAssignment02/030twoPilesOfRocksOops.kt
+ * * src/coursera/ucSanDiego/module06DynamicProgramming02/01knapsackProblem01EitherOr.kt
+ *
+ * _**Bottom-up**_
+ *
+ * To solve `5 - 8 + 7 * 4 - 8 + 9`, we can start with smaller subproblems and gradually increment them.
+ *
+ * For example,
+ *
+ * * `5 - 8`, and then, increase the size of the problem gradually till we reach the original problem, as below:
+ * * `5 - 8 + 7`
+ * * `5 - 8 + 7 * 4`
+ * * `5 - 8 + 7 * 4 - 8`
+ * * `5 - 8 + 7 * 4 - 8 + 9`
+ *
+ * This is a classical bottom-up characteristic and pattern of a dynamic programming approach.
+ *
+ * ## ----------------------- 02: Classification of Operators and Digits (Numbers) -----------------------
+ *
+ * We have a single string containing operators and digits (numbers).
+ * If we separate operators and digits (numbers) into separate containers, they become easy to use and manage.
+ *
+ * * A Reflective Question:
+ * **_How do we separate symbols and digits (numbers)?_**
+ *
+ * Well, the problem statement says:
+ *
+ * ```
+ * Each symbol at an `even position` of s is a `digit` (that is, an integer from 0 to 9),
+ * while each symbol at an `odd position` is one of three operations from `{+, -, *}`.
+ * ```
+ *
+ * * A Reflective Question:
+ * _**How do we find odd and even?**_
+ *
+ * ```
+ * if (i % 2 == 0) {
+ *    // Even position
+ * } else {
+ *    // Odd position
+ * }
+ * ```
+ *
+ * * A Reflective Question:
+ * _**What do we do after finding odd and even positions?**_
+ *
+ * At even positions, we would find digits and add them to the digit container.
+ * At odd positions, we would find operators (symbols) and add them to the operator container.
+ *
+ * * A Reflective Question:
+ * _**What will be the size of each container?**_
+ *
+ * According to the problem statement:
+ *
+ * ```
+ * The only line of the input contains a `string s` of `length 2n+ 1` for `some n, with symbols s0,s1,...,s2n`.
+ * Each symbol at an `even position` of s is a `digit` (that is, an integer from 0 to 9),
+ * while each symbol at an `odd position` is one of three operations from `{+, -, *}`.
+ * ```
+ *
+ * The length of the string is `2n + 1`,
+ * where each character at an `even position` is a digit, and each character at an `odd position` is an operator.
+ *
+ * We have an example: `5 - 8 + 7 * 4 - 8 + 9`
+ *
+ * We can see that there are 6 digits, and 5 operators, making it a total length of `2n + 1 = 2(5) + 1 = 10 + 1 = 11`.
+ *
+ * According to the problem statement, we can take the size of the digit container as `(length / 2) + 1`.
+ *
+ * So, for the given example, it will be `(11 / 2) + 1` = `5 + 1` = `6`.
+ * And the operator container will be `size of the digit container - 1 = 6 - 1 = 5`.
+ *
+ * ```
+ * val expressionLength = expressionString.length
+ * val totalDigits = (expressionLength / 2) + 1
+ * val digitContainer = IntArray(totalDigits)
+ * val operatorContainer = IntArray(digitContainer.size - 1)
+ *
+ * for (i in 0..<expressionLength) {
+ *     if (i % 2 == 0) {
+ *        digitContainer.add(expressionString[i].toInt()) // But string[i] gives a char, and char.toInt() is deprecated!
+ *     } else {
+ *        operatorContainer.add(expressionString[i])
+ *     }
+ * }
+ * ```
+ *
+ * As we can see, there is a problem!
+ * `string[i]` gives a `char`, and we cannot directly convert a `char` into an `int`.
+ *
+ * So,
+ *
+ * * A Reflective Question:
+ * _**How do we convert a `char` into an `int`?**_
+ *
+ * ```
+ * // When there is a single `char` and we want to convert it into an `int`.
+ * char - '0'
+ * // When there is a single `char` and we want to convert it into an `int`.
+ * char.digitToInt() // Throws exception if the `char` is not a `digit`.
+ * ```
+ *
+ * * A Reflective Question:
+ * _**How do we convert multiple characters that form multiple digits as a single, whole number into an int?**_
+ *
+ * For example, when we have a single character digit, such as anything between `0 to 9`, we can use:
+ *
+ * ```
+ * Either char.digitToInt() or char - '0'
+ * ```
+ *
+ * But what if we have something like: `45`?
+ *
+ * Well, in that case, we still convert each character into a digit one by one.
+ *
+ * For example, let us assume that we have a string as: `abc45def`.
+ * Now, when we read the string character by character, and extract a digit character by character,
+ * we get `4` and `5`. How do we convert it into `45`?
+ *
+ * Well, let us understand the number, `45`.
+ *
+ * ```
+ * 45 = It is 4 (the previously extracted digit) * 10 + 5 (currently extracted digit)
+ * ```
+ *
+ * Let us take another example: `abc802def`.
+ *
+ * ```
+ * Extract: `8`
+ * Extract: `0`, but `80` are together, one after another, multiple digits, but one whole number.
+ * So, last extracted number (8 * 10) + 0 = 80.
+ * Wait, there is still a digit. Extract: `2`.
+ * Hmm, last extracted number `(80 * 10) + 2` = `800 + 2` = `802`.
+ * ```
+ *
+ * * A Reflective Question:
+ * **_Ok. What if there is a character between two whole numbers?_**
+ *
+ * For example: `abc802def45ghi`
+ *
+ * Well, in that case also, once we find that the whole number is over, we reset the previously calculated number.
+ *
+ * ```
+ * After extracting 802, we find that the next character is not a digit.
+ * So, we reset the previously calculated whole number value to 0.
+ * Hence, next time when we face the digit `4`, the previous number is `0`.
+ * So, it will be `(previously extracted number 0 * 10) + currently extracted number 4` = `0 + 4` = `4`.
+ * Next, when we extract `5`, the previously extracted number is `4`.
+ * Hence, `(previously extracted number 4 * 10) + 5` = `45`.
+ * Again, the next character is not a digit. So again, we reset the previously calculated whole number to 0.
+ * And so on...
+ * ```
+ *
+ * **_Translating the explanation into The Code_**
+ *
+ * So, as long as the next character is still a digit, we can do:
+ *
+ * ```
+ * for (i in 0..<string.length) {
+ *     if (string[i].isDigit()) {
+ *        var num = 0
+ *        while(i < string.length && string[i].isDigit()) {
+ *              num = num * 10 + string[i].digitToInt()
+ *              i++
+ *        }
+ *        digits.add(num)
+ *     } else {
+ *        operators.add(string[i])
+ *     }
+ * }
+ * ```
+ *
+ * * A Reflective Question:
+ * **_ Is there a better way than iteration to classify digits and operators? _**
+ *
+ * **_ RegEx: The Alternative _**
+ * ```
+ * val string = "5 - 8 + 7 * 4 - 8 + 9"
+ * // Segregate (classify, separate, extract) digits.
+ * Regex("\\d+").findAll(string).map { it.value.toInt() }.toList()
+ * = [5, 8, 7, 4, 8, 9]
+ * // Classify operators.
+ * Regex("[+\\-*]").findAll(expr).map { it.value }.toList() //
+ * = [-, +, *, -, +]
+ * ```
+ *
+ * **_ Understanding the RegEx _**
+ *
+ * ```
+ * Anything between the " " is our RegEx.
+ * \\d is a RegEx shorthand to match a digit between 0 and 9.
+ * \\d matches any single digit character. That is to say, anything between 0 and 9.
+ * + indicates one or more of the preceding items.
+ * \\d+ One or more digits.
+ * So, "\\d+" matches and extracts one or more digits like 5, 802, 45, etc.
+ * ```
+ *
+ * **_What about operators? How do we extract and segregate operators using Regex?_**
+ *
+ * Similarly,
+ *
+ * ```
+ * [ .. ] is a character class in RegEx. It matches any one character inside the brackets.
+ * What are the different characters we want to match? +, -, and *.
+ * So, we put them inside the bracket.
+ * [+-*]
+ * However, +, -, and * are special characters with distinct meanings in RegEx.
+ * However, inside the character class brackets, the symbols + and * act as literals only.
+ * But, the symbol - remains a special range operator in the character class brackets.
+ * Hence, we need to escape -.
+ * So, it becomes:
+ * [+\\-*]
+ * It matches the symbols: +, -, and *
+ * ```
+ *
+ * So, if we use a `Regex` instead of an iteration, it becomes:
+ *
+ * ```
+ * val string = "5 - 8 + 7 * 4 - 8 + 9" //or `readln()`
+ * val digits = Regex("\\d+").findAll(string).map { it.value.toInt() }.toList()
+ * val operators = Regex("[+\\-*]").findAll(string).map { it.value }.toList()
+ * ```
+ *
+ * What a concise piece of code!
+ *
+ * **_ What if we have fraction numbers along with whole numbers? _**
+ *
+ * We can adjust the `Regex` based on requirements.
+ * For example, if we want to match and extract fraction numbers along with whole numbers, the `Regex` can be:
+ *
+ * ```
+ * val string = "5 - 8.5 + 75 * 4 - 108 + 9"
+ * val digits = Regex("\\d+\\.\\d+").findAll(string).map { it.value.toDouble }.toList()
+ * [5, 8.5, 75, 4, 108, 9]
+ * ```
+ *
+ * Note: The dot (.) is a special character (shorthand) in Regex, and it signifies "any character."
+ * Hence, if we want to match the literal dot (.), we have to escape it.
+ *
+ * **_ Back to the containers for Digits and Operators _**
+ *
+ * Before extracting and classifying digits and operators, we were discussing the size of their relevant containers.
+ *
+ * Well, if we go with the manual iteration instead of `Regex`, we can take a mutable list.
+ * Because even though the problem statement says that a digit will be from `0 to 9`,
+ * We should make it flexible enough to handle cases with multiple digits.
+ *
+ * For example, `5 - 82 + 750 * 45 - 8 + 9`
+ *
+ * So, it can be:
+ *
+ * ```
+ * val digits = mutableListOf<Int>()
+ * val operators = mutableListOf<Char>()
+ *
+ * for (i in 0..<string.length) {
+ *     if (string[i].isDigit()) {
+ *        var num = 0
+ *        while (i < string.length && string[i].isDigit()) {
+ *              num = (num * 10) + string[i].digitToInt()
+ *              i++
+ *        }
+ *        digits.add(num)
+ *     } else {
+ *        operators.add(string[i])
+ *     }
+ * }
+ * ```
+ *
+ * But if we go with the `Regex`, it becomes very short and clear as below:
+ *
+ * ```
+ * val string = "5 - 8 + 7 * 4 - 8 + 9"
+ * val digits = Regex("\\d+").findAll(string).map { it.value.toInt() }.toList() // [5, 8, 7, 4, 8, 9]
+ * val operators = Regex("[+\\-*]").findAll(string).map { it.value }.toList() // [-, +, *, -, +]
+ * ```
+ *
+ * * A Reflective Question:
+ * **_ Ok. What do we do after segregating and classifying digits and operators? _**
+ *
+ * # ----------------------- Thought Process & Translating it into the code: Part-02 -----------------------
  *
  * ## --------- **_Key-point: 1: The last operation that splits the expression_** -----------
  *
@@ -172,6 +461,21 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * In other words, when the difference between `i` and `j` is 0, we get a single element.
  *
+ * **_Translation into the Code_**
+ *
+ * ```
+ * // n is the number of digits
+ * // We can also take `number of operators + 1` to include the case when there is no operator.
+ * // Because we have seen that `the number of operators = the number of digits - 1`.
+ * // Or in other words, `the number of digits = the number of operators + 1`.
+ * val minTable = Array(n) { IntArray(n) }
+ * val maxTable = Array(n) { IntArray(n) }
+ * for (i in 0..<n) {
+ *     minTable[i][i] = digits[i]
+ *     maxTable[i][i] = digits[i]
+ * }
+ * ```
+ *
  * Similarly, when the difference between `i` and `j` is 1, we get two elements.
  * For example, when `i = 0` and `j = 1`, it indicates the arithmetic operation between the elements `5` and `8`.
  * Similarly, when `i = 1` and `j = 2`, it indicates the arithmetic operation between the elements `8` and `7`.
@@ -239,7 +543,9 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * Now, if you remember, we have concluded that we need both the maximum and minimum values.
  * Hence, we will use two tables. One table for the minimum values, and the other for the maximum values.
  *
- * But how do we fill the tables?
+ * **_We have filled in the base cases for each table. But how do we fill the entire table?_**
+ *
+ * The next point explains the same.
  *
  * ## ---------- _**Key-point: 7: The Process: Filling Up The Two Tables: Part-01: Introduction. **_ ----------
  *
@@ -1095,4 +1401,16 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  */
 fun main() {
 
+    val char = '7'
+    val int = char - '0'
+    val digit = char.digitToInt()
+    val toInt = char.toInt()
+    val string = "5 - 802 + 70 * 45 - 8 + 9 / 2"
+    val digits = Regex("\\d+").findAll(string).map { it.value.toInt() }.toList()
+    val operators = Regex("[+\\-*/]").findAll(string).map { it.value }.toList()
+    println(int)
+    println(digit)
+    println(toInt)
+    println(digits)
+    println(operators)
 }
