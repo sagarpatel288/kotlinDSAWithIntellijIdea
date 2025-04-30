@@ -1347,14 +1347,20 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *         // The end-index of a sub-expression that starts with `i` and must be of length `length`.
  *         val j = i + length
  *         // Splitting the sub-expression into different combinations using the available operators within the sub-expression
+ *         // Reference examples that explain why we need `minValue` and `maxValue` variables, and why we update them:
+ *         // res/coursera/ucSanDiego/module06DynamicProgramming02/03maximumArithmeticExpression/15fourElementsExample02.png
+ *         // For a particular length, we consider each operator as the last operation for the same expression.
+ *         // We evaluate each result and finalize the minimum and the maximum values for the relevant tables.
+ *         var minValue = Int.MAX_VALUE
+ *         var maxValue = Int.MIN_VALUE
  *         for (k in i..<j) {
  *             val op = operators[k]
  *             val one = calculate(min[i][k], min[k + 1][j], op)
  *             val two = calculate(min[i][k], max[k + 1][j], op)
  *             val three = calculate(max[i][k], max[k + 1][j], op)
  *             val four = calculate(max[i][k], min[k + 1][j], op)
- *             val min = minOf(one, two, three, four)
- *             val max = maxOf(one, two, three, four)
+ *             minValue = minOf(minValue, one, two, three, four)
+ *             maxValue = maxOf(maxValue, one, two, three, four)
  *             min[i][j] = min
  *             max[i][j] = max
  *         }
@@ -1401,16 +1407,61 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  */
 fun main() {
 
-    val char = '7'
-    val int = char - '0'
-    val digit = char.digitToInt()
-    val toInt = char.toInt()
-    val string = "5 - 802 + 70 * 45 - 8 + 9 / 2"
-    val digits = Regex("\\d+").findAll(string).map { it.value.toInt() }.toList()
-    val operators = Regex("[+\\-*/]").findAll(string).map { it.value }.toList()
-    println(int)
-    println(digit)
-    println(toInt)
-    println(digits)
-    println(operators)
+    fun calculate(a: Int, b: Int, operator: String): Int {
+        return when (operator) {
+            "+" -> {
+                a + b
+            }
+
+            "-" -> {
+                a - b
+            }
+            "*" -> {
+                a * b
+            }
+            else -> {
+                throw IllegalArgumentException()
+            }
+        }
+    }
+
+    fun maximizeArithmeticExpression(string: String): Int {
+        val digits = Regex("\\d+").findAll(string).map { it.value.toInt() }.toList()
+        val numberOfDigits = digits.size
+        val operators = Regex("[+\\-*]").findAll(string).map { it.value }.toList()
+        val minTable = Array(numberOfDigits) { IntArray(numberOfDigits) }
+        val maxTable = Array(numberOfDigits) { IntArray(numberOfDigits) }
+        for (i in 0..<numberOfDigits) {
+            minTable[i][i] = digits[i]
+            maxTable[i][i] = digits[i]
+        }
+        // Length of the number of operators included that defines the length of a subexpression
+        for (length in 1..<numberOfDigits) {
+            //Start index of the subexpression
+            for (i in 0..<numberOfDigits - length) {
+                // End index of the subexpression to respect and limit the defined length of the subexpression
+                val j = i + length
+                var minValue = Int.MAX_VALUE
+                var maxValue = Int.MIN_VALUE
+                // Include operators
+                for (k in i..<j) {
+                    val op = operators[k]
+                    val one = calculate(minTable[i][k], minTable[k + 1][j], op)
+                    val two = calculate(minTable[i][k], maxTable[k + 1][j], op)
+                    val three = calculate(maxTable[i][k], maxTable[k + 1][j], op)
+                    val four = calculate(maxTable[i][k], minTable[k + 1][j], op)
+                    minValue = minOf(minValue, one, two, three, four)
+                    maxValue = maxOf(maxValue, one, two, three, four)
+                    minTable[i][j] = minValue
+                    maxTable[i][j] = maxValue
+                }
+            }
+        }
+        // cell(0, n - 1) contains the maximum value
+        return maxTable[0][numberOfDigits - 1]
+    }
+
+    val string = readln()
+    val answer = maximizeArithmeticExpression(string)
+    println(answer)
 }
