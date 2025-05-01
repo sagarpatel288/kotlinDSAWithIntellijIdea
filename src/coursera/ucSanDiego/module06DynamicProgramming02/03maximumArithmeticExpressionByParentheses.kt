@@ -133,21 +133,44 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * while each symbol at an `odd position` is one of three operations from `{+, -, *}`.
  * ```
  *
+ * **_Math_**
+ *
  * The length of the string is `2n + 1`,
  * where each character at an `even position` is a digit, and each character at an `odd position` is an operator.
  *
  * We have an example: `5 - 8 + 7 * 4 - 8 + 9`
  *
  * We can see that there are 6 digits, and 5 operators, making it a total length of `2n + 1 = 2(5) + 1 = 10 + 1 = 11`.
+ * So, we can say that:
  *
- * According to the problem statement, we can take the size of the digit container as `(length / 2) + 1`.
+ * ```
+ * operators = digits - 1 or digits = operators + 1.
+ * ```
  *
- * So, for the given example, it will be `(11 / 2) + 1` = `5 + 1` = `6`.
+ * Hence,
+ *
+ * ```
+ * digits + operators = 2n + 1 (total length of the given string)
+ * digits + (digits - 1) = 2n + 1
+ * 2digits - 1 = 2n + 1
+ * 2digits = (2n + 1) + 1
+ * 2digits = length + 1
+ * digits = (length + 1) / 2
+ *
+ * For example: 5-8+7*4-8+9
+ * Length is: 11
+ * digits = (length + 1) / 2 = (11 + 1) / 2 = 12 / 2 = 6
+ * operators = digits - 1 = 6 - 1 = 5
+ * ```
+ *
+ * According to the problem statement, we can take the size of the digit container as `(length + 1) / 2`.
+ *
+ * So, for the given example, it will be `(11 + 1) / 2` = `12 / 2` = `6`.
  * And the operator container will be `size of the digit container - 1 = 6 - 1 = 5`.
  *
  * ```
  * val expressionLength = expressionString.length
- * val totalDigits = (expressionLength / 2) + 1
+ * val totalDigits = (expressionLength + 1) / 2
  * val digitContainer = IntArray(totalDigits)
  * val operatorContainer = IntArray(digitContainer.size - 1)
  *
@@ -1412,10 +1435,46 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * which is the original problem.
  * ```
  *
+ * # ----------------------- Complexity Analysis -----------------------
+ *
+ * ## ----------------------- Time Complexity -----------------------
+ *
+ * We have 3 lexical (nested) for loops.
+ *
+ * ```
+ * // n is the number of digits in the given string expression
+ * for (length in 1..<n) {
+ *     for (i in 0..<n - length) {
+ *         val j = i + length
+ *         for (k in i..<j) {
+ *              ...
+ *         }
+ *     }
+ * }
+ * ```
+ * None of the for loop reaches `n`, but we drop the constants.
+ * Hence, the time complexity is O(n^3).
+ *
+ * ## ----------------------- Space Complexity -----------------------
+ *
+ * We take two tables.
+ *
+ * ```
+ * // n is the number of digits in the given string expression
+ * val minTable = Array(n) { IntArray(n) }
+ * val maxTable = Array(n) { IntArray(n) }
+ * ```
+ *
+ * So, the maximum memory we use is n * n = n^2.
+ * Hence, the space complexity is O(n^2).
+ *
+ * # ----------------------- Coursera's Grader Output -----------------------
+ * Good job! (Max time used: 0.10/2.00, max memory used: 43524096/536870912.)
+ *
  */
 fun main() {
 
-    fun calculate(a: Int, b: Int, operator: String): Int {
+    fun calculate(a: Long, b: Long, operator: String): Long {
         return when (operator) {
             "+" -> {
                 a + b
@@ -1433,26 +1492,26 @@ fun main() {
         }
     }
 
-    fun maximizeArithmeticExpression(string: String): Int {
-        val digits = Regex("\\d+").findAll(string).map { it.value.toInt() }.toList()
+    fun maximizeArithmeticExpression(string: String): Long {
+        val digits = Regex("\\d+").findAll(string).map { it.value.toLong() }.toList()
         val numberOfDigits = digits.size
         val operators = Regex("[+\\-*]").findAll(string).map { it.value }.toList()
-        val minTable = Array(numberOfDigits) { IntArray(numberOfDigits) }
-        val maxTable = Array(numberOfDigits) { IntArray(numberOfDigits) }
-        for (i in 0..<numberOfDigits) {
+        val minTable = Array(numberOfDigits) { LongArray(numberOfDigits) }
+        val maxTable = Array(numberOfDigits) { LongArray(numberOfDigits) }
+        for (i in 0 until numberOfDigits) {
             minTable[i][i] = digits[i]
             maxTable[i][i] = digits[i]
         }
         // Length of the number of operators included that defines the length of a subexpression
-        for (length in 1..<numberOfDigits) {
+        for (length in 1 until numberOfDigits) {
             //Start index of the subexpression
-            for (i in 0..<numberOfDigits - length) {
+            for (i in 0 until numberOfDigits - length) {
                 // End index of the subexpression to respect and limit the defined length of the subexpression
                 val j = i + length
-                var minValue = Int.MAX_VALUE
-                var maxValue = Int.MIN_VALUE
+                var minValue = Long.MAX_VALUE
+                var maxValue = Long.MIN_VALUE
                 // Include operators
-                for (k in i..<j) {
+                for (k in i until j) {
                     val op = operators[k]
                     val one = calculate(minTable[i][k], minTable[k + 1][j], op)
                     val two = calculate(minTable[i][k], maxTable[k + 1][j], op)
