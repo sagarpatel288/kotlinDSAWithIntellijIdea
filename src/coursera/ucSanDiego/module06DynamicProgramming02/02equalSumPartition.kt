@@ -839,7 +839,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * will the remaining elements can form the remaining subsets?
  *
  * ```
- * if selecting (considering) the current element as a part of the current subset is a right decision,
+ * if selecting (considering) the current element as a part of the current subset is the right decision,
  * the remaining elements will form the remaining subsets.
  * Otherwise, deselect (unlock) the element.
  * ```
@@ -882,7 +882,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *           selected[i] = true
  *           // Now, select the next index for the current subset and
  *           // pass the current sum argument value as `currentSum + values[i]`.
- *           // if that returns true, decrease the number of subset requirement.
+ *           // if that returns true, decrease the number of subset requirements.
  *           if (canPartition(i + 1, subsets, currentSum + values[i]) return true
  *           selected[i] = false
  *        }
@@ -979,7 +979,11 @@ fun main() {
                     // Mark the element as visited.
                     selected[i] = true
 
-                    // Recursively attempt to form the current subset.
+                    // Wait. Stay here. Check the future.
+                    // Is selecting the `i` the right decision?
+                    // Yes (return true), if the remaining elements can form valid subsets.
+                    // Otherwise, deselect the `i`. We will continue the iteration for(i in startIndex..<values.size).
+                    // Recursively attempt to form the current subset with the remaining elements (i + 1).
                     if (canPartition(i + 1, subsets, currentSum + values[i])) return true
 
                     // Backtrack: unmark the element and try the next possibility.
