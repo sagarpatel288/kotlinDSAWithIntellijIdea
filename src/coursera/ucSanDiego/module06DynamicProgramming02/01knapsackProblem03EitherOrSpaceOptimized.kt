@@ -44,13 +44,13 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * In that case, it is best to use the existing value where the item weight does not exceed the current weight capacity.
  *
- * Stay tuned to understand what is the existing value and other things.
+ * Stay tuned to understand what the existing value is and other things.
  *
  * Let us understand one step at a time.
  *
  * Let us understand the iteration part first.
  *
- * Let us translate it into the code:
+ * Let us translate it into code:
  *
  * ```
  * We start the item iteration as usual, bottom-up
@@ -108,7 +108,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * The possibility is: Either it can include the currently selected item, or not.
  *
  * If it cannot include the currently selected item, then we don't change the existing value.
- * The existing value is the same as an optimal value without the currently selected item.
+ * The existing value is the same as the optimal value without the currently selected item.
  *
  * If we can include the currently selected item, and want to include the currently selected item:
  *
@@ -311,9 +311,9 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * # ----------------------- Why did we go max to min for the weight iteration? -----------------------
  *
  * Because, if we go from min to max, and when we want to add the optimal value for the remaining weight,
- * what we get is the optimal value including the current item, and not excluding the current item.
+ * What we get is the optimal value, including the current item, and not excluding the current item.
  *
- * For example, let us say, the maximum weight capacity of the knapsack is 10,
+ * For example, let us say the maximum weight capacity of the knapsack is 10,
  * and the weights are 4, 1, 8.
  *
  * Now, the cell(1, 4..7) will have the values 4.
