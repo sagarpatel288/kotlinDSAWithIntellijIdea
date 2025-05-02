@@ -36,21 +36,35 @@ package coursera.ucSanDiego.module05DynamicProgramming
  *     F(1)      F(0)
  *
  *
- * To avoid (remove, eliminate) the duplicate calculation, we came up with the below solution:
+ * To avoid (remove, eliminate) the duplicate calculation, we came up with the following solution:
  *
  * src/coursera/ucSanDiego/module02AlgorithmicWarmUp/010nthFibonacci.kt
  * [010nthFibonacciUsingBottomUp](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8c945e89b5becd905bf3d4b4000358992fe654ee/src/coursera/ucSanDiego/module02AlgorithmicWarmUp/010nthFibonacci.kt)
  *
  * For more information on the solution mentioned above, please visit the solution file.
  *
- * The above examples represent the recursion, the recursive solution, and the bottom-up approach (a.k.a. tabulation)
+ * The above examples represent the recursion, the recursive solution, and the bottom-up approach (a.k.a tabulation)
  * of the dynamic programming.
  *
- * In this example, we will see the top-down approach (a.k.a. memoization or caching) of the dynamic programming.
- * Note that a few people do not consider memoization (caching) as a dynamic programming.
- * A few people consider only the bottom-up (tabulation) as a dynamic programming.
+ * In this example, we will see the top-down approach (a.k.a. memoization or caching) of dynamic programming.
+ * Note that a few people do not consider memoization (caching) as a form of dynamic programming.
+ * A few people consider only the bottom-up (tabulation) approach as dynamic programming.
  *
  * The idea is to use a container to store intermediate calculations and avoid repetitive computation.
+ *
+ * # ----------------------- Complexity Analysis -----------------------
+ *
+ * ## ----------------------- Time Complexity -----------------------
+ *
+ * Due to memoization, each nth Fibonacci number runs only once.
+ * We cover each nth Fibonacci number down to 0.
+ * Hence, if `n` is the `nth` Fibonacci number, then the time complexity is O(n).
+ *
+ * ## ----------------------- Space Complexity -----------------------
+ *
+ * The maximum memory that we use here is the container of size `n + 1` for the memoization (caching).
+ * The recursion stack depth is also O(n). (From `n` to 0).
+ * Hence, the space complexity is O(n).
  *
  */
 fun main() {
