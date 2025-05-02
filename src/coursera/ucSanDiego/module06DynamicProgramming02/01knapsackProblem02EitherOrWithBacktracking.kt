@@ -28,7 +28,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * | 2 (Weight 4) 	| 0 	| 1 	| 1 	| 1 	| 4 	| 5 	| 5 	| 5 	| 5 	| 5 	|  5 	|
  * | 3 (Weight 8) 	| 0 	| 1 	| 1 	| 1 	| 4 	| 5 	| 5 	| 5 	| 8 	| 9 	|  9 	|
  *
- * Let us also recall a few helpful facts (obvious, and logical facts, theory, analysis, observation, patter, etc.).
+ * Let us also recall a few helpful facts (obvious, logical facts, theory, analysis, observation, pattern, etc.).
  *
  * 1. If we cannot pick up the current item `i` for the current weight `w`, we copy the [i - 1] answer.
  * Because, the [i - 1] is already an optimal solution for `w.`
@@ -49,14 +49,14 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * ```
  * table[i - 1] indicates the value without the currently selected item.
  * ```
- * Then, how do we express (consider, convey, represent) currently selected item?
+ * Then, how do we express (consider, convey, represent) the currently selected item?
  * ```
  * items[i - 1] represents currently selected item.
  * ```
  *
  * # ----------------------- The Meaning Of Overall Expression (Formulae) -----------------------
  *
- * Let us recall the formula(e) of filling the knapsack table.
+ * Let us recall the formula(e) for filling the knapsack table.
  *
  * ```
  * if (items[i - 1] <= weight) {
@@ -114,7 +114,8 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * table[i][weight] = maxOf(table[i - 1][weight], include the currently selected item)
  * ```
  *
- * Now, how do convert the statement, "include the currently selected item," into the code?
+ * Now, how do we convert the statement, "include the currently selected item," into the code?
+ *
  * 1. So basically, we add the currently selected item into the previous optimal solution that does not have the current
  * item yet. So, the previous step where we do not have the current item yet.
  * 2. And if the previous step did not have the current item yet, it must exclude the weight of the current item, too.
@@ -123,7 +124,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * ```
  * 1. The currently selected item is: items[i - 1]
- * 2. The previous optimal solution without current item for the same weight capacity: table[i - 1][?]
+ * 2. The previous optimal solution without the current item for the same weight capacity: table[i - 1][?]
  * 3. Exclude the weight of the current item from the previous optimal solution: weight - items[i - 1]
  * 4. Overall expression when we include the current item: items[i - 1] + table[i - 1][weight - items[i - 1]]
  * ```
@@ -153,7 +154,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * And hence, the maximum (optimal) value for the current weight capacity is the same as it was with the previous item.
  * And it will be the maximum (optimal) value for the current weight capacity.
  *
- * How do we express it into a code? The else part.
+ * How do we express it in code? The else part.
  *
  * ```
  * else {
@@ -161,7 +162,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * }
  * ```
  *
- * Another way (perspective, conclusion) to look at the else part is:
+ * Another way (perspective, conclusion, the other way around) to look at the else part is (Vice Versa):
  *
  * ```
  * If the value table[i][weight] is equal to the value table[i - 1][weight],
@@ -169,15 +170,15 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * ```
  *
  * The else part will be the core (heart) of the backtracking process.
- * Because, we want to know whether we have selected a particular item or not as a part of the solution.
+ * Because we want to know whether we have selected a particular item as part of the solution.
  *
  * So, if the value with the currently selected item for the current weight capacity is the same as the value with
- * the previous item for the same current weight capacity, then it means that, we have not selected the current item.
+ * the previous item for the same current weight capacity, then it means that we have not selected the current item.
  *
  * On the other hand, if we have selected the current item for the current weight, the value includes the weight
  * of the currently selected item.
  *
- * Now, as we know that the last cell gives the final solution of the original problem, and we have already seen
+ * Now, as we know, the last cell gives the final solution of the original problem, and we have already seen
  * previous examples of backtracking.
  *
  * References:
@@ -236,7 +237,7 @@ fun main() {
             if (table[i][currentCapacity] != table[i - 1][currentCapacity]) {
                 // Yes, we have included this item as a part of the solution.
                 selectedItems.add(items[i - 1])
-                // Now, find optimal value without this item.
+                // Now, find the optimal value without this item.
                 currentCapacity -= items[i - 1]
             }
         }
