@@ -75,7 +75,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * Greedy Approach Vs. Dynamic Programming:
  *
- * Recall the history (Recapitulation, Flash back):
+ * Recall the history (Recapitulation, Flashback):
  * src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/010coinChangeUsingDynamicProgramming.kt
  *
  * If the target amount to change is 24, and coin denominations are 1, 8, and 20.
@@ -86,19 +86,19 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * Let us understand that with a simple example.
  * Let us assume that the maximum weight capacity of the knapsack is 10.
- * And we have 4 items with weight: 3, 4, 6, and 8.
+ * And we have 4 items with weights: 3, 4, 6, and 8.
  *
  * Now, a greedy approach will pick up the maximum weight 8 first.
- * However, there is no other item left using which we can fill the bag without exceeding the limit, which is 10.
+ * However, there is no other item left that we can use to fill the bag without exceeding the limit, which is 10.
  *
  * Now, a dynamic programming approach would consider and try each option, store each result, and pick up the best.
  * So, the dynamic programming approach can pick up the items having weights of 4, and 6. Hence, the total becomes 10.
  * This way, we could maximize the weight without exceeding the maximum capacity of the knapsack.
  * We could fill more items, more weight, more values, than the greedy approach.
  *
- * Conclusion: Dynamic Programming is more reliable, and optimal than the Greedy approach. Especially, for this example.
+ * Conclusion: Dynamic Programming is more reliable and optimal than the Greedy approach, especially for this example.
  *
- * ## How do we solve a problem using dynamic programming approach? What do we do in a dynamic programming?
+ * ## How do we solve a problem using a dynamic programming approach? What do we do in dynamic programming?
  *
  * ### 1. Bottom-up approach:
  *
@@ -106,39 +106,42 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * ### 2. Memoization:
  *
- * As we go from 0 to top, we store the solutions of each problem, and use it to solve the larger problem.
+ * As we go from 0 to top, we store the solutions of each problem, and use them to solve the larger problem.
  *
  * ### 3. Formula (Logic):
  *
- * We use the same formula, key-lemma, logic, or expression to solve the sub-problems,
+ * We use the same formula, key-lemma, logic, or expression to solve the subproblems,
  * and the larger (original) problem.
  *
  * For example, we use the same formula to solve the coin change problem when the target is x, y, or z.
  * The formula does not change with different target amounts.
  *
- * Similarly, we use the same formula to solve the edit distance problem when the target and reference length are
+ * Similarly, we use the same formula to solve the edit distance problem when the target and reference lengths are
  * x and y.
  * The formula to solve the edit distance problem does not change if we change the length of the
- * target and the reference.
+ * the target and the reference.
  *
- * The formula, key-lemma, logic, or expression to solve a particular problem (or sub-problem) can be different
+ * The formula, key-lemma, logic, or expression to solve a particular problem (or subproblem) can be different
  * for different problem statements, scenarios, contexts, etc.
  *
  * For example, we might have a different formula to solve the edit distance problem,
- * then the longest common sub-sequence.
+ * then the longest common subsequence.
  *
  * ### 4. Conclusion:
  *
  * The key-part here is the logic, the formula (expression, key-lemma).
  * We build and use the logic (formula, expression, key-lemma) based on the facts.
- * We select and connect the right facts into the right direction in the right way.
- * This process (selecting facts, building logic and formulas, and using it) is a part of logical thinking,
+ * We select and connect the right facts in the right direction in the right way.
+ *
+ * This process (selecting facts, building logic and formulas, and using them) is a part of logical thinking,
  * and the intuition of this process comes with experience, time, consistency, dedication, discipline, practice,
  * integrity, etc.
- * The continuous efforts and exploration into the process give (introduce) us new facts, and we can connect them
+ *
+ * The continuous efforts and exploration into the process give us new facts, and we can connect them
  * with the existing facts that we already know, that we are aware of, and by using the existing knowledge, data, and
  * facts, we play with the new data, and information to build, use, acknowledge, and be familiar with the new data,
  * and facts.
+ *
  * When this process continues, we get evolution.
  * So, understand the formulas (logic, expressions) properly to be able to solve unknown problems.
  *
@@ -146,7 +149,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  *
  * ## ----------------------- Formula -----------------------
  *
- * ### ----------------------- Initial Set Up -----------------------
+ * ### ----------------------- Initial Setup -----------------------
  *
  * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
  * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
@@ -155,35 +158,35 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * | 2 (Weight 4) 	| 0 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
  * | 3 (Weight 8) 	| 0 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
  *
- * The columns 0 to 10 represents weights (weight capacity of the knapsack).
- * The rows 0 to 3 represents total items.
+ * The columns 0 to 10 represent weights (weight capacity of the knapsack).
+ * The rows 0 to 3 represent total items.
  *
  * The cell(0,0) = 0th row, and 0th column, represent 0 items and 0 weight capacity.
  *
- * The cell(3,10) = 3rd row (0th based index), 10th column (0th based index) represent 3 items, and 10 weight capacity.
- * The value of cell(3, 10) represent how many maximum gold bars we can take when there are a total of 3 gold bars,
- * and the knapsack weight capacity is 10. The 3 gold bars are having weight of: 1, 4, and 8.
+ * The cell(3,10) = 3rd row (0th-based index), 10th column (0th-based index) represents 3 items, and 10 weight capacity.
+ * The value of cell(3, 10) represents how many maximum gold bars we can take when there are a total of 3 gold bars,
+ * and the knapsack weight capacity is 10. The 3 gold bars have weights of 1, 4, and 8.
  *
- * The cell(2,7) = 2nd row, 7th column, represent 2 items, and 7 weight capacity.
- * The value of cell(2, 7) represent how many maximum gold bars we can take when there are a total of 2 gold bars,
- * and the knapsack weight capacity is 7. The 2 gold bars are having weight of: 1, and 4.
+ * The cell(2,7) = 2nd row, 7th column, represents 2 items, and 7 weight capacity.
+ * The value of cell(2, 7) represents the maximum gold bars we can take when there are a total of 2 gold bars,
+ * and the knapsack weight capacity is 7. The 2 gold bars have weights of 1 and 4.
  *
  * As we move from left side to right side, we increase the weight capacity.
  * As we move from top to down, we increase the total items.
  *
  * This is a 2D-Matrix (table), and we fill the table row-by-row.
- * It means, the index finger of the left hand will be on a particular item, until the index finger of the right hand
+ * It means, the index finger of the left hand will be on a particular item until the index finger of the right hand
  * moves from 0 to the maximum weight capacity 10.
  *
  * Once the index finger of the right hand reaches 10, we start over. We change the row. We select the next row.
- * The index finger of the left hand will step-down one step. The index finger of the right hand start over.
- * The index finger of the right hand will start again from the 0th column, and will move up to the 10th column.
+ * The index finger of the left hand will step down one step. The index finger of the right hand starts over.
+ * The index finger of the right hand will start again from the 0th column and move up to the 10th column.
  *
  * We repeat this process until we fill each cell.
  *
  * ### ----------------------- cell(0, capacity) -----------------------
  *
- * When there is no item, irrespective of the knapsack capacity, all the cells of the 0th row will have the value 0.
+ * When there is no item, irrespective of the knapsack capacity, all the cells of the 0th row will have value 0.
  * It indicates that when there is no item (0 item), irrespective of the knapsack capacity, we can't pick up any item.
  *
  * Hence, the entire 0th row will have the value 0.
@@ -215,8 +218,8 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * | 2 (Weight 4) 	| 0 	| 1 	| 1 	| 1 	|   	|   	|   	|   	|   	|   	|    	|
  * | 3 (Weight 8) 	| 0 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
  *
- * Even though when we have two items (of weight 1 and 4), we cannot pick up the item having weight 4 until we get
- * the knapsack weight capacity 4 or more. Till then, we can pick the item having weight 1.
+ * Even though we have two items (of weights 1 and 4), we cannot pick up the item with weight 4 until we get
+ * the knapsack weight capacity 4 or more. Till then, we can pick the item with weight 1.
  *
  * Notice the pattern here.
  * ```
@@ -247,20 +250,20 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * ```
  * Output Format:
  *
- * The maximum weight of gold bars that fits into a backpack of capacity W.
+ * The maximum weight of gold bars that fit into a backpack of capacity W.
  * ```
  *
- * The goal is to fit maximum weight.
+ * The goal is to fit the maximum weight.
  * Now, cell(2, 4) = 2 items (of having weight 1, and 4), and the knapsack weight capacity is 4.
  * We can pick up only one item for the given knapsack weight capacity: 4.
- * Either we can pick up the item having weight 1 or the item having weight 4.
- * Which item does satisfy the below condition (requirements, expectations, goal)?
+ * Either we can pick up the item with weight 1 or the item with weight 4.
+ * Which item satisfies the below condition (requirements, expectations, goal)?
  *
  * ```
- * The maximum weight of gold bars that fits into a backpack of capacity W.
+ * The maximum weight of gold bars that fit into a backpack of capacity W.
  * ```
  *
- * The item having weight 4. Hence, cell(2, 4) = 4.
+ * The item with weight 4. Hence, cell(2, 4) = 4.
  *
  * Now comes the interesting magic of math.
  *
@@ -273,13 +276,16 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * `( i - 1 ) = ( 2 - 1 ) = 1` and the column `0` (the remaining weight capacity of the knapsack),
  * we find the value cell(1, 0) = 0, and it conveys that at this stage, we cannot add any other item.
  * This is a mathematical confirmation.
- * We proved the logic (common, and visual idea) mathematically,
- * and this theory (math) will help us build the logic (formula, expression).
+ *
+ * We proved the logic (common and visual idea) mathematically,
+ * and this theory (math) will help us build the concrete formula (expression).
+ *
  * The formula will convey (represent, prove, express, translate) the common, and visual idea that
- * if we have a knapsack of certain maximum capacity,
+ * if we have a knapsack of a certain maximum capacity,
  * and we fill (pick up) a particular item (out of available options),
- * what will be the remaining capacity of the knapsack, and what will be the best optimal solution,
- * (the maximum weight we will be able to fill) for the remaining capacity of the knapsack.
+ * What will be the remaining capacity of the knapsack?
+ * And what will be the best optimal solution (the maximum weight we can fill) for the remaining knapsack capacity?
+ *
  * This helps us pick up the best item(s) to meet our goal (fill maximum weight)
  * for the given weight capacity of the knapsack.
  *
@@ -304,15 +310,15 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * | 3 (Weight 8) 	| 0 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
  *
  * cell(2, 5) = 2 items (weight 1 and 4), weight capacity 5.
- * We can take both the items: 1 + 4 = 5. Remaining weight is: 5 - 5 = 0.
- * So, we cannot take any additional item.
+ * We can take both the items: 1 + 4 = 5. The remaining weight is: 5 - 5 = 0.
+ * So, we cannot take any additional items.
  * Hence, cell(2, 5) = 5.
  *
  * #### ------------- How do we do it mathematically? -------------
  *
  * Let us start from the beginning.
  *
- * 1. cell(2, 5) = 2 items, knapsack capacity is 5. The current item (row 2) is having weight 4.
+ * 1. cell(2, 5) = 2 items, knapsack capacity is 5. The current item (row 2) weights 4.
  * 2. Let us pick the current item (wi): Weight 4.
  * 3. Remaining weight:
  *
@@ -361,7 +367,7 @@ package coursera.ucSanDiego.module06DynamicProgramming02
  * ## ----------------------- More observation (patterns, behavior) -----------------------
  *
  * 1. The table (2D array) size to store the values. --> + 1 --> Size + 1, Options + 1, Target + 1, End + 1, Items + 1.
- * 2. Bottom-up journey (iteration). It will start from 0 or 1, and will go up to the target, limit, end point.
+ * 2. Bottom-up journey (iteration). It will start from 0 or 1, and will go up to the target, limit, or end point.
  *
  * # ----------------------- Complexity Analysis -----------------------
  *
