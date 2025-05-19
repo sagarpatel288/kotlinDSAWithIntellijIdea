@@ -51,6 +51,7 @@ class Node<T>(var data: T?, var next: Node<T>?)
 class SinglyLinkedListWithoutTail<T>() {
     private var head: Node<T>? = null
     // A dedicated size variable so we can get the size in O(1) anytime instead of in O(n).
+    // The "size" variable is also useful when we want to perform (call) "addItemAtIndex," "removeItemAtIndex," etc.
     private var size = 0
 
     fun size() = size
@@ -59,8 +60,8 @@ class SinglyLinkedListWithoutTail<T>() {
     fun isEmpty() = head == null
 
     // Add an item to the front (top, start, first) of the list. Time complexity is O(1).
-    fun pushFront(key: T) {
-        val newNode = Node(key, null)
+    fun pushFront(data: T?) {
+        val newNode = Node(data, null)
         // The list is empty.
         if (isEmpty()) {
             head = newNode
@@ -115,9 +116,9 @@ class SinglyLinkedListWithoutTail<T>() {
         while (curr?.next != null) {
             curr = curr.next
         }
-        size++
         // Now, the `curr` pointer (finger) points (refers) to the newly created and added last item (newNode).
         curr?.next = newNode
+        size++
     }
 
     // Read (get) the back (last, tail, end) item of the list. Worst-case time complexity is O(n).
@@ -164,6 +165,56 @@ class SinglyLinkedListWithoutTail<T>() {
         curr?.next = null
         size--
         return oldLastItem?.data
+    }
+
+    /**
+     * Add an item to the given index.
+     *
+     * * Key lemma (Key point, Key fact):
+     * It means that the item at `index - 1` (the item at the previous index) will get the new `next` connection.
+     *
+     * For example:
+     *
+     * Suppose we have a list of items as: A (index 0) --> B (index 1) --> C (index 2) --> D (index 3)
+     * Now, we want to add an item X at index 2.
+     * It means that the item at index 1, which is B, will point to the new item X instead of C.
+     *
+     * ```
+     * 1. So, we will travel up to item B, which is `index - 1`.
+     * 2. Create a new node (item) X.
+     * 3. The next connection of item X will be the same as B's next.
+     * 4. So, `newNode.next = B.next`
+     * 5. And then, we change the next connection of B to make it `B.next = newNode`. (Slice in the item X).
+     * ```
+     *
+     * In the end, the list becomes:
+     * A (index 0) --> B (index 1) --> X (index 2) --> C (index 3) --> D (index 4)
+     */
+    fun addItemAtIndex(index: Int, item: T?) {
+        // > size and not >= size, because we can add an item to the back (end, last, tail).
+        // For example, if we have two items at indices 0 and 1, the size is two, and we can add an item at index 2.
+        // If the list size is 2, then the last index at which we can add an item is 2, not more than that.
+        if (index > size) {
+            throw IndexOutOfBoundsException()
+        }
+        if (index == 0) {
+            return pushFront(item)
+        }
+        if (index == size) {
+            return pushBack(item)
+        }
+        var curr = head
+        // Iteration. Time complexity is O(n).
+        // Stand right before the index to change the previous connection.
+        repeat (index - 1) {
+            // Jump `curr` to the next item until we reach `index - 1`.
+            curr = curr?.next
+        }
+        // The next pointer of the current and newly added items will be the same for a while.
+        val newNode = Node(item, curr?.next)
+        // Now, change the `next` connection of the previous item. Slide in the newly added item.
+        curr?.next = newNode
+        size++
     }
 
 }
