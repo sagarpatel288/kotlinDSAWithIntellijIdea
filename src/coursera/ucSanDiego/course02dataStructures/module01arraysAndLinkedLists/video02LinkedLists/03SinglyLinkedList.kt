@@ -417,4 +417,9 @@ class SinglyLinkedListWithoutTail<T>() {
         return false
     }
 
+    fun clear() {
+        head = null
+        size = 0
+    }
+
 }
