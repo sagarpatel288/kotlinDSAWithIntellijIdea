@@ -175,20 +175,20 @@ class SinglyLinkedListWithoutTail<T>() {
      *
      * For example:
      *
-     * Suppose we have a list of items as: A (index 0) --> B (index 1) --> C (index 2) --> D (index 3)
-     * Now, we want to add an item X at index 2.
-     * It means that the item at index 1, which is B, will point to the new item X instead of C.
+     * Suppose we have a list of items as: `A (index 0) --> B (index 1) --> C (index 2) --> D (index 3)`
+     * Now, we want to add an `item X` at `index 2`.
+     * It means that the item at `index 1`, which is `B`, will point to the `new item X` instead of `C`.
      *
      * ```
      * 1. So, we will travel up to item B, which is `index - 1`.
      * 2. Create a new node (item) X.
      * 3. The next connection of item X will be the same as B's next.
      * 4. So, `newNode.next = B.next`
-     * 5. And then, we change the next connection of B to make it `B.next = newNode`. (Slice in the item X).
+     * 5. And then, we change the next connection of B to make it `B.next = newNode`. (Splice in the `item X`).
      * ```
      *
      * In the end, the list becomes:
-     * A (index 0) --> B (index 1) --> X (index 2) --> C (index 3) --> D (index 4)
+     * `A (index 0) --> B (index 1) --> X (index 2) --> C (index 3) --> D (index 4)`.
      */
     fun addItemAtIndex(index: Int, item: T?) {
         // > size and not >= size, because we can add an item to the back (end, last, tail).
