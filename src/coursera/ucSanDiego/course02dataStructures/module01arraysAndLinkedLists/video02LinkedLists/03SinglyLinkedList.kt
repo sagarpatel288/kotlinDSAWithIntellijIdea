@@ -84,6 +84,25 @@ class SinglyLinkedListWithoutTail<T>() {
         //endregion
     }
 
-
+    fun pushBack(value: T?) {
+        val newNode = Node(value, null)
+        // If the list is empty, the time complexity is O(1)
+        if (head == null) {
+            head = newNode
+            return
+        }
+        // If the list has only one item, the time complexity is O(1)
+        if (head?.next == null) {
+            head?.next = newNode
+            return
+        }
+        //Set up a pointer (just like a finger), start from the head, until we reach the current last item
+        var curr = head
+        while (curr?.next != null) {
+            curr = curr.next
+        }
+        // Now, the `curr` pointer (finger) points (refers) to the newly created and added last item (newNode)
+        curr?.next = newNode
+    }
 
 }
