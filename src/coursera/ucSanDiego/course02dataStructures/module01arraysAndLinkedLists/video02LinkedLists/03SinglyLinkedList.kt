@@ -53,10 +53,16 @@ class SinglyLinkedListWithoutTail<T>() {
     // A dedicated size variable so we can get the size in O(1) anytime instead of in O(n).
     private var size = 0
 
+    fun size() = size
+
+    // We use this condition in almost all the functions. Hence, a separate and dedicated function.
+    fun isEmpty() = head == null
+
+    // Add an item to the front (top, start, first) of the list. Time complexity is O(1).
     fun pushFront(key: T) {
         val newNode = Node(key, null)
         // The list is empty
-        if (head == null) {
+        if (isEmpty()) {
             head = newNode
         } else {
             // The list either has only one item or has multiple items
@@ -66,12 +72,14 @@ class SinglyLinkedListWithoutTail<T>() {
         size++
     }
 
+    // Read (get) the front (top, start, first) most item of the list. Time complexity is O(1)
     fun topFront(): T? {
         // If the list is empty, the "head" would be null, and the function returns null.
         // If the list has either one item or multiple items, it would return the first item's data.
         return head?.data
     }
 
+    // Remove and read the front (top, start, first) most item of the list. Time complexity is O(1)
     fun popFront(): T? {
         //region
         // If the list is empty, item = null and head (null) and head?.next = null. So, null = null. No exception.
@@ -84,25 +92,48 @@ class SinglyLinkedListWithoutTail<T>() {
         //endregion
     }
 
+    // Add an item to the back (last, tail, end) of the list. Worst-case time complexity is O(n).
     fun pushBack(value: T?) {
         val newNode = Node(value, null)
         // If the list is empty, the time complexity is O(1)
-        if (head == null) {
+        if (isEmpty()) {
             head = newNode
             return
         }
         // If the list has only one item, the time complexity is O(1)
+        // We can also use the "size" function
         if (head?.next == null) {
             head?.next = newNode
             return
         }
-        //Set up a pointer (just like a finger), start from the head, until we reach the current last item
+        // Set up a pointer (just like a finger), start from the head, until we reach the current last item
+        // To visualize, use two or more fingers.
         var curr = head
         while (curr?.next != null) {
             curr = curr.next
         }
+        size++
         // Now, the `curr` pointer (finger) points (refers) to the newly created and added last item (newNode)
         curr?.next = newNode
+    }
+
+    // Read (get) the back (last, tail, end) item of the list. Worst-case time complexity is O(n).
+    fun topBack(): T? {
+        // If the list is empty
+        if (isEmpty()) {
+            return null
+        }
+        // If the list has only one item
+        if (head?.next == null) {
+            return head?.data
+        }
+        // If the list has more than one item
+        // To visualize, use two or more fingers.
+        var curr = head
+        while (curr?.next != null) {
+            curr = curr.next
+        }
+        return curr?.data
     }
 
 }
