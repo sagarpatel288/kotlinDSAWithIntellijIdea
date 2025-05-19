@@ -217,4 +217,62 @@ class SinglyLinkedListWithoutTail<T>() {
         size++
     }
 
+    /**
+     * Remove the item from the given index.
+     *
+     * * Key lemma (Key facts):
+     * We need to travel up to `index - 1` to change the connection of the item at the previous index.
+     *
+     * For example, suppose we have a list as below:
+     *
+     * ```
+     * A (index 0) --> B (index 1) --> C (index 2) --> D (index 3)
+     * ```
+     *
+     * And we want to remove `item C`.
+     * It means that the previous item, that is `item B`, will get a new `next` connection.
+     * The `item B's next pointer` will point to the `item D` instead of the `item C`.
+     *
+     * ```
+     * 1. So, we travel up to the `index - 1` position.
+     * 2. previous.next = target.next
+     * ```
+     *
+     * Finally, the list becomes:
+     *
+     * ```
+     * A (index 0) --> B (index 1) --> D (index 2)
+     * ```
+     */
+    fun removeItemAtIndex(index: Int): T? {
+        // Index equal to or greater than the size gives the "Index out of bounds exception".
+        // We cannot have an item to remove at the size index or beyond.
+        // For example, if the list has two items, at `indices 0 and 1`, the `size is 2`,
+        // and trying to `remove the item at index 2` will give the "Index out of bounds exception."
+        if (index >= size) {
+            throw IndexOutOfBoundsException()
+        }
+        // Removing the first item is equal to the "popFront."
+        if (index == 0) {
+            return popFront()
+        }
+        // Removing the last item is equal to the "popBack."
+        if (index == size - 1) {
+            return popBack()
+        }
+        // Perform "curr = curr?.next until index - 1" to reach the item at the previous index (the previous item).
+        var curr = head
+        repeat (index - 1) {
+            curr = curr?.next
+        }
+        // We are at the previous item. The item before the target index.
+        // The next item is the target item that we want to remove.
+        val itemToRemove = curr?.next
+        // At present (Originally, initially), curr?.next = itemToRemove
+        // So, we need to replace this connection with the "itemToRemove.next" to bypass the "itemToRemove."
+        curr?.next = itemToRemove?.next
+        size--
+        return itemToRemove?.data
+    }
+
 }
