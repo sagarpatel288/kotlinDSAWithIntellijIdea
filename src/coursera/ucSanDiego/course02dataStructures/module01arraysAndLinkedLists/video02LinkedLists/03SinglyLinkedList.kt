@@ -135,6 +135,7 @@ class SinglyLinkedListWithoutTail<T>() {
         // To visualize, use two or more fingers.
         var curr = head
         while (curr?.next != null) {
+            // keep doing (continue, do) curr = curr.next as long as curr?.next != null
             curr = curr.next
         }
         return curr?.data
@@ -321,6 +322,38 @@ class SinglyLinkedListWithoutTail<T>() {
             curr = curr?.next
         }
         return curr?.data
+    }
+
+    /**
+     * * Key lemma (Key-point, Key fact):
+     * Set (replace) what? Only the data of the node, and not the entire node!
+     *
+     * So, the connection of the previous item and the target item remains the same.
+     * We get the target item from the given index and change the data. That's it!
+     *
+     * For example, suppose we have a list as:
+     *
+     * ```
+     * A (index 0) --> B (index 1) --> C (index 2) --> D (index 3)
+     * ```
+     *
+     * And we want to change the data (set, replace) at `index 2` to `X`.
+     * So, as we have seen in the [get] function,
+     * ```
+     * To get the item at the given index x, we perform ```curr = curr?.next``` index x times.
+     * ```
+     * When we get the target item, we perform `item?.data = givenData` to replace (set) the existing data with the
+     * given data.
+     */
+    fun setReplace(index: Int, data: T?) {
+        if (index >= size) {
+            throw IndexOutOfBoundsException()
+        }
+        var curr = head
+        repeat(index) {
+            curr = curr?.next
+        }
+        curr?.data = data
     }
 
 }
