@@ -147,8 +147,11 @@ class SinglyLinkedListWithoutTail<T>() {
         }
         // The list has only one item. Time complexity is O(1).
         if (head?.next == null) {
+            val item = head
+            // Remove the item.
+            head = null
             size--
-            return head?.data
+            return item?.data
         }
         // If the list has more than one item, the time complexity is O(n).
         // To visualize, use two or more fingers.
