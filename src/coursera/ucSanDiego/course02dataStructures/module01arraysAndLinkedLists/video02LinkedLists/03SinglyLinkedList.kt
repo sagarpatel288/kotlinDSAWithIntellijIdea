@@ -46,7 +46,12 @@ package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.
  * * It means that if the values of two objects are the same, then the objects are equal by default,
  * unless we override the default behavior.
  */
-class Node<T>(var data: T?, var next: Node<T>?)
+class Node<T>(var data: T?, var next: Node<T>?) {
+    override fun toString(): String {
+        // If we print "next," it will print all the data simultaneously! It will be like a recursive call!
+        return "data: $data"
+    }
+}
 
 class SinglyLinkedListWithoutTail<T>() {
     private var head: Node<T>? = null
@@ -420,6 +425,15 @@ class SinglyLinkedListWithoutTail<T>() {
     fun clear() {
         head = null
         size = 0
+    }
+
+    fun printList() {
+        var curr = head
+        while (curr != null) {
+            println("data: ${curr.data} next: ${curr.next}")
+            curr = curr.next
+        }
+        println("End of the list")
     }
 
 }
