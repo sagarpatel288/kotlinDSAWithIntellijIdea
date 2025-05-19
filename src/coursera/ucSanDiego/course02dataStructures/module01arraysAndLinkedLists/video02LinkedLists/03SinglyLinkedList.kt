@@ -212,7 +212,7 @@ class SinglyLinkedListWithoutTail<T>() {
         }
         // The next pointer of the current and newly added items will be the same for a while.
         val newNode = Node(item, curr?.next)
-        // Now, change the `next` connection of the previous item. Slide in the newly added item.
+        // Now, change the `next` connection of the previous item. Splice in the newly added item.
         curr?.next = newNode
         size++
     }
