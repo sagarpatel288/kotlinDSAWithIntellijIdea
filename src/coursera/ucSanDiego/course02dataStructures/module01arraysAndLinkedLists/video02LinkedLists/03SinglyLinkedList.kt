@@ -356,4 +356,65 @@ class SinglyLinkedListWithoutTail<T>() {
         curr?.data = data
     }
 
+    /**
+     * Check whether any node (item) contains the given [data].
+     *
+     * * Key lemma (Key-point, Key fact):
+     *
+     * 1. We need to iterate through the list. But note that we are not changing any connection (the next pointer).
+     * Now, the singly linked list can contain a node whose data might be null, but it cannot contain entirely "null"
+     * item without "data" and the "next" values.
+     *
+     * 2. We know that the last item's next pointer points to "null."
+     * It means that after the last item, there are no more items.
+     * In other words, during the iteration, when "item == null," we have covered all the items.
+     *
+     * 3. So, we `start` from the `head`, do ```curr = curr.next``` as long as ```curr != null```.
+     * Which is:
+     *
+     * ```
+     * var curr = head
+     * while (curr != null) {
+     *     curr = curr.next
+     * }
+     * ```
+     *
+     * 4. However, we iterate to find if at any point ```curr.data == givenData```.
+     * If we find ```curr.data == givenData```, we return true. Otherwise, we continue the iteration.
+     * So, it becomes:
+     *
+     * ```
+     * var curr = head
+     * while (curr != null) {
+     *     if (curr.data == givenData) return true
+     *     curr = curr.next
+     * }
+     * ```
+     *
+     */
+    fun contains(data: T?): Boolean {
+        if (isEmpty()) {
+            return false
+        }
+        var curr = head
+        // Look at the condition carefully. It is "curr != null."
+        // Because the variable "curr" represents an item, and not the "item?.data."
+        // The list can have an item whose data is "null,"
+        // but it cannot have a complete "null" item without the data, and the next pointer.
+        // When that happens, when there is a "null" item without the data and the next pointer,
+        // It means that we have covered all the items on the list. We have iterated through the complete list.
+        // Because only the last item's next pointer can point to a complete "null" item.
+        // How to remember? Well, we are not changing any connection (next pointer).
+        // We just want to iterate until we find "curr.data == givenData."
+        while (curr != null) {
+            if (curr.data == data) {
+                return true
+            }
+            // do "curr = curr.next" as long as "curr != null."
+            // Only the last item's next pointer can point to the "null."
+            curr = curr.next
+        }
+        return false
+    }
+
 }
