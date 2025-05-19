@@ -275,4 +275,52 @@ class SinglyLinkedListWithoutTail<T>() {
         return itemToRemove?.data
     }
 
+    /**
+     * Get the item available at the given index.
+     *
+     * For example, suppose the list is:
+     *
+     * ```
+     * A (index 0) --> B (index 1) --> C (index 2) --> D (index 3)
+     * ```
+     *
+     * And we want to get the item from `index 2`.
+     *
+     * For example, initially, the `curr = head = index 0`.
+     * Then, the `curr` becomes `curr?.next` once, and now `curr` is at index 1 (item B).
+     * Again, the `curr` becomes `curr?.next` (second time), and now the `curr` is at index 2 (item C).
+     * To get the item from `index 2`, we moved the `curr` item 2 times.
+     * Hence, we can say that:
+     *
+     * * Key lemma (Key-point, Key fact):
+     *
+     * ```
+     * To get the item from `index x`, we perform ```curr = curr?.next``` x times.
+     * ```
+     *
+     * So,
+     *
+     * ```
+     * 1. We start from the head, where index == 0.
+     * 2. And we repeat the operation ```curr = curr?.next``` index times.
+     * ```
+     *
+     */
+    fun get(index: Int): T? {
+        if (index >= size) {
+            throw IndexOutOfBoundsException()
+        }
+        if (index == 0) {
+            return topFront()
+        }
+        if (index == size - 1) {
+            return topBack()
+        }
+        var curr = head
+        repeat(index) {
+            curr = curr?.next
+        }
+        return curr?.data
+    }
+
 }
