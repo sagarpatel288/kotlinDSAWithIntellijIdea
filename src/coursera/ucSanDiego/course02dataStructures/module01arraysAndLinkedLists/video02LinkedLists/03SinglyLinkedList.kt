@@ -53,6 +53,12 @@ class Node<T>(var data: T?, var next: Node<T>?) {
     }
 }
 
+/**
+ * # Resources and references:
+ *
+ * [Singly Linked List](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/fa88641df26851c504c5a0b640fe9b5f853cef68/res/coursera/ucSanDiego/course02dataStructures/module01arraysAndLinkedLists/video02linkedLists)
+ *
+ */
 class SinglyLinkedListWithoutTail<T>() {
     private var head: Node<T>? = null
     // A dedicated size variable so we can get the size in O(1) anytime instead of in O(n).
