@@ -1,5 +1,7 @@
 package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists
 
+import kotlin.math.sin
+
 /**
  * A node that we use in a linked list.
  *
@@ -436,10 +438,49 @@ class SinglyLinkedListWithoutTail<T>() {
     fun printList() {
         var curr = head
         while (curr != null) {
-            println("data: ${curr.data} next: ${curr.next}")
+            println("size: $size data: ${curr.data} next: ${curr.next} -->")
             curr = curr.next
         }
-        println("End of the list")
+        println("---End of the list---")
     }
+
+}
+
+fun main() {
+    val singlyLinkedList = SinglyLinkedListWithoutTail<Int>()
+    singlyLinkedList.printList()
+    singlyLinkedList.pushFront(10)
+    singlyLinkedList.pushFront(20)
+    singlyLinkedList.pushFront(30)
+    singlyLinkedList.pushFront(40)
+    singlyLinkedList.printList()
+    println("topFront: " + singlyLinkedList.topFront())
+    singlyLinkedList.printList()
+    println("popFront: " + singlyLinkedList.popFront())
+    singlyLinkedList.printList()
+    singlyLinkedList.pushBack(50)
+    singlyLinkedList.pushBack(60)
+    singlyLinkedList.pushBack(70)
+    singlyLinkedList.printList()
+    println("topBack: " + singlyLinkedList.topBack())
+    singlyLinkedList.printList()
+    println("popBack: " + singlyLinkedList.popBack())
+    singlyLinkedList.printList()
+    println("popBack: " + singlyLinkedList.popBack())
+    singlyLinkedList.printList()
+    singlyLinkedList.addItemAtIndex(3, 100)
+    singlyLinkedList.printList()
+    println("getItemAtIndex 3: " + singlyLinkedList.get(3))
+    singlyLinkedList.printList()
+    singlyLinkedList.removeItemAtIndex(3)
+    singlyLinkedList.printList()
+    singlyLinkedList.setReplace(3, 90)
+    println("getItemAtIndex 3: " + singlyLinkedList.get(3))
+    singlyLinkedList.printList()
+    println("contains 90? " + singlyLinkedList.contains(90))
+    println("contains 100? " + singlyLinkedList.contains(100))
+    println("size: " + singlyLinkedList.size())
+    singlyLinkedList.clear()
+    println("size: " + singlyLinkedList.size() + " :isEmpty?: " + singlyLinkedList.isEmpty())
 
 }
