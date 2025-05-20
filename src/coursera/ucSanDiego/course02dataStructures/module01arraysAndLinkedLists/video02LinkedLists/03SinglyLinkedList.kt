@@ -1,7 +1,5 @@
 package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists
 
-import kotlin.math.sin
-
 /**
  * A node that we use in a linked list.
  *
@@ -320,8 +318,8 @@ class SinglyLinkedListWithoutTail<T>() {
      * ```
      *
      */
-    fun get(index: Int): T? {
-        if (index >= size) {
+    fun getItemAtIndex(index: Int): T? {
+        if (index < 0 || index >= size) {
             throw IndexOutOfBoundsException()
         }
         if (index == 0) {
@@ -330,11 +328,19 @@ class SinglyLinkedListWithoutTail<T>() {
         if (index == size - 1) {
             return topBack()
         }
+        val nodeAtIndex = getNodeAtIndex(index)
+        return nodeAtIndex?.data
+    }
+
+    fun getNodeAtIndex(index: Int): Node<T>? {
+        if (index < 0 || index >= size) {
+            throw IndexOutOfBoundsException()
+        }
         var curr = head
         repeat(index) {
             curr = curr?.next
         }
-        return curr?.data
+        return curr
     }
 
     /**
@@ -351,7 +357,7 @@ class SinglyLinkedListWithoutTail<T>() {
      * ```
      *
      * And we want to change the data (set, replace) at `index 2` to `X`.
-     * So, as we have seen in the [get] function,
+     * So, as we have seen in the [getItemAtIndex] function,
      * ```
      * To get the item at the given index x, we perform ```curr = curr?.next``` index x times.
      * ```
@@ -359,14 +365,11 @@ class SinglyLinkedListWithoutTail<T>() {
      * given data.
      */
     fun setReplace(index: Int, data: T?) {
-        if (index >= size) {
+        if (index < 0 || index >= size) {
             throw IndexOutOfBoundsException()
         }
-        var curr = head
-        repeat(index) {
-            curr = curr?.next
-        }
-        curr?.data = data
+        val nodeAtIndex = getNodeAtIndex(index)
+        nodeAtIndex?.data = data
     }
 
     /**
@@ -470,12 +473,12 @@ fun main() {
     singlyLinkedList.printList()
     singlyLinkedList.addItemAtIndex(3, 100)
     singlyLinkedList.printList()
-    println("getItemAtIndex 3: " + singlyLinkedList.get(3))
+    println("getItemAtIndex 3: " + singlyLinkedList.getItemAtIndex(3))
     singlyLinkedList.printList()
     singlyLinkedList.removeItemAtIndex(3)
     singlyLinkedList.printList()
     singlyLinkedList.setReplace(3, 90)
-    println("getItemAtIndex 3: " + singlyLinkedList.get(3))
+    println("getItemAtIndex 3: " + singlyLinkedList.getItemAtIndex(3))
     singlyLinkedList.printList()
     println("contains 90? " + singlyLinkedList.contains(90))
     println("contains 100? " + singlyLinkedList.contains(100))
