@@ -433,6 +433,98 @@ class SinglyLinkedListWithoutTail<T>() {
         return false
     }
 
+    /**
+     * In-place reverse function is a standard best practice.
+     * It changes the original object
+     * (In our case, currently it is [coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists.SinglyLinkedListWithoutTail]).
+     *
+     * For example, suppose the original list is:
+     * ```
+     * 3 --> 5 --> 7 --> 9
+     * ```
+     * After the [reverse] function, it becomes:
+     * ```
+     * 3 <-- 5 <-- 7 <-- 9
+     * ```
+     * Which is the same as:
+     * ```
+     * 9 --> 7 --> 5 --> 3
+     * ```
+     *
+     * Now, notice how we change the `next pointer`.
+     * For example, ```3 --> 5``` becomes ```3 <-- 5```.
+     *
+     * Note that in the original list, `3` was the `head`.
+     * And in the reversed version, it becomes the last element.
+     * Hence, its next pointer will be null.
+     *
+     * So, we want to achieve:
+     *
+     * ```
+     * Changing the next pointer of the node "3" from 3 --> 5 to Null <-- 3.
+     * The next pointer of the first item of the original list should point to the "Null".
+     * ```
+     *
+     * So, if we take `3` as the `current` (target) node. Then, it becomes:
+     *
+     * ```
+     * var prev: Node<T>? = null (Destination).
+     * val next = curr.next (so, it is 3.next = 5. Hence, the next is 5.)
+     * curr.next = prev (Instead of pointing towards 5, the node 3 points to null now. So, it is null <-- 3)
+     * prev = curr (Now, the variable "prev" is shifted from the initial "null" value to node "3". "3" is "prev" now.)
+     * curr = next ("5" is the new "curr" now.)
+     * ```
+     *
+     * So, we have successfully changed the next pointer of the first node, 3.
+     * Now, to change the next pointer of the next node, which is 5, let us check if we can repeat the same steps.
+     *
+     * ```
+     * -------------------------------------------
+     * Original: 3 --> 5 --> 7 --> 9
+     * Reverse: Null <-- 3 <-- 5 <-- 7 <-- 9
+     * Current target: 5 (which is the "curr" variable as per the last execution)
+     * Destination: 3 (which is the "prev" variable as per the last execution)
+     * -------------------------------------------
+     * Repeating the steps:
+     * val next = curr.next (5.next = 7. The node "7" is the new "next".)
+     * curr.next = prev (Changed from 5 --> 7 to 3 <-- 5).
+     * prev = curr ("5" is the new "prev" now.)
+     * curr = next ("7" is the new "curr" now.)
+     * ```
+     *
+     * It seems to be working. It means we can use recursion or iteration.
+     * Let us code:
+     *
+     * ```
+     * // Initially, the "prev" variable is null. It is "var," because we change it continuously.
+     * // It is outside of the loop, because we will need the last stored value inside the loop.
+     * var prev: Node<T>? = null
+     * // The first target is the head. We start from the head.
+     * // It is also "var," because we change it continuously. Our target changes continuously, one after another.
+     * // It is also outside of the loop, because we will need the last stored value inside the loop.
+     * var curr = head
+     * // We want to repeat this process for each non-null node.
+     * while (curr != null) {
+     *     val next = curr.next
+     *     curr.next = prev
+     *     prev = curr
+     *     curr = next
+     * }
+     * head = prev // Because "prev" is the new, last, latest "curr," and the last target is the new "head."
+     * ```
+     */
+    fun reverse() {
+        var prev: Node<T>? = null
+        var curr = head
+        while (curr != null) {
+            val next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        }
+        head = prev
+    }
+
     fun clear() {
         head = null
         size = 0
