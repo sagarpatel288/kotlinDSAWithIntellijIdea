@@ -525,6 +525,19 @@ class SinglyLinkedListWithoutTail<T>() {
         head = prev
     }
 
+    /**
+     * A simple, standard "toList" function which will provide (convert) the list of [Node.data]
+     */
+    fun toList(): List<T?> {
+        val mutableList = mutableListOf<T?>()
+        var curr = head
+        while (curr != null) {
+            mutableList.add(curr.data)
+            curr = curr.next
+        }
+        return mutableList
+    }
+
     fun clear() {
         head = null
         size = 0
