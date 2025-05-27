@@ -526,6 +526,67 @@ class SinglyLinkedListWithoutTail<T>() {
     }
 
     /**
+     * The key-lemma here is:
+     * ```
+     * 1. Two pointers: Slow and Fast, starting the race from the head.
+     * 2. The slow pointer moves 1 step forward, while the fast pointer moves 2 steps forward.
+     * 3. We do this while the condition is, at any point, fast != null && fast.next != null.
+     * 4. If at any point, slow == fast, there is a cycle. We return true.
+     * 5. Otherwise, we return false.
+     * ```
+     * So, the code translation is:
+     * ```
+     * Two pointers starting from the head.
+     * var slow = head
+     * var fast = head
+     * ```
+     * ```
+     * The slow pointer moves 1 step forward, while the fast pointer moves 2 steps forward.
+     * slow = slow?.next // moves 1 step forward
+     * fast = fast.next?.next // moves 2 steps forward
+     * ```
+     * ```
+     * We do this while the condition is: fast != null && fast.next.next != null
+     * while (fast != null && fast.next != null) {
+     *     slow = slow?.next
+     *     fast = fast.next?.next
+     * }
+     * ```
+     * ```
+     * If at any point, slow == fast, there is a cycle. So, we return true.
+     * Otherwise, we return false.
+     * while (fast != null && fast.next != null) {
+     *     slow = slow?.next
+     *     fast = fast.next?.next
+     *     if (slow == fast) return true
+     * }
+     * return false
+     * ```
+     * The complete code:
+     * ```
+     * var slow = head
+     * var fast = head
+     * while (fast != null && fast.next != null) {
+     *     slow = slow?.next
+     *     fast = fast.next?.next
+     *     if (slow == fast) return true
+     * }
+     * return false
+     * ```
+     */
+    fun hasCycle(): Boolean {
+        var slow = head
+        var fast = head
+        while (fast != null && fast.next != null) {
+            slow = slow?.next
+            fast = fast.next?.next
+            if (slow == fast) return true
+        }
+        return false
+    }
+
+
+    /**
      * A simple, standard "toList" function which will provide (convert) the list of [Node.data]
      */
     fun toList(): List<T?> {
