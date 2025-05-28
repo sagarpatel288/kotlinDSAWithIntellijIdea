@@ -526,7 +526,7 @@ class SinglyLinkedListWithoutTail<T>() {
     }
 
     /**
-     * The key-lemma here is:
+     * The key-lemma here is: Robert Floyd's Tortoise and Hare Algorithm.
      * ```
      * 1. Two pointers: Slow and Fast, starting the race from the head.
      * 2. The slow pointer moves 1 step forward, while the fast pointer moves 2 steps forward.
@@ -585,6 +585,195 @@ class SinglyLinkedListWithoutTail<T>() {
         return false
     }
 
+    /**
+     * Find the entry point (start) of the cycle in a Linked List.
+     *
+     * We have already seen the [hasCycle] function, which detects whether there is a cycle.
+     * This function, [findStartCycle] is an extended version (requirements) of the problem.
+     * It answers the question: If there is a cycle, find its entry point (start).
+     *
+     * Let us try to understand the intuition.
+     *
+     * Suppose we have a linked list as below:
+     *
+     * ```
+     *   A --> B --> C --> D --> E
+     *               ^           |
+     *               |           |
+     *               |___________|
+     *
+     * - The cycle starts at node C.
+     * - E points back to C, forming a loop.
+     * ```
+     *
+     * Now, let us find where the tortoise and hare meet.
+     * Both the slow pointer (tortoise) and the fast pointer (hare) start from the head.
+     * The slow pointer (tortoise) takes 1 step forward, while the fast pointer (hare) takes 2 steps forward.
+     * So, the journey goes as below:
+     *
+     * ```
+     * 1.
+     * Slow pointer (tortoise) from A to B
+     * Fast pointer (hare) from A to C
+     *
+     * 2.
+     * Slow pointer (tortoise) from B to C
+     * Fast pointer (hare) from C to E
+     *
+     * 3.
+     * Slow pointer (tortoise) from C to D
+     * Fast pointer (hare) from E to D (Notice that the fast pointer has completed "1" cycle to meet the slow pointer).
+     *
+     * 4.
+     * They meet at the node (junction) D.
+     *
+     * 5. Observation:
+     * The fast pointer (hare) must complete at least "1" full cycle to meet the slow pointer (tortoise).
+     * However, it is possible that the fast pointer (hare) has to complete multiple cycles to meet the tortoise.
+     * So, let us denote this "number of full cycles" as "nC" where "C" is the cycle length and "n" is the number of
+     * full cycles. So, "n" can be 1 or more.
+     * ```
+     *
+     * Now, we can divide (denote) the entire journey and the path as below:
+     *
+     * ```
+     * 1. The length from the head to the cycle entry (we don't know exactly yet). Let us call it L.
+     * 2. The length from the cycle entry point to the meeting point, the slow pointer (tortoise) has travelled = X.
+     * 3. The length of the cycle is C.
+     * 4. And as we have observed, "nC" is the number of cycles the fast pointer (hare) has completed to meet the tortoise.
+     * ```
+     * So, it becomes:
+     * ```
+     *   |---- L ----|--X--|
+     *   A --> B --> C --> D --> E
+     *               ^           |
+     *               |           |
+     *               |___________|
+     *               |---- C ----|
+     *
+     * ```
+     * Let us convert the journey into a mathematical representation.
+     *
+     * ```
+     * 1. The slow pointer (tortoise) moves 1 step forward.
+     * 2. The fast pointer (hare) moves 2 steps forward.
+     * 3. The slow pointer (tortoise) has travelled "L + X" distance to meet the fast pointer (hare).
+     * 4. And the fast pointer (hare) has travelled "L + X + nC" to meet the slow pointer (tortoise).
+     * 5. Now, the fast pointer (hare) moves at twice the speed of the slow pointer (tortoise).
+     * 6. So, to make the slow pointer (tortoise) equal to the fast pointer (hare), the slow pointer (tortoise) has to
+     * travel twice as much as it has already travelled.
+     * 7. So, it becomes: 2(L + X) = L + X + nC.
+     * 8. It means that, if the slow pointer (tortoise) travels twice as much as it has already travelled, it can meet
+     * the fast pointer (hare), right?
+     * 9. Now, let us simplify the math.
+     * ----------------------------------------
+     * 2L + 2X = L + X + nC
+     * 2L + 2X - L - X = nC
+     * L + X = nC // We get "L + X" when we multiply "C" by some "n". It means that "L + X" is a multiple of "C."
+     * // We can say that the result of "L + X" or "(L + X) - 0" is a multiplication of "C".
+     * (L + X) - 0 = nC ------------------------------(1)
+     * ```
+     * Now, according to modular arithmetic:
+     * ```
+     * Let us assume that C is 5.
+     * Then, (any multiple of 5) mod C = 0.
+     * For example,
+     * (5 * 2) mod 5 = 0
+     * (5 * 3) mod 5 = 0
+     * (5 * 4) mod 5 = 0, and so on...
+     * ----------------------------------------
+     * Also, if the result of "a - b" is a multiple of C, then:
+     * a ≅ b (mod C) // Which means that a mod C = b mod C
+     * For example, if a is 12, and b is 2, then a - b is 10, which is a multiple of 5. Then, we can say:
+     * 12 ≅ 2 mod 5 // Because 12 mod 5 = 2, and 2 mod 5 = 2.
+     * So, if the result of "a - b" is a multiplication of C, then a ≅ b (mod C) ------------------------------(2)
+     * ```
+     * Now, if we use the conclusion (2) for the result (1), then we get:
+     * ```
+     * (L + X) - 0 = nC ------------------------------(1)
+     * If the result of "a - b" is a multiplication of C, then a ≅ b (mod C) ------------------------------(2)
+     * If we consider "(L + X)" as "a", and "0" as "b", then it is:
+     * a - b = nC
+     * a ≅ b (mod C)
+     * // Restoring the actual values
+     * L + X ≅ 0 (mod C)
+     * L ≅ - X (mod C) ------------------------------(3)
+     * ```
+     * Now, what does equation (3) convey? Let us understand it.
+     * ```
+     *   |---- L ----|--X--|
+     *   A --> B --> C --> D --> E
+     *               ^           |
+     *               |           |
+     *               |___________|
+     *               |---- C ----|
+     *
+     * 1. Recall that "L" is the length between the start (head) and the cycle entry point.
+     * 2. "X" is the distance the slow pointer (tortoise) has travelled after the cycle entry point to meet the hare.
+     * 3. "C" is the total length of the cycle.
+     * 4. Now, if we notice, it is obvious that if we travel "-X" from the meeting point, we reach the cycle entry point.
+     * 5. But, in a Singly Linked List, we cannot travel backward.
+     * 6. However, travelling "-X" and "C - X" is the same.
+     * 7. Because if the slow pointer (tortoise) has already travelled "X," and "C" is the length of the cycle,
+     * it has to travel the remaining "C - X" to complete the cycle. So that the total will be "X + C - X = C."
+     * 8. Then, what about "mod C?" Well, "mod C" ensures that we do not go out of the cycle.
+     * It is the same concept we have learned before,
+     * such as the last digit of the nth Fibonacci Number and the Josephus problem.
+     * Reference: src/coursera/ucSanDiego/course01algorithmicToolbox/module02AlgorithmicWarmUp/020hugeNthFibonacciModuloDynamic.kt
+     * Reference: src/coursera/ucSanDiego/course01algorithmicToolbox/module02AlgorithmicWarmUp/090Josephus.kt
+     * 9. So, what is the conclusion? What does the equation "L ≅ -X (mod C)" convey?
+     * 10. It says that when our LHS (L) and RHS (-X mod C = C-X) become equal (where they end up, where they meet),
+     * that will be the cycle entry point.
+     * 11. We don't know the actual values of L, X, or C.
+     * But we know that "L" starts from "Head," and "C-X" starts right after "X."
+     * So, on one side (LHS), we start from the "head," and on the other side (RHS), we start from "X."
+     * 12. From the head, moving "L" steps forward will land us on the cycle entry point,
+     * and from "X" (the meeting point), moving "C-X" steps forward will land us on the cycle entry point.
+     * 13. We take one step at a time, and when they meet, it is the cycle entry point.
+     * When we move one pointer from the head and one from the meeting point, each taking one step at a time,
+     * their meeting point will be the cycle entry, because the number of steps needed from each starting position
+     * to the entry point is the same modulo the cycle length.
+     * ```
+     * Code Translation:
+     * ```
+     * Moving one step forward from the head and the meeting point until they meet
+     * slow = head
+     * while (slow != fast) {
+     *     slow = slow?.next
+     *     fast = fast?.next //fast is already at the meeting point when we detected the cycle.
+     *     if (slow == fast) {
+     *         return slow //or fast. This is the cycle entry point.
+     *     }
+     * }
+     * ```
+     * Interesting observation:
+     * ```
+     * 1. The number of steps from the head to the cycle entry point,
+     * and the number of steps from the meeting point to the cycle entry point is the same modulo the cycle length.
+     * 2. In other words, the difference between their starting point (head to meeting point) is the cycle length.
+     * ```
+     *
+     */
+    fun findStartCycle(): Node<T>? {
+        if (!hasCycle()) return null
+        var slow = head
+        var fast = head
+        while (fast != null && fast.next != null) {
+            slow = slow?.next
+            fast = fast.next?.next
+            if (slow == fast) {
+                slow = head
+                while (slow != fast) {
+                    slow = slow?.next
+                    fast = fast?.next
+                    if (slow == fast) {
+                        return slow
+                    }
+                }
+            }
+        }
+        return null
+    }
 
     /**
      * A simple, standard "toList" function which will provide (convert) the list of [Node.data]
