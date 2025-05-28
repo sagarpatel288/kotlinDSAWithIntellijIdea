@@ -586,15 +586,40 @@ class SinglyLinkedListWithoutTail<T>() {
     }
 
     /**
-     * Find the entry point (start) of the cycle in a Linked List.
+     * This is a helper function to create and then test a cycle in the
+     * [coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists.SinglyLinkedListWithoutTail].
+     *
+     * A cycle in the Singly Linked List is not a good idea as it can lead to an infinite loop.
+     * Hence, this is absolutely for testing purposes only.
+     *
+     * For example, we can [createCycle] and then [findStartCycle].
+     */
+    fun createCycle(targetIndex: Int) {
+        if (targetIndex < 0 || targetIndex >= size) {
+            throw IndexOutOfBoundsException("Index is: $targetIndex, and the size is: $size")
+        }
+        if (isEmpty()) return
+        var last = head
+        while (last?.next != null) {
+            last = last.next
+        }
+        var target = head
+        repeat(targetIndex) {
+            target = target?.next
+        }
+        last?.next = target
+    }
+
+    /**
+     * Find the entry point (start) of the cycle in a Singly Linked List.
      *
      * We have already seen the [hasCycle] function, which detects whether there is a cycle.
      * This function, [findStartCycle] is an extended version (requirements) of the problem.
-     * It answers the question: If there is a cycle, find its entry point (start).
+     * It answers(fulfills) the question(requirement): If there is a cycle, find its entry point (start).
      *
      * Let us try to understand the intuition.
      *
-     * Suppose we have a linked list as below:
+     * Suppose we have a singly linked list as below:
      *
      * ```
      *   A --> B --> C --> D --> E
