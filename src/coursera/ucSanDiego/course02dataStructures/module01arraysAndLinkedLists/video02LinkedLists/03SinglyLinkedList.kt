@@ -819,6 +819,14 @@ class SinglyLinkedListWithoutTail<T>() {
     }
 
     fun printList() {
+        if (isEmpty()) {
+            println("The singly linked list is empty!")
+            return
+        }
+        if (hasCycle()) {
+            println("The singly linked list has a cycle, and can lead to an infinite loop.")
+            return
+        }
         var curr = head
         while (curr != null) {
             println("size: $size data: ${curr.data} next: ${curr.next} -->")
