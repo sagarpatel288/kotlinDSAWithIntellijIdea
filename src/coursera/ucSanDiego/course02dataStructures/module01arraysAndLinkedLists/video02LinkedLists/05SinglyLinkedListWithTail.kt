@@ -1,6 +1,11 @@
 package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists
 
 
+/**
+ * # Resources and references:
+ *
+ * [Singly Linked List](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/fa88641df26851c504c5a0b640fe9b5f853cef68/res/coursera/ucSanDiego/course02dataStructures/module01arraysAndLinkedLists/video02linkedLists)
+ */
 class LearnSinglyLinkedListWithTail() {
 
     class Node<T>(var data: T?, var next: Node<T>?) {
@@ -9,6 +14,19 @@ class LearnSinglyLinkedListWithTail() {
         }
     }
 
+    /**
+     *
+     *
+     * # ----------------------- How to remember? -----------------------
+     *
+     * Use your 5 fingers of any hand or leg to visualize any operation of the Linked List.
+     * For example, I use the fingers of my right hand to visualize any operation of the Linked List.
+     * Such as:
+     * [pushFront], [topFront], [popFront],
+     * [pushBack], [topBack], [popBack],
+     * [addInsertAtIndex], [getItemDataAtIndex], [setReplaceItemDataAtIndex], [removeItemAtIndex], etc.
+     *
+     */
     class SinglyLinkedListWithTail<T>() {
         private var head: Node<T>? = null
         private var tail: Node<T>? = null
