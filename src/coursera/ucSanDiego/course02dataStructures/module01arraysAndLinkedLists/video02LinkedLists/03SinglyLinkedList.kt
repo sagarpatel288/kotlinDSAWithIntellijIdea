@@ -422,13 +422,21 @@ class SinglyLinkedListWithoutTail<T>() {
         // Because only the last item's next pointer can point to a complete "null" item.
         // How to remember? Well, we are not changing any connection (next pointer).
         // We just want to iterate until we find "curr.data == givenData."
+        val set = mutableSetOf<Node<T>?>()
+        var index = 0
         while (curr != null) {
+            if (set.contains(curr)) {
+                println("The cycle starts at index $index, with data ${curr.data}")
+                return false
+            }
+            set.add(curr)
             if (curr.data == data) {
                 return true
             }
             // do "curr = curr.next" as long as "curr != null."
             // Only the last item's next pointer can point to the "null."
             curr = curr.next
+            index++
         }
         return false
     }
@@ -800,6 +808,50 @@ class SinglyLinkedListWithoutTail<T>() {
         return null
     }
 
+    fun breakCycle(): Boolean {
+        if (isEmpty()) {
+            println("The list is empty!")
+            return false
+        }
+        if (!hasCycle()) {
+            println("The list does not have a cycle!")
+            return false
+        }
+        val startOfCycle = findStartCycle()
+        var curr = head
+        var index = 0
+        while (curr?.next != startOfCycle) {
+            curr = curr?.next
+            index++
+        }
+        curr?.next = null
+        println("The cycle broken at index $index, with data: ${curr?.data}")
+        return true
+    }
+
+    fun getIndexOf(data: T?): Int? {
+        if (isEmpty()) {
+            println("The list is empty!")
+            return null
+        }
+        val set = mutableSetOf<Node<T>?>()
+        var curr = head
+        var index = 0
+        while (curr?.data != data) {
+            if (set.contains(curr)) {
+                println("The list has cycle at index: $index, with data: ${curr?.data}")
+                return null
+            }
+            set.add(curr)
+            if (curr?.data == data) {
+                return index
+            }
+            curr = curr?.next
+            index++
+        }
+        return null
+    }
+
     /**
      * A simple, standard "toList" function which will provide (convert) the list of [Node.data]
      */
@@ -823,16 +875,22 @@ class SinglyLinkedListWithoutTail<T>() {
             println("The singly linked list is empty!")
             return
         }
-        if (hasCycle()) {
-            println("The singly linked list has a cycle, and can lead to an infinite loop.")
-            return
-        }
         var curr = head
+        var index = 0
+        val set = mutableSetOf<Node<T>?>()
+        val stringBuilder = StringBuilder()
         while (curr != null) {
-            println("size: $size data: ${curr.data} next: ${curr.next} -->")
+            if (set.contains(curr)) {
+                println("The list has cycle at index $index, with data ${curr.data}")
+                break
+            }
+            set.add(curr)
+            stringBuilder.append("${curr.data} --> ")
             curr = curr.next
+            index++
         }
-        println("---End of the list---")
+        stringBuilder.append("---- End Of The List ----")
+        println(stringBuilder)
     }
 
 }
