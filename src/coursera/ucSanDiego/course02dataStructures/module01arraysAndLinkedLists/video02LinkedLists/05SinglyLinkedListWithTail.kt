@@ -88,7 +88,7 @@ class LearnSinglyLinkedListWithTail() {
 
         fun popBack(): T? {
             if (isEmpty()) return null
-            val popBack = tail //or head, it should be the same.
+            val popBack = tail
             if (head?.next == null) {
                 head = null
                 tail = null
@@ -101,6 +101,7 @@ class LearnSinglyLinkedListWithTail() {
             }
             curr?.next = null
             tail = curr
+            size--
             return popBack?.data
         }
 
@@ -188,15 +189,18 @@ class LearnSinglyLinkedListWithTail() {
 
         fun reverse() {
             if (isEmpty()) {
-                throw IllegalArgumentException("The list is empty!")
-            }
-            if (hasCycle()) {
-                throw IllegalArgumentException("The list has cycle!")
+                println("The list is empty!")
             }
             var prev: Node<T>? = null
             var curr = head
             tail = head
+            val set = mutableSetOf<Node<T>?>()
             while (curr != null) {
+                if (set.contains(curr)) {
+                    println("Cycle detected from the node data: ${curr.data}")
+                    break
+                }
+                set.add(curr)
                 val next = curr.next
                 curr.next = prev
                 prev = curr
@@ -299,7 +303,6 @@ class LearnSinglyLinkedListWithTail() {
             }
             val startOfCycle = findStartCycle()
             var curr = startOfCycle
-            // TODO: This logic seems to be wrong! It prematurely breaks the list and loses the items.
             while (curr?.next != startOfCycle) {
                 curr = curr?.next
             }
