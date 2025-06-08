@@ -142,7 +142,7 @@ class LearnSinglyLinkedListWithTail() {
             if (index == 0) {
                 return pushFront(data)
             }
-            if (index == size - 1) {
+            if (index == size) {
                 return pushBack(data)
             }
             var curr = head
@@ -187,14 +187,16 @@ class LearnSinglyLinkedListWithTail() {
             return false
         }
 
-        fun reverse() {
+        fun reverse(breakCycle: Boolean = true) {
             if (isEmpty()) {
                 println("The list is empty!")
             }
             var prev: Node<T>? = null
+            // TODO: Need to fix!
             var curr = head
             tail = head
             val set = mutableSetOf<Node<T>?>()
+            val startOfCycle = findStartCycle()
             while (curr != null) {
                 if (set.contains(curr)) {
                     println("Cycle detected from the node data: ${curr.data}")
@@ -207,6 +209,10 @@ class LearnSinglyLinkedListWithTail() {
                 curr = next
             }
             head = prev
+            println("breakCycle: $breakCycle tailData: ${tail?.data} startOfCycleData: ${startOfCycle?.data}")
+            if (!breakCycle && startOfCycle != null) {
+                tail?.next = startOfCycle
+            }
         }
 
         fun toList(): List<T?> {
@@ -243,7 +249,17 @@ class LearnSinglyLinkedListWithTail() {
                 fast = fast.next?.next
                 if (slow == fast) {
                     slow = head
-                    while (slow != fast) {
+                    //region For a perfect circular linked list, the last item (tail) points to the first item (head)
+                    // In that case, the meeting point is the cycle entry point, and also the head.
+                    // If head is the meeting point, we have already found the cycle start point, which is the head.
+                    // For example, 90 -> 50 -> 60 -> 70 -> points back to the head, 90.
+                    // If the meeting point is 90, and when we move the slow pointer to the head, it is also 90.
+                    // So, 90, the head itself is a cycle start point.
+                    if (slow == fast) {
+                        return slow
+                    }
+                    //endregion
+                    while (true) {
                         slow = slow?.next
                         fast = fast?.next
                         if (slow == fast) {
@@ -360,7 +376,7 @@ fun main() {
     println("printList after getIndexOf 50: ${sll.printList()}")
     println("getIndexOf 100: ${sll.getFirstMatchedIndexOf(100)}")
     println("printList after getIndexOf 100: ${sll.printList()}")
-    println("reverse: ${sll.reverse()}")
+    println("reverse: breakCycle = true: ${sll.reverse()}")
     println("printList after reverse: ${sll.printList()}")
     println("topBack: " + sll.topBack())
     println("printList after topBack: ${sll.printList()}")
@@ -382,7 +398,7 @@ fun main() {
     println("createCycleAtIndex: 3: ${sll.createCycle(3)}")
     println("printList after createCycleAtIndex 3: ${sll.printList()}")
     println("hasCycle: ${sll.hasCycle()}")
-    println("reverse: ${sll.reverse()}")
+    println("reverse: breakCycle = false: ${sll.reverse(false)}")
     println("printList after reverse: ${sll.printList()}")
     println("findStartCycle: ${sll.findStartCycle()}")
     println("breakCycle: ${sll.breakCycle()}")
