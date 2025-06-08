@@ -1,5 +1,6 @@
 package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists
 
+import coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists.LearnSinglyLinkedListWithTail.*
 
 /**
  * # Resources and references:
@@ -38,6 +39,9 @@ class LearnSinglyLinkedListWithTail() {
 
         fun pushFront(data: T?) {
             head = Node(data, head)
+            if (head?.next == null) {
+                tail = head
+            }
             size++
         }
 
@@ -329,5 +333,58 @@ class LearnSinglyLinkedListWithTail() {
 }
 
 fun main() {
-
+    val sll = SinglyLinkedListWithTail<Int>()
+    println("printList: " + sll.printList())
+    println("pushFront 10: ${sll.pushFront(10)}")
+    println("printList after pushFront 10: ${sll.printList()}")
+    println("pushFront 20: ${sll.pushFront(20)}")
+    println("printList after pushFront 20: ${sll.printList()}")
+    println("pushFront 30: ${sll.pushFront(30)}")
+    println("printList after pushFront 30: ${sll.printList()}")
+    println("pushFront 40: ${sll.pushFront(40)}")
+    println("printList after pushFront 40: ${sll.printList()}")
+    println("topFront: " + sll.topFront())
+    println("printList after topFront: ${sll.printList()}")
+    println("popFront: " + sll.popFront())
+    println("printList after popFront: ${sll.printList()}")
+    println("pushBack 50: ${sll.pushBack(50)}")
+    println("printList after pushBack 50: ${sll.printList()}")
+    println("pushBack 60: ${sll.pushBack(60)}")
+    println("printList after pushBack 60: ${sll.printList()}")
+    println("pushBack 70: ${sll.pushBack(70)}")
+    println("printList after pushBack 70: ${sll.printList()}")
+    println("getIndexOf 50: ${sll.getFirstMatchedIndexOf(50)}")
+    println("printList after getIndexOf 50: ${sll.printList()}")
+    println("getIndexOf 100: ${sll.getFirstMatchedIndexOf(100)}")
+    println("printList after getIndexOf 100: ${sll.printList()}")
+    println("reverse: ${sll.reverse()}")
+    println("printList after reverse: ${sll.printList()}")
+    println("topBack: " + sll.topBack())
+    println("printList after topBack: ${sll.printList()}")
+    println("popBack: " + sll.popBack())
+    println("printList after popBack: ${sll.printList()}")
+    println("popBack: " + sll.popBack())
+    println("printList after popBack: ${sll.printList()}")
+    println("insertAt: 3: data: 100 ${sll.addInsertAtIndex(3, 100)}")
+    println("printList after insertAt: 3, data 100: ${sll.printList()}")
+    println("getItemAtIndex 3: " + sll.getItemDataAtIndex(3))
+    println("removeItemAtIndex 3: " + sll.removeItemAtIndex(3))
+    println("printList after removeItemAtIndex 3: ${sll.printList()}")
+    println("setReplaceAtIndex 3:, Data: 90, ${sll.setReplaceItemDataAtIndex(3, 90)}")
+    println("printList after setReplaceAtIndex 3:, Data: 90: ${sll.printList()}")
+    println("getItemAtIndex 3: " + sll.getItemDataAtIndex(3))
+    println("contains 90? " + sll.contains(90))
+    println("contains 100? " + sll.contains(100))
+    println("size: " + sll.size())
+    println("createCycleAtIndex: 3: ${sll.createCycle(3)}")
+    println("printList after createCycleAtIndex 3: ${sll.printList()}")
+    println("hasCycle: ${sll.hasCycle()}")
+    println("reverse: ${sll.reverse()}")
+    println("printList after reverse: ${sll.printList()}")
+    println("findStartCycle: ${sll.findStartCycle()}")
+    println("breakCycle: ${sll.breakCycle()}")
+    println("hasCycle: ${sll.hasCycle()}")
+    println("printList after breakCycle: ${sll.printList()}")
+    println("clear: ${sll.clear()}")
+    println("size: " + sll.size() + " :isEmpty?: " + sll.isEmpty())
 }
