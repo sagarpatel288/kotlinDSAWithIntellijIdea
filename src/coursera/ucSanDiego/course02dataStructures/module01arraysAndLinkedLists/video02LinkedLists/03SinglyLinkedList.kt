@@ -827,14 +827,12 @@ class SinglyLinkedListWithoutTail<T>() {
             return false
         }
         val startOfCycle = findStartCycle()
-        var curr = head
-        var index = 0
+        var curr = startOfCycle
         while (curr?.next != startOfCycle) {
             curr = curr?.next
-            index++
         }
+        println("The cycle broken for the node with data: ${curr?.data} whose next data was ${curr?.next?.data}")
         curr?.next = null
-        println("The cycle broken at index $index, with data: ${curr?.data}")
         return true
     }
 
