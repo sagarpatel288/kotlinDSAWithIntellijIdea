@@ -531,10 +531,12 @@ class SinglyLinkedListWithoutTail<T>() {
      * head = prev // Because "prev" is the new, last, latest "curr," and the last target is the new "head."
      * ```
      */
-    fun reverse() {
+    fun reverse(breakCycle: Boolean = true) {
         var prev: Node<T>? = null
         var curr = head
+        val last = head
         val set = mutableSetOf<Node<T>?>()
+        val startCycle = findStartCycle()
         while (curr != null) {
             if (set.contains(curr)) {
                 println("The cycle starts at index ${set.indexOf(curr)}")
@@ -547,6 +549,9 @@ class SinglyLinkedListWithoutTail<T>() {
             curr = next
         }
         head = prev
+        if (!breakCycle && startCycle != null) {
+            last?.next = startCycle
+        }
     }
 
     /**
@@ -812,7 +817,19 @@ class SinglyLinkedListWithoutTail<T>() {
             fast = fast.next?.next
             if (slow == fast) {
                 slow = head
-                while (slow != fast) {
+                //region Considering a case where both the slow and the fast pointers meet at the head.
+                // Hence, the head itself is a cycle entry (start) point.
+                // It means that this is a perfect circular list where the last item points to the head.
+                // For example, 70 --> 60 --> 50 --> 90 --> points back to the head, 70.
+                // Now, it is possible that both the slow and the fast pointer meet at the node 70 itself.
+                // In that case, we find that the head and the meeting point are at the same node.
+                // So, we can safely conclude that the head itself is a starting (entry) point of the cycle,
+                // and that this is a perfect circular linked list.
+                if (slow == fast) {
+                    return slow
+                }
+                //endregion
+                while (true) {
                     slow = slow?.next
                     fast = fast?.next
                     if (slow == fast) {
@@ -947,7 +964,7 @@ fun main() {
     println("getIndexOf 100: ${sll.getIndexOf(100)}")
     println("printList after getIndexOf 100: ${sll.printList()}")
     sll.printList()
-    println("reverse: ${sll.reverse()}")
+    println("reverse: Break Cycle: True: ${sll.reverse()}")
     println("printList after reverse: ${sll.printList()}")
     sll.printList()
     println("topBack: " + sll.topBack())
@@ -979,7 +996,7 @@ fun main() {
     println("printList after createCycleAtIndex 3: ${sll.printList()}")
     sll.printList()
     println("hasCycle: ${sll.hasCycle()}")
-    println("reverse: ${sll.reverse()}")
+    println("reverse: Break Cycle: false: ${sll.reverse(false)}")
     println("printList after reverse: ${sll.printList()}")
     sll.printList()
     println("findStartCycle: ${sll.findStartCycle()}")
