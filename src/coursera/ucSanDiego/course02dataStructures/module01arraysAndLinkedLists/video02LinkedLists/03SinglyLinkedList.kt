@@ -70,6 +70,7 @@ class Node<T>(var data: T?, var next: Node<T>?) {
  */
 class SinglyLinkedListWithoutTail<T>() {
     private var head: Node<T>? = null
+
     // A dedicated size variable so we can get the size in O(1) anytime instead of in O(n).
     // The "size" variable is also useful when we want to perform (call) "addItemAtIndex," "removeItemAtIndex," etc.
     private var size = 0
@@ -227,7 +228,7 @@ class SinglyLinkedListWithoutTail<T>() {
         var curr = head
         // Iteration. Time complexity is O(n).
         // Stand right before the index to change the previous connection.
-        repeat (index - 1) {
+        repeat(index - 1) {
             // Jump `curr` to the next item until we reach `index - 1`.
             curr = curr?.next
         }
@@ -283,7 +284,7 @@ class SinglyLinkedListWithoutTail<T>() {
         }
         // Perform "curr = curr?.next until index - 1" to reach the item at the previous index (the previous item).
         var curr = head
-        repeat (index - 1) {
+        repeat(index - 1) {
             curr = curr?.next
         }
         // We are at the previous item. The item before the target index.
@@ -856,13 +857,14 @@ class SinglyLinkedListWithoutTail<T>() {
                 return null
             }
             set.add(curr)
-            if (curr?.data == data) {
-                return index
-            }
             curr = curr?.next
             index++
         }
-        return null
+        return if (curr?.data == data) {
+            index
+        } else {
+            null
+        }
     }
 
     /**
