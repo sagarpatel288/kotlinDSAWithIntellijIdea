@@ -144,7 +144,7 @@ class LearnSinglyLinkedListWithTail() {
             repeat(index - 1) {
                 curr = curr?.next
             }
-            curr?.next = Node(data, curr.next)
+            curr?.next = Node(data, curr?.next)
             size++
         }
 
@@ -294,14 +294,14 @@ class LearnSinglyLinkedListWithTail() {
                 return println("There is no cycle!")
             }
             val startOfCycle = findStartCycle()
-            var curr = head
-            var index = 0
+            var curr = startOfCycle
+            // TODO: This logic seems to be wrong! It prematurely breaks the list and loses the items.
             while (curr?.next != startOfCycle) {
                 curr = curr?.next
-                index++
             }
+            println("Cycle broken: cycle end-data: ${curr?.data} whose next data was: ${curr?.next?.data}")
             curr?.next = null
-            println("Cycle broken at index: $index, cycle-start data: ${startOfCycle?.data}, cycle end-data: ${curr?.data}")
+            tail = curr
         }
 
         fun getFirstMatchedIndexOf(data: T?): Int? {
