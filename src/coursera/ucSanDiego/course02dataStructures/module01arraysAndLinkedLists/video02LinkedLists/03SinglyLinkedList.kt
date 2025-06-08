@@ -533,7 +533,13 @@ class SinglyLinkedListWithoutTail<T>() {
     fun reverse() {
         var prev: Node<T>? = null
         var curr = head
+        val set = mutableSetOf<Node<T>?>()
         while (curr != null) {
+            if (set.contains(curr)) {
+                println("The cycle starts at index ${set.indexOf(curr)}")
+                break
+            }
+            set.add(curr)
             val next = curr.next
             curr.next = prev
             prev = curr
@@ -933,6 +939,15 @@ fun main() {
     println("pushBack 70: ${sll.pushBack(70)}")
     println("printList after pushBack 70: ${sll.printList()}")
     sll.printList()
+    println("getIndexOf 50: ${sll.getIndexOf(50)}")
+    println("printList after getIndexOf 50: ${sll.printList()}")
+    sll.printList()
+    println("getIndexOf 100: ${sll.getIndexOf(100)}")
+    println("printList after getIndexOf 100: ${sll.printList()}")
+    sll.printList()
+    println("reverse: ${sll.reverse()}")
+    println("printList after reverse: ${sll.printList()}")
+    sll.printList()
     println("topBack: " + sll.topBack())
     println("printList after topBack: ${sll.printList()}")
     sll.printList()
@@ -962,6 +977,9 @@ fun main() {
     println("printList after createCycleAtIndex 3: ${sll.printList()}")
     sll.printList()
     println("hasCycle: ${sll.hasCycle()}")
+    println("reverse: ${sll.reverse()}")
+    println("printList after reverse: ${sll.printList()}")
+    sll.printList()
     println("findStartCycle: ${sll.findStartCycle()}")
     println("breakCycle: ${sll.breakCycle()}")
     println("hasCycle: ${sll.hasCycle()}")
