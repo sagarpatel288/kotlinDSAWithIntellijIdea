@@ -200,8 +200,8 @@ class LearnDoublyLinkedListWithTail() {
         }
 
         fun insertAt(index: Int, data: T?) {
-            if (index < 0 || index > size) {
-                throw IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
+            require(index in 0..size) {
+                getIndexOutOfBoundsExceptionMessage(index)
             }
             if (index == 0) {
                 return pushFront(data)
@@ -220,8 +220,8 @@ class LearnDoublyLinkedListWithTail() {
         }
 
         fun getItemAt(index: Int): T? {
-            if (index < 0 || index >= size) {
-                throw IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
+            require(index in 0..<size) {
+                getIndexOutOfBoundsExceptionMessage(index)
             }
             if (index == 0) {
                 return topFront()
@@ -237,8 +237,8 @@ class LearnDoublyLinkedListWithTail() {
         }
 
         fun removeAt(index: Int): T? {
-            if (index < 0 || index >= size) {
-                throw IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
+            require(index in 0..<size) {
+                getIndexOutOfBoundsExceptionMessage(index)
             }
             if (index == 0) {
                 return popFront()
@@ -258,8 +258,8 @@ class LearnDoublyLinkedListWithTail() {
         }
 
         fun setAt(index: Int, data: T?) {
-            if (index < 0 || index >= size) {
-                throw IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
+            require(index in 0..<size) {
+                getIndexOutOfBoundsExceptionMessage(index)
             }
             var curr = head
             repeat(index) {
@@ -542,8 +542,8 @@ class LearnDoublyLinkedListWithTail() {
         }
 
         fun createCycle(fromIndex: Int) {
-            if (fromIndex < 0 || fromIndex >= size) {
-                throw IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(fromIndex))
+            require(fromIndex in 0..<size) {
+                getIndexOutOfBoundsExceptionMessage(fromIndex)
             }
             var target = head
             repeat(fromIndex) {
