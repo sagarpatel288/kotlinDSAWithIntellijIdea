@@ -1,8 +1,33 @@
 package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists
 
+import com.sun.tools.javac.Main
 import coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists.LearnDoublyLinkedListWithTail.*
 
 class LearnDoublyLinkedListWithTail() {
+
+    sealed interface MaintainCycleBy {
+        data object NONE: MaintainCycleBy
+        // E.g., after reverse, the cycle will have the same start and end indices as it was before.
+        // In this case, the objects (nodes) might be different from the before-reverse-structure.
+        // For example, object:index = 70(0) <--> 60(1) <--> 50(2) <--> 90(3) --> points back to 60(1).
+        // After reverse, 90(0) <--> 50(1) <--> 60(2) <--> 70(3) --> points back to 50(1).
+        // Before and after the reverse, the cycle remains the same between index 1 and 3.
+        data object INDICES: MaintainCycleBy
+        // E.g., after reverse, the same objects (nodes) will be connected to maintain the cycle.
+        // In this case, the indices might be changed, than the before-reverse-structure.
+        // For example, object:index = 70(0) <--> 60(1) <--> 50(2) <--> 90(3) --> points back to 60(1).
+        // After reverse, 90(0) <--> 50(1) <--> 60(2) --> points back to 90(0). So, we might lose the object, 70.
+        // Before and after the reverse, the cycle remains the same between the objects 90 and 60.
+        data object OBJECTS: MaintainCycleBy
+        // E.g., after reverse, the cycle-end-object will be the tail node, and the cycle-entry-object (node) will
+        // remain the same.
+        // In this case, the cycle-entry-object (node) remains the same, but the cycle-end-object might be different
+        // from the before-reverse-structure.
+        // For example, object:index = 70(0) <--> 60(1) <--> 50(2) <--> 90(3) --> points back to 60(1).
+        // After reverse, 90(0) <--> 50(1) <--> 60(2) <--> 70(3) --> points back to 60(2).
+        // Before and after the reverse, the cycle between the cycle-start-object 60 and the tail remains the same.
+        data object TAIL_TO_START_OBJECT: MaintainCycleBy
+    }
 
     class Node<T>(var data: T?, var prev: Node<T>?, var next: Node<T>?) {
         override fun toString(): String {
@@ -212,16 +237,94 @@ class LearnDoublyLinkedListWithTail() {
             curr?.data = data
         }
 
-        fun reverse() {
+        fun getIndexOf(data: T?): Int? {
+            if (isEmpty()) return null
+            var index = 0
+            var curr = head
+            val set = mutableSetOf<Node<T>?>()
+            while (curr != null) {
+                if (set.contains(curr)) {
+                    println("Cycle detected from node data ${curr.data}")
+                    return null
+                }
+                set.add(curr)
+                if (curr.data == data) {
+                    return index
+                }
+                curr = curr.next
+                index++
+            }
+            return null
+        }
+
+        fun findCycleIndices(): Pair<Int, Int>? {
+            if (!hasCycle()) return null
+            var slow = head
+            var fast = head
+            var cycleStartIndex = 0
+            var cycleEndIndex = 0
+            while (fast != null && fast.next != null) {
+                slow = slow?.next
+                fast = fast.next?.next
+                if (slow == fast) {
+                    slow = head
+                    if (slow == fast) {
+                        cycleStartIndex = 0
+                        break
+                    } else {
+                        while (slow != fast) {
+                            slow = slow?.next
+                            fast = fast?.next
+                            cycleStartIndex++
+                            if (slow == fast) {
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+            var curr = slow
+            while (curr?.next != slow) {
+                curr = curr?.next
+                cycleEndIndex++
+            }
+            println("Cycle: Start index $cycleStartIndex, End index: $cycleEndIndex")
+            return cycleStartIndex to cycleEndIndex
+        }
+
+        fun findCycleObjects(): Pair<Node<T>?, Node<T>?>? {
+            if (!hasCycle()) return null
+            val cycleStartObject: Node<T>? = findStartCycleNode()
+            var curr = cycleStartObject
+            while (curr?.next != cycleStartObject) {
+                curr = curr?.next
+            }
+            println("Cycle: start object data: ${cycleStartObject?.data}, end object data: ${curr?.data}")
+            return cycleStartObject to curr
+        }
+
+        fun reverse(maintainCycleBy: MaintainCycleBy) {
             if (isEmpty() || head?.next == null) return
+            val cycleIndices = if (maintainCycleBy == MaintainCycleBy.INDICES) {
+                findCycleIndices()
+            } else {
+                null
+            }
+            val cycleObjects = if (maintainCycleBy == MaintainCycleBy.OBJECTS) {
+                findCycleObjects()
+            } else {
+                null
+            }
+            val cycleStartObject = findStartCycleNode()
+            println("DoublyLinkedListWithTail: :reverse: maintainCycleBy: $maintainCycleBy cycleIndices: ${cycleIndices?.first}, ${cycleIndices?.second} cycleObjects data: ${cycleObjects?.first?.data}, ${cycleObjects?.second?.data}")
             var prevNode: Node<T>? = null
             var curr = head
-            tail = curr
+            tail = head
             var index = 0
             val set = mutableSetOf<Node<T>?>()
             while (curr != null) {
                 if (set.contains(curr)) {
-                    println("Cycle detected at index $index with data ${curr.data}")
+                    println("Cycle detected at meeting point $index with data ${curr.data}")
                     break
                 }
                 set.add(curr)
@@ -233,6 +336,73 @@ class LearnDoublyLinkedListWithTail() {
                 index++
             }
             head = prevNode
+            if (maintainCycleBy != MaintainCycleBy.NONE) {
+                when (maintainCycleBy) {
+                    MaintainCycleBy.INDICES -> {
+                        cycleIndices?.let { indices ->
+                            createCycleBetweenIndices(indices.first, indices.second)
+                            println("Cycle between indices ${indices.first} and ${indices.second}")
+                        }
+                    }
+                    MaintainCycleBy.TAIL_TO_START_OBJECT -> {
+                        cycleStartObject?.let { start ->
+                            tail?.next = cycleStartObject
+                            println("Cycle between the tail data ${tail?.data} whose next data is ${cycleStartObject.data}")
+                        }
+                    }
+                    MaintainCycleBy.OBJECTS -> {
+                        cycleObjects?.let { objects ->
+                            createCycleBetweenObjects(cycleObjects.second, cycleObjects.first)
+                            println("Cycle between the object data ${cycleObjects.first?.data} and ${cycleObjects.second?.data}")
+                        }
+                    }
+                    else -> {
+                        println("MaintainCycleBy is $maintainCycleBy, hasCycle() ${hasCycle()}, size: $size")
+                    }
+                }
+            }
+
+        }
+
+        fun createCycleBetweenIndices(startIndex: Int, endIndex: Int) {
+            var cycleStart = head
+            repeat(startIndex) {
+                cycleStart = cycleStart?.next
+            }
+            var cycleEnd = head
+            repeat(endIndex) {
+                cycleEnd = cycleEnd?.next
+            }
+            cycleEnd?.next = cycleStart
+            println("Cycle between: ${cycleEnd?.data} at index $endIndex and ${cycleStart?.data} at index $startIndex")
+        }
+
+        fun createCycleBetweenObjects(startObject: Node<T>?, endObject: Node<T>?) {
+            var start = head
+            var end = head
+            var curr = head
+            val set = mutableSetOf<Node<T>?>()
+            while (curr != null) {
+                if (set.contains(curr)) {
+                    break
+                }
+                set.add(curr)
+                when (curr) {
+                    startObject -> {
+                        start = curr
+                        curr = curr.next
+                    }
+                    endObject -> {
+                        end = curr
+                        curr = curr.next
+                    }
+                    else -> {
+                        curr = curr.next
+                    }
+                }
+            }
+            end?.next = start
+            println("Cycle between object data: Start ${start?.data} and ${end?.data}")
         }
 
         fun toList(): List<T?> {
@@ -286,6 +456,7 @@ class LearnDoublyLinkedListWithTail() {
                 target = target?.next
             }
             tail?.next = target
+            println("Tail is: ${tail?.data} whose next data is: ${tail?.next?.data}")
         }
 
         fun breakCycle(): Boolean {
@@ -311,7 +482,10 @@ class LearnDoublyLinkedListWithTail() {
                 fast = fast.next?.next
                 if (slow == fast) {
                     slow = head
-                    while (slow != fast) {
+                    if (slow == fast) {
+                        return slow
+                    }
+                    while (true) {
                         slow = slow?.next
                         fast = fast?.next
                         index++
@@ -366,71 +540,62 @@ class LearnDoublyLinkedListWithTail() {
 }
 
 fun main() {
-    val doublyLinkedList = DoublyLinkedListWithTail<Int>()
-    println("pushFront 1 ${doublyLinkedList.pushFront(1)}}")
-    println("pushFront 2 ${doublyLinkedList.pushFront(2)}}")
-    println("pushFront 3 ${doublyLinkedList.pushFront(3)}}")
-    println("printList: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("topFront: ${doublyLinkedList.topFront()}")
-    println("reverse: ${doublyLinkedList.reverse()}")
-    println("printList after reverse: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("popFront: ${doublyLinkedList.popFront()}")
-    println("printList after popFront: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("pushBack 4: ${doublyLinkedList.pushBack(4)}")
-    println("printList after pushBack 4: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("pushBack 5: ${doublyLinkedList.pushBack(5)}")
-    println("printList after pushBack 5: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("topBack: ${doublyLinkedList.topBack()}")
-    println("popBack: ${doublyLinkedList.popBack()}")
-    println("printList after popBack: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("pushBack 6: ${doublyLinkedList.pushBack(6)}")
-    println("printList after pushBack 6: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("getAt index 3: ${doublyLinkedList.getItemAt(3)}")
-    println("setReplaceAt index 3 data 0: ${doublyLinkedList.setAt(3, 0)}")
-    println("printList after setReplaceAt index 3: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("removeAt index 3: ${doublyLinkedList.removeAt(3)}")
-    println("printList after removeAt index 3: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("addInsertAtIndex 3, 10: ${doublyLinkedList.insertAt(3, 10)}")
-    println("printList after addInsertAtIndex 3, 10: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("reverse: ${doublyLinkedList.reverse()}")
-    println("printList after reverse: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("toList: ${doublyLinkedList.toList()}")
-    println("size: ${doublyLinkedList.size()}")
-    println("isEmpty: ${doublyLinkedList.isEmpty()}")
-    println("hasCycle: ${doublyLinkedList.hasCycle()}")
-    println("pushBack 7: ${doublyLinkedList.pushBack(7)}")
-    println("printList after pushBack 7: ${doublyLinkedList.printList()}")
-    println("pushBack 8: ${doublyLinkedList.pushBack(8)}")
-    println("printList after pushBack 8: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("pushBack 9: ${doublyLinkedList.pushBack(9)}")
-    println("printList after pushBack 9: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("pushBack 10: ${doublyLinkedList.pushBack(10)}")
-    println("printList after pushBack 10: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("createCycle at index 2: ${doublyLinkedList.createCycle(2)}")
-    println("printList after createCycle: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("hasCycle: ${doublyLinkedList.hasCycle()}")
-    println("findStartCycle: ${doublyLinkedList.findStartCycleNode()?.data}")
-    println("breakCycle: ${doublyLinkedList.breakCycle()}")
-    println("printList after breakCycle: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
-    println("hasCycle: ${doublyLinkedList.hasCycle()}")
-    println("contains 10: ${doublyLinkedList.contains(10)}")
-    println("clear: ${doublyLinkedList.clear()}")
-    println("printList after clear: ${doublyLinkedList.printList()}")
-    doublyLinkedList.printList()
+    val dll = DoublyLinkedListWithTail<Int>()
+    println("printList: " + dll.printList())
+    println("pushFront 10: ${dll.pushFront(10)}")
+    println("printList after pushFront 10: ${dll.printList()}")
+    println("pushFront 20: ${dll.pushFront(20)}")
+    println("printList after pushFront 20: ${dll.printList()}")
+    println("pushFront 30: ${dll.pushFront(30)}")
+    println("printList after pushFront 30: ${dll.printList()}")
+    println("pushFront 40: ${dll.pushFront(40)}")
+    println("printList after pushFront 40: ${dll.printList()}")
+    println("topFront: " + dll.topFront())
+    println("printList after topFront: ${dll.printList()}")
+    println("popFront: " + dll.popFront())
+    println("printList after popFront: ${dll.printList()}")
+    println("pushBack 50: ${dll.pushBack(50)}")
+    println("printList after pushBack 50: ${dll.printList()}")
+    println("pushBack 60: ${dll.pushBack(60)}")
+    println("printList after pushBack 60: ${dll.printList()}")
+    println("pushBack 70: ${dll.pushBack(70)}")
+    println("printList after pushBack 70: ${dll.printList()}")
+    println("getIndexOf 50: ${dll.getIndexOf(50)}")
+    println("printList after getIndexOf 50: ${dll.printList()}")
+    println("getIndexOf 100: ${dll.getIndexOf(100)}")
+    println("printList after getIndexOf 100: ${dll.printList()}")
+    println("reverse: maintainCycle: false: ${dll.reverse(MaintainCycleBy.NONE)}")
+    println("printList after reverse: ${dll.printList()}")
+    println("topBack: " + dll.topBack())
+    println("printList after topBack: ${dll.printList()}")
+    println("popBack: " + dll.popBack())
+    println("printList after popBack: ${dll.printList()}")
+    println("popBack: " + dll.popBack())
+    println("printList after popBack: ${dll.printList()}")
+    println("insertAt: 3: data: 100 ${dll.insertAt(3, 100)}")
+    println("printList after insertAt: 3, data 100: ${dll.printList()}")
+    println("getItemAtIndex 3: " + dll.getItemAt(3))
+    println("removeItemAtIndex 3: " + dll.removeAt(3))
+    println("printList after removeItemAtIndex 3: ${dll.printList()}")
+    println("setReplaceAtIndex 3:, Data: 90, ${dll.setAt(3, 90)}")
+    println("printList after setReplaceAtIndex 3:, Data: 90: ${dll.printList()}")
+    println("getItemAtIndex 3: " + dll.getItemAt(3))
+    println("contains 90? " + dll.contains(90))
+    println("contains 100? " + dll.contains(100))
+    println("size: " + dll.size())
+    println("createCycleAtIndex: 1: ${dll.createCycle(1)}")
+    println("printList after createCycleAtIndex 3: ${dll.printList()}")
+    println("hasCycle: ${dll.hasCycle()}")
+    println("reverse: maintainCycleBy Objects: ${dll.reverse(MaintainCycleBy.OBJECTS)}")
+    println("printList after reverse: ${dll.printList()}")
+    println("reverse: maintainCycleBy Indices: ${dll.reverse(MaintainCycleBy.INDICES)}")
+    println("printList after reverse: ${dll.printList()}")
+    println("reverse: maintainCycleBy TailToStartObject: ${dll.reverse(MaintainCycleBy.TAIL_TO_START_OBJECT)}")
+    println("printList after reverse: ${dll.printList()}")
+    println("findStartCycle: ${dll.findStartCycleNode()}")
+    println("breakCycle: ${dll.breakCycle()}")
+    println("hasCycle: ${dll.hasCycle()}")
+    println("printList after breakCycle: ${dll.printList()}")
+    println("clear: ${dll.clear()}")
+    println("size: " + dll.size() + " :isEmpty?: " + dll.isEmpty())
 }
