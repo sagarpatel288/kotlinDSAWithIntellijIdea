@@ -199,6 +199,17 @@ class LearnDoublyLinkedListWithTail() {
             return "Index is $index, and size is $size"
         }
 
+        fun nodeAt(index: Int): Node<T>? {
+            require(index in 0..<size) {
+                getIndexOutOfBoundsExceptionMessage(index)
+            }
+            var curr = head
+            repeat(index) {
+                curr = curr?.next
+            }
+            return curr
+        }
+
         fun insertAt(index: Int, data: T?) {
             require(index in 0..size) {
                 getIndexOutOfBoundsExceptionMessage(index)
@@ -209,10 +220,7 @@ class LearnDoublyLinkedListWithTail() {
             if (index == size) {
                 return pushBack(data)
             }
-            var curr = head
-            repeat(index - 1) {
-                curr = curr?.next
-            }
+            val curr = nodeAt(index - 1)
             val newNode = Node(data, curr, curr?.next)
             curr?.next = newNode
             newNode.next?.prev = newNode
@@ -229,11 +237,7 @@ class LearnDoublyLinkedListWithTail() {
             if (index == size - 1) {
                 return topBack()
             }
-            var curr = head
-            repeat(index) {
-                curr = curr?.next
-            }
-            return curr?.data
+            return nodeAt(index)?.data
         }
 
         fun removeAt(index: Int): T? {
@@ -246,10 +250,7 @@ class LearnDoublyLinkedListWithTail() {
             if (index == size - 1) {
                 return popBack()
             }
-            var curr = head
-            repeat(index - 1) {
-                curr = curr?.next
-            }
+            val curr = nodeAt(index - 1)
             val itemToRemove = curr?.next
             curr?.next = itemToRemove?.next
             itemToRemove?.next?.prev = curr
@@ -261,11 +262,7 @@ class LearnDoublyLinkedListWithTail() {
             require(index in 0..<size) {
                 getIndexOutOfBoundsExceptionMessage(index)
             }
-            var curr = head
-            repeat(index) {
-                curr = curr?.next
-            }
-            curr?.data = data
+            nodeAt(index)?.data = data
         }
 
         fun getIndexOf(data: T?): Int? {
@@ -459,14 +456,8 @@ class LearnDoublyLinkedListWithTail() {
         }
 
         fun createCycleBetweenIndices(startIndex: Int, endIndex: Int) {
-            var cycleStart = head
-            repeat(startIndex) {
-                cycleStart = cycleStart?.next
-            }
-            var cycleEnd = head
-            repeat(endIndex) {
-                cycleEnd = cycleEnd?.next
-            }
+            val cycleStart = nodeAt(startIndex)
+            val cycleEnd = nodeAt(endIndex)
             cycleEnd?.next = cycleStart
             println("Cycle between: ${cycleEnd?.data} at index $endIndex and ${cycleStart?.data} at index $startIndex")
         }
@@ -545,10 +536,7 @@ class LearnDoublyLinkedListWithTail() {
             require(fromIndex in 0..<size) {
                 getIndexOutOfBoundsExceptionMessage(fromIndex)
             }
-            var target = head
-            repeat(fromIndex) {
-                target = target?.next
-            }
+            val target = nodeAt(fromIndex)
             tail?.next = target
             println("Tail is: ${tail?.data} whose next data is: ${tail?.next?.data}")
         }
