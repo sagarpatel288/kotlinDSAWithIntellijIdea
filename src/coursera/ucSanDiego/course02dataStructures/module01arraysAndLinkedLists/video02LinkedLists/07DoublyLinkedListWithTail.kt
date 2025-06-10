@@ -3,6 +3,23 @@ package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.
 import com.sun.tools.javac.Main
 import coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists.LearnDoublyLinkedListWithTail.*
 
+/**
+ * DoublyLinkedListWithTail.kt
+ *
+ * A comprehensive implementation of a doubly linked list with tail pointer in Kotlin.
+ *
+ * Features:
+ * - Standard doubly linked list operations (push, pop, insert, remove, etc.)
+ * - Cycle detection and maintenance
+ * - Multiple strategies for maintaining cycles during reversal:
+ *      1. By indices
+ *      2. By object references
+ *      3. By tail-to-entry pattern
+ * - Suitable for interview preparation and deep understanding of linked list edge cases.
+ *
+ * Author: [Sagar Patel]
+ * Date: [Tuesday, 10/Jun/25]
+ */
 class LearnDoublyLinkedListWithTail() {
 
     sealed interface MaintainCycleBy {
@@ -29,12 +46,26 @@ class LearnDoublyLinkedListWithTail() {
         data object TAIL_TO_START_OBJECT: MaintainCycleBy
     }
 
+    /**
+     * Represents a single node in a doubly linked list.
+     *
+     * @param T The type of data stored in the node.
+     * @property data The value held by this node.
+     * @property prev Reference to the previous node.
+     * @property next Reference to the next node.
+     */
     class Node<T>(var data: T?, var prev: Node<T>?, var next: Node<T>?) {
         override fun toString(): String {
             return " data: $data --> "
         }
     }
 
+    /**
+     * Doubly linked list with a tail pointer and cycle support.
+     *
+     * Provides methods for insertion, deletion, cycle creation/detection, and reversal
+     * while maintaining cycles in multiple ways.
+     */
     class DoublyLinkedListWithTail<T>() {
         private var head: Node<T>? = null
         private var tail: Node<T>? = null
@@ -303,8 +334,61 @@ class LearnDoublyLinkedListWithTail() {
             return cycleStartObject to curr
         }
 
+
+        /**
+         * Reverses the doubly linked list in-place.
+         *
+         * Algorithm: In-place reversal of a doubly linked list
+         * 1. Traverse the list, swapping the `next` and `prev` pointers for each node.
+         * 2. After traversal, update the head and tail pointers.
+         * 3. If a cycle exists, restore the cycle according to the chosen strategy.
+         * 4. Edge case: If the list is empty or has one node, do nothing.
+         *
+         * Cycle Maintenance Strategies:
+         *
+         * | Strategy               | What is Preserved?          | Example (Before -> After)         |
+         * |------------------------|-----------------------------|-----------------------------------|
+         * | NONE                   | No cycle                    | No cycle after reversal           |
+         * | INDICES                | Same indices                | 3->1 before, 3->1 after           |
+         * | OBJECTS                | Same node objects           | NodeA->NodeB before/after         |
+         * | TAIL_TO_START_OBJECT   | Tail points to entry node   | Tail->Entry before/after          |
+         *
+         * Example of a doubly linked list with a cycle:
+         *
+         * [70] <-> [60] <-> [50] <-> [90]
+         *                    ^         |
+         *                    |_________|
+         *
+         * Option 1: After reversal (maintaining cycle by indices):
+         *
+         * [90] <-> [50] <-> [60] <-> [70]
+         *                    ^         |
+         *                    |_________|
+         *
+         * Option 2: After reversal (maintaining cycle by objects):
+         *
+         * [90] <-> [50] <-> [60] <-> [70]
+         *  ^        |
+         *  |________|
+         *
+         * Option 3: After reversal (maintaining cycle by tail-to-start-cycle-object):
+         *
+         * [90] <-> [50] <-> [60] <-> [70]
+         *           ^                 |
+         *           |_________________|
+         *
+         * Time Complexity: O(N)
+         * Space Complexity: O(1)
+         *
+         * @param maintainCycleBy Determines how cycles are preserved during reversal.
+         *      - NONE: No cycle is maintained.
+         *      - INDICES: Preserve cycle between original indices.
+         *      - OBJECTS: Preserve cycle between original node objects.
+         *      - TAIL_TO_START_OBJECT: Tail points to the cycle's entry node.
+         */
         fun reverse(maintainCycleBy: MaintainCycleBy) {
             if (isEmpty() || head?.next == null) return
+            // 1. Record cycle information as needed for restoration.
             val cycleIndices = if (maintainCycleBy == MaintainCycleBy.INDICES) {
                 findCycleIndices()
             } else {
@@ -317,12 +401,15 @@ class LearnDoublyLinkedListWithTail() {
             }
             val cycleStartObject = findStartCycleNode()
             println("DoublyLinkedListWithTail: :reverse: maintainCycleBy: $maintainCycleBy cycleIndices: ${cycleIndices?.first}, ${cycleIndices?.second} cycleObjects data: ${cycleObjects?.first?.data}, ${cycleObjects?.second?.data}")
+
+            // 2. Reverse the list by swapping next and prev pointers.
             var prevNode: Node<T>? = null
             var curr = head
             tail = head
             var index = 0
             val set = mutableSetOf<Node<T>?>()
             while (curr != null) {
+                // Prevent infinite loop on cycle
                 if (set.contains(curr)) {
                     println("Cycle detected at meeting point $index with data ${curr.data}")
                     break
@@ -336,24 +423,31 @@ class LearnDoublyLinkedListWithTail() {
                 index++
             }
             head = prevNode
+            // 3. Restore the cycle as per the chosen strategy.
             if (maintainCycleBy != MaintainCycleBy.NONE) {
                 when (maintainCycleBy) {
                     MaintainCycleBy.INDICES -> {
                         cycleIndices?.let { indices ->
                             createCycleBetweenIndices(indices.first, indices.second)
                             println("Cycle between indices ${indices.first} and ${indices.second}")
+                        } ?: run {
+                            println("The cycle indices are null!")
                         }
                     }
                     MaintainCycleBy.TAIL_TO_START_OBJECT -> {
                         cycleStartObject?.let { start ->
                             tail?.next = cycleStartObject
                             println("Cycle between the tail data ${tail?.data} whose next data is ${cycleStartObject.data}")
+                        } ?: run {
+                            println("The cycle start object is null!")
                         }
                     }
                     MaintainCycleBy.OBJECTS -> {
                         cycleObjects?.let { objects ->
                             createCycleBetweenObjects(cycleObjects.second, cycleObjects.first)
                             println("Cycle between the object data ${cycleObjects.first?.data} and ${cycleObjects.second?.data}")
+                        } ?: run {
+                            println("The cycle start and end objects are null!")
                         }
                     }
                     else -> {
