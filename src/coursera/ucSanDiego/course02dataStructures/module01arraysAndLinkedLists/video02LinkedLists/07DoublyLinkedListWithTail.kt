@@ -319,6 +319,21 @@ class LearnDoublyLinkedListWithTail() {
             return null
         }
 
+        fun findMiddleNode(): Node<T>? {
+            if (isEmpty()) return null
+            if (hasCycle()) {
+                println("The list has a cycle!")
+                return null
+            }
+            var slow = head
+            var fast = head
+            while (fast != null && fast.next != null) {
+                slow = slow?.next
+                fast = fast.next?.next
+            }
+            return slow
+        }
+
         fun findCycleIndices(): Pair<Int, Int>? {
             if (!hasCycle()) return null
             var slow = head
@@ -687,6 +702,7 @@ fun main() {
     println("printList after getIndexOf 50: ${dll.printList()}")
     println("getIndexOf 100: ${dll.getIndexOf(100)}")
     println("printList after getIndexOf 100: ${dll.printList()}")
+    println("Middle node data is: ${dll.findMiddleNode()?.data}")
     println("reverse: maintainCycle: false: ${dll.reverse(MaintainCycleBy.NONE)}")
     println("printList after reverse: ${dll.printList()}")
     println("topBack: " + dll.topBack())
