@@ -108,8 +108,8 @@ class LearnSinglyLinkedListWithTail() {
         private fun getIndexOutOfBoundsExceptionMessage(index: Int) = "Index is $index, and size is $size"
 
         fun getItemDataAtIndex(index: Int): T? {
-            if (index < 0 || index >= size) {
-                throw IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
+            require(index in 0..<size) {
+                IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
             }
             if (index == 0) {
                 return topFront()
@@ -125,8 +125,8 @@ class LearnSinglyLinkedListWithTail() {
         }
 
         fun setReplaceItemDataAtIndex(index: Int, data: T?) {
-            if (index < 0 || index >= size) {
-                throw IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
+            require(index in 0..<size) {
+                IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
             }
             var curr = head
             repeat(index) {
@@ -136,8 +136,8 @@ class LearnSinglyLinkedListWithTail() {
         }
 
         fun addInsertAtIndex(index: Int, data: T?) {
-            if (index < 0 || index > size) {
-                throw IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
+            require(index in 0..size) {
+                IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
             }
             if (index == 0) {
                 return pushFront(data)
@@ -154,8 +154,8 @@ class LearnSinglyLinkedListWithTail() {
         }
 
         fun removeItemAtIndex(index: Int): T? {
-            if (index < 0 || index >= size) {
-                throw IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
+            require(index in 0..<size) {
+                IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
             }
             if (index == 0) {
                 return popFront()
