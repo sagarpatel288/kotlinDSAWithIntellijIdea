@@ -213,6 +213,21 @@ class LearnSinglyLinkedListWithTail() {
             }
         }
 
+        fun findMiddleNode(): Node<T>? {
+            if (isEmpty()) return null
+            if (hasCycle()) {
+                println("The list has a cycle!")
+                return null
+            }
+            var slow = head
+            var fast = head
+            while (fast != null && fast.next != null) {
+                slow = slow?.next
+                fast = fast.next?.next
+            }
+            return slow
+        }
+
         fun toList(): List<T?> {
             val list = mutableListOf<T?>()
             var curr = head
@@ -371,6 +386,7 @@ fun main() {
     println("printList after getIndexOf 50: ${sll.printList()}")
     println("getIndexOf 100: ${sll.getFirstMatchedIndexOf(100)}")
     println("printList after getIndexOf 100: ${sll.printList()}")
+    println("Middle node data is: ${sll.findMiddleNode()?.data}")
     println("reverse: breakCycle = true: ${sll.reverse()}")
     println("printList after reverse: ${sll.printList()}")
     println("topBack: " + sll.topBack())
