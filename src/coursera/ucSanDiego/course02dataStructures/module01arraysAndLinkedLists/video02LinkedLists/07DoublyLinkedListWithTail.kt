@@ -117,8 +117,43 @@ class LearnDoublyLinkedListWithTail() {
             return head?.data
         }
 
+        /**
+         * Returning a null value is ambiguous.
+         *
+         * What does it mean if we get a null value in return?
+         * Does it mean a failure or does it mean a valid return value?
+         * Is null a valid return value?
+         *
+         * Hence, return [Result] which is there in Kotlin since 1.3
+         * It will force the caller to handle the returned [Result] based on [Result.isSuccess] or [Result.isFailure],
+         * instead of ambiguous null values that can be interpreted differently by different developers.
+         *
+         * For example, Let us assume that a list can contain "null" items where "null" is a valid item.
+         * Let us assume that we are trying to get the first item while the list is empty.
+         * Now, the function returns "null," because the list is empty.
+         * However, the value "null" might also indicate that the first item is "null."
+         *
+         * How can the caller identify whether it is the case where the first item is "null,"
+         * or it is the case where the list itself is empty?
+         *
+         * Hence, it is better to use [Result]. It makes the code more complex, but clear.
+         *
+         * However, if we check the Kotlin [List] collection, it offers both [List.getFirst], and [List.firstOrNull].
+         * The [List.getFirst] throws an exception if the list must not be empty, and there must be an item.
+         * The [List.firstOrNull] returns the first element, or "null" if the list is empty.
+         *
+         * Hence, it is better to have all 3 methods in the production code, and use each one based on the requirements.
+         *
+         * Because, sometimes we want to know the exact reason of the "null" value for which we can use [Result].
+         * Sometimes, we want to explicitly get either the first item or the "null" value if the list is empty.
+         * In this case, we might not want to know the reason behind the "null" value.
+         * Sometimes, we must get the first item, and we must expect a non-empty list, in which case we might expect
+         * an exception if the list is empty to follow the fail-fast approach.
+         */
         fun popFront(): T? {
             // If the list is empty, we don't have anything to return, but null (nil).
+            // Ambiguity: How can the caller identify that whether it is the case where the first item is "null,"
+            // or the list itself is empty? Hence, use [Result].
             if (isEmpty()) return null
             val popFront = head
             //region If the list has only 1 item,
@@ -195,7 +230,7 @@ class LearnDoublyLinkedListWithTail() {
             return popBack?.data
         }
 
-        fun getIndexOutOfBoundsExceptionMessage(index: Int): String {
+        private fun getIndexOutOfBoundsExceptionMessage(index: Int): String {
             return "Index is $index, and size is $size"
         }
 
@@ -455,14 +490,14 @@ class LearnDoublyLinkedListWithTail() {
 
         }
 
-        fun createCycleBetweenIndices(startIndex: Int, endIndex: Int) {
+        private fun createCycleBetweenIndices(startIndex: Int, endIndex: Int) {
             val cycleStart = nodeAt(startIndex)
             val cycleEnd = nodeAt(endIndex)
             cycleEnd?.next = cycleStart
             println("Cycle between: ${cycleEnd?.data} at index $endIndex and ${cycleStart?.data} at index $startIndex")
         }
 
-        fun createCycleBetweenObjects(startObject: Node<T>?, endObject: Node<T>?) {
+        private fun createCycleBetweenObjects(startObject: Node<T>?, endObject: Node<T>?) {
             var start = head
             var end = head
             var curr = head
@@ -600,23 +635,30 @@ class LearnDoublyLinkedListWithTail() {
             return false
         }
 
-        fun printList() {
-            val stringBuilder = StringBuilder()
+        fun asString(): String {
+            if (isEmpty()) return "--The list is empty!--"
             var curr = head
-            val set = mutableSetOf<Node<T>>()
-            var index = 0
+            val set = mutableSetOf<Node<T>?>()
+            val stringBuilder = StringBuilder()
             while (curr != null) {
                 if (set.contains(curr)) {
-                    println("Cycle meeting point at step $index, with data ${curr.data}")
+                    println("Cycle detected with node data: ${curr.data}. The next data is: ${curr.next?.data}")
                     break
                 }
                 set.add(curr)
                 stringBuilder.append(curr.data).append(" --> ")
                 curr = curr.next
-                index++
             }
-            stringBuilder.append("-- End Of The List --")
-            println(stringBuilder)
+            stringBuilder.append(" -- End Of The List --")
+            return stringBuilder.toString()
+        }
+
+        /**
+         * If there is a return type, it becomes easy to test.
+         * Hence, the helper function [asString].
+         */
+        fun printList() {
+            println(asString())
         }
     }
 }
