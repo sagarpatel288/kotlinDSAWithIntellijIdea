@@ -107,6 +107,17 @@ class LearnSinglyLinkedListWithTail() {
 
         private fun getIndexOutOfBoundsExceptionMessage(index: Int) = "Index is $index, and size is $size"
 
+        fun nodeAt(index: Int): Node<T>? {
+            require(index in 0..<size) {
+                IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
+            }
+            var curr = head
+            repeat(index) {
+                curr = curr?.next
+            }
+            return curr
+        }
+
         fun getItemDataAtIndex(index: Int): T? {
             require(index in 0..<size) {
                 IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
@@ -117,10 +128,7 @@ class LearnSinglyLinkedListWithTail() {
             if (index == size - 1) {
                 return topBack()
             }
-            var curr = head
-            repeat(index) {
-                curr = curr?.next
-            }
+            val curr = nodeAt(index)
             return curr?.data
         }
 
@@ -128,10 +136,7 @@ class LearnSinglyLinkedListWithTail() {
             require(index in 0..<size) {
                 IndexOutOfBoundsException(getIndexOutOfBoundsExceptionMessage(index))
             }
-            var curr = head
-            repeat(index) {
-                curr = curr?.next
-            }
+            val curr = nodeAt(index)
             curr?.data = data
         }
 
@@ -145,10 +150,7 @@ class LearnSinglyLinkedListWithTail() {
             if (index == size) {
                 return pushBack(data)
             }
-            var curr = head
-            repeat(index - 1) {
-                curr = curr?.next
-            }
+            val curr = nodeAt(index - 1)
             curr?.next = Node(data, curr?.next)
             size++
         }
@@ -163,10 +165,7 @@ class LearnSinglyLinkedListWithTail() {
             if (index == size - 1) {
                 return popBack()
             }
-            var curr = head
-            repeat(index - 1) {
-                curr = curr?.next
-            }
+            val curr = nodeAt(index - 1)
             val itemToRemove = curr?.next
             curr?.next = itemToRemove?.next
             size--
@@ -230,11 +229,8 @@ class LearnSinglyLinkedListWithTail() {
             size = 0
         }
 
-        fun createCycle(fromIndex: Int) {
-            var target = head
-            repeat(fromIndex) {
-                target = target?.next
-            }
+        fun createCycle(cycleStartIndex: Int) {
+            val target = nodeAt(cycleStartIndex)
             tail?.next = target
         }
 
