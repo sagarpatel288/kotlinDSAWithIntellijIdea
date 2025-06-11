@@ -192,7 +192,6 @@ class LearnSinglyLinkedListWithTail() {
                 println("The list is empty!")
             }
             var prev: Node<T>? = null
-            // TODO: Need to fix!
             var curr = head
             tail = head
             val set = mutableSetOf<Node<T>?>()
@@ -395,7 +394,7 @@ fun main() {
     println("contains 90? " + sll.contains(90))
     println("contains 100? " + sll.contains(100))
     println("size: " + sll.size())
-    println("createCycleAtIndex: 3: ${sll.createCycle(3)}")
+    println("createCycleAtIndex: 1: ${sll.createCycle(1)}")
     println("printList after createCycleAtIndex 3: ${sll.printList()}")
     println("hasCycle: ${sll.hasCycle()}")
     println("reverse: breakCycle = false: ${sll.reverse(false)}")
