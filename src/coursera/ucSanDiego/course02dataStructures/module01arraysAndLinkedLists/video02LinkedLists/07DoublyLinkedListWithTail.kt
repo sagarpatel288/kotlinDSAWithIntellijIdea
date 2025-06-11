@@ -1,12 +1,11 @@
 package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists
 
-import com.sun.tools.javac.Main
 import coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists.LearnDoublyLinkedListWithTail.*
 
 /**
  * DoublyLinkedListWithTail.kt
  *
- * A comprehensive implementation of a doubly linked list with tail pointer in Kotlin.
+ * A comprehensive implementation of a doubly linked list with a tail pointer in Kotlin.
  *
  * Features:
  * - Standard doubly linked list operations (push, pop, insert, remove, etc.)
