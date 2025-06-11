@@ -554,6 +554,22 @@ class SinglyLinkedListWithoutTail<T>() {
         }
     }
 
+    fun findMiddleNode(): Node<T>? {
+        if (isEmpty()) return null
+        if (hasCycle()) {
+            println("The list has a cycle!")
+            return null
+        }
+        var slow = head
+        var fast = head
+        while (fast != null && fast.next != null) {
+            slow = slow?.next
+            fast = fast.next?.next
+        }
+        return slow
+    }
+
+
     /**
      * The key-lemma here is: Robert Floyd's Tortoise and Hare Algorithm.
      * ```
@@ -824,7 +840,7 @@ class SinglyLinkedListWithoutTail<T>() {
                 // Now, it is possible that both the slow and the fast pointer meet at the node 70 itself.
                 // In that case, we find that the head and the meeting point are at the same node.
                 // So, we can safely conclude that the head itself is a starting (entry) point of the cycle,
-                // and that this is a perfect circular linked list.
+                // and that this is a perfect circular-linked list.
                 if (slow == fast) {
                     return slow
                 }
@@ -964,6 +980,7 @@ fun main() {
     println("getIndexOf 100: ${sll.getIndexOf(100)}")
     println("printList after getIndexOf 100: ${sll.printList()}")
     sll.printList()
+    println("Middle Node Data: ${sll.findMiddleNode()?.data}")
     println("reverse: Break Cycle: True: ${sll.reverse()}")
     println("printList after reverse: ${sll.printList()}")
     sll.printList()
