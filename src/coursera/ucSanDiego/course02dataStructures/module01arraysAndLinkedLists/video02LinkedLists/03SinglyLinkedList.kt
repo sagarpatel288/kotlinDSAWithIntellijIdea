@@ -46,7 +46,7 @@ package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.
  * * It means that if the values of two objects are the same, then the objects are equal by default,
  * unless we override the default behavior.
  */
-class Node<T>(var data: T?, var next: Node<T>?) {
+class Node<T>(var data: T, var next: Node<T>?) {
     override fun toString(): String {
         // If we print "next," it will print all the data simultaneously! It will be like a recursive call!
         return "data: $data"
@@ -81,7 +81,7 @@ class SinglyLinkedListWithoutTail<T>() {
     fun isEmpty() = head == null
 
     // Add an item to the front (top, start, first) of the list. Time complexity is O(1).
-    fun pushFront(data: T?) {
+    fun pushFront(data: T) {
         val newNode = Node(data, null)
         // The list is empty.
         if (isEmpty()) {
@@ -115,7 +115,7 @@ class SinglyLinkedListWithoutTail<T>() {
     }
 
     // Add an item to the back (last, tail, end) of the list. Worst-case time complexity is O(n).
-    fun pushBack(value: T?) {
+    fun pushBack(value: T) {
         val newNode = Node(value, null)
         // If the list is empty, the time complexity is O(1).
         if (isEmpty()) {
@@ -212,7 +212,7 @@ class SinglyLinkedListWithoutTail<T>() {
      * In the end, the list becomes:
      * `A (index 0) --> B (index 1) --> X (index 2) --> C (index 3) --> D (index 4)`.
      */
-    fun addItemAtIndex(index: Int, item: T?) {
+    fun addItemAtIndex(index: Int, item: T) {
         // > size and not >= size, because we can add an item to the back (end, last, tail).
         // For example, if we have two items at indices 0 and 1, the size is two, and we can add an item at index 2.
         // If the list size is 2, then the last index at which we can add an item is 2, not more than that.
@@ -374,7 +374,7 @@ class SinglyLinkedListWithoutTail<T>() {
      * When we get the target item, we perform `item?.data = givenData` to replace (set) the existing data with the
      * given data.
      */
-    fun setReplace(index: Int, data: T?) {
+    fun setReplace(index: Int, data: T) {
         if (index < 0 || index >= size) {
             throw IndexOutOfBoundsException()
         }
@@ -567,6 +567,31 @@ class SinglyLinkedListWithoutTail<T>() {
             fast = fast.next?.next
         }
         return slow
+    }
+
+    fun mergeTwoLinkedLists(
+        listOne: SinglyLinkedListWithoutTail<Int>,
+        listTwo: SinglyLinkedListWithoutTail<Int>
+    ): SinglyLinkedListWithoutTail<Int> {
+        val dummyNode = Node(-1, null)
+        var temp = dummyNode
+        var temp1 = listOne.head
+        var temp2 = listTwo.head
+        while (temp1 != null && temp2 != null) {
+            if (temp1.data <= temp2.data) {
+                temp.next = temp1
+                temp = temp1
+                temp1 = temp1.next
+            } else {
+                temp.next = temp2
+                temp = temp2
+                temp2 = temp2.next
+            }
+        }
+        temp.next = temp1 ?: temp2
+        val mergedList = SinglyLinkedListWithoutTail<Int>()
+        mergedList.head = dummyNode.next
+        return mergedList
     }
 
 
@@ -1023,4 +1048,22 @@ fun main() {
     println("clear: ${sll.clear()}")
     println("size: " + sll.size() + " :isEmpty?: " + sll.isEmpty())
 
+    val listOne = SinglyLinkedListWithoutTail<Int>()
+    listOne.pushBack(1)
+    listOne.pushBack(3)
+    listOne.pushBack(5)
+    listOne.pushBack(7)
+    listOne.pushBack(9)
+    listOne.pushBack(11)
+
+    val listTwo = SinglyLinkedListWithoutTail<Int>()
+    listTwo.pushBack(2)
+    listTwo.pushBack(4)
+    listTwo.pushBack(6)
+    listTwo.pushBack(8)
+    listTwo.pushBack(10)
+
+    val list = SinglyLinkedListWithoutTail<Int>()
+
+    println("Merge Lists: ${list.mergeTwoLinkedLists(listOne, listTwo).printList()}")
 }
