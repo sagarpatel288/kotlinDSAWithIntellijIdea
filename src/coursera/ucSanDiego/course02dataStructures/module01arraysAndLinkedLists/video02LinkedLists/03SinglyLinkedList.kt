@@ -569,28 +569,310 @@ class SinglyLinkedListWithoutTail<T>() {
         return slow
     }
 
+    /**
+     * # References:
+     *
+     * 1. [Striver, Raj, TakeUForward](https://youtu.be/jXu-H7XuClE?si=bETfXB3hwIB0DV2c)
+     * 2. [Monica AI](https://monica.im/share/chat?shareId=uZBeKJIaViG0Axu3&locale=en)
+     *
+     * # Explanation:
+     *
+     * The idea is, we take a fake node, called "preHead."
+     * ```
+     * val preHead = Node(-1, null)
+     * ```
+     * Then, we iterate over the given lists until one of the lists gets exhausted.
+     * ```
+     * var temp1 = listOne.head
+     * var temp2 = listTwo.head
+     * while (temp1 != null && temp2 != null) {
+     *     ...
+     * }
+     * ```
+     *
+     * Let us visualize the scene here.
+     *
+     * 1. The four variables. preHead, temp, temp1, and temp2.
+     *
+     * ```
+     * // Create a node in the space (The King), not connected with anyone yet.
+     * 1. val preHead = Node(-1, null)
+     * // Create a helper (A chancellor) for the "preHead" that will help make the next connections.
+     * // Selects the stones (items) from both the lists, releases and separates the item from the list,
+     * // and puts on the way to prepare the walking path for the King.
+     * 2. var temp = preHead // Lays stones on the mud, jumps on the stone, and repeats.
+     * // A variable that keeps the track of the items covered (checked, compared, connected) for the list one.
+     * 3. var temp1 = listOne.head
+     * // A variable that keeps the track of the items covered (checked, compared, connected) for the list two.
+     * 4. var temp2 = listTwo.head
+     * ```
+     *
+     * 2. The current setup looks like below:
+     *
+     * ```
+     * 1. Two lists:
+     *
+     * temp1
+     *   1 ------> 3 ------> 5
+     *
+     *   2 ------> 4 ------> 6 ------> 8 ------> 10
+     * temp2
+     *
+     * 2. The preHead and temp collaboration (chemistry):
+     *
+     * preHead
+     *   ^
+     *   |
+     * temp
+     * ```
+     *
+     * 3. Now, imagine that the helper variable (the chancellor) "temp" is at "preHead," (Besides the King),
+     * and selects the stones from the lists.
+     * Then, he releases and separates the selected stone from the list,
+     * lays down the selected stone on the mud (connects the next item),
+     * and jumps on the stone (moves on the next item it just has laid).
+     *
+     * And it keeps doing this (repeats) as long as it has stones (items) to select from the listOne and the listTwo.
+     *
+     * The selection of the next item (the stone) is based on a comparison.
+     * The King has asked to select the smaller (inexpensive) stones first.
+     * So, the chancellor selects the smaller one between the variable "temp1," and "temp2."
+     *
+     * That means, the next item of `temp` (or `preHead`, because currently `temp = preHead`)
+     * is the smaller one between `temp1` and `temp2`.
+     *
+     * So, we can say that, `temp.next` = The smaller item between `temp1` and `temp2`.
+     * Notice that `temp.next` means `preHead.next`, because `temp` represents `preHead` at the moment.
+     *
+     * 4. How do we convert this into the code?
+     *
+     * ```
+     * if (temp1.data <= temp2.data) {
+     *     temp.next = temp1
+     * } else {
+     *     temp.next = temp2
+     * }
+     * ```
+     *
+     * 5. Explanation:
+     * We compare `temp1, and temp2.`
+     * If the smaller item is `temp1`, then `temp.next = temp1`.
+     * Otherwise, `temp.next = temp2`.
+     *
+     * 6. Now, the smaller item is `temp1`. So, the resultant setup looks like below:
+     *
+     * ```
+     * 1. Two lists:
+     *
+     * temp1
+     *   1 ------> 3 ------> 5
+     *
+     *   2 ------> 4 ------> 6 ------> 8 ------> 10
+     * temp2
+     *
+     * 2. The preHead and temp collaboration (chemistry):
+     *
+     * preHead --> 1 (Because `temp.next` means `preHead.next` as `temp = preHead` at the moment)
+     *   ^
+     *   |
+     * temp
+     * ```
+     *
+     * 7. Now, the item `1` of the list one has been taken (compared, selected, released, and laid down).
+     * So, the `temp1` variable moves to the next item.
+     *
+     * 7. How do we translate this into code?
+     *
+     * ```
+     * // The "temp1" variable moves to the next item.
+     * temp1 = temp1.next
+     * ```
+     *
+     * 8. Similarly, if `temp2` was smaller than the `temp1`, we would have taken and connected the `temp2` item,
+     * and then we would have moved the `temp2` variable to the next item.
+     *
+     * Which translates to:
+     *
+     * ```
+     * // The "temp2" variable moves to the next item.
+     * temp2 = temp2.next
+     * ```
+     *
+     * 9. Let us add this code to the existing code:
+     *
+     * ```
+     * // Compare the `temp1` and the `temp2` variables
+     * if (temp1.data <= temp2.data) {
+     *     // The `temp1` variable is smaller. So, we take it as the next connection.
+     *     temp.next = temp1
+     *     // We took and connected the `temp1` item. So, it moves to the next item.
+     *     temp1 = temp1.next
+     * } else {
+     *     // The `temp2` variable is smaller. So, we take it as the next connection.
+     *     temp.next = temp2
+     *     // We took and connected the `temp2` item. So, it moves to the next item.
+     *     temp2 = temp2.next
+     * }
+     * ```
+     *
+     * 10. Now, the setup is:
+     *
+     * ```
+     * 1. Two lists:
+     *
+     * Done     temp1
+     *   1 ------> 3 ------> 5
+     *
+     *   2 ------> 4 ------> 6 ------> 8 ------> 10
+     * temp2
+     *
+     * 2. The preHead and temp collaboration (chemistry):
+     *
+     * preHead --> 1 (Because `temp.next` means `preHead.next` as `temp = preHead.`)
+     *   ^
+     *   |
+     * temp
+     * ```
+     *
+     * 11. Now, we need to connect the `next` item for `1`. So, the `temp` variable moves to `1`.
+     * (Jumps on the stone it just has laid on the mud).
+     *
+     * Let us visualize this first.
+     *
+     * ```
+     * 1. Two lists:
+     *
+     * Done     temp1
+     *   1 ------> 3 ------> 5
+     *
+     *   2 ------> 4 ------> 6 ------> 8 ------> 10
+     * temp2
+     *
+     * 2. The preHead and temp collaboration (chemistry):
+     *
+     * preHead --> 1 (Because `temp.next` means `preHead.next` as `temp = preHead.`)
+     *             ^
+     *             |
+     *           temp
+     * ```
+     *
+     * 12. How do we translate this into the code?
+     *
+     * ```
+     * The "temp" variable moves to "1" which used to be "temp1."
+     * (I.e., Once upon a time, "temp1" was at "1". Before the "temp1" moved to "3,", it was "temp1 = 1.").
+     * temp = temp1 // Before we make temp1 = temp1.next
+     * ```
+     *
+     * 13. So, the code becomes:
+     *
+     * ```
+     * if (temp1.data <= temp2.data) {
+     *     temp.next = temp1 // Connects the next item to the existing "preHead" chain.
+     *     temp = temp1 // Moves itself to the last item of the existing "preHead" chain.
+     *     temp1 = temp1.next // The "temp1" variable moves to the next item.
+     * } else {
+     *     temp.next = temp2 // Connects the next item to the existing "preHead" chain.
+     *     temp = temp2 // Moves itself to the last item of the existing "preHead" chain.
+     *     temp2 = temp2.next // The "temp2" variable moves to the next item.
+     * }
+     * ```
+     *
+     * 14. This process continues until one of the lists gets exhausted (no item left to cover).
+     * Let us translate this into the code and write the complete code:
+     *
+     * ```
+     * // An item in the space that does not have any next connection item yet.
+     * var preHead = Node(-1, null)
+     * // A helper for the "preHead" to establish the next connections.
+     * var temp = preHead // The `temp` says: "I represent the `preHead`."
+     * // A temporary variable to cover, travel through the list one, starting from the head.
+     * var temp1 = listOne.head
+     * // A temporary variable to cover, travel through the list two, starting from the head.
+     * var temp2 = listTwo.head
+     *
+     * // Iteration until one of the lists gets exhausted (no item left to cover).
+     * while (temp1 != null && temp2 != null) {
+     *     if (temp1.data <= temp2.data) {
+     *         temp.next = temp1 // lays the stone on the mud.
+     *         temp = temp1 // Moves on the stone it just has laid on the mud.
+     *         temp1 = temp1.next // Moves on the next item of the list to cover.
+     *     } else {
+     *         temp.next = temp2 // lays the stone on the mud.
+     *         temp = temp2 // Moves on the stone it just has laid on the mud.
+     *         temp2 = temp2.next // Moves on the next item of the list to cover.
+     *     }
+     * }
+     *
+     * // Suppose, the variable "temp2" becomes null. I.e., There are no stones (items) left in the listTwo.
+     * // The listTwo gets exhausted. Now, we are left with the listOne only.
+     * // We can select the stones (items) from the listOne only until the listOne also gets exhausted.
+     * // But the listOne is already sorted and there is no item left in the listTwo to compare with.
+     * // Hence, we can take the entire remaining items of the listOne starting from the "temp1."
+     * // Why starting from the "temp1"?
+     * // Because, we have already taken the items before the variable "temp1."
+     * // And the items from the "temp1" are already connected in a chain.
+     * // We have not released and separated the remaining items of the chain yet.
+     * // So, we just need to connect with the "temp1" and we are done.
+     *
+     * // On the other hand,
+     * // Suppose, the listOne gets exhausted first. I.e., there are no stones (items) left in the listOne.
+     * // Now, we are left with the listTwo only.
+     * // We can select items only from the listTwo now, until the listTwo also gets exhausted.
+     * // But the listTwo is already sorted and there is no item left in the listOne to compare with.
+     * // Hence, we can take all the remaining items of the listTwo starting from the "temp2."
+     * // Why starting from the "temp2"?
+     * // Because, we have already taken the items before the variable "temp2."
+     * // And the items from the "temp2" are already connected in a chain.
+     * // We have not released and separated the remaining items of the chain yet.
+     * // So, we just need to connect with the "temp2" and we are done.
+     *
+     * // In short, we connect with the variable which is not null yet.
+     * temp.next = temp1 ?: temp2
+     * ```
+     *
+     * 15. The chancellor (the "temp" variable) has laid down all the stones (items) in a proper order.
+     * Now, the next step of the king will be on the first stone (item) the chancellor has laid down.
+     * In other words, the chain of stones (merged sorted lists) starts with the next step of the King.
+     *
+     * How to translate this into the code?
+     *
+     * ```
+     * val mergedSortedList = SinglyLinkedListWithoutTail<Int>()
+     * mergedSortedList.head = preHead.next
+     * return mergedSortedList
+     * ```
+     *
+     * 16. Full and final Code (Full and final Story): Complete Code (Complete Story) is given in the function body.
+     */
     fun mergeTwoLinkedLists(
         listOne: SinglyLinkedListWithoutTail<Int>,
         listTwo: SinglyLinkedListWithoutTail<Int>
     ): SinglyLinkedListWithoutTail<Int> {
-        val dummyNode = Node(-1, null)
-        var temp = dummyNode
+        // A separate node in the space
+        val preHead = Node(-1, null)
+        // A helper variable to establish next nodes to "preHead."
+        var temp = preHead
+        // A helper variable to cover each item of the listOne, starting from the head.
         var temp1 = listOne.head
+        // A helper variable to cover each item of the listTwo, starting from the head.
         var temp2 = listTwo.head
+        // Iterating through to compare the items of the listOne and listTwo.
         while (temp1 != null && temp2 != null) {
             if (temp1.data <= temp2.data) {
-                temp.next = temp1
-                temp = temp1
-                temp1 = temp1.next
+                temp.next = temp1 // Establishes the next node.
+                temp = temp1 // Moves to the established node.
+                temp1 = temp1.next // Moves to the next item.
             } else {
-                temp.next = temp2
-                temp = temp2
-                temp2 = temp2.next
+                temp.next = temp2 // Establish the next node.
+                temp = temp2 // Moves to the established node.
+                temp2 = temp2.next // Moves to the next item.
             }
         }
+        // Establishes the remaining non-null chain as it is because the remaining part is already sorted.
         temp.next = temp1 ?: temp2
         val mergedList = SinglyLinkedListWithoutTail<Int>()
-        mergedList.head = dummyNode.next
+        mergedList.head = preHead.next
         return mergedList
     }
 
