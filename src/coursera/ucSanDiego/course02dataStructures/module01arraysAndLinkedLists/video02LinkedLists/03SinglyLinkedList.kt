@@ -69,7 +69,8 @@ class Node<T>(var data: T, var next: Node<T>?) {
  *
  */
 class SinglyLinkedListWithoutTail<T>() {
-    private var head: Node<T>? = null
+    // Public to access during the merge two linked lists operation
+    var head: Node<T>? = null
 
     // A dedicated size variable so we can get the size in O(1) anytime instead of in O(n).
     // The "size" variable is also useful when we want to perform (call) "addItemAtIndex," "removeItemAtIndex," etc.
