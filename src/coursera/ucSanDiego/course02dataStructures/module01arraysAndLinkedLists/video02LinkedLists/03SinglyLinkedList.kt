@@ -601,9 +601,9 @@ class SinglyLinkedListWithoutTail<T>() {
      * // Selects the stones (items) from both the lists, releases and separates the item from the list,
      * // and puts on the way to prepare the walking path for the King.
      * 2. var temp = preHead // Lays stones on the mud, jumps on the stone, and repeats.
-     * // A variable that keeps the track of the items covered (checked, compared, connected) for the list one.
+     * // A variable that keeps the track of the items covered (compared, released, and laid down) for the list one.
      * 3. var temp1 = listOne.head
-     * // A variable that keeps the track of the items covered (checked, compared, connected) for the list two.
+     * // A variable that keeps the track of the items covered (compared, released, and laid down) for the list two.
      * 4. var temp2 = listTwo.head
      * ```
      *
