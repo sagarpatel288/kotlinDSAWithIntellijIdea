@@ -1,6 +1,6 @@
-package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists
+package coursera.ucSanDiego.course02dataStructures.module01.video02LinkedLists
 
-import coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists.LearnDoublyLinkedListWithTail.*
+import coursera.ucSanDiego.course02dataStructures.module01.video02LinkedLists.LearnDoublyLinkedListWithTail.*
 
 /**
  * DoublyLinkedListWithTail.kt

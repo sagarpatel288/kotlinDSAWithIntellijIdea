@@ -1,4 +1,4 @@
-package coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists
+package coursera.ucSanDiego.course02dataStructures.module01.video02LinkedLists
 
 /**
  * A node that we use in a linked list.
@@ -455,7 +455,7 @@ class SinglyLinkedListWithoutTail<T>() {
     /**
      * In-place reverse function is a standard best practice.
      * It changes the original object
-     * (In our case, currently it is [coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists.SinglyLinkedListWithoutTail]).
+     * (In our case, currently it is [coursera.ucSanDiego.course02dataStructures.module01.video02LinkedLists.SinglyLinkedListWithoutTail]).
      *
      * For example, suppose the original list is:
      * ```
@@ -940,7 +940,7 @@ class SinglyLinkedListWithoutTail<T>() {
 
     /**
      * This is a helper function to create and then test a cycle in the
-     * [coursera.ucSanDiego.course02dataStructures.module01arraysAndLinkedLists.video02LinkedLists.SinglyLinkedListWithoutTail].
+     * [coursera.ucSanDiego.course02dataStructures.module01.video02LinkedLists.SinglyLinkedListWithoutTail].
      *
      * A cycle in the Singly Linked List is not a good idea as it can lead to an infinite loop.
      * Hence, this is absolutely for testing purposes only.
