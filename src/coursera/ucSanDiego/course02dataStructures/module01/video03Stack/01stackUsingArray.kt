@@ -14,7 +14,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.video03Stack
 class StackUsingArray<T>(private val capacity: Int) {
 
     init {
-        require(capacity > 0) { "Stack size must be greater than 0." }
+        require(capacity > 0) { "Stack capacity must be greater than 0." }
     }
 
     /**
