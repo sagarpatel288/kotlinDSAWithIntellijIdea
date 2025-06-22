@@ -52,9 +52,29 @@ class StackUsingArray<T>(private val capacity: Int) {
 
     fun size() = capacity
 
+    /**
+     * [isEmpty] is a state, not an action.
+     * Also, we don't want it to be set externally.
+     * And it uses the internal state [numberOfElements] to decide its own state.
+     * [isEmpty] depends on the [numberOfElements], which clearly suggests that [isEmpty] is a computed property.
+     * All these characteristics suggest an immutable "val" property, and not the "var" property.
+     * Hence, [isEmpty] is a "val" property.
+     *
+     * Also, if we use `var` with `private set,` we will have to remember to update it for each relevant operation,
+     * such as [push], and [pop], which is a maintenance burden and an error-prone approach.
+     * Also, It does not align with Kotlin idiomatic and Kotlin standard library conventions.
+     * Hence, [isEmpty] is a "val" property.
+     */
     val isEmpty: Boolean
         get() = numberOfElements == 0
 
+    /**
+     * [isFull] is a state, not an action.
+     * [isFull] depends on the internal state [numberOfElements].
+     * Hence, [isFull] is a computed property.
+     * We don't want to set [isFull] from the outside.
+     * All these characteristics suggest that [isFull] should be an immutable and computed "val" property.
+     */
     val isFull: Boolean
         get() = numberOfElements == capacity
 
