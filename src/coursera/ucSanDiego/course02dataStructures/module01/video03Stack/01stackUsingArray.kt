@@ -58,17 +58,29 @@ class StackUsingArray<T>(private val capacity: Int) {
     val isFull: Boolean
         get() = numberOfElements == capacity
 
+    /**
+     * Time complexity is O(1), constant time.
+     * Space complexity is also O(1), no additional memory.
+     */
     fun push(data: T) {
         if (isFull) throw IllegalStateException("Stack is full. Capacity is $capacity, and number of elements are $numberOfElements")
         array[numberOfElements++] = data
     }
 
+    /**
+     * Time complexity is O(1), constant time.
+     * Space complexity is also O(1), no additional memory.
+     */
     fun top(): T {
         if (isEmpty) throw NoSuchElementException("The stack is empty!")
         @Suppress("Unchecked_Cast")
         return array[numberOfElements - 1] as T
     }
 
+    /**
+     * Time complexity is O(1), constant time.
+     * Space complexity is also O(1).
+     */
     fun pop(): T {
         // top() already handles the "isEmpty" case.
         val top = top()
@@ -80,15 +92,22 @@ class StackUsingArray<T>(private val capacity: Int) {
     /**
      * Instead of using a for loop,
      * the usage of [Array.take] and [joinToString] demonstrates good knowledge of Kotlin idiomatic.
+     *
+     * Time Complexity, O(n), where `n` is the `numberOfElements.`
+     * Space Complexity is also O(n), because the resulting string is a representation of every elements.
      */
-    fun asString(): String {
-        // We use "take" because the entire array might not be filled yet!
-        return array.take(numberOfElements)
-            .joinToString(" --> ") {
-                "Index ${array.indexOf(it)} value $it"
-            } + " --> -- End Of The Stack. -- "
-    }
+    fun asString(): String =
+        buildString {
+            for (i in 0..<numberOfElements) {
+                append("Index is $i and value is ${array[i]} --> ")
+            }
+            append(" -- End Of The Stack -- ")
+        }
 
+    /**
+     * Time Complexity is O(n), because [asString] takes O(n).
+     * Space complexity is also O(n), because [asString] takes O(n).
+     */
     fun printStack() {
         println(asString())
     }
