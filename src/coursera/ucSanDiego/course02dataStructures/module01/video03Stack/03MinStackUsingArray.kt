@@ -5,6 +5,61 @@ import java.util.EmptyStackException
 /**
  * The `MinStack` problem:
  *
+ * # ----------------------- Problem Statement -----------------------
+ *
+ * Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+ *
+ * Implement the MinStack class:
+ *
+ * MinStack() initializes the stack object.
+ * void push(int val) pushes the element val onto the stack.
+ * void pop() removes the element on the top of the stack.
+ * int top() gets the top element of the stack.
+ * int getMin() retrieves the minimum element in the stack.
+ * You must implement a solution with O(1) time complexity for each function.
+ *
+ * ## ----------------------- Constraints -----------------------
+ *
+ * -2^31 <= val <= 2^31 - 1
+ * Methods pop, top, and getMin operations will always be called on non-empty stacks.
+ * At most 3 * 10^4 calls will be made to push, pop, top, and getMin.
+ *
+ * ## ----------------------- Solution Overview -----------------------
+ *
+ * Implements a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+ *
+ * This implementation uses a single array and a clever encoding/decoding scheme to track the minimum value
+ * with O(1) auxiliary space complexity.
+ *
+ * ## The Core Idea
+ *
+ * When a new value `x` is pushed:
+ * - If `x` is greater than or equal to the current minimum, it's pushed directly onto the stack.
+ * - If `x` is the new minimum, we need to store the *previous* minimum. We do this by encoding it.
+ *   Instead of pushing `x`, we push `2L * x - currentMin`. This encoded value is guaranteed to be
+ *   less than `x` (the new minimum).
+ *
+ * When a value is popped or topped:
+ * - If the value on the stack is greater than or equal to the current minimum, it's a normal value.
+ * - If it's less than the current minimum, it's an encoded value. The actual value is the current minimum,
+ *   and the previous minimum can be decoded using `previousMin = 2L * currentMin - encodedValue`.
+ *
+ * Using a `LongArray` prevents integer overflow during the encoding calculation (`2L * x`).
+ *
+ * ### ----------------------- Time Complexity -----------------------
+ *
+ * It uses O(1) for `push,` `top,` `pop,` and `getMin` functions (operations).
+ * It uses O(n) to print itself.
+ *
+ * ### ----------------------- Space Complexity -----------------------
+ *
+ * Overall, this data structure uses `O(n)` space due to the container that we use to store the stack elements.
+ * The benefit of the encoding approach in this solution is that it does not require an extra container to store and
+ * manage the `min` elements.
+ *
+ * If we had used an extra container (like [Array], [ArrayDeque], etc.), we would have got `O(2n)` space in the
+ * worst case where each new push is a new `min.`
+ *
  * References:
  * [Shraddha K]((https://youtu.be/wHDm-N2m2XY?si=ZGfPBFLljG46UqDw))
  * [LeetCode Problem 155](https://leetcode.com/problems/min-stack/description/)
@@ -21,6 +76,12 @@ class MinStackUsingArray(private val capacity: Int) {
      * handle it if it exceeds the integer limit (overflow) during the encoding process.
      *
      * For more information about the `encoding` stuff, check [push].
+     *
+     * ### ----------------------- Space Complexity -----------------------
+     *
+     * We are not using Java's built-in `Stack.`
+     * We use [array] of size [capacity].
+     * So, if [capacity] is `n`, then this [array] occupies `O(n)` space.
      */
     private val array = LongArray(capacity)
 
@@ -337,7 +398,10 @@ class MinStackUsingArray(private val capacity: Int) {
      *
      * We use only 1 computational immutable property regardless of the input size.
      * We don't use anything else, and it does not depend on (or grow with) the input size.
-     * Hence, the space complexity is O(1).
+     * Hence, the space complexity is `O(1)`.
+     *
+     * On the other hand, if we had used a separate container (an [Array], [ArrayDeque], or anything else) to manage
+     * the `min` item/s, it could have been `O(n)` space complexity in the worst case, where each new push is a new min.
      */
     val minStackItem: Int
         get() = if (isEmpty) throw EmptyStackException() else minValue.toInt()
