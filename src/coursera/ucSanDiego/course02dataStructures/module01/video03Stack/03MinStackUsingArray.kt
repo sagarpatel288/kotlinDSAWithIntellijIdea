@@ -24,6 +24,14 @@ import java.util.EmptyStackException
  * * Methods pop, top, and getMin operations will always be called on non-empty stacks.
  * * At most 3 * 10^4 calls will be made to push, pop, top, and getMin.
  *
+ * ## ----------------------- Heads Up! -----------------------
+ *
+ * Prefer [ArrayDeque] over [Array] as the underlying data structure.
+ * The reason we use [Array] here is to understand the concept.
+ * Once we understand the concept, we can check the file below that uses the [ArrayDeque]:
+ *
+ * src/coursera/ucSanDiego/course02dataStructures/module01/video03Stack/04minStackUsingArrayDeque.kt
+ *
  * ## ----------------------- Solution Overview -----------------------
  *
  * Implements a stack that supports push, pop, top, and retrieving the minimum element in constant time.
