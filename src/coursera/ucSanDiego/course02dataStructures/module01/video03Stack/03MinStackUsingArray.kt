@@ -247,21 +247,22 @@ class MinStackUsingArray(private val capacity: Int) {
         // Throwing an exception is the standard library practice for stack overflow and underflow cases.
         // StackOverflowError is reserved for JVM function calls (e.g., recursion).
         if (isFull) throw IllegalStateException("The stack is already full! Capacity is $capacity, numberOfElements are $stackSize")
+        val longValue = value.toLong()
         // If the stack is empty, the incoming value becomes the new latest min value.
         if (isEmpty) {
-            array[stackSize++] = value.toLong()
-            minValue = value.toLong()
-        } else if (value >= minValue) {
+            array[stackSize++] = longValue
+            minValue = longValue
+        } else if (longValue >= minValue) {
             // If the incoming value is greater than or equal to the current min value,
             // it doesn't change the current min value. So, we don't need any encoding. We store it in the stack.
-            array[stackSize++] = value.toLong()
+            array[stackSize++] = longValue
         } else {
             //Only if the incoming value is less than the current latest min value,
             // it changes and replaces the current min value. So, we store the encoded value in the stack.
             // Use `2L` instead of `2` to prevent integer overflow!
             // E.g., if the `value` is `Int.MAX_VALUE,` multiplying it by `2` can easily cause integer overflow!
             val encodedValue = 2L * value - minValue
-            minValue = value.toLong()
+            minValue = longValue
             array[stackSize++] = encodedValue
         }
     }
