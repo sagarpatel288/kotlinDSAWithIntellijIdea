@@ -189,7 +189,7 @@ class MinStackUsingArray(private val capacity: Int) {
      * * We decode the top element only if the top element is less than the current min.
      *
      * The next question is:
-
+     *
      * ### How do we decode?
      *
      * So, the formula is similar:
@@ -263,6 +263,29 @@ class MinStackUsingArray(private val capacity: Int) {
      * encoded = 2 * incoming - oldMin --------------------------------------------------------- (3)
      * ```
      * * The expression (3) is our encoding formula.
+     *
+     * We can understand it in another way, also.
+     *
+     * * We want to prove that:
+     * ```
+     * The encoded value will always be less than the latest min value.
+     * => encoded < latestMin
+     * ```
+     * * Now, we know that when we encode, the incoming value is less than the latest min value.
+     * ```
+     * => incoming < latestMin
+     * => incoming - latestMin < 0
+     * => incoming + incoming - latestMin < incoming //Added `incoming` at both ends.
+     * => (2 * incoming) - latestMin < incoming
+     * => We can represent (replace) the expression "(2 * incoming) - latestMin" with "encoded."
+     * So, it becomes:
+     * => encoded < incoming
+     * => Now, we encode when the incoming value is less than the latest min.
+     * => And then the incoming value becomes the new latest min.
+     * So, it becomes:
+     * => encoded < latestMin
+     * Hence, we just explained how the encoded value will always be less than the latest min value!
+     * ```
      *
      * ## Explanation of the decoding formula (Or connecting the encoding and the decoding formulas):
      *
