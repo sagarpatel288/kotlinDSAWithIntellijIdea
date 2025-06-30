@@ -24,6 +24,14 @@ import java.util.EmptyStackException
  * * Methods pop, top, and getMin operations will always be called on non-empty stacks.
  * * At most 3 * 10^4 calls will be made to push, pop, top, and getMin.
  *
+ * ## ----------------------- Heads Up! -----------------------
+ *
+ * Prefer [ArrayDeque] over [Array] as the underlying data structure.
+ * The reason we use [Array] here is to understand the concept.
+ * Once we understand the concept, we can check the file below that uses the [ArrayDeque]:
+ *
+ * src/coursera/ucSanDiego/course02dataStructures/module01/video03Stack/04minStackUsingArrayDeque.kt
+ *
  * ## ----------------------- Solution Overview -----------------------
  *
  * Implements a stack that supports push, pop, top, and retrieving the minimum element in constant time.
@@ -181,7 +189,7 @@ class MinStackUsingArray(private val capacity: Int) {
      * * We decode the top element only if the top element is less than the current min.
      *
      * The next question is:
-
+     *
      * ### How do we decode?
      *
      * So, the formula is similar:
@@ -255,6 +263,29 @@ class MinStackUsingArray(private val capacity: Int) {
      * encoded = 2 * incoming - oldMin --------------------------------------------------------- (3)
      * ```
      * * The expression (3) is our encoding formula.
+     *
+     * We can understand it in another way, also.
+     *
+     * * We want to prove that:
+     * ```
+     * The encoded value will always be less than the latest min value.
+     * => encoded < latestMin
+     * ```
+     * * Now, we know that when we encode, the incoming value is less than the latest min value.
+     * ```
+     * => incoming < latestMin
+     * => incoming - latestMin < 0
+     * => incoming + incoming - latestMin < incoming //Added `incoming` at both ends.
+     * => (2 * incoming) - latestMin < incoming
+     * => We can represent (replace) the expression "(2 * incoming) - latestMin" with "encoded."
+     * So, it becomes:
+     * => encoded < incoming
+     * => Now, we encode when the incoming value is less than the latest min.
+     * => And then the incoming value becomes the new latest min.
+     * So, it becomes:
+     * => encoded < latestMin
+     * Hence, we just explained how the encoded value will always be less than the latest min value!
+     * ```
      *
      * ## Explanation of the decoding formula (Or connecting the encoding and the decoding formulas):
      *
