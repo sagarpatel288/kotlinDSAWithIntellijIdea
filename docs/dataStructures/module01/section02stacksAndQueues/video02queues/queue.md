@@ -95,16 +95,16 @@ A **queue** is a linear data structure that follows the **First-In-First-Out (FI
 
 ### Operations
 
-- **Enqueue:** 
+- **Enqueue: O(1)** 
 1. Create a new node.  
 2. tail.next = newNode
 3. tail = newNode
 
-- **Dequeue:**  
+- **Dequeue: O(1)**  
 head = head.next  
 
 
-- **isEmpty:**  
+- **isEmpty: O(1)**  
 head == null 
 
 </details>
