@@ -1,4 +1,4 @@
-package coursera.ucSanDiego.course02dataStructures.module01.video03Stack
+package coursera.ucSanDiego.course02dataStructures.module01.section02stacksAndQueues.video01Stack
 
 /**
  * When we implement a stack using an array, we need to define the fixed size.

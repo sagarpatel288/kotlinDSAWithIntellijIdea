@@ -1,4 +1,4 @@
-package coursera.ucSanDiego.course02dataStructures.module01.video03Stack
+package coursera.ucSanDiego.course02dataStructures.module01.section02stacksAndQueues.video01Stack
 
 import java.util.EmptyStackException
 
@@ -30,7 +30,7 @@ import java.util.EmptyStackException
  * The reason we use [Array] here is to understand the concept.
  * Once we understand the concept, we can check the file below that uses the [ArrayDeque]:
  *
- * src/coursera/ucSanDiego/course02dataStructures/module01/video03Stack/04minStackUsingArrayDeque.kt
+ * src/coursera/ucSanDiego/course02dataStructures/module01/video01Stack/04minStackUsingArrayDeque.kt
  *
  * ## ----------------------- Solution Overview -----------------------
  *

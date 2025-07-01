@@ -1,4 +1,4 @@
-package coursera.ucSanDiego.course02dataStructures.module01.video03Stack
+package coursera.ucSanDiego.course02dataStructures.module01.section02stacksAndQueues.video01Stack
 
 class StackUsingLinkedList<T>() {
     private data class Node<T>(var value: T, var next: Node<T>?)

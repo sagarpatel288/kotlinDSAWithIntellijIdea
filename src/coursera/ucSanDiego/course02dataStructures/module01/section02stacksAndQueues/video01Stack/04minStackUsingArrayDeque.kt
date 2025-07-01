@@ -1,4 +1,4 @@
-package coursera.ucSanDiego.course02dataStructures.module01.video03Stack
+package coursera.ucSanDiego.course02dataStructures.module01.section02stacksAndQueues.video01Stack
 
 import java.util.EmptyStackException
 
@@ -47,7 +47,7 @@ import java.util.EmptyStackException
  * - `O(n)`, where `n` is the number of elements in the stack.
  *
  * Reference:
- * src/coursera/ucSanDiego/course02dataStructures/module01/video03Stack/03MinStackUsingArray.kt
+ * src/coursera/ucSanDiego/course02dataStructures/module01/video01Stack/03MinStackUsingArray.kt
  */
 class MinStackUsingArrayDeque() {
 
