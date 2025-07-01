@@ -108,3 +108,40 @@ head = head.next
 head == null 
 
 </details>
+
+---
+
+<details>
+<summary><strong>Queue Using Circular Array</strong></summary>
+
+### Why Use a Circular Array instead of a Plain Array?
+
+- The plain array causes a time complexity of each `dequeue` operation O(n) due to shifting (to fill the gap).
+- The circular array does that in O(1) time complexity.
+
+### Operations
+
+- **Enqueue: O(1)**
+1. If it is not full, the simple `add` operation on the circular array at the `write` index.
+2. If it is full, throw the exception `IllegalStateException("The Queue is full!")`  
+
+- **How do we check if the `Queue` is full?**  
+```kotlin 
+        isFull = (rear + 1) % capacity == front
+``` 
+
+- **Dequeue: O(1)**  
+1. If it is not empty, return the element from the `read` index and advance the `read` index one step.
+2. If it is empty, throw `EmptyStackException()` or a custom and dedicated exception.  
+
+- **How do we check if the `Queue` is empty?**
+```kotlin
+         isEmpty = rear == front
+```
+
+- **isEmpty: O(1)**  
+```kotlin 
+         isEmpty = rear == front
+```
+
+</details>
