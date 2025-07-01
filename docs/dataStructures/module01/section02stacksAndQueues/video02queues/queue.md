@@ -91,17 +91,31 @@ Only the dequeue operation with a plain array causes O(n) time complexity. Other
 
 ### Operations
 
-- **Enqueue: O(1)** 
+- **Enqueue as `pushBack` (to the tail): O(1)** 
 1. Create a new node.  
 2. tail.next = newNode
 3. tail = newNode
 
-- **Dequeue: O(1)**  
+- **Dequeue as `topFront` + `popFront` (from the head): O(1)**  
 head = head.next  
 
 
 - **isEmpty: O(1)**  
 head == null 
+
+
+### What if we `dequeue` from the tail and `enqueue` to the head?
+
+1. `Dequeue` from the tail means we want to change the `tail` every time we perform the `dequeue` operation. 
+2. And what does it mean by changing the `tail`? 
+3. Well, `Dequeue` means removing an item. So, we remove the current `tail` that points to the last item.
+4. But then, we also have to ensure that once we remove the current `tail`, the old second-last item (which is now the new last item) becomes the new `tail`.
+5. So, how do we ensure that the `tail` points to the old second-last item (now the new last item)? 
+6. We have to travel until the next pointer of a node points to null, indicating the item whose next pointer points to null is the new last item that we can assign to `tail` now.
+7. We have to do this because when we remove the last old item, we cannot move backward to the old second-last item directly without having the `prev` pointer.
+8. Without `prev` pointer, it would take `O(n)` time complexity for each `dequeue` operation.
+9. This is the reason `enqueue` is `pushBack` and `dequeue` is `topFront` + `popFront`.
+10. Otherwise, we have to use a `Doubly Linked List` to maintain the `dequeue` operation in `O(1)` time.
 
 </details>
 
