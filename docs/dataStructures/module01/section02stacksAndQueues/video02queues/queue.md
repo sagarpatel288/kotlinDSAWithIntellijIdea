@@ -27,11 +27,7 @@ A **queue** is a linear data structure that follows the **First-In-First-Out (FI
 
 > \*Array with shifting: Enqueue is O(1) if space is available; Dequeue is O(n) due to shifting elements.
 
-#### Complexity Analysis
-
-- **Worst Case:** O(n) for the plain array with shifting (after many dequeues), O(1) for circular array/linked list.
-- **Average/Best Case:** O(1) for all except for the plain array with shifting.
-- **When do we get O(n)?** When using a plain array, we need to shift after dequeue.
+Only the dequeue operation with a plain array causes O(n) time complexity. Otherwise, everything else is in O(1).
 
 </details>
 
