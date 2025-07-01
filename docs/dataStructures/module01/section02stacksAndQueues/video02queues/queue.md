@@ -1,6 +1,16 @@
-# Queue Data Structure
+# Queue Data Structure (FIFO)
+          
+```             
+          ---+-----+-----+-----+-----+---            
+             |     |     |     |     |             
+   Dequeue   |  a  |  b  |  c  |  d  |    Enqueue           
+<----------- |     |     |     |     | <-----------
+          ---+-----+-----+-----+-----+---          
+```
 
-A **queue** is a linear data structure that follows the **First-In-First-Out (FIFO)** principle. Elements are added at the rear (end) and removed from the front (beginning).
+A **queue** is a linear data structure that follows the **First-In-First-Out (FIFO)** principle. 
+Elements are added at the rear (end) and removed from the front (beginning).
+
 
 ---
 
