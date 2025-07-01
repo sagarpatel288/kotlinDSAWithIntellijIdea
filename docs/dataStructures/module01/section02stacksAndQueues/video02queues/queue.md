@@ -41,12 +41,12 @@ A **queue** is a linear data structure that follows the **First-In-First-Out (FI
 <summary><strong>How to Perform Various Operations</strong></summary>
 
 ### Enqueue (Add Element)
-- **Linked List:** Add at tail. So, `tail == tail.next`
+- **Linked List:** Add at tail. So, `tail = newNode`
 - **Circular Array:** Add at `rear/write` index, then advance it circularly.
 - **Plain Array:** Add at next available index.
 
 ### Dequeue (Remove Element)
-- **Linked List:** Remove from the head.
+- **Linked List:** Remove from the head. So, `head = head.next`
 - **Circular Array:** Remove from the `front/read` index, then advance it circularly.
 - **Plain Array:** Remove from front, then shift all elements left (inefficient).
 
@@ -54,7 +54,7 @@ A **queue** is a linear data structure that follows the **First-In-First-Out (FI
 - Return element at `front/read` (array) or `head` (linked list).
 
 ### IsEmpty
-- **Array:** `front(read) == rear(write)` (circular), or `size == 0`.
+- **Array:** `front(read index) == rear(write index)` (circular), or `size == 0`.
 - **Linked List:** `head == null`.
 
 ### IsFull (for fixed-size array)
