@@ -6,13 +6,14 @@
 
 ## What does it represent?
 
-- [A Structure](#a-structure)
-- [Syntax Tree](#a-syntax-tree)
-- [Hierarchy](#hierarchy)
+- [A Sentence Structure](#a-structure)
+- [A Syntax Tree For A Mathematical Expression](#a-syntax-tree)
+- [Geographical Hierarchy](#hierarchy)
 - [Categorization or Classification (Types & Subtypes)](#categorization-classification-types-and-subtypes-etc)
+- [Abstract Syntax Tree For Code](#abstract-syntax-tree-for-code)
 - [Binary Search Tree](#binary-search-tree)
 
-### A Structure
+### A Sentence Structure
 
 ```
 
@@ -65,7 +66,7 @@
 10. So, we represented a sentence structure using a tree.
 11. Hence, we can use a tree to represent a structure.
 
-### A Syntax Tree
+### A Syntax Tree For A Mathematical Expression
 
 ```
 
@@ -118,9 +119,9 @@
 11. Then, we have a subtraction between `3z` and `7`. So, it becomes `3z - 7`.
 12. Then, we have the sine of `3z - 7`. So, it becomes `sin(3z - 7)`.
 13. Then, we have multiplication between 2 and the sine value. So, it becomes `2 sin(3z - 7)`, which is the original expression.
-14. So, this is how we can use a syntax tree to represent an expression.
+14. So, this is how we can use a syntax tree to represent a mathematical expression.
 
-### Hierarchy
+### Geographical Hierarchy
 
 ```
 
@@ -300,7 +301,7 @@ while (x < 0) {
 12. It means, the `binary operator +` has two children: `x` and `2`.
 13. For the `Procedure Call,` we have the function `foo` for which we pass the argument `x`.
 14. It means, the `procedure call` has two children: The function call `foo` and the argument `x`.
-15. So, this is how we can use a tree to represent a code.
+15. So, this is how we can use an abstract syntax tree to represent a code.
 
 ### Binary Search Tree
 
