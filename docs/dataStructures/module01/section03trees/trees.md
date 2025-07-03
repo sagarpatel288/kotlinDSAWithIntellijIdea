@@ -5,6 +5,7 @@
 - [What does it represent?](#what-does-it-represent)
 - [Terminologies](#terminologies)
 - [Forest](#forest)
+- [Tree Definition](#tree-definition)
 
 ## What does it represent?
 
