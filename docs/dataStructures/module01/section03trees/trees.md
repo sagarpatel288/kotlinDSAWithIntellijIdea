@@ -404,5 +404,7 @@ Sam             Hugh            Jim
 * Multiple root nodes form a forest, where each root node represents an individual tree.
 * A forest is a collection of multiple trees.
 
-## Definition
+## Tree Definition
+
+* A tree is a hierarchical data structure that contains one or more nodes where each node must have a key, optional parent, and optional children nodes.
 
