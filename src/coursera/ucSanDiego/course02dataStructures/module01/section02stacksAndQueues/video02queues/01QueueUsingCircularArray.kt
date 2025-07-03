@@ -41,7 +41,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section02stacksAndQu
  * * So, if [capacity] is `n,` then the space complexity is O(n).
  * * Other variables that we take do not depend on or grow with the input size [capacity].
  */
-class QueueUsingCircularArray<T>(val capacity: Int) {
+class QueueUsingCircularArray<T>(private val capacity: Int) {
 
     init {
         require(capacity > 0) { "Capacity must be greater than 0" }
@@ -51,7 +51,7 @@ class QueueUsingCircularArray<T>(val capacity: Int) {
 
     private var writeIndex = 0
 
-    private val array = arrayOfNulls<Any?>(capacity)
+    private val array = arrayOfNulls<Any>(capacity)
 
     /**
      * # Why the [size] property?
