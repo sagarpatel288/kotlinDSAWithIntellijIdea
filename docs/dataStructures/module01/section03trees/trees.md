@@ -115,8 +115,86 @@
 10. For example, we have a multiplication between `3` and `z` at the bottom. So, it is `3z`.
 11. Then, we have a subtraction between `3z` and `7`. So, it becomes `3z - 7`.
 12. Then, we have the sine of `3z - 7`. So, it becomes `sin(3z - 7)`.
-13. Then, we have multiplication between 2 and the sine value. So, it becomes `2 sin(3z - 7)`, which is the original expression..
+13. Then, we have multiplication between 2 and the sine value. So, it becomes `2 sin(3z - 7)`, which is the original expression.
+14. So, this is how we can use a syntax tree to represent an expression.
 
 ### Hierarchy
 
+```
 
+Geography Hierarchy
+
+World
+├── United States
+│   ├── Wyoming
+│   │   ├── Jackson
+│   │   └── Cheyenne
+│   ├── ...
+│   └── Alabama
+│       ├── Montgomery
+│       └── Mobile
+├── ...
+└── United Kingdom
+    ├── Wales
+    ├── Scotland
+    ├── Northern Ireland
+    └── England
+
+
+```
+
+```
+
+                                        Jackson   
+                                                  
+                                       /          
+                                      /           
+                                     /            
+                                    /             
+                            Wyoming               
+                                    \             
+                             /       \            
+                            /         \           
+                           /           \          
+                          /                       
+                         /              Cheyenne  
+           United States    •••••••               
+                         \              Montgomery
+               /          \                       
+              /            \            /         
+             /              \          /          
+            /                \        /           
+           /                         /            
+          /                 Alabama               
+   World   ••••••••••                \            
+          \                           \           
+           \                           \          
+            \                           \         
+             \                                    
+              \                         Mobile    
+               \                                  
+                \                                 
+                                                  
+          United Kingdom                          
+                                                  
+         /    / •  \    \                         
+        /    /  •   \    \                        
+       /    /   •    \    \                       
+      /    /    •     \    \                      
+     /    /     •      \    \                     
+         /              \                         
+Wales   /                \   England              
+       /                  \                       
+      /                    \                      
+     /                      \                     
+                                                  
+ Scotland            Northern Ireland             
+
+```
+
+1. We can represent a hierarchy also.
+2. For example, we can have `world` as a root.
+3. And then, we can have various `countries` as children. For example, United States and United Kingdom.
+4. And then each country can have various `states` within. For example, the United States have various `states` such as Wyoming, Alabama, etc.
+5. And then each state can have various `cities` in it. For example, Wyoming has Jackson, Cheyenne, etc.
+6. So, we can use a tree data structure to represent a hierarchy.
