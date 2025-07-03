@@ -260,3 +260,43 @@ A n i m a l   ••••••••••
 2. For example, we can use a tree to represent the Animal classification (types and subtypes).
 
 ### Abstract Syntax Tree For Code
+
+```
+
+while (x < 0) {
+    x = x + 2
+    foo(x)
+} 
+
+                          while
+                         /     \
+                        /       \
+            compare op: <         block
+              /        \         /     \
+             /          \       /       \
+         var: x       const: 0 assign   procedure call
+                               /    \           /      \
+                              /      \         /        \
+                          var: x   binop: +  var: foo   var: x
+                                    /   \
+                                   /     \
+                               var: x   const: 2
+
+
+```
+
+1. To represent a code, we can use a tree.
+2. For example, we have a while loop. So, `while` is a root of the tree.
+3. Then, we have a `condition` to continue the while loop and the `block` (logic, body).
+4. So, the node `while` has two children: The `condition` and the `block`.
+5. The `condition` has a comparison operator `<` between `x` and `0`.
+6. It means, the `condition` uses the comparison operator `<`, and it has two children: `x` and `0`.
+7. Next, we have the `block`. The `block` has two operations. `Assignment` and `function call (= procedure call)`.
+8. It means, the `block` has two children: `Assignment` and `Procedure Call`.
+9. The `assignment` has left side `x` and right side `x + 2`.
+10. It means, the `assignment` node has two children: `x` and `binary operator +`.
+11. The node `binary operator +` is applied between `x` and `2`.
+12. It means, the `binary operator +` has two children: `x` and `2`.
+13. For the `Procedure Call,` we have the function `foo` for which we pass the argument `x`.
+14. It means, the `procedure call` has two children: The function call `foo` and the argument `x`.
+15. So, this is how we can use a tree to represent a code.
