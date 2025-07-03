@@ -103,14 +103,20 @@
 
 ```
 
-1. We have this expression: 2 sin(3z - 7)
-2. So, there is a final multiplication between 2 and sin(3z - 7)
+1. We have this expression: `2 sin(3z - 7)`
+2. So, there is a final multiplication between `2` and `sin(3z - 7)`
 3. Hence, we can consider multiplication at the root as a final destination (the last operation).
-4. So, the root multiplication has two children: 2 and sin(3z - 7).
-5. Inside the sin, we have a subtraction between 3z and 7.
-6. So, sin has one child "minus" and "minus" has two children: 3z and 7.
-7. 3z is a multiplication between 3 and z.
+4. So, the root multiplication has two children: `2` and `sin(3z - 7)`.
+5. Inside the sine, we have a subtraction between `3z` and `7`.
+6. So, sin has one child "minus" and "minus" has two children: `3z` and `7`.
+7. 3z is a multiplication between `3` and `z`.
 8. If we notice, we keep branching until there are no more children.
+9. And if we travel from the bottom to top, we get the original expression.
+10. For example, we have a multiplication between `3` and `z` at the bottom. So, it is `3z`.
+11. Then, we have a subtraction between `3z` and `7`. So, it becomes `3z - 7`.
+12. Then, we have the sine of `3z - 7`. So, it becomes `sin(3z - 7)`.
+13. Then, we have multiplication between 2 and the sine value. So, it becomes `2 sin(3z - 7)`, which is the original expression..
 
 ### Hierarchy
+
 
