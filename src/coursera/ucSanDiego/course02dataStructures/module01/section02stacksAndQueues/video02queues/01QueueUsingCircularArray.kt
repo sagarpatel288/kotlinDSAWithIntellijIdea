@@ -47,11 +47,9 @@ class QueueUsingCircularArray<T>(val capacity: Int) {
         require(capacity > 0) { "Capacity must be greater than 0" }
     }
 
-    var readIndex = 0
-        private set
+    private var readIndex = 0
 
-    var writeIndex = 0
-        private set
+    private var writeIndex = 0
 
     private val array = arrayOfNulls<Any?>(capacity)
 
