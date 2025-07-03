@@ -383,5 +383,22 @@ Let us also understand a few terminologies.
 9. `Level`: 1 + Number of edges between the root and the target node. For example, the level of the target node, `Frank`, is `1 + Number of edges between the root node and the target node` = `1 + 2` = `3`. The level of the root node, `Les` is 1, because it is the root node.
 10. `Height`: The maximum depth of the subtree and the farthest leaf. The height of the leaf is 1 and then we keep increasing the height by 1 as we travel backward (upside) up to the target node. For example, the height of the leaf node, `Tony` is 1. As we move upward, the height of the `Violet` is 2. Then, the height of the `Sam` is 3. And finally, the height of the root node (the tree itself) is 4. There is an interesting formula also to decide the height. `1 + (level of the leaf - level of the target node)`. So, the height of the node `Violet` will be: `1 + (level of the leaf - level of the node, Violet)` = `1 + (4 - 3)` = `2`. 
 
+## Forest
+
+```
+        Kate                   Sally
+      /      \                   ╷  
+     /        \                  ╷  
+    /          \                 ╷  
+   /            \                ╷  
+  /              \               ╷  
+                                    
+Sam             Hugh            Jim 
+
+
+```
+
+* Multiple root nodes form a forest, where each root node represents an individual tree.
+
 ## Definition
 
