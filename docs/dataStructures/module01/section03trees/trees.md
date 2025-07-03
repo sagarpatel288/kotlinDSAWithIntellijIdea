@@ -9,6 +9,7 @@
 - [A Structure](#a-structure)
 - [Syntax Tree](#a-syntax-tree)
 - [Hierarchy](#hierarchy)
+- [Categorization or Classification (Types & Subtypes)](#categorization-classification-types-and-subtypes-etc)
 
 ### A Structure
 
@@ -198,3 +199,64 @@ Wales   /                \   England
 4. And then each country can have various `states` within. For example, the United States have various `states` such as Wyoming, Alabama, etc.
 5. And then each state can have various `cities` in it. For example, Wyoming has Jackson, Cheyenne, etc.
 6. So, we can use a tree data structure to represent a hierarchy.
+
+### Categorization (Classification, Types and Subtypes, etc.)
+
+```
+
+                                Arachnid               
+                               /                       
+                              /                        
+                             /                         
+                            /                          
+                           /                           
+              Invertebrate  ••••••••                   
+                           \               Butterflies 
+            /               \             /            
+           /                 \           /             
+          /   Reptile         \         /              
+         /                     \       /               
+        /    /                  Insect ────────── Flies
+       /    /                          \               
+      /    /                            \              
+     /    /      Amphibian               \             
+    /    /                                \            
+   /    /       /                          Beetles     
+  /    /       /                                       
+ /    /       /                                        
+             /                                         
+A n i m a l   ••••••••••                               
+             \                                         
+ \    \       \                                        
+  \    \       \                                       
+   \    \       \                                      
+    \    \       Bird                                  
+     \    \                                            
+      \    \                                           
+       \    Fish       Rodents                        
+        \             /                                
+         \           /                                 
+          \         /   Carnivores                     
+           \       /   /                               
+            \     /   /                                
+             \   /   /                                 
+                    /                                  
+             Mammal ••••••••••                         
+                    \                                  
+                \    \                                 
+                 \    \                                
+                  \    \                               
+                   \    Primates                       
+                    \                                  
+                     \                                 
+                      \                                
+                       Marsupials                      
+
+
+
+```
+
+1. We can use a tree to represent categorization, classification, types and subtypes, etc.
+2. For example, we can use a tree to represent the Animal classification (types and subtypes).
+
+### Abstract Syntax Tree For Code
