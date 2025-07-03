@@ -10,6 +10,7 @@
 - [Syntax Tree](#a-syntax-tree)
 - [Hierarchy](#hierarchy)
 - [Categorization or Classification (Types & Subtypes)](#categorization-classification-types-and-subtypes-etc)
+- [Binary Search Tree](#binary-search-tree)
 
 ### A Structure
 
@@ -300,3 +301,52 @@ while (x < 0) {
 13. For the `Procedure Call,` we have the function `foo` for which we pass the argument `x`.
 14. It means, the `procedure call` has two children: The function call `foo` and the argument `x`.
 15. So, this is how we can use a tree to represent a code.
+
+### Binary Search Tree
+
+```
+                        Les
+                       /   \
+                      /     \
+                     /       \
+                Cathy         Sam
+                /   \         /   \
+               /     \       /     \
+           Alex    Frank  Nancy   Violet
+                                   /    \
+                                  /      \
+                               Tony     Wendy
+
+```
+
+```
+
+              /\          
+             /  \         
+            /    \        
+           /      \       
+          /        \      
+         /          \     
+        /            \    
+\      /              \   
+ \    /                \  
+  \  /                  \ 
+   \/                    \
+
+
+```
+
+1. We can use a binary tree to represent relationships between nodes where a node cannot have more than two children.
+2. Here, the node is greater than the left side children and smaller than the right side children.
+3. For example, in the given ASCII diagram, the root `Les` comes after (greater than) the left side child, `Cathy`.
+4. We can say it another way like: The left side children are smaller (comes before) than the node.
+5. Similarly, the node `Les` comes before (smaller than) the right side child, `Sam`.
+6. Again, we can say it other way like: The right side children are greater (comes after) than the node.
+7. To remember this relationship, we can use the diagram given below the binary search tree.
+8. So, it starts with the `greater than` symbol on the left side, moves towards the `root`, and goes down to form the `less than` symbol on the right side.
+9. It signifies that the `node` is `greater` than the `left side`, and `smaller` than the `right side`.
+10. These predefined rules help us find a child quickly.
+11. For example, if we want to find `Tony` and we start from the root node, `Les`.
+12. We know that `Tony` comes after `Les`. Hence, we need to travel to the right side of the `Les`.
+13. Now, we know that `Tony` comes after `Sam`. So, we go towards the right side of `Sam`.
+14. Now, we know that `Tony` comes before `Violet`.  So, we go towards the left side of the `Violet` and we find the target: `Tony`.
