@@ -4,6 +4,7 @@
 
 - [What does it represent?](#what-does-it-represent)
 - [Terminologies](#terminologies)
+- [Forest](#forest)
 
 ## What does it represent?
 
@@ -372,16 +373,17 @@ while (x < 0) {
 
 Let us also understand a few terminologies.
 
-1. `Root Node`: A node that does not have any parent. The top node of the tree is called, the `Root Node`.
-2. `Key`: Each node has a key. For example, the node `Les` has the key, `Les`. Similarly, the node `Wendy` has the key `Wendy`. A `Key` is a value of a node that we can use to refer a node.
-3. `Children`: Each node can have multiple children. For a `Binary Search Tree`, a node can have `maximum two children`. For example, the node `Les` has two direct children: `Cathy` and `Sam`. Similarly, the node `Violet` has two children: `Tony` and `Wendy`.
-4. `Siblings`: All the nodes that has the same parent node, are `siblings` of each other.
-5. `Ancestor`: For a particular node, its parent node, the parent's parent node, and so on until we reach to the root node are called `ancestors` of the node. For example, `Cathy` and `Les` are `ancestors` of `Alex`.
-6. `Descendants`: For a particular node, its children node, the children's children node, and so on until we reach to the bottom of the tree after which there are no more children, are called `descendants` of the node. For example, `Cathy`, `Alex`, `Tony`, (basically, all the nodes) are `descendants` of the root node, `Les`.
-7. `Leaf`: A node that does not have any children is called a `Leaf`. For example, `Alex`, `Frank`, `Nancy`, `Tony`, and `Wendy`.
-8. `Interior Nodes`: All the nodes that have children are called `Interior Nodes`. So, `Les`, `Cathy`, `Sam`, and `Violet` are `Interior Nodes`. Another way to remember it is, all the nodes that are `non-leaf`, are called `Interior Nodes`.
-9. `Level`: 1 + Number of edges between the root and the target node. For example, the level of the target node, `Frank`, is `1 + Number of edges between the root node and the target node` = `1 + 2` = `3`. The level of the root node, `Les` is 1, because it is the root node.
-10. `Height`: The maximum depth of the subtree and the farthest leaf. The height of the leaf is 1 and then we keep increasing the height by 1 as we travel backward (upside) up to the target node. For example, the height of the leaf node, `Tony` is 1. As we move upward, the height of the `Violet` is 2. Then, the height of the `Sam` is 3. And finally, the height of the root node (the tree itself) is 4. There is an interesting formula also to decide the height. `1 + (level of the leaf - level of the target node)`. So, the height of the node `Violet` will be: `1 + (level of the leaf - level of the node, Violet)` = `1 + (4 - 3)` = `2`. 
+1. `Node`: A node has a key, optional parent, and optional children. If the node does not have a parent node, the node is called the `Root Node`. If the node does not have any children, it is called a `Leaf` node.
+2. `Root Node`: A node that does not have any parent. The top node of the tree is called, the `Root Node`.
+3. `Key`: Each node has a key. For example, the node `Les` has the key, `Les`. Similarly, the node `Wendy` has the key `Wendy`. A `Key` is a value of a node that we can use to refer a node.
+4. `Children`: Each node can have multiple children. For a `Binary Search Tree`, a node can have `maximum two children`. For example, the node `Les` has two direct children: `Cathy` and `Sam`. Similarly, the node `Violet` has two children: `Tony` and `Wendy`.
+5. `Siblings`: All the nodes that has the same parent node, are `siblings` of each other.
+6. `Ancestor`: For a particular node, its parent node, the parent's parent node, and so on until we reach to the root node are called `ancestors` of the node. For example, `Cathy` and `Les` are `ancestors` of `Alex`.
+7. `Descendants`: For a particular node, its children node, the children's children node, and so on until we reach to the bottom of the tree after which there are no more children, are called `descendants` of the node. For example, `Cathy`, `Alex`, `Tony`, (basically, all the nodes) are `descendants` of the root node, `Les`.
+8. `Leaf`: A node that does not have any children is called a `Leaf`. For example, `Alex`, `Frank`, `Nancy`, `Tony`, and `Wendy`.
+9. `Interior Nodes`: All the nodes that have children are called `Interior Nodes`. So, `Les`, `Cathy`, `Sam`, and `Violet` are `Interior Nodes`. Another way to remember it is, all the nodes that are `non-leaf`, are called `Interior Nodes`.
+10. `Level`: 1 + Number of edges between the root and the target node. For example, the level of the target node, `Frank`, is `1 + Number of edges between the root node and the target node` = `1 + 2` = `3`. The level of the root node, `Les` is 1, because it is the root node.
+11. `Height`: The maximum depth of the subtree and the farthest leaf. The height of the leaf is 1 and then we keep increasing the height by 1 as we travel backward (upside) up to the target node. For example, the height of the leaf node, `Tony` is 1. As we move upward, the height of the `Violet` is 2. Then, the height of the `Sam` is 3. And finally, the height of the root node (the tree itself) is 4. There is an interesting formula also to decide the height. `1 + (level of the leaf - level of the target node)`. So, the height of the node `Violet` will be: `1 + (level of the leaf - level of the node, Violet)` = `1 + (4 - 3)` = `2`. 
 
 ## Forest
 
