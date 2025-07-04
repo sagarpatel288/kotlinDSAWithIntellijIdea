@@ -416,10 +416,27 @@ Let us also understand a few terminologies.
 1. For a particular node, its parent node, the parent's parent node, and so on until we reach to the root node are called `ancestors` of the node. 
 2. For example, `Cathy` and `Les` are `ancestors` of `Alex`.
 
+### `Proper Ancestor`
+
+1. When we do not include the target node itself as an `ancestor` of itself, the remaining `ancestors` are called `Proper Ancestor` of the node.
+2. For example, `Sam` and `Les` are `ancestors` of `Sam`. But only `Les` is a `Proper Ancestor` of `Sam`. 
+
 ### `Descendants`: 
 
 1. For a particular node, its children node, the children's children node, and so on until we reach to the bottom of the tree after which there are no more children, are called `descendants` of the node. 
 2. For example, `Cathy`, `Alex`, `Tony`, (basically, all the nodes) are `descendants` of the root node, `Les`.
+3. `Tony` and `Wendy` are `descendants` of `Sam`.
+4. `Alex` and `Frank` are `descendants` of `Les`.
+
+### `Proper Descendants`:
+
+1. When we do not include the node itself as a `descendant` of itself, the remaining `descendants` are called `Proper Descendants` of the node.
+2. For example, `Violet`, `Tony`, and `Wendy` are `descendants` of `Violet`. But, only `Tony` and `Wendy` are `proper descendants` of `Violet`. 
+
+### `Subtree`:
+
+1. Any node and all its descendants form a subtree.
+2. For example, `Sam` and its descendants form a subtree.
 
 ### `Leaf`: 
 
