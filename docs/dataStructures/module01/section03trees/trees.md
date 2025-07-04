@@ -562,25 +562,68 @@ config:
 ---
 flowchart TD
     A(("A")) --- B(("B")) & C(("C"))
-    B --- n1(("<br>"))
+    B --- n1(("<br>")):::invis
     B --- D(("D"))
     C --- E(("E")) & F(("F"))
     E --- G(("G"))
-    E --- n6(("<br>"))
+    E --- n6(("<br>")):::invis
     F --- H(("H"))
     F --- I(("I"))
     style n1 stroke:none
     style n6 stroke:none
     linkStyle 2 stroke:none,fill:none
     linkStyle 7 stroke:none,fill:none
+    classDef invis opacity:0;
 ```
 
 ### Depth-First
 
-#### In-Order
-
-#### Pre-Order
-
-#### Post-Order
+1. We completely travel and finish one subtree before starting a sibling traversal.
+2. For example, we may travel A-B-D (finishing one subtree) followed by C-E-G, F-H, and I.
+3. However, there are 3 different ways (rules, orders) to finish one subtree.
+4. `In-Order`, `Pre-Order`, and `Post-Order`.
+5. As we know, the main parts of a node are the `Root`, `Left`, and `Right` sides.
+6. These order names indicate the order of the `Root` part.
+7. For example, the `In-Order` sequence for the travelling is: `Left-Root-Right`. So, the `Root` comes inside `Left` and `Right`.
+8. Then, we have the `Pre-Order` sequence where the `Root` comes before the `Left` and the `Right` sides. So, it becomes: `Root-Left-Right`.
+9. Finally, we have the `Post-Order` sequence where the `Root` comes after the `Left` and the `Right` sides. So, it becomes `Left-Right-Root`.
+10. We will study each order in detail.
 
 ### Breadth-Search
+
+1. Here, we travel level-by-level.
+2. So, first we finish travelling with all the siblings.
+3. And then, we gradually move towards the last level.
+4. For example, we may travel in this order: A-B-C-D-E-F-G-H-I.
+
+#### In-Order (Left-Root-Right)
+
+##### Resources:
+
+[Jenny's Lecture](https://youtu.be/-b2lciNd2L4?si=tB3crtV88O9ncEuu)
+
+1. `Root` comes inside the `Left` and the `Right` sides.
+2. So, the order becomes: `Left-Root-Right`.
+3. Hence, the `in-order` traversal for the given example will be as below:
+4. We start with the root node, `A`. Does it have the `Left` side? Yes.
+5. The `in-order` sequence prioritizes the `Left` side first, before the `Root` part.
+6. So, we continue the depth traversal.
+7. The root node `A` has two children. `B` and `C`.
+8. The `in-order` sequence prioritizes the `left` part first.
+9. So, we traverse through the left side, `B`. Does it have the `Left` side? No. 
+10. So, now we can consider `B`. ---------------------------------------------------------------------------(1).
+11. Node `B` does not have the `Left` side. So, we considered `B`. Now, does it have the `Right` side? Yes.
+12. So, now we consider the right side of `B`, which is `D`.
+13. Hence, it becomes: `B -- D`. ---------------------------------------------------------------------------(2).
+14. As the `Right` side of `B` is finished, we can move backward.
+15. The subtree `B` is covered. So, we move backward (upward).
+16. The subtree `B` was the `Left` side of the `Root` node, `A`.
+17. It means we have finished the `Left` part of the `Left-Root-Right` for the `Root` node, `A`.
+18. So, now comes the turn of the `Root` node, `A`.
+19. Hence, it becomes: `B -- D -- A`. -------------------------------------------------------------------------(3).
+20. For the root node `A`, we have covered the `Left-Root` parts of the `Left-Root-Right` sequence.
+21. Now, we need to cover the `Right` side of the root node, `A`.
+
+#### Pre-Order (Root-Left-Right)
+
+#### Post-Order (Left-Right-Root)
