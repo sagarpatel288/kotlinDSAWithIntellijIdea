@@ -1,4 +1,4 @@
-# Introduction of a Tree
+# Tree Data Structure
 
 ## Table Of Contents
 
@@ -10,6 +10,7 @@
 - [Can a tree have a cycle?](#can-a-tree-have-a-cycle)
 - [Nodes at level `l`](#what-are-the-maximum-number-of-nodes-at-level-l-in-a-binary-tree)
 - [Real-world examples of tree data structure](#real-world-examples-where-the-tree-data-structure-is-used)
+- [Tree Traversal](#tree-traversal)
 
 ## What does it represent?
 
@@ -549,3 +550,37 @@ Sam             Hugh            Jim
 4. Database Indexing (B-trees).
 5. Expression Parsing (Syntax trees).
 6. Routing Algorithms (trie, prefix trees).
+
+## Tree Traversal
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("A")) --- B(("B")) & C(("C"))
+    B --- n1(("<br>"))
+    B --- D(("D"))
+    C --- E(("E")) & F(("F"))
+    E --- G(("G"))
+    E --- n6(("<br>"))
+    F --- H(("H"))
+    F --- I(("I"))
+    style n1 stroke:none
+    style n6 stroke:none
+    linkStyle 2 stroke:none,fill:none
+    linkStyle 7 stroke:none,fill:none
+```
+
+### Depth-First
+
+#### In-Order
+
+#### Pre-Order
+
+#### Post-Order
+
+### Breadth-Search
