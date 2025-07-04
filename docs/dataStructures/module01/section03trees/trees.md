@@ -9,9 +9,9 @@
 
 ## What does it represent?
 
-- [A Sentence Structure](#a-structure)
-- [A Syntax Tree For A Mathematical Expression](#a-syntax-tree)
-- [Geographical Hierarchy](#hierarchy)
+- [A Sentence Structure](#a-sentence-structure)
+- [A Syntax Tree For A Mathematical Expression](#a-syntax-tree-for-a-mathematical-expression)
+- [Geographical Hierarchy](#geographical-hierarchy)
 - [Categorization or Classification (Types & Subtypes)](#categorization-classification-types-and-subtypes-etc)
 - [Abstract Syntax Tree For Code](#abstract-syntax-tree-for-code)
 - [Binary Search Tree](#binary-search-tree)
@@ -374,20 +374,111 @@ while (x < 0) {
 
 Let us also understand a few terminologies.
 
-1. `Node`: A node has a key, optional parent, and optional children. If the node does not have a parent node, the node is called the `Root Node`. If the node does not have any children, it is called a `Leaf` node.
-2. `Root Node`: A node that does not have any parent. The top node of the tree is called, the `Root Node`.
-3. `Key`: Each node has a key. For example, the node `Les` has the key, `Les`. Similarly, the node `Wendy` has the key `Wendy`. A `Key` is a value of a node that we can use to refer a node.
-4. `Parent`: Each node has one parent except the root node. A parent node is a node directly connected with the target node through an edge and it is just above the target node. For example, `Cathy` is a parent for `Alex` and `Frank`. Similarly, `Violet` is a parent for `Tony` and `Wendy`.
-5. `Children`: A child node is a node directly connected with a target node through an edge, just below the target node. Each node can have multiple children. For a `Binary Search Tree`, a node can have `maximum two children`. For example, the node `Les` has two direct children: `Cathy` and `Sam`. Similarly, the node `Violet` has two children: `Tony` and `Wendy`.
-6. `Siblings`: All the nodes that has the same parent node, are `siblings` of each other.
-7. `Ancestor`: For a particular node, its parent node, the parent's parent node, and so on until we reach to the root node are called `ancestors` of the node. For example, `Cathy` and `Les` are `ancestors` of `Alex`.
-8. `Descendants`: For a particular node, its children node, the children's children node, and so on until we reach to the bottom of the tree after which there are no more children, are called `descendants` of the node. For example, `Cathy`, `Alex`, `Tony`, (basically, all the nodes) are `descendants` of the root node, `Les`.
-9. `Leaf`: A node that does not have any children is called a `Leaf`. For example, `Alex`, `Frank`, `Nancy`, `Tony`, and `Wendy`.
-10. `Internal Nodes` or `Interior Nodes`: All the nodes that have children are called `Interior Nodes`. So, `Les`, `Cathy`, `Sam`, and `Violet` are `Interior Nodes`. Another way to remember it is, all the nodes that are `non-leaf`, are called `Interior Nodes`.
-11. `Height`: How far down from the target node? The answer gives us height for the node. The distance between the target node and the leaf is height of the target node. To calculate height of a particular node, we go downwards. We can also say that the height of a particular node is number of edges between the node and the leaf. For example, there are two edges between the node `Sam` and the farthest down leaf node, `Tony` or `Wendy`. Hence, the height of the node, `Sam` is 2. Similarly, the height of the node `Cathy` is 1 because there is only 1 edge between the node `Cathy` and its farthest down, longest path down to a leaf node (`Alex` or `Frank`).
-12. `Depth`: Number of edges between the root node and the target node. Here, we go upside towards the root node. For example, the depth of the leaf node, `Tony` is `3` because there are 3 `edges` between the target node, `Tony` and the root node, `Les`.
-13. `Level`: If we consider that the root node is at level 1, then level of any node is `1 + Number of edges between the root and the target node`. However, `Number of edges between the root node and the target node = Depth`. So, `Level = 1 + Depth`. For example, the level of the target node, `Frank`, is `1 + Depth` = `1 + Number of edges between the root node and the target node` = `1 + 2` = `3`. The level of the root node, `Les` is 1, because it is the root node. However, some resources use 0-based level where the root node is considered at level 0. In that case, a level of any node is equal to the number of edges between the root and the target node. In short, `Level` is either `1 + depth` or equal to `depth`.
-14. `Size`: The size of a tree is equal to (defined as) the total number of nodes in the tree.
+### `Node`: 
+
+1. A node has a key, an optional parent, and an optional child or children. 
+2. If it does not have a parent node, it is called the `Root Node`. 
+3. If it does not have any children, it is called a `Leaf` node.
+
+### `Root Node`:
+
+1. A node that does not have any parent. 
+2. The top node of the tree is called the `Root Node`.
+
+### `Key`: 
+
+1. Each node has a key. For example, the node `Les` has the key, `Les`. 
+2. Similarly, the node `Wendy` has the key `Wendy`. 
+3. A `Key` is a value of a node that we can use to refer a node.
+
+### `Parent`: 
+
+1. Each node has one parent except the root node. 
+2. A parent node is a node directly connected with the target node through an edge. 
+3. It is just above the target node. 
+4. For example, `Cathy` is a parent for `Alex` and `Frank`. 
+5. Similarly, `Violet` is a parent for `Tony` and `Wendy`.
+
+### `Children`: 
+
+1. A child node is a node directly connected with a target node through an edge, just below the target node. 
+2. Each node can have one or more children. 
+3. For a `Binary Search Tree`, a node can have `maximum two children`. 
+4. For example, the node `Les` has two direct children: `Cathy` and `Sam`. 
+5. Similarly, the node `Violet` has two children: `Tony` and `Wendy`.
+
+### `Siblings`: 
+
+1. All the nodes that has the same parent node, are `siblings` of each other.
+
+### `Ancestor`: 
+
+1. For a particular node, its parent node, the parent's parent node, and so on until we reach to the root node are called `ancestors` of the node. 
+2. For example, `Cathy` and `Les` are `ancestors` of `Alex`.
+
+### `Descendants`: 
+
+1. For a particular node, its children node, the children's children node, and so on until we reach to the bottom of the tree after which there are no more children, are called `descendants` of the node. 
+2. For example, `Cathy`, `Alex`, `Tony`, (basically, all the nodes) are `descendants` of the root node, `Les`.
+
+### `Leaf`: 
+
+1. A node that does not have any children is called a `Leaf`. 
+2. For example, `Alex`, `Frank`, `Nancy`, `Tony`, and `Wendy`.
+
+### `Internal Nodes` or `Interior Nodes`:
+
+1. All the nodes that have children are called `Internal Nodes` or `Interior Nodes`. 
+2. So, `Les`, `Cathy`, `Sam`, and `Violet` are `Internal Nodes`. 
+3. Another way to remember it is, all the nodes that are `non-leaf`, are called `Internal Nodes`.
+
+### `Height`: 
+
+1. How far down from the target node? The answer gives us height for the node. 
+2. The distance between the target node and the leaf is height of the target node. 
+3. To calculate height of a particular node, we go downwards. 
+4. We can also say that the height of a particular node is number of edges between the node and the leaf. 
+5. For example, there are two edges between the node `Sam` and the farthest down leaf node, `Tony` or `Wendy`. 
+6. Hence, the height of the node, `Sam` is 2. 
+7. Similarly, the height of the node `Cathy` is 1 because there is only 1 edge between the node `Cathy` and the farthest down, longest path down to a leaf node (`Alex` or `Frank`).
+
+### `Depth`: 
+
+1. Number of edges between the root node and the target node. 
+2. Here, we go upside towards the root node. 
+3. For example, the depth of the leaf node, `Tony` is `3` because there are 3 `edges` between the target node, `Tony` and the root node, `Les`.
+
+### `Level`: 
+
+1. If we consider that the root node is at level 1, then level of any node is `1 + Number of edges between the root and the target node`. 
+2. However, `Number of edges between the root node and the target node = Depth`. So, `Level = 1 + Depth`. 
+3. For example, the level of the target node, `Frank`, is `1 + Depth` = `1 + Number of edges between the root node and the target node` = `1 + 2` = `3`. 
+4. The level of the root node, `Les` is 1, because it is the root node. 
+5. However, some resources use 0-based level where the root node is considered at level 0. 
+6. In that case, a level of any node is equal to the number of edges between the root and the target node. 
+7. In short, `Level` is either `1 + depth` or equal to `depth`.
+
+### `Size`: 
+
+1. The size of a tree is equal to (defined as) the `total number of nodes` in the tree.
+
+## How to remember the difference between the height, the depth, and the level? 
+
+### `Height`: 
+
+1. Imagine that we are at the 5th floor of a building, and we want to see the height between the 5th floor and the ground. 
+2. So, we look at the downside, towards the ground to understand the height.
+3. Number of edges from the target node to the leaf node.
+
+### `Depth`: 
+
+1. Imagine we are at the bottom of a well. 
+2. Now, we look upside to learn how deep we have come.
+3. Number of edges from the root node to the target node.
+
+### `Level`:
+
+1. Either `1 + Depth` or `Depth`.
 
 ## Forest
 
