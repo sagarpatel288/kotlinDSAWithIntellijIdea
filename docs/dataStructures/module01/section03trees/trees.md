@@ -416,7 +416,7 @@ Let us also understand a few terminologies.
 1. For a particular node, its parent node, the parent's parent node, and so on until we reach to the root node are called `ancestors` of the node. 
 2. For example, `Cathy` and `Les` are `ancestors` of `Alex`.
 
-### `Proper Ancestor`
+### `Proper Ancestor`:
 
 1. When we do not include the target node itself as an `ancestor` of itself, the remaining `ancestors` are called `Proper Ancestor` of the node.
 2. For example, `Sam` and `Les` are `ancestors` of `Sam`. But only `Les` is a `Proper Ancestor` of `Sam`. 
@@ -496,6 +496,8 @@ Let us also understand a few terminologies.
 ### `Level`:
 
 1. Either `1 + Depth` or `Depth`.
+2. If we consider root level `1`, then it is `1 + Depth`.
+3. If we consider root level `0`, then it is `0 + Depth` = `Depth`.
 
 ## Forest
 
