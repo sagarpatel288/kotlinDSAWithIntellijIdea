@@ -478,6 +478,7 @@ Let us also understand a few terminologies.
 ### `Size`: 
 
 1. The size of a tree is equal to (defined as) the `total number of nodes` in the tree.
+2. We calculate it recursively as: `1 (the size of the current node) + the size of the left-tree + the size of the right-tree`.
 
 ## How to remember the difference between the height, the depth, and the level? 
 
