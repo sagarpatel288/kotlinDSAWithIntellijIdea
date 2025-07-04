@@ -403,7 +403,7 @@ Sam             Hugh            Jim
 ```
 
 * Multiple root nodes form a forest, where each root node represents an individual tree.
-* A forest is a collection of multiple trees.
+* A forest is a collection of multiple disjoint trees.
 
 ## Tree Definition
 
