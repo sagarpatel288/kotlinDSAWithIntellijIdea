@@ -553,6 +553,12 @@ Sam             Hugh            Jim
 
 ## Tree Traversal
 
+- [Depth First](#depth-first)
+- [Breadth Search](#breadth-search)
+- [In-Order (Left-Root-Right)](#in-order-left-root-right)
+- [Pre-Order (Root-Left-Right)](#pre-order-root-left-right)
+- [Post-Order (Left-Right-Root)](#post-order-left-right-root)
+
 ```mermaid
 ---
 config:
@@ -598,7 +604,7 @@ flowchart TD
 
 #### In-Order (Left-Root-Right)
 
-##### Resources:
+##### Resources / References:
 
 [Jenny's Lecture](https://youtu.be/-b2lciNd2L4?si=tB3crtV88O9ncEuu)
 
@@ -709,6 +715,10 @@ flowchart TD
 * `B -- D -- A -- G -- E -- C -- H -- F -- I`. ----------------------------------------------(10).
 
 #### Pre-Order (Root-Left-Right)
+
+##### Resources / References:
+
+[Jenny's Lecture](https://youtu.be/-b2lciNd2L4?si=tB3crtV88O9ncEuu)
 
 ```mermaid
 ---
@@ -823,3 +833,132 @@ flowchart TD
 * `A -- B -- D -- C -- E -- G -- F -- H -- I` --------------------------------------------------------------(10). 
 
 #### Post-Order (Left-Right-Root)
+
+##### Resources / References:
+
+[Jenny's Lecture](https://youtu.be/-b2lciNd2L4?si=tB3crtV88O9ncEuu)
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("A")) --- B(("B")) & C(("C"))
+    B --- n1(("<br>")):::invis
+    B --- D(("D"))
+    C --- E(("E")) & F(("F"))
+    E --- G(("G"))
+    E --- n6(("<br>")):::invis
+    F --- H(("H"))
+    F --- I(("I"))
+    style n1 stroke:none
+    style n6 stroke:none
+    linkStyle 2 stroke:none,fill:none
+    linkStyle 7 stroke:none,fill:none
+    classDef invis opacity:0;
+```
+
+* In `Post-Order`, the priority order is: `Left-Right-Root`.
+* Let us start with the root node, `A`. <------------------------------
+* Cover the left side of `A`. <------------------------------
+* We get `B`.
+* Cover the left side of `B`. <------------------------------
+* There is no left side of `B`.
+* Cover the right side of `B`. <------------------------------
+* We get `D`. 
+* Cover the left side of `D`. <------------------------------
+* There is no left side of `D`.
+* Cover the right side of `D`. <------------------------------
+* There is no right side of `D`.
+* Cover `D`. (It is a root of a subtree that starts with itself.) <------------------------------
+* So, it becomes:
+* `D` ------------------------------------------------------(1)
+* We have covered the subtree, `D`.
+* So, we move backward (upward).
+* We get `B`.
+* We have already covered the left and right sides of `B`.
+* That's why and how we are back to `B`.
+* So now, let us cover `B`. (It is a root of a subtree that starts with itself.) <------------------------------
+* So, it becomes:
+* `D -- B` ------------------------------------------------------(2)
+* We have covered the subtree, `B`.
+* So, we move backward (upward).
+* We get `A`.
+* We have covered the left side of `A`.
+* Now, let us cover the right side of `A`. <------------------------------
+* We get `C`.
+* Let us cover the left side of `C`. <------------------------------
+* We get `E`.
+* Let us cover the left side of `E`. <------------------------------
+* We get `G`.
+* Let us cover the left side of `G`. <------------------------------
+* There is no left side of `G`.
+* Let us cover the right side of `G`. <------------------------------
+* There is no right side of `G`.
+* Let us cover the root, `G`. (It is a root of a subtree that starts with itself.) <------------------------------
+* So, the path becomes:
+* `D -- B -- G` ------------------------------------------------------(3)
+* We have covered the subtree, `G`.
+* So, we move backward (upward).
+* We get `E`.
+* We have covered the left side of `E`.
+* Let us cover the right side of `E`. <------------------------------
+* There is no right side of `E`.
+* Then, let us cover the root, `E`. (It is a root of a subtree that starts with itself.) <------------------------------
+* So, the path becomes:
+* `D -- B -- G -- E` ------------------------------------------------------(4) 
+* We have covered the subtree, `E`.
+* Now, we move backward (upward).
+* We get `C`.
+* We have covered the left side of `C`.
+* Now, we cover the right side of `C`. <------------------------------
+* We get `F`.
+* Let us cover the left side of `F`. <------------------------------
+* We get `H`.
+* Let us cover the left side of `H`. <------------------------------
+* There is no left side of `H`.
+* Let us cover the right side of `H`. <------------------------------
+* There is no right side of `H`.
+* Let us cover the root, `H`. (It is a root of a subtree that starts with itself.) <------------------------------
+* So, the path becomes:
+* `D -- B -- G -- E -- H` ------------------------------------------------------(5)
+* We have just covered the subtree, `H`.
+* Now, we move backward (upward).
+* We get `F`.
+* We have just covered the left side of `F`.
+* Now, we cover the right side of `F`. <------------------------------
+* We get `I`.
+* Let us cover the left side of `I`. <------------------------------
+* There is no left side of `I`.
+* Let us cover the right side of `I`. <------------------------------
+* There is no right side of `I`.
+* Let us cover the root, `I`. (It is a root of a subtree that starts with itself.) <------------------------------
+* So, the path becomes:
+* `D -- B -- G -- E -- H -- I` ------------------------------------------------------(6)
+* We have covered the subtree, `I`.
+* So, we move backward (upward).
+* We get `F`.
+* We have covered the left and right sides of `F`.
+* So, we cover the root, `F`. (It is a root of a subtree that starts with itself.) <------------------------------
+* So, the path becomes:
+* `D -- B -- G -- E -- H -- I -- F` ------------------------------------------------------(7)
+* We have covered the subtree, `F`.
+* So, we move backward (upward).
+* We get `C`.
+* We have covered the left and right sides of `C`.
+* Now, we cover the root, `C`. (It is a root of a subtree that starts with itself.) <------------------------------
+* So, the path becomes:
+* `D -- B -- G -- E -- H -- I -- F -- C` ------------------------------------------------------(8)
+* We have covered the subtree, `C`.
+* Now, we move backward (upward).
+* We get `A`.
+* We have covered the left and right sides of `A`.
+* Now, we cover the root, `A`.
+* So, the path becomes:
+* `D -- B -- G -- E -- H -- I -- F -- C -- A` ------------------------------------------------------(9)
+* There is no root (parent) of `A`.
+* Hence, the traversal path for the `Post-Order` is:
+* `D -- B -- G -- E -- H -- I -- F -- C -- A` ------------------------------------------------------(10) 
