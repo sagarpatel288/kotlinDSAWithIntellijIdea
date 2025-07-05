@@ -611,10 +611,10 @@ flowchart TD
 7. The root node `A` has two children. `B` and `C`.
 8. The `in-order` sequence prioritizes the `left` part first.
 9. So, we traverse through the left side, `B`. Does it have the `Left` side? No. 
-10. So, now we can consider `B`. ---------------------------------------------------------------------------(1).
+10. So, now we can consider `B`. ------------------------------------------------------------------------------(1).
 11. Node `B` does not have the `Left` side. So, we considered `B`. Now, does it have the `Right` side? Yes.
 12. So, now we consider the right side of `B`, which is `D`.
-13. Hence, it becomes: `B -- D`. ---------------------------------------------------------------------------(2).
+13. Hence, it becomes: `B -- D`. ------------------------------------------------------------------------------(2).
 14. As the `Right` side of `B` is finished, we can move backward.
 15. The subtree `B` is covered. So, we move backward (upward).
 16. The subtree `B` was the `Left` side of the `Root` node, `A`.
@@ -623,6 +623,39 @@ flowchart TD
 19. Hence, it becomes: `B -- D -- A`. -------------------------------------------------------------------------(3).
 20. For the root node `A`, we have covered the `Left-Root` parts of the `Left-Root-Right` sequence.
 21. Now, we need to cover the `Right` side of the root node, `A`.
+22. So, we start with `C`. Does `C` have `Left` side? Yes. 
+23. We know that we need to take the left side before taking the root. Right?
+24. So, we travel towards the left side of the `C`.
+25. We get `E`. Does it have a left side? Yes.
+26. So, we travel to the left side of `E`. 
+27. We get `G`. Does it have a left side? No. 
+28. So, we calculate `G`.
+29. Hence, it becomes: `B -- D -- A -- G`. --------------------------------------------------------------------(4).
+30. `G` does not have any children. So, we move backward (upward).
+31. We get `E`. Can we take it? Yes. Why? Because we have already covered its left side.
+32. So, now it becomes: `B -- D -- A -- G -- E`. --------------------------------------------------------------(5).
+33. Does `E` have the right side? No.
+34. So, we move backward (upward).
+35. We get `C`. Should we take it? Yes. Why? Because we have already covered the left side of `C`.
+36. So, it becomes: `B -- D -- A -- G -- E -- C`. -------------------------------------------------------------(6).
+37. What is next? We have covered the left side of `C`, the root `C`, and now, we need to cover the right side of `C`.
+38. So, we travel to the right side of `C`.
+39. We get `F`. Should we take it? Well, does it have a left side? If yes, the left side will get the priority. 
+40. We get `H`. Should we take it? Well, does it have a left side? If not, then only we can take it.
+41. `H` does not have a left side. So, we can take it.
+42. So, it becomes: `B -- D -- A -- G -- E -- C -- H`. --------------------------------------------------------(7).
+43. What is next? Does `H` have a right side? No. So, we can move backward (upward).
+44. We get `F`. Should we take it? Well, did we cover the left side of it? Yes. Then, we can take it.
+45. So, it becomes: `B -- D -- A -- G -- E -- C -- H -- F`. ----------------------------------------------(8).
+46. What is next? Did we cover the right side of `F`? No. So, let us cover it.
+47. We get `I`. Should we take it? Well, did we cover the left side of it? It does not have any. Then, we can take it.
+48. So, it becomes: `B -- D -- A -- G -- E -- C -- H -- F -- I`. -----------------------------------------(9).
+49. What is next? Did we cover the right of `I`? Well, it does not have any. So, we can move backward (upward).
+50. We have already taken F, C, and A.
+51. All the subtrees have been covered. The entire tree has been covered.
+52. We travelled and covered one subtree after another.
+53. And the path we travelled is:
+54. `B -- D -- A -- G -- E -- C -- H -- F -- I`. ----------------------------------------------(10).
 
 #### Pre-Order (Root-Left-Right)
 
