@@ -714,13 +714,11 @@ flowchart TD
 * And the path we travelled is:
 * `B -- D -- A -- G -- E -- C -- H -- F -- I`. ----------------------------------------------(10).
 
-##### Important Key Points:
+##### The `In-Order` Traversal Of A Binary Tree Gives A Sorted Order Output:
 
 Resources / References:
 
 [Coursera's UC San Diego Course: Data Structures: Module 01: Section 03: Trees: Video 02: Timestamp: 02:44](https://coursera.org/share/e9f19723cdd15d5e4f0abe3c8c87fe34)
-
-###### The `In-Order` Traversal Of A Binary Tree Gives A Sorted Order Output:
 
 ```
                         Les
@@ -745,14 +743,14 @@ Output: Alex, Cathy, Frank, Les, Nancy, Sam, Tony, Violet, Wendy
 * So, if we travel a binary tree as `Left-Root-Right`, it matches with the `sorted order` arrangement of the binary tree.
 * Hence, if we ever want to perform `sorted order` on a binary tree, we go with the `In-order` traversal.
 
-###### Pseudocode Of `In-Order` Traversal:
+##### Pseudocode Of `In-Order` Traversal:
 
 ```kotlin
 
 fun <T> inOrderTraversal(key: T) {
     coverEdgeCases(key)
     inOrderTraversal(key.left)
-    inOrderTraversal(key)
+    print(key)
     inOrderTraversal(key.right)
 }
 ```
@@ -874,6 +872,18 @@ flowchart TD
 * We get `A`. We have already covered the tree, `A`.
 * So, the tree traversal path is:
 * `A -- B -- D -- C -- E -- G -- F -- H -- I` --------------------------------------------------------------(10). 
+
+##### Pseudocode Of `Pre-Order` Traversal:
+
+```kotlin
+
+fun <T> preOrderTreeTraversal(key: T) {
+    coverEdgeCases(key)
+    print(key)
+    preOrderTreeTraversal(key.left)
+    preOrderTreeTraversal(key.right)
+}
+```
 
 #### Post-Order (Left-Right-Root)
 
@@ -1047,4 +1057,6 @@ Reference / Resources:
 * This definite place of the node process makes it suitable for any tree.
 * Similarly, the `Post-Order` (`Left-Right-Root`) conveys that: Process the node itself after the children.
 * Again, this definite place of the node process makes it suitable for any tree.
+
+
 
