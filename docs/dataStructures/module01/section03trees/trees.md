@@ -1008,6 +1008,13 @@ flowchart TD
 
 #### Questions
 
+##### Different depth-first traversal types.
+
+* There are 3 main `depth-first` traversal techniques: `In-Order,` `Pre-Order,` and `Post-Order.`
+* `In-Order` follows `Left-Root-Right` order.
+* `Pre-Order` follows `Root-Left-Right` order.
+* `Post-Order` follows `Left-Right-Root` order.
+
 ##### Which tree traversal technique is useful to get a binary tree in a sorted order?
 
 * `In-Order` Traversal for a binary tree gives a sorted order output. [(Reference.)](#the-in-order-traversal-of-a-binary-tree-gives-a-sorted-order-output)
