@@ -735,6 +735,8 @@ Resources / References:
                                   /      \
                                Tony     Wendy
 
+
+Output: Alex, Cathy, Frank, Les, Nancy, Sam, Tony, Violet, Wendy
 ```
 
 * By definition, the `In-Order` tree traversal for a binary tree gives a sorted order output.
