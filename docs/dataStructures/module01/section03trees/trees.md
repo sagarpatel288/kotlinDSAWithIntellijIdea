@@ -345,20 +345,20 @@ while (x < 0) {
 
 ```
 
-1. We can use a binary tree to represent relationships between nodes where a node cannot have more than two children.
-2. Here, the node is greater than the left side children and smaller than the right side children.
-3. For example, in the given ASCII diagram, the root `Les` comes after (greater than) the left side child, `Cathy`.
-4. We can say it another way like: The left side children are smaller (comes before) than the node.
-5. Similarly, the node `Les` comes before (smaller than) the right side child, `Sam`.
-6. Again, we can say it other way like: The right side children are greater (comes after) than the node.
-7. To remember this relationship, we can use the diagram given below the binary search tree.
-8. So, it starts with the `greater than` symbol on the left side, moves towards the `root`, and goes down to form the `less than` symbol on the right side.
-9. It signifies that the `node` is `greater` than the `left side`, and `smaller` than the `right side`.
-10. These predefined rules help us find a child quickly.
-11. For example, if we want to find `Tony` and we start from the root node, `Les`.
-12. We know that `Tony` comes after `Les`. Hence, we need to travel to the right side of the `Les`.
-13. Now, we know that `Tony` comes after `Sam`. So, we go towards the right side of `Sam`.
-14. Now, we know that `Tony` comes before `Violet`.  So, we go towards the left side of the `Violet` and we find the target: `Tony`.
+* We can use a binary tree to represent relationships between nodes where a node cannot have more than two children.
+* Here, the node is greater than the left side children and smaller than the right side children.
+* For example, in the given ASCII diagram, the root `Les` comes after (greater than) the left side child, `Cathy`, and comes before (less than) the right side child, `Sam`.
+* We can say it another way like: The left side children are smaller (comes before) than the node.
+* Similarly, the node `Les` comes before (smaller than) the right side child, `Sam`.
+* Again, we can say it other way like: The right side children are greater (comes after) than the node.
+* To remember this relationship, we can use the diagram given below the binary search tree.
+* So, it starts with the `greater than` symbol on the left side, moves towards the `root`, and goes down to form the `less than` symbol on the right side.
+* **It signifies that the `node` is `greater` than the `left side`, and `smaller` than the `right side`.**
+* These predefined rules help us find a child quickly.
+* For example, if we want to find `Tony` and we start from the root node, `Les`.
+* We know that `Tony` comes after `Les`. Hence, we need to travel to the right side of the `Les`.
+* Now, we know that `Tony` comes after `Sam`. So, we go towards the right side of `Sam`.
+* Now, we know that `Tony` comes before `Violet`.  So, we go towards the left side of the `Violet` and we find the target: `Tony`.
 
 ## Terminologies:
 
@@ -540,9 +540,9 @@ Sam             Hugh            Jim
 
 ## What are the maximum number of nodes at level `l` in a binary tree?
 
-1. `2^l` (Where root level is considered as 0).
+1. $2^l$ (2 raised to the power of l, where root level is considered as 0).
 
-## Real world examples where the tree data structure is used.
+## Real-world examples where the tree data structure is used.
 
 1. File Systems (Directory Structure).
 2. HTML / XML DOM (Document Object Model) Trees (Tags inside Tags).
@@ -713,6 +713,47 @@ flowchart TD
 * We travelled and covered one subtree after another.
 * And the path we travelled is:
 * `B -- D -- A -- G -- E -- C -- H -- F -- I`. ----------------------------------------------(10).
+
+##### Important Key Points:
+
+Resources / References:
+
+[Coursera's UC San Diego Course: Data Structures: Module 01: Section 03: Trees: Video 02: Timestamp: 02:44](https://coursera.org/share/e9f19723cdd15d5e4f0abe3c8c87fe34)
+
+###### The `In-Order` Traversal Of A Binary Tree Gives A Sorted Order Output:
+
+```
+                        Les
+                       /   \
+                      /     \
+                     /       \
+                Cathy         Sam
+                /   \         /   \
+               /     \       /     \
+           Alex    Frank  Nancy   Violet
+                                   /    \
+                                  /      \
+                               Tony     Wendy
+
+```
+
+* By definition, the `In-Order` tree traversal for a binary tree gives a sorted order output.
+* Why? How? Because, the [definition](#binary-search-tree) of a binary tree says that: 
+* **A node is greater than the left side children, and less than the right side children.**
+* So, if we travel a binary tree as `Left-Root-Right`, it matches with the `sorted order` arrangement of the binary tree.
+* Hence, if we ever want to perform `sorted order` on a binary tree, we go with the `In-order` traversal.
+
+###### Pseudocode Of `In-Order` Traversal:
+
+```kotlin
+
+fun <T> inOrderTraversal(key: T) {
+    coverEdgeCases(key)
+    coverLeftSide(key)
+    coverNode(key)
+    coverRightSide(key)
+}
+```
 
 #### Pre-Order (Root-Left-Right)
 
