@@ -1071,7 +1071,7 @@ Reference / Resources:
 * Similarly, the `Post-Order` (`Left-Right-Root`) conveys that: Process the node itself after the children.
 * Again, this definite place of the node process makes it suitable for any tree.
 
-### Breadth-First-Search
+### Breadth-First-Search (Lever-Order Traversal):
 
 References / Resources:
 
@@ -1083,8 +1083,313 @@ Also, as always, Shraddha explains the queue concept for BFS (Breadth First Sear
 
 [Tree Concept, Tree Traversals, Queue in BFS](https://youtu.be/eKJrXBCRuNQ?si=ORJK-Y4y9DTP7S59&t=3477)
 
+```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
 
 
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
+
+```{image} res/coursera/ucSanDiego/course02dataStructures/module01/section03trees/080breadthFirstSearchPseudocode.png
+ :align: center
+```
+
+* In a `Breadth-First-Search`, we travel level-by-level, from left to right.
+* Hence, we also call it `Level-Order Traversal.`
+* The `BFS` uses a `queue` concept to travel level-by-level.
+* For example, we want to travel through the given tree that starts from the node `Les`.
+* Now, we first create a queue. <----------------- (1)
+* Then, we enqueue the node, `Les`.
+
+```mermaid
+  graph TD
+    Q0["Queue: [Les]"]
+    Q1["Queue: [Cathy, Sam]"]
+    Q2["Queue: [Sam, Alex, Frank]"]
+    Q3["Queue: [Alex, Frank, Nancy, Violet]"]
+    Q4["Queue: [Frank, Nancy, Violet]"]
+    Q5["Queue: [Nancy, Violet]"]
+    Q6["Queue: [Violet]"]
+    Q7["Queue: [Tony, Wendy]"]
+    Q8["Queue: [Wendy]"]
+    Q9["Queue: []"]
+
+    Q0 -->|Dequeue Les, Enqueue Cathy, Sam| Q1
+    Q1 -->|Dequeue Cathy, Enqueue Alex, Frank| Q2
+    Q2 -->|Dequeue Sam, Enqueue Nancy, Violet| Q3
+    Q3 -->|Dequeue Alex| Q4
+    Q4 -->|Dequeue Frank| Q5
+    Q5 -->|Dequeue Nancy| Q6
+    Q6 -->|Dequeue Violet, Enqueue Tony, Wendy| Q7
+    Q7 -->|Dequeue Tony| Q8
+    Q8 -->|Dequeue Wendy| Q9
+
+```
+
+```
+                 ┌───────────┐───────────┐───────────┐───────────┌───────────┐───────────┌───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │    Les    │           │           │           │           │           │           │           │           │  ◀────────────────
+                 │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────┘───────────┘───────────└───────────┘───────────└───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+                                                                                                                                                 
+                 ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │   Cathy   │    Sam    │           │           │           │           │           │           │  ◀────────────────
+       Les       │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────└───────────┘───────────└───────────┘───────────┘───────────┘───────────└───────────┘                   
 
 
+```
 
+* Then, we run a while loop.
+* What is the condition for the while loop? 
+* As long as the queue is not empty, we will continue the while loop.
+* And what will happen in the while loop?
+* We will perform dequeue.
+* So, we will dequeue `Les`.
+* But then, we will check.
+* If the dequeued item, `Les` has a left node, we will enqueue it.
+* So, we enqueue `Cathy`.
+* And we will also enqueue the right side of the popped item.
+* So, if the dequeued item, `Les` has a right node, we will enqueue it.
+* So, we enqueue `Sam`.
+
+```
+                 ┌───────────┐───────────┐───────────┐───────────┌───────────┐───────────┌───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │    Les    │           │           │           │           │           │           │           │           │  ◀────────────────
+                 │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────┘───────────┘───────────└───────────┘───────────└───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+                                                                                                                                                 
+                 ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │   Cathy   │    Sam    │           │           │           │           │           │           │  ◀────────────────
+       Les       │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────└───────────┘───────────└───────────┘───────────┘───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+                                                                                                                                                 
+                 ┌───────────┐───────────┐───────────┐───────────┌───────────┐───────────┌───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │    Sam    │   Alex    │   Frank   │           │           │           │           │  ◀────────────────
+      Cathy      │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────┘───────────┘───────────└───────────┘───────────└───────────┘───────────└───────────┘                   
+
+
+```
+
+* Now, this same loop of: "1. Dequeue 2. Enqueue the left node. 3. Enqueue the right node." will continue as long as the queue is not empty.
+* So, we dequeue, `Cathy`.
+* But then, we will check.
+* If the dequeued item, `Cathy` has a left node, we will enqueue it.
+* So, we enqueue `Alex`.
+* If the dequeued item, `Cathy` has a right node, we will enqueue it.
+* So, we enqueue `Frank`.
+* Notice how `Alex` and `Frank` go behind `Sam`.
+
+```                                                                                                                                                 
+                                                                                                                                                 
+                 ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │   Alex    │   Frank   │   Nancy   │   Violet  │           │           │  ◀────────────────
+       Sam       │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────└───────────┘───────────└───────────┘───────────┘───────────┘───────────└───────────┘                   
+
+```
+
+* The queue is still not empty. So, the same process is repeated. The while loop continues.
+* We dequeue `Sam`.
+* If the dequeued item, `Sam` has a left node, we enqueue it.
+* So, we enqueue `Nancy`.
+* If the dequeued item, `Sam` has a right node, we enqueue it.
+* So, we enqueue `Violet`.
+
+
+```
+                                                                                                                                                 
+                 ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │   Alex    │   Frank   │   Nancy   │   Violet  │           │           │  ◀────────────────
+       Sam       │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────└───────────┘───────────└───────────┘───────────┘───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+                                                                                                                                                 
+                 ┌───────────┐───────────┐───────────┐───────────┌───────────┐───────────┌───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │           │   Frank   │   Nancy   │   Violet  │           │           │  ◀────────────────
+      Alex       │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────┘───────────┘───────────└───────────┘───────────└───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+
+```
+
+* The queue is still not empty.
+* The while loop continues.
+* We dequeue the top (front) item, `Alex`.
+* If the dequeued item, `Alex` has a left node, we enqueue it.
+* But there is no left node of `Alex`.
+* If the dequeued item, `Alex` has a right node, we enqueue it.
+* But there is no right node of `Alex`.
+
+```
+                                                                                                                                                 
+                                                                                                                                                 
+                 ┌───────────┐───────────┐───────────┐───────────┌───────────┐───────────┌───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │           │   Frank   │   Nancy   │   Violet  │           │           │  ◀────────────────
+      Alex       │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────┘───────────┘───────────└───────────┘───────────└───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+                                                                                                                                                 
+                 ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │           │           │   Nancy   │   Violet  │           │           │  ◀────────────────
+      Frank      │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────└───────────┘───────────└───────────┘───────────┘───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+                                                                                                                                                 
+```
+
+* The queue is not empty.
+* The while loop continues.
+* We dequeue the top (front) item, `Frank`.
+* If the dequeued item, `Frank` has a left node, we enqueue it.
+* `Frank` does not have a left node.
+* If the dequeued item, `Frank` has a right node, we enqueue it.
+* `Frank` does not have a right node.
+
+```
+
+                                                                                                                                                
+                 ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │           │           │   Nancy   │   Violet  │           │           │  ◀────────────────
+      Frank      │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────└───────────┘───────────└───────────┘───────────┘───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+                                                                                                                                                 
+                 ┌───────────┐───────────┐───────────┐───────────┌───────────┐───────────┌───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │           │           │           │   Violet  │           │           │  ◀────────────────
+      Nancy      │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────┘───────────┘───────────└───────────┘───────────└───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+ 
+```
+
+* The queue is not empty.
+* The while loop continues.
+* We dequeue the top (front) item, `Nancy`.
+* If the dequeued item, `Nancy` has a left node, we enqueue it.
+* `Nancy` does not have a left node.
+* If the dequeued item, `Nancy` has a right node, we enqueue it.
+* `Nancy` does not have a right node.
+
+```
+
+                                                                                                                                                 
+                 ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │           │           │           │           │   Tony    │   Wendy   │  ◀────────────────
+      Violet     │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────└───────────┘───────────└───────────┘───────────┘───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                
+```
+
+* The queue is not empty.
+* The while loop continues.
+* We dequeue the top (front) item, `Violet`.
+* If the dequeued item, `Violet` has a left node, we enqueue it.
+* `Violet` has a left node, `Tony`.
+* So, we enqueue `Tony`.
+* If the dequeued item, `Violet` has a right node, we enqueue it.
+* `Violet` has a right node, `Wendy`.
+* So, we enqueue `Wendy`.
+
+```
+                                                                                                                                                 
+                 ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │           │           │           │           │           │   Wendy   │  ◀────────────────
+      Tony       │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────└───────────┘───────────└───────────┘───────────┘───────────┘───────────└───────────┘                   
+                                                                                                                                                 
+```
+
+* The queue is not empty.
+* The while loop continues.
+* We dequeue the top (front) item, `Tony`.
+* If the dequeued item, `Tony` has a left node, we enqueue it.
+* `Tony` does not have a left node.
+* If the dequeued item, `Tony` has a right node, we enqueue it.
+* `Tony` does not have a right node.
+
+```
+                                                                                                                                                 
+                 ┌───────────┐───────────┐───────────┐───────────┌───────────┐───────────┌───────────┐───────────┌───────────┐                   
+     Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
+◀──────────────  │           │           │           │           │           │           │           │           │           │  ◀────────────────
+      Wendy      │           │           │           │           │           │           │           │           │           │                   
+                 └───────────┘───────────┘───────────┘───────────└───────────┘───────────└───────────┘───────────└───────────┘                   
+
+```
+
+* The queue is not empty.
+* The while loop continues.
+* We dequeue the top (front) item, `Wendy`.
+* If the dequeued item, `Wendy` has a left node, we enqueue it.
+* `Wendy` does not have a left node.
+* If the dequeued item, `Wendy` has a right node, we enqueue it.
+* `Wendy` does not have a right node.
+* The queue is empty now.
+* The while loop exits.
+
+#### Pseudocode
+
+* So, what will be the pseudocode for BFS (Breadth-First Search) or Level-Order Traversal of a tree?
+* We create a queue.
+* We enqueue the node.
+* We create a while loop.
+* The condition is: As long as the queue is not empty, continue the loop.
+* And what happens in the loop?
+* We dequeue the node.
+* If the dequeued node has a left node, we enqueue it.
+* If the dequeued node has a right node, we enqueue it.
+
+```kotlin
+
+fun <T> levelOrderTraversal(key: T) {
+    // We can create a queue using a linked list or a circular array.
+    // We have already covered that topic.
+    // src/coursera/ucSanDiego/course02dataStructures/module01/section02stacksAndQueues/video02queues/02queueUsingLinkedList.kt
+    // src/coursera/ucSanDiego/course02dataStructures/module01/section02stacksAndQueues/video02queues/01QueueUsingCircularArray.kt
+    // The circular array will require a capacity.
+    // The linked list can grow dynamically.
+    val queue = Queue()
+    queue.enqueue(key)
+    while (!queue.isEmpty) {
+        val dequeued = queue.dequeue()
+        print(dequeued)
+        if (dequeued.left != null) {
+            queue.enqueue(dequeued.left)
+        }
+        if (dequeued.right != null) {
+            queue.enqueue(dequeued.right)
+        }
+    }
+}
+```
