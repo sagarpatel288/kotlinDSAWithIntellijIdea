@@ -1019,3 +1019,20 @@ flowchart TD
 
 * `In-Order` Traversal for a binary tree gives a sorted order output. [(Reference.)](#the-in-order-traversal-of-a-binary-tree-gives-a-sorted-order-output)
 
+##### Can we use the `In-Order` traversal for a generic tree?
+
+Reference / Resources:
+
+[Coursera's UC San Diego Course: Data Structures: Module 01: Section 03: Trees: Video 02: Timestamp: 03:53](https://coursera.org/share/e9f19723cdd15d5e4f0abe3c8c87fe34)
+
+* The `In-Order` traversal is well-defined (suitable) only for a binary tree.
+* Because if a tree node has more than 2 children, what will be the order of processing the node? 
+* After the first child, or after the second child?
+* This confusion makes the `In-Order` traversal suitable only for a binary tree.
+* Because in a binary tree, a node can have a maximum of two children.
+* And, it is very clear by the definition of the `In-Order` traversal, that we first process the `Left` children.
+* So, the children who are smaller (less) than the node.
+* Then, we process the node itself.
+* Then, we process the right-side children of the node.
+* So, the children who are greater (larger) than the node.
+* These structures and rules make the `In-Order` traversal suitable only for a binary tree, not for a generic tree.
