@@ -1071,5 +1071,20 @@ Reference / Resources:
 * Similarly, the `Post-Order` (`Left-Right-Root`) conveys that: Process the node itself after the children.
 * Again, this definite place of the node process makes it suitable for any tree.
 
+### Breadth-First-Search
+
+References / Resources:
+
+An animation to understand how BFS uses a queue concept:
+
+[Breadth-First-Search Queue Animation](https://youtube.com/shorts/umHJzlKFGlU?si=aEBY41jPpuoiGYEh)
+
+Also, as always, Shraddha explains the queue concept for BFS (Breadth First Search) very well.
+
+[Tree Concept, Tree Traversals, Queue in BFS](https://youtu.be/eKJrXBCRuNQ?si=ORJK-Y4y9DTP7S59&t=3477)
+
+
+
+
 
 
