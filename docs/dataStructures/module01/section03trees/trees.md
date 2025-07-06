@@ -1002,4 +1002,11 @@ flowchart TD
 * `D -- B -- G -- E -- H -- I -- F -- C -- A` ------------------------------------------------------(9)
 * There is no root (parent) of `A`.
 * Hence, the traversal path for the `Post-Order` is:
-* `D -- B -- G -- E -- H -- I -- F -- C -- A` ------------------------------------------------------(10) 
+* `D -- B -- G -- E -- H -- I -- F -- C -- A` ------------------------------------------------------(10)
+
+#### Questions
+
+##### Which tree traversal technique is useful to get a binary tree in a sorted order?
+
+* `In-Order` Traversal for a binary tree gives a sorted order output. [(Reference.)](#the-in-order-traversal-of-a-binary-tree-gives-a-sorted-order-output)
+
