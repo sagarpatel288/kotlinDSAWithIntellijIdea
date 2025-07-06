@@ -1036,3 +1036,15 @@ Reference / Resources:
 * Then, we process the right-side children of the node.
 * So, the children who are greater (larger) than the node.
 * These structures and rules make the `In-Order` traversal suitable only for a binary tree, not for a generic tree.
+
+##### How `Pre-Order` and `Post-Order` tree traversal techniques can be applied to a generic tree, and not only to a binary tree?
+
+Reference / Resources:
+
+[Coursera's UC San Diego Course: Data Structures: Module 01: Section 03: Trees: Video 02: Timestamp: 04:28](https://coursera.org/share/e9f19723cdd15d5e4f0abe3c8c87fe34)
+
+* The `Pre-Order` (`Root-Let-Right`) conveys that: Process the node itself first, before the children. 
+* This definite place of the node process makes it suitable for any tree.
+* Similarly, the `Post-Order` (`Left-Right-Root`) conveys that: Process the node itself after the children.
+* Again, this definite place of the node process makes it suitable for any tree.
+
