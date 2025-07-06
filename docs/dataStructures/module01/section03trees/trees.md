@@ -1016,6 +1016,19 @@ flowchart TD
 * Hence, the traversal path for the `Post-Order` is:
 * `D -- B -- G -- E -- H -- I -- F -- C -- A` ------------------------------------------------------(10)
 
+##### Pseudocode for `Post-Order` Tree Traversal:
+
+```kotlin
+
+fun <T> postOrderTraversal(key: T) {
+    coverEdgeCases(key)
+    postOrderTraversal(key.left)
+    postOrderTraversal(key.right)
+    print(key)
+}
+
+```
+
 #### Questions
 
 ##### Different depth-first traversal types.
