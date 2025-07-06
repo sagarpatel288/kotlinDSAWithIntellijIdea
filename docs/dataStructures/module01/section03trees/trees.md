@@ -751,9 +751,9 @@ Output: Alex, Cathy, Frank, Les, Nancy, Sam, Tony, Violet, Wendy
 
 fun <T> inOrderTraversal(key: T) {
     coverEdgeCases(key)
-    coverLeftSide(key)
-    coverNode(key)
-    coverRightSide(key)
+    inOrderTraversal(key.left)
+    inOrderTraversal(key)
+    inOrderTraversal(key.right)
 }
 ```
 
