@@ -11,6 +11,7 @@
 - [Can a tree have a cycle?](#can-a-tree-have-a-cycle)
 - [Nodes at level `l`](#what-are-the-maximum-number-of-nodes-at-level-l-in-a-binary-tree)
 - [Tree Traversal](#tree-traversal)
+- [Complexity Analysis](#complexity-analysis)
 
 ## What does it represent?
 
@@ -555,6 +556,7 @@ Sam             Hugh            Jim
 
 - [Depth First](#depth-first)
 - [Breadth Search](#breadth-search)
+- [3 Main Types Of Depth First Search](#3-main-types-of-depth-first-search)
 - [In-Order (Left-Root-Right)](#in-order-left-root-right)
 - [Pre-Order (Root-Left-Right)](#pre-order-root-left-right)
 - [Post-Order (Left-Right-Root)](#post-order-left-right-root)
@@ -594,6 +596,7 @@ flowchart TD
 8. Then, we have the `Pre-Order` sequence where the `Root` comes before the `Left` and the `Right` sides. So, it becomes: `Root-Left-Right`.
 9. Finally, we have the `Post-Order` sequence where the `Root` comes after the `Left` and the `Right` sides. So, it becomes `Left-Right-Root`.
 10. We will study each order in detail.
+11. The time and space complexity for each of these 3 main DFS types is `O(n)` as we visit each node once, and we use a stack as an underlying data structure or the recursion that uses a stack. 
 
 ### Breadth-Search
 
@@ -601,6 +604,7 @@ flowchart TD
 2. So, first we finish travelling with all the siblings.
 3. And then, we gradually move towards the last level.
 4. For example, we may travel in this order: A-B-C-D-E-F-G-H-I.
+5. The time and space complexity of BFS is `O(n)` as we visit each node once, and we use a queue of tree size as an underlying data structure.
 
 ### 3 Main Types Of Depth-First Search
 
@@ -757,6 +761,11 @@ fun <T> inOrderTraversal(key: T) {
 }
 ```
 
+##### Complexity Analysis Of `In-Order`
+
+* The time complexity of `In-Order` traversal is `O(n)` as we visit each node once.
+* The space complexity of `In-Order` traversal is `O(n)` as we keep track of each visit using a stack through the recursion.
+
 #### Pre-Order (Root-Left-Right)
 
 ##### Resources / References:
@@ -886,6 +895,12 @@ fun <T> preOrderTreeTraversal(key: T) {
     preOrderTreeTraversal(key.right)
 }
 ```
+
+##### Complexity Analysis Of `Pre-Order`
+
+* The time complexity of `Pre-Order` traversal is `O(n)` as we visit each node once.
+* The space complexity of `Pre-Order` traversal is `O(n)` as we keep track of each visit using a stack through the recursion.
+
 
 #### Post-Order (Left-Right-Root)
 
@@ -1031,6 +1046,12 @@ fun <T> postOrderTraversal(key: T) {
 
 ```
 
+##### Complexity Analysis Of `Post-Order`
+
+* The time complexity of `Post-Order` traversal is `O(n)` as we visit each node once.
+* The space complexity of `Post-Order` traversal is `O(n)` as we keep track of each visit using a stack through the recursion.
+
+
 #### Questions
 
 ##### Different depth-first traversal types.
@@ -1039,6 +1060,7 @@ fun <T> postOrderTraversal(key: T) {
 * `In-Order` follows `Left-Root-Right` order.
 * `Pre-Order` follows `Root-Left-Right` order.
 * `Post-Order` follows `Left-Right-Root` order.
+* The time and space complexity of each of these types is `O(n)` as we visit each node once, and we keep track of our visit using a stack through recursion.
 
 ##### Which tree traversal technique is useful to get a binary tree in a sorted order?
 
@@ -1396,3 +1418,14 @@ fun <T> levelOrderTraversal(key: T) {
 }
 ```
 
+#### Complexity Analysis
+
+* The time complexity of `BFS` is `O(n)` as we visit each node once.
+* The space complexity of `BFS` is `O(n)` as we use a queue of size tree as an internal data structure to travel and cover each node.
+  * Here `n` is the size of the tree =  size of the queue.
+  * Size of the tree = number of nodes.
+
+### Complexity Analysis Of A Tree Traversal
+
+* All the `DFS` and `BFS` operations on a `tree` take `O(n)` time and space complexity.
+* We visit each node once, and we use a stack through recursion for `DFS` to track our visit, and a queue of tree size for `BFS`. 
