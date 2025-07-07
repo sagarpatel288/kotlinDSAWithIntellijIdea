@@ -105,9 +105,9 @@ import fetch from 'node-fetch';
    * which makes it easier to work with asynchronous code in a way that looks synchronous,
    * helping to avoid "callback hell."
    * Default value: path = '' means that the path parameter has a default value of an empty string.
-   * If you call fetchKotlinFiles() without providing a path, it will default to an empty string.
+   * If you call fetchFiles() without providing a path, it will default to an empty string.
    */
-  async function fetchKotlinFiles(path = '') {
+  async function fetchFiles(path = '') {
     try {
       // We need to pass header that includes a token while working with GitHub APIs smoothly.
       const headers = {
@@ -129,8 +129,8 @@ import fetch from 'node-fetch';
       if (Array.isArray(data)) {
         for (const item of data) {
           if (item.type === 'dir') {
-            await fetchKotlinFiles(item.path);
-          } else if (item.type === 'file' && item.name.endsWith('.kt')) {
+            await fetchFiles(item.path);
+          } else if (item.type === 'file' && (item.name.endsWith('.kt') || item.name.endsWith('.md'))) {
               // Fetch additional details for each file to get dates (createdDate and modifiedDate)
               const { createdDate, modifiedDate } = await fetchCommitDates(item);
               kotlinFiles.push({
@@ -148,12 +148,12 @@ import fetch from 'node-fetch';
   }
 
   /*
-   * This line calls an asynchronous function named fetchKotlinFiles within a try-catch block to handle any errors.
-   * The keyword `await` ensures that the script waits for the fetchKotlinFiles() function to complete
+   * This line calls an asynchronous function named fetchFiles within a try-catch block to handle any errors.
+   * The keyword `await` ensures that the script waits for the fetchFiles() function to complete
    * before moving to the next line.
    */
   try {
-    await fetchKotlinFiles();
+    await fetchFiles();
     fs.writeFileSync('files.json', JSON.stringify(kotlinFiles, null, 2));
     console.log('files.json has been saved with the latest Kotlin files.');
   } catch (error) {
