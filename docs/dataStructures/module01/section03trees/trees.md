@@ -602,6 +602,8 @@ flowchart TD
 3. And then, we gradually move towards the last level.
 4. For example, we may travel in this order: A-B-C-D-E-F-G-H-I.
 
+### 3 Main Types Of Depth-First Search
+
 #### In-Order (Left-Root-Right)
 
 ##### Resources / References:
