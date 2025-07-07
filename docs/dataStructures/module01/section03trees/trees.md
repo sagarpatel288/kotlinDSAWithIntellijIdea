@@ -3,13 +3,13 @@
 ## Table Of Contents
 
 - [What does it represent?](#what-does-it-represent)
+- [Real-world examples of tree data structure](#real-world-examples-where-the-tree-data-structure-is-used)
 - [Terminologies](#terminologies)
 - [Forest](#forest)
 - [Tree Definition](#tree-definition)
 - [A Degenerate Or Pathological Tree](#a-degenerate-or-pathological-tree)
 - [Can a tree have a cycle?](#can-a-tree-have-a-cycle)
 - [Nodes at level `l`](#what-are-the-maximum-number-of-nodes-at-level-l-in-a-binary-tree)
-- [Real-world examples of tree data structure](#real-world-examples-where-the-tree-data-structure-is-used)
 - [Tree Traversal](#tree-traversal)
 
 ## What does it represent?
@@ -360,6 +360,15 @@ while (x < 0) {
 * Now, we know that `Tony` comes after `Sam`. So, we go towards the right side of `Sam`.
 * Now, we know that `Tony` comes before `Violet`.  So, we go towards the left side of the `Violet` and we find the target: `Tony`.
 
+## Real-world examples where the tree data structure is used.
+
+1. File Systems (Directory Structure).
+2. HTML / XML DOM (Document Object Model) Trees (Tags inside Tags).
+3. Organization Charts.
+4. Database Indexing (B-trees).
+5. Expression Parsing (Syntax trees).
+6. Routing Algorithms (trie, prefix trees).
+
 ## Terminologies:
 
 ```
@@ -541,15 +550,6 @@ Sam             Hugh            Jim
 ## What are the maximum number of nodes at level `l` in a binary tree?
 
 1. $2^l$ (2 raised to the power of l, where root level is considered as 0).
-
-## Real-world examples where the tree data structure is used.
-
-1. File Systems (Directory Structure).
-2. HTML / XML DOM (Document Object Model) Trees (Tags inside Tags).
-3. Organization Charts.
-4. Database Indexing (B-trees).
-5. Expression Parsing (Syntax trees).
-6. Routing Algorithms (trie, prefix trees).
 
 ## Tree Traversal
 
