@@ -14,25 +14,24 @@
 ## Which data structure should we use if we want to read (get) any element in O(1) time?
 
 * **Array.** The `random access` time complexity of an array is `O(1)` because it is a linear and contiguous data structure.
-* **Means?** It means that if we know the address of the array, we can get any element using a simple math.
+* **Contiguous Means?** It means that if we know the address of the array, we can get any element using a simple math.
 * **Example:** For example, suppose the array is at memory location 100 and each element occupies 10 bytes of memory, we can get the 3rd element at 100 + (10 * 3) = 130.
 * **Random add/delete:** However, insertion or deletion can cost `O(n)` if it is not happening from the end-side, because each item will have to shift to fill the gap.
 * **Fixed Size:** And we have a limitation of fixed size which can cause unused allocated memory.
-* **Dynamic Array:** And a dynamic array can cause `O(n)` time complexity in resizing.
-* **Still:** We may still use `Arrays` because they are `cache-friendly` due to their linear contiguous memory.
+* **Dynamic Array:** A dynamic array can cause `O(n)` time complexity in resizing.
+* **Cache-friendly dynamics:** We may still use `Arrays` because they are `cache-friendly` due to their linear contiguous memory.
 * **Contiguous Loading:** When we load one item, nearby items are also loaded due to spatial (positional) locality.
 * **Result:** As a result, loading the next item is relatively fast as it is already available in the cache, which is faster than loading an item from the slow main memory.
 * **Reading Analogy:** So it is like reading a book with a bookmark. Next time when we read a book, we just need to find the bookmark. All the pages are in a sequence only, one after another which makes the reading experience smooth. 
 
 ## Which data structure is suitable if we want to insert an element in the middle or after a certain item in O(1) time?
 
-* **A Linked List**. Because the linked list will have a reference of the next item.
-* So, we can use this information to splice-in the new item.
-* **Finding the item:** However, finding the item itself after which we want to insert a new item can cost `O(n)` time complexity, because a linked list is not a contiguous data structure.
+* **A Linked List**. Because the linked list will have a reference of the next item, which we can use to splice-in the new item.
+* **But, Finding the item:** However, finding the item itself after which we want to insert a new item can cost `O(n)` time complexity, because a linked list is not a contiguous data structure.
 * **Singly Linked List Example:** For example, if it is a singly linked list, and we want to perform an insert or a delete operation, it can take `O(n)` to find the target node.
 * **Doubly Linked List Example:** For a doubly linked list, we can perform this insert or delete operation in `O(1)` time, but it introduces an extra property to maintain the previous address. 
-* **The Pointer Overhead:** Also, we need to take care of the pointer property, whenever we change the neighbour items, head, or tail by performing any operations like insert, or delete.
-* **Memory Overhead:** Also, linked lists are not cache friendly. They are `cache inefficient` due to non-linear non-contiguous memory allocation.
+* **The Pointer Overhead:** Also, we need to take care of these pointer properties, whenever we change the neighbour items, head, or tail by performing any operations like insert, or delete.
+* **Memory Overhead:** There is one more overhead. Linked lists are not cache friendly. They are `cache inefficient` due to non-linear non-contiguous memory allocation.
 * **Memory Scattering:** The items are scattered throughout the memory in a non-linear non-contiguous fashion.
 * **Scattered Fetching:** Fetching scattered items causes `cache miss` where the CPU cannot predict exact location of next items.
 * **Slow Fetching:** This `cache-inefficiency` makes linked list loading from the slow main memory.
