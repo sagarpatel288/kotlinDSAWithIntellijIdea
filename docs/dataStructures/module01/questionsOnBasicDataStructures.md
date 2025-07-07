@@ -4,6 +4,13 @@
 * It depends on the body language and communication of the interviewer to identify and understand the expectations.
 * It is OK to ask whether we are expected to give more detailed answers along with the most relevant and important points or just a short and sweet, to the point answer.
 
+## Table Of Content
+- [A data structure to get an item in O(1)](#which-data-structure-should-we-use-if-we-want-to-read-get-any-element-in-o1-time)
+- [A data structure to insert an item in the middle in O(1)](#which-data-structure-is-suitable-if-we-want-to-insert-an-element-in-the-middle-or-after-a-certain-item-in-o1-time)
+- [A data structure to insert an item to the back and get it from the front](#which-data-structure-is-suitable-if-we-want-to-insert-an-item-from-rear-back-and-read-or-remove-the-item-from-front)
+- [A data structure to track recursion or add and remove an item from the same side](#which-data-structure-is-suitable-if-we-want-to-track-a-recursion)
+- [A data structure for a file directory, HTML, XML, etc.](#which-data-structure-is-suitable-for-a-file-directory)
+
 ## Which data structure should we use if we want to read (get) any element in O(1) time?
 
 * **Array.** The `random access` time complexity of an array is `O(1)` because it is a linear and contiguous data structure.
