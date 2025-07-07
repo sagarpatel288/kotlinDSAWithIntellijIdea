@@ -66,7 +66,7 @@ class StackUsingArray<T>(private val capacity: Int) {
      * Hence, [isEmpty] is a "val" property.
      */
     val isEmpty: Boolean
-        get() = numberOfElements == 0
+        get() = numberOfElements == 0 // We can also use array.isEmpty()
 
     /**
      * [isFull] is a state, not an action.
