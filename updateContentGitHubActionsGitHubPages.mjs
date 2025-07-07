@@ -130,7 +130,7 @@ import fetch from 'node-fetch';
         for (const item of data) {
           if (item.type === 'dir') {
             await fetchFiles(item.path);
-          } else if (item.type === 'file' && (item.name.endsWith('.kt') || item.name.endsWith('.md')) {
+          } else if (item.type === 'file' && (item.name.endsWith('.kt') || item.name.endsWith('.md'))) {
               // Fetch additional details for each file to get dates (createdDate and modifiedDate)
               const { createdDate, modifiedDate } = await fetchCommitDates(item);
               kotlinFiles.push({
