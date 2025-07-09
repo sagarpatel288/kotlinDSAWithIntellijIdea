@@ -332,7 +332,9 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * If the value is -1, then the index is the root node.
  * * Otherwise, the index is a child of the value.
  * * So, we add the index as a child for the given value.
- * * Where do we add? How do we add?
+ *
+ * * **Where do we add? How do we add?**
+ *
  * * We create a list of list, where each item can have multiple items as children.
  * * It means each item acts a parent, and we store the corresponding list of children for that parent.
  *
