@@ -676,7 +676,8 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
 fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
     val parentChildrenList = List(totalNodes) { mutableListOf<Int>() }
     var root = 0
-    for (child in 0 until parentList.size) {
+    // Use `until` while submitting to coursera to avoid the compiler error!
+    for (child in 0 ..<parentList.size) {
         val parent = parentList[child]
         if (parent != -1) {
             parentChildrenList[parent].add(child)
