@@ -319,8 +319,12 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * of the children which covers the next level. And so on...
  * * So basically, we need to know the root node and children of each node.
  *
+ * >-------------<
+ *
  * * **How do we prepare children information?**
  * * **How can we know what are the children of a particular parent?**
+ *
+ * >-------------<
  *
  * * Let us look at the given sample:
  * ```
@@ -333,28 +337,49 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Otherwise, the index is a child of the value.
  * * So, we add the index as a child for the given value.
  *
+ * >-------------<
+ *
  * * **Where do we add? How do we add?**
+ *
+ * >-------------<
  *
  * * We create a list of list, where each item can have multiple items as children.
  * * It means each item acts a parent, and we store the corresponding list of children for that parent.
  *
+ * >-------------<
+ *
  * * **Confusing? Let us see it.**
+ *
+ * >-------------<
  * ```
  * Create a list of size n where each item is also a mutable list to which we can add items.
  * = List(n) { mutableListOf<Int>() }
  * ```
+ *
+ * >-------------<
+ *
  * * **Why did we take a fixed size of immutable `List(n)`?**
+ *
+ * >-------------<
  *
  * * Because we treat the index of this outer list as a parent node, and we have given a fixed size of total nodes.
  * * We are not going to add more nodes than what we have been given.
  *
+ * >-------------<
+ *
  * * **Why did we take the inner list as a mutable list?**
+ *
+ * >-------------<
  *
  * * Because we add children as we iterate through the parent list.
  * * We don't have all the children information for each parent on hand.
  * * Otherwise, we would not have to create such a nested list (known as adjacency list).
  *
+ * >-------------<
+ *
  * * **What does it mean by iterating through the parent list? What is the parent list? Where is it?**
+ *
+ * >-------------<
  *
  * * Let us see that:
  * ```
@@ -362,7 +387,11 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * val parentList = readln().split(" ").map { it.toInt() }.toList() //This is the list of parents
  * ```
  *
+ * >-------------<
+ *
  * * **How do we use this list of parents?**
+ *
+ * >-------------<
  *
  * * Let us see that:
  * ```
@@ -387,7 +416,11 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * ```
  * * So, we got the parent of a particular child.
  *
+ * >-------------<
+ *
  * * **But, how can we know how many children does this parent has?**
+ *
+ * >-------------<
  *
  * * We know that a parent can have multiple children.
  * * So, we create this list of lists.
@@ -405,7 +438,11 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * So, the index of outer list acts as a parent, and we would add children to it.
  *
+ * >-------------<
+ *
  * * **How? How do we add children to parent?**
+ *
+ * >-------------<
  *
  * * Let us see that.
  *
@@ -428,10 +465,30 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Again, the index of the `parentChildrenList` is a parent, and the value is `List of children` for that parent.
  * * Now that we know how many children a particular parent node has, we can travel level-by-level.
  *
- * * **Sounds irrelevant and disconnected?**
+ * >-------------<
+ *
+ * * **Sounds irrelevant and disconnected? Is it too fast?**
+ *
+ * >-------------<
  *
  * * Let us understand.
  * * Recall the BFS traversal of a tree. [BFS Traversal In A Tree](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/7453412a5be96aabf3394a77bbc5763c995a509f/docs/dataStructures/module01/section03trees/trees.md)
+ * ```
+ * val queue = ArrayDeque<Int>()
+ * queue.addLast(root)
+ * while (queue.isNotEmpty()) {
+ *     val dequeued = queue.removeFirst()
+ *     println(dequeued.value)
+ *     // If the dequeued item has left children, add them all.
+ *     if (dequeued.left != null) {
+ *         queue.addLast(dequeued.left)
+ *     }
+ *     // If the dequeued item has right children, add them all.
+ *     if (dequeued.right != null) {
+ *         queue.addLast(dequeued.right)
+ *     }
+ * }
+ * ```
  * * We add a root node to a queue.
  * * And then we run a while loop.
  * * We run the while loop as long as the queue is not empty.
@@ -440,7 +497,11 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * We continue the process.
  * * And it forms the level-by-level traversal.
  *
+ * >-------------<
+ *
  * * **How does this `BFS Traversal In A Tree` concept helps us here?**
+ *
+ * >-------------<
  *
  * * So, the idea is:
  * * We have this `parentChildrenList`.
@@ -448,16 +509,24 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Let us assume that we start with the root node, we add it to the queue.
  * * Now, the size of this root node is obviously 1.
  * * So, we will make a loop. (Yes, a loop inside a loop.)
- * * And this inner loop will repeat a process `s` times, where `s` is the size of the current item in the queue.
+ * * And this inner loop will repeat a process `s` times, where `s` is the current size of the queue.
  * * For example, when the root node is in the queue, the queue size is 1.
  * * So, it will repeat a process 1 time.
  *
+ * >-------------<
+ *
  * * **What is the process?**
+ *
+ * >-------------<
  *
  * * The process is, remove the current item from the queue.
  * * And add its children to the queue. Yes, we add children of the dequeued node.
  *
+ * >-------------<
+ *
  * * **From where do we get the children of the dequeued node?**
+ *
+ * >-------------<
  *
  * * From the `parentChildrenList`.
  * * First, we add the `root` node to the `queue`.
@@ -479,7 +548,11 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * }
  * ```
  *
+ * >-------------<
+ *
  * * **So, How do we find the children of the root node and add it to the queue?**
+ *
+ * >-------------<
  *
  * * Let us see that.
  *
@@ -501,7 +574,11 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * So, we extract and add children of the dequeued node by passing the dequeued node as an index to the
  * `parentChildrenList`.
  *
+ * >-------------<
+ *
  * * **Ok, But how does this help in calculating the height of the tree?**
+ *
+ * >-------------<
  *
  * * Well, the idea is:
  * * Each time we get out of the inner loop, we go to the next level.
@@ -529,7 +606,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Take the initial height as 0.
  * * Now, we add `Les` (which is the root node) to the queue.
  * * We start the while loop.
- * ---------------------------------
+ * >-------------<
  * * The condition is: Continue the while loop as long as the queue is not empty.
  * * We go inside the while loop.
  * * We get the size of the queue as 1.
@@ -542,7 +619,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * The children `Cathy` and `Sam` are in the queue now.
  * * We exit the inner loop. Notice that we just have finished the 1st level.
  * * So, we increase the height by 1. Hence, height = 1.
- * ---------------------------------
+ * >-------------<
  * * Now, the while loop checks whether the queue is empty.
  * * The queue is not empty as we have added the children of `Les` earlier.
  * * We go inside the while loop.
@@ -564,7 +641,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * So, the queue has: `Alex, Frank, Nancy, Violet`.
  * * We exit the inner loop. Notice that we just have finished the 2nd level.
  * * So, we increase the height by 1. Hence, height = 2.
- * ---------------------------------
+ * >-------------<
  * * Now, the while loop checks whether the queue is empty.
  * * The queue is not empty as it has: `Alex, Frank, Nancy, Violet`.
  * * We go inside the while loop.
@@ -601,7 +678,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * The queue has: `Tony, Wendy`.
  * * We exit the inner loop. Notice that we just have finished the 3rd level.
  * * So, we increase the height by 1. Hence, height = 3.
- * ---------------------------------
+ * >-------------<
  * * Now, the while loop checks whether the queue is empty.
  * * The queue is not empty as it has: `Tony, Wendy`.
  * * We go inside the while loop.
@@ -623,7 +700,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Now, the queue is empty.
  * * We exit the inner loop. Notice that we just have finished the 4th level.
  * * So, we increase the height by 1. Hence, height = 4.
- * ---------------------------------
+ * >-------------<
  * * Now, the while loop checks whether the queue is empty.
  * * The queue is empty.
  * * We return the height.
