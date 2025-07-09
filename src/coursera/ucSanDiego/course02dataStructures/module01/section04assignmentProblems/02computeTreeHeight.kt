@@ -356,7 +356,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * Let us see that:
  * ```
- * val totalNodes = readln()
+ * val totalNodes = readln().toInt()
  * val parentList = readln().split(" ").map { it.toInt() }.toList() //This is the list of parents
  * ```
  *
@@ -408,7 +408,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Let us see that.
  *
  * ```
- * val n = readln() // The total number of nodes.
+ * val n = readln().toInt() // The total number of nodes.
  * val parentList = readln().split(" ").map { it.toInt() }.toList()
  * val parentChildrenList = List(n) { mutableListOf<Int>() }
  * var root = 0
@@ -463,7 +463,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Let us see it again:
  *
  * ```
- * val n = readln()
+ * val n = readln().toInt()
  * val parentList = readln().split(" ").map { it.toInt() }.toList()
  * val parentChildrenList = List(n) { mutableListOf<Int>() }
  * var root = 0 // <------------------------------------------ We update it as below:
@@ -644,7 +644,62 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * return height
  * ```
  *
+ * # Time Complexity:
+ *
+ * * We travel the parent list once. The size of the parent list is `n`, where `n` is the total number of nodes.
+ * * So, it is `O(n)`.
+ * * Then, we have this while loop, that also runs `n` times by covering each node at each level.
+ * * So, it is also `O(n)`.
+ * * The total time complexity becomes `O(2n)`.
+ * * But, we drop (ignore) the constants in complexity analysis.
+ * * Why? Because the constant becomes insignificant as `n` grows larger.
+ * * So, the net total time complexity is `O(n)`.
+ *
+ * # Space Complexity:
+ *
+ * * We have a parent list of size `n`, where `n` is the total number of nodes.
+ * * We have a `parentChildrenList` of size `n`.
+ * * We have a `queue` of size `n`.
+ * * So, it becomes like `O(n + n + n)` = `O(3n)`.
+ * * But again, we drop (ignore) the constants in complexity analysis.
+ * * Why? Because the constant becomes insignificant as `n` grows larger.
+ * * So, the net total space complexity is `O(n)`.
+ *
+ * # Coursera's Grader Output:
+ *
+ * ```
+ * Good job! (Max time used: 0.47/2.00, max memory used: 87289856/536870912.)
+ * ```
+ *
+ *
  */
-fun computeTreeHeight() {
+fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
+    val parentChildrenList = List(totalNodes) { mutableListOf<Int>() }
+    var root = 0
+    for (child in 0 until parentList.size) {
+        val parent = parentList[child]
+        if (parent != -1) {
+            parentChildrenList[parent].add(child)
+        } else {
+            root = child
+        }
+    }
+    val queue = ArrayDeque<Int>()
+    var height = 0
+    queue.addLast(root)
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+        repeat(size) {
+            val dequeued = queue.removeFirst()
+            queue.addAll(parentChildrenList[dequeued])
+        }
+        height++
+    }
+    return height
+}
 
+fun main() {
+    val totalNodes = readln().toInt()
+    val parents = readln().split(" ").map { it.toInt() }.toList()
+    println(computeTreeHeight(totalNodes, parents))
 }
