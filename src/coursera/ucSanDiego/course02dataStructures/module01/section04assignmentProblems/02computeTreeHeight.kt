@@ -506,8 +506,143 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * And as we go the next level, we increase the height.
  * * We can understand this better with visualization.
  *
- * // TODO: FEAT- 09/07/25 Add the same example and process of `trees.md` to demonstrate the above statement in action.
+ * * **Let us assume that we have the following tree:**
  *
+ *```
+ * Level-1
+ * -------------->                  Les
+ *                                 /   \
+ *                                /     \
+ * Level-2                       /       \
+ * -------------->          Cathy         Sam
+ *                          /   \         /   \
+ * Level-3                 /     \       /     \
+ * -------------->     Alex    Frank  Nancy   Violet
+ *                                             /    \
+ * Level-4                                    /      \
+ * -------------->                         Tony     Wendy
+ *
+ *
+ * ```
+ * * Take the initial height as 0.
+ * * Now, we add `Les` (which is the root node) to the queue.
+ * * We start the while loop.
+ * ---------------------------------
+ * * The condition is: Continue the while loop as long as the queue is not empty.
+ * * We go inside the while loop.
+ * * We get the size of the queue as 1.
+ * * Now, we have an inner loop. We repeat the following process 1 time.
+ *
+ * * **1st time:**
+ *
+ * * Dequeue the item. So, we get `Les`.
+ * * Add its children. We get the children from the `parentChildrenList`.
+ * * The children `Cathy` and `Sam` are in the queue now.
+ * * We exit the inner loop. Notice that we just have finished the 1st level.
+ * * So, we increase the height by 1. Hence, height = 1.
+ * ---------------------------------
+ * * Now, the while loop checks whether the queue is empty.
+ * * The queue is not empty as we have added the children of `Les` earlier.
+ * * We go inside the while loop.
+ * * We get the size of the queue as 2.
+ * * So, we will repeat the inner loop 2 times.
+ *
+ * * **1st time:**
+ *
+ * * Dequeue the item. So, we get `Cathy`.
+ * * Add children of `Cathy`. We get the children from the `parentChildrenList`.
+ * * The children are `Alex` and `Frank`. We add them into the queue.
+ * * So, the queue has: `Sam, Alex, Frank`.
+ *
+ * * **2nd time:**
+ *
+ * * Deque the item. So, we get `Sam`.
+ * * Add children of `Sam`. We get the children from the `parentChildrenList`.
+ * * The children are `Nancy` and `Violet`. We add them into the queue.
+ * * So, the queue has: `Alex, Frank, Nancy, Violet`.
+ * * We exit the inner loop. Notice that we just have finished the 2nd level.
+ * * So, we increase the height by 1. Hence, height = 2.
+ * ---------------------------------
+ * * Now, the while loop checks whether the queue is empty.
+ * * The queue is not empty as it has: `Alex, Frank, Nancy, Violet`.
+ * * We go inside the while loop.
+ * * We get the size of the queue as 4.
+ * * So, we will repeat the inner loop 4 times.
+ *
+ * * **1st time:**
+ *
+ * * Dequeue the item. So, we get `Alex`.
+ * * Add children of `Alex`.
+ * * So, we get an empty list of children from the `parentChildrenList`.
+ * * Now, the queue has: `Frank, Nancy, Violet`.
+ *
+ * * **2nd Time:**
+ *
+ * * Deque the item. So, we get `Frank`.
+ * * Add children of `Frank`.
+ * * So, we get an empty list of children from the `parentChildrenList`.
+ * * Now, the queue has `Nancy, Violet`.
+ *
+ * * **3rd Time:**
+ *
+ * * Deque the item. So, we get `Nancy`.
+ * * Add children of `Nancy`.
+ * * So, we get an empty list of children from the `parentChildrenList`.
+ * * Now the queue has `Violet`.
+ *
+ * * **4th Time:**
+ *
+ * * Dequeue the item. So, we get `Violet`.
+ * * Add children of `Violet`.
+ * * So, we get a list of children from the `parentChildrenList`.
+ * * We add these children to the queue.
+ * * The queue has: `Tony, Wendy`.
+ * * We exit the inner loop. Notice that we just have finished the 3rd level.
+ * * So, we increase the height by 1. Hence, height = 3.
+ * ---------------------------------
+ * * Now, the while loop checks whether the queue is empty.
+ * * The queue is not empty as it has: `Tony, Wendy`.
+ * * We go inside the while loop.
+ * * We get the size of the queue as: 2.
+ * * So, we will repeat the inner loop 2 times.
+ *
+ * * **1st Time:**
+ *
+ * * Dequeue the item. So, we get `Tony`.
+ * * Add children of `Tony`.
+ * * So, we get an empty list of children from the `parentChildrenList`.
+ * * Now, the queue has `Wendy`.
+ *
+ * * **2nd Time:**
+ *
+ * * Dequeue the item. So, we get `Wendy`.
+ * * Add children of `Wendy`.
+ * * So, we get an empty list of children from the `parentChildrenList`.
+ * * Now, the queue is empty.
+ * * We exit the inner loop. Notice that we just have finished the 4th level.
+ * * So, we increase the height by 1. Hence, height = 4.
+ * ---------------------------------
+ * * Now, the while loop checks whether the queue is empty.
+ * * The queue is empty.
+ * * We return the height.
+ *
+ * * **Let us write the code of this part:**
+ *
+ * ```
+ * val queue = ArrayDeque<Int>()
+ * var height = 0
+ * queue.addLast(root)
+ * while (queue.isNotEmpty()) {
+ *     val size = queue.size
+ *     repeat(size) {
+ *         val dequeued = queue.removeFirst()
+ *         queue.addAll(parentChildrenList[dequeued])
+ *     }
+ *     // As we exit the inner loop, increase the height by 1.
+ *     height++
+ * }
+ * return height
+ * ```
  *
  */
 fun computeTreeHeight() {
