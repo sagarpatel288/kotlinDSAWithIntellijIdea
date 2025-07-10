@@ -86,13 +86,13 @@
 * **Undirected path means?:** The edges do not have directions. That's why, we call this type of path an undirected path.   
 * **If it is undirected, then how do we travel? Tree Traversals:** There are mainly two types of tree traversals: `DFS,` that stands for `Depth-First-Search` and `BFS`, that stands for `Breadth-First-Search`.
 * **DFS:** In `DFS`, we travel one subtree completely before travelling a sibling subtree.
-* **Implementation:** `DFS` uses a stack to track and manage the traversal.
+* **Data Structure Implementation:** `DFS` uses a stack to track and manage the traversal.
 * **DFS Subtypes:** There are mainly three types of `DFS`: `In-Order,` `Pre-Order,` and `Post-Order.`
 * **In-Order:** It follows `Left-Root-Right` sequence.
 * **Pre-Order:** It follows `Root-Left-Right` sequence.
 * **Post-Order:** It follows `Left-Right-Root` sequence.
 * **BFS:** In `BFS`, we travel level by level. That's why, we also call it `Level-Order-Traversal`.
-* **Implementation:** `BFS` uses a queue to track and manage the traversal.
+* **Data Structure Implementation:** `BFS` uses a queue to track and manage the traversal.
 * **Time-Complexity:** The time complexity of `BFS` and `DFS` is `O(n)` as we need to visit each node once.
 * **Space-Complexity:** The space complexity of `BFS` and `DFS` is `O(n)` as the underlying data structure that we use, `Stack` for `DFS` and `Queue` for `BFS` has the same size of tree, which is equivalent to the number of nodes. 
 
