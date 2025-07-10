@@ -63,19 +63,15 @@
 
 ## Which data structure is suitable if we want to track a recursion?
 
-* **A Stack.** Because, it follows **LIFO - Last-In-First-Out** principle.
-* **Add/delete:** We can add an item to the stack or remove an item from the stack from the same side, from the right (or top) side.
-* **Characteristics:** So, the item that we add last (recently) gets removed first. That's why we say that it follows `LIFO - Last-In-First-Out`.
-* **Process-Order Preference:** The recursion follows a lexical scope where we want to ensure that the process that has been started the most recently, finishes first.
-* **Parent-Child Functions:** Here, a parent function waits for a child function's output.
-* **LIFO and Recursion:** So, it follows `LIFO - Last-In-First-Out`, which makes a stack a suitable data structure for a recursion.
-* **System:** The system uses a stack to track and manage the recursive function calls.
+* **A Stack:** For a recursion, we use the `stack` data structure.
+* **What is a stack?** The data structure of the stack depends on the underlying (internal) data structure that we use. We can use an `array` or an `arrayDeque` or a `linked list`. Regardless of the underlying data structure, the behavior of the stack remains the same. We push (add) and pop (read, remove) the items from the same side. This behavior has a pattern name, which is our next point.
+* **Behavior Principle** It follows **LIFO - Last-In-First-Out** principle.
 * **Implementation:** We can use an array or a linked list to create a stack.
 * **Using an array:** We can add an item to the end or remove an item from the end.
-* **Time Complexity:** `O(1)` as we use and manage `index` using an internal property.
+* **Time Complexity:** `O(1)` for all the three major functions: Push, top, and pop. 
 * **Space Complexity:** `O(n)` where `n` is the number of items.
 * **Using a linked list:** The `pushFront` becomes the `add` or `insert` operation for the `stack` and `topFront` and `popFront` becomes the `remove` operation of the `stack`.
-* **Why front?** To perform the add and remove operations in `O(1)` time. Because, if we use `pushBack` to remove the item, we must travel up to the second-last item to make it a new tail, which takes `O(n)` time without the `doubly linked list`.
+* **Why front?** To perform the add and remove operations in `O(1)` time. Because, if we use `pushBack` to remove the item, we must travel up to the second-last item to make its next pointer null, which takes `O(n)` time without the `doubly linked list`.
 * **Doubly Linked List:** We can use a doubly linked list, but it introduces an overhead of the `next` and the `previous` pointers for each node.
 * **Time Complexity:** A singly linked list that uses the `pushFront`, `topFront`, and `popFront` functions to add and remove items, takes `O(1)` time for adding or removing an item.
 * **Space Complexity:** `O(n)` where `n` is the number of items.
