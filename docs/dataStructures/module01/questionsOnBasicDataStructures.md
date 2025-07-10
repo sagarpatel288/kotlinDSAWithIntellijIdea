@@ -44,17 +44,20 @@
 
 ## Which data structure is suitable if we want to insert an item from rear (back) and read or remove the item from front?
 
-* **A Queue.** In a queue, we enqueue an item from rear and dequeue the item from front.
-* **Principle:** It follows **FIFO - First-In-First-Out** principle.
+* **A Queue.:** We can use a queue to insert an item from back and get it from the front in a `FIFO - First In First Out` manner. 
+* **What is a Queue? (Type):** The data structure of the queue depends on the underlying (internal) data structure that we use. We can use a circular array or a linked list. However, whether we use an array or a linked list as an internal data structure, the behavior of the queue remains the same: We enqueue an item from rear and dequeue the item from front. This behavior principle has a pattern name, which is our next point.
+* **Behavior Principle:** It follows **FIFO - First-In-First-Out** principle, whether we use an array or a linked list in the implementation. This implementation detail brings the next point. 
 * **Implementation:** We can implement a queue using a circular array with fixed size capacity or using a linked list with dynamic capacity.
-* **Using A Circular Array:** If we write a queue using a circular array, we need to manage 2 or 3 extra properties such as `readIndex,` `writeIndex`, and `size`.
-* **Properties With Reason:** Why? We use `readIndex` and `writeIndex` to reduce the dequeue time complexity from `O(n)` (that happens due to item shifting in an array) to `O(1)` and we use the `size` property to avoid `One Empty Slot - The Unused Allocated Memory`.
+* **Using A Circular Array:** If we write a queue using a circular array, we need to manage 2 or 3 extra properties such as `readIndex,` `writeIndex`, and `size`. The reason of these 2-3 properties is our next point.
+* **Why these 2-3 Properties?:** We use `readIndex` and `writeIndex` to reduce the dequeue time complexity from `O(n)` (that happens due to item shifting in an array) to `O(1)` and we use the `size` property to avoid `One Empty Slot - The Unused Allocated Memory`.
 * **Time Complexity:** The time complexity of these two main functions, `enqueue` and `dequeue` of the queue becomes `O(1)`.
 * **Space Complexity:** The space complexity remains `O(n)` that we use to create the array, where `n` is the number of items in the queue.
 * **Using A Linked List:** If we write a queue using a linked list, it grows dynamically.
 * **Enqueue Implementation:** The `pushBack` functionality of the linked list becomes the `enqueue` functionality of the queue.
 * **Dequeue Implementation:** The `topFront` and `popFront` functionalities of the linked list become the `dequeue` functionality of the queue.
-* **Time Complexity:** The time complexity of these two main functions of the queue, `enqueue` and `dequeue` is `O(1)` only when we use a linked list for the queue.
+* **What if we enqueue from the front side and dequeue from the rear side?** Then, deque operation takes `O(n)` time in a singly linked list, whether we use a tail node or not. Because, we have to travel up to the second-last node to make it a new tail. And if we don't use the tail, we have to travel up to the second-last node anyway, to make the next pointer of the second-last node `null`.
+* **What if we use a doubly linked list?** We can use, and it will finish the dequeue operation in `O(1)` time even though if we dequeue it from the back side. But, we have to manage these extra properties like head, tail, next, prev, etc.   
+* **Time Complexity:** If we enqueue from the back, and dequeue from the front, the time complexity of these two main functions of the queue, `enqueue` and `dequeue` is `O(1)` only when we use a linked list for the queue.
 * **Space Complexity:** The space complexity remains `O(n)` for the queue implementation using a linked list due to the linked list we create.
 * Here, `n` stands for number of items in the queue.
 
