@@ -84,7 +84,7 @@
 * **Acyclic means?:** Acyclic means absence of a cycle. In an acyclic data structure like a tree, we cannot start from a node, follow the (sequence of) edges, and return to the same node without repeating (retracing, backward) any node, or edge.   
 * **Connected means?:** A connected data structure like a tree cannot have an isolated or an orphan node unless it is the only node of the tree. A tree that has only one node is a degenerate or a pathological tree. Otherwise, every pair of nodes are connected through an undirected path. That's why we call it a connected data structure.
 * **Undirected path means?:** The edges do not have directions. That's why, we call this type of path an undirected path.   
-* **Tree Traversals:** There are mainly two types of tree traversals: `DFS,` that stands for `Depth-First-Search` and `BFS`, that stands for `Breadth-First-Search`.
+* **If it is undirected, then how do we travel? Tree Traversals:** There are mainly two types of tree traversals: `DFS,` that stands for `Depth-First-Search` and `BFS`, that stands for `Breadth-First-Search`.
 * **DFS:** In `DFS`, we travel one subtree completely before travelling a sibling subtree.
 * **Implementation:** `DFS` uses a stack to track and manage the traversal.
 * **DFS Subtypes:** There are mainly three types of `DFS`: `In-Order,` `Pre-Order,` and `Post-Order.`
