@@ -78,7 +78,12 @@
 
 ## Which data structure is suitable for a file directory?
 
-* **A Tree:** Because, a file directory can have multiple children which is similar to a tree node having multiple children.
+* **A Tree:** We use a `Tree` for a file directory. Because, a file directory can have multiple children and a tree node can also have multiple children.
+* **What is a tree? (Type):** A tree is a hierarchical, connected, and acyclic graph data structure with undirected path.
+* **Hierarchical means?:** Hierarchical data structure means data has organized levels, and parent-child relationships between them.  
+* **Acyclic means?:** Acyclic means absence of a cycle. In an acyclic data structure like a tree, we cannot start from a node, follow the (sequence of) edges, and return to the same node without repeating (retracing, backward) any node, or edge.   
+* **Connected means?:** A connected data structure like a tree cannot have an isolated or an orphan node unless it is the only node of the tree. A tree that has only one node is a degenerate or a pathological tree. Otherwise, every pair of nodes are connected through an undirected path. That's why we call it a connected data structure.
+* **Undirected path means?:** The edges do not have directions unless it is a rooted tree. That's why, we call this type of path an undirected path.   
 * **Tree Traversals:** There are mainly two types of tree traversals: `DFS,` that stands for `Depth-First-Search` and `BFS`, that stands for `Breadth-First-Search`.
 * **DFS:** In `DFS`, we travel one subtree completely before travelling a sibling subtree.
 * **Implementation:** `DFS` uses a stack to track and manage the traversal.
