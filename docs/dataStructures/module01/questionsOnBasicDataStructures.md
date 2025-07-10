@@ -29,17 +29,18 @@
 
 ## Which data structure is suitable if we want to insert an element in the middle or after a certain item in O(1) time?
 
-* **A Linked List**. Because the linked list will have a reference of the next item, which we can use to splice-in the new item.
-* **But, Finding the item:** However, finding the item itself after which we want to insert a new item can cost `O(n)` time complexity, because a linked list is not a contiguous data structure.
-* **Singly Linked List Example:** For example, if it is a singly linked list, and we want to perform an insert or a delete operation, it can take `O(n)` to find the target node.
-* **Doubly Linked List Example:** For a doubly linked list, we can perform this insert or delete operation in `O(1)` time, but it introduces an extra property to maintain the previous address. 
-* **The Pointer Overhead:** Also, we need to take care of these pointer properties, whenever we change the neighbour items, head, or tail by performing any operations like insert, or delete.
-* **Memory Overhead:** There is one more overhead. Linked lists are not cache friendly. They are `cache inefficient` due to non-linear non-contiguous memory allocation.
-* **Memory Scattering:** The items are scattered throughout the memory in a non-linear non-contiguous fashion.
-* **Scattered Fetching:** Fetching scattered items causes `cache miss` where the CPU cannot predict exact location of next items.
-* **Slow Fetching:** This `cache-inefficiency` makes linked list loading from the slow main memory.
-* **Fetching Preference:** That's why, we prefer `ArrayList` over `LinkedList` even though `LinkedList` has less time complexity for adding an item or deleting an item.
-* **Fetching Analogy:** It is like a treasure hunt where even though we have an address of the next item, we can't know the address of multiple items at once to fetch and load in the `cache line`. 
+* **A Linked List:** We can use a linked list to insert an element in the middle or after a certain element in `O(1)` time.
+* **What is a linked list? (Type):** A linked list is a linear, but non-contiguous data structure.
+* **So?** We get at least 1 benefit with several other problems! 
+* **The Benefit:** We can insert an item after a particular node in `O(1)` time. How? In a linked list, each item has an address of the next item, which we can use to splice-in the new item.
+* **And What are the problems?** We get at least 6 problems.
+* **1. Finding an item:** Unlike arrays, linked lists are not contiguous data structure. It means that, we lose the benefit of getting `random access` in `O(1)` time. It is like a treasure hunt game. We always have to start with the head node. Each node holds an address of only one, immediate next node. And because they are non-contiguous, all the nodes get scattered memory addresses. This brings the next major disadvantage.
+* **2. Caching-Inefficiency:** Just because all the nodes are stored in a non-contiguous and scattered way in different memory addresses, the cache memory cannot predict and load all the next nodes at once. It means that, we cannot get benefit of the cache memory. So, the system has to find and get an item from the slow main memory.  
+* **3. Adding to the back (last):** Without a tail, adding an item to the end takes `O(n)` time. However, with an additional node called `tail`, we can do it in `O(1)` time, but then we get an overhead of one additional node that we have to take care of and manage.
+* **4. Reading the back (last):** Again, without a tail, it takes `O(n)` time and with tail, it takes `O(1)` time.
+* **5. Deleting the back (last):** For a singly linked list, with or without a tail, it takes `O(n)` time only. Because, when we delete the last node, we need to make the old second-last node a new tail node. So, we have to travel up to the last node. Because, we cannot move into the backward direction in a singly linked list. However, for a doubly linked list, deleting the last node takes `O(1)` time, but we have to manage an additional pointer called, `prev` for each node. So, we get many properties to manage and this brings the next disadvantage.   
+* **6. The Property Overhead:** We need to take care of these pointers, head, and tail properties, whenever we change the neighbour items, head, or tail by performing any operations like insert, or delete.
+* **Conclusion:** That's why, we prefer an `ArrayList` over a `LinkedList` even though `LinkedList` can have less time complexity for adding an item or deleting an item. 
 
 ## Which data structure is suitable if we want to insert an item from rear (back) and read or remove the item from front?
 
