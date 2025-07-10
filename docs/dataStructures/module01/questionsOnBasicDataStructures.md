@@ -16,7 +16,7 @@
 * **Array.** The `random access` time complexity of an array is `O(1)` because it is a linear and contiguous data structure.
 * **Contiguous Means?** It means that if we know the address of the array, we can get any element using a simple math.
 * **Example:** For example, suppose the array is at memory location 100 and each element occupies 10 bytes of memory, we can get the 3rd element at 100 + (10 * 3) = 130.
-* **Random add/delete:** However, insertion or deletion can cost `O(n)` if it is not happening from the end-side, because each item will have to shift to fill the gap.
+* **Random add/delete:** However, inserting an item in the middle or replacing an item in the middle or front, or deleting an item from the front or from middle can cost `O(n)`, because each item will have to shift to fill the gap.
 * **Fixed Size:** And we have a limitation of fixed size which can cause unused allocated memory.
 * **Dynamic Array:** A dynamic array can cause `O(n)` time complexity in resizing.
 * **Cache-friendly dynamics:** We may still use `Arrays` because they are `cache-friendly` due to their linear contiguous memory.
