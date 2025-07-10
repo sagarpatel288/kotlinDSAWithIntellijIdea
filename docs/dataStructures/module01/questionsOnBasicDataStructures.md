@@ -13,16 +13,19 @@
 
 ## Which data structure should we use if we want to read (get) any element in O(1) time?
 
-* **Array.** The `random access` time complexity of an array is `O(1)` because it is a linear and contiguous data structure.
-* **Contiguous Means?** It means that if we know the address of the array, we can get the address of any element in `O(1)` using a simple math.
-* **Example:** For example, suppose the array is at memory location 100 and each element occupies 10 bytes of memory, we can get the 3rd element at 100 + (10 * 3) = 130.
-* **Random add/delete:** However, inserting an item in the middle or deleting an item from the front or from the middle can cost `O(n)`, because each item will have to shift to fill the gap.
-* **Fixed Size:** And we have a limitation of fixed size which can cause unused allocated memory.
-* **Dynamic Array:** A dynamic array can cause `O(n)` time complexity in resizing.
-* **Cache-friendly dynamics:** We may still use `Arrays` because they are `cache-friendly` due to their linear contiguous memory.
-* **Contiguous Loading:** When we load one item, nearby items are also loaded due to spatial (positional) locality.
-* **Result:** As a result, loading the next item is relatively fast as it is already available in the cache, which is faster than loading an item from the slow main memory.
-* **Reading Analogy:** So it is like reading a book with a bookmark. Next time when we read a book, we just need to find the bookmark. All the pages are in a sequence only, one after another which makes the reading experience smooth. 
+* **Array.** We can use arrays to read (get) any element in `O(1)` time.
+* **What is an array? (Type):** Arrays are linear and contiguous data structure.
+* **Means?** It means that elements are arranged sequentially, and their memory addresses are adjacent. All the elements are next to each-other without any gap. 
+* **So?** We get two major benefits from a data structure that is both linear and contiguous. 
+* **1. Random Access in `O(1)`:** How? If we know the address of the array, we can get the address of any element in `O(1)` using a simple math. It means that we get `random access` in constant time, `O(1)`.
+* **Example?** For example, suppose the array is at memory location 100 and each element occupies 10 bytes of memory, we can get the 3rd element at 100 + (10 * 3) = 130.
+* **2. Cache-Efficiency:** Contiguous memory means loading one element often loads neighbour elements also, due to spatial (positional) location. So, loading the next elements are relatively faster than loading it from the slow main memory, because these next elements are already in the cache memory. It is like reading a book with a bookmark. All the pages are sequential and next to each-other. We can jump to any page and get a smooth reading experience. It is linear and contiguous.
+* **2 Benefits are over. What is next? Does it have any limitations? Does that mean arrays are perfect? If arrays have these two major benefits, then why do we have other data structures?:** Arrays have their own limitations. 
+* **Which limitations?** There are at least 3 problems with arrays. 
+* **1. Random insert/delete:** Random insert/delete takes `O(n)` time. For example, inserting an item in the middle or deleting an item from the front or from the middle can cost `O(n)`, because each item will have to shift to fill the gap.
+* **2. Fixed Size:** Arrays have a fixed size which can cause unused allocated memory.
+* **3. Dynamic Array:** To solve the fixed size issue, we can use a `Dynamic Array` like an `ArrayList` or a `MutableList` in `Kotlin`. However, a dynamic array can cause `O(n)` time complexity in resizing. However, the resizing happens infrequently, and the overall average cost (amortized cost) of adding an element is `O(1)`.
+ 
 
 ## Which data structure is suitable if we want to insert an element in the middle or after a certain item in O(1) time?
 
