@@ -50,6 +50,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * 0 ≤ 𝐴𝑖 ≤ 10^6;
  * 0 ≤ 𝑃𝑖 ≤ 10^3;
  * 𝐴𝑖 ≤ 𝐴𝑖 + 1 for 1 ≤ 𝑖 ≤ 𝑛 − 1.
+ * ```
  *
  * * **Output Format:**
  *
@@ -57,6 +58,75 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * began processing it or −1 if the packet was dropped (output the answers for the packets in the same
  * order as the packets are given in the input).
  * * Output an empty string if there was no packet.
+ *
+ * * **Sample 1:**
+ *
+ * * Input:
+ * ```
+ * 1 0
+ * ```
+ * * Output:
+ * ```
+ * ```
+ * * Explanation:
+ *
+ * * If there are no packets, you shouldn’t output anything.
+ *
+ * * **Sample 2:**
+ *
+ * * Input:
+ * ```
+ * 1 1
+ * 0 0
+ * ```
+ * * Output:
+ * ```
+ * 0
+ * ```
+ * * Explanation:
+ *
+ * * The only packet arrived at time 0, and computer started processing it immediately.
+ *
+ * * **Sample 3:**
+ *
+ * * Input:
+ * ```
+ * 1 2
+ * 0 1
+ * 0 1
+ * ```
+ *
+ * * Output:
+ * ```
+ * 0
+ * -1
+ * ```
+ *
+ * * Explanation:
+ *
+ * * The first packet arrived at time 0, the second packet also arrived at time 0, but was dropped, because
+ * the network buffer has size 1, and it was full, with the first packet already.
+ * * The first packet started processing at time 0, and the second packet was not processed at all.
+ *
+ * * **Sample 4:**
+ *
+ * * Input:
+ * ```
+ * 1 2
+ * 0 1
+ * 1 1
+ * ```
+ *
+ * * Output:
+ * ```
+ * 0
+ * 1
+ * ```
+ *
+ * * Explanation:
+ *
+ * * The first packet arrived at time 0, the computer started processing it immediately and finished at time 1.
+ * * The second packet arrived at time 1, and the computer started processing it immediately.
  *
  *
  */
