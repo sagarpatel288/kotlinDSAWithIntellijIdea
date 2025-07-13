@@ -546,9 +546,11 @@ Sam             Hugh            Jim
 
 ## Tree Definition
 
-1. A tree is a hierarchical data structure that contains one or more nodes where each node must have a key, an optional parent, and an optional child or children nodes.
-2. A tree is an acyclic data structure. It means, a tree cannot have a cycle.
+1. A tree is a **hierarchical** data structure that contains one or more nodes where each node must have a key, an optional parent, and an optional child or children nodes.
+2. A tree is an **acyclic** data structure. It means, a tree cannot have a cycle.
 3. If a tree has a cycle, it becomes a graph data structure.
+4. Parent and child nodes are **connected** through an edge. That's why, we also call it a connected graph data structure.
+5. **Edges are undirected**. Edges do not have direction.
 
 ## A Degenerate or Pathological Tree
 
