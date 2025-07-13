@@ -346,8 +346,8 @@ while (x < 0) {
 
 ```
 
-* We can use a binary tree to represent relationships between nodes where a node cannot have more than two children.
-* Here, the node is greater than the left side children and smaller than the right side children.
+* **Binary = max 2:** We can use a binary tree to represent relationships between nodes where a node cannot have more than two children.
+* **Greater than left, smaller than right:** Here, the node is greater than the left side children and smaller than the right side children.
 * For example, in the given ASCII diagram, the root `Les` comes after (greater than) the left side child, `Cathy`, and comes before (less than) the right side child, `Sam`.
 * We can say it another way like: The left side children are smaller (comes before) than the node.
 * Similarly, the node `Les` comes before (smaller than) the right side child, `Sam`.
@@ -355,7 +355,7 @@ while (x < 0) {
 * To remember this relationship, we can use the diagram given below the binary search tree.
 * So, it starts with the `greater than` symbol on the left side, moves towards the `root`, and goes down to form the `less than` symbol on the right side.
 * **It signifies that the `node` is `greater` than the `left side`, and `smaller` than the `right side`.**
-* These predefined rules help us find a child quickly.
+* **These predefined rules help us find a child quickly.**
 * For example, if we want to find `Tony` and we start from the root node, `Les`.
 * We know that `Tony` comes after `Les`. Hence, we need to travel to the right side of the `Les`.
 * Now, we know that `Tony` comes after `Sam`. So, we go towards the right side of `Sam`.
