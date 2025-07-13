@@ -370,6 +370,17 @@ while (x < 0) {
 5. Expression Parsing (Syntax trees).
 6. Routing Algorithms (trie, prefix trees).
 
+### How to remember real-world examples:
+
+**Routing FHODEx:**
+
+* Routing = Routing Algorithms
+* F = File Directory (File System)
+* H = HTML / XML DOM (Document Object Model)
+* O = Organization Charts.
+* D = Database Indexing (B-Trees) (How to remember: DIaBTs --> Rhymes with: Diabetes)
+* Ex = Expression Parsing (Syntax Tree)
+
 ## Terminologies:
 
 ```
