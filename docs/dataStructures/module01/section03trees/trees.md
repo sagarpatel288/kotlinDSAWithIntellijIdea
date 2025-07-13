@@ -599,7 +599,7 @@ flowchart TD
 
 ### Depth-First
 
-1. We completely travel and finish one subtree before starting a sibling traversal.
+1. **We completely travel and finish one subtree before starting a sibling traversal.**
 2. For example, we may travel A-B-D (finishing one subtree) followed by C-E-G, F-H, and I.
 3. However, there are 3 different ways (rules, orders) to finish one subtree.
 4. `In-Order`, `Pre-Order`, and `Post-Order`.
@@ -613,8 +613,8 @@ flowchart TD
 
 ### Breadth-Search
 
-1. Here, we travel level-by-level.
-2. So, first we finish travelling with all the siblings.
+1. Here, **we travel level-by-level**.
+2. So, **first we finish travelling with all the siblings.**
 3. And then, we gradually move towards the last level.
 4. For example, we may travel in this order: A-B-C-D-E-F-G-H-I.
 5. The time and space complexity of BFS is `O(n)` as we visit each node once, and we use a queue of tree size as an underlying data structure.
