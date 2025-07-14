@@ -313,6 +313,12 @@ class MinStackUsingArray(private val capacity: Int) {
      * val oldMin = 2 * currentMin - encoded
      * ```
      *
+     * ## How to remember the formula?
+     * ```
+     * encoding = 2 * new (incoming) - old = 2 * new - old
+     * decoding (old) = 2 * new (current) - encoded (popped) = 2 * new - encoded
+     * ```
+     *
      * ## ----------------------- Complexity Analysis -----------------------
      *
      * ### ----------------------- Time Complexity -----------------------
@@ -331,7 +337,7 @@ class MinStackUsingArray(private val capacity: Int) {
      *
      * ### ----------------------- References -----------------------
      *
-     * [Shraddha K: Apna Collage](https://youtu.be/wHDm-N2m2XY?si=ZGfPBFLljG46UqDw)
+     * [Shraddha K: Apna College](https://youtu.be/wHDm-N2m2XY?si=ZGfPBFLljG46UqDw)
      * [LeetCode Problem 155](https://leetcode.com/problems/min-stack/description/)
      */
     fun push(value: Int) {
