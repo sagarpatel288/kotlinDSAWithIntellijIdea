@@ -313,6 +313,38 @@ class MinStackUsingArray(private val capacity: Int) {
      * val oldMin = 2 * currentMin - encoded
      * ```
      *
+     * ## Why do we multiply the new incoming value with 2 during encoding? What is the purpose of it?
+     *
+     * * The purpose is to store an encoded value which is less than the current min value.
+     * * So that whenever we get a smaller value than the current min value, we can say it is an encoded value.
+     * * So, it is to distinguish the encoded values from the normal values.
+     * * Now, why do we multiply the incoming value by 2 during encoding?
+     * * We can simplify it as below:
+     * ```
+     * // Note that `new` is less than the `old` value.
+     * val encoded = 2 * new - old
+     * = (new + new) - old
+     * // Here, `new` is less than the `old`. `old` is greater than the `new`.
+     * // So, we are subtracting a greater value (`old`) from a smaller value (`new`), which gives a negative result.
+     * = new + (new - old)
+     * = new + (- negative result)
+     * // Here, we can see that `new` was already smaller than the `old` value.
+     * // On top of that, we are reducing it further, by subtracting the `negative result` from it.
+     * // This reduces the `new` value even further.
+     * // Hence, it guarantees that the `encoded` value will always be smaller than the current min.
+     * = new - negative result
+     * ```
+     * * Hence, to ensure that the encoded value is always smaller than the current min value, we apply this formula:
+     * ```
+     * val encoded = 2 * new - old
+     * ```
+     *
+     * ## Why do we subtract the existing min value during encoding? Why not any other operator?
+     *
+     * * If we use addition, it can easily cause overflow.
+     * * If we use multiplication or division, the values are not always exactly divisible or exact multiples.
+     * * Subtraction is linear and invertible. That's why, we subtract the existing min value.
+     *
      * ## How to remember the formula?
      * ```
      * encoding = 2 * new (incoming) - old = 2 * new - old
