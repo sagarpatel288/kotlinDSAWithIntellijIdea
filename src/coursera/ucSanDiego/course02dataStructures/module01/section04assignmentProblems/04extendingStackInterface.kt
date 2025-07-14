@@ -30,6 +30,108 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * **Output Format:**
  *
  * * For each `max` query, output (on a separate line) the maximum value of the stack.
+ *
+ * * **Sample 1:**
+ *
+ * * _Input:_
+ * ```
+ * 5
+ * push 2
+ * push 1
+ * max
+ * pop
+ * max
+ * ```
+ *
+ * * _Output:_
+ * ```
+ * 2
+ * 2
+ * ```
+ *
+ * * _Explanation:_
+ *
+ * * After the first two push queries, the stack contains elements 1 and 2.
+ * * After the pop query, the element 1 is removed.
+ *
+ * * **Sample 2:**
+ *
+ * * _Input:_
+ * ```
+ * 5
+ * push 1
+ * push 2
+ * max
+ * pop
+ * max
+ * ```
+ *
+ * * _Output:_
+ * ```
+ * 2
+ * 1
+ * ```
+ *
+ * * **Sample 3:**
+ *
+ * * _Input:_
+ * ```
+ * 10
+ * push 2
+ * push 3
+ * push 9
+ * push 7
+ * push 2
+ * max
+ * max
+ * max
+ * pop
+ * max
+ * ```
+ *
+ * * _Output:_
+ * ```
+ * 9
+ * 9
+ * 9
+ * 9
+ * ```
+ *
+ * * **Sample 4:**
+ *
+ * * _Input:_
+ * ```
+ * 3
+ * push 1
+ * push 7
+ * pop
+ * ```
+ *
+ * * _Output:_
+ * ```
+ * ```
+ *
+ * * _Explanation:_
+ *
+ * * The output is empty since there are no max queries.
+ *
+ * * **Sample 5:**
+ *
+ * * _Input:_
+ * ```
+ * 6
+ * push 7
+ * push 1
+ * push 7
+ * max
+ * pop
+ * max
+ * ```
+ * * _Output:_
+ * ```
+ * 7
+ * 7
+ * ```
  */
 fun main() {
 
