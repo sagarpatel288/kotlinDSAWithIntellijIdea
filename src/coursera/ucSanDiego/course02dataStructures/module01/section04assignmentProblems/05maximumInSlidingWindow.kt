@@ -931,8 +931,54 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * }
  * ```
  *
+ * ## Time Complexity:
+ *
+ * * We travel (iterate) through each index once through the outermost for loop.
+ * * It takes `O(n)` time.
+ * * Each operation in each while loop takes `O(1)` time only.
+ * * So, the overall time complexity is `O(n)`.
+ *
+ * ## Space Complexity:
+ *
+ * * We take a `results` array (or list) to store the result for the output purpose.
+ * * Otherwise, the core algorithm uses a `deque` whose maximum size is equal to the window size.
+ * * At any given point in time, the `deque` contains at most `m = window size` elements.
+ * * So, the overall auxiliary space complexity is `O(m)` where `m = window size`.
+ *
+ * ## ----------------------- Coursera's Grader Output -----------------------
+ *
+ * ```
+ * Good job! (Max time used: 0.48/2.00, max memory used: 74780672/536870912.)
+ * ```
+ *
  *
  */
-fun main() {
+fun findMaxInSlidingWindow(windowSize: Int, itemList: List<Int>): String {
+    if (itemList.isEmpty()) return ""
+    val results = mutableListOf<Int>()
+    val deque = ArrayDeque<Int>()
+    for (i in 0..<itemList.size) {
+        // Remove all the values that are smaller than the upcoming value.
+        while (deque.isNotEmpty() && itemList[deque.last()] <= itemList[i]) {
+            deque.removeLast()
+        }
+        // Add the next index.
+        deque.addLast(i)
+        // Remove all the indices that are smaller than the starting index point of this window.
+        while (deque.isNotEmpty() && deque.first() < (i - windowSize + 1)) {
+            deque.removeFirst()
+        }
+        // If it is a valid window size, collect the max value.
+        if (i >= windowSize - 1) {
+            results.add(itemList[deque.first()])
+        }
+    }
+    return results.joinToString(" ")
+}
 
+fun main() {
+    val totalItems = readln().toInt()
+    val itemList = readln().split(" ").map { it.toInt() }
+    val windowSize = readln().toInt()
+    println(findMaxInSlidingWindow(windowSize, itemList))
 }
