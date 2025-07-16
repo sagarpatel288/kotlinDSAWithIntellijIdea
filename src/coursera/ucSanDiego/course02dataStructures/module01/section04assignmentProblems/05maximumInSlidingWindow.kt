@@ -90,14 +90,17 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * We start from the `index i = 0`.
  *
  * >-------
- * * **What do we add to the container, and why?
+ * * **What do we add to the container, and why?**
  * >-------
  *
  * * **Part-01:**
  *
  * * We have a couple of options: Either we can add indices or values or both.
  * * Now, let us see which one helps.
- * * What is our objective? To find the `Maximum Value` for each `Sliding Window`.
+ *
+ * * _What is our objective?_
+ *
+ * * To find the `Maximum Value` for each `Sliding Window`.
  *
  * * _What is the `Sliding Window`?_
  *
@@ -109,16 +112,18 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * We are given a `window size`.
  * * We need to start from the starting index of the given array, and cover the indices in such a way that
  * the total indices are equal to the size of the given `window size`.
- * * So, for example, the first window contains the indices [0, 1, 2].
+ * * So, for example, the first window contains the indices `[0, 1, 2]`.
  * * We find the maximum value for this window.
  * * We find values for each index. We compare them. And we find the maximum value among them.
  * * We store the maximum values for each window in a separate container for output.
- * * And then, we need to drop the first index, and add next index to form the next window.
- * * So, the next window contains the indices [1, 2, 3].
- * * We find the maximum value for this window.
+ * * And then, we add the next index to form the next window.
+ * * After adding the next index, we need to remove the indices that are not part of this new window.
+ * * So, the next window contains the indices `[1, 2, 3]`.
+ * * We can see that we added the new `index 3`, and removed the old `index 0`, which is not part of this window.
+ * * We find the maximum value for this window: `[1, 2, 3]`.
  * * We store the result.
  * * We repeat this process until we cover the last index.
- * * The last window would contain the indices: [5, 6, 7].
+ * * The last window would contain the indices: `[5, 6, 7]`.
  *
  * * **Part-02:**
  *
@@ -128,31 +133,42 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * We know that we are scanning and covering each index of the given array.
  * * We know that we are adding each index, one by one, one after another, to a container to form a valid window size.
- * * We know that we are increasing index `i` from left to right to form new windows.
- * * We know that a valid window size is 3.
- * * So, at any point, if we count 3 steps back from the current `i`, we get the starting index of the window.
+ * * We know that we are increasing index `i` by 1 as we move from left to right to form new windows.
+ * * We know that a valid window size is `m = 3`.
+ * * So, at any point, if we count `window size m = 3` steps back from the current `i`, we get the starting index of the window.
  * * We can remove all the indices that are less than (before) this starting index point of the window.
- * * For example, when we start with index 0, it does not form a valid window. It is: [0].
- * * So, we increase the index (we walk the index 1 step forward).
- * * So, the index is at `1`. And the window is: [0, 1].
+ * * For example, when we start with `index 0`, it does not form a valid window. It is: `[0]`.
+ * * So, we increase the index by 1 (we walk the index 1 step forward).
+ * * So, the `index` is `1`. And the window is: `[0, 1]`.
  * * Notice how we add each new index to the back of the container.
+ * ```
  * * It means that we need a container that supports something like `pushBack`.
- * * Our current window is: [0, 1].
+ * ```
+ * * Also, notice how adding each next index to the back moves old indices to the front.
+ * * It is like each new index pushes the old indices to the front.
+ * ```
+ * * It clearly means that old indices are at the front.
+ * ```
+ * * Our current window is: `[0, 1]`.
  * * It is still not a valid window. So, we walk the index 1 step forward.
- * * So, the index is at `2`. And, the window is: [0, 1, 2].
+ * * So, the `index` is `2`. And, the window is: `[0, 1, 2]`.
  * * We find and store the maximum value for this window.
- * * Now, when we add the `index 3`, the window becomes: [0, 1, 2, 3].
+ * * Now, when we add the next `index 3`, the window becomes: `[0, 1, 2, 3]`.
  * * It exceeds the valid window size.
- * * What is the window that we want to form? It is [1, 2, 3].
- * * What is the current window after adding the next index? It is [0, 1, 2, 3].
+ * * _What is the window that we want to form?_
+ * * It is `[1, 2, 3]`.
+ * * _What is the current window after adding the next index?_
+ * * It is `[0, 1, 2, 3]`.
  * * So, we need to remove the `index 0`.
- * * Notice that the indices that we want to remove are at the front of the container.
+ * * Notice that the old indices that we want to remove are at the front of the container.
+ * ```
  * * So, we need a container that supports something like `popFront`.
- * * Now, we are at index 3. The current index position is index 3. It is the `end index` of the window
+ * ```
+ * * Now, we are at `index 3`. The current index position is `index 3`. It is the `end index` of the window
  * that we want to form.
  * * If we find the starting index of this window, we can remove all the indices that are less than the starting index
  * to form our next valid window.
- * * Now, we can see that when the index is at `3`, and we go `3 = window size` steps backward,
+ * * Now, we can see that when the `index` is `3`, and we go `window size m = 3` steps backward,
  * we find the starting index of this window.
  * * So, it is `current i - windowSize = 3 - 3 = 0`.
  * * But, we can see that the starting index of this window is `1`, and not `0`.
@@ -177,7 +193,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * So, it becomes (Code Translation):
  * ```
  * // Remove all the indices from the front of the container that are less than the starting index point of this window.
- * while (container.front() < i - m + 1) {
+ * while (container.isNotEmpty() && container.front() < i - m + 1) {
  *     container.removeFront()
  * }
  * ```
@@ -185,9 +201,10 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * **Part-03:**
  *
  * * We might have understood by now that we need to add `indices` to our container.
- * * Why? Because it helps us form and move valid windows.
+ * * _Why? Why do we add indices to the container?_
+ * * Because it helps us form and move valid windows.
  * * With the help of the index value, we can get the corresponding element value.
- * * Then, we can compare them to find and store the maximum value for a particular window.
+ * * Then, we can compare these values to find and store the maximum value for a particular window.
  * * We `pushBack` a new index and `popFront` the old index to form a new window.
  * * We repeat this process until the index reaches `arraySize - 1` to cover all the indices and all the valid windows.
  *
