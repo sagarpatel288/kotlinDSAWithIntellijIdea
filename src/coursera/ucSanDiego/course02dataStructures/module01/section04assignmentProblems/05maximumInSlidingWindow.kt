@@ -273,6 +273,9 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *    Elements   │  3  │
  *               └─────┘
  * ```
+ * * Notice how removing items from the front that are smaller than the upcoming value
+ * ensures that the value of the front index in the container will be the maximum value of the window.
+ * * Again, this process ensures that the value of the front index is the maximum value of the window.
  * * Now, after adding the next index, we need to ensure that we form a valid window.
  * * To ensure that we don't exceed the valid window size, we remove all the indices that are less than
  * the starting index of this window.
@@ -894,7 +897,9 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Current index is, `index i = 7`, and `elementSize - 1` is `8 - 1` = `7`.
  * * So, we cannot go beyond this. We have covered all the possible windows.
  *
- * #### Data Structure:
+ * ### Story Points and Code Translation:
+ *
+ * #### Data Structure: Which data structure do we use and why?
  *
  * * We remove the smaller last values from the last before we `pushBack` the new index. It is `popBack` or `removeLast`.
  * * We push the next index to the back to form a new window. It is `pushBack` or `addLast`.
@@ -903,22 +908,98 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * The `Deque` is a data structure that can do these `removeLast`, `addLast`, `removeFirst`, and `first` operations
  * efficiently in `O(1)` time.
  *
+ * #### Why can't we take an array?
+ *
+ * * Because we remove indices from the front that are smaller than the starting index of the current window.
+ * * It can cause `O(n)` time in an array as each next item will have to shift to fill the gap.
+ *
  * ##### What do we add to and remove from the `Deque`?
  *
  * * We add `indices` to the `back` of the `Deque` using `pushBack` or `addLast`.
  * * And we remove `indices` from the `front` of the `Deque` using `popFront` or `removeFirst`.
+ *
+ * #### Why do we add `indices` and not values?
+ *
+ * * Because adding indices helps us find the starting and ending index of the current window.
+ * * Once we know the starting index, we can remove all the indices that are smaller than the starting index.
+ * * This process ensures that we include (consider) only the relevant indices of the current window.
  *
  * #### What is the condition to check and be ready to expect and collect the result?
  *
  * * We start getting proper windows only after `index i >= m - 1 = 3 - 1 = 2`.
  * * When the `index i` is `index i >= m - 1`, we can get the `max value` result.
  * ```
+ * // `i` is the current index position and `m` is the given window size
  * if (i >= m - 1) {
  *
  * }
  * ```
  *
+ * #### How do we make room for the upcoming index?
+ *
+ * * We keep only the feasible (possible) `max` indices in the container.
+ * * If the value of the last index of the container is smaller than the value of the upcoming index,
+ * the smaller value can never be the `max` value.
+ * * So, we remove such values from the last that are smaller than the value of the upcoming index.
+ * * This is how we make room for the upcoming index.
+ *
+ * #### Why do we remove the smaller values from the last only, and not from the front?
+ *
+ * * The process ensures that we get the maximum value of the current window from the front only.
+ * * And the process also ensures that we get the `Monotonic Decreasing` pattern in the `Deque`.
+ * * It means that if we remove the front item, we might lose the potential maximum value.
+ *
+ * #### What is the monotonic decreasing pattern?
+ *
+ * * The `non-increasing` pattern in which each next element is either equal to or smaller than the previous value.
+ * * For example: `[3, 3, 5, 5, 6, 7]` is a `monotonic increasing` pattern.
+ * * And `[7, 7, 5, 5, 3, 2, 1]` is a `monotonic decreasing` pattern.
+ *
+ * #### What is a strictly increasing or decreasing pattern?
+ *
+ * * In a strictly increasing pattern, the next item must be greater than the previous item. It cannot be equal.
+ * * For example: `[3, 5, 6, 7]` is a `strictly increasing` pattern.
+ * * In a strictly decreasing pattern, the next item must be smaller than the previous item. It cannot be equal.
+ * * For example: `[7, 5, 3, 2, 1]` is a `strictly decreasing` pattern.
+ *
+ * #### Why do we not skip the upcoming value (index) if it is smaller than the last value?
+ *
+ * * Regardless of value (weight), the previous value will be removed as we move and form a new window.
+ * * For the next window, the present smaller upcoming value can be the maximum value for the future window.
+ * * Because the old indices will eventually be removed to form the next valid window.
+ * * So, the current maximum value will be removed as we move and form the next window,
+ * which can make the present upcoming smaller value a maximum value for the next window.
+ * * So, the upcoming value can be the maximum value for the next window as we slide (move) the window.
+ * * For example, the upcoming value can be a starting index of the next window, where it can be the maximum value.
+ * * For example: `[3, 2, -1]`. `2` and `-1` are smaller than `3` for this window.
+ * * But, as we move and form a new window, it can be: `[2, -1, -2]`. Here, `2` is the maximum value.
+ * * Again, the next window can be: `[-1, -2, -3]`. Here, `-1` is the maximum value.
+ * * And so on...
+ * * So, even though at the moment the upcoming value might be a smaller one than the previous value,
+ * but as we move and form new windows, it can be the maximum value compared to the next unknown values.
+ * * That's why we don't skip the upcoming values.
+ * * We only remove the values from the last that are smaller than the upcoming value,
+ * and we remove the indices from the front that are no longer part of the next window.
+ *
+ * #### How do we get the `maximum value` of a particular window?
+ *
+ * * The value of the first index in the deque is the maximum value of the window.
+ *
+ * #### How does that happen that we get the `maximum value` of the window at the front of the deque?
+ *
+ * * Because we kept removing the values from the last that are smaller than the upcoming value.
+ * * It ensures that the value at the front is the maximum value of the window.
+ * * It is as if the value with a higher weight pushes the smaller values out from the front of the deque.
+ *
+ * #### How do we remove the smaller last values?
+ *
+ * >-------
+ * OR, in other words:
+ * >-------
+ *
  * #### Code translation for removing the last values that are smaller than the upcoming value:
+ * * Make a room for the upcoming index.
+ * * If applicable, `popBack` (or `removeLast`) before we `pushBack` (or `addLast`) the upcoming index.
  *
  * ```
  * while (deque.isNotEmpty() && array[deque.last()] <= array[i]) {
@@ -926,13 +1007,14 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * }
  * ```
  *
- * #### Code translation to `pushBack` the next index:
+ * #### Code translation to `pushBack` (or `addLast`) the next index:
  *
  * ```
  * deque.addLast(i)
  * ```
  *
  * #### Code translation to remove indices that are smaller than the starting index point of the current window:
+ * * Remove indices that are not part of the current window.
  *
  * ```
  * while (deque.isNotEmpty() && deque.front() < (i - m + 1)) {
@@ -940,11 +1022,17 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * }
  * ```
  *
+ * #### Code translation of finding (retrieving, extracting) the max value:
+ *
+ * ```
+ * val maxValueOfTheWindow = itemList[deque.first()] // Where `itemList` is given array (or list)
+ * ```
+ *
  * #### Code translation to find and store the max value of the current window:
  *
  * ```
  * if (i >= m - 1) {
- *     results.add(deque.first())
+ *     results.add(itemList[deque.first()])
  * }
  * ```
  *
@@ -975,17 +1063,17 @@ fun findMaxInSlidingWindow(windowSize: Int, itemList: List<Int>): String {
     val results = mutableListOf<Int>()
     val deque = ArrayDeque<Int>()
     for (i in 0..<itemList.size) {
-        // Remove all the values that are smaller than the upcoming value.
+        // Remove all the values from the last that are smaller than the upcoming value.
         while (deque.isNotEmpty() && itemList[deque.last()] <= itemList[i]) {
             deque.removeLast()
         }
         // Add the next index.
         deque.addLast(i)
-        // Remove all the indices that are smaller than the starting index point of this window.
+        // Remove all the indices from the front that are smaller than the starting index of this window.
         while (deque.isNotEmpty() && deque.first() < (i - windowSize + 1)) {
             deque.removeFirst()
         }
-        // If it is a valid window size, collect the max value.
+        // If it is a valid window size, collect the max value from the front of the deque.
         if (i >= windowSize - 1) {
             results.add(itemList[deque.first()])
         }
