@@ -1,7 +1,7 @@
 package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentProblems
 
 /**
- * # Problem Description:
+ * # The Problem:
  *
  * ## Problem Introduction:
  *
@@ -43,12 +43,12 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * max{𝑎𝑖, . . . , 𝑎𝑖+𝑚−1} for every 1 ≤ 𝑖 ≤ 𝑛 − 𝑚 + 1.
  * ```
  *
- * ### Understanding the problem, data structure, pattern, thought process, intuition, and code translation:
+ * ## Understanding the problem, data structure, pattern, thought process, intuition, and code translation:
  *
  * * [Shraddha - Apna College](https://youtu.be/XwG5cozqfaM?si=DkGpvwnXLTy-RdzC)
  * * [MIK - codestorywithMIK](https://youtu.be/29OnjVQ-fk4?si=rSzYlLqIMOWhaOqE)
  *
- * #### Understanding The Problem:
+ * ### Understanding The Problem:
  *
  * ```
  *
@@ -77,9 +77,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * >-------
- * * **Introduction:**
- * >-------
+ * #### Introduction:
  *
  * * The sliding window `moves` from `left to right`.
  * * The `size` of the sliding window is `m = 3`.
@@ -95,18 +93,24 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * **Part-01:**
  *
- * * We have a couple of options: Either we can add indices or values or both.
+ * * We have a couple of options: Either we can add indices or values or both, or something else.
  * * Now, let us see which one helps.
  *
+ * >-------
  * * _What is our objective?_
+ * >-------
  *
  * * To find the `Maximum Value` for each `Sliding Window`.
  *
+ * >-------
  * * _What is the `Sliding Window`?_
+ * >-------
  *
  * * It is a process.
  *
+ * >-------
  * * _What kind of process?_
+ * >-------
  *
  * * We are given an array.
  * * We are given a `window size`.
@@ -129,7 +133,9 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * Now, as we know, every time we add 1 index, we remove 1 index if required to form a valid window.
  *
+ * >-------
  * * **How can we know if it is time to remove the old index?**
+ * >-------
  *
  * * We know that we are scanning and covering each index of the given array.
  * * We know that we are adding each index, one by one, one after another, to a container to form a valid window size.
@@ -155,10 +161,30 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * We find and store the maximum value for this window.
  * * Now, when we add the next `index 3`, the window becomes: `[0, 1, 2, 3]`.
  * * It exceeds the valid window size.
+ *
+ * >-------
  * * _What is the window that we want to form?_
+ * >-------
+ *
  * * It is `[1, 2, 3]`.
+ *
+ * >-------
  * * _What is the current window after adding the next index?_
+ * >-------
+ *
  * * It is `[0, 1, 2, 3]`.
+ *
+ * >-------
+ * * _What is the current index position?_
+ * >-------
+ *
+ * * It is `index 3`.
+ *
+ * >-------
+ * * _What is the starting index of the current window?_
+ * >-------
+ *
+ * * It is `index 1`.
  * * So, we need to remove the `index 0`.
  * * Notice that the old indices that we want to remove are at the front of the container.
  * ```
@@ -201,16 +227,18 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * **Part-03:**
  *
  * * We might have understood by now that we need to add `indices` to our container.
+ *
+ * >-------
  * * _Why? Why do we add indices to the container?_
+ * >-------
+ *
  * * Because it helps us form and move valid windows.
  * * With the help of the index value, we can get the corresponding element value.
  * * Then, we can compare these values to find and store the maximum value for a particular window.
- * * We `pushBack` a new index and `popFront` the old index to form a new window.
+ * * We `pushBack` (or `addLast`) a new index and `popFront` (or `removeFirst`) the old index to form a new window.
  * * We repeat this process until the index reaches `arraySize - 1` to cover all the indices and all the valid windows.
  *
- * >-------
- * * **The Process: The Container And The Maximum Value For Each Window:**
- * >-------
+ * #### The Process: The Container And The Maximum Value For Each Window:
  *
  * ```
  * // Current index i = 0;
@@ -259,8 +287,8 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * The `index 0` with `element value 1` is at the front.
  * * To remove `index 0` from the front side of the container, we need something like `popFront`.
  * * Once we remove all such values, only then do we add the next index.
- * * Notice that we removed the `index 0` from front, but added the `index 1` from back.
- * * So, to add `indices` to the container, we need something like `pushBack`.
+ * * Notice that we removed the `index 0` from the front, but added the `index 1` from the back.
+ * * So, to add `indices` to the container, we need something like `pushBack` (or `addLast`).
  * * So, our container becomes:
  *
  * ```
@@ -284,13 +312,14 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * So, we can't remove more items at the moment.
  * * But for `index i = 1`, we still don't get any window. Because it covers only 2 elements. Indices = [0, 1].
  * * So, we add the next index, `index i = 2`.
- * * But before we add the next index, what do we do?
- * * We remove all the values that are smaller than the upcoming value.
+ * * **But before we add the next index, what do we do?**
+ * * We try to make room for the upcoming value. We remove all the values that are smaller than the upcoming value.
  * * What is the current last value? `3`.
  * * What is the upcoming value? `-1`.
  * * Is the current last value smaller than the upcoming value? No.
  * * So, we don't remove anything.
- * * We add the upcoming index using `pushBack`.
+ * * **How do we add the upcoming index?**
+ * * We add the upcoming index using `pushBack` (or `addLast`).
  * * So, our container becomes:
  *
  * ```
@@ -313,7 +342,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  * * So, when `index i = 2`, we get our first window.
- * * What do we do after adding a new index?
+ * * **What do we do after adding a new index?**
  * * We remove all the indices from the front of the container that are less than the starting index point of the window.
  * * What is the starting index point of this window?
  * * Starting index point `i - m + 1 = 2 - 3 + 1 = 0`.
@@ -375,7 +404,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * We call this magical pattern, `Monotonic increasing/decreasing`.
  * * `Monotonic Increasing` means the process that arranges the items in an increasing order.
  * * `Monotonic Decreasing` means the process that arranges the items in a decreasing order.
- * * In this particular process (Maximum In Sliding Window), it is `Monotonic Decreasing`, and we will see how.
+ * * In this particular problem (Maximum In Sliding Window), it is `Monotonic Decreasing` in deque, and we will see how.
  *
  * >-------
  * * **Window: 01**
@@ -461,13 +490,14 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Increase index by 1. Move the index to the right side by 1 position.
  * * The last index value was `index i = 2`.
  * * Now, the upcoming index is `index i = 3`.
- * * But before we `pushBack` the upcoming index, what do we do?
+ * * **But before we `pushBack` the upcoming index, what do we do?**
  * * We remove all the values from the container that are smaller than the upcoming value.
  * * What is the current last value? `-1`.
  * * What is the upcoming value? `-3`.
  * * Is the last value smaller than the upcoming value? No.
  * * So, we don't remove anything.
- * * We `pushBack` the upcoming index in the container.
+ * * **How do we add the upcoming index?**
+ * * We `pushBack` (or `addLast`) the upcoming index in the container.
  * * So, our container becomes:
  *
  * ```
@@ -481,14 +511,14 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * What do we do after adding the new index?
+ * * **What do we do after adding the new index?**
  * * We remove all the indices from the front that are smaller than the starting index point of this window.
  * * What is the starting index point of this window?
  * * Starting index point `i - m + 1 = 3 - 3 + 1 = 1`.
  * * Do we have any indices that are less than the starting index point of this window?
  * * There are no indices in the container that are less than the starting index point of the window.
  * * So, we don't need to remove anything else.
- * * How do we get the max value of this window?
+ * * **How do we get the max value of this window?**
  * * The front item is the max value of this window, which is `index 1`, `element value 3`.
  * * So:
  *
@@ -536,7 +566,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * The last index was `index i = 3`.
  * * Now, the upcoming index is `index i = 4`.
- * * What do we do before we `pushBack` the upcoming index?
+ * * **What do we do before we `pushBack` the upcoming index?**
  * * We remove all the values from the last that are smaller than the upcoming value.
  * * What is the current last value? It is `-3`.
  * * What is the upcoming value? It is `5`.
@@ -554,7 +584,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * We repeat this process as long as the last value is smaller than the upcoming value.
+ * * **We repeat this process as long as the last value is smaller than the upcoming value.**
  * * So, we ask the same questions again.
  * * What is the last value? It is `-1`.
  * * What is the upcoming value? It is `5`.
@@ -573,7 +603,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * We repeat this process as long as the last value is smaller than the upcoming value.
+ * * **We repeat this process as long as the last value is smaller than the upcoming value.**
  * * We ask the same questions again.
  * * What is the last value? It is `3`.
  * * What is the upcoming value? It is `5`.
@@ -592,11 +622,13 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * We repeat the same process again as long as the last value is smaller than the upcoming value.
+ * * **We repeat the same process again as long as the last value is smaller than the upcoming value.**
  * * So, we ask the same questions again.
  * * What is the current last value?
  * * Well, the container is empty. So, there is no last value.
- * * Ok. It means we can go ahead and `pushBack` the upcoming value, `5`.
+ * * Ok. It means that we can go ahead and add the upcoming index.
+ * * **How do we add the upcoming index?**
+ * * We `pushBack` (or `addLast`) the upcoming index, `4`.
  * * So, the container becomes:
  *
  * ```
@@ -610,14 +642,14 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * Now, what do we do after adding an index?
+ * * **Now, what do we do after adding an index?**
  * * We remove all the indices from the front that are smaller than the starting index point of this window.
  * * What is the starting index point of this window?
  * * Starting index point `i - m + 1 = 4 - 3 + 1 = 2`.
  * * Do we have any indices that are smaller than the starting index point of this window?
  * * No, we don't have such indices.
  * * So, we don't remove anything else.
- * * How do we get the max value of this window?
+ * * **How do we get the max value of this window?**
  * * The value of the front index is the max value of this window.
  * * So:
  *
@@ -662,13 +694,15 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * The last index was, `index i = 4`.
  * * Now, the upcoming index is, `index i = 5`.
- * * What do we do before we `pushBack` the upcoming index?
+ * * **What do we do before we `pushBack` the upcoming index?**
  * * We remove all the values from the last that are smaller than the upcoming value.
  * * What is the current last value? It is `5`.
  * * What is the upcoming value? It is `3`.
  * * Is the current last value smaller than the upcoming value? No.
  * * So, we don't remove anything yet.
- * * We `pushBack` the next index.
+ * * So, we can add the upcoming index.
+ * * **How do we add the upcoming index?**
+ * * We `pushBack` (or `addLast`) the next index.
  * * So, the container becomes:
  *
  * ```
@@ -682,14 +716,14 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * What do we do after adding a new index?
+ * * **What do we do after adding a new index?**
  * * We remove all the indices from the front that are smaller than the starting index of this window.
  * * What is the starting index point of this window?
  * * Starting index point `i - m + 1 = 5 - 3 + 1 = 3`.
  * * Do we have any indices that are smaller than the starting index point of this window?
  * * No. We don't have such indices.
  * * So, we don't remove anything else.
- * * How do we get the max value of this window?
+ * * **How do we get the max value of this window?**
  * * The value of the front index is the max value of this window.
  * * So:
  *
@@ -730,7 +764,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * The last index was, `index i = 5`.
  * * Now, the upcoming index is, `index i = 6`.
- * * What do we do before we `pushBack` the upcoming index?
+ * * **What do we do before we `pushBack` the upcoming index?**
  * * We remove all the values from the last that are smaller than the upcoming value.
  * * What is the current last value? It is `3`.
  * * What is the upcoming value? It is `6`.
@@ -749,7 +783,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * We repeat the same process as long as we have smaller last values than the upcoming value.
+ * * **We repeat the same process as long as we have smaller last values than the upcoming value.**
  * * So, what is the current last value? It is `5`.
  * * What is the upcoming value? It is `6`.
  * * Is the current last value smaller than the upcoming value? Yes.
@@ -770,7 +804,9 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * We repeat the same process as long as we have smaller last values than the upcoming value.
  * * So, what is the current last value? Well, the container is empty. There is no value in it.
- * * Ok. So, we can `pushBack` the next index.
+ * * Now, we can add the upcoming index.
+ * * **How do we add the upcoming index?**
+ * * We can `pushBack` (or `addLast`) the next index.
  * * So, the container becomes:
  *
  * ```
@@ -784,7 +820,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * Now, what do we do after adding a new index?
+ * * **Now, what do we do after adding a new index?**
  * * We need to ensure the window size.
  * * We need to remove all the indices that are smaller than the starting index point of this window.
  * * So, what is the starting index point of this window?
@@ -792,7 +828,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Are there any indices that are smaller than the starting index point of this window?
  * * No. We don't have such indices.
  * * So, we don't remove anything else.
- * * How do we get the max value of this window?
+ * * **How do we get the max value of this window?**
  * * The value of the front index is the max value of this window.
  * * So:
  *
@@ -834,7 +870,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * * The last index was `index i = 6`.
  * * Now, the upcoming index is `index i = 7`.
- * * What do we do before we `pushBack` the new index?
+ * * **What do we do before we `pushBack` the new index?**
  * * We remove all the last values that are smaller than the upcoming value.
  * * What is the current last value? It is `6`.
  * * What is the upcoming value? It is `7`.
@@ -853,10 +889,12 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * We repeat the same process as long as we have smaller last values than the upcoming value.
+ * * **We repeat the same process as long as we have smaller last values than the upcoming value.**
  * * So, what is the current last value?
  * * Well, the container is empty. We don't have any value in it at the moment.
- * * Ok. So, we `pushBack` the upcoming `index 7`.
+ * * Hence, we can add the upcoming index.
+ * * **How do we add the upcoming index?**
+ * * We `pushBack` (or `addLast`) the upcoming `index 7`.
  * * So, the container becomes:
  *
  * ```
@@ -870,14 +908,14 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ```
  *
- * * What do we do after we `pushBack` a new index?
+ * * **What do we do after we `pushBack` a new index?**
  * * We remove all the indices from the front that are smaller than the starting index point of this window.
  * * What is the starting index point of this window?
  * * Starting index point of this window `i - m + 1 = 7 - 3 + 1 = 5`.
  * * Are there any indices that are smaller than the starting index point of this window?
  * * No. We don't have such indices.
  * * So, we don't need to remove anything else.
- * * So, how do we find the max value of this window?
+ * * **So, how do we find the max value of this window?**
  * * Well, the value of the front index is the maximum value for this window.
  * * So:
  *
@@ -913,7 +951,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * Because we remove indices from the front that are smaller than the starting index of the current window.
  * * It can cause `O(n)` time in an array as each next item will have to shift to fill the gap.
  *
- * ##### What do we add to and remove from the `Deque`?
+ * #### What do we add to and remove from the `Deque`?
  *
  * * We add `indices` to the `back` of the `Deque` using `pushBack` or `addLast`.
  * * And we remove `indices` from the `front` of the `Deque` using `popFront` or `removeFirst`.
@@ -937,7 +975,7 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * #### How do we make room for the upcoming index?
  *
- * * We keep only the feasible (possible) `max` indices in the container.
+ * * We retain only those indices whose values are feasible (possible) maximums in the container.
  * * If the value of the last index of the container is smaller than the value of the upcoming index,
  * the smaller value can never be the `max` value.
  * * So, we remove such values from the last that are smaller than the value of the upcoming index.
@@ -1021,6 +1059,12 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *     deque.removeFirst()
  * }
  * ```
+ *
+ * #### Does it make any difference if we interchange the order of "removing the smaller items from the last" and
+ * "removing the old indices from the front"?
+ *
+ * * It doesn't make any difference in the result.
+ * * The important thing is, `adding the upcoming index` must happen **after** `removing the smaller values from the last`.
  *
  * #### Code translation of finding (retrieving, extracting) the max value:
  *
