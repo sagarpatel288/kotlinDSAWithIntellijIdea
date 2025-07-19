@@ -20,6 +20,7 @@
 ## What is the difference between the `Amortized` and `Worst-Case` Time Complexity of a dynamic array?
 
 * `Amortized Time Complexity` is an `Average Time Complexity`.
+* For example, if we have `n` operations, then `Amortized Cost` is the `cost of those n operations divided by n`.
 * In a dynamic array, we double the size of the array when the array hits the maximum capacity.
 * Doubling the size is a worst-case, which takes `O(n)` time.
 * However, we don't have to double the size frequently.
@@ -42,11 +43,13 @@ by creating a new array based on the number of items.
 * Other schemes, such as resizing the array by one or n more blocks of memory, take `O(n^2)` time.
 * On the other hand, doubling the array size takes `O(n)` in the worst case, which happens very infrequently.
 * So, the average time, known as the amortized time of doubling the array, is `O(1)` only.
-* For space, the maximum unused allocated memory would be `O(2N)`, and if we drop the constant, it becomes `O(n)`.
+* For space, when the array reaches its maximum capacity, we double its size. 
+* It means that when we double the size, it is half full. So, at max, we get 50% unused allocated memory.
+* In terms of Big-O, it is `O(n)`.
 * Also, we shrink the array size as soon as we find that the number of items is less than half the size of the array.
 
 ## What is the space complexity of a dynamic array?
 
-* For the best-case, it is `O(n)`, where `n` is the number of items.
+* For the best case, it is `O(n)`, where `n` is the number of items.
 * For the worst-case, it is `O(2n)`. However, we drop the constants for the complexity analysis.
 * So, overall, it is `O(n)` only.
