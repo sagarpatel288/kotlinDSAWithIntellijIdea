@@ -74,8 +74,11 @@ by creating a new array based on the number of items.
 ```
 
 * If the number of insertions is denoted by `i`, then `i = 1` made the array full.
-* Next, when `i = 2` arrives, we don't have space. 
-* We will have to resize the array. We double the size of the array.
+* Next, when `i = 2` arrives, we don't have space.
+* Notice that for `i = 2`, the total number of insert operations `n = 2`.
+* And for `n = 2`, the resize happens at `n - 1` so that we can insert the `nth` element.
+* This is going to be an interesting pattern that we always resize the array at `n - 1`.
+* Now, we resize the array. We double the size of the array.
 * So, the array capacity becomes 2 now.
 * We now have the room for `i = 2` (second) operation.
 * The insertion number `i = 1` made the array full.
@@ -91,6 +94,8 @@ by creating a new array based on the number of items.
 
 * When `i = 3`, we don't have the room.
 * So, `i = 3` forces us to resize the array.
+* Notice that for each `ith` operation that forces the resize, `i - 1` is always going to be a `power of 2`.
+* For example, `i = 3` forces the resize operation. So, `i - 1 = 3 - 1 = 2`, which is a `power of 2`. 
 
 ```
               ┌─────┌─────┐─────┌─────┐
@@ -114,6 +119,8 @@ by creating a new array based on the number of items.
 
 * The insertion operation `i = 4` made the array full.
 * When `i = 5`, it will force us to resize the array.
+* Again, `i = 5` means `n = 5`. And it means the resize happens at `n - 1 = 4` so that we can insert the `nth` element.
+* Also, `i = 5` forced the resize operation. And `i - 1 = 5 - 1 = 4` is a `power of 2`.
 * Once we resize, the insertion operations from `i = 5` to `i = 8` will take `O(1)` time.
 
 ```
@@ -127,6 +134,8 @@ by creating a new array based on the number of items.
 
 * When `i = 8`, it will make the array full.
 * When `i = 9`, it will force us to resize the array.
+* Again, `i = 9` means `n = 9`. The resize happens after `n - 1` so that we can insert the `nth` element.
+* Also, `i = 9` forced the resize operation. And `i - 1 = 9 - 1 = 8` is a `power of 2`.
 * Once we resize, the insertion operations from `i = 9` to `i = 16` will take `O(1)` time.
 
 ```
@@ -151,6 +160,8 @@ by creating a new array based on the number of items.
 
 * When `i = 16`, it will make the array full.
 * The insertion operation `i = 17` will force the resize operation.
+* Again, `i = 17` means `n = 17` and the resize happens at `n - 1` to insert the `nth` element.
+* Also, `i = 17` forced the resize operation. And `i - 1 = 17 - 1 = 16` is a `power of 2`.
 * Once we resize, the insertion operations from `i = 17` to `i = 32` will take `O(1)` time.
 
 ```
@@ -180,7 +191,12 @@ by creating a new array based on the number of items.
 
 ### Which insertion operations force resize operations?
 
-* It is when: i = 3, 5, 9, 17, 33, and so on...  
+* It is when: i = 3, 5, 9, 17, 33, and so on...
+* In other words, each `ith` operation where `i - 1` is a `power of 2` forces the resize operation.
+
+### When does the last resize operation happen to insert the `nth` element?
+
+* The last resize operation happens at `n - 1`.
 
 ### Table format:
 
@@ -200,7 +216,10 @@ by creating a new array based on the number of items.
 
 ### The mathematical pattern:
 
-* It means that all those `i`th insertion operations where `i - 1` is power of 2, force the resize operation.  
+```
+1. It means that all those `i`th insertion operations where `i - 1` is power of 2, force the resize operation.
+2. The last resize can happen at `n - 1` to insert the `nth` element.
+```  
 
 #### What happens in the resize process?
 
@@ -217,17 +236,152 @@ The insertion cost of all the previous items + 1 (the insertion cost of itself)
 * Only those insertion operations that force a resize take `The cost of (i - 1) + 1`.
 * It means:
 ```
-For any insert operation, the cost is: Either 1 or (i - 1) + 1.
+For any insert operation, the cost is:
+= Either (The cost of inserting the new item itself + The cost of inserting all the previous items) OR (The cost of inserting the new item itself + 0)   
+= Either 1 + (i - 1) OR 1 + 0.
 ```
-* If we denote an insert operation by c_i, then the mathematical term is:
+* If we denote an insert operation by $c_i$, then the mathematical term is:
 
-\[
+$$
 c_i = 1 +
 \begin{cases}
 i - 1 & \text{if } i - 1 \text{ is a power of } 2 \\
 0 & \text{otherwise}
 \end{cases}
-\]
+$$
+
+* Now, let us assume that the range of our insert operation is up to `n`.
+* So, we have the insert operations from `1` to `n`. 
+* We can split these insert operations into two parts.
+```
+1. All the `ith` insert operations that do not require any extra cost.  
+2. All the `i - 1` insert operations that require extra cost.
+``` 
+* If we combine (add, sum) all the `ith` insert operations that take `O(1)` time, it cannot be greater than `n`.
+* So, it is a simple math: We have `n` insert operations, and each insert operation takes `O(1)` time.
+* So, the total time of all the insert operations is `O(1 * n)` = `O(n)`.
+* We can express this process of combining (addition/summation of) all the `ith` insert operations that take `O(1)` time as below:
+* [Prerequisites: Summation/Sigma Notation](https://www.khanacademy.org/math/ap-calculus-ab/ab-integration-new/ab-6-3/a/review-summation-notation)
+
+$$
+\sum_{i=1}^{n} 1 = n
+$$
+
+* So, that was the sum of all the `ith` insert operations that do not require any extra cost.
+* And then we are left with all the `(i - 1)th` insert operations that force the resize operation.
+* We can express this process of combining (addition/summation of) all the `(i - 1)th` insert operations as below:
+
+$$
+\sum_{\substack{i=1 \\ i-1\ \text{is a power of}\ 2}}^{n} (i-1)
+$$
+
+* Note that the cost of inserting itself is already counted in the first part. 
+* So, the second part is the sum of all the `(i - 1)th` insert operations that require some extra cost.
+* Together, they give the total cost of all the insert operations (from i = 1 to n) as below:
+
+$$
+\sum_{i=1}^{n} c_i = \sum_{i=1}^{n} 1 + \sum_{\substack{i=1 \\ i-1\ \text{is a power of}\ 2}}^{n} (i-1)
+$$
+
+* Now, we know that the total number of insert operations are `n`.
+* So, we cannot exceed `n`.
+* And we know that the `ith` operation, where `i - 1` is a `power of 2`, forces the resize.
+* So, let us denote (express) it in math:
+
+$$
+(i - 1) = 2^j
+$$
+
+* So, we can rewrite the total cost expression as below:
+
+$$
+\sum_{i=1}^{n} c_i = \sum_{i=1}^{n} 1 + \sum_{\substack{j=0}}^{n} 2^j
+$$
+
+* And we also know that the last resize operation happens at `n - 1`.
+* So, how many such `power of 2` can we fit (get) in such a way that it does not exceed `n - 1`?
+
+#### How do we find the "Power Of 2" in math when the target is (n - 1)?
+
+* [Prerequisites: Logarithms](https://www.khanacademy.org/math/algebra2/x2ec2f6f830c9fb89:logs/x2ec2f6f830c9fb89:log-intro/a/intro-to-logarithms)
+* How do we find "How many powers of 2 make 16"? We use logarithms.
+
+$$
+\log_{2}(16) = 4
+$$
+
+* So, how do we express the statement "Some powers of 2 that make n - 1"? We use logarithms.
+
+$$
+\log_{2}(n - 1)
+$$
+
+* It means that we can change the upper limit of the second part and rewrite the total cost expression as below: 
+
+$$
+\sum_{i=1}^{n} c_i = n + \sum_{j=0}^{\lfloor \log_{2}(n-1) \rfloor} 2^j
+$$
+
+* Now, the second part looks like a geometric series as below:
+
+$$
+\sum_{j=0}^{k} 2^j = 2^{k+1} - 1
+$$
+
+$$
+\text{where k is }\ \lfloor \log_{2}(n-1) \rfloor
+$$
+
+* Now, we know that the power of 2, $2^k$ will always be less than or equal to `(n - 1)`.
+* So, we can write it as:
+
+$$
+2^k <= (n - 1)
+$$
+
+* Now, we can multiply both sides by $2^1$ as below:
+
+$$
+2^{k} * 2^{1} <= 2^1 (n - 1)
+$$
+
+* Which is equivalent to: [Prerequisites: Exponents](https://www.khanacademy.org/math/cc-eighth-grade-math/cc-8th-numbers-operations/cc-8th-exponent-properties/v/exponent-properties-involving-products)
+
+$$
+2^{k + 1} <= 2(n - 1)
+$$
+
+* Now, it is obvious that the term `2(n - 1)` cannot be greater than `2n`.
+* So, for simplicity and convenience, we can say:
+
+$$
+2^{k + 1} <= 2n
+$$
+
+* So, if we replace the second term with `2n`, then the total cost becomes:
+
+$$
+\sum_{i=1}^{n} c_i <= n + 2n
+$$
+
+$$
+\sum_{i=1}^{n} c_i <= 3n
+$$
+
+
+* Now, the definition of the `Amortized Cost` is: 
+
+```
+The cost of the total number of operations divided by the total number of operations
+```
+
+* The cost of the total number of operations is at most `3n`, and the total number of operations is `n`.
+* So:
+
+$$
+\textbf{Amortized Cost} = \frac{\text{Total Cost}}{n} \leq \frac{3n}{n} = 3 = O(1)
+$$
+
 
 
 ## What is the space complexity of a dynamic array?
