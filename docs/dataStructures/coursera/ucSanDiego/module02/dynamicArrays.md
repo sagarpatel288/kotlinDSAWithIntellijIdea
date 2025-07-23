@@ -527,9 +527,9 @@ Amortized Cost = Actual Cost + Potential Difference
 #### Part-01: Mathematical Representation:
 
 * Actual Cost is represented as: $c_t$
-* Old state (Old Potential, a.k.a. "before") is: $ \Phi(h_{t - 1})$
-* New state (New Potential, a.k.a. "after") is: $ \Phi(h_t)$
-* Potential difference is: $ \Phi(h_t) - \Phi(h_{t-1})$
+* Old state (Old Potential, a.k.a. "before") is: $\Phi(h_{t - 1})$
+* New state (New Potential, a.k.a. "after") is: $\Phi(h_t)$
+* Potential difference is: $\Phi(h_t) - \Phi(h_{t-1})$
 * Hence, Amortized cost is: $c_t + \Phi(h_t) - \Phi(h_{t-1})$
 
 ##### Amortized Cost
