@@ -926,7 +926,7 @@ $$
 * So, even if we take the largest one, we can evaluate them as:
 
 $$
-\mathcal{C}^{m+1} \approx \mathcal{C}^n \quad (\text{since } n \text{ is close to } \mathcal{C}^m).
+\mathcal{C}^{m+1} = \mathcal{C}^{m} * {C}^{1} \approx \mathcal{C}^{1} * n \quad (\text{since } n \text{ is close to } \mathcal{C}^m).
 $$
 
 * Hence, the simplification of the geometric series becomes:
