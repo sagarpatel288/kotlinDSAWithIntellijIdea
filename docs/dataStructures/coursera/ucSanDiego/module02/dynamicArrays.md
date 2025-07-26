@@ -989,3 +989,181 @@ unused allocated space.
 * For the best case, it is `O(n)`, where `n` is the number of items.
 * For the worst-case, it is `O(2n)`. However, we drop the constants for the complexity analysis.
 * So, overall, it is `O(n)` only.
+
+## MCQ-01:
+
+Let's imagine we add support to our dynamic array for a new operation, `PopBack` (which removes the last element). 
+`PopBack` will reallocate the dynamically-allocated array if the `size is ≤` the $\frac{Capacity}{2}$ to a new array of 
+half the capacity. 
+
+So, for example, if, before a `PopBack`, the size were 5 and the capacity were 8, then after the `PopBack`, the size 
+would be 4 and the capacity would be 4.
+
+Give an example of `n` operations starting from an empty array that require $O(n^2)$ copies:
+
+1. PushBack 2 elements, and then alternate $\frac{n}{2} - 1$ PushBack and PopBack operations.
+2. Let `n` be a power of 2. Add $\frac{n}{2}$ elements, then alternate $\frac{n}{4}$ times between doing a PushBack of an
+element and a PopBack.
+3. PushBack $\frac{n}{2}$ elements, and then PopBack $\frac{n}{2}$ elements.
+
+### Understanding the problem (the question, the requirements):
+
+* If the size of the array is <= $\frac{Capacity}{2}$, we create a new array of half the capacity of the old array.
+* We need to find `n operations` (Note: Not a single operation, but `n operations`) that require $O(n^2)$ copies.
+* What is the term `copies` here?
+* When we resize an array, we copy items from the old array to the new array.
+* It means find `n operations` such that each operation might cost us $O(n)$. 
+* So, the `n operations` would cost us, $n * n = n^2$.  
+* The `n` represents `number of operations`.
+* The phrase `starting from an empty array` clearly indicates that we start with an empty array.
+* We are given 3 options. These options do not represent a single operation. Each option represents a sequence 
+(pattern) of operations.
+
+
+### Understanding the options:
+
+#### PushBack 2 Elements. Then, alternate $\frac{n}{2} - 1$ PushBack and PopBack operations.
+
+>Initial:
+
+* Initially, the array is empty. (As given in the problem statement.)
+* The array size is 0, capacity is 1.
+* Let us choose `n = 8`. We check (test) the given sequence for 8 operations.
+
+> `PushBack 1`. 
+
+* Check the capacity.
+* We have the capacity.
+* Insert the item.
+* Size = 1. Capacity = 1.
+* The array is full.
+
+> `PushBack 2`. 
+
+* Check the capacity.
+* We don't have the capacity.
+* Resize the array. Double the capacity. 
+* Copy 1 item. 
+* **
+* **Total Copy so far: 1**
+* **
+* Insert the new item. 
+* Size = 2. Capacity = 2.
+* The array is full.
+
+> `Alternate` $\frac{n}{2} - 1$ `times PushBack and PopBack`
+
+* $\frac{n}{2} - 1 = \frac{8}{2} - 1 = 3$
+* We will repeat the sequence, `PushBack` and then `PopBack` a total of `3` times.
+* If we notice, it will be a total of `6` operations, and we have already performed `2 PushBack` operations earlier.
+* So yes, it will be a total of `8` operations.
+
+> 1st Time: `PushBack`
+
+* Do we have the capacity? No.
+* What do we do when we don't have the capacity?
+* We resize the array. We create a new array twice the capacity of the old array.
+* What was the capacity of the old array? It was 2.
+* What will be the capacity of the new array? It will be 4.
+* What do we do after creating a new array? Copy old items from the old array to the new array.
+* How many items do we need to copy? We have `2` items. (from `2` `PushBack` operations.)
+* * **
+* **Total Copy so far: 1 + 2 = 3**
+* **
+* What do we do after copying the old items? We insert the new item.
+* What is the size of the array now? 3.
+* What is the capacity of the array? 4.
+
+> 1st Time: `PopBack` 
+
+* Do we have items in the array? Yes.
+* What was the last item? 3.
+* Remove it.
+* What is the size now? 2.
+* Did it force the resize? 
+* For `PopBack`, the resize happens only if it makes the $size <= \frac{Capacity}{2}$.
+* After removing the last item, the size is 2. The capacity is 4. So, resize will happen.
+* What happens during the resize?
+* We create a new array, copy old items from the old array, and insert them into the new array.
+* What will be the capacity of the new array? 2.
+* How many items do we have to copy? 2.
+* **
+* **Total Copy so far: 1 + 2 + 2 = 5**
+* **
+* After the resize, the new capacity is 2.
+
+> 2nd Time: `PushBack`
+
+* Do we have the capacity? No.
+* What do we do when we don't have the capacity? 
+* We create a new array with a new capacity.
+* What will be the new capacity? Twice the old capacity. So, 4.
+* What do we do after creating a new array?
+* Copy old items from the old array into the new array.
+* How many items do we have to copy? `2`.
+* **
+* **Total Copy so far: 1 + 2 + 2 + 2 = 7**
+* **
+* What do we do after copying the items? We insert the new item for which we had to create a new array.
+* What is the size of the array now? 3.
+* What is the capacity of the array now? 4.
+
+> 2nd Time: `PopBack`
+
+* Do we have the items in the array? Yes.
+* What is the last item? 3.
+* Remove it.
+* What is the size now? 2.
+* Does it force the resize?
+* For the `PopBack`, the resize happens if it makes the $size <= \frac{Capacity}{2}$.
+* After removing the last item, the size is 2. The capacity is 4. So, resize will happen.
+* We create a new array of half the capacity of the old array.
+* After the resize, the new capacity is 2.
+* We copy the old items into the new array.
+* How many items do we have to copy? 2.
+* **
+* **Total Copy so far: 1 + 2 + 2 + 2 + 2 = 9**
+* **
+* New capacity is 2. 
+
+> 3rd Time: `PushBack`
+
+* We don't have the capacity.
+* We create a new array twice the capacity of the old array.
+* The new capacity is 4.
+* We copy old items into the new array. We have two items to copy.
+* **
+* **Total Copy so far: 1 + 2 + 2 + 2 + 2 + 2 = 11**
+* **
+* We insert the new item into the new array.
+* Size is 3. Capacity is 4.
+
+> 3rd Time: `PopBack`
+
+* The last item is 3.
+* We remove it.
+* New size is 2. Capacity is 4.
+* $size <= \frac{Capacity}{2}$
+* So, the array shrinks.
+* We create a new array.
+* New capacity is 2.
+* We copy the old items from the old array to the new array.
+* We have two items to copy.
+* **
+* **Total Copy so far: 1 + 2 + 2 + 2 + 2 + 2 + 2 = 13**
+* ** 
+* Size is 2.
+
+#### Evaluation:
+
+* Total number of operations, `n` = 8.
+* Total copies for `n` operations: 13.
+* What is the pattern here? What should we observe? Where should we look?
+
+### Option-02:
+
+
+
+### Solution image:
+
+![Solution Image](../../../../../res/coursera/ucSanDiego/course02dataStructures/module02/assignmentMcqs/mcq020.png)
