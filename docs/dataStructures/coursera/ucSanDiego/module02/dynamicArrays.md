@@ -6,47 +6,51 @@
 
 ## What is a dynamic array? How a dynamic array is different from a fixed size static array?
 
-* A fixed size static array has a fixed size capacity.
-* We cannot add more items to it than its maximum capacity.
-* However, unlike a fixed size static array, a dynamic array can resize itself. 
-* It can grow as we add more items, and it can shrink as we remove items.
-* Kotlin `ArrayList` is an example of a `Dynamic Array`.
+* **Fixed Capacity:** A fixed-size static array has a fixed-size capacity.
+* **So?** We cannot add more items to it than its maximum capacity.
+* **And Dynamic Arrays?** However, unlike a fixed-size static array, a dynamic array can resize itself. 
+* **Resize means?** It can grow as we add more items, and it can shrink as we remove items.
+* **Example?** Kotlin `ArrayList` is an example of a `Dynamic Array`.
 
 ## What is the time complexity of adding more items to a dynamic array?
 
-* For a dynamic array, `Amortized time complexity` of adding a new item is `O(1)`.
+* There are two different ways to look at it.
+* For a dynamic array, the `Amortized time complexity` of adding a new item is `O(1)`.
 * Worst-case time complexity, is `O(n)`.
 
 ## What is the difference between the `Amortized` and `Worst-Case` Time Complexity of a dynamic array?
 
-* `Amortized Time Complexity` is an `Average Time Complexity`.
-* For example, if we have `n` operations, then `Amortized Cost` is the `cost of those n operations divided by n`.
-* In a dynamic array, we double the size of the array when the array hits the maximum capacity.
-* Doubling the size is a worst-case, which takes `O(n)` time.
-* However, we don't have to double the size frequently.
-* So, if we split the cost across worst-case and best-case scenarios, on average, we get `O(1)` time complexity.
-* So, the `Amortized` time complexity is less than the expensive operations, and more than the cheap operations.
-* The purpose is to shift our focus from the worst-case analysis to average time analysis, 
+* **Synonymous:** `Amortized Time Complexity` is an `Average Time Complexity`.
+* **Simple Math:** For example, if we have `n` operations, then `Amortized Cost` is the `cost of those n operations divided by n`.
+* **When:** In a dynamic array, we double the size of the array when the array hits the maximum capacity.
+* **Worst-Case:** Doubling the size is a worst-case scenario, which takes `O(n)` time.
+* **Frequency:** However, we don't have to double the size frequently.
+* **Split:** So, if we split the cost across worst-case and best-case scenarios, on average, we get `O(1)` time complexity.
+* **Balance:** So, the `Amortized` time complexity is less than the expensive operations, and more than the cheap operations.
+* **Purpose:** The purpose is to shift our focus from the worst-case analysis to average time analysis, 
 and give a more realistic analysis.
-* 
 
 ## How do we resize the array?
 
-* As soon as the array reaches maximum capacity, we create a new array twice the size of the previous array.
-* We copy all the items from the previous array and insert each item into the newly created array.
-* Similarly, as soon as the number of items becomes less than half the size of the array, we shrink the array 
+* **When:** As soon as the array reaches maximum capacity, we create a new array twice the size of the previous array.
+* **How:** We copy all the items from the previous array and insert each item into the newly created array.
+* **Shrink:** Similarly, as soon as the number of items becomes less than half the size of the array, we shrink the array 
 by creating a new array based on the number of items.
-* The purpose is to limit the resize operations in such a way that we get an amortized time complexity of `O(1)`.
+* **Purpose:** The purpose is to **limit the resize operations** in such a way that we get an amortized time complexity of 
+`O(1)`.
 
 ## Why do we double the size of an array? Isn't it inefficient? Don't we waste too much space also?
 
-* Other schemes, such as resizing the array by one or n more blocks of memory, take `O(n^2)` time.
-* On the other hand, doubling the array size takes `O(n)` in the worst case, which happens very infrequently.
-* So, the average time, known as the amortized time of doubling the array, is `O(1)` only.
-* For space, when the array reaches its maximum capacity, we double its size. 
-* It means that when we double the size, it is half full. So, at max, we get 50% unused allocated memory.
-* In terms of Big-O, it is `O(n)`.
-* Also, we shrink the array size as soon as we find that the number of items is less than half the size of the array.
+* **Addition is $O(n^2)$:** Other schemes, such as resizing the array by one or `n` more blocks of memory, take `O(n^2)` 
+time.
+* **Other Factors:** Using any other factor than `2` either increases the resize frequency or results in more wasted 
+unused allocated memory. 
+* **Frequency:** On the other hand, doubling the array size takes `O(n)` in the worst case, which happens very infrequently.
+* **Average:** So, the average time, known as the amortized time of doubling the array, is `O(1)` only.
+* **When:** For space, when the array reaches its maximum capacity, we double its size. 
+* **Space:** It means that when we double the size, it is half full. So, at max, we get 50% unused allocated memory.
+In terms of Big-O, it is `O(n)`.
+* **Shrink:** Also, we shrink the array size as soon as we find that the number of items is less than half the size of the array.
 
 ## What is the mathematical proof of the Amortized Analysis?
 
@@ -275,7 +279,7 @@ $$
 \sum_{\substack{i=1 \\ i-1\ \text{is a power of}\ 2}}^{n} (i-1)
 $$
 
-* Note that the cost of inserting itself is already counted in the first part. 
+* Note that the cost of inserting the element (itself or a buddy element) is already counted in the first part. 
 * So, the second part is the sum of all the `(i - 1)th` insert operations that require some extra cost.
 * Together, they give the total cost of all the insert operations (from i = 1 to n) as below:
 
