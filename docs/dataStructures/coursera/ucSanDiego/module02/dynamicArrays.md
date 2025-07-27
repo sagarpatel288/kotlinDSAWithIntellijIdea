@@ -1012,19 +1012,33 @@ element and a PopBack.
 * We need to find `n operations` (Note: Not a single operation, but `n operations`) that require $O(n^2)$ copies.
 * What is the term `copies` here?
 * When we resize an array, we copy items from the old array to the new array.
-* It means find `n operations` such that each operation might cost us $O(n)$. 
-* So, the `n operations` would cost us, $n * n = n^2$.  
-* The `n` represents `number of operations`.
+* It means find `n operations` such that each `resize operation` where we have to perform `copy` might cost us $O(n)$.
+> The area of focus:
+* **So, we need to find such `n operations` (from the given options) that cause a total of $n^2$ copies.**
+* Copying a single item costs us $O(1)$. So, $n^2$ copies would cost us $O(n^2)$.
+* **This means we will focus on the total number of copies we must perform for each option.**
+* It means we will have to count and keep track of the total number of copies we perform for each option.
+* **
+* The letter `n` represents `number of operations`.
 * The phrase `starting from an empty array` clearly indicates that we start with an empty array.
 * We are given 3 options. These options do not represent a single operation. Each option represents a sequence 
 (pattern) of operations.
 
+### The area of focus:
+
+* We need to count and keep track of the number of copies we must perform for each option.
+* We copy items when we perform the resize operation and create a new array.
+* We perform the resize operation and create a new array either when we don't have the room to insert the new element 
+or when removing an element makes the array size <= $\frac{Capacity}{2}$.
+* To insert an item, we perform `PushBack`. And to remove an item, we perform `PopBack`.
+* It means every time we use `PushBack` or `PopBack`, we need to count and keep track of the number of copies we 
+perform.
 
 ### Understanding the options:
 
 #### PushBack 2 Elements. Then, alternate $\frac{n}{2} - 1$ PushBack and PopBack operations.
 
->Initial:
+> Initially:
 
 * Initially, the array is empty. (As given in the problem statement.)
 * The array size is 0, capacity is 1.
@@ -1035,6 +1049,12 @@ element and a PopBack.
 * Check the capacity.
 * We have the capacity.
 * Insert the item.
+* Cost of this insertion is 1.
+* **
+* Total cost of all the normal insertions: 1
+* **
+* Total cost (total normal insertions + total copies after resize operations): 1 + 0 = 1.
+* **
 * Size = 1. Capacity = 1.
 * The array is full.
 
@@ -1045,9 +1065,17 @@ element and a PopBack.
 * Resize the array. Double the capacity. 
 * Copy 1 item. 
 * **
-* **Total Copy so far: 1**
+* **Total number of copies so far: 1**
 * **
-* Insert the new item. 
+* Cost of each copy: 1
+* Cost of total copies so far: 1
+* Insert the new item.
+* Cost of this insertion: 1
+* **
+* Total cost of all the normal insertions: 1 + 1 = 2
+* **
+* Total cost (total normal insertions + total copies after resize operations): 2 + 1 = 3
+* **
 * Size = 2. Capacity = 2.
 * The array is full.
 
@@ -1067,10 +1095,18 @@ element and a PopBack.
 * What will be the capacity of the new array? It will be 4.
 * What do we do after creating a new array? Copy old items from the old array to the new array.
 * How many items do we need to copy? We have `2` items. (from `2` `PushBack` operations.)
-* * **
-* **Total Copy so far: 1 + 2 = 3**
+* **
+* **Total number of copies in this particular operation: 2**
+* **
+* **Total number of copies so far: 1 + 2 = 3**
 * **
 * What do we do after copying the old items? We insert the new item.
+* Cost of inserting this item: 1.
+* **
+* Total cost of all normal insertions: 2 + 1 = 3
+* **
+* Total cost (total normal insertions + total copies after resize operations): 3 + 3 = 6
+* **
 * What is the size of the array now? 3.
 * What is the capacity of the array? 4.
 
@@ -1088,7 +1124,12 @@ element and a PopBack.
 * What will be the capacity of the new array? 2.
 * How many items do we have to copy? 2.
 * **
-* **Total Copy so far: 1 + 2 + 2 = 5**
+* **Total number of copies in this particular operation: 2**
+* **
+* **Total number of copies so far: 1 + 2 + 2 = 5**
+* **
+* Total number of insertions in this particular operation: 0.
+* Total cost (total normal insertions + total copies after resize operations): 3 + 5 = 8
 * **
 * After the resize, the new capacity is 2.
 
@@ -1102,9 +1143,18 @@ element and a PopBack.
 * Copy old items from the old array into the new array.
 * How many items do we have to copy? `2`.
 * **
-* **Total Copy so far: 1 + 2 + 2 + 2 = 7**
+* **Total number of copies in this particular operation: 2**
 * **
-* What do we do after copying the items? We insert the new item for which we had to create a new array.
+* **Total number of copies so far: 1 + 2 + 2 + 2 = 7**
+* **
+* What do we do after copying the items? 
+* We insert the new item for which we had to create a new array.
+* Insert cost in this operation: 1.
+* **
+* Total cost of all the normal insertions: 3 + 1 = 4 
+* **
+* Total cost (total normal insertions + total copies after resize operations): 4 + 7 = 11
+* **
 * What is the size of the array now? 3.
 * What is the capacity of the array now? 4.
 
@@ -1122,7 +1172,13 @@ element and a PopBack.
 * We copy the old items into the new array.
 * How many items do we have to copy? 2.
 * **
-* **Total Copy so far: 1 + 2 + 2 + 2 + 2 = 9**
+* **Total number of copies in this particular operation: 2**
+* **
+* **Total number of copies so far: 1 + 2 + 2 + 2 + 2 = 9**
+* **
+* Insertion cost in this operation: 0
+* **
+* Total cost (total normal insertions + total copies after resize operations): 4 + 9 = 13
 * **
 * New capacity is 2. 
 
@@ -1133,9 +1189,17 @@ element and a PopBack.
 * The new capacity is 4.
 * We copy old items into the new array. We have two items to copy.
 * **
-* **Total Copy so far: 1 + 2 + 2 + 2 + 2 + 2 = 11**
+* **Total number of copies in this particular operation: 2**
+* **
+* **Total number of copies so far: 1 + 2 + 2 + 2 + 2 + 2 = 11**
 * **
 * We insert the new item into the new array.
+* Insertion cost of this operation: 1
+* **
+* Total cost of all the normal insertions: 4 + 1 = 5 
+* **
+* Total cost (total normal insertions + total copies after resize operations): 5 + 11 = 16
+* **
 * Size is 3. Capacity is 4.
 
 > 3rd Time: `PopBack`
@@ -1150,19 +1214,361 @@ element and a PopBack.
 * We copy the old items from the old array to the new array.
 * We have two items to copy.
 * **
-* **Total Copy so far: 1 + 2 + 2 + 2 + 2 + 2 + 2 = 13**
+* **Total number of copies in this particular operation: 2**
+* **
+* **Total number of copies so far: 1 + 2 + 2 + 2 + 2 + 2 + 2 = 13**
 * ** 
+* Insertion cost of this operation: 0.
+* **
+* Total cost (total normal insertions + total copies after resize operations): 5 + 13 = 18
+* **
 * Size is 2.
 
-#### Evaluation:
+##### Evaluation:
 
 * Total number of operations, `n` = 8.
 * Total copies for `n` operations: 13.
-* What is the pattern here? What should we observe? Where should we look?
+* Total resize operations: 6.
+* Total number of copies each resize operation performs: 2.
+* Total copies during (and combining, for) all the resize operations: 6 * 2 = 12.
+* **
+* **What is the relationship between the number of resize operations and the total number of copies?**
+* If the total number of resize operations is `n`, then the total number of copies is $2n$.
+* ** 
 
-### Option-02:
+#### Let `n` be a power of 2. Add $\frac{n}{2}$ elements, then alternate $\frac{n}{4}$ times between doing a PushBack of an element and a PopBack.
 
+* `n` must be a power of 2. Let us take `n = 8`, which is $2^3$.
+* Add $\frac{n}{2}$ elements = Add $\frac{8}{2} = 4$ elements.
+* Then, alternate $\frac{n}{4}$ times = $\frac{8}{4}$ = 2 times.
+* What do we need to alternate? `PushBack` and `PopBack`.
+* So, the sequence of operations becomes:
+  * Add 4 elements.
+  * Then, 1st PushBack: Add 1 more element. 
+  * Then, 1st PopBack: Remove 1 element. 
+  * Then, 2nd PushBack: Add 1 element. 
+  * Then, 2nd PopBack: Remove 1 element.
+* We need to find out the total number of copies these `n` operations make.
 
+##### Initially:
+
+* The array is empty. 
+* The array size is zero.
+* The array capacity is 1.
+
+##### Add $\frac{n}{2}$ elements = Add $\frac{8}{2} = 4$ elements.
+
+> Add 1st element:
+
+* Insert cost is 1.
+* The array is full.
+* The array size is 1.
+* The array capacity is 1.
+* Total items in the array: 1.
+* There is no resize operation here.
+* There is no copy operation here.
+
+> Add 2nd element:
+
+* The array is full.
+* We have to resize.
+* We create a new array, twice the capacity of the old array.
+* The new array capacity is 2 now.
+* We copy the old items into the new array.
+* We have 1 item to copy.
+* **
+* Total copies in this operation: 1.
+* **Total copies overall: 1.**
+* **
+* We insert the `2nd` element.
+* The insertion cost of this operation: 1.
+* Total insertions cost: 1 + 1 = 2.
+* The array size is 2.
+* The array capacity is 2.
+* Total items in the array: 2.
+
+> Add 3rd element:
+
+* The array is full.
+* We have to resize.
+* We create a new array, twice the capacity of the old array.
+* The new array capacity is 4 now.
+* We copy the old items into the new array.
+* We have 2 items to copy.
+* **
+* Total copies in this operation: 2.
+* **Total copies overall: 1 + 2 = 3.**
+* **
+* We insert the `3rd` element.
+* The insertion cost of this operation: 1.
+* Total insertions cost: 1 + 1 + 1 = 3.
+* The array size is: 3.
+* The array capacity is: 4.
+* Total items in the array: 3.
+
+> Add 4th element:
+
+* The array capacity is 4.
+* There are 3 items in the array.
+* We have room to insert this new item as well.
+* We insert the `4th` element.
+* The insertion cost is: 1.
+* Total insertion cost: 1 + 1 + 1 + 1 = 4.
+* The array size is: 4.
+* The array capacity is: 4.
+* Total items in the array: 4.
+
+##### Alternate $\frac{n}{4}$ times = $\frac{8}{4}$ = 2 times: What to alternate? `PushBack`, followed by `PopBack`.
+
+> 1st `PushBack`
+
+* The array is full.
+* We have to resize.
+* We create a new array, twice the capacity of the old array.
+* The new array capacity is 8 now.
+* We copy old items from the old array into the new array.
+* **
+* Total copies in this operation: 4.
+* **Total copies overall: 3 + 4 = 7.**
+* **
+* Now, we can insert this new, `5th` element.
+* The insertion cost of this operation is: 1.
+* Total insertion cost: 1 + 1 + 1 + 1 + 1 = 5.
+* The array size is: 5.
+* The array capacity is: 8.
+* Total items in the array: 5.
+
+> 1st `PopBack`
+
+* The last item is: The `5th` element.
+* We remove it.
+* The array size is: 4.
+* The array capacity is: 8.
+* Now, $size <= \frac{Capacity}{2}$.
+* So, we get the resize operation.
+* We create a new array, half the capacity of the old array.
+* The new array capacity is: 4.
+* The number of items we have to copy from the old array to the new array: 4.
+* **
+* Total copies in this operation: 4.
+* **Total copies overall: 3 + 4 + 4 = 11.**
+* **
+* The array size is: 4.
+* The array capacity is: 4.
+* Total items in the array: 4.
+
+> 2nd `PushBack`
+
+* The array is full.
+* We have to create a new array, twice the size of the old array.
+* The new array capacity is: 8.
+* The total number of items we have to copy from the old array into the new array: 4.
+* **
+* Total copies in this operation: 4.
+* **Total copies overall: 3 + 4 + 4 + 4 = 15.**
+* **
+* Now, we can insert the new `5th` element.
+* The insertion cost of this operation: 1.
+* Total insertion cost: 1 + 1 + 1 + 1 + 1 = 5. (Ignoring the cost of each element that we have removed.)
+* The array size is: 5.
+* The array capacity is: 8.
+* Total items in the array: 5.
+
+> 2nd `PopBack`
+
+* The last item is: The `5th` element.
+* We remove it.
+* The array size is: 4.
+* The array capacity is: 8.
+* Now, $size <= \frac{Capacity}{2}$.
+* So, we get the resize operation.
+* We create a new array, half the capacity of the old array.
+* The new array capacity is: 4.
+* The number of items we have to copy from the old array to the new array: 4.
+* **
+* Total copies in this operation: 4.
+* **Total copies overall: 3 + 4 + 4 + 4 + 4 = 19.**
+* **
+* The array size is: 4.
+* The array capacity is: 4.
+* Total items in the array: 4.
+
+##### Evaluation:
+
+* Total copies during the `n` operations: 19.
+* Total resize operations: 4.
+* Total number of copies during each resize operation: 4.
+* Total copies during (and combining, for) all the resize operations: 4 * 4 = 16.
+* **
+* **What is the relationship between the number of resize operations and the total number of copies?**
+* If the total number of resize operations is `n`, then the total number of copies is $ n * n = n^2$.
+* Notice how each resize operation causes quadratic (polynomial) copies!
+* This is exactly the answer we are looking for.
+* `n` operations that make $n^2$ copies. 
+* This option does the same!
+* However, let us understand the 3rd option as well.
+* **
+
+#### PushBack $\frac{n}{2}$ elements, and then PopBack $\frac{n}{2}$ elements.
+
+##### Initially:
+
+* The array is empty.
+* The array size is zero.
+* The array capacity is 1.
+* Let us take `n = 8` to be consistent across our test and evaluation process.
+
+##### PushBack $\frac{n}{2} = \frac{8}{2} = 4$ elements.
+
+> 1st `PushBack`
+
+* We insert the element.
+* The insert cost is: 1.
+* Total insertion cost: 1.
+* There is no resize operation here.
+* There is no copy operation here.
+* The array size is: 1.
+* The array capacity is: 1.
+* Total items in the array: 1.
+
+> 2nd `PushBack`: Resize.
+
+* The array is full.
+* We have to resize the array.
+* We create a new array of twice the capacity of the old array.
+* The new array capacity is: 2.
+* We copy the old items from the old array into the new array.
+* Total items we have to copy: 1.
+* **
+* **Total copies in this operation: 1.**
+* **Total number of copies overall: 1.**
+* **
+* Now, we can insert the new element.
+* The insertion cost is: 1.
+* Total insertion cost is: 1 + 1 = 2.
+* The array size is: 2.
+* The array capacity is: 2.
+* Total items in the array: 2.
+
+> 3rd `PushBack`: Resize.
+
+* The array is full.
+* We have to resize the array.
+* We create a new array, twice the capacity of the old array.
+* The new array capacity is 4.
+* We have to copy old items from the old array into the new array.
+* Total items we have to copy: 2.
+* **
+* Total copies in this operation: 2.
+* **Total number of copies overall: 1 + 2 = 3.** 
+* **
+* Now, we can insert the new element.
+* The insertion cost is: 1.
+* Total insertion cost becomes: 1 + 1 + 1 = 3.
+* The array size is: 3.
+* The array capacity is: 4.
+* Total items in the array: 3.
+
+> 4th `PushBack`
+
+* The array capacity is: 4.
+* The array size is: 3.
+* We have the room to insert this new element.
+* We insert this new element.
+* The insertion cost is: 1.
+* Total insertion cost becomes: 1 + 1 + 1 + 1 = 4.
+* There is no resize operation here.
+* There is no copy operation here.
+* The array size is: 4.
+* The array capacity is: 4.
+* Total items in the array: 4.
+
+##### PopBack $\frac{n}{2} = \frac{8}{2} = 4$ elements.
+
+> 1st `PopBack`
+
+* The array size is: 4.
+* The array capacity is: 4.
+* The last item is: The `4th` element.
+* We remove it.
+* The array size is: 3.
+* The array capacity is: 4.
+* There is no resize operation here.
+* There is no copy operation here.
+
+> 2nd `PopBack`: Resize.
+
+* The array size is: 3.
+* The array capacity is: 4.
+* The last item is: The `3rd` element.
+* We remove it.
+* The array size is: 2.
+* The array capacity is: 4.
+* Now, $size <= \frac{Capacity}{2}$.
+* So, we get the resize operation.
+* We create a new array, half the capacity of the old array.
+* The new array capacity is: 2.
+* We copy the old items from the old array into the new array.
+* Total items we have to copy: 2.
+* **
+* Total copies in this operation: 2.
+* **Total number of copies overall: 1 + 2 + 2 = 5.**
+* **
+* The array size is: 2.
+* The array capacity is: 2.
+* Total items in the array: 2.
+
+> 3rd `PopBack`: Resize.
+
+* The array size is: 2.
+* The array capacity is: 2.
+* Total items in the array: 2.
+* The last item is: The `2nd` element.
+* We remove it.
+* The array size is: 1.
+* The array capacity is: 2.
+* Now, $size <= \frac{Capacity}{2}$.
+* So, we get the resize operation.
+* We create a new array, half the capacity of the old array.
+* The new array capacity is: 1.
+* Total items we have to copy: 1.
+* **
+* Total copies in this operation: 1.
+* **Total number of copies overall: 1 + 2 + 2 + 2 = 7.**
+* **
+* The array size is: 1.
+* The array capacity is: 1.
+* Total items in the array: 1.
+
+> 4th `PopBack`
+
+* The array size is: 1.
+* The array capacity is: 1.
+* The last element is: The `1st` element.
+* We remove it.
+* The array size is: 0.
+* The array capacity is 1.
+* There is no element in the old array.
+* It means there is nothing to copy from the old array into the new array.
+* The array is empty.
+* We may nullify the array reference.
+* There is no copy operation here.
+
+##### Evaluation:
+
+* Total operations: `n = 8`.
+* Total resize operations: 4.
+* Total copies we have performed: 7.
+* On average, each resize operation caused: 
+> $\frac{\text{ Total Copies }}{\text{ Total Resize Operations}} = \frac{7}{4} = 1.75 \text{ Copies per resize operation}$
+* It means if we have `n` resize operations, we might get `n * 1.75` copies.
+* It is clearly not $n^2$ copies.
+
+#### Conclusion:
+
+* The answer is: To get $O(n^2)$ copies for `n` operations:
+
+> Let `n` be a power of 2. Add $\frac{n}{2}$ elements, then alternate $\frac{n}{4}$ times between doing a PushBack of an element and a PopBack.
 
 ### Solution image:
 
