@@ -490,7 +490,7 @@ $$
 ## The Physicist's Method (Potential Method) Of Amortized Analysis
 
 * The idea is that we represent different states of the data structure as different potentials using the `phi function`.
-* And by "state of the data structure", we mean any measurable property that changes as we perform operations.
+* And by "state of the data structure," we mean any measurable property that changes as we perform operations.
 * The most common measurable properties in our case are size and capacity.
 * We assume that it is incremental with time.
 * For example, initially, the data structure has 0 size, 0 capacity. So, the potential is 0.
@@ -506,6 +506,9 @@ particular time.
 
 * The state of the data structure at time `t` is always greater than or equal to `0`. It cannot be negative.:
 - $\Phi(h_t) \geq 0$
+
+* However, please note that the difference between the two potential states can be negative, showing a decrease 
+(expense, use) in the potential. (Analogy: Spending money.)
 
 ### Intuition:
 
@@ -574,7 +577,7 @@ $$
 * So, it becomes:
 
 $$
-\sum_{i = 1}^{n} c_i + \phi(h_n) \text{And it is clearly >= } \sum_{i = 1}^{n} c_i
+\sum_{i = 1}^{n} c_i + \phi(h_n) \text{ And it is clearly >= } \sum_{i = 1}^{n} c_i
 $$
 
 * The last formula effectively says that the sum of the amortized cost of each element is at least the sum of the actual 
@@ -1572,4 +1575,272 @@ perform.
 
 ### Solution image:
 
-![Solution Image](../../../../../res/coursera/ucSanDiego/course02dataStructures/module02/assignmentMcqs/mcq020.png)
+![MCQ:01 Solution Image](../../../../../res/coursera/ucSanDiego/course02dataStructures/module02/assignmentMcqs/mcq020.png)
+
+## MCQ: 02:
+
+Let's imagine we add support to our dynamic array for a new operation, `PopBack` (which removes the last element). 
+Calling `PopBack` on an empty dynamic array is an error.  
+`PopBack` reallocates the dynamically-allocated array to a new array of half the capacity if
+$size <= \frac{capacity}{4}$. 
+
+So, for example, if, before a `PopBack` the size were `5`, and the capacity were `8`, then after the `PopBack`, 
+the size would be `4`, and the capacity would (remain to) be `8`. 
+
+Only after two more `PopBack` when the size went down to `2` would the capacity go down to `4`.  
+
+We want to consider the worst-case sequence of any `n` `PushBack` and `PopBack` operations, 
+`starting with an empty dynamic array`.  
+
+What potential function would work best to show an amortized O(1) cost per operation?
+
+1. $\phi(h) = max ( 2 * size - capacity, \frac{capacity}{2} - size)$
+2. $\phi(h) = 2 * size - capacity$
+3. $\phi(h) = 2$
+4. $\phi(h) = max(0, 2 * size - capacity)$
+
+### The area of focus:
+
+* Start with an empty array.
+* Create a new array of half the capacity of the old array only if $size <= \frac{capacity}{4}$.
+* Consider the `worst-case sequence` of `PushBack` and `PopBack` operations.
+* Find (select) the `potential function` that shows the amortized cost `O(1)`.
+
+### Understanding the problem (requirements): 
+
+> The Potential Function: What are the conditions for any potential function?
+
+**Prerequisites and References:**
+
+[Physicist's Method](#the-physicists-method-potential-method-of-amortized-analysis)
+[Potential Function Rules](#the-rules-assumption-of-the-potential-function)
+
+* The state of the potential function at time 0, should be 0.
+* At any point in time, the potential function can never be negative.
+
+### What are the worst-case sequences of `PushBack` and `PopBack`?
+
+* When there is no room in the array, and we have to create a new array twice the capacity of the old array, to insert
+a new element.
+  * At this point, the difference between $size_i$ and $size_{i - 1}$ is 1.
+  * Also notice that at this point, $size_{i - 1} = capacity_{i - 1} = k$.
+  * And for the capacity, if the $capacity_{i - 1}$ was `k`, then $capacity_{i}$ is `2k`. 
+* After removing an element, if the array $size <= \frac{capacity}{4}$.
+  * At this point, the difference between $size_i$ and $size_{i - 1}$ is 1.
+  * And for the capacity, if the $capacity_{i - 1}$ was `k`, then the new capacity, $capacity_i$ becomes $\frac{k}{4}$.
+
+### Value Set Up:
+
+* **Let us consider the $capacity_{i - 1} = 8$.**
+* Now, we may not need to perform each operation here. 
+* We know when (at which point) the expensive operation happens (in which conditions).
+* We will directly test (evaluate) each option based on the [potential function theory](#the-physicists-method-potential-method-of-amortized-analysis).
+
+----
+
+#### Initial Values:
+
+* Size = 0, and capacity = 0.
+* If we put these values into any given potential function, it must result in `0`. 
+
+----
+
+#### Negativity Check:
+
+* We have mainly two scenarios.
+* The normal (inexpensive) operations that do not cause a resize.
+* The expensive operations that cause a resize (either the array grows or shrinks).
+
+> Normal Operations: No Resize
+
+* When we want to insert an element, and we have room in the array.
+* Clearly, the size is less than the capacity here.
+* Maybe, after the operation, the size can be equal to the capacity.
+* Note that the capacity remains the same before and after the insertion/removal.
+* And for both `PushBack` and `PopBack`, the difference between the size before the insertion/removal and after the
+  insertion/removal is 1.
+
+**PushBack:**
+* For `PushBack`, where we don't have to resize, we know that $size_{i - 1} < capacity_{i - 1}$ and
+  $size_{i - 1} > \frac{capacity_{i - 1}}{4}$.
+    * Because the size cannot exceed the capacity.
+    * And it cannot be equal to the capacity in this case, where we don't have to resize to insert the new element.
+* So, for `PushBack`, the $size_{i - 1}$ needs to be greater than $\frac{capacity_{i - 1}}{4} = \frac{8}{4} = 2$,
+  and less than $capacity_{i - 1} = 8$.
+* It means that, for `PushBack`, the $size_{i - 1}$ can be anything between (inclusive) `3` and `7`.
+    * So, let us take two extreme values of $size_{i - 1}$ for `PushBack`: `3` and `7`.
+
+**PopBack:**
+
+* For `PopBack`, where we don't have to resize, we know that $size_{i - 1} > \frac{capacity_{i - 1}}{4} + 1$,
+  and $size_{i -1} <= capacity_{i - 1}$.
+    * Because in this case, we don't resize (shrink).
+    * So, even after removing an element, the new $size_i$ must be greater than $\frac{capacity_{i - 1}}{4}$.
+* So, for `PopBack`, the $size_{i - 1}$ needs to be greater than $\frac{capacity_{i - 1}}{4} + 1 = \frac{8}{4} + 1 = 3$,
+  and less than or equal to the $capacity_{i - 1} = 8$.
+    * So, let us take two extreme values of $size_{i - 1}$ for `PopBack`: `4` and `8`.
+
+
+> Resize Operations:
+
+**PushBack: The array grows and gets twice the capacity of the old array.**
+
+* To force resize for a `PushBack` operation, $size_{i - 1}$ has to be equal to the $capacity_{i - 1}$.
+* So, $size_{i - 1} = capacity_{i - 1} = k = 8$.
+* Now, to insert a new element, we have to create a new array twice the capacity of the old array. 
+* So, the new capacity becomes:
+* $capacity_i = 2 * capacity_{i - 1} = 2 * k = 2 * 8 = 16$.
+* And then, we can insert the new element.
+* So, the new size becomes:
+* $size_i = size_{i - 1} + 1 = k + 1 = 8 + 1 = 9$.
+
+
+**PopBack: The array shrinks and gets half the capacity of the old array.**
+
+* To force resize (shrink) for a `PopBack` operation:
+* $size_{i - 1} = \frac{capacity_{i - 1}}{4} + 1$.
+* So, the $size_{i - 1} = \frac{k}{4} + 1 = \frac{8}{4} + 1 = 3$.
+* So, after we perform `PopBack`, the new size becomes:
+* $size_i = size_{i - 1} - 1 = (\frac{k}{4} + 1) - 1 = \frac{k}{4} = \frac{8}{4} = 2$.
+* Now, $size_i = \frac{capacity_{i - 1}}{4} = \frac{8}{4} = 2$.
+* So, it forces the resize (shrink) operation.
+* So, the new capacity becomes:
+* $capacity_i = \frac{capacity_{i - 1}}{2} = \frac{k}{2} = \frac{8}{2} = 4$.
+
+
+> Finalization:
+
+* We need to check only the `worst-case scenarios`.
+* Hence, it is enough to test each potential function, using only the `resize` values.
+
+**PushBack:**
+
+* For the resize operation by `PushBack`: 
+* $size_{i - 1} = capacity_{i - 1} = k = 8.$
+* It forces the resize operation.
+* Hence, the new capacity becomes:
+* $capacity_i = 2 * capacity_{i - 1} = 2 * k = 2 * 8 = 16$.
+* And then we insert the new element.
+* So, the new size becomes:
+* $size_i = size_{i - 1} + 1 = k + 1 = 8 + 1 = 9$.
+
+**PopBack:**
+
+* For the resize operation by `PopBack`:
+* $size_{i - 1} = \frac{capacity_{i - 1}}{4} + 1 = \frac{k}{4} + 1 = \frac{8}{4} + 1  = 3$.
+* When we remove an element, the new size becomes:
+* $size_i = size_{i - 1} - 1 = (\frac{capacity_{i - 1}}{4} + 1) - 1 = (\frac{k}{4} + 1) - 1 = (\frac{8}{4} + 1) - 1 = 2$.
+* It will force the resize operation.
+* Hence, the new capacity becomes:
+* $capacity_i = \frac{capacity_{i - 1}}{2} = \frac{k}{2} = \frac{8}{2} = 4$.
+
+----
+
+### Option-01: $\phi(h) = max(2 * size - capacity, \frac{capacity}{2} - size)$
+
+* The potential function must satisfy [the basic rules](#the-rules-assumption-of-the-potential-function). 
+
+> Initial Condition:
+
+* Size = 0, Capacity = 0.
+* If we put these values into the function:
+
+$\phi(h_0) = max(2 * size - capacity, \frac{capacity}{2} - size)$
+
+=
+
+$\phi(h_0) = max(2 * 0 - 0, \frac{0}{2} - 0)$
+
+=
+
+$\phi(h_0) = max(0, 0)$
+
+* Passed. It satisfies the initial condition.
+* Now, let us check the next condition: Non-negativity.
+* A potential cannot be negative.
+
+> Resize Operation: Through `PushBack`
+
+**Before: Using Maths**
+
+$\phi(h_{i - 1}) = max(2 * size_{i - 1} - capacity_{i - 1}, \frac{capacity_{i - 1}}{2} - size_{i - 1}$
+
+$= max(2 * k - k, \frac{k}{2} - k)$
+
+$= max(k, -\frac{k}{2})$
+
+$= k$
+
+**Before: Using Values**
+
+$\phi(h_{i - 1}) = max(2 * size_{i - 1} - capacity_{i - 1}, \frac{capacity_{i - 1}}{2} - size_{i - 1}$
+
+$= max(2 * 8 - 8, \frac{8}{2} - 8)$
+
+$= max(8, 4 - 8)$
+
+$= 8$
+
+**After: Using Maths**
+
+$\phi(h_i) = max(2 * size_i - capacity_i, \frac{capacity_i}{2} - size_i)$
+
+$= max(2 * (k + 1) - 2k, \frac{2k}{2} - (k + 1))$
+
+$= max(2k + 2 -2k, k - k + 1)$
+
+$= max(2, 1)$
+
+$= 2$
+
+**After: Using Values**
+
+$\phi(h_i) = max(2 * size_i - capacity_i, \frac{capacity_i}{2} - size_i)$
+
+$= max(2 * 9 - 16, \frac{16}{2} - 9)$
+
+$= max(2, -1)$
+
+$= 2$
+
+**Conclusion:**
+
+* Passed. 
+
+> Resize Operation: Through `PopBack`
+
+**Before: Using Maths**
+
+$\phi(h_{i - 1}) = max(2 * size_{i - 1} - capacity_{i - 1}, \frac{capacity_{i - 1}}{2} - size_{i - 1})$
+
+$= max(2 * (\frac{capacity_{i - 1}}{4} + 1), \frac{capacity_{i - 1}}{2} - (\frac{capacity_{i - 1}}{4} + 1))$
+
+$= max()$
+
+**Before: Using Values**
+
+$\phi(h_{i - 1}) = max(2 * size_{i - 1} - capacity_{i - 1}, \frac{capacity_{i - 1}}{2} - size_{i - 1})$
+
+$= max(2 * 3 - 8, \frac{8}{2} - 3)$
+
+$= max(-2, 1)$
+
+$= 1$
+
+**After:**
+
+$\phi(h_i) = max(2 * size_i - capacity_i, \frac{capacity_i}{2} - size_i)$
+
+$= max(2 * 2 - 4, \frac{4}{2} - 2)$
+
+$= max(0, 0)$
+
+$= 0$
+
+**Conclusion:**
+
+* Passed.
+
+### Solution image:
+
+![MCQ:02 Solution Image](../../../../../res/coursera/ucSanDiego/course02dataStructures/module02/assignmentMcqs/mcq030.png)
