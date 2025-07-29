@@ -1734,6 +1734,11 @@ a new element.
 * Hence, the new capacity becomes:
 * $capacity_i = \frac{capacity_{i - 1}}{2} = \frac{k}{2} = \frac{8}{2} = 4$.
 
+**Amortized Cost:**
+
+* Finally, calculate the amortized cost for a valid potential function.
+* And select the potential function that gives `O(1)` amortized cost.
+
 ----
 
 ### Option-01: $\phi(h) = max(2 * size - capacity, \frac{capacity}{2} - size)$
@@ -1771,6 +1776,8 @@ $= max(k, -\frac{k}{2})$
 
 $= k$
 
+* It is a positive value.
+
 **Before: Using Values**
 
 $\phi(h_{i - 1}) = max(2 * size_{i - 1} - capacity_{i - 1}, \frac{capacity_{i - 1}}{2} - size_{i - 1}$
@@ -1780,6 +1787,8 @@ $= max(2 * 8 - 8, \frac{8}{2} - 8)$
 $= max(8, 4 - 8)$
 
 $= 8$
+
+* It is a positive value.
 
 **After: Using Maths**
 
@@ -1793,6 +1802,8 @@ $= max(2, 1)$
 
 $= 2$
 
+* It is a positive value.
+
 **After: Using Values**
 
 $\phi(h_i) = max(2 * size_i - capacity_i, \frac{capacity_i}{2} - size_i)$
@@ -1803,9 +1814,33 @@ $= max(2, -1)$
 
 $= 2$
 
+* It is a positive value.
+
+> Amortized Cost = Actual Cost + Potential Difference
+
+**Using Maths:**
+
+$c_a = size_i + (2 - k)$
+
+$= (k + 1 + 2 - k)$
+
+$= 3$
+
+* It is a constant `O(1)` amortized cost.
+
+**Using Values:**
+
+$c_a = size_i + (2 - 8)$
+
+$= 9 + 2 - 8$
+
+$= 3$
+
+* It is a constant `O(1)` amortized cost.
+
 **Conclusion:**
 
-* Passed. 
+* Passed.
 
 > Resize Operation: Through `PopBack`
 
@@ -1813,9 +1848,36 @@ $= 2$
 
 $\phi(h_{i - 1}) = max(2 * size_{i - 1} - capacity_{i - 1}, \frac{capacity_{i - 1}}{2} - size_{i - 1})$
 
-$= max(2 * (\frac{capacity_{i - 1}}{4} + 1), \frac{capacity_{i - 1}}{2} - (\frac{capacity_{i - 1}}{4} + 1))$
+$= max(2 * (\frac{capacity_{i - 1}}{4} + 1) - capacity_{i - 1}, \frac{capacity_{i - 1}}{2} - (\frac{capacity_{i - 1}}{4} + 1))$
 
-$= max()$
+$= max((\frac{2 * capacity_{i - 1}}{4} + 2) - capacity_{i - 1}, (\frac{capacity_{i - 1}}{2} - \frac{capacity_{i - 1}}{4} - 1))$
+
+$= max( (\frac{capacity_{i - 1}}{2} + 2) - capacity_{i - 1}, (\frac{capacity_{i - 1}}{4} - 1) )$
+
+$= max( (2 - \frac{capacity_{i - 1}}{2}), (\frac{capacity_{i - 1}}{4} - 1) )$
+
+* Now, we know example values for which the `PopBack` operation causes a resize (shrinking).
+* For example, if the $capacity_{i - 1}$ is `8`, and the $size_{i - 1}$ is `3`.
+* If we put (use) these values in the above expression (formula, equation), we get:
+
+$= max((2 - \frac{8}{2}), (\frac{8}{4} - 1))$
+
+$= max((-2), (1))$
+
+$= 1$.
+
+* There are two meanings of this final value here.
+  * It is certain that the result is positive. 
+  * As we increase the capacity, after a certain point in time, it is certain that the second term will be the maximum
+  one.
+
+* Hence:
+
+$= max( (2 - \frac{capacity_{i - 1}}{2}), (\frac{capacity_{i - 1}}{4} - 1) )$
+
+$= (\frac{capacity_{i - 1}}{4}) - 1$ will be the maximum value as we keep increasing the capacity.
+
+* It is a positive value.
 
 **Before: Using Values**
 
@@ -1827,7 +1889,28 @@ $= max(-2, 1)$
 
 $= 1$
 
-**After:**
+* It is a positive value.
+
+**After: Using Maths**
+
+$\phi(h_i) = max(2 * size_i - capacity_i, \frac{capacity_i}{2} - size_i)$
+
+* Now, we know that $size_i$ must become $<= \frac{capacity_{i - 1}}{4}$ to trigger the resize (shrink) operation.
+* So, we can take $size_i = \frac{capacity_{i - 1}}{4}$.
+* And we know that the new capacity becomes:
+* $capacity_i = \frac{capacity_{i - 1}}{2}$.
+
+$= max((2 * \frac{capacity_{i - 1}}{4} - \frac{capacity_{i - 1}}{2}), (\frac{\frac{capacity_{i - 1}}{2}}{2} - \frac{capacity_{i - 1}}{4}))$
+
+$= max((\frac{capacity_{i - 1}}{2} - \frac{capacity_{i - 1}}{2}), (\frac{capacity_{i - 1}}{4} - \frac{capacity_{i - 1}}{4}))$
+
+$= max(0, 0)$
+
+$= 0$
+
+* It is a positive value.
+
+**After: Using Values**
 
 $\phi(h_i) = max(2 * size_i - capacity_i, \frac{capacity_i}{2} - size_i)$
 
@@ -1837,9 +1920,300 @@ $= max(0, 0)$
 
 $= 0$
 
+* It is a positive value.
+
+> Amortized Cost = Actual Cost + Potential Difference
+
+**Using Maths:**
+
+$c_a = size_i + (\phi(h_i) - \phi(h_{i - 1}))$
+
+$c_a = size_i + (0 - (\frac{capacity_{i - 1}}{4} - 1))$
+
+$= \frac{capacity_{i - 1}}{4} - \frac{capacity_{i - 1}}{4} + 1$
+
+$= 1$
+
+* The amortized cost is constant `O(1)`.
+
+**Using Values**
+
+$c_a = size_i + (\phi(h_i) - \phi(h_{i - 1}))$
+
+$= 2 + (0 - 1)$
+
+$= 1$
+
+* The amortized cost is constant `O(1)`. 
+
+> Conclusion:
+
+* Passed all the checks.
+* Passed the initial condition.
+* Passed the non-negativity condition.
+* Gives a constant amortized cost.
+
+### Option:02: $\phi(h) = 2 * size - capacity$
+
+> Initial Condition: 
+
+$= 2 * size - capacity$
+
+$= 2 * 0 - 0$
+
+$= 0$
+
+* Passed.
+
+> Negativity Check: For `PushBack`
+
+**Previous state: Using Maths:**
+
+$\phi(h_{i - 1}) = 2 * size_{i - 1} - capacity_{i - 1}$
+
+$= 2 * k - k$
+
+$= k$
+
+**Previous state: Using Values:**
+
+$\phi(h_{i - 1}) = 2 * size_{i - 1} - capacity_{i - 1}$
+
+$= 2 * 8 - 8$
+
+$= 8$
+
+**After state: Using Maths**
+
+$\phi(h_{i}) = 2 * size_i - capacity_i$
+
+$= 2 * (k + 1) - 2k$
+
+$= 2k + 2 - 2k$
+
+$= 2$
+
+**After state: Using Values:**
+
+$\phi(h_i) = 2 * size_i - capacity_i$
+
+$= 2 * (8 + 1) - 16$
+
+$= 16 + 2 - 16$
+
+$= 2$
+
 **Conclusion:**
 
 * Passed.
+
+> Negativity Check: For `PopBack`:
+
+**Previous state: Using Maths**
+
+$\phi(h_{i - 1}) = 2 * size_{i - 1} - capacity_{i - 1}$
+
+$= 2 * \frac{capacity_{i - 1}}{4} - capacity_{i - 1}$
+
+$= \frac{capacity_{i - 1}}{2} - capacity_{i - 1}$
+
+$= - \frac{capacity_{i - 1}}{2}$
+
+**Conclusion**
+
+* Negative.
+
+**Previous state: Using Values:**
+
+$\phi(h_{i - 1}) = 2 * size_{i - 1} - capacity_{i - 1}$
+
+$= 2 * \frac{capacity_{i - 1}}{4} - capacity_{i - 1}$
+
+$= 2 * \frac{8}{4} - 8 $
+
+$= 4 - 8$
+
+$= -4$
+
+**Conclusion:**
+
+* Negative.
+
+> Conclusion:
+
+* It did not pass all the checks.
+* It passed the initial condition.
+* But it failed the non-negativity check for the `PopBack` condition. 
+
+### Option: 03: $\phi(h) = 2$
+
+> Initial Condition
+
+* There are no `size` and `capacity` variables (components) in the given potential function.
+* The given potential function suggests a constant (steady) potential throughout all the cases.
+* It means that the given potential function suggests that even at time `0`, the potential is, `2`.
+* It immediately breaks the rule (condition) that **the potential must be `0` at time `0`.**
+
+**Conclusion:**
+
+* Negative. It did not pass the initial condition.
+
+### Option: 04: $\phi(h) = max(0, 2 * size - capacity)$
+
+> Initial Condition:
+
+$\phi(h_0) = max(0, 2 * 0 - 0)$
+
+$= max(0, 0)$
+
+$= 0$
+
+**Conclusion:**
+
+* Passed.
+
+> Negative check: For `PushBack`
+
+**Previous state: Using Maths**
+
+$\phi_{i - 1} = max(0, 2 * size_{i - 1} - capacity_{i - 1})$
+
+$= max(0, 2 * capacity_{i - 1} - capacity_{i - 1})$
+
+$= max(0, capacity_{i - 1})$
+
+$= capacity_{i - 1}$
+
+**Previous state: Using Values**
+
+$\phi(h_{i - 1}) = max(0, 2 * size_{i - 1} - capacity_{i - 1})$
+
+$= max(0, 2 * 8 - 8)$
+
+$= 8$
+
+**After state: Using Maths:**
+
+$\phi(h_i) = max(0, 2 * size_i - capacity_i)$
+
+$= max(0, 2 * (size_{i - 1} + 1) - 2 * capacity_{i - 1})$
+
+$= max(0, 2 * (capacity_{i - 1}) + 1 - 2 * capacity_{i - 1})$
+
+$= max(0, 2 * capacity_{i - 1} + 2 - 2 * capacity_{i - 1})$
+
+$= max(0, 2)$
+
+$= 2$
+
+**After state: Using Values:**
+
+$\phi(h_i) = max(0, 2 * size_i - capacity_i)$
+
+$= max(0, 2 * 9 - 16)$
+
+$= max(0, 18 - 16)$
+
+$= 2$
+
+> Amortized Cost = Actual Cost + Potential Difference
+
+**Using Maths:**
+
+$c_a = size_i + (\phi(h_i) - \phi(h_{i - 1}))$
+
+$= size_i + (2 - capacity_{i - 1})$
+
+$= (size_{i - 1} + 1) + (2 - capacity_{i - 1})$
+
+$= (capacity_{i - 1} + 1) + (2 - capacity_{i - 1})$
+
+$= 3$
+
+* It is a constant amortized cost `O(1)`.
+
+**Using Values:**
+
+$c_a = size_i + (\phi(h_i) - \phi(h_{i - 1}))$
+
+$= 9 + 2 - 8$
+
+$= 3$
+
+* It is a constant amortized cost, `O(1)`.
+
+> Negativity Check: For `PopBack`
+
+**Previous state: Using Maths**
+
+$\phi(h_{i - 1}) = max(0, 2 * size_{i - 1} - capacity_{i - 1})$
+
+$= max(0, 2 * (\frac{capacity_{i - 1}}{4} + 1) - capacity_{i - 1})$
+
+$= max(0, \frac{capacity_{i - 1}}{2} + 2 - capacity_{i - 1})$
+
+$= max(0, 2 - \frac{capacity_{i - 1}}{2})$
+
+$= 0$
+
+**Previous state: Using Values**
+
+$\phi(h_{i - 1}) = max(0, 2 * size_{i - 1} - capacity_{i - 1})$
+
+$= max(0, 2 * 3 - 8)$
+
+$= max(0, -2)$
+
+$= 0$
+
+**After state: Using Maths:**
+
+$\phi(h_{i}) = max(0, 2 * size_{i} - capacity_{i})$
+
+$= max(0, 2 * (\frac{capacity_{i - 1}}{4}) - \frac{capacity_{i - 1}}{2})$
+
+$= max(0, 0)$
+
+$= 0$
+
+**After state: Using Values:**
+
+$\phi(h_i) = max(0, 2 * size_i - capacity_i)$
+
+$= max(0, 2 * 2 - 4)$
+
+$= max(0, 0)$
+
+$= 0$
+
+> Amortized Cost = Actual Cost + Potential Difference
+
+**Using Maths:**
+
+$c_a = size_i + (\phi(h_i) - \phi(h_{i - 1}))$
+
+$= (\frac{capacity_{i - 1}}{4}) + (0 - 0)$
+
+$= \frac{capacity_{i - 1}}{4}$
+
+* If we drop the constant, $\frac{1}{4}$, the amortized cost is directly proportional to $capacity_{i - 1}$. 
+* It means that if $capacity_{i - 1}$ is `n`, then the amortized cost is `O(n)`.
+
+> Conclusion:
+
+* This potential function passed all the checks.
+* It passed the initial condition.
+* It passed the non-negativity checks.
+* However, the amortized cost of this function is `O(n)`.
+* On the other hand, [option#1](#option-01-phih--max2--size---capacity-fraccapacity2---size) gives `O(1)` amortized cost.
+
+### Final Result/Solution:
+
+* Only two potential functions are valid.
+* [Option#1](#option-01-phih--max2--size---capacity-fraccapacity2---size) and [Option#4](#option-04-phih--max0-2--size---capacity).
+* Out of which, only one potential function gives `O(1)` amortized cost.
+* And it is: [Option#01](#option-01-phih--max2--size---capacity-fraccapacity2---size). 
+* So, the right answer is: [Option#01](#option-01-phih--max2--size---capacity-fraccapacity2---size).
 
 ### Solution image:
 
