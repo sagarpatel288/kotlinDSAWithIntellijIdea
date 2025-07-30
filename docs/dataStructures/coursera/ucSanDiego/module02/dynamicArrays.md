@@ -2268,6 +2268,8 @@ $= 1$
 * Passed the non-negativity condition.
 * Gives a constant amortized cost.
 
+----
+
 ### Option:02: $\phi(h) = 2 * size - capacity$
 
 #### Initial Condition
