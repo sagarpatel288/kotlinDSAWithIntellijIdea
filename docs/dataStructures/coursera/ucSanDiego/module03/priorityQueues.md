@@ -16,6 +16,26 @@
 
 ## Definition
 
+```markdown
+
+         Container                         
+                                           
+┌────────────────────────┐                 
+│                        │     peek() = 7  
+│   5                7   │                 
+│                        │     remove() = 7
+│                        │                 
+│                        │     remove() = 5
+│           1            │                 
+│                        │     remove() = 4
+│                        │                 
+│                        │     remove() = 3
+│           3        4   │                 
+│                        │     remove() = 1
+└────────────────────────┘                 
+
+```
+
 * A `Priority Queue` is an abstract data type where each element has a priority.
 * We use this `priority` to perform various operations.
 * For example, when we call `remove`, the element with the highest priority is
@@ -83,3 +103,125 @@
 * We can also provide this custom, external comparator for the classes that implement the Comparable interface.
 * In that case, the custom, external comparator takes priority as it conveys that we want to overwrite the default,
 implemented Comparable interface.
+
+## What is the problem if we implement a priority queue using an array?
+
+* There are two ways to implement a priority queue using an array.
+  * Using an unsorted array.
+  * Using a sorted array.
+  
+### Using an unsorted array
+
+* Inserting an element takes `O(1)`.
+
+```markdown
+┌─────┌─────┌─────┌─────┌─────┌─────┐
+│  3  │  9  │  16 │  10 │  2  │  7  │
+└─────└─────└─────└─────└─────└─────┘
+```
+
+* But, finding the maximum takes `O(n)`, because we have to scan through the entire array.
+* And we cannot even use the binary search here, because the array is not sorted.
+* So, finding the element with maximum priority takes `O(n)` time. 
+
+### Using a sorted array
+
+```markdown
+
+Indices       0     1     2     3     4
+
+           ┌─────┐─────┌─────┌─────┐─────┐            
+           │  2  │  3  │  9  │  10 │  16 │            
+           └─────┘─────└─────└─────┘─────┘            
+                          \      \     \              
+                           \      \     \             
+                            \      \     \            
+                             \      \     \           
+                              \      \     \          
+                               ▼      ▼     ▼         
+
+Indices       0     1     2     3     4     5
+
+           ┌─────┐─────┌─────┐─────┌─────┐─────┐      
+           │  2  │  3  │  7  │  9  │  10 │  16 │      
+           └─────┘─────└─────┘─────└─────┘─────┘      
+                                                      
+              \      \     \    \     \      \        
+               \      \     \    \     \      \       
+                \      \     \    \     \      \      
+                 \      \     \    \     \      \     
+                  \      \     \    \     \      \    
+                   ▼      ▼     ▼    ▼     ▼      ▼   
+
+Indices       0     1     2     3     4     5     6
+
+           ┌─────┐─────┐─────┌─────┐─────┌─────┐─────┐
+           │  1  │  2  │  3  │  7  │  9  │  10 │  16 │
+           └─────┘─────┘─────└─────┘─────└─────┘─────┘
+
+```
+
+* If we use a sorted array, then we can get the maximum element, the element with the highest priority, in `O(1)`.
+* However, to insert an element, we have two options:
+
+#### Linear insertion
+
+* We scan through the array and find the right position to insert the new element.
+* However, it takes `O(n)`.
+
+#### Binary Search
+
+* This is a better option than the linear search and insertion. 
+* It takes `log n` time to find the right position to insert the new element.
+* However, just because this is an array, if the new element that we want to insert or remove is the smallest one, 
+  all the other elements will have to shift their positions.
+* And this shifting takes `O(n)` time in the worst-case.
+
+#### Conclusion for the Sorted Array
+
+* So, in one way or another, we get `O(n)` time complexity for the insertion.
+
+### Conclusion for the Array
+
+* If we use an unsorted array, we get `O(n)` time for finding the element with maximum priority.
+* If we use a sorted array, we get `O(n)` time for inserting an element due to the position shifting process of the 
+  array.
+
+## What is the problem if we implement a priority queue using a linked list?
+
+* Similar to an array implementation, we have two ways to use a linked list for a priority queue.
+
+### Using an Unsorted Linked List
+
+* If we use a sorted linked list, inserting an element is `O(1)`. 
+* However, to find the element having maximum priority takes `O(n)` in the worst case, because we have to scan through 
+  the entire list.
+
+### Using a Sorted Linked List
+
+* Finding the element that has the maximum priority takes `O(1)`.
+* However, to insert an element at the right position takes `O(n)`, because we have to scan through the entire list 
+  to find the right position.
+
+### Conclusion
+
+* If we use an unsorted linked list, then finding the element with maximum priority takes `O(n)`.
+* If we use a sorted linked list, then inserting an element at the right position takes `O(n)`.
+
+## Can't we use binary search to find the right position to insert a new element in a sorted linked list?
+
+[Basic Data Structures](../module01/questionsOnBasicDataStructures.md)
+
+* We cannot use binary search for a linked list, because a linked list does not give us random access in `O(1)`.
+* A linked list does not give us random access in `O(1)`, because it is not a contiguous data structure.
+* It means that the previous and the next elements are not neighbours in the memory.
+* The previous and next elements are scattered in the memory.
+* It means that we cannot use `index` to find any element in `O(1)`.
+* In a binary search, we use `indices` to get any element in `O(1)` time, and adjust our boundaries accordingly.
+* For example, we might have the `start` index and the `end` index. 
+* So, we might get the element at the `middle` index, and compare it with the element that we want to insert.
+* If the new element is higher than the `middle` element, the `middle` becomes the `start` index.
+* If the new element is lower than the `middle` element, the `middle` becomes the `end` index.
+* And so on...
+* But in a linked list, we can't have `indices`. 
+* So, we can't use the binary search in a linked list.
