@@ -597,7 +597,7 @@ flowchart TD
     classDef invis opacity:0;
 
 L[Free Online Mermaid Editor]    
-click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor"
+click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _blank
 ```
 
 ### Depth-First
