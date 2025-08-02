@@ -210,7 +210,7 @@ Indices       0     1     2     3     4     5     6
 
 ## Can't we use binary search to find the right position to insert a new element in a sorted linked list?
 
-[Basic Data Structures](../../module01/questionsOnBasicDataStructures.md)
+[Basic Data Structures](../../module01BasicDataStructures/questionsOnBasicDataStructures.md)
 
 * We cannot use binary search for a linked list, because a linked list does not give us random access in `O(1)`.
 * A linked list does not give us random access in `O(1)`, because it is not a contiguous data structure.
