@@ -59,10 +59,10 @@
 
 ##### How to remember? The story: Story Time
 
-* Imagine that there is a tyrant king with maximum power, position, and ego.
-* Pulling down the king becomes the topmost priority of the people in the kingdom.
-* However, people cannot pull down the king as long as he is in the highest position.
-* Also, people cannot detach the king without a good replacement. Otherwise, the kingdom would become vulnerable.
+* Imagine that there was a tyrant king with maximum power, position, and ego.
+* Pulling down the king became the topmost priority of the people in the kingdom.
+* However, people could not pull down the king as long as he was in the highest position.
+* Also, people cannot detach the king without a good replacement. Otherwise, the kingdom would've become vulnerable.
 * So, people needed a good replacement for the king. 
 * People started looking for someone down-to-earth and meeting the bottom-to-top system requirements.
 * People found a diamond-like person from the bottom of the system (a leaf).
@@ -124,8 +124,8 @@
 * So, this is the second part of the story, ok?
 * People identified the root cause of the tyrannical king.
 * They found that the king was made tyrannical by a friend of the king.
-* People found that person and decided to exile that friend from the kingdom.
-* But it was not easy. The king would never let it happen.
+* People found that person and decided to exile that person from the kingdom.
+* But it was not easy. The king would never let it happen. After all, they were friends!
 * In this case, people have two problems. The king and the friend.
 * So, people executed a clever plan.
 * People increased the power and position of the friend so much that the friend became a new king.
