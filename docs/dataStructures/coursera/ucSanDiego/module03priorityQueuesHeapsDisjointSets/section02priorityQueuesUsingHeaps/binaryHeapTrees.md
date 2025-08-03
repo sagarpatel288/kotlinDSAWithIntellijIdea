@@ -125,14 +125,14 @@
 * People identified the root cause of the tyrannical king.
 * They found that the king was made tyrannical by a friend of the king.
 * People found that person and decided to exile that person from the kingdom.
-* But it was not easy. The king would never let it happen. After all, they were friends!
+* But it wasn't easy. The king would never have allowed it. After all, they were friends!
 * In this case, people have two problems. The king and the friend.
 * So, people executed a clever plan.
 * People increased the power and position of the friend so much that the friend became a new king.
 * Now, people have only one problem. The new king.
 * The king has the highest power.
 * So, people called the same [extractMax](#extractmax-or-poll--siftdown-) process.
-* And this is how people ensure the stability in the kingdom.
+* And this is how people ensured the stability in the kingdom.
 
 ##### Process
 
