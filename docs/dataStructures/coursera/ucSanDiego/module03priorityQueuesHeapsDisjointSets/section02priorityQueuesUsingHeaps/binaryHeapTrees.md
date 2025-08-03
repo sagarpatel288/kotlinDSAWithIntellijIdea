@@ -29,7 +29,7 @@
 * So, we simply return the root node.
 * It is `O(1)` time.
 
-#### Insert (or add) = `SiftUp` (How to remember? It is an `append`)
+#### Insert (or add) = `SiftUp` 
 
 ![040insertOfBinaryMaxHeap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/040insertOfBinaryMaxHeap.png)
 
@@ -43,6 +43,15 @@
 * We can see that we insert the element as a leaf and travel upwards towards the root.
 * So, the time complexity of this operation depends on the tree height.
 * Hence, it is `O(tree height)`.
+
+##### How to remember? 
+
+* `add` is `append` = `up` from the `end`!
+* Imagine a nurse who has **a syringe or a needle (an injection)**.
+  * She **inserts** it into a vein and **pushes the plunger upward**.
+* Imagine a **carjacking**.
+  * We **insert** the jack under the vehicle's jack point.
+  * We use the lever to push the jack arms (lifting arms) **upward** to lift the car. 
 
 #### ExtractMax (or poll) = `SiftDown` 
 
@@ -82,6 +91,11 @@
 * As a result of this process, the leaf node might travel all the way from top to bottom.
 * The traversal is clearly proportional to the tree height.
 * Hence, the time complexity of this process is `O(tree height)`.
+
+##### How to remember? 02
+
+* Remember the nurse from the [insert operation](#insert-or-add--siftup-)?
+  * She pulls the plunger downward to extract the blood from the vein. Right?
 
 #### changePriority: Increase = `SiftUp`, Decrease = `SiftDown`.
 
