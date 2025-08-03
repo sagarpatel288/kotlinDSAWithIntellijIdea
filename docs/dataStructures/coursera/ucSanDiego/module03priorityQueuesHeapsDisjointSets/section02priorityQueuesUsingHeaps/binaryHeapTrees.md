@@ -95,7 +95,7 @@
 ##### How to remember? 02
 
 * Remember the nurse from the [insert operation](#insert-or-add--siftup-)?
-  * She pulls the plunger downward to extract the blood from the vein. Right?
+  * She pulls the plunger **downward to extract** the blood from the vein. Right?
 
 #### changePriority: Increase = `SiftUp`, Decrease = `SiftDown`.
 
