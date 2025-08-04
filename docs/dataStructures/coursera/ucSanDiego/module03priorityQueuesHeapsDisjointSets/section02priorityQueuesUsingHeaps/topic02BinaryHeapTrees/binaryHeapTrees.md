@@ -1,11 +1,32 @@
 # Binary Heap Trees
 
+<!-- TOC -->
+* [Binary Heap Trees](#binary-heap-trees)
+  * [Resources / References](#resources--references-)
+  * [Binary Max Heap Tree](#binary-max-heap-tree)
+    * [Definition](#definition)
+    * [Common Operations](#common-operations)
+    * [Time Complexity Of Each Operation](#time-complexity-of-each-operation)
+      * [GetMax (or peek, max)](#getmax-or-peek-max)
+      * [Insert (or add) = `SiftUp`](#insert-or-add--siftup-)
+        * [How to remember?](#how-to-remember-)
+      * [ExtractMax (or poll) = `SiftDown`](#extractmax-or-poll--siftdown-)
+        * [How to remember? The story: Story Time](#how-to-remember-the-story-story-time)
+        * [How does `ExtractMax` work?](#how-does-extractmax-work)
+        * [How to remember? 02](#how-to-remember-02)
+      * [changePriority: Increase = `SiftUp`, Decrease = `SiftDown`.](#changepriority-increase--siftup-decrease--siftdown)
+      * [Remove](#remove)
+        * [The Story Time](#the-story-time)
+        * [Process](#process)
+    * [Question: Binary Max Heap Tree Height](#question-binary-max-heap-tree-height)
+<!-- TOC -->
+
 ## Resources / References 
 
 * [Tree Basics](../../../module01BasicDataStructures/section03trees/trees.md)
 * Why `Binary Heap Trees`? What is the purpose? Why do we need it? When do we need it? 
   * [Previous: Priority Queue And Naive Implementations](../../section01priorityQueuesIntroduction/priorityQueues.md)
-* [Next]()  
+* [Next](../topic03CompleteBinaryTrees/completeBinaryTrees.md))  
 
 ## Binary Max Heap Tree
 
