@@ -232,4 +232,4 @@ Indices       0     1     2     3     4     5     6
 
 ## Explain a binary heap tree.
 
-[binaryHeapTrees.md](../section02priorityQueuesUsingHeaps/binaryHeapTrees.md)
+[binaryHeapTrees.md](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)

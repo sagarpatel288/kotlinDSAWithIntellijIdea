@@ -1,14 +1,19 @@
 # Binary Heap Trees
 
-[Previous: Priority Queue And Naive Implementations: priorityQueues.md](../section01priorityQueuesIntroduction/priorityQueues.md)
+## Resources / References 
+
+* [Tree Basics](../../../module01BasicDataStructures/section03trees/trees.md)
+* Why `Binary Heap Trees`? What is the purpose? Why do we need it? When do we need it? 
+  * [Previous: Priority Queue And Naive Implementations](../../section01priorityQueuesIntroduction/priorityQueues.md)
+* [Next]()  
 
 ## Binary Max Heap Tree
 
 ### Definition
 
-![010maxHeapBinaryTreeExample.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/010maxHeapBinaryTreeExample.png)
+![010maxHeapBinaryTreeExample.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/010maxHeapBinaryTreeExample.png)
 
-![020nonBinaryMaxHeapTree.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/020nonBinaryMaxHeapTree.png)
+![020nonBinaryMaxHeapTree.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/020nonBinaryMaxHeapTree.png)
 
 * It is a binary tree where the parent node (the top node of an edge) is always greater than or equal to the child 
   node (the bottom node of the edge).
@@ -23,7 +28,7 @@
 
 #### GetMax (or peek, max)
 
-![030getMaxOfBinaryMaxHeapTree.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/030getMaxOfBinaryMaxHeapTree.png)
+![030getMaxOfBinaryMaxHeapTree.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/030getMaxOfBinaryMaxHeapTree.png)
 
 * For a binary max heap tree, as per the definition, the root node has the highest value.
 * So, we simply return the root node.
@@ -31,7 +36,7 @@
 
 #### Insert (or add) = `SiftUp` 
 
-![040insertOfBinaryMaxHeap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/040insertOfBinaryMaxHeap.png)
+![040insertOfBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/040insertOfBinaryMaxHeap.png)
 
 * We insert a new element as a leaf.
 * It may violate the binary max heap [structure (rules)](#definition).
@@ -55,7 +60,7 @@
 
 #### ExtractMax (or poll) = `SiftDown` 
 
-![060extractMaxOfBinaryMaxHeap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/060extractMaxOfBinaryMaxHeap.png)
+![060extractMaxOfBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/060extractMaxOfBinaryMaxHeap.png)
 
 ##### How to remember? The story: Story Time
 
@@ -99,7 +104,7 @@
 
 #### changePriority: Increase = `SiftUp`, Decrease = `SiftDown`.
 
-![070changePriorityBinaryMaxHeap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/070changePriorityBinaryMaxHeap.png)
+![070changePriorityBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/070changePriorityBinaryMaxHeap.png)
 
 * Increasing the priority is like inserting an element. So, we follow the `SiftUp` process.
   * In the `SiftUp` process, we compare the element with the parent node.
@@ -115,7 +120,7 @@
 
 #### Remove
 
-![080removeBinaryMaxHeap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/080removeBinaryMaxHeap.png)
+![080removeBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/080removeBinaryMaxHeap.png)
 
 ##### The Story Time
 
@@ -145,4 +150,4 @@
 
 ### Question: Binary Max Heap Tree Height
 
-![050questionBinaryMaxHeapHeight.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/050questionBinaryMaxHeapHeight.png)
+![050questionBinaryMaxHeapHeight.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/050questionBinaryMaxHeapHeight.png)
