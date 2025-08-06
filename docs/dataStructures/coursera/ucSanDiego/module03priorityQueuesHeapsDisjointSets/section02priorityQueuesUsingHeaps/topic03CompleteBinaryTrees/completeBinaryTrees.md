@@ -10,7 +10,7 @@
 ![01definitionCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/01definitionCompleteBinaryTree.png)
 
 * A complete binary tree is a binary tree where all the levels are completely filled, except maybe the last level.
-* The last level can be empty, partially filled, or completely filled.
+* The last level can be partially filled. (If the last level is also completely filled, it becomes a perfect binary tree.)
 * The last level must follow the left-to-right filling order.
 * It means that if we have a node on the right side, there must be a node on the left side as well. 
 * We cannot have a node on the right side without a node on the left side. 
