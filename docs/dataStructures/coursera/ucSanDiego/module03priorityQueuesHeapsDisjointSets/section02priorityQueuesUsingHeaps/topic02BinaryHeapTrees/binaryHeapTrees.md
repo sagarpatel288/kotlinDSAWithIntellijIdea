@@ -36,14 +36,21 @@
 
 ![020nonBinaryMaxHeapTree.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/020nonBinaryMaxHeapTree.png)
 
-* It is a binary tree where the parent node (the top node of an edge) is always greater than or equal to the child 
-  node (the bottom node of the edge).
-* And it is a binary tree. It means that a node can have 0, 1, or 2 children.
+* A binary max heap tree must satisfy the following two properties.
+  * Heap Property
+  * Structure Property
+* **Heap Property:** It is a binary tree where the parent node (the top node of an edge) is always greater than or equal to the child node (the bottom node of the edge).
+  * Technically speaking, for every node `n`, it must be greater than or equal to its children.
+  * It ensures that the largest value is always at the root node.
+* **Structure Property:** It must be a [complete binary tree](../topic03CompleteBinaryTrees/completeBinaryTrees.md). 
+  * It means that all the levels except perhaps the last level are completely filled.
+  * If all the levels are completely filled, including the last level, and all the leaves are at the same level, then it is a perfect binary tree.
+  * But if the last level is not completely filled, it must follow the left-to-right node alignment.
 * A node cannot have more than 2 children.
 
 ### Common Operations
 
-* getMax(or peek), insert(or add), extractMax(or poll), changePriority, remove, etc.
+* getMax(or max, peek), insert(or add), extractMax(or poll), changePriority, remove, etc.
 
 ### Time Complexity Of Each Operation
 
