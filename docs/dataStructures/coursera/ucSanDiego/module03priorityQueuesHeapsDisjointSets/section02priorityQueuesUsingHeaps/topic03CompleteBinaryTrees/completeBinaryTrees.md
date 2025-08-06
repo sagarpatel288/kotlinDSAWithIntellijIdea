@@ -2,8 +2,8 @@
 
 ## References / Resources
 
+* [Coursera UC San Diego Data Structures: Module 03: Chapter: 07](https://coursera.org/share/1af99b3a881ef28fae92e150435df0f7)
 * [The CS Underdog](https://youtu.be/tUSF7I9cr_k?si=I5QyojPLAGVgmm6J)
-* 
 
 ## Definition
 
