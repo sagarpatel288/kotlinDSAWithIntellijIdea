@@ -254,5 +254,5 @@ $h = \lfloor\log_2(n)\rfloor$
 
 * We know that in the [extractMax](../topic02BinaryHeapTrees/binaryHeapTrees.md#extractmax-or-poll--siftdown-) operation, we replace (swap) the root node (with the highest priority or value) with the leaf node.
   * We just need to ensure that the leaf node is the last leaf node of the tree.
-  * So, it will be the right-most leaf node of the last level.
+  * So, it will be the left-aligned, but the right-most leaf node of the last level. (If this line creates confusion, then avoid it!)
 * And then, we can simply follow the `SiftDown` procedure.
