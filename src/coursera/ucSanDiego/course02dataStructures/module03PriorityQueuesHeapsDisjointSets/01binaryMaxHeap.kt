@@ -240,7 +240,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
     }
 
     private fun swap(positionOne: Int, positionTwo: Int) {
-        if (positionOne >= 0 && positionOne < heap.size && positionTwo >= 0 && positionTwo < heap.size) {
+        if (heap.isNotEmpty() && positionOne in 0..<heap.size && positionTwo in 0..<heap.size) {
             val temp = heap[positionOne]
             heap[positionOne] = heap[positionTwo]
             heap[positionTwo] = temp
@@ -280,7 +280,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * * It means that we need to check if the element has a parent or not before comparison.
      */
     private fun siftUp(fromIndex: Int) {
-        if (heap.isEmpty() || fromIndex <= 0 || fromIndex > heap.lastIndex) return
+        if (heap.isEmpty() || fromIndex !in 0..<heap.size) return
         var childIndex = fromIndex
         // As long as the child is greater than the parent, we keep swapping the positions.
         while (hasParent(childIndex) && heap[childIndex] > heap[getParentIndexOf(childIndex)]) {
@@ -332,7 +332,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * This is how it maintains the binary max heap tree.
      */
     private fun siftDown(fromIndex: Int) {
-        if (heap.isEmpty() || fromIndex < 0 || fromIndex > heap.lastIndex) return
+        if (heap.isEmpty() || fromIndex !in 0..<heap.size) return
         var parentIndex = fromIndex
         // We want to compare the parent with the children.
         // It means that the very first condition is: Does the parent have any children?
@@ -378,7 +378,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * * So, the space complexity of this function is `O(1)` only.
      */
     fun changePriorityOf(index: Int, newValue: T) {
-        if (heap.isEmpty() || index < 0 || index > heap.lastIndex) return
+        if (heap.isEmpty() || index !in 0..<heap.size) return
         val oldValue = heap[index]
         heap[index] = newValue
         if (oldValue < newValue) {
