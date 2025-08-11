@@ -68,16 +68,73 @@
 
 ## Realistic Analysis
 
-* However, if we notice, only when a node travels top-to-bottom or bottom-to-top do we travel `log n` distance.
+![03realisticAnalysisOfBuildHeap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/03realisticAnalysisOfBuildHeap.png)
+
+* If we notice, only when a node travels top-to-bottom or bottom-to-top do we travel `log n` distance.
 
 ![05buildHeapAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/05buildHeapAnalysis.png)
 
 * In all the other cases, it is always less than `log n`.
-* How about calculating the maximum travel each node has to make during the `buildHeap` process?
+* So, what is the realistic time complexity of the **buildHeap** process?
 
-### Mathematical Proof
+### Mathematical Calculation
 
-* 
+![05buildHeapAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/05buildHeapAnalysis.png)
 
+* We can see in the image that:
+* A total of around $\frac{n}{2}$ nodes require 0 swaps. Let us be a bit more generous and consider that they require at least 1 swap. (Well, the reason behind being generous here is actually to get a proper geometric series!)
+  * So, the total number of swaps for $\frac{n}{2}$ nodes is $1 * \frac{n}{2}$. 
+* A total of around $\frac{n}{4}$ nodes require at most 2 swaps. (Yes, 2 instead of 1, as we continue adding "1" additional swap to get a proper geometric series! We are going to calculate an upper bound only. So, the additional "1" will not make much difference!)
+  * So, the total swaps for $\frac{n}{4}$ are $2 * \frac{n}{4}$.
+* A total of around $\frac{n}{8}$ nodes require at most 3 swaps.
+  * So, the total swaps for $\frac{n}{8}$ are $3 * \frac{n}{8}$.
+* A total of around $\frac{n}{16}$ nodes require at most 4 swaps.
+  * So, the total swaps for $\frac{n}{16}$ are $4 * \frac{n}{16}$.
+* And so on...
 
+![06buildHeapMathPart01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/06buildHeapMathPart01.png)
 
+* If we want to find the total number of swaps, it is clearly:
+
+$$
+(1 * \frac{n}{2}) + (2 * \frac{n}{4}) + (3 * \frac{n}{8}) + (4 * \frac{n}{16}) + \dots + \text{...and so on...}
+$$
+
+* If we separate the terms 1 to n, we get the following expression:
+
+$$
+\text{Total swaps = } n \sum_{i = 1}^{\infty}{\frac{i}{2^i}}
+$$
+
+* Now, we know the answer of the sum of $\frac{1}{2^i}$.
+
+![07buildHeapMathPart02KnownSeries.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/07buildHeapMathPart02KnownSeries.png)
+
+* So, the answer of the sum of $\frac{1}{2^i}$ is 1 as we can see in the image.
+* However, we have a bit of a different series, which looks like below:
+
+$$
+(1 * \frac{1}{2}) + (2 * \frac{1}{4}) + (3 * \frac{1}{8}) + (4 * \frac{1}{16}) + \dots + \text{...and so on...} 
+$$
+
+* We can read our series as follows:
+* We have 1 segment of $\frac{1}{2}$.
+* We have 2 segments of $\frac{1}{4}$.
+* We have 3 segments of $\frac{1}{8}$.
+* We have 4 segments of $\frac{1}{16}$.
+* ...and so on...
+
+* If we try to represent this concept in an image (heads up! It will be a complicated one!), it looks like follows:
+
+![08buildHeapMathPart03SegmentRepresentation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/08buildHeapMathPart03SegmentRepresentation.png)
+
+![09buildHeapMathPart03.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/09buildHeapMathPart03.png)
+
+* So, it turns out that the answer to the sum of our series is **2**.
+* It means that the expression becomes:
+
+$$
+\text{Total swaps = } n * 2 = 2n
+$$
+
+* It proves that the running time of the **buildHeap** process is actually a linear time `O(n)` even though the height of the tree is `log n`.
