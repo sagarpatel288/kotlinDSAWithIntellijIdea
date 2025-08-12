@@ -1,5 +1,16 @@
 # Heap Sort
 
+<!-- TOC -->
+* [Heap Sort](#heap-sort)
+  * [References / Resources](#references--resources)
+  * [Prerequisites](#prerequisites)
+  * [Reflection](#reflection)
+  * [`In-Place` Sorting](#in-place-sorting)
+  * [Worst-Case Analysis](#worst-case-analysis)
+  * [Realistic Analysis](#realistic-analysis)
+    * [Mathematical Calculation](#mathematical-calculation)
+<!-- TOC -->
+
 ## References / Resources
 
 * [Michael Sambol](https://youtu.be/2DmK_H7IdTo?si=K6g9BPvsCyOY9_eC)
@@ -138,3 +149,6 @@ $$
 $$
 
 * It proves that the running time of the **buildHeap** process is actually a linear time `O(n)` even though the height of the tree is `log n`.
+
+### Benefits of realistic `buildHeap` analysis
+
