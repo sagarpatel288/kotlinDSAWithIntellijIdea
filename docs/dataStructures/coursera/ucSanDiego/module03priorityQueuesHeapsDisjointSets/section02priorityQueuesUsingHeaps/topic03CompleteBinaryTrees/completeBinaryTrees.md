@@ -1,5 +1,30 @@
 # Complete Binary Trees
 
+<!-- TOC -->
+* [Complete Binary Trees](#complete-binary-trees)
+  * [References / Resources](#references--resources)
+  * [Definition](#definition)
+  * [Examples](#examples)
+    * [Example 01](#example-01)
+    * [Example 02](#example-02)
+    * [Example 03](#example-03)
+    * [Example 04](#example-04)
+    * [Example 05](#example-05)
+    * [Example 06](#example-06)
+    * [Example 07](#example-07)
+    * [Example 08](#example-08)
+  * [Benefits Of A Complete Binary Tree](#benefits-of-a-complete-binary-tree)
+    * [Height is at most O(log n)](#height-is-at-most-olog-n-)
+      * [Proof: Method#01](#proof-method01)
+      * [Proof: Method#02](#proof-method02)
+    * [Array Representation and O(1) Random Access](#array-representation-and-o1-random-access)
+  * [Keeping the binary tree, `Complete`](#keeping-the-binary-tree-complete)
+    * [The operations that can change the shape of the tree](#the-operations-that-can-change-the-shape-of-the-tree)
+    * [Precautions for the operations that can change the shape of the tree](#precautions-for-the-operations-that-can-change-the-shape-of-the-tree)
+      * [Insert (or add): To the Left-most vacant position in the last level](#insert-or-add-to-the-left-most-vacant-position-in-the-last-level)
+      * [ExtractMax: With the last leaf of the last level](#extractmax-with-the-last-leaf-of-the-last-level)
+<!-- TOC -->
+
 ## References / Resources
 
 * [Coursera UC San Diego Data Structures: Module 03: Chapter: 07](https://coursera.org/share/1af99b3a881ef28fae92e150435df0f7)
@@ -211,9 +236,9 @@ $h = \lfloor\log_2(n)\rfloor$
 * How do we keep the binary tree `complete` while performing the `insert` or `remove` operations?
 * Let us see.
 
-### Keeping the binary tree, `Complete`
+## Keeping the binary tree, `Complete`
 
-#### The operations that can change the shape of the tree
+### The operations that can change the shape of the tree
 
 * We have already seen [various common operations of a binary max heap tree](../topic02BinaryHeapTrees/binaryHeapTrees.md#common-operations).
 * If we notice, only the [insert](../topic02BinaryHeapTrees/binaryHeapTrees.md#insert-or-add--siftup-) and the [extractMax](../topic02BinaryHeapTrees/binaryHeapTrees.md#extractmax-or-poll--siftdown-) operations can change the shape of the binary max heap tree.
@@ -236,9 +261,9 @@ $h = \lfloor\log_2(n)\rfloor$
 * So, only `insert` and `extractMax` can change the shape of the tree.
 * Now, let us see how we can keep the binary tree `complete` while performing these two operations.
 
-#### Precautions for the operations that can change the shape of the tree
+### Precautions for the operations that can change the shape of the tree
 
-##### Insert (or add): To the Left-most vacant position in the last level
+#### Insert (or add): To the Left-most vacant position in the last level
 
 ![16insertAndKeepTreeComplete.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/16insertAndKeepTreeComplete.png)
 
@@ -248,7 +273,7 @@ $h = \lfloor\log_2(n)\rfloor$
   * We must insert it into the left-most vacant position to keep it aligned left. 
 * And then, we can follow the `SiftUp` procedure.
 
-##### ExtractMax: With the last leaf of the last level
+#### ExtractMax: With the last leaf of the last level
 
 ![17extractMaxKeepCompleteTree.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/17extractMaxKeepCompleteTree.png)
 
