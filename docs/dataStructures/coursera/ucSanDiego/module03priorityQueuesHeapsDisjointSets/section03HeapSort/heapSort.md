@@ -10,6 +10,7 @@
   * [Realistic Analysis](#realistic-analysis)
     * [Mathematical Calculation](#mathematical-calculation)
     * [Benefits of realistic `buildHeap` analysis](#benefits-of-realistic-buildheap-analysis)
+  * [Recap: Heap Sort Algorithm](#recap-heap-sort-algorithm)
 <!-- TOC -->
 
 ## References / Resources
