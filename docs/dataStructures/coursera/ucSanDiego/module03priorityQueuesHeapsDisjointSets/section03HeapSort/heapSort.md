@@ -9,6 +9,7 @@
   * [Worst-Case Analysis](#worst-case-analysis)
   * [Realistic Analysis](#realistic-analysis)
     * [Mathematical Calculation](#mathematical-calculation)
+    * [Benefits of realistic `buildHeap` analysis](#benefits-of-realistic-buildheap-analysis)
 <!-- TOC -->
 
 ## References / Resources
@@ -55,6 +56,8 @@
 
 * All the other nodes will be at the last level without any children!
 * So, this is the advantage of this algorithm. We reduce (cut, ignore) many nodes at once in this process.
+* We call `siftDown` for all the subtrees to cover all the nodes from $\frac{n}{2}$ to 1.
+* Once we establish a proper `max heap` tree, we call the `extractMax` function.
 * We store the `extractMax` result at the last unsorted index of the existing array.
 * The existing last element will become the first element. So, we swap the positions.
 * And once we place the `extractMax` result at the last unsorted index, we get one less element to sort.
@@ -63,8 +66,10 @@
 * Now, we have `n - 1` elements to sort instead of the `n` elements.
 * But, note that we have performed the `swap` operation to fit the `extractMax` result to the last unsorted index.
 * That might have violated the max heap structure.
-* So, we repeat the process.
-* We call `buildHeap` and so on... 
+* So, we call the `siftDown` function again to establish a valid binary max heap tree.
+* Then, we again call the `extracMax` function.
+* So, we repeat the process of `extractMax` till we cover all the elements from the largest one to the smallest one.
+* Or in other words, we repeat this `extractMax` process till the index-end-boundary goes down from `size - 1` to `0`, which would then indicate that we have covered all the elements.
 
 ## Worst-Case Analysis
 
@@ -75,7 +80,7 @@
 
 * So, we know that each `siftDown` call gets `log n` time complexity.
 * And for $\frac{n}{2}$ elements, it becomes $\frac{n}{2} * \log n$.
-* Which is, $n \log n$ time, because we drop the constant $\frac{1}{2}$.
+* Which is, $n\:\log n$ time, because we drop the constant $\frac{1}{2}$.
 
 ## Realistic Analysis
 
@@ -152,3 +157,67 @@ $$
 
 ### Benefits of realistic `buildHeap` analysis
 
+![11buildHeapApplicationFindKMaxElementsOfN.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/11buildHeapApplicationFindKMaxElementsOfN.png)
+
+* We have seen `buildHeap` as a part of our **Heap Sort** algorithm.
+* We know that the **heap sort** algorithm also includes the `extractMax` process. 
+* And we perform the `extractMax` operation `n` times to completely sort the array.
+* Hence, the overall running time of the `heapSort` algorithm is still `n log n`.
+* However, we can still benefit from the realistic `buildHeap` analysis.
+* How?
+* Consider a situation where we need to find `k` maximum elements from the given array of size `n`.
+* And we find that the given number `k` is $<= \frac{n}{\log(n)}$.
+* In such cases, we can find these `k` maximum elements in linear time, `O(n)`, which is highly impressive.
+* How? And why do we have this condition for the value of `k`?
+* To find the `k` maximum elements from the given array of size `n`, we will still follow the same `heapSort` process.
+* But, we achieve our goal in linear time, `O(n)` instead of taking `O(n log n)` time.
+* How?
+* Well, because the `extractMax` process will go up to the `k` elements only, right?
+* So, the running time of the `heapSort` algorithm is `O(n + k log n)`.
+* And we know the value of `k` is $<= \frac{n}{\log(n)}$, right?
+* So, $n \log(n)$ is $\frac{n}{\log(n)} \log(n)$, which is $n$ only.
+* So, we solve the problem in `O(n)` time, which is linear.
+
+## Recap: Heap Sort Algorithm
+
+* We get an unsorted array.
+* We build a heap out of it.
+  * The `buildHeap` uses the `siftDown` function to ensure that when we `extractMax`, we get the element with the maximum value.
+  * The `siftDown` asks for the `fromIndex` argument.
+  * The `buildHeap` passes the `fromIndex` starting from $\frac{n}{2}$ down to 1 (or 0).
+  * It means that the `buildHeap` function calls the `siftDown` function in a loop.
+  * This process ensures that we cover every subtree starting from the last parent at $\frac{n}{2}$ to all the way up to the first parent (root).
+  * Once this process is finished, we can call `extractMax` to get our first element with the maximum (highest) value.
+  * The height of a binary max heap tree is `log n`.
+  * Hence, a single (one-time) execution of the `siftDown` call takes `log n` time.
+  * And when we call it for $\frac{n}{2}$ nodes, it takes $\frac{n}{2} * \log(n)$ = $n\: \log(n)$ time.
+  * However, the realistic analysis proves that it only takes $O(n)$ time because only the root element has the full height of `log n`.
+  * All the other nodes have less height than `log n`.
+  * The closer we are to the leaves, the lower the height the node gets. 
+  * In fact, the last level leaves, where we have the majority of nodes, get zero height.
+  * Hence, the complete `buildHeap` operation takes `O(n)` time only.
+* Once we finish the `buildHeap` process and get a valid, proper binary max heap tree, we call the `extractMax` function.
+* The `extractMax` function:
+  * The `extractMax` function uses the `swap` function.
+  * The `swap` function replaces the last leaf node with the root node.
+  * Now, the old and original root node, which has the maximum value, is at the last leaf position.
+    * In other words, the old and original root node gets the last available position in the array.
+    * So, we are filling (or rearranging) the array in ascending order, and we fill it from end-to-start.
+  * Once we fix the current root (the element with the maximum value) at the last available position, we reduce the end-index boundary. 
+  * This indicates that we now have one less element to manage.
+  * However, the `swap` function has placed the old and original last leaf node at the root position.
+  * It might violate the binary max heap tree.
+    * As per the definition of the binary max heap tree, it will always violate the max heap unless all the elements are the same!
+  * So, to ensure the binary max heap properties, we call `siftDown`. 
+  * We pass the index `0` to indicate that we need to inspect the tree from top to bottom.
+  * Once we have a valid, proper binary max heap tree, we again call the `extractMax` function.
+  * We repeat the entire process.
+  * So, we call this `extractMax` function as long as the `index-end boundary` is greater than or equal to `0`.
+  * When the `index-end boundary` is `0`, it indicates the only available node.
+  * So, we have seen that we call this `extractMax` function `n` times.
+  * And the `extractMax` function uses two functions: `swap` and `siftDown`.
+  * The time complexity of the `swap` function is `O(1)`.
+  * And the time complexity of the `siftDown` function is `log n` for a single (one-time) execution.
+  * So, for `n` times, it becomes `n log n`.
+* We can see that the `buildHeap` function takes `O(n)` time, and the `extractMax` function takes `n log n` time.
+* So, the dominant term, `n log n` is the overall time complexity of this `heapSort` algorithm.
