@@ -7,6 +7,13 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  *
  * * [GitHub HeapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a8ba31ba7a33b54b77215516b7bc98eed35ed671/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
+ * # YouTube
+ *
+ * * [Michael Sambol](https://youtu.be/2DmK_H7IdTo?si=MNl7Aq1bH4W3Aw9U)
+ *
+ * # Coursera
+ *
+ * * [UC San Diego: Data Structures](https://www.coursera.org/learn/data-structures)
  *
  * # Why do we have this function? What does it do? How does it do? Why does it do it that way? How does it help?
  *
@@ -21,9 +28,13 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  * * It also indicates that the previous [extractMax] operation might have placed the previous max value at the end.
  * * And we do not want to consider (or include) that "end" while trying to repair the max heap tree via [siftDown].
  * * So, we exclude that "end" where we have placed the previous maximum value in its right position.
+ * * We call this [extractMax] function `n - 1` times using `for (i in (n - 1) downTo 1)`.
+ * * Here, the index `i` indicates the end-index-boundary of the heap and it keeps decreasing.
+ * * Each [extractMax] call finds the maximum element out of the given heap and places it in the correct position.
+ * * If we notice, each [extractMax] call also reduces the end-index-boundary of the unsorted array.
  * * So, it places the highest value at the last index, the second-highest value at the second last index, and so on...
  * * So, this [extractMax] process rearranges (mutates) the given [array] in right-to-left descending order.
- * * Which, in the end, makes the given [array] sorted in left-to-right ascending order.
+ * * In the end, it makes the given [array] sorted in left-to-right ascending (non-decreasing) order.
  *
  * # Time Complexity
  *
