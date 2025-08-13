@@ -113,6 +113,10 @@ fun buildHeap(array: IntArray) {
  * * It means that the child becomes the parent, and the parent becomes the child.
  * * We continue this process until we ensure and maintain the binary max heap tree from the [fromIndex] up to the given [endIndexInclusive].
  *
+ * # Why do we have this [endIndexInclusive]?
+ *
+ * * Check [hasLeftChild]
+ *
  * # Time-Complexity
  *
  * * The maximum height of a binary max heap tree is `log n`.
@@ -149,10 +153,31 @@ fun siftDown(array: IntArray, fromIndex: Int, endIndexInclusive: Int) {
 
 fun getLeftChildIndex(parentIndex: Int) = 2 * parentIndex + 1
 
-fun hasLeftChild(parentIndex: Int, endIndex: Int): Boolean {
+/**
+ * # Why do we have this [endIndexInclusive] argument?
+ *
+ * * To check the left child within this end-index-inclusive boundary only.
+ * * Because, when we perform the [extractMax] operation, it swaps the root element with the last unsorted leaf element.
+ * * Once we place the root element at a certain position, we do not want to consider it as a child of any parent.
+ * * We want to consider it as one of the solved pieces of the bigger puzzle.
+ * * We consider it a sorted portion of the array (from right-to-left, max-to-min, within the given array).
+ * * So, we completely exclude it next time when we restore the max heap property using [siftDown].
+ * * So, we reduce the end-index-boundary of the heap.
+ * * We keep reducing the heap as we place more and more maximum elements at their right positions using [extractMax].
+ * * We call the [extractMax], place the right element at the right position (from right-to-left, max-to-min), reduce the heap size, and restore the max heap property.
+ * * We do that until we cover all the elements.
+ *
+ * * Check [extractMax] for more information on [endIndexInclusive].
+ * * The [heapSort] function calls the [extractMax], which then defines and passes the [endIndexInclusive] to [siftDown].
+ * * And then [siftDown] calls this [hasLeftChild], where we use it as [endIndexInclusive].
+ *
+ * @param parentIndex The parent index for which we want to check if it has a left child
+ * @param endIndexInclusive To check the left child within this end-index-inclusive boundary
+ */
+fun hasLeftChild(parentIndex: Int, endIndexInclusive: Int): Boolean {
     val leftChildIndex = getLeftChildIndex(parentIndex)
     // Ideally, `0` cannot be a `left child`.
-    return (leftChildIndex in 0..endIndex)
+    return (leftChildIndex in 0..endIndexInclusive)
 }
 
 fun getRightChildIndex(parentIndex: Int) = (2 * parentIndex) + 2
@@ -185,6 +210,9 @@ fun swap(array: IntArray, positionOne: Int, positionTwo: Int) {
  * * * * For the [siftDown] process, we now consider the end-index of the [array] as `[lastAvailableUnsortedEndIndex] - 1`.
  * * * * Because, at the last index, at the [lastAvailableUnsortedEndIndex], we have already placed the element with the maximum value.
  * * * * So now, we need to deal with one less element.
+ *
+ * * Check [hasLeftChild] for more information on [lastAvailableUnsortedEndIndex].
+ * * The [siftDown] ultimately calls [hasLeftChild], where we use this [lastAvailableUnsortedEndIndex].
  *
  * # Time-Complexity
  *
