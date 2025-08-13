@@ -36,6 +36,15 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  * * So, this [extractMax] process rearranges (mutates) the given [array] in right-to-left descending order.
  * * In the end, it makes the given [array] sorted in left-to-right ascending (non-decreasing) order.
  *
+ * # Why `downTo 1` and not `downTo 0`?
+ *
+ * * We can also use `downTo 0` and it will still work.
+ * * However, the reason we use `downTo 1` is because when we arrange all the elements from index `1` to `lastIndex`, the index `1` gets automatically arranged (on its own).
+ * * It is like when we have two people and two seats.
+ * * We check one by one if all the people (only two) are in the correct position.
+ * * We find that one of them is on the wrong seat (it means the other person is also on the wrong seat).
+ * * We swap both people, and it fixes the correct position, not only for one person, but for both people.
+ *
  * # Time Complexity
  *
  * * It uses the [buildHeap] function, whose realistic time complexity is `O(n)`.
@@ -77,6 +86,11 @@ fun heapSort(array: IntArray) {
  * * And the reason to go backward from `(n/2) - 1` is to cover all the nodes and every subtree.
  * * Once the loop is finished, we expect that our [array] becomes a valid binary max heap tree.
  *
+ * # Why `downTo 0` and not `downTo 1`?
+ *
+ * * Because we want to ensure that the root parent also follows the max heap properties, just like any other parent.
+ * * That is to say, the root must be greater than or equal to the child nodes.
+ *
  * # Key-Lemma (or Key-Point)
  *
  * * We start from the `(n / 2) - 1` index. And the end-index will be [Array.lastIndex] of the [array] only.
@@ -109,6 +123,8 @@ fun heapSort(array: IntArray) {
  */
 fun buildHeap(array: IntArray) {
     // Repair the binary max heap tree from the given index to the top for each node and every subtree
+    // Why `downTo 0`?
+    // Because we want to ensure that the root parent follows the max heap properties just like any other parent.
     for (i in ((array.size / 2) - 1) downTo 0) {
         siftDown(array, i, array.lastIndex)
     }
