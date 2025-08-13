@@ -3,11 +3,10 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
 /**
  * # References / Resources
  *
- * [Local HeapSort.md](docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [Local HeapSort.md](docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
- * [GitHub HeapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a8ba31ba7a33b54b77215516b7bc98eed35ed671/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [GitHub HeapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a8ba31ba7a33b54b77215516b7bc98eed35ed671/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
- * [GitHub HeapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/ccd065f2f511cd39d0b0ea1d55b4f19db76460f3/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
  * # Why do we have this function? What does it do? How does it do? How does it help?
  *
@@ -24,7 +23,7 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  * * It calls the [extractMax] function almost `n` times.
  * * The [extractMax] function uses the [siftDown] function.
  * * The [siftDown] function has time complexity of `O(log n)` for each call.
- * * Hence, the total time complexity of this function is `O(n log n)`.
+ * * Hence, the total time complexity of this function is `O(n log n)` in all cases (Best, average, worst).
  *
  * # Space Complexity
  *
@@ -34,10 +33,13 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  */
 fun heapSort(array: IntArray) {
     // Edge cases. Base conditions.
+    // A heap with 0 or 1 element is already sorted.
     if (array.size <= 1) return
     // Build heap
     buildHeap(array)
-    for (i in array.size - 1 downTo 0) {
+    // We iterate from the last index to the 1st index, and avoid 0th index.
+    // Because when we arrange all the indices from 1 to the last index, the index `0` is automatically arranged.
+    for (i in array.size - 1 downTo 1) {
         // Filling the array from right-to-left (from the last to the first index).
         extractMax(array, i)
     }
@@ -51,6 +53,13 @@ fun heapSort(array: IntArray) {
  * * The reason we start from `(n/2) - 1` is that after this index, all the other nodes are last-level leaves only.
  * * And the reason to go backward from `(n/2) - 1` is to cover all the nodes and every subtree.
  * * Once the loop is finished, we expect that our [array] becomes a valid binary max heap tree.
+ *
+ * # Key-Lemma (or Key-Point)
+ *
+ * * We start from the `(n / 2) - 1` index. And the end-index will be [Array.lastIndex] of the [array] only.
+ * * Because when we first start building the heap, we have not yet extracted and placed the maximum element.
+ * * So, we cannot shrink the end-index boundary yet.
+ * * For more information about the concept of "shrinking the end-index boundary," check [extractMax].
  *
  * # Time Complexity
  *
@@ -150,8 +159,15 @@ fun swap(array: IntArray, positionOne: Int, positionTwo: Int) {
  * * It swaps the positions of the root element (at index `0`) with the [endIndex].
  * * And then it does two things:
  * * * It marks the [endIndex] as **Tested OK** by limiting the [siftDown] process at `[endIndex] - 1`.
- * * * This way, it tells the [siftDown] process about the ending boundary.
+ * * * * This way, it tells the [siftDown] process about the ending boundary.
+ * * * * This process is also known as shrinking down the unsorted section of the array from right-to-left.
+ * * * * In another way, we can also call it growing the sorted section of the array from right-to-left.
+ * * * * Both perspectives are interconnected and happen at the same time.
  * * * And second thing, it calls [siftDown] because swapping might have violated the binary max heap tree properties.
+ * * * * In this process, we restore the max heap property for the reduced heap.
+ * * * * For the [siftDown] process, we now consider the end-index of the [array] as `[endIndex] - 1`.
+ * * * * Because, at the last index, at the [endIndex], we have already placed the element with the maximum value.
+ * * * * So now, we need to deal with one less element.
  *
  * # Time-Complexity
  *
@@ -167,8 +183,11 @@ fun swap(array: IntArray, positionOne: Int, positionTwo: Int) {
  */
 fun extractMax(array: IntArray, endIndex: Int): Int {
     if (array.isEmpty()) return -1
+    // Take the largest element from the root (index 0)
     val max = array[0]
+    // Swap the largest element with the [endIndex]
     swap(array, 0, endIndex)
+    // Restore the max heap properties for the reduced (shrunk) unsorted array.
     siftDown(array, 0, endIndex - 1)
     return max
 }
