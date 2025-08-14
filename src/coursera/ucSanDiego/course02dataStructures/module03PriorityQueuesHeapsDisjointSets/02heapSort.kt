@@ -236,6 +236,10 @@ fun siftDown(array: IntArray, fromIndex: Int, endIndexInclusive: Int) {
     }
 }
 
+/**
+ * This formula assumes that the `heap` starts from the `0th index`.
+ * If the `heap` does not start from the `0th index,` this formula does not work.
+ */
 fun getLeftChildIndex(parentIndex: Int) = 2 * parentIndex + 1
 
 /**
@@ -265,6 +269,10 @@ fun hasLeftChild(parentIndex: Int, endIndexInclusive: Int): Boolean {
     return (leftChildIndex in 0..endIndexInclusive)
 }
 
+/**
+ * This formula assumes that the `heap` starts from the `0th index.`
+ * If the `heap` does not start from the `0th index,` this formula does not work.
+ */
 fun getRightChildIndex(parentIndex: Int) = (2 * parentIndex) + 2
 
 fun hasRightChild(parentIndex: Int, endIndex: Int): Boolean {
