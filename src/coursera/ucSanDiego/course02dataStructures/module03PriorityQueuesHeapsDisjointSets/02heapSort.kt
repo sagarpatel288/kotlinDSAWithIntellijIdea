@@ -176,10 +176,13 @@ fun buildHeap(array: IntArray) {
     for (i in ((array.size / 2) - 1) downTo 0) {
         // Why do we need to pass the array, `fromIndex,` and `endIndexInclusive` to the `siftDown` function?
         // The `siftDown` function uses `array` to check whether our `fromIndex` and `endIndexInclusive` are valid.
+        // It also uses the `array` to compare the parent-children relationships to maintain the max heap properties.
+        // So, it uses the `array` to get the parent and children values for comparison.
         // It uses the `fromIndex` as a `parentIndex` to find and compare the child node value(s) within `endIndexInclusive.`
-        // It uses (treats) the `endIndexInclusive` to find the child nodes only up to (inclusive) the `endIndexInclusive` only.
+        // It uses (treats) the `endIndexInclusive` to find the child nodes only up to (inclusive) the `endIndexInclusive`.
         // Because the `endIndexInclusive` is the `end-index-boundary` of the binary max heap.
         // In other words, it is the `end-index-boundary` of the `unsorted portion` of the array.
+        // Post `endIndexInclusive,` we have the `sorted portion` of the array that we do not want to change/disturb.
         // With each `extractMax` call, we keep reducing this boundary from right-to-left (end-to-start) of the array.
         siftDown(array, i, array.lastIndex)
     }
@@ -312,9 +315,14 @@ fun extractMax(array: IntArray, lastAvailableUnsortedEndIndex: Int): Int {
     if (array.isEmpty()) return -1
     // Take the largest element from the root (index 0)
     val max = array[0]
-    // Swap the largest element with the [endIndex]
+    // Swap the largest element with the last available end-index of the unsorted portion of the array.
+    // We need the array and two positions to perform the swap operation.
     swap(array, 0, lastAvailableUnsortedEndIndex)
     // Restore the max heap properties for the reduced (shrunk) unsorted array.
+    // We pass the `array` using which the `siftDown` operation can get and compare parent-children values.
+    // We pass the `fromIndex` as a `parentIndex` and `lastAvailableUnsortedEndIndex` as the `end-boundary` of children.
+    // So, the `siftDown` function looks for the children within this (inclusive) `lastAvailableUnsortedEndIndex` only.
+    // Post `lastAvailableUnsortedEndIndex,` we have the `sorted portion` that we don't want to change/disturb.
     siftDown(array, 0, lastAvailableUnsortedEndIndex - 1)
     return max
 }
