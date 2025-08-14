@@ -39,11 +39,53 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  * # Why `downTo 1` and not `downTo 0`?
  *
  * * We can also use `downTo 0` and it will still work.
- * * However, the reason we use `downTo 1` is because when we arrange all the elements from index `1` to `lastIndex`, the index `1` gets automatically arranged (on its own).
+ * * However, when we arrange all the elements from index `1` to `lastIndex`, the index `0` gets automatically arranged.
  * * It is like when we have two people and two seats.
  * * We check one by one if all the people (only two) are in the correct position.
- * * We find that one of them is on the wrong seat (it means the other person is also on the wrong seat).
+ * * We find that one of them is in the wrong seat (it means the other person is also in the wrong seat).
  * * We swap both people, and it fixes the correct position, not only for one person, but for both people.
+ *
+ * # Why do we fill the sorted portion of the array from end-to-start, and not from start-to-end?
+ *
+ * * Because we want to sort the given array in ascending (non-decreasing) order.
+ * * It means that the maximum value is at the end.
+ * * The `max heap` structure ensures the **maximum value** of the heap.
+ * * So, we `extractMax,` put it to the end, shrink the heap, heapify the max heap for the reduced scope, and repeat.
+ * * That's why we fill (rearrange, mutate) the array from right-to-left (end-to-start).
+ * * That's how we get the ascending order.
+ *
+ * # Why do we use the `siftDown` function, and not the `siftUp` function?
+ *
+ * * First, we build a valid max heap.
+ * * It means that the parent must be greater than or equal to the child nodes.
+ * * So, the root must be greater than or equal to the child nodes.
+ * * And the leaf elements must be the smallest elements.
+ * * Now, we call `extractMax`, and replace the root element with the last leaf element.
+ * * This swapping might violate the max heap properties.
+ * * We might get a smaller element at the root that we need to sift down.
+ * * That's why we use the `siftDown` function.
+ *
+ * # Why do we use the `maxHeap`, and not the `minHeap`?
+ *
+ * * Because `max heap` allows us to sort the given array in ascending order in `O(n log n)` time.
+ * * Also, it is an `in-place` algorithm.
+ * * It means that we don't use any additional memory that can grow with the input size.
+ * * Hence, the space complexity is `O(1)`.
+ * * If we use the `minHeap` structure, we get the smallest element at the root position.
+ * * But, we cannot directly place it from left-to-right (start-to-end) and shrink the heap scope from the start-index.
+ * * Because shrinking the heap from the start-index would violate (invalidate) all the parent-children formulas.
+ * * All the parent-children formulas are based on the start-index `0` only.
+ * * If we set the sorted portion from left-to-right (start-to-end), the unsorted portion will not start from `index 0`.
+ * * With each `extractMin` from left-to-right (start-to-end), the unsorted portion shifts to the right side by 1 index.
+ * * For example, after the first `extractMin,` the unsorted portion starts with `index 1`.
+ * * It means that we will have to adjust the parent-child formulas with each iteration.
+ * * We can encode the old `1` index to the new `0` index (and so on...), and decode at the time of placement.
+ * * But it adds too much complexity. It requires us to change our encoding-decoding formulas continuously.
+ * * And, if we shrink the end-index of the `minHeap,` we will have to place the smallest elements right-to-left.
+ * * It will give us a descending (non-increasing) order array.
+ * * Then again, we will have to reverse it to make it an ascending (non-decreasing) order array.
+ * * And it will require an extra pass (extra work).
+ * * So, to get an ascending (non-decreasing) order sorted array, `maxHeap` is an optimal choice.
  *
  * # Time Complexity
  *
@@ -65,14 +107,18 @@ fun heapSort(array: IntArray) {
     // Edge cases. Base conditions.
     // A heap with 0 or 1 element is already sorted.
     if (array.size <= 1) return
-    // Build heap
+    // Build heap. We pass the array. Why? To get the last parent node using the `(array.size / 2) - 1`.
     buildHeap(array)
     // We iterate from the last index to the 1st index, and avoid 0th index.
     // Because when we arrange all the indices from 1 to the last index, the index `0` is automatically arranged.
     for (i in array.size - 1 downTo 1) {
-        // Filling the array from right-to-left (from the last to the first index).
+        // We pass the array and the position where we want to place the maximum element.
+        // We get the root element and swap it with the last leaf element using the `array`.
+        // We use the position `i` to place the extracted max element.
+        // This position `i` starts from the last index of the array, and moves towards the first index of the array.
         // The `i` is the final, true position of the maximum element.
-        // And notice we start placing the maximum elements from right-to-left.
+        // It means that we gradually increase the sorted portion of the array, from right-to-left.
+        // Or, in other words, we gradually decrease the unsorted portion of the array, from right-to-left.
         extractMax(array, i)
     }
 }
@@ -120,12 +166,21 @@ fun heapSort(array: IntArray) {
  * * We do not use any additional memory that depends on or grows with the input size.
  * * Hence, the space complexity of this function is `O(1)`.
  *
+ * @param array To get the index of the last parent (nearest to last-level-leaves) from where we start fixing the subtrees till `downTo 0`.
+ *
  */
 fun buildHeap(array: IntArray) {
     // Repair the binary max heap tree from the given index to the top for each node and every subtree
     // Why `downTo 0`?
     // Because we want to ensure that the root parent follows the max heap properties just like any other parent.
     for (i in ((array.size / 2) - 1) downTo 0) {
+        // Why do we need to pass the array, `fromIndex,` and `endIndexInclusive` to the `siftDown` function?
+        // The `siftDown` function uses `array` to check whether our `fromIndex` and `endIndexInclusive` are valid.
+        // It uses the `fromIndex` as a `parentIndex` to find and compare the child node value(s) within `endIndexInclusive.`
+        // It uses (treats) the `endIndexInclusive` to find the child nodes only up to (inclusive) the `endIndexInclusive` only.
+        // Because the `endIndexInclusive` is the `end-index-boundary` of the binary max heap.
+        // In other words, it is the `end-index-boundary` of the `unsorted portion` of the array.
+        // With each `extractMax` call, we keep reducing this boundary from right-to-left (end-to-start) of the array.
         siftDown(array, i, array.lastIndex)
     }
 }
@@ -191,7 +246,7 @@ fun getLeftChildIndex(parentIndex: Int) = 2 * parentIndex + 1
  * * So, we completely exclude it next time when we restore the max heap property using [siftDown].
  * * So, we reduce the end-index-boundary of the heap.
  * * We keep reducing the heap as we place more and more maximum elements at their right positions using [extractMax].
- * * We call the [extractMax], place the right element at the right position (from right-to-left, max-to-min), reduce the heap size, and restore the max heap property.
+ * * We call [extractMax], set the root from right-to-left, reduce the heap size, and restore the max heap property.
  * * We do that until we cover all the elements.
  *
  * * Check [extractMax] for more information on [endIndexInclusive].
