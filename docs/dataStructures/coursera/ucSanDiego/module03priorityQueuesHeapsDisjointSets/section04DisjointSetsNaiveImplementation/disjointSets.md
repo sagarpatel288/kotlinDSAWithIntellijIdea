@@ -1,4 +1,4 @@
-# Disjoint Sets
+# Disjoint Set Union (Also known as, Union Find)
 
 ## Resources / References
 
