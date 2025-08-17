@@ -31,11 +31,9 @@
   * First, we find their sets. Only if they belong to two different sets can we perform the union operation on them.
   * Second, when we perform a union operation on two elements, we get a different set.
 
-## Array Representation
+## Array & Graph Representation
 
-![030disjointSetsUnionFindArrayRepresentation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/030disjointSetsUnionFindArrayRepresentation.png)
-
-![040arrayAndGraphRepresentation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/040arrayAndGraphRepresentation.png)
+![42arraysAndGraphRepresentation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/42arraysAndGraphRepresentation.png)
 
 * We have two data:
   * The element value.
@@ -50,7 +48,7 @@
   * For example, in the given image, the parent of each index is itself.
   * In other words, initially, each element has a different set.
 * Then, we create a union.
-  * For example, we see that the element `0` belongs to the set `0` and the element `1` belongs to the set `1`.
+  * For example, the element `0` belongs to the set `0` and the element `1` belongs to the set `1`.
   * They are both in different sets.
   * So, we can perform the union operation on them.
 * Once we perform the union operation, we need to decide who becomes the parent (leader) of both elements.
@@ -60,12 +58,41 @@
   * Yes. If the size (rank, weight) of each set (parents, subtrees) is equal, we can select anyone.
   * Otherwise, we always select and make the parent who has the higher rank (size, weight). 
   * So, the set (parent, subtree) with the higher rank (size, weight) becomes the parent. And the set (subtree) with the lower rank (size, weight) becomes the child.
+* **Why do we have this rule?**
+  * If we make a larger subtree the parent of a smaller subtree, it keeps the tree height shallow (short).
+  * If we make a shorter subtree the parent of a larger subtree, it increases the tree height.
+  * If the tree height is short (shallow), we can finish the traversal and relevant operations quickly.
+  * If the tree height is taller (larger, deeper), we need more time to finish the traversal and relevant operations compared to the tree with a short (shallow) height.
 * **How do we define the size (rank, weight) of a set (subtree)?**
   * It is just the height of the subtree (set). 
   * So, the taller set (subtree) becomes the parent, and the shorter set (subtree) becomes the child. 
 * So, it goes like this:
 
-![050unionOfZeroOne_01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/050unionOfZeroOne_01.png)
+![052unionOfZeroOne_01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/052unionOfZeroOne_01.png)
 
 * So, now it says that the parent of element `1` is `0`.
-  * We could have selected `1` as a parent of `0`. 
+  * We could have selected `1` as a parent of `0` as well.
+* We can continue this union process and make `2` a parent of `3`.
+
+![060unionPart02.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/060unionPart02.png)
+
+* Now, if we want to perform the union operation for `(0, 2)`, we have two options:
+  * We can either make `0` or `2` the parent.
+* Let us make `0` the parent of `2`.
+* So, we get:
+
+![065unionPart03.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/065unionPart03.png)
+
+* Now, if we want to perform the union operation between `(0, 4)`, the rule says that `4` must be a child of `0` because `0` is a taller tree than `4`.
+* However, let us see what difference it makes.
+* Let us make `4` a parent instead of `0` for a while.
+
+![070unionPart04.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/070unionPart04.png)
+
+* So, it makes the tree height `4` (where a level starts from `1`).
+* And if we make `0` a parent of `4`, then we get:
+
+![075unionPart05.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/075unionPart05.png)
+
+* So, it makes the tree height `3` (where a level starts from `0`).
+* Hence, we always make a taller tree a parent. It keeps the tree height shallow (short).
