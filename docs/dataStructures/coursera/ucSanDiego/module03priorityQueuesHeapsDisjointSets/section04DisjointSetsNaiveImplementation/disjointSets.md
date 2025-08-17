@@ -1,5 +1,16 @@
 # Disjoint Set Union (Also known as, Union Find)
 
+<!-- TOC -->
+* [Disjoint Set Union (Also known as, Union Find)](#disjoint-set-union-also-known-as-union-find)
+  * [Resources / References](#resources--references)
+  * [Disjoint Sets](#disjoint-sets)
+  * [Find](#find)
+  * [Union](#union)
+  * [Array & Graph Representation](#array--graph-representation)
+    * [Union By Rank](#union-by-rank-)
+    * [Path Compression](#path-compression)
+<!-- TOC -->
+
 ## Resources / References
 
 * [Abdul Bari Sir](https://youtu.be/wU6udHRIkcc?si=huj_Km4_SKLZshdP)
@@ -9,6 +20,13 @@
 
 
 ## Disjoint Sets
+
+![02disjointSetsIntroduction01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/02disjointSetsIntroduction01.png)
+
+* The image shows a forest, where we have several independent trees without any children.
+  * [Forest tree reference](../../module01BasicDataStructures/section03trees/trees.md#forest)
+  * They are disconnected. They are disjointed.
+* We can create a child-parent relationship between them, as shown in the image below:
 
 ![010disjointSetUnionFindIntro_disjoint_sets.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/010disjointSetUnionFindIntro_disjoint_sets.png)
 
