@@ -83,6 +83,8 @@
 
 ![065unionPart03.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/065unionPart03.png)
 
+### Union By Rank 
+
 * Now, if we want to perform the union operation between `(0, 4)`, the rule says that `4` must be a child of `0` because `0` is a taller tree than `4`.
 * However, let us see what difference it makes.
 * Let us make `4` a parent instead of `0` for a while.
@@ -96,3 +98,24 @@
 
 * So, it makes the tree height `3` (where a level starts from `0`).
 * Hence, we always make a taller tree a parent. It keeps the tree height shallow (short).
+* However, it might be inefficient to calculate the height of both subtrees at runtime to decide which one should be the parent.
+* But, we can use a clever technique to decide the taller parent in `O(1)` time.
+* Every time a parent gets a child, we increase the rank (seniority, value, weight) of the parent.
+
+* So, it goes as shown in the image below:
+
+![080unionByRank01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/080unionByRank01.png)
+
+### Path Compression
+
+* Now, if we continue the same example, and ask `3` about its parent, it will first point us towards `2`.
+* We will ask `2` about its parent. It will then point us towards `0`.
+* We will then ask `0` about its parent. 
+* In the end, we find that `0` is the parent.
+* **Can we store this information in `3`?**
+* So, the next time we ask `3` about its parent, we can get a quick answer.
+* **How do we store information in an array?**
+
+```kotlin
+parent[3] = findParent[2] = findParent[0]
+```
