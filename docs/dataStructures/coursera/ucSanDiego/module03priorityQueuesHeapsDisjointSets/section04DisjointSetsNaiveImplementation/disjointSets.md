@@ -9,6 +9,11 @@
   * [Array & Graph Representation](#array--graph-representation)
     * [Union By Rank](#union-by-rank-)
     * [Path Compression](#path-compression)
+  * [Conceptual Examples](#conceptual-examples)
+    * [Maze](#maze)
+      * [Translating the process into pseudocode](#translating-the-process-into-pseudocode)
+    * [Networking (Network Cabling) Example](#networking-network-cabling-example)
+  * [Next](#next)
 <!-- TOC -->
 
 ## Resources / References
@@ -179,3 +184,7 @@ parent[3] = findParent[2] = findParent[0]
 * So, for example, initially, if we call the `find` operation on systems `1` and `2`, their results (parents, sets) are different.
 * But later, as we keep performing the `union` operations on `(3, 4)`, `(2, 3)`, and `(1, 4)`, eventually, it makes the system `1` and `2` parts of the same set. 
 * Now, if we call the `find` operation on the systems `1` and `2`, their results (parents, sets) will be the same.
+
+## Next
+
+* [Naive Implementation Of Disjoint Sets (Union-Find)](disjointSets02implementation.md)
