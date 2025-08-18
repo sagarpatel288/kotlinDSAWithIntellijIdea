@@ -137,3 +137,41 @@
 ```kotlin
 parent[3] = findParent[2] = findParent[0]
 ```
+
+## Conceptual Examples
+
+### Maze
+
+![085mazeExample.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/085mazeExample.png)
+
+* We have these two maze examples.
+* We want to find whether there is a path between points A and B.
+* Let us have some fun with a manual approach.
+
+![090mazeExample02.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/090mazeExample02.png)
+
+* So, we can see that for the second maze puzzle, there is no direct path that connects the points A and B.
+* How do we relate (connect, transform) these maze puzzles with the **Disjoint Set (Union-Find)** concept?
+
+![110mazeCoveringEachSetProcess.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/110mazeCoveringEachSetProcess.png)
+
+* Initially, each cell is an independent set (or region).
+* Then, we start from point B.
+* If there is no wall between the two regions, we merge the two regions.
+* We continue doing that process until we hit a wall or return to the origin point, B.
+* It means that our original set B keeps growing.
+* Once we hit a wall, we check: Does the set contain the point, A?
+  * If it contains, there is a direct path between points A and B.
+  * Otherwise, there is no direct path between points A and B.
+
+### Networking (Network Cabling) Example
+
+![150disjointNetworkExampleUnionRecap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/150disjointNetworkExampleUnionRecap.png)
+
+* Initially, each system (computer) is an independent set.
+* Then, as we connect two systems via a cable, it indicates the **union** process.
+  * The union operation can be performed on the elements that are not parts of the same set.
+  * Once we perform the union operation on two elements, they become part of the same set.
+* So, for example, initially, if we call the `find` operation on systems `1` and `2`, their results (parents, sets) are different.
+* But later, as we keep performing the `union` operations on `(3, 4)`, `(2, 3)`, and `(1, 4)`, eventually, it makes the system `1` and `2` parts of the same set. 
+* Now, if we call the `find` operation on the systems `1` and `2`, their results (parents, sets) will be the same.
