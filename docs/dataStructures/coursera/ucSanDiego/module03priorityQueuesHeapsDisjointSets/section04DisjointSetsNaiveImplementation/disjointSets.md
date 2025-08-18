@@ -164,6 +164,10 @@ parent[3] = findParent[2] = findParent[0]
   * If it contains, there is a direct path between points A and B.
   * Otherwise, there is no direct path between points A and B.
 
+#### Translating the process into pseudocode
+
+![120mazeDisjointSetPseudoCode.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/120mazeDisjointSetPseudoCode.png)
+
 ### Networking (Network Cabling) Example
 
 ![150disjointNetworkExampleUnionRecap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/150disjointNetworkExampleUnionRecap.png)
