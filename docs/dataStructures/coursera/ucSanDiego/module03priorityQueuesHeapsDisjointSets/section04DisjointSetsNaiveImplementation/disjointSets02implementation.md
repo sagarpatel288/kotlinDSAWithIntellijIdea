@@ -46,3 +46,8 @@
     * If we don't see the element `4` and we finish travelling the linked list, the element `4` is not a part of this linked list.
   * If we get the element `4` during the traversal, we need to continue the traversal till we reach the `tail`. The `tail` is the representative of the element `4` that we need to return.
 * So, the `find` operation is a linear operation that takes `O(n)` time.
+* Another problem is that the `union` operation uses the `find` operation to confirm that the elements we want to perform the `union` operation on are in the different sets.
+* Also, every time we merge two sets (linked lists), we need to update the `head` and `tail` pointers accordingly.
+* And every time we merge two sets (linked list), the resultant list keeps getting longer (larger, taller).
+* It means that with every `union` operation (merge operation), the `find` operation keeps getting slower.
+* It means that the `union` operation we once thought as an inexpensive and easy one, is not actually that easy or inexpensive.  
