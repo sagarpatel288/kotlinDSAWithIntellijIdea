@@ -30,7 +30,9 @@
 
 * The image shows a forest, where we have several independent trees without any children.
   * [Forest tree reference](../../module01BasicDataStructures/section03trees/trees.md#forest)
-  * They are disconnected. They are disjointed.
+  * They are disconnected. They are disjointed. They are independent.
+* Each tree has only one element.
+* It means that the element itself is a parent, a leader, a representative of that set.
 * We can create a child-parent relationship between them, as shown in the image below:
 
 ![010disjointSetUnionFindIntro_disjoint_sets.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/010disjointSetUnionFindIntro_disjoint_sets.png)
@@ -39,12 +41,17 @@
 * So, we call them **Disjoint Sets**.
 * In the technical term, we would say:
   * When the intersection of sets is `NULL,` we call such sets **Disjoint Sets**.
+* The leader (parent, representative) of the "set 1" is `1`.
+* And the leader (parent, representative) of the "set 2" is `5`.
 
 ## Find
 
-* This is the operation that tells about the parent set of the target element.
+![010disjointSetUnionFindIntro_disjoint_sets.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/010disjointSetUnionFindIntro_disjoint_sets.png)
+
+* This is the operation that tells about the parent (leader, representative) of the element.
   * In other words, it tells us about the set the element belongs to.
-* For example, `1` belongs to `set 1`. `7` belongs to `set 2`.
+* For example, if we call `find(2)`, then it would give us `1`.
+* Similarly, if we call `find(7)`, it would give us `5`.
 
 ## Union
 
@@ -53,15 +60,18 @@
 * When we get two elements to perform the union operation on them.
   * First, we find their sets. Only if they belong to two different sets can we perform the union operation on them.
   * Second, when we perform a union operation on two elements, we get a different set.
+  * Due to that, a particular set might get a different leader (representative, parent).
+  * For example, performing the union operation on `(4, 8)` forced all the elements of the old set-02, which are the elements 5, 6, 7, and 8, to replace their old representative `5` with the new representative `1`.
+  * Hence, when we perform the `union` operation between two sets, one of the sets needs to update the representative for all the elements.
 
 ## Array & Graph Representation
 
 ![42arraysAndGraphRepresentation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/42arraysAndGraphRepresentation.png)
 
-* We have two data:
+* We have two types of data:
   * The element value.
   * The parent value (or the set value it belongs to).
-* Using these two data, we do a couple of things:
+* Using these two types of data, we do a couple of things:
   * We can find if we have a particular element (the `find` operation).
   * We can find the set of a particular element.
   * We can find whether two elements belong to the same set (parent).
