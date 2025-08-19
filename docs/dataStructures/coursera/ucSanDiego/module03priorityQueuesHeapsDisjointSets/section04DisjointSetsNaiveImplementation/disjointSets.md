@@ -187,4 +187,4 @@ parent[3] = findParent[2] = findParent[0]
 
 ## Next
 
-* [Naive Implementation Of Disjoint Sets (Union-Find)](disjointSets02implementation.md)
+* [Disjoint Sets (Union-Find) Implementation](disjointSets02implementation.md)
