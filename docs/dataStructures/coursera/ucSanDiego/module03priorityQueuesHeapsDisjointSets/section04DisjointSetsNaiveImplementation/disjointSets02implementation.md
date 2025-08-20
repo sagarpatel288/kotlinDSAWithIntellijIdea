@@ -51,3 +51,46 @@
 * And every time we merge two sets (linked list), the resultant list keeps getting longer (larger, taller).
 * It means that with every `union` operation (merge operation), the `find` operation keeps getting slower.
 * It means that the `union` operation we once thought as an inexpensive and easy one, is not actually that easy or inexpensive.  
+
+## Improvement
+
+* In the previous example, we made a tail of the old list to point to the head of another list.
+
+![170dsuNaiveLinkedListImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/170dsuNaiveLinkedListImplementation.png)
+
+* We realized that this process makes the list longer with each `union` operation.
+* And we learned that a longer list makes the `find` operation slower.
+* So, the question is: Can we attach (merge, union) these two lists in a different way?
+* Well, maybe we can connect the two lists in a different way.
+
+![180dsuImprovedImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/180dsuImprovedImplementation.png)
+
+* So, we pointed the head of another list to the tail of the old list.
+* But then the resultant structure is no longer a linked list structure. Right?
+* It seems more like a tree structure, where `7` is the root node, and it has two branches.
+* And what is the benefit?
+* Well, now we don't have to travel until the end of the structure to `find` the root node (representative, leader, parent).
+* So, the time complexity of the `find` operation is improved here.
+* So, the idea is to represent each set in the form of a `tree` instead of in the form of a linked list.
+
+### Tree As An Internal Data Structure For DSU
+ 
+![190disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/190disjointSetsDSUnionFindTreeImplementation.png)
+
+* A tree uses an array as an internal data structure.
+* Here, the indices will represent the node values, and the value of each index will represent the parent value.
+
+![200disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/200disjointSetsDSUnionFindTreeImplementation.png)
+
+* It means that `find(a)` will tell us about the parent of `a`.
+* If `find(a)` returns `a`, then `a` is the root node.
+* It means that when the index value (argument of the `find` function) and the element value are the same value, then it is the root of that tree (set).
+
+![195disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/195disjointSetsDSUnionFindTreeImplementation.png)
+
+* Note that when it comes to merging two trees, we always hang (append) the shorter (shallow) tree to the larger (taller) tree to keep the tree height minimum.
+
+![230disjointSetTreeUnionIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/230disjointSetTreeUnionIdea.png)
+
+### Union (merge) of Two Trees (Disjoint Sets) By Rank
+
