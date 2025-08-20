@@ -124,20 +124,24 @@
 
 ![070unionPart04.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/070unionPart04.png)
 
-* So, it makes the tree height `4` (where a level starts from `1`).
+* So, it makes the tree height `4` (where a level starts from `1`. The root is at level `1`.)
 * And if we make `0` a parent of `4`, then we get:
 
 ![075unionPart05.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/075unionPart05.png)
 
-* So, it makes the tree height `3` (where a level starts from `0`).
-* Hence, we always make a taller tree a parent. It keeps the tree height shallow (short).
+* So, it makes the tree height `3` (where a level starts from `1`. The root is at level `1`.)
+* Hence, we always make a taller tree a parent because it keeps the tree height shallow (short).
+* We keep the tree height shallow (short) because the `find` operation depends on the tree height.
 * However, it might be inefficient to calculate the height of both subtrees at runtime to decide which one should be the parent.
 * But, we can use a clever technique to decide the taller parent in `O(1)` time.
-* Every time a parent gets a child, we increase the rank (seniority, value, weight) of the parent.
+* Every time a parent gets a child via `union`, we increase the rank (seniority, value, weight) of the parent.
 
 * So, it goes as shown in the image below:
 
 ![080unionByRank01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/080unionByRank01.png)
+
+* It means that we can decide which tree is the largest one in `O(1)` time.
+* Increasing the parent's rank with each `union` when it gets a child allows calculating the tree height in `O(1)`.
 
 ### Path Compression
 
