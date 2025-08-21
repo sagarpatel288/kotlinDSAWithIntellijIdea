@@ -94,3 +94,28 @@
 
 ### Union (merge) of Two Trees (Disjoint Sets) By Rank
 
+* We learned that we always hang the shorter tree on the taller tree to keep the height of the resultant tree minimum.
+* **But how do we calculate the height of trees?** 
+  * It is inefficient to calculate the height of each tree during the `union` operation.
+  * We need a quick way of getting the height of each tree in `O(1)` time.
+  * So, we use the `memoization` kind of technique here.
+  * We use a separate `rank` array.
+  * Each `index` of the `rank` array represents a `node`, and each `value` represents the `height`.
+* For example:
+
+![235disjointSetTreeUnionByRankIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/235disjointSetTreeUnionByRankIdea.png)
+
+* **How do we maintain the `rank` array?**
+  * If the `rank` (height, weight) of the two trees we merge is not the same, we don't update the rank.
+  * If the `rank` (height, weight) of the two trees we merge is the same, then we increase the rank of the resultant parent by 1.
+* **Why do we update the `rank` only when we merge two trees of the same `rank` (height, weight)?** 
+  * Because when we hang a shorter tree on the taller tree, the height of the taller tree remains the same.
+  * Only when we merge two trees of the same height, the height of the resultant tree is increased.
+* For example:
+
+![270disjointSetTreeUnionByRank.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/270disjointSetTreeUnionByRank.png)
+
+### How does the "Union By Rank" technique ensure the optimal height of the resultant tree?
+
+
+
