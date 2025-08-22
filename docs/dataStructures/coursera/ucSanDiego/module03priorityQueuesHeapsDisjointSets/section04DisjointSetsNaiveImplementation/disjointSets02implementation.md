@@ -119,6 +119,8 @@
 
 ### How does the "Union By Rank" technique ensure the optimal height of the resultant tree?
 
+#### Minimum nodes in the resultant tree
+
 * To prove the resulting tree's height is optimal with `union by rank`, we first need to understand how we perform the `union` operation.
 * We know that we hang the shorter tree on the taller tree. 
 * But at which node do we hang the tree?
@@ -143,24 +145,45 @@
   * We calculate the next term, `k + 1`, using the previous assumption of `k`.
   * And if our expression (claim) works for the base case, and `k + 1`, it means that it works for any positive integer `n`.
 * So, let us examine our statement when `n = 0`.
-  * When height is `0`, do we have at least $2^n$ nodes?
+
+![350disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/350disjointSetTreeUnionByRankAnalysis.png)
+
+* When height is `0`, do we have at least $2^n$ nodes?
   * Yes, we have. When height is `0`, we have $2^n = 2^0 = 1$ node.
   * So, that was the base case.
   * We just proved the base case.
 * The next step is: Induction Hypothesis.
 * Now, let us assume that our expression is true for a tree whose height is `k - 1`.
   * So, we have a tree (or two trees) whose height is `k - 1` and it has at least $2^{k - 1}$ nodes.
-* Now, the next term of `k - 1` is `k`. We need to prove that our statement is true for a tree whose height is `k`.
-* We have already observed and learned that the height of the resultant tree is increased only when we merge two trees of the same height.
+* Now, the next term of `k - 1` is `k - 1 + 1 = k`. We need to prove that our statement is true for a tree whose height is `k`.
+* We have already observed and learned that the height of the resultant tree is increased by 1 only when we merge two trees of the same height.
 * So, we have two trees of the same height: $k - 1$.
 * If we merge these two trees, the height of the resultant tree is increased by 1.
   * $k - 1 + 1 = k$
 * And if we merge these two trees, we get a total number of nodes:
   * $2^{k - 1} + 2^{k - 1}$
   * It is just two times the same thing.
-  * So, we can re-write it as:
+  * So, we can rewrite it as:
   * $2(2^{k - 1}) = 2^1(2^{k - 1}) = 2^{1 + k - 1} = 2^k$
 * So, we have just proved that a tree of height `k` must have at least $2^k$ nodes.
+* It means that the height of a tree is `h`, then it must have at least $2^h$ nodes.
+* If the height of a tree is `n`, then it must have at least $2^n$ nodes.
+
+#### Optimal Height = Binary logarithm of the total nodes
+
+* Now, using this fact, we want to prove our claim that using **"Union By Rank"**, we get an optimal height.
+* Specifically, in terms of measurement, we say that the height of the resultant tree does not exceed the binary logarithm of the total nodes.
+* So, we claim that the height of a resultant tree is $h <= log_2(n)$ where `n` is the total number of nodes.
+* Now, let us assume that our claim is false.
+* It means that:
+* $h > log_2(n)$
+* $=> 2^h > 2^{log_2(n)}$ // if $a > b$, then $2^a > 2^b$.
+* $=> 2^h > n$
+* Now, according to the previous fact of [minimum nodes](#minimum-nodes-in-the-resultant-tree), $2^h$ is the total number of nodes for a tree whose height is $h$.
+* $\text{Total nodes} > n$, which contradicts the fact that we started with `n` total number of nodes. 
+* It means that our assumption that $h > log_2(n)$ is wrong.
+* It means that $h <= log_2(n)$ is true.
+* It means that our claim that the resultant height of the tree is always less than or equal to (at most) the binary logarithm of the total nodes is true.
 
 
 
