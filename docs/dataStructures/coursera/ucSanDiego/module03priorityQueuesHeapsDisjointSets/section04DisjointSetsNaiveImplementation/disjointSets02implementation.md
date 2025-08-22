@@ -105,6 +105,8 @@
 
 ![235disjointSetTreeUnionByRankIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/235disjointSetTreeUnionByRankIdea.png)
 
+* **What does the `rank` represent?**
+  * Each `rank` value represents the `height` of the corresponding (associated, relevant) `index`, where an `index` represents a `node` of a tree.
 * **How do we maintain the `rank` array?**
   * If the `rank` (height, weight) of the two trees we merge is not the same, we don't update the rank.
   * If the `rank` (height, weight) of the two trees we merge is the same, then we increase the rank of the resultant parent by 1.
@@ -116,6 +118,20 @@
 ![270disjointSetTreeUnionByRank.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/270disjointSetTreeUnionByRank.png)
 
 ### How does the "Union By Rank" technique ensure the optimal height of the resultant tree?
+
+* To prove the resulting tree's height is optimal with `union by rank`, we first need to understand how we perform the `union` operation.
+* We know that we hang the shorter tree on the taller tree. 
+* But at which node do we hang the tree?
+* At the root node.
+* The tree that we hang becomes the direct child of the parent tree.
+* For example:
+
+
+
+* It means that the `union` operation does not form a pathological (degenerate) tree.
+* Based on this observation, we give a statement that:
+* The tree of `k` height (or rank) will have at least $2^k$ nodes. 
+
 
 
 
