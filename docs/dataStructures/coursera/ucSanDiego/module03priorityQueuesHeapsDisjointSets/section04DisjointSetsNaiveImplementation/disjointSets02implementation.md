@@ -174,6 +174,15 @@
 * Now, using this fact, we want to prove our claim that using **"Union By Rank"**, we get an optimal height.
 * Specifically, in terms of measurement, we say that the height of the resultant tree does not exceed the binary logarithm of the total nodes.
 * So, we claim that the height of a resultant tree is $h <= log_2(n)$ where `n` is the total number of nodes.
+* According to the [minimum nodes](#minimum-nodes-in-the-resultant-tree) proof, if the height of a tree is `h`, then the total number of nodes is at least $2^h$.
+* So, if we denote `total number of nodes` as `n`, then it becomes:
+* $n >= 2^h$
+* Taking $log_2$ on both sides, we get:
+* $log_2(n) >= log_2(2^h)$
+* $log_2(n) >= h$
+* $h <= log_2(n)$
+* Which proves that the height of the resultant tree is always less than or equal to (at most) the binary logarithm of the total nodes.
+* We can also prove the optimal height in another way.
 * Now, let us assume that our claim is false.
 * It means that:
 * $h > log_2(n)$
