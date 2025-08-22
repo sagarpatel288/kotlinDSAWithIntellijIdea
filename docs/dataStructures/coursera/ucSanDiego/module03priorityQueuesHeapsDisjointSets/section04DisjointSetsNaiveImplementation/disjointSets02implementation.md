@@ -123,15 +123,44 @@
 * We know that we hang the shorter tree on the taller tree. 
 * But at which node do we hang the tree?
 * At the root node.
-* The tree that we hang becomes the direct child of the parent tree.
+* So, it is more than the nodes. 
+* We consider the root of each node. 
+* The root of one node becomes the direct child of the root of another node.
 * For example:
 
+![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/340disjointSetTreeUnionByRankAnalysis.png)
 
-
-* It means that the `union` operation does not form a pathological (degenerate) tree.
+* It means that the `union` operation cannot form a pathological (degenerate) tree.
 * Based on this observation, we give a statement that:
-* The tree of `k` height (or rank) will have at least $2^k$ nodes. 
-
+* **The tree of `k` height (or rank) will have at least $2^k$ nodes.** 
+* We will use the induction theory (Proof by Induction) to prove the statement.
+  * [Proof By Induction - Khan Academy](https://youtu.be/wblW_M_HVQ8?si=eRHuXRkurDqparJT)
+  * [Learn Math Tutorials](https://youtu.be/dMn5w4_ztSw?si=CB0rBxEh91CR8rug)
+  * [The Organic Chemistry Tutor](https://youtu.be/tHNVX3e9zd0?si=Ui1JqaYbnFrvVt8o)
+* So, in the "Proof by Induction," for any positive integer `n`,
+  * We prove a base case.
+  * We assume that the expression is true for `k` (which is known as "Induction Hypothesis").
+  * We calculate the next term, `k + 1`, using the previous assumption of `k`.
+  * And if our expression (claim) works for the base case, and `k + 1`, it means that it works for any positive integer `n`.
+* So, let us examine our statement when `n = 0`.
+  * When height is `0`, do we have at least $2^n$ nodes?
+  * Yes, we have. When height is `0`, we have $2^n = 2^0 = 1$ node.
+  * So, that was the base case.
+  * We just proved the base case.
+* The next step is: Induction Hypothesis.
+* Now, let us assume that our expression is true for a tree whose height is `k - 1`.
+  * So, we have a tree (or two trees) whose height is `k - 1` and it has at least $2^{k - 1}$ nodes.
+* Now, the next term of `k - 1` is `k`. We need to prove that our statement is true for a tree whose height is `k`.
+* We have already observed and learned that the height of the resultant tree is increased only when we merge two trees of the same height.
+* So, we have two trees of the same height: $k - 1$.
+* If we merge these two trees, the height of the resultant tree is increased by 1.
+  * $k - 1 + 1 = k$
+* And if we merge these two trees, we get a total number of nodes:
+  * $2^{k - 1} + 2^{k - 1}$
+  * It is just two times the same thing.
+  * So, we can re-write it as:
+  * $2(2^{k - 1}) = 2^1(2^{k - 1}) = 2^{1 + k - 1} = 2^k$
+* So, we have just proved that a tree of height `k` must have at least $2^k$ nodes.
 
 
 
