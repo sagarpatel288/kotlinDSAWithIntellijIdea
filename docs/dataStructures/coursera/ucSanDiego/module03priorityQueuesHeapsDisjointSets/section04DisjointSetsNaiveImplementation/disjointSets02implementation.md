@@ -10,7 +10,8 @@
     * [How does the "Union By Rank" technique ensure the optimal height of the resultant tree?](#how-does-the-union-by-rank-technique-ensure-the-optimal-height-of-the-resultant-tree)
       * [Minimum nodes in the resultant tree](#minimum-nodes-in-the-resultant-tree)
       * [Optimal Height = Binary logarithm of the total nodes](#optimal-height--binary-logarithm-of-the-total-nodes)
-    * [So, what will the time complexity of the `Find` and `Union` operations be?](#so-what-will-the-time-complexity-of-the-find-and-union-operations-be)
+  * [Worst-case time complexity of the `Find` and `Union` operations](#worst-case-time-complexity-of-the-find-and-union-operations)
+  * [Realistic (Amortized) time complexity of the `Find` and `Union` operations](#realistic-amortized-time-complexity-of-the-find-and-union-operations)
 <!-- TOC -->
 
 ## Naive Implementation: Using Arrays
@@ -207,7 +208,21 @@
 * It means that $h <= log_2(n)$ is true.
 * It means that our claim that the resultant height of the tree is always less than or equal to (at most) the binary logarithm of the total nodes is true.
 
-### So, what will the time complexity of the `Find` and `Union` operations be?
+### Path Compression
+
+* We have seen that when we perform the `union` operation between two nodes, we first find the root of each node.
+* Now, during this traversal, we might face many nodes for which the root is the same.
+* For example:
+
+![390disjointSetTreePathCompression.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/390disjointSetTreePathCompression.png)
+
+* Why not store this information?
+* So that next time, when we get any of those nodes, we can get the parent in almost constant time.
+* This approach (technique, process) is called "Path Compression Heuristic".
+* The benefit is that the time cost of finding a root spreads across all nodes covered during traversal.
+* As a result, the amortized cost of the `find` and `union` operations becomes almost constant.
+
+## Worst-case time complexity of the `Find` and `Union` operations
 
 * We learned that using [Union By Rank](#union-merge-of-two-trees-disjoint-sets-by-rank), we keep the tree height at most $log_2(n)$.
 * It means that the maximum traversal we may need to perform during the `find` operation is $log_2(n)$.
@@ -229,4 +244,26 @@
     * And we don't need to increase the `rank` of the `parent root` in this case.
 * So, we just finished the `union` operation at this point.
 * Hence, the time complexity of the `union` operation is also $log_2(n)$.
+
+## Realistic (Amortized) time complexity of the `Find` and `Union` operations
+
+* We have already seen that the [path compression](#path-compression) heuristic makes the amortized cost almost constant.
+* But how much? Can we measure it? Can we prove it?
+* Before we can prove it, we need to understand a particular term, called `Log star of n` = $log^* (n)$.
+* The `log star n` is the number of `binary logarithmic operations` we need to perform to bring down any given `n` to `1`.
+* So, for example, if `n = 1`, we don't need to perform the $log_2(1)$, because `n` is already `1`.
+* If `n = 2`, we need to perform $log_2(2)$ once to bring `n = 2` down to `1`.
+* If $n \in \{3, 4\}$ (if `n` is any element between 3 and 4), we need to perform $log_2(n)$ at most `2` times to bring down `n` to `1`.
+* Below is the complete term:
+
+| n                                 | $log^* n$ |
+|-----------------------------------|-----------|
+| n = 1                             | 0         |
+| n = 2                             | 1         |
+| n $\in$ {3, 4}                    | 2         |
+| n $\in$ {5, 6, ..., 16}           | 3         |
+| n $\in$ {17, ..., 65536}          | 4         |
+| n $\in$ {65537, ..., $2^{65536}$} | 5         |
+
+* Even for extremely large term such as $2^{65536}$, the value of $log^{*}(n)$ is only `5` which is significantly low. 
 
