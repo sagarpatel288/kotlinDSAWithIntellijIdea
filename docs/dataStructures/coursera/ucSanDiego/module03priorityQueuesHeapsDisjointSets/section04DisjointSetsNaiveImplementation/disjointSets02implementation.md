@@ -1,5 +1,18 @@
 # Disjoint Sets (Union-Find) Implementation
 
+<!-- TOC -->
+* [Disjoint Sets (Union-Find) Implementation](#disjoint-sets-union-find-implementation)
+  * [Naive Implementation: Using Arrays](#naive-implementation-using-arrays)
+  * [Naive Implementation: Using LinkedList](#naive-implementation-using-linkedlist)
+  * [Improvement](#improvement)
+    * [Tree As An Internal Data Structure For DSU](#tree-as-an-internal-data-structure-for-dsu)
+    * [Union (merge) of Two Trees (Disjoint Sets) By Rank](#union-merge-of-two-trees-disjoint-sets-by-rank)
+    * [How does the "Union By Rank" technique ensure the optimal height of the resultant tree?](#how-does-the-union-by-rank-technique-ensure-the-optimal-height-of-the-resultant-tree)
+      * [Minimum nodes in the resultant tree](#minimum-nodes-in-the-resultant-tree)
+      * [Optimal Height = Binary logarithm of the total nodes](#optimal-height--binary-logarithm-of-the-total-nodes)
+    * [So, what will the time complexity of the `Find` and `Union` operations be?](#so-what-will-the-time-complexity-of-the-find-and-union-operations-be)
+<!-- TOC -->
+
 ## Naive Implementation: Using Arrays
 
 ![160dsuNaiveArrayImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/160dsuNaiveArrayImplementation.png)
@@ -194,5 +207,26 @@
 * It means that $h <= log_2(n)$ is true.
 * It means that our claim that the resultant height of the tree is always less than or equal to (at most) the binary logarithm of the total nodes is true.
 
+### So, what will the time complexity of the `Find` and `Union` operations be?
 
+* We learned that using [Union By Rank](#union-merge-of-two-trees-disjoint-sets-by-rank), we keep the tree height at most $log_2(n)$.
+* It means that the maximum traversal we may need to perform during the `find` operation is $log_2(n)$.
+* It means that the time-complexity of the `find` operation is at most $log_2(n)$.
+* And in the `union` operation, we do the following:
+  * We `find` the root of the two nodes.
+  * And we know that the `find` operation takes $log_2(n)$ time.
+  * Then, if the roots are the same, we don't need to perform the `union` operation as the nodes are already in the same `set` (tree).
+  * Otherwise, we check the `rank` of each root in the `rank` array.
+  * The `rank` array provides random access in `O(1)` time.
+  * If the `rank` of each `root` is the same, we make one of the roots a child of another root.
+    * It is just updating the `parent` value in the `array` for the `node` which is represented by an `index.`
+    * So, updating the `parent` value in the `array` is just `O(1)` time, again due to random access.
+    * Then, we increase the `rank` of the `parent` in the `rank` array.
+    * Again, it is just `O(1)` time.
+  * And if the `rank` of each `root` is different, we make the shorter root a child of the taller root.
+    * We do that by updating the `parent` value in the `parent` array for the `node`, which is represented by an index.
+    * It is done in `O(1)` time due to random access.
+    * And we don't need to increase the `rank` of the `parent root` in this case.
+* So, we just finished the `union` operation at this point.
+* Hence, the time complexity of the `union` operation is also $log_2(n)$.
 
