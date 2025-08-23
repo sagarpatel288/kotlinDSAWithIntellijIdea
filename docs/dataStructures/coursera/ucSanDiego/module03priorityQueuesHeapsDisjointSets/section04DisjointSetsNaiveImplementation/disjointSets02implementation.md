@@ -10,6 +10,7 @@
     * [How does the "Union By Rank" technique ensure the optimal height of the resultant tree?](#how-does-the-union-by-rank-technique-ensure-the-optimal-height-of-the-resultant-tree)
       * [Minimum nodes in the resultant tree](#minimum-nodes-in-the-resultant-tree)
       * [Optimal Height = Binary logarithm of the total nodes](#optimal-height--binary-logarithm-of-the-total-nodes)
+    * [Path Compression](#path-compression)
   * [Worst-case time complexity of the `Find` and `Union` operations](#worst-case-time-complexity-of-the-find-and-union-operations)
   * [Realistic (Amortized) time complexity of the `Find` and `Union` operations](#realistic-amortized-time-complexity-of-the-find-and-union-operations)
 <!-- TOC -->
