@@ -7,12 +7,14 @@
   * [Improvement](#improvement)
     * [Tree As An Internal Data Structure For DSU](#tree-as-an-internal-data-structure-for-dsu)
     * [Union (merge) of Two Trees (Disjoint Sets) By Rank](#union-merge-of-two-trees-disjoint-sets-by-rank)
-    * [How does the "Union By Rank" technique ensure the optimal height of the resultant tree?](#how-does-the-union-by-rank-technique-ensure-the-optimal-height-of-the-resultant-tree)
+    * [Tree Height With "Union By Rank"](#tree-height-with-union-by-rank)
       * [Minimum nodes in the resultant tree](#minimum-nodes-in-the-resultant-tree)
       * [Optimal Height = Binary logarithm of the total nodes](#optimal-height--binary-logarithm-of-the-total-nodes)
     * [Path Compression](#path-compression)
   * [Worst-case time complexity of the `Find` and `Union` operations](#worst-case-time-complexity-of-the-find-and-union-operations)
   * [Realistic (Amortized) time complexity of the `Find` and `Union` operations](#realistic-amortized-time-complexity-of-the-find-and-union-operations)
+    * [$log^{*}(n)$](#logn)
+    * [Changes in the definition of the `Rank` array after the path compression](#changes-in-the-definition-of-the-rank-array-after-the-path-compression)
 <!-- TOC -->
 
 ## Naive Implementation: Using Arrays
@@ -118,10 +120,10 @@
   * Each `index` of the `rank` array represents a `node`, and each `value` represents the `height`.
 * For example:
 
-![235disjointSetTreeUnionByRankIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/235disjointSetTreeUnionByRankIdea.png)
+![237disjointSetTreeUnionByRankIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/237disjointSetTreeUnionByRankIdea.png)
 
 * **What does the `rank` represent?**
-  * Each `rank` value represents the `height` of the corresponding (associated, relevant) `index`, where an `index` represents a `node` of a tree.
+  * Each `rank` value represents the `height` of the corresponding (associated, relevant) `index`, where an `index` represents a `node` of a tree or a subtree.
 * **How do we maintain the `rank` array?**
   * If the `rank` (height, weight) of the two trees we merge is not the same, we don't update the rank.
   * If the `rank` (height, weight) of the two trees we merge is the same, then we increase the rank of the resultant parent by 1.
@@ -132,7 +134,7 @@
 
 ![270disjointSetTreeUnionByRank.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/270disjointSetTreeUnionByRank.png)
 
-### How does the "Union By Rank" technique ensure the optimal height of the resultant tree?
+### Tree Height With "Union By Rank"
 
 #### Minimum nodes in the resultant tree
 
@@ -215,7 +217,7 @@
 * Now, during this traversal, we might face many nodes for which the root is the same.
 * For example:
 
-![390disjointSetTreePathCompression.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/390disjointSetTreePathCompression.png)
+![392disjointSetTreePathCompression.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/392disjointSetTreePathCompression.png)
 
 * Why not store this information?
 * So that next time, when we get any of those nodes, we can get the parent in almost constant time.
@@ -248,6 +250,8 @@
 
 ## Realistic (Amortized) time complexity of the `Find` and `Union` operations
 
+### $log^{*}(n)$
+
 * We have already seen that the [path compression](#path-compression) heuristic makes the amortized cost almost constant.
 * But how much? Can we measure it? Can we prove it?
 * Before we can prove it, we need to understand a particular term, called `Log star of n` = $log^* (n)$.
@@ -267,4 +271,34 @@
 | n $\in$ {65537, ..., $2^{65536}$} | 5         |
 
 * Even for extremely large term such as $2^{65536}$, the value of $log^{*}(n)$ is only `5` which is significantly low. 
+* Although theoretically, `n` can approach infinity and so can $log^{*}(n)$, practically, `n` maxes out around $2^{65536}$, with $log^{*}(n)$ reaching just 5.
+* Hence, we can say that for all the practical values of `n`, the value of $log^{*}(n)$ is less than or equal to `5` only.
 
+### Changes in the definition of the `Rank` array after the path compression
+
+* We have seen in the [union by rank](#union-merge-of-two-trees-disjoint-sets-by-rank) that the `rank` array represents the height of a particular node.
+  * Each index of the `rank` array represented the `node` value,
+  * And each value represented the `height` of the corresponding `node`.
+* We have seen that the [path compression heuristic](#path-compression) changes the height of the tree. 
+  * Each `find` operation makes the tree shallow.
+* But we don't change the `rank` with each `find` operation.
+  * The `find` operation does not change the `rank` values.
+
+![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/450disjointSetsRealisticAnalysis.png)
+
+* It means that with the path compression heuristic implemented, `rank` does not represent the exact height of a node.
+* Path compression changes the interpretation of the `rank` array.
+  * The `rank` now represents a node's maximum height instead of the node's exact height.
+  * Hence, the `rank` represents the `upper bound` of a node's height.
+* And we have proved in the [height from union by rank](#tree-height-with-union-by-rank) section that if the tree height is `k`, then it must have at least $2^k$ nodes.
+  * So, if the `rank` value at index `i` is `k`, then the maximum nodes of a subtree whose root node is `i`, can be $2^k$.
+  * So basically, the `rank` value of any index `i`, represents the `maximum height = k` of the subtree whose root is node `i`, and it can have at most $2^{k}$ nodes.
+  * So, we get two types of information from the `rank` value of index `i`: The maximum height and the maximum nodes of a subtree whose root node is `i`.
+* Now, suppose we have a total of `n` nodes in a tree.
+* Out of these `n` nodes, suppose we have `x` number of nodes with rank `k`.
+* Now, each node with `rank k` can have at most $2^{k}$ nodes. 
+* So, we get a total of: $x * 2^{k}$ nodes in the tree.
+* However, note that it cannot exceed the total number of nodes, `n`.
+* So, it becomes:
+* $x * 2^{k} <= n$
+* $x <= \frac{n}{2^{k}}$. 
