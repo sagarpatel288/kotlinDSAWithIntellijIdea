@@ -12,9 +12,14 @@
       * [Optimal Height = Binary logarithm of the total nodes](#optimal-height--binary-logarithm-of-the-total-nodes)
     * [Path Compression](#path-compression)
   * [Worst-case time complexity of the `Find` and `Union` operations](#worst-case-time-complexity-of-the-find-and-union-operations)
-  * [Realistic (Amortized) time complexity of the `Find` and `Union` operations](#realistic-amortized-time-complexity-of-the-find-and-union-operations)
+  * [Realistic (Amortized) analysis of the `Find` and `Union` operations](#realistic-amortized-analysis-of-the-find-and-union-operations)
     * [$log^{*}(n)$](#logn)
-    * [Changes in the definition of the `Rank` array after the path compression](#changes-in-the-definition-of-the-rank-array-after-the-path-compression)
+    * [Observation Of The `rank` Array](#observation-of-the-rank-array)
+      * [Maximum nodes with rank `k` <= $\frac{n}{2^{k}}$](#maximum-nodes-with-rank-k--fracn2k)
+      * [The `rank` of a parent is always greater than the `rank` of a child: `rank[i] < rank[parent[i]]`](#the-rank-of-a-parent-is-always-greater-than-the-rank-of-a-child-ranki--rankparenti)
+      * [Once a child, always a child: Once an internal node, always an internal node](#once-a-child-always-a-child-once-an-internal-node-always-an-internal-node-)
+      * [M operations and 3 Buckets](#m-operations-and-3-buckets)
+        * [Bucket#1](#bucket1)
 <!-- TOC -->
 
 ## Naive Implementation: Using Arrays
@@ -248,7 +253,9 @@
 * So, we just finished the `union` operation at this point.
 * Hence, the time complexity of the `union` operation is also $log_2(n)$.
 
-## Realistic (Amortized) time complexity of the `Find` and `Union` operations
+## Realistic (Amortized) analysis of the `Find` and `Union` operations
+
+[Interview with Tarjan](https://amturing.acm.org/award_winners/tarjan_1092048.cfm)
 
 ### $log^{*}(n)$
 
