@@ -274,7 +274,9 @@
 * Although theoretically, `n` can approach infinity and so can $log^{*}(n)$, practically, `n` maxes out around $2^{65536}$, with $log^{*}(n)$ reaching just 5.
 * Hence, we can say that for all the practical values of `n`, the value of $log^{*}(n)$ is less than or equal to `5` only.
 
-### Changes in the definition of the `Rank` array after the path compression
+### Observation Of The `rank` Array
+
+#### Maximum nodes with rank `k` <= $\frac{n}{2^{k}}$
 
 * We have seen in the [union by rank](#union-merge-of-two-trees-disjoint-sets-by-rank) that the `rank` array represents the height of a particular node.
   * Each index of the `rank` array represented the `node` value,
@@ -302,3 +304,53 @@
 * So, it becomes:
 * $x * 2^{k} <= n$
 * $x <= \frac{n}{2^{k}}$. 
+* It means that in a DSU forest, we can have at most $\frac{n}{2^{k}}$ nodes whose rank is `k`.
+* If we have more such nodes with rank `k`, then it exceeds the total number of nodes `n`, which is not possible.
+
+#### The `rank` of a parent is always greater than the `rank` of a child: `rank[i] < rank[parent[i]]`
+
+* Also, it is true for any tree that the height of a parent will always be greater than the height of a child.
+  * And we know that a `rank` value shows the height (or maximum height) of a node. 
+  * So, the `rank` of a parent node will always be greater than the `rank` of the child node.
+  * So, `rank[i] < rank[parent[i]]`.
+  * We can see it again in the following images.
+
+![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/340disjointSetTreeUnionByRankAnalysis.png)
+
+And
+
+![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/450disjointSetsRealisticAnalysis.png)
+
+#### Once a child, always a child: Once an internal node, always an internal node 
+
+* A parent can be a child of another parent due to the `union` operation.
+  * But a child can never be a parent.
+  * Because the `find` operation may change the `parent`, but not the `root`.
+  * And the `union` operation makes one root a child of another root. So, once the `parent` might become `child` now.
+  * And once a `parent` becomes a `child`, it will be a `child` forever.
+  * So, once a vertex (node) becomes an internal vertex (node), it remains an internal vertex (node) forever.
+* We can confirm the same by observing the same images again.
+
+![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/340disjointSetTreeUnionByRankAnalysis.png)
+
+And
+
+![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/450disjointSetsRealisticAnalysis.png)
+
+#### M operations and 3 Buckets
+
+* Now, a `union` operation consists of two `find` operations.
+  * And it also contains some **constant** operations, such as comparing the roots and changing the parent.
+  * But since they are constant operations, the `find` operation cost dominates the overall time complexity.
+* And in each `find` operation, we travel toward the root of the tree.
+* So, the running time of all the `find` operations is the total number of **edges we travel**.
+* It means that we need to focus on the `traversal` part to find the overall time complexity.
+* Now, we have already learned about the [$log^{*}(n)$](#logn).
+* We will divide our travelling into 3 categories using this [$log^{*}(n)$](#logn).
+
+##### Bucket#1
+
+* In this bucket, we collect all the "traversal" that reaches the root node within 1 edge.
+* So, it is like, one jump and we are already at the `root` node.
+* For each `find` function, we get at least `1` such case.
+* For `m` find operations, we get `m` edges in this bucket.
