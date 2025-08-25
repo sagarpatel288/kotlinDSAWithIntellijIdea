@@ -255,17 +255,39 @@
 
 ## Realistic (Amortized) analysis of the `Find` and `Union` operations
 
-[Interview with Tarjan](https://amturing.acm.org/award_winners/tarjan_1092048.cfm)
+### References / Resources
+
+[Interview with Robert Tarjan](https://amturing.acm.org/award_winners/tarjan_1092048.cfm)
+
+### Observation
+
+* We have already seen it in the [Tree Height With Union By Rank](#tree-height-with-union-by-rank) that the maximum tree height we get is $log_2(n)$.
+* We have also seen that the [Path Compression](#path-compression) makes the traversal from a particular node to the root node inexpensive over time.
+* Let us see a couple of more observations.
+
+![510disjointSetsLogStarInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/510disjointSetsLogStarInRealisticAnalysis.png)
+
+* We know that a `rank` represents or corresponds to the `height` of a node.
+* As shown in the image, we can see that whenever a node is re-parented, it always (strictly) gets the parent who has a higher rank than the previous parent.
+* And considering the fact that the tree can have a maximum height of $log_2(n)$, this update (upgrade, level-up) exhausts very fast. 
+  * Because that is the highest rank any node can get.
+  * And a node reaches it very fast.
+* How fast? Can we measure it? Do we have any expression for that?
+* That's exactly what we are going to cover in the next point.
+* It is called, $log^{*}(n)$ (`log star n`).
 
 ### $log^{*}(n)$
+
+![510disjointSetsLogStarInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/510disjointSetsLogStarInRealisticAnalysis.png)
 
 * We have already seen that the [path compression](#path-compression) heuristic makes the amortized cost almost constant.
 * But how much? Can we measure it? Can we prove it?
 * Before we can prove it, we need to understand a particular term, called `Log star of n` = $log^* (n)$.
-* The `log star n` is the number of `binary logarithmic operations` we need to perform to bring down any given `n` to `1`.
-* So, for example, if `n = 1`, we don't need to perform the $log_2(1)$, because `n` is already `1`.
-* If `n = 2`, we need to perform $log_2(2)$ once to bring `n = 2` down to `1`.
-* If $n \in \{3, 4\}$ (if `n` is any element between 3 and 4), we need to perform $log_2(n)$ at most `2` times to bring down `n` to `1`.
+* The `log star n` is the number of `binary logarithmic operations` we need to perform to reach `1` or less.
+  * In DSU (Disjoint Sets Union-Find), it represents the maximum number of times any node can be re-parented strictly to a higher-rank parent.   
+* So, for example, if `n = 1`, we don't need to perform the $log_2(1)$, because `n` is already at `1`.
+* If `n = 2`, we need to perform $log_2(2)$ once to reach `1`.
+* If $n \in \{3, 4\}$ (if `n` is any element between 3 and 4), we need to perform $log_2(n)$ at most `2` times to reach `1`.
 * Below is the complete term:
 
 | n                                 | $log^* n$ |
@@ -277,6 +299,18 @@
 | n $\in$ {17, ..., 65536}          | 4         |
 | n $\in$ {65537, ..., $2^{65536}$} | 5         |
 
+* For example, when `n = 16`:
+  * Step-01: $log_2(16) = 4$ 
+  * We need to raise the base `2` to the power of `4` to get `16`. The answer is `4`. 
+  * Is it `1`? No. So, apply `binary logarithm` to the answer.
+  * Step-02: $log_2(4) = 2$
+  * We need to raise the base `2` to the power of `2` to get `4`. The answer is `2`.
+  * Is it `1`? No. So, apply `binary logarithm` to the answer.
+  * Step-03: $log_2(2) = 1$
+  * We need to raise the base `2` to the power of `1` to get `2`. The answer is `1`.
+  * Is it `1`. Yes.
+  * We need to perform `binary logarithm` at least `3` times starting from `n = 16` and to each result, to reach `1`.
+  * Hence, `log star n` of `16` is `3`.
 * Even for extremely large term such as $2^{65536}$, the value of $log^{*}(n)$ is only `5` which is significantly low. 
 * Although theoretically, `n` can approach infinity and so can $log^{*}(n)$, practically, `n` maxes out around $2^{65536}$, with $log^{*}(n)$ reaching just 5.
 * Hence, we can say that for all the practical values of `n`, the value of $log^{*}(n)$ is less than or equal to `5` only.
@@ -355,9 +389,27 @@ And
 * Now, we have already learned about the [$log^{*}(n)$](#logn).
 * We will divide our travelling into 3 categories using this [$log^{*}(n)$](#logn).
 
-##### Bucket#1
+##### Bucket#1: One step away from the root node
 
 * In this bucket, we collect all the "traversal" that reaches the root node within 1 edge.
 * So, it is like, one jump and we are already at the `root` node.
 * For each `find` function, we get at least `1` such case.
 * For `m` find operations, we get `m` edges in this bucket.
+
+##### Bucket#2: A different $log^{*}$ group
+
+* As per the [$log^{*}$](#logn) table, we can have multiple numbers for which the $log^{*}$ value is the same.
+* For example, when $n \in \{3, 4\}$, the answer of $log^{*}(n)$ is `2`.
+* Similarly, we have different ranges for which the answer of $log^{*}(n)$ is different.
+* For example, the answer of $n \in \{3, 4\}$ (which is `2`) and $n \in \{17, 65536\}$ (which is `4`) are different.
+* So, in this bucket, we collect all the traversals for which the answer of $log^{*}(n)$ is different.
+* Now, as per [Tree Height With Union By Rank](#tree-height-with-union-by-rank), a tree can have a maximum $log_2(n)$ height.
+  * Note that the rank shows maximum height.
+* So, the maximum value of $log^{*}$ is $log^{*}(log_2(n))$.
+* Now, let us see an example.
+  * Suppose, $n = 10^{12}$.
+  * So, $log_2(10^{12})$ is about `40`.
+  * And then $log^{*}(40)$ is just `4`.
+* It means that even with the huge input size (the total number of nodes), the $log^{*}$ value (the maximum number of times any node can be re-parented strictly to a higher-ranked parent until it reaches `1`) grows significantly slowly.
+
+##### Bucket#3: The same $log^{*}$ group
