@@ -13,13 +13,19 @@
     * [Path Compression](#path-compression)
   * [Worst-case time complexity of the `Find` and `Union` operations](#worst-case-time-complexity-of-the-find-and-union-operations)
   * [Realistic (Amortized) analysis of the `Find` and `Union` operations](#realistic-amortized-analysis-of-the-find-and-union-operations)
+    * [References / Resources](#references--resources)
+    * [Observation](#observation)
     * [$log^{*}(n)$](#logn)
+      * [Interpretation, Observation, And Significance](#interpretation-observation-and-significance)
     * [Observation Of The `rank` Array](#observation-of-the-rank-array)
       * [Maximum nodes with rank `k` <= $\frac{n}{2^{k}}$](#maximum-nodes-with-rank-k--fracn2k)
       * [The `rank` of a parent is always greater than the `rank` of a child: `rank[i] < rank[parent[i]]`](#the-rank-of-a-parent-is-always-greater-than-the-rank-of-a-child-ranki--rankparenti)
       * [Once a child, always a child: Once an internal node, always an internal node](#once-a-child-always-a-child-once-an-internal-node-always-an-internal-node-)
-      * [M operations and 3 Buckets](#m-operations-and-3-buckets)
-        * [Bucket#1](#bucket1)
+    * [Running Time = Total Traversal: M operations and Classification Of Edges Into 3 Buckets](#running-time--total-traversal-m-operations-and-classification-of-edges-into-3-buckets)
+      * [Bucket#1: One step away from the root node](#bucket1-one-step-away-from-the-root-node)
+      * [Bucket#2: A different $log^{*}$ group](#bucket2-a-different-log-group)
+      * [Bucket#3: The same $log^{*}$ group](#bucket3-the-same-log-group)
+      * [Total Running Time](#total-running-time)
 <!-- TOC -->
 
 ## Naive Implementation: Using Arrays
@@ -288,7 +294,7 @@
 * So, for example, if `n = 1`, we don't need to perform the $log_2(1)$, because `n` is already at `1`.
 * If `n = 2`, we need to perform $log_2(2)$ once to reach `1`.
 * If $n \in \{3, 4\}$ (if `n` is any element between 3 and 4), we need to perform $log_2(n)$ at most `2` times to reach `1`.
-* Below is the complete term:
+* Below is a reference table:
 
 | n                                 | $log^* n$ |
 |-----------------------------------|-----------|
@@ -314,6 +320,27 @@
 * Even for extremely large term such as $2^{65536}$, the value of $log^{*}(n)$ is only `5` which is significantly low. 
 * Although theoretically, `n` can approach infinity and so can $log^{*}(n)$, practically, `n` maxes out around $2^{65536}$, with $log^{*}(n)$ reaching just 5.
 * Hence, we can say that for all the practical values of `n`, the value of $log^{*}(n)$ is less than or equal to `5` only.
+
+#### Interpretation, Observation, And Significance
+
+* The $log^{*}$ value represents the maximum number of times any node can be re-parented strictly to a higher-rank parent until it hits the highest possible rank in the tree.
+* The value of $log^{*}$ depends on the rank of a particular node and the set size `n`.
+* In this way, $log^{*}$ table is a classification of different ranks.
+* For example: 
+  * Rank `1` is in log-star-tier-0.
+  * Rank `2` is in log-star-tier-1.
+  * Ranks `3` and `4` are in log-star-tier-2.
+  * Ranks from `5` to `16` are in log-star-tier-3.
+  * Ranks from `17` to `65536` are in log-star-tier-4.
+  * Ranks from `65537` to $2^{65536}$ are in log-star-tier-5.
+* Each range (interval) starts from `k + 1` and goes up to $2^{k}$.
+  * For example, we start from `k = 0`.
+  * So, in the first log-star tier, we get `k + 1 = 0 + 1` to $2^{k} = 2^{0} = 1$. Now, the range ended at `k = 1`.
+  * In the next log-star-tier, we get `k + 1 = 1 + 1 = 2` to $2^{k} = 2^{1} = 2$. Now, the range ended at `k = 2`.
+  * In the next log-star-tier, we get `k + 1 = 2 + 1 = 3` to $2^{k} = 2^{2} = 4$. Now, the range ended at `k = 4`.
+  * In the next log-star-tier, we get `k + 1 = 4 + 1 = 5` to $2^{k} = 2^{4} = 16$. Now, the range ended at `k = 16`.
+  * In the next log-star-tier, we get `k + 1 = 16 + 1 = 17` to $2^{k} = 2^{16} = 65536$. Now, the range ended at `k = 65536`.
+  * In the next log-star-tier, we get `k + 1 = 65536 + 1 = 65537` to $2^{65536}$.
 
 ### Observation Of The `rank` Array
 
@@ -378,7 +405,7 @@ And
 
 ![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/450disjointSetsRealisticAnalysis.png)
 
-#### M operations and 3 Buckets
+### Running Time = Total Traversal: M operations and Classification Of Edges Into 3 Buckets
 
 * Now, a `union` operation consists of two `find` operations.
   * And it also contains some **constant** operations, such as comparing the roots and changing the parent.
@@ -386,30 +413,106 @@ And
 * And in each `find` operation, we travel toward the root of the tree.
 * So, the running time of all the `find` operations is the total number of **edges we travel**.
 * It means that we need to focus on the `traversal` part to find the overall time complexity.
+  * So, the focus is on the `edges` that we use for the `traversal`.
+  * There are many `traversals` and there are many `edges`.
+  * We use `edges` to travel.
+  * It is difficult to count, analyze, and generalize the traveling edge-by-edge for each node.
+  * So, we classify the edges based on the ranks of the nodes they connect.
+  * Because we already know the [properties and limitations of these ranks](#observation-of-the-rank-array).
+  * For example, the maximum rank a node can get is $log_2(n)$.
+  * Also, the rank of a child is always less than the rank of the parent.
+  * So, we use these ranks to classify edges.  
+  * An `edge` connects two nodes. The child `i` and the parent `j`.
+  * So, we classify (assort, split, group) `edges` into 3 categories based on the ranks of the nodes they connect.
+  * Then, we find the `upper bound` of each group.
+  * And finally, we give the realistic (amortized) running time of DSU.
 * Now, we have already learned about the [$log^{*}(n)$](#logn).
 * We will divide our travelling into 3 categories using this [$log^{*}(n)$](#logn).
 
-##### Bucket#1: One step away from the root node
+![520disjointSetsEdgeClassificationInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/520disjointSetsEdgeClassificationInRealisticAnalysis.png)
+
+#### Bucket#1: One step away from the root node
 
 * In this bucket, we collect all the "traversal" that reaches the root node within 1 edge.
 * So, it is like, one jump and we are already at the `root` node.
 * For each `find` function, we get at least `1` such case.
 * For `m` find operations, we get `m` edges in this bucket.
+* So, it becomes $O(m)$.
 
-##### Bucket#2: A different $log^{*}$ group
+#### Bucket#2: A different $log^{*}$ group
 
 * As per the [$log^{*}$](#logn) table, we can have multiple numbers for which the $log^{*}$ value is the same.
 * For example, when $n \in \{3, 4\}$, the answer of $log^{*}(n)$ is `2`.
 * Similarly, we have different ranges for which the answer of $log^{*}(n)$ is different.
+* More precisely, this is the bucket that contains all the edges for which the child `i` is in the lower `tier` of $log^{*}$ and the parent `j` is in the higher `tier` of $log^{*}$.
 * For example, the answer of $n \in \{3, 4\}$ (which is `2`) and $n \in \{17, 65536\}$ (which is `4`) are different.
-* So, in this bucket, we collect all the traversals for which the answer of $log^{*}(n)$ is different.
+* So, in this bucket, we collect all the edges for which the answer of $log^{*}(n)$ for each node is different.
+* For example, suppose we travel from a node `i` to a node `j`. 
+  * Where `j` is the parent of `i`, and `j` is not the root node.
+  * Now it is obvious that the child `i` has a lower rank than the parent `j`.
+  * The point of classification here is that their ranks fall into different tiers (groups).
+  * For example, the child node `14` is in the `tier-3`, whereas the parent node `17` is in the `tier-4`.   
 * Now, as per [Tree Height With Union By Rank](#tree-height-with-union-by-rank), a tree can have a maximum $log_2(n)$ height.
   * Note that the rank shows maximum height.
 * So, the maximum value of $log^{*}$ is $log^{*}(log_2(n))$.
+* For any practical value `n`, we have a very limited "tiers" of $log^{*}$.
+* Because with `n`, the value of $log^{*}$ increases very slowly. 
+  * We can see that in the [$log^{*}$](#logn) section.
+* It means that for any practical value up to $2^{65536}$, a single `find` operation can make a maximum of `5` jumps.
+  * Again, the reason behind this is [union by rank](#tree-height-with-union-by-rank) and [path compression](#path-compression). 
+* But we don't take the `hard-coded literal` values.
+* So, for any practical value `n`, a single `find` operation can make $log^{*}(n)$ jumps.
+* Hence, for `m` operations, it becomes $m * (log^{*}(n))$.
 * Now, let us see an example.
   * Suppose, $n = 10^{12}$.
   * So, $log_2(10^{12})$ is about `40`.
   * And then $log^{*}(40)$ is just `4`.
 * It means that even with the huge input size (the total number of nodes), the $log^{*}$ value (the maximum number of times any node can be re-parented strictly to a higher-ranked parent until it reaches `1`) grows significantly slowly.
 
-##### Bucket#3: The same $log^{*}$ group
+#### Bucket#3: The same $log^{*}$ group
+
+* This is a group that collects all the edges where the child `i` and the parent `j` lives (or lies) in the same $log^{*}$ group.
+* For example, in the given image, the edge that connects the child `17` with the parent `21`. 
+  * Because both the nodes are in the same $log^{*}$ group, which is `4`.
+* Similarly, the edge that connects the child `10` with the parent `14`.
+  * Because both the nodes are in the same $log^{*}$ group, which is `3`.
+* Now, we know that with each `find` operation, a node is re-parented strictly to a higher-ranked parent.
+* How long can this drama last where the child `i` gets a higher-ranked parent `j` but within the same `log star tier`?
+* How many such nodes can we have?
+* The answer lies in the pattern of [$log^{*}$](#logn). 
+* The range of such a group starts from the rank `k + 1` and goes up to the rank $2^k$.
+* It means, after re-parenting to a node whose rank is $2^k$, the node must be re-parented strictly to a higher-ranked parent of the next log-star-tier.
+* And according to the [observation of the rank array](#observation-of-the-rank-array), if a node has a rank `k`, then the subtree whose root rank is `k` can have at most $\frac{n}{2^{k}}$ nodes.
+* When we use that proof on this range of ranks, which is [k + 1, $2^{k}$], we get a geometric series as below:
+
+$$
+\frac{n}{2^{k + 1}} + \frac{n}{2^{k + 2}} + \frac{n}{2^{k + 3}} + \dots + \frac{n}{2^{2^k}}  
+$$
+
+* And it simplifies to:
+
+$$
+\frac{n}{2^{k}}
+$$
+
+* So, we have a total of $\frac{n}{2^{k}}$ nodes in this range.
+* How many times can we re-parent one of the nodes of this range strictly to a higher-ranked parent without leaving the same log-star-tier?
+* We have the range start `k + 1` and range end $2^k$.
+* So, we can calculate the number of steps: $2^{k} - (k + 1)$ <= $2^k$.
+* We take the upper bound: $2^{k}$.
+* So, we can have $\frac{n}{2^{k}}$ nodes where each node can be re-parented strictly to a higher-ranked parent without changing the log-star-tier up to $2^k$ times.
+* So, the total becomes:
+
+$$
+\frac{n}{2^{k}} * 2^{k} = n
+$$
+
+* It means that the running time of all such traversals is $O(n)$.
+* If we count it for all the tiers, it becomes $O(n * log^{*}(n))$.
+
+#### Total Running Time
+
+* Total running time of `m` operations = Total running time of {Bucket#1, Bucket#2, Bucket#3}.
+* $= O(m) + O(m * log^{*}(n)) + O(n * log^{*}(n))$
+* Since $m >= n$, considering the dominant term:
+* $= O(m * log^{*}(n))$.
