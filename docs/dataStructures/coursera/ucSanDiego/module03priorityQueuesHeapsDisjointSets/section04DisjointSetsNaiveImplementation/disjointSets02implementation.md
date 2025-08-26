@@ -26,6 +26,7 @@
       * [Bucket#2: A different $log^{*}$ group](#bucket2-a-different-log-group)
       * [Bucket#3: The same $log^{*}$ group](#bucket3-the-same-log-group)
       * [Total Running Time](#total-running-time)
+      * [Summary](#summary)
 <!-- TOC -->
 
 ## Naive Implementation: Using Arrays
