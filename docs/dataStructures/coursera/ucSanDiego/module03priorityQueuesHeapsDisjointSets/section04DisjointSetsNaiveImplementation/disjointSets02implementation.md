@@ -516,3 +516,34 @@ $$
 * $= O(m) + O(m * log^{*}(n)) + O(n * log^{*}(n))$
 * Since $m >= n$, considering the dominant term:
 * $= O(m * log^{*}(n))$.
+
+#### Summary
+
+* We classify different ranks into the log-star-tier system.
+* Each node has a rank.
+* A rank value represents the maximum height.
+* The maximum height of a tree is $log_2(n)$.
+* The performance of DSU mostly depends on the `find` operation.
+* In the `find` operation, we travel towards the root node.
+* We travel `edges-by-edges`.
+* The root node has the highest rank (no smaller than the child: paren >= child).
+* The child will always have a lower or equal rank than the parent (child <= parent).
+* The parent of a child node is changed due to `path compression`.
+* Each re-parenting ensures that the child gets a higher-ranked parent than the previous parent. 
+* We classify the edges to count the total traversal.
+* Bucket#01: The edges that connect a child node to the root node.
+  * Each `find` operation will have at least `1` such `edge`.
+  * So, for `m` operations, it is $O(m)$.
+* Bucket#02: The edges that connect the child strictly to a higher-ranked parent of a different log-star-tier.
+  * Total tiers: $log^{*}(n)$
+  * Each `find` operation can cover all these tiers during the traversal toward the root: $log^{*}(n)$
+  * For `m` operations, it becomes $O(m * log^{*}(n))$.
+* Bucket#03: The edges that connect the child strictly to a higher-ranked parent within the same log-star-tier.
+  * Total possible nodes in each range: $\frac{n}{2^{k}}$.
+  * Total possible re-parenting before the next parent happens in a different log-star-tier: $2^k$.
+  * Total such edges in each range: $\frac{n}{2^{k}} * 2^{k} = n$.
+  * Total such edges for all the log-star-tiers: $n * log^{*}(n)$
+  * So, it becomes: $O(n * log^{*}(n))$.
+* Total running time = Total running time of {Bucket#01 + Bucket#02 + Bucket#03}
+  * $= O(m) + O(m * log^{*}(n)) + O(n * log^{*}(n))$ where m >= n.
+  * $= O(m * log^{*}(n))$
