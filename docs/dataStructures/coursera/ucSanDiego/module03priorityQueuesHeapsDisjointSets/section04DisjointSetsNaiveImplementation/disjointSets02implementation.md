@@ -27,6 +27,7 @@
       * [Bucket#3: The same $log^{*}$ group](#bucket3-the-same-log-group)
       * [Total Running Time](#total-running-time)
       * [Summary](#summary)
+      * [Quick Revision](#quick-revision)
 <!-- TOC -->
 
 ## Naive Implementation: Using Arrays
@@ -137,9 +138,9 @@
 * **What does the `rank` represent?**
   * Each `rank` value represents the `height` of the corresponding (associated, relevant) `index`, where an `index` represents a `node` of a tree or a subtree.
 * **How do we maintain the `rank` array?**
-  * If the `rank` (height, weight) of the two trees we merge is not the same, we don't update the rank.
-  * If the `rank` (height, weight) of the two trees we merge is the same, then we increase the rank of the resultant parent by 1.
-* **Why do we update the `rank` only when we merge two trees of the same `rank` (height, weight)?** 
+  * If the `rank` (height) of the two trees we merge is not the same, we don't update the rank.
+  * If the `rank` (height) of the two trees we merge is the same, then we increase the rank of the resultant parent by 1.
+* **Why do we update the `rank` only when we merge two trees of the same `rank` (height)?** 
   * Because when we hang a shorter tree on the taller tree, the height of the taller tree remains the same.
   * Only when we merge two trees of the same height, the height of the resultant tree is increased.
 * For example:
@@ -393,7 +394,7 @@ And
 #### Once a child, always a child: Once an internal node, always an internal node 
 
 * A parent can be a child of another parent due to the `union` operation.
-  * But a child can never be a parent.
+  * Once a node becomes a non-root internal node, it will remain a non-root internal node forever.
   * Because the `find` operation may change the `parent`, but not the `root`.
   * And the `union` operation makes one root a child of another root. So, once the `parent` might become `child` now.
   * And once a `parent` becomes a `child`, it will be a `child` forever.
@@ -434,10 +435,10 @@ And
 
 #### Bucket#1: One step away from the root node
 
-* In this bucket, we collect all the "traversal" that reaches the root node within 1 edge.
+* In this bucket, we collect all the "traversal" that reaches the root node within `1` edge.
 * So, it is like, one jump and we are already at the `root` node.
-* For each `find` function, we get at least `1` such case.
-* For `m` find operations, we get `m` edges in this bucket.
+* For each `find` function, we get at most `1` such case.
+* For `m` find operations, we get `m` such cases.
 * So, it becomes $O(m)$.
 
 #### Bucket#2: A different $log^{*}$ group
@@ -513,8 +514,13 @@ $$
 
 #### Total Running Time
 
-* Total running time of `m` operations = Total running time of {Bucket#1, Bucket#2, Bucket#3}.
+* Total running time of `m` operations = Sum of each bucket's running time.
 * $= O(m) + O(m * log^{*}(n)) + O(n * log^{*}(n))$
+* The DSU requires at least `n` calls (operations) to `makeSet` where `n` is the total number of nodes/elements.
+  * Then, we might get multiple `union` and `find` operations. 
+  * So, it is obvious that the total number of operations, `m`, is at least as large as `n`.
+  * So, `m` >= `n`.
+* So, the dominant term between `m` and `n` is `m`.
 * Since $m >= n$, considering the dominant term:
 * $= O(m * log^{*}(n))$.
 
@@ -527,13 +533,13 @@ $$
 * The performance of DSU mostly depends on the `find` operation.
 * In the `find` operation, we travel towards the root node.
 * We travel `edges-by-edges`.
-* The root node has the highest rank (no smaller than the child: paren >= child).
-* The child will always have a lower or equal rank than the parent (child <= parent).
+* The root node has the highest rank.
+* The child will always have a lower rank than the parent.
 * The parent of a child node is changed due to `path compression`.
 * Each re-parenting ensures that the child gets a higher-ranked parent than the previous parent. 
 * We classify the edges to count the total traversal.
 * Bucket#01: The edges that connect a child node to the root node.
-  * Each `find` operation will have at least `1` such `edge`.
+  * Each `find` operation will have at most `1` such `edge`.
   * So, for `m` operations, it is $O(m)$.
 * Bucket#02: The edges that connect the child strictly to a higher-ranked parent of a different log-star-tier.
   * Total tiers: $log^{*}(n)$
@@ -545,11 +551,11 @@ $$
   * Total such edges in each range: $\frac{n}{2^{k}} * 2^{k} = n$.
   * Total such edges for all the log-star-tiers: $n * log^{*}(n)$
   * So, it becomes: $O(n * log^{*}(n))$.
-* Total running time = Total running time of {Bucket#01 + Bucket#02 + Bucket#03}
+* Total running time = Sum of total running time of all three buckets.
   * $= O(m) + O(m * log^{*}(n)) + O(n * log^{*}(n))$ where m >= n.
   * $= O(m * log^{*}(n))$
 
-#### Explanation
+#### Quick Revision
 
 * We classify ranks using the log star function, and the reason is hidden behind the way we use it.
   * [log star function](#logn)
@@ -597,6 +603,11 @@ $$
   * Especially, Bucket#2 and Bucket#3 represent (show, demonstrate, calculate) this path-compression fact. 
 * Now, to calculate the total running time of `m` operations in `DSU`, we simply sum up the upper bound of all these three buckets of edges. 
 * So, it becomes:
-* $O(m) + O(m * log^{*}(n)) + O(n * log^{*}(n))$ where m >= n because the total number of nodes the total find operations cover (cross) is greater than the total number of nodes. 
+* $O(m) + O(m * log^{*}(n)) + O(n * log^{*}(n))$ 
+  * A `DSU` starts with `n` calls (operations) to `makeSet` where `n` is the total nodes/elements.
+  * And then, we get `union` and `find` operations.
+  * So, it is obvious that the total number of operations `m` is at least as large as `n`.
+  * So, $m >= n$.
+  * Hence, `m` is the dominant term here compared to `n`.
 * So, it becomes:
 * $O(m * log^{*}(n))$.
