@@ -548,3 +548,55 @@ $$
 * Total running time = Total running time of {Bucket#01 + Bucket#02 + Bucket#03}
   * $= O(m) + O(m * log^{*}(n)) + O(n * log^{*}(n))$ where m >= n.
   * $= O(m * log^{*}(n))$
+
+#### Explanation
+
+* We classify ranks using the log star function, and the reason is hidden behind the way we use it.
+  * [log star function](#logn)
+* Using the classification of ranks, we classify edges.
+* The edges that connect the child nodes directly with the root nodes. 
+  * Our argument is that a single find operation will have at most one such case.
+  * For each such edge, the travelling cost is `1`. 
+  * It means that `m` operations can have at most `m` such cases.
+  * For `m` such edges, the total traversal becomes $O(m)$.
+* The edges that connect the child nodes strictly to a higher-ranked parent of a different log-star-tier. 
+  * [log star tier](#logn)
+  * Our argument is that we have a total of $log^{*}(n)$ tiers. 
+  * It means a single find operation can have a total of $log^{*}(n)$ such cases. 
+  * It means that `m` operations can have $m * log^{*}(n)$ such cases.
+  * So, the total traversal cost for `m` operations becomes $O(m * log^{*}(n))$. 
+* The edges that connect the child nodes strictly to a higher-ranked parent within the same log-star tier. 
+  * So, the child and the parent are both within the same log-star tier. 
+  * This argument is interesting because we know that, due to path compression, a child may change the direct parent. 
+  * And we also know that whenever a child changes a parent, the new parent must have a higher rank than the old parent. 
+  * So, how many times can a child change a higher-ranked parent in such a way that both the child and the parent remain in the same log-star tier? 
+  * Or in other words, when a child keeps changing the parent in a way that the new parent has a higher rank than the previous parent, there will be a time when the parent will cross the log-star tier, and the connection between the child and such a parent will fall into the second category. 
+  * So, when will that happen?
+  * How many times can such a reparenting happen? 
+  * The range of a single log-star tier is from `(k + 1)` to $2^{k}$. 
+  * It means we have a total of $2^{k} - (k + 1)$ steps, which is <= $2^k$. 
+  * Let us take the upper bound $2^{k}$. 
+  * So, after $2^{k}$ times of re-parenting, where each new parent has a higher rank than the previous rank, the child node will get the next parent, which will be in a different log-star tier. 
+  * So, a single node can be re-parented a total of $2^{k}$ times strictly to a higher-ranked parent in such a way that the child node and the new parent remain in the same log-star tier. 
+  * So, that is for the traversal of a single node of a particular log-star tier. 
+  * How many nodes can we have in each log-star tier? 
+  * Again, the log-star tier is a classification of ranks. 
+  * Each tier represents a certain range of ranks. 
+  * Each range starts from `k + 1` and ends at $2^{k}$. 
+  * A tree whose rank is `k + 1` can have a maximum of $\frac{n}{2^{k + 1}}$ nodes. 
+  * Similarly, the next rank will be `k + 2,` which can have a maximum of $\frac{n}{2^{k + 2}}$ nodes. 
+  * It goes up to the last rank of the tier, which is $2^k$, which can have a maximum of $\frac{n}{2^{2^{k}}}$ nodes. 
+  * Then, we need to sum up all these nodes to count the total number of nodes each log-star tier can have. 
+  * So, it becomes a geometric series that simplifies to $\frac{n}{2^{k}}$.
+  * It means, each log-star-tier can have a maximum of $\frac{n}{2^{k}}$ nodes.
+  * And each node can be re-parented strictly to a higher-ranked parent up to $2^{k}$ times before the parent goes into a different log-star-tier.
+  * So, $\frac{n}{2^{k}}$ nodes re-parenting up to $2^{k}$ times becomes a total of $n$ traversal.
+  * So, for all the log-star tiers it becomes: $n * log^{*}(n)$.
+  * So, the total cost becomes: $O(n * log^{*}(n))$.
+* This is not just a static snapshot of the structure. This is the analysis of our traversal, calculating the total traversal by classifying edges while considering the fact that the path compression reduces the traveling.
+  * Especially, Bucket#2 and Bucket#3 represent (show, demonstrate, calculate) this path-compression fact. 
+* Now, to calculate the total running time of `m` operations in `DSU`, we simply sum up the upper bound of all these three buckets of edges. 
+* So, it becomes:
+* $O(m) + O(m * log^{*}(n)) + O(n * log^{*}(n))$ where m >= n because the total number of nodes the total find operations cover (cross) is greater than the total number of nodes. 
+* So, it becomes:
+* $O(m * log^{*}(n))$.
