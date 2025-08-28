@@ -2,6 +2,7 @@
 
 <!-- TOC -->
 * [Disjoint Sets (Union-Find) Implementation](#disjoint-sets-union-find-implementation)
+  * [References / Resources](#references--resources)
   * [Naive Implementation: Using Arrays](#naive-implementation-using-arrays)
   * [Naive Implementation: Using LinkedList](#naive-implementation-using-linkedlist)
   * [Improvement](#improvement)
@@ -13,9 +14,9 @@
     * [Path Compression](#path-compression)
   * [Worst-case time complexity of the `Find` and `Union` operations](#worst-case-time-complexity-of-the-find-and-union-operations)
   * [Realistic (Amortized) analysis of the `Find` and `Union` operations](#realistic-amortized-analysis-of-the-find-and-union-operations)
-    * [References / Resources](#references--resources)
+    * [References / Resources](#references--resources-1)
     * [Observation](#observation)
-    * [$log^{*}(n)$](#logn)
+    * [$log^{*}(n)$ = Iterated Logarithm](#logn--iterated-logarithm)
       * [Interpretation, Observation, And Significance](#interpretation-observation-and-significance)
     * [Observation Of The `rank` Array](#observation-of-the-rank-array)
       * [Maximum nodes with rank `k` <= $\frac{n}{2^{k}}$](#maximum-nodes-with-rank-k--fracn2k)
@@ -29,6 +30,14 @@
       * [Summary](#summary)
       * [Quick Revision](#quick-revision)
 <!-- TOC -->
+
+## References / Resources
+
+* [Previous: Introduction to DisjointSets](disjointSets.md)
+* [Abdul Bari Sir](https://youtu.be/wU6udHRIkcc?si=huj_Km4_SKLZshdP)
+* [codestorywithMIK: DSU: Part-01: Concept](https://youtu.be/AsAdKHkITBQ?si=jKFfP4miBOLYIgTZ)
+* [codestorywithMIK: DSU: Part-02: Rank & Path Compression](https://youtu.be/iH3XVIVzl7M?si=azdvs1H431SH8LNk)
+* [Coursera UC San Diego Data Structures](https://www.coursera.org/learn/data-structures) 
 
 ## Naive Implementation: Using Arrays
 
@@ -95,7 +104,7 @@
 
 ![180dsuImprovedImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/180dsuImprovedImplementation.png)
 
-* So, we pointed the head of another list to the tail of the old list.
+* So, we connected the tail of one list to the tail of another list.
 * But then the resultant structure is no longer a linked list structure. Right?
 * It seems more like a tree structure, where `7` is the root node, and it has two branches.
 * And what is the benefit?
@@ -108,13 +117,13 @@
 ![190disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/190disjointSetsDSUnionFindTreeImplementation.png)
 
 * A tree uses an array as an internal data structure.
-* Here, the indices will represent the node values, and the value of each index will represent the parent value.
+* Here, the indices will represent the nodes, and the value of each index will represent the parent value.
 
 ![200disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/200disjointSetsDSUnionFindTreeImplementation.png)
 
 * It means that `find(a)` will tell us about the parent of `a`.
 * If `find(a)` returns `a`, then `a` is the root node.
-* It means that when the index value (argument of the `find` function) and the element value are the same value, then it is the root of that tree (set).
+* It means that when the index and the index value are the same, then it is the root node of that tree (set).
 
 ![195disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/195disjointSetsDSUnionFindTreeImplementation.png)
 
@@ -136,11 +145,12 @@
 ![237disjointSetTreeUnionByRankIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/237disjointSetTreeUnionByRankIdea.png)
 
 * **What does the `rank` represent?**
-  * Each `rank` value represents the `height` of the corresponding (associated, relevant) `index`, where an `index` represents a `node` of a tree or a subtree.
+  * Each `rank` value represents the `height` of the corresponding `index`.
+    * Where an `index` represents a `node` of a tree or a subtree.
 * **How do we maintain the `rank` array?**
   * If the `rank` (height) of the two trees we merge is not the same, we don't update the rank.
   * If the `rank` (height) of the two trees we merge is the same, then we increase the rank of the resultant parent by 1.
-* **Why do we update the `rank` only when we merge two trees of the same `rank` (height)?** 
+* **Why do we increase the `rank` only when we merge two trees of the same `rank` (height)?**
   * Because when we hang a shorter tree on the taller tree, the height of the taller tree remains the same.
   * Only when we merge two trees of the same height, the height of the resultant tree is increased.
 * For example:
@@ -151,12 +161,12 @@
 
 #### Minimum nodes in the resultant tree
 
-* To prove the resulting tree's height is optimal with `union by rank`, we first need to understand how we perform the `union` operation.
-* We know that we hang the shorter tree on the taller tree. 
+* To prove the resulting tree's height is optimal with `union by rank`, we first understand how we perform the `union` operation.
+* We know that we hang the shorter tree on the taller tree.
 * But at which node do we hang the tree?
 * At the root node.
-* So, it is more than the nodes. 
-* We consider the root of each node. 
+* So, it is more than the nodes.
+* We consider the root of each node.
 * The root of one node becomes the direct child of the root of another node.
 * For example:
 
@@ -164,7 +174,7 @@
 
 * It means that the `union` operation cannot form a pathological (degenerate) tree.
 * Based on this observation, we give a statement that:
-* **The tree of `k` height (or rank) will have at least $2^k$ nodes.** 
+* **The tree of `k` height (or rank) will have at least $2^k$ nodes.**
 * We will use the induction theory (Proof by Induction) to prove the statement.
   * [Proof By Induction - Khan Academy](https://youtu.be/wblW_M_HVQ8?si=eRHuXRkurDqparJT)
   * [Learn Math Tutorials](https://youtu.be/dMn5w4_ztSw?si=CB0rBxEh91CR8rug)
@@ -185,8 +195,9 @@
 * The next step is: Induction Hypothesis.
 * Now, let us assume that our expression is true for a tree whose height is `k - 1`.
   * So, we have a tree (or two trees) whose height is `k - 1` and it has at least $2^{k - 1}$ nodes.
-* Now, the next term of `k - 1` is `k - 1 + 1 = k`. We need to prove that our statement is true for a tree whose height is `k`.
-* We have already observed and learned that the height of the resultant tree is increased by 1 only when we merge two trees of the same height.
+* Now, the next term of `k - 1` is `k - 1 + 1 = k`. 
+* We need to prove that our statement is true for a tree whose height is `k`.
+* We have already observed that the height of the tree is increased by 1 only when we merge two trees of the same height.
 * So, we have two trees of the same height: $k - 1$.
 * If we merge these two trees, the height of the resultant tree is increased by 1.
   * $k - 1 + 1 = k$
@@ -202,7 +213,7 @@
 #### Optimal Height = Binary logarithm of the total nodes
 
 * Now, using this fact, we want to prove our claim that using **"Union By Rank"**, we get an optimal height.
-* Specifically, in terms of measurement, we say that the height of the resultant tree does not exceed the binary logarithm of the total nodes.
+* Specifically, we say that the height of the tree does not exceed the binary logarithm of the total nodes.
 * So, we claim that the height of a resultant tree is $h <= log_2(n)$ where `n` is the total number of nodes.
 * According to the [minimum nodes](#minimum-nodes-in-the-resultant-tree) proof, if the height of a tree is `h`, then the total number of nodes is at least $2^h$.
 * So, if we denote `total number of nodes` as `n`, then it becomes:
@@ -211,7 +222,7 @@
 * $log_2(n) >= log_2(2^h)$
 * $log_2(n) >= h$
 * $h <= log_2(n)$
-* Which proves that the height of the resultant tree is always less than or equal to (at most) the binary logarithm of the total nodes.
+* Which proves that the height of the tree is always less than or equal to (at most) the binary logarithm of the total nodes.
 * We can also prove the optimal height in another way.
 * Now, let us assume that our claim is false.
 * It means that:
@@ -219,10 +230,10 @@
 * $=> 2^h > 2^{log_2(n)}$ // if $a > b$, then $2^a > 2^b$.
 * $=> 2^h > n$
 * Now, according to the previous fact of [minimum nodes](#minimum-nodes-in-the-resultant-tree), $2^h$ is the total number of nodes for a tree whose height is $h$.
-* $\text{Total nodes} > n$, which contradicts the fact that we started with `n` total number of nodes. 
+* $\text{Total nodes} > n$, which contradicts the fact that we started with `n` total number of nodes.
 * It means that our assumption that $h > log_2(n)$ is wrong.
 * It means that $h <= log_2(n)$ is true.
-* It means that our claim that the resultant height of the tree is always less than or equal to (at most) the binary logarithm of the total nodes is true.
+* It means that our claim that the height of the tree is at most the binary logarithm of the total nodes is true.
 
 ### Path Compression
 
@@ -269,7 +280,7 @@
 
 ### Observation
 
-* We have already seen it in the [Tree Height With Union By Rank](#tree-height-with-union-by-rank) that the maximum tree height we get is $log_2(n)$.
+* We have already seen it in the [Tree Height With Union By Rank](#tree-height-with-union-by-rank) that the maximum tree height is $log_2(n)$.
 * We have also seen that the [Path Compression](#path-compression) makes the traversal from a particular node to the root node inexpensive over time.
 * Let us see a couple of more observations.
 
@@ -284,7 +295,7 @@
 * That's exactly what we are going to cover in the next point.
 * It is called, $log^{*}(n)$ (`log star n`).
 
-### $log^{*}(n)$
+### $log^{*}(n)$ = Iterated Logarithm
 
 ![510disjointSetsLogStarInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/510disjointSetsLogStarInRealisticAnalysis.png)
 
@@ -328,7 +339,7 @@
 * The $log^{*}$ value represents the maximum number of times any node can be re-parented strictly to a higher-rank parent until it hits the highest possible rank in the tree.
 * The value of $log^{*}$ depends on the rank of a particular node and the set size `n`.
 * In this way, $log^{*}$ table is a classification of different ranks.
-* For example: 
+* For example:
   * Rank `1` is in log-star-tier-0.
   * Rank `2` is in log-star-tier-1.
   * Ranks `3` and `4` are in log-star-tier-2.
