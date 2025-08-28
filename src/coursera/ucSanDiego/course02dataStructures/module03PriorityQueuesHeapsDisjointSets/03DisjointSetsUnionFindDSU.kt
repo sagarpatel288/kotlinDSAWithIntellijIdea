@@ -26,9 +26,9 @@ class DisjointSet(private val size: Int) {
      * But here, we store the rank of each node instead of parent information.
      * A rank represents the upper bound of the height for the corresponding node.
      * Initially, each node is a separate, independent tree.
-     * So, the initial rank of each node is `1`.
+     * So, the initial rank (height) of each node is `0`.
      */
-    private val rank = IntArray(size) { 1 }
+    private val rank = IntArray(size) { 0 }
 
     /**
      * Finds the root node of the given [x].
@@ -50,7 +50,7 @@ class DisjointSet(private val size: Int) {
      */
     fun findRoot(x: Int): Int {
         // Basic checks.
-        if (x !in 0..<size) return -1
+        if (x !in 0..<size) throw IllegalArgumentException("Index $x is out of bounds for size $size")
 
         // Base condition.
         if (parent[x] == x) {
@@ -86,9 +86,7 @@ class DisjointSet(private val size: Int) {
      *
      */
     fun unionByRank(x: Int, y: Int): Boolean {
-        // Basic checks.
-        if (x !in 0..<size || y !in 0..<size) return false
-
+        // The `findRoot` function will throw an exception for an invalid index/element query.
         val rootOfX = findRoot(x)
         val rootOfY = findRoot(y)
 
@@ -121,23 +119,5 @@ class DisjointSet(private val size: Int) {
     fun hasSameSet(x: Int, y: Int): Boolean {
         if (x !in 0..<size || y !in 0..<size) return false
         return findRoot(x) == findRoot(y)
-    }
-
-
-    /**
-     * Gives the upper bound height of the root node of the given [x].
-     *
-     * Time Complexity:
-     * We use the [findRoot] function here.
-     * The realistic running time of all the `m` operations of DSU is $m * log^{*}(n)$.
-     *
-     * Space Complexity:
-     * We are not using any additional memory that depends on or grows with the input size.
-     * Hence, it is `O(1)`.
-     */
-    fun findSetSize(x: Int): Int {
-        val rootOfX = findRoot(x)
-        if (rootOfX !in 0..<size) return -1
-        return rank[rootOfX]
     }
 }
