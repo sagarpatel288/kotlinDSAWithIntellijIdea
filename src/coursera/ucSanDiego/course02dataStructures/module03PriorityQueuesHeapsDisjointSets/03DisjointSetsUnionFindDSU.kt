@@ -71,7 +71,9 @@ class DisjointSet(private val size: Int) {
      */
     fun findRoot(x: Int): Int {
         // Basic checks.
-        if (x !in 0..<size) throw IllegalArgumentException("Index $x is out of bounds for size $size")
+        require(x in 0..<size) {
+            IllegalArgumentException("Index $x is out of bounds for size $size")
+        }
 
         // Base condition.
         if (parent[x] == x) {

@@ -42,7 +42,9 @@ class DisjointSetBySize(private val size: Int) {
      * Finds the root node for the given node [x] using [parent].
      */
     fun findRoot(x: Int): Int {
-        if (x !in 0..<size) throw IllegalArgumentException("Index $x is out of bounds for size $size")
+        require(x in 0..<size) {
+            IllegalArgumentException("Index $x is out of bounds for size $size")
+        }
         if (parent[x] == x) {
             return x
         }
@@ -85,7 +87,7 @@ class DisjointSetBySize(private val size: Int) {
      * And then we find the size of that root node using [treeSize].
      */
     fun getTreeSizeFrom(node: Int): Int {
-        if (node !in 0..<size) throw IllegalArgumentException("Index $node is out of bounds for size $size")
+        // The function `findRoot` handles and validates the input
         val rootNode = findRoot(node)
         return treeSize[rootNode]
     }
