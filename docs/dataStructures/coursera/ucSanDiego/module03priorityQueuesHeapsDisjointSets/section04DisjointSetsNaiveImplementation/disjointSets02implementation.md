@@ -460,19 +460,24 @@ And
 * More precisely, this is the bucket that contains all the edges for which the child `i` is in the lower `tier` of $log^{*}$ and the parent `j` is in the higher `tier` of $log^{*}$.
 * For example, the answer of $n \in \{3, 4\}$ (which is `2`) and $n \in \{17, 65536\}$ (which is `4`) are different.
 * So, in this bucket, we collect all the edges for which the answer of $log^{*}(n)$ for each node is different.
-* For example, suppose we travel from a node `i` to a node `j`. 
+* For example, suppose we travel from a node `i` to a node `j`.
   * Where `j` is the parent of `i`, and `j` is not the root node.
   * Now it is obvious that the child `i` has a lower rank than the parent `j`.
   * The point of classification here is that their ranks fall into different tiers (groups).
-  * For example, the child node `14` is in the `tier-3`, whereas the parent node `17` is in the `tier-4`.   
+  * For example, the child node `14` is in the `tier-3`, whereas the parent node `17` is in the `tier-4`.
 * Now, as per [Tree Height With Union By Rank](#tree-height-with-union-by-rank), a tree can have a maximum $log_2(n)$ height.
   * Note that the rank shows maximum height.
 * So, the maximum value of $log^{*}$ is $log^{*}(log_2(n))$.
 * For any practical value `n`, we have a very limited "tiers" of $log^{*}$.
-* Because with `n`, the value of $log^{*}$ increases very slowly. 
+* Because with `n`, the value of $log^{*}$ increases very slowly.
   * We can see that in the [$log^{*}$](#logn) section.
 * It means that for any practical value up to $2^{65536}$, a single `find` operation can make a maximum of `5` jumps.
-  * Again, the reason behind this is [union by rank](#tree-height-with-union-by-rank) and [path compression](#path-compression). 
+  * Again, the reason behind this is [union by rank](#tree-height-with-union-by-rank) and [path compression](#path-compression).
+  * Think of this as a ladder of 5 steps. 
+    * It doesn't matter which step we are on.
+    * We know that after a maximum of 5 steps, we will reach the limit (target).
+  * Similarly, the $log^{*}(n)$ is our ladder. 
+    * And for any practical value, it has a maximum of 5 steps.
 * But we don't take the `hard-coded literal` values.
 * So, for any practical value `n`, a single `find` operation can make $log^{*}(n)$ jumps.
 * Hence, for `m` operations, it becomes $m * (log^{*}(n))$.
