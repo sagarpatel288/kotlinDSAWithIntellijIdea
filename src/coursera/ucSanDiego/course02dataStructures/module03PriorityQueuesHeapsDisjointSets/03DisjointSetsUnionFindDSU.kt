@@ -8,6 +8,26 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  * [GitHub: DSU](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/e6201bad2968159c293b35f003f3a18228cd8248/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsNaiveImplementation/disjointSets02implementation.md)
  *
  * Implement DisjointSet (Union-Find Set) using `Union By Rank` and `Path Compression` heuristics.
+ * The [rank] array shows the upper bound of the height for a particular `index` of the [rank] array.
+ * We use that information to perform [unionByRank] operation.
+ * We hang a shorter tree on the larger tree to keep the tree height shallow.
+ * If both the trees are of the same height, we hang any one tree on another tree and increase the rank of the root.
+ *
+ * # Time Complexity
+ * According to Robert Tarjan's Analysis, the realistic running time of `m` operations in `DSU` is:
+ * $m * log^{*}(n)$ where `n` is the total number of nodes.
+ *
+ * # Space Complexity
+ * We use two arrays of the given [size] to maintain `parent` and `upper bound of the height`.
+ * So, if [size] = `n`, then the space complexity is `O(n)`.
+ *
+ * # Note
+ * Please note that in practical use, we use `size` instead of `height` to perform the `union` operation.
+ * The `size` represents the number of nodes.
+ * The reason is that we can get the `size` of any subtree in `O(1)`.
+ *
+ * So, please check the alternative implementation also:
+ * [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.DisjointSetBySize]
  *
  */
 class DisjointSet(private val size: Int) {
@@ -35,6 +55,7 @@ class DisjointSet(private val size: Int) {
      *
      * Time Complexity:
      * The realistic running time of all the `m` operations of DSU is $m * log^{*}(n)$ which is almost constant.
+     * A single [findRoot] operation takes $O(log^{*}())$ or `O(⍺(n))` (known as Inverse Ackerman function).
      *
      * Space Complexity:
      * We are not using any additional memory that depends on or grows with the input size.
@@ -75,10 +96,12 @@ class DisjointSet(private val size: Int) {
      * If both the root nodes have the same [rank], then we make one of the root nodes a parent of another root node.
      * And in this case, we increase the [rank] of the parent root node by 1.
      *
-     * Time Complexity:
+     * # Time Complexity:
+     * The time complexity of the [unionByRank] mainly depends on the [findRoot] calls only.
      * The realistic running time of all the `m` operations of DSU is $m * log^{*}(n)$, which is almost constant.
+     * A single [unionByRank] operation takes $O(log^{*}())$ or `O(⍺(n))` (known as Inverse Ackerman function).
      *
-     * Space Complexity:
+     * # Space Complexity:
      * We are not using any additional memory that depends on or grows with the input size.
      * So, it is `O(1)`.
      *
@@ -108,16 +131,17 @@ class DisjointSet(private val size: Int) {
     /**
      * If the root node of the given [x] and [y] nodes is the same, then both the given nodes are in the same set.
      *
-     * Time Complexity:
+     * # Time Complexity:
      * We use the [findRoot] function here.
      * And the realistic running time of all the `m` operations of DSU is $m * log^{*}(n)$.
+     * A single [findRoot] operation takes $log^{*}$ or `O(⍺(n))`, which is known as the `Inverse Ackerman Function`.
      *
-     * Space Complexity:
+     * # Space Complexity:
      * We are not using any additional memory that depends on or grows with the input size.
      * So, the space complexity is `O(1)`.
      */
     fun hasSameSet(x: Int, y: Int): Boolean {
-        if (x !in 0..<size || y !in 0..<size) return false
+        // The `findRoot` function handles and validates the input.
         return findRoot(x) == findRoot(y)
     }
 }
