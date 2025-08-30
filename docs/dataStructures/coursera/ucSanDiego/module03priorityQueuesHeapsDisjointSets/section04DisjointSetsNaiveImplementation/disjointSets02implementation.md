@@ -41,7 +41,7 @@
 
 ## Naive Implementation: Using Arrays
 
-![160dsuNaiveArrayImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/160dsuNaiveArrayImplementation.png)
+![160dsuNaiveArrayImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/160dsuNaiveArrayImplementation.png)
 
 * Suppose we have 3 sets:
   * Set-1 is `{9, 3, 2, 4, 7}`
@@ -68,7 +68,7 @@
 
 ## Naive Implementation: Using LinkedList
 
-![170dsuNaiveLinkedListImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/170dsuNaiveLinkedListImplementation.png)
+![170dsuNaiveLinkedListImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/170dsuNaiveLinkedListImplementation.png)
 
 * Suppose we have 2 sets:
   * Set-1 is `{9, 3, 2, 4, 7}`
@@ -95,14 +95,14 @@
 
 * In the previous example, we made a tail of the old list to point to the head of another list.
 
-![170dsuNaiveLinkedListImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/170dsuNaiveLinkedListImplementation.png)
+![170dsuNaiveLinkedListImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/170dsuNaiveLinkedListImplementation.png)
 
 * We realized that this process makes the list longer with each `union` operation.
 * And we learned that a longer list makes the `find` operation slower.
 * So, the question is: Can we attach (merge, union) these two lists in a different way?
 * Well, maybe we can connect the two lists in a different way.
 
-![180dsuImprovedImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/180dsuImprovedImplementation.png)
+![180dsuImprovedImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/180dsuImprovedImplementation.png)
 
 * So, we connected the tail of one list to the tail of another list.
 * But then the resultant structure is no longer a linked list structure. Right?
@@ -114,22 +114,22 @@
 
 ### Tree As An Internal Data Structure For DSU
  
-![190disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/190disjointSetsDSUnionFindTreeImplementation.png)
+![190disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/190disjointSetsDSUnionFindTreeImplementation.png)
 
 * A tree uses an array as an internal data structure.
 * Here, the indices will represent the nodes, and the value of each index will represent the parent value.
 
-![200disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/200disjointSetsDSUnionFindTreeImplementation.png)
+![200disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/200disjointSetsDSUnionFindTreeImplementation.png)
 
 * It means that `find(a)` will tell us about the parent of `a`.
 * If `find(a)` returns `a`, then `a` is the root node.
 * It means that when the index and the index value are the same, then it is the root node of that tree (set).
 
-![195disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/195disjointSetsDSUnionFindTreeImplementation.png)
+![195disjointSetsDSUnionFindTreeImplementation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/195disjointSetsDSUnionFindTreeImplementation.png)
 
 * Note that when it comes to merging two trees, we always hang (append) the shorter (shallow) tree to the larger (taller) tree to keep the tree height minimum.
 
-![230disjointSetTreeUnionIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/230disjointSetTreeUnionIdea.png)
+![230disjointSetTreeUnionIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/230disjointSetTreeUnionIdea.png)
 
 ### Union (merge) of Two Trees (Disjoint Sets) By Rank
 
@@ -142,7 +142,7 @@
   * Each `index` of the `rank` array represents a `node`, and each `value` represents the `height`.
 * For example:
 
-![237disjointSetTreeUnionByRankIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/237disjointSetTreeUnionByRankIdea.png)
+![237disjointSetTreeUnionByRankIdea.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/237disjointSetTreeUnionByRankIdea.png)
 
 * **What does the `rank` represent?**
   * Each `rank` value represents the `height` of the corresponding `index`.
@@ -155,7 +155,7 @@
   * Only when we merge two trees of the same height, the height of the resultant tree is increased.
 * For example:
 
-![270disjointSetTreeUnionByRank.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/270disjointSetTreeUnionByRank.png)
+![270disjointSetTreeUnionByRank.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/270disjointSetTreeUnionByRank.png)
 
 ### Tree Height With "Union By Rank"
 
@@ -170,7 +170,7 @@
 * The root of one node becomes the direct child of the root of another node.
 * For example:
 
-![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/340disjointSetTreeUnionByRankAnalysis.png)
+![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/340disjointSetTreeUnionByRankAnalysis.png)
 
 * It means that the `union` operation cannot form a pathological (degenerate) tree.
 * Based on this observation, we give a statement that:
@@ -186,7 +186,7 @@
   * And if our expression (claim) works for the base case, and `k + 1`, it means that it works for any positive integer `n`.
 * So, let us examine our statement when `n = 0`.
 
-![350disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/350disjointSetTreeUnionByRankAnalysis.png)
+![350disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/350disjointSetTreeUnionByRankAnalysis.png)
 
 * When height is `0`, do we have at least $2^n$ nodes?
   * Yes, we have. When height is `0`, we have $2^n = 2^0 = 1$ node.
@@ -241,7 +241,7 @@
 * Now, during this traversal, we might face many nodes for which the root is the same.
 * For example:
 
-![392disjointSetTreePathCompression.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/392disjointSetTreePathCompression.png)
+![392disjointSetTreePathCompression.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/392disjointSetTreePathCompression.png)
 
 * Why not store this information?
 * So that next time, when we get any of those nodes, we can get the parent in almost constant time.
@@ -284,7 +284,7 @@
 * We have also seen that the [Path Compression](#path-compression) makes the traversal from a particular node to the root node inexpensive over time.
 * Let us see a couple of more observations.
 
-![510disjointSetsLogStarInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/510disjointSetsLogStarInRealisticAnalysis.png)
+![510disjointSetsLogStarInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/510disjointSetsLogStarInRealisticAnalysis.png)
 
 * We know that a `rank` represents or corresponds to the `height` of a node.
 * As shown in the image, we can see that whenever a node is re-parented, it always (strictly) gets the parent who has a higher rank than the previous parent.
@@ -297,7 +297,7 @@
 
 ### $log^{*}(n)$ = Iterated Logarithm
 
-![510disjointSetsLogStarInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/510disjointSetsLogStarInRealisticAnalysis.png)
+![510disjointSetsLogStarInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/510disjointSetsLogStarInRealisticAnalysis.png)
 
 * We have already seen that the [path compression](#path-compression) heuristic makes the amortized cost almost constant.
 * But how much? Can we measure it? Can we prove it?
@@ -367,7 +367,7 @@
 * But we don't change the `rank` with each `find` operation.
   * The `find` operation does not change the `rank` values.
 
-![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/450disjointSetsRealisticAnalysis.png)
+![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/450disjointSetsRealisticAnalysis.png)
 
 * It means that with the path compression heuristic implemented, `rank` does not represent the exact height of a node.
 * Path compression changes the interpretation of the `rank` array.
@@ -396,11 +396,11 @@
   * So, `rank[i] < rank[parent[i]]`.
   * We can see it again in the following images.
 
-![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/340disjointSetTreeUnionByRankAnalysis.png)
+![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/340disjointSetTreeUnionByRankAnalysis.png)
 
 And
 
-![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/450disjointSetsRealisticAnalysis.png)
+![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/450disjointSetsRealisticAnalysis.png)
 
 #### Once a child, always a child: Once an internal node, always an internal node 
 
@@ -412,11 +412,11 @@ And
   * So, once a vertex (node) becomes an internal vertex (node), it remains an internal vertex (node) forever.
 * We can confirm the same by observing the same images again.
 
-![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/340disjointSetTreeUnionByRankAnalysis.png)
+![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/340disjointSetTreeUnionByRankAnalysis.png)
 
 And
 
-![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/450disjointSetsRealisticAnalysis.png)
+![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/450disjointSetsRealisticAnalysis.png)
 
 ### Running Time = Total Traversal: M operations and Classification Of Edges Into 3 Buckets
 
@@ -442,7 +442,7 @@ And
 * Now, we have already learned about the [$log^{*}(n)$](#logn).
 * We will divide our travelling into 3 categories using this [$log^{*}(n)$](#logn).
 
-![520disjointSetsEdgeClassificationInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/520disjointSetsEdgeClassificationInRealisticAnalysis.png)
+![520disjointSetsEdgeClassificationInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/520disjointSetsEdgeClassificationInRealisticAnalysis.png)
 
 #### Bucket#1: One step away from the root node
 

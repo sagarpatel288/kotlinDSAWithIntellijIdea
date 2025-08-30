@@ -27,7 +27,7 @@
 
 ## Disjoint Sets
 
-![02disjointSetsIntroduction01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/02disjointSetsIntroduction01.png)
+![02disjointSetsIntroduction01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/02disjointSetsIntroduction01.png)
 
 * The image shows a forest, where we have several independent trees without any children.
   * [Forest tree reference](../../module01BasicDataStructures/section03trees/trees.md#forest)
@@ -36,7 +36,7 @@
 * It means that the element itself is a parent, a leader, a representative of that set.
 * We can create a child-parent relationship between them, as shown in the image below:
 
-![010disjointSetUnionFindIntro_disjoint_sets.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/010disjointSetUnionFindIntro_disjoint_sets.png)
+![010disjointSetUnionFindIntro_disjoint_sets.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/010disjointSetUnionFindIntro_disjoint_sets.png)
 
 * We have two sets in the image, and they are disconnected.
 * So, we call them **Disjoint Sets**.
@@ -47,7 +47,7 @@
 
 ## Find
 
-![010disjointSetUnionFindIntro_disjoint_sets.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/010disjointSetUnionFindIntro_disjoint_sets.png)
+![010disjointSetUnionFindIntro_disjoint_sets.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/010disjointSetUnionFindIntro_disjoint_sets.png)
 
 * This is the operation that tells about the parent (leader, representative) of the element.
   * In other words, it tells us about the set the element belongs to.
@@ -56,7 +56,7 @@
 
 ## Union
 
-![020disjointSetUnionFindIntro_disjoint_sets_union.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/020disjointSetUnionFindIntro_disjoint_sets_union.png)
+![020disjointSetUnionFindIntro_disjoint_sets_union.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/020disjointSetUnionFindIntro_disjoint_sets_union.png)
 
 * When we get two elements to perform the union operation on them.
   * First, we find their sets. Only if they belong to two different sets can we perform the union operation on them.
@@ -67,7 +67,7 @@
 
 ## Array & Graph Representation
 
-![42arraysAndGraphRepresentation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/42arraysAndGraphRepresentation.png)
+![42arraysAndGraphRepresentation.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/42arraysAndGraphRepresentation.png)
 
 * We have two types of data:
   * The element value.
@@ -107,7 +107,7 @@
   * So, the taller set (subtree) becomes the parent, and the shorter set (subtree) becomes the child.
 * So, it goes like this:
 
-![052unionOfZeroOne_01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/052unionOfZeroOne_01.png)
+![052unionOfZeroOne_01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/052unionOfZeroOne_01.png)
 
 * So, now it says that the parent of element `1` is `0`.
   * So, `parent[1] = 0`.
@@ -115,7 +115,7 @@
 * We can continue this union process and make `2` a parent of `3`.
   * So, `parent[3] = 2`.
 
-![060unionPart02.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/060unionPart02.png)
+![060unionPart02.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/060unionPart02.png)
 
 * Now, if we want to perform the union operation for `(0, 2)`, we have two options:
   * We can either make `0` or `2` the parent.
@@ -123,7 +123,7 @@
   * So, `parent[2] = 0`.
 * So, we get:
 
-![065unionPart03.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/065unionPart03.png)
+![065unionPart03.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/065unionPart03.png)
 
 ### Union By Rank
 
@@ -133,12 +133,12 @@
 * However, let us see what difference it makes.
 * Let us make `4` a parent instead of `0` for a while.
 
-![070unionPart04.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/070unionPart04.png)
+![070unionPart04.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/070unionPart04.png)
 
 * So, it makes the tree height `4` (where a level starts from `1`. The root is at level `1`.)
 * And if we make `0` a parent of `4`, then we get:
 
-![075unionPart05.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/075unionPart05.png)
+![075unionPart05.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/075unionPart05.png)
 
 * So, it makes the tree height `3` (where a level starts from `1`. The root is at level `1`.)
 * Hence, we always make a taller tree a parent because it keeps the tree height shallow (short).
@@ -151,7 +151,7 @@
 
 * So, it goes as shown in the image below:
 
-![080unionByRank01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/080unionByRank01.png)
+![080unionByRank01.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/080unionByRank01.png)
 
 * It means that we can decide which tree is the largest one in `O(1)` time.
 * Increasing the parent's rank with each `union` when it gets a child allows calculating the tree height in `O(1)`.
@@ -197,18 +197,18 @@ fun find(x: Int): Int {
 
 ### Maze
 
-![085mazeExample.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/085mazeExample.png)
+![085mazeExample.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/085mazeExample.png)
 
 * We have these two maze examples.
 * We want to find whether there is a path between points A and B.
 * Let us have some fun with a manual approach.
 
-![090mazeExample02.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/090mazeExample02.png)
+![090mazeExample02.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/090mazeExample02.png)
 
 * So, we can see that for the second maze puzzle, there is no direct path that connects the points A and B.
 * How do we relate (connect, transform) these maze puzzles with the **Disjoint Set (Union-Find)** concept?
 
-![110mazeCoveringEachSetProcess.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/110mazeCoveringEachSetProcess.png)
+![110mazeCoveringEachSetProcess.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/110mazeCoveringEachSetProcess.png)
 
 * Initially, each cell is an independent set (or region).
 * Then, we start from point B.
@@ -221,11 +221,11 @@ fun find(x: Int): Int {
 
 #### Translating the process into pseudocode
 
-![120mazeDisjointSetPseudoCode.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/120mazeDisjointSetPseudoCode.png)
+![120mazeDisjointSetPseudoCode.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/120mazeDisjointSetPseudoCode.png)
 
 ### Networking (Network Cabling) Example
 
-![150disjointNetworkExampleUnionRecap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/150disjointNetworkExampleUnionRecap.png)
+![150disjointNetworkExampleUnionRecap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/150disjointNetworkExampleUnionRecap.png)
 
 * Initially, each system (computer) is an independent set.
 * Then, as we connect two systems via a cable, it indicates the **union** process.
