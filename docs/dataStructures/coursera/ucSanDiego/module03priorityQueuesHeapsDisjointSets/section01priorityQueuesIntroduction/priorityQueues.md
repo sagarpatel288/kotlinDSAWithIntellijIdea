@@ -1,5 +1,33 @@
 # Priority Queues
 
+<!-- TOC -->
+* [Priority Queues](#priority-queues)
+  * [Resources / References](#resources--references)
+  * [Learning Objectives](#learning-objectives)
+  * [Definition](#definition)
+  * [How is it different from a queue or a stack?](#how-is-it-different-from-a-queue-or-a-stack)
+  * [Common Operations](#common-operations)
+  * [When to use?](#when-to-use)
+  * [Examples](#examples)
+  * [Does a priority queue have to have the Comparable rule?](#does-a-priority-queue-have-to-have-the-comparable-rule-)
+  * [What is the difference between the comparable interface and the comparator?](#what-is-the-difference-between-the-comparable-interface-and-the-comparator)
+  * [What is the problem if we implement a priority queue using an array?](#what-is-the-problem-if-we-implement-a-priority-queue-using-an-array)
+    * [Using an unsorted array](#using-an-unsorted-array)
+    * [Using a sorted array](#using-a-sorted-array)
+      * [Linear insertion](#linear-insertion)
+      * [Binary Search](#binary-search)
+      * [Conclusion for the Sorted Array](#conclusion-for-the-sorted-array)
+    * [Conclusion for the Array](#conclusion-for-the-array)
+  * [What is the problem if we implement a priority queue using a linked list?](#what-is-the-problem-if-we-implement-a-priority-queue-using-a-linked-list)
+    * [Using an Unsorted Linked List](#using-an-unsorted-linked-list)
+    * [Using a Sorted Linked List](#using-a-sorted-linked-list)
+    * [Conclusion](#conclusion)
+  * [Can't we use binary search to find the right position to insert a new element in a sorted linked list?](#cant-we-use-binary-search-to-find-the-right-position-to-insert-a-new-element-in-a-sorted-linked-list)
+  * [Which data structure is most commonly used to implement a priority queue?](#which-data-structure-is-most-commonly-used-to-implement-a-priority-queue)
+  * [Explain a binary heap tree.](#explain-a-binary-heap-tree)
+  * [Summary: Priority Queue](#summary-priority-queue)
+<!-- TOC -->
+
 ## Resources / References
 
 * [William Fiset](https://youtu.be/wptevk0bshY?si=Erkcz-IKL_O2JsQa)
