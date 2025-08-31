@@ -29,6 +29,12 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  *
  * [GitHub completeBinaryTrees.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/04e362b8cb0101459304ce5ba6ad17fe20edcc52/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic03CompleteBinaryTrees/completeBinaryTrees.md)
  *
+ * ### Heap Sort
+ *
+ * * [Local heapSort.md](../../../../../docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [Local heapSort.md](docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [GitHub heapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b4deae7cce5798fd22bdc82b3b81222cc4c18527/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ *
  * ## Thought Process
  *
  * ### What is a binary max heap tree?

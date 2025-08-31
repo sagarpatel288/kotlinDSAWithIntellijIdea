@@ -3,9 +3,10 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
 /**
  * # References / Resources
  *
- * * [Local HeapSort.md](docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [Local heapSort.md](docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [Local heapSort.md](../../../../../docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [GitHub heapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b4deae7cce5798fd22bdc82b3b81222cc4c18527/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
- * * [GitHub HeapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a8ba31ba7a33b54b77215516b7bc98eed35ed671/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
  * # YouTube
  *
