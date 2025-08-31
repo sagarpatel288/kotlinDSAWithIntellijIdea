@@ -61,14 +61,14 @@
 
 ## When to use?
 
-**When we want to:**
+**When we want to perform:**
 
 * Operations based on priority, importance, urgency, value, weight, etc., rather
   than based on the arrival order.
 * Process the order based on priority.
-* Frequently find the minimum and maximum elements.
-* Shortest and longest paths.
-* Minimum or maximum cost of the network.
+* Operations to frequently find the minimum and maximum elements.
+* Operations to find the shortest and the longest paths.
+* Operations to find the minimum or the maximum cost of the network.
 
 ## Examples
 
