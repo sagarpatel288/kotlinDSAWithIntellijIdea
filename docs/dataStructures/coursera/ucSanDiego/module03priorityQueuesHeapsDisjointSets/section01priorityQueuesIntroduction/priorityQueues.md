@@ -193,9 +193,8 @@ Indices       0     1     2     3     4     5     6
 
 ### Using an Unsorted Linked List
 
-* If we use a sorted linked list, inserting an element is `O(1)`. 
-* However, to find the element having maximum priority takes `O(n)` in the worst case, because we have to scan through 
-  the entire list.
+* If we use an unsorted linked list, inserting an element is `O(1)`. 
+* However, to find the element having maximum priority takes `O(n)` in the worst case, because we have to scan through the entire list.
 
 ### Using a Sorted Linked List
 
@@ -233,3 +232,17 @@ Indices       0     1     2     3     4     5     6
 ## Explain a binary heap tree.
 
 [binaryHeapTrees.md](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
+
+## Summary: Priority Queue
+
+* Core:
+  * A priority queue is an Abstract Data Type where each element is associated with a priority.
+* Operations:
+  * It mainly performs insert, peek, and remove operations.
+* Operation specific:
+  * The elements are removed based on their priorities instead of their arrival orders.
+* Implementation:
+  * We use a binary heap for the implementation.
+* Time Complexity:
+* Space Complexity:
+* Applications:
