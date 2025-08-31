@@ -222,3 +222,14 @@ $$
   * So, for `n` times, it becomes `n log n`.
 * We can see that the `buildHeap` function takes `O(n)` time, and the `extractMax` function takes `n log n` time.
 * So, the dominant term, `n log n` is the overall time complexity of this `heapSort` algorithm.
+
+## Practical Implementation
+
+* Binary Max Heap
+  * [Local: Binary Max Heap](src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+  * [Local: 01binaryMaxHeap.kt](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+  * [GitHub: Binary Max Heap](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/85b6e52be7b332fd72ad93770a0d3ae030d50002/src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* Heap Sort
+  * [Local: Heap Sort](src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+  * [Local: 02heapSort.kt](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+  * [GitHub: Heap Sort](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b2092da9d8da57067f5e5fdf5b0772f6c1db1201/src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
