@@ -19,6 +19,7 @@
         * [The Story Time](#the-story-time)
         * [Process](#process)
     * [Question: Binary Max Heap Tree Height](#question-binary-max-heap-tree-height)
+  * [Next](#next)
 <!-- TOC -->
 
 ## Resources / References 
@@ -26,7 +27,10 @@
 * [Tree Basics](../../../module01BasicDataStructures/section03trees/trees.md)
 * Why `Binary Heap Trees`? What is the purpose? Why do we need it? When do we need it? 
   * [Previous: Priority Queue And Naive Implementations](../../section01priorityQueuesIntroduction/priorityQueues.md)
-* [Next](../topic03CompleteBinaryTrees/completeBinaryTrees.md))  
+* [Next: Complete Binary Tree](../topic03CompleteBinaryTrees/completeBinaryTrees.md)
+* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
+* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
 
 ## Binary Max Heap Tree
 
@@ -179,3 +183,10 @@
 ### Question: Binary Max Heap Tree Height
 
 ![050questionBinaryMaxHeapHeight.png](../../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/050questionBinaryMaxHeapHeight.png)
+
+## Next
+
+* [Next: Complete Binary Tree](../topic03CompleteBinaryTrees/completeBinaryTrees.md)
+* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
+* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)

@@ -23,12 +23,16 @@
     * [Precautions for the operations that can change the shape of the tree](#precautions-for-the-operations-that-can-change-the-shape-of-the-tree)
       * [Insert (or add): To the Left-most vacant position in the last level](#insert-or-add-to-the-left-most-vacant-position-in-the-last-level)
       * [ExtractMax: With the last leaf of the last level](#extractmax-with-the-last-leaf-of-the-last-level)
+  * [Next](#next)
 <!-- TOC -->
 
 ## References / Resources
 
 * [Coursera UC San Diego Data Structures: Module 03: Chapter: 07](https://coursera.org/share/1af99b3a881ef28fae92e150435df0f7)
 * [The CS Underdog](https://youtu.be/tUSF7I9cr_k?si=I5QyojPLAGVgmm6J)
+* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
+* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt) 
 
 ## Definition
 
@@ -281,3 +285,9 @@ $h = \lfloor\log_2(n)\rfloor$
   * We just need to ensure that the leaf node is the last leaf node of the tree.
   * So, it will be the left-aligned, but the right-most leaf node of the last level. (If this line creates confusion, then avoid it!)
 * And then, we can simply follow the `SiftDown` procedure.
+
+## Next
+
+* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
+* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
