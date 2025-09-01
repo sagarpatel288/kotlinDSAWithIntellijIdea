@@ -219,18 +219,72 @@ class BinaryMaxHeap<T: Comparable<T>>() {
 
     private val heap = mutableListOf<T>()
 
+    /**
+     * Why do we have this function?
+     *
+     * This is a helper function. That is why it is `private.`
+     * This is [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
+     * It supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * It means that every time we insert, update, or delete an element from the [heap], we need to sustain the heap properties.
+     * We need to ensure that the parent node is greater than or equal to the child nodes.
+     * So, we need to find the parent node of the given [index] in the [heap].
+     * To find the parent node, we have this helper function.
+     * And it uses a formula (key-lemma) to find the parent (position) for the given [index] (node).
+     */
     private fun getParentIndexOf(index: Int) = if (index > 0) (index - 1) / 2 else -1
 
+    /**
+     * Why do we have this function?
+     *
+     * This is a helper function. That is why it is `private.`
+     * This is [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
+     * And it supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * It means that we need to maintain the heap properties across various operations.
+     * For example, a parent must be greater than or equal to the child node.
+     * To compare a parent with the child nodes, we need to find their positions in the [heap].
+     * This function helps us find the position of the left child node of the given [index] (parent).
+     */
     private fun getLeftChildIndexOf(index: Int) = if (index >= 0) (2 * index) + 1 else -1
 
+    /**
+     * Why do we have this function?
+     *
+     * This is a helper function. That is why it is `private`.
+     * This is [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
+     * It supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * We need to maintain the heap properties across these operations.
+     * For example, a parent must be greater than or equal to the child nodes.
+     * To compare the parent and the child nodes, we need to find their positions in the [heap].
+     * This function helps us find the right child node of the given [index] (parent).
+     */
     private fun getRightChildIndexOf(index: Int) = if (index >= 0) (2 * index) + 2 else -1
 
+    /**
+     * Why do we have this function?
+     *
+     * This is a helper function. Hence, it is `private`.
+     * During the [siftUp] operation, we compare a parent node with the child node to ensure the heap property.
+     * To compare a child with the parent, we need to ensure that there is a parent.
+     * The `root node` does not have a parent.
+     * And the `parent index` we get must be a valid index.
+     */
     private fun hasParent(index: Int): Boolean {
         val parentIndex = getParentIndexOf(index)
         // A parent index can be the `0th` index
-        return parentIndex >= 0 && parentIndex < heap.size
+        return parentIndex in 0..<heap.size
     }
 
+
+    /**
+     * Why do we have this function?
+     *
+     * This is a helper function. Hence, it is `private.`
+     * During the [siftDown] process, we compare a parent with the child nodes.
+     * To compare the parent with the child nodes, we need to ensure that the parent has children.
+     * And this is a [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
+     * It means that it must follow the "Complete Binary Tree" structure.
+     * It means that if the parent does not have a `left child`, it cannot have a `right child`.
+     */
     private fun hasLeftChild(index: Int): Boolean {
         val leftChildIndex = getLeftChildIndexOf(index)
         // A left child index can never be the `0th` index
@@ -238,6 +292,20 @@ class BinaryMaxHeap<T: Comparable<T>>() {
         return leftChildIndex > 0 && leftChildIndex < heap.size
     }
 
+    /**
+     * Why do we have this function?
+     *
+     * This is a helper function. That is why it is `private.`
+     * This is [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
+     * It supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * We need to maintain the heap properties across these operations.
+     * For example, a parent must be greater than the child nodes.
+     * For example, during the [siftDown] operation, we compare the parent with the child with the maximum value.
+     * Before we can find the child with the maximum value, we need to ensure that the parent has the right child.
+     *
+     * @param index The index of the parent for which we want to check if it has the right child node.
+     * @return `True` if the given parent [index] has the right child node. Otherwise, returns `False.`
+     */
     private fun hasRightChild(index: Int): Boolean {
         val rightChildIndex = getRightChildIndexOf(index)
         // A right child index can never be the `0th` index
@@ -245,6 +313,16 @@ class BinaryMaxHeap<T: Comparable<T>>() {
         return rightChildIndex > 0 && rightChildIndex < heap.size
     }
 
+    /**
+     * Why do we have this function?
+     *
+     * This is a helper function. That is why it is `private.`
+     * This is [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
+     * It supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * It means that we need to maintain the heap properties across these operations.
+     * For example, a parent must be greater than or equal to the child nodes.
+     * If the child node is greater than the parent node, we [swap] their positions to maintain the heap properties.
+     */
     private fun swap(positionOne: Int, positionTwo: Int) {
         if (heap.isNotEmpty() && positionOne in 0..<heap.size && positionTwo in 0..<heap.size) {
             val temp = heap[positionOne]
@@ -255,13 +333,14 @@ class BinaryMaxHeap<T: Comparable<T>>() {
 
     /**
      * Ensure to add the new element [value] as the immediate next neighbour of the current last element.
-     * And then call the [siftUp] function to maintain and keep the tree as a binary max heap tree
+     * And then call the [siftUp] function to maintain and keep the tree as a binary max heap tree.
      *
      * # Time Complexity
      *
      * * Adding an element into a mutable list is `O(1)`.
      * * But it may violate the binary max heap tree.
-     * * So, the worst-case time complexity is `O(log n)`.
+     * * So, the worst-case time complexity is `O(log n)`, which is the maximum `binary max heap tree height`.
+     * * As we might have to traverse from the last `leaf` node up to the `root node.`
      *
      * # Space Complexity
      *
@@ -278,21 +357,41 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * # What do we do in the [siftUp] process? Why do we have this function?
      *
      * * In a binary max heap tree, the parent is always greater than or equal to the children.
-     * * This function checks if the child is greater than the parent.
-     * * We compare the element with the parent element.
+     * * [insert] or [changePriorityOf] may violate the heap properties.
+     * * This function checks whether the child is greater than the parent.
+     * * We compare the given child node [fromIndex] with the parent element.
      * * As long as the child element is greater than the parent element, we keep swapping the element positions.
-     * * So, the child becomes the parent. (Promotion)
+     * * So, the child becomes the parent. (Promotion.)
      * * We do that until we reach the root that does not have any parent.
      * * It means that we need to check if the element has a parent or not before comparison.
+     *
+     * # Time Complexity
+     *
+     * ** Best Case:
+     * * For example, we [insert] a new element that has the smallest value in the binary max heap tree.
+     * * In that case, we just compare the newly inserted element with the parent, and find that it already maintains the binary max heap properties.
+     * * So, we don't need to perform anything else further.
+     * * In that case, it is `O(1)` only.
+     *
+     * ** Worst case:
+     * * For example, we [insert] a new element that has a higher value than the root node!
+     * * In that case, it is `O(log n)` where `log n` is the maximum `binary max heap tree height.`
+     *
+     * # Space Complexity
+     *
+     * * We are not using any additional memory that depends on or grows with the input size.
+     * * So, the space complexity is `O(1)`.
      */
     private fun siftUp(fromIndex: Int) {
-        if (heap.isEmpty() || fromIndex !in 0..<heap.size) return
+        if (heap.isEmpty() || fromIndex !in 0..<heap.size) throw IllegalArgumentException("Index $fromIndex is out of bounds for the size ${heap.size}")
         var childIndex = fromIndex
         // As long as the child is greater than the parent, we keep swapping the positions.
         while (hasParent(childIndex) && heap[childIndex] > heap[getParentIndexOf(childIndex)]) {
             val parentIndex = getParentIndexOf(childIndex)
             swap(childIndex, parentIndex)
             // Now, the child becomes the parent.
+            // And now we need to ensure whether this new node maintains the heap property.
+            // So, it is a loop, and we run the loop until we maintain the heap property.
             childIndex = parentIndex
         }
     }
@@ -309,7 +408,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * * However, before we remove the max element, we replace it with the last element.
      * * Which might violate the binary max heap tree, in most cases (unless all the nodes are of the same value!).
      * * To maintain the binary max heap tree, we perform [siftDown].
-     * * Hence, the time complexity of this function is `O(log n)`.
+     * * Hence, the time complexity of this function is `O(log n)`, where `log n` is the `binary max heap tree height.`
      *
      * # Space Complexity
      *
