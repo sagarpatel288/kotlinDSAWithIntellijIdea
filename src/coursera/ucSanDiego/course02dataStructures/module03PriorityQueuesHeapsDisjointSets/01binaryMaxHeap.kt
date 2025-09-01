@@ -44,8 +44,22 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  * * And every parent node `n` is greater than or equal to the child nodes.
  * * Hence, the maximum value is always available at the root node.
  *
+ * ### What is the contract (core operations) of a binary max heap tree?
+ *
+ * * It supports [insert], [changePriorityOf], [remove], and [peekMax].
+ *
+ * ### Which data structure can support these operations efficiently?
+ *
+ * * The core requirement is to maintain the binary max heap properties.
+ * * For example, a parent must be greater than or equal to the children nodes.
+ * * It requires comparison between the parents and the children.
+ * * To compare the parents and the children, we need to access and read them as fast as possible.
+ * * An `Array` (or more precisely, a `mutableListOf`) because it supports random access in constant time.
+ * * It means we can find an element in `O(1)` time.
+ *
  * ### What condition should be fulfilled by the data structure of a complete binary tree?
  *
+ * * The comparison of parents and children is the core part of this data structure.
  * * Either the data structure must implement the comparable interface, or we must provide an external comparator.
  * * It means that our class might look:
  *
@@ -65,7 +79,7 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  * val heap = mutableListOf<T>()
  * ```
  *
- * ### How do we get random access in `O(1)`? What are the formulas?
+ * ### How do we get random access in `O(1)` for the parents and the children nodes? What are the formulas?
  *
  * * Considering 1-based index:
  * * Parent of index `i` is `⌊i/2⌋`
@@ -112,14 +126,18 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  *
  * ### What are the common operations of a binary max heap tree?
  *
- * * max (or getMax), insert (or add), swiftUp, swapPositions, remove a node, extractMax, swiftDown, changePriority,
- * etc.
+ * * [insert] (or add),
+ * * [changePriorityOf] (or update),
+ * * [remove] (or delete, poll,)
+ * * [peekMax] (or max, getMax, peek),
+ * * [extractMax], etc.
  *
  * ### How do we maintain (keep, sustain, preserve) the complete binary tree for all the operations?
  *
  * #### Insert
  * * When we insert a new element, we need to ensure that we insert it as the immediate next neighbour of the current
- * last node. This way, the new element will be left-aligned, and we follow the left-to-right order.
+ * last node.
+ * * This way, the new element will be left-aligned, and we follow the left-to-right order.
  * * Then, we can follow the `SiftUp` procedure.
  *
  * #### How do we do that?
