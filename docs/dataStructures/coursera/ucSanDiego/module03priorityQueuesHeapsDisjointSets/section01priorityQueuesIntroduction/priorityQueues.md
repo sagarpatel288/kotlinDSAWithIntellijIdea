@@ -26,12 +26,14 @@
   * [Which data structure is most commonly used to implement a priority queue?](#which-data-structure-is-most-commonly-used-to-implement-a-priority-queue)
   * [Explain a binary heap tree.](#explain-a-binary-heap-tree)
   * [Summary: Priority Queue](#summary-priority-queue)
+  * [Next](#next)
 <!-- TOC -->
 
 ## Resources / References
 
+* [ADT - Abstract Data Type](../../module01BasicDataStructures/section01arraysAndLinkedLists/01abstractDataType.md)
 * [William Fiset](https://youtu.be/wptevk0bshY?si=Erkcz-IKL_O2JsQa)
-*
+* [Coursera: UC San Diego: Data Structures](https://www.coursera.org/learn/data-structures)
 
 ## Learning Objectives
 
@@ -266,11 +268,15 @@ Indices       0     1     2     3     4     5     6
 * Core:
   * A priority queue is an Abstract Data Type where each element is associated with a priority.
 * Operations:
-  * It mainly performs insert, peek, and remove operations.
+  * It mainly performs `insert`, `peek`, `remove`, and `changePriority` operations.
 * Operation specific:
   * The elements are removed based on their priorities instead of their arrival orders.
 * Implementation:
-  * We use a binary heap for the implementation.
+  * We use a [Binary Heap](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md) for the implementation.
 * Time Complexity:
 * Space Complexity:
 * Applications:
+
+## Next
+
+[Binary Heap](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
