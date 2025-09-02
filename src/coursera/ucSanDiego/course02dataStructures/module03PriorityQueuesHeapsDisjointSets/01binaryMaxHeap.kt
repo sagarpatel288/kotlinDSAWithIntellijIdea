@@ -407,7 +407,10 @@ class BinaryMaxHeap<T: Comparable<T>>() {
         while (hasParent(childIndex) && heap[childIndex] > heap[getParentIndexOf(childIndex)]) {
             val parentIndex = getParentIndexOf(childIndex)
             swap(childIndex, parentIndex)
-            // Now, the child becomes the parent.
+            // Now, the childIndex points to the parentIndex.
+            // The childIndex takes the position of the parentIndex.
+            // The childIndex gets the promotion. The childIndex goes up. That's why we call it "siftUp."
+            // The child becomes the parent.
             // And now we need to ensure whether this new node maintains the heap property.
             // So, it is a loop, and we run the loop until we maintain the heap property.
             childIndex = parentIndex
@@ -475,7 +478,10 @@ class BinaryMaxHeap<T: Comparable<T>>() {
             if (heap[parentIndex] >= heap[maxChildIndex]) {
                 break
             } else {
-                // If the child has a higher value than the parent, we swap their positions
+                // If the child has a higher value than the parent, we swap their positions.
+                // The parentIndex points to the childIndex.
+                // The parentIndex takes the position of the childIndex.
+                // The parentIndex goes down. That's why we call it "siftDown."
                 // The parent becomes the child.
                 swap(parentIndex, maxChildIndex)
                 parentIndex = maxChildIndex
