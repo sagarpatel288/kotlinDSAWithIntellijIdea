@@ -282,9 +282,9 @@ Indices       0     1     2     3     4     5     6
 
 * [Binary Heap Theory](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
 * [Complete Binary Tree Theory](../section02priorityQueuesUsingHeaps/topic03CompleteBinaryTrees/completeBinaryTrees.md)
-* [Binary Max Heap Implementation](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Binary Max Heap Implementation](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/01binaryMaxHeap.kt)
 * [Heap Sort Theory](../section03HeapSort/heapSort.md)
-* [Heap Sort Implementation](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+* [Heap Sort Implementation](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/02heapSort.kt)
 
 ## Application Summary: Purpose And Reason
 

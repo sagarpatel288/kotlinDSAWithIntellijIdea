@@ -31,9 +31,9 @@
 
 * [Coursera UC San Diego Data Structures: Module 03: Chapter: 07](https://coursera.org/share/1af99b3a881ef28fae92e150435df0f7)
 * [The CS Underdog](https://youtu.be/tUSF7I9cr_k?si=I5QyojPLAGVgmm6J)
-* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/01binaryMaxHeap.kt)
 * [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
-* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt) 
+* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/02heapSort.kt) 
 
 ## Definition
 
@@ -289,9 +289,9 @@ $h = \lfloor\log_2(n)\rfloor$
 
 ## Next
 
-* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/01binaryMaxHeap.kt)
 * [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
-* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/02heapSort.kt)
 
 ## Application Summary: Purpose And Reason
 

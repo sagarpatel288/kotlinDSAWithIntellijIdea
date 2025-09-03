@@ -230,11 +230,11 @@ $$
 
 * Binary Max Heap
   * [Local: Binary Max Heap](src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
-  * [Local: 01binaryMaxHeap.kt](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+  * [Local: 01binaryMaxHeap.kt](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/01binaryMaxHeap.kt)
   * [GitHub: Binary Max Heap](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/85b6e52be7b332fd72ad93770a0d3ae030d50002/src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
 * Heap Sort
   * [Local: Heap Sort](src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
-  * [Local: 02heapSort.kt](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+  * [Local: 02heapSort.kt](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/02heapSort.kt)
   * [GitHub: Heap Sort](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b2092da9d8da57067f5e5fdf5b0772f6c1db1201/src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
 
 ## Application Summary: Purpose And Reason
