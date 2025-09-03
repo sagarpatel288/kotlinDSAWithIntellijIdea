@@ -170,7 +170,7 @@ fun heapSort(array: IntArray) {
  * @param array To get the index of the last parent (nearest to last-level-leaves) from where we start fixing the subtrees till `downTo 0`.
  *
  */
-fun buildHeap(array: IntArray) {
+private fun buildHeap(array: IntArray) {
     // Repair the binary max heap tree from the given index to the top for each node and every subtree
     // Why `downTo 0`?
     // Because we want to ensure that the root parent follows the max heap properties just like any other parent.
@@ -216,9 +216,9 @@ fun buildHeap(array: IntArray) {
  * @param fromIndex Start repairing the binary max heap tree from this index up to the top (root) index `0`
  * @param endIndexInclusive Decides when to stop, what to ignore, helpful when we keep reducing the index-end boundary
  */
-fun siftDown(array: IntArray, fromIndex: Int, endIndexInclusive: Int) {
+private fun siftDown(array: IntArray, fromIndex: Int, endIndexInclusive: Int) {
     // Base Condition.
-    if (fromIndex !in 0..endIndexInclusive) return
+    validateIndex(endIndexInclusive, fromIndex)
     var parentIndex = fromIndex
     while (hasLeftChild(parentIndex, endIndexInclusive)) {
         var maxChildIndex = getLeftChildIndex(parentIndex)
@@ -228,20 +228,26 @@ fun siftDown(array: IntArray, fromIndex: Int, endIndexInclusive: Int) {
         // If the parent is greater than or equal to the max child, the max heap property is satisfied
         if (array[parentIndex] >= array[maxChildIndex]) {
             break
-        }
-        // If the parent is smaller than the max child, swap
-        if (maxChildIndex <= endIndexInclusive && array[parentIndex] < array[maxChildIndex]) {
+        } else {
+            // If the parent is smaller than the max child, swap
             swap(array, parentIndex, maxChildIndex)
+            parentIndex = maxChildIndex
         }
-        parentIndex = maxChildIndex
     }
+}
+
+private fun validateIndex(endIndexInclusive: Int, vararg index: Int): Boolean {
+    index.forEach {
+        if (it !in 0..endIndexInclusive) throw IllegalArgumentException("Index $it is out of bounds for end-index-inclusive $endIndexInclusive")
+    }
+    return true
 }
 
 /**
  * This formula assumes that the `heap` starts from the `0th index`.
  * If the `heap` does not start from the `0th index,` this formula does not work.
  */
-fun getLeftChildIndex(parentIndex: Int) = 2 * parentIndex + 1
+private fun getLeftChildIndex(parentIndex: Int) = 2 * parentIndex + 1
 
 /**
  * # Why do we have this [endIndexInclusive] argument?
@@ -264,7 +270,7 @@ fun getLeftChildIndex(parentIndex: Int) = 2 * parentIndex + 1
  * @param parentIndex The parent index for which we want to check if it has a left child
  * @param endIndexInclusive To check the left child within this end-index-inclusive boundary
  */
-fun hasLeftChild(parentIndex: Int, endIndexInclusive: Int): Boolean {
+private fun hasLeftChild(parentIndex: Int, endIndexInclusive: Int): Boolean {
     val leftChildIndex = getLeftChildIndex(parentIndex)
     // Ideally, `0` cannot be a `left child`.
     return (leftChildIndex in 0..endIndexInclusive)
@@ -274,15 +280,15 @@ fun hasLeftChild(parentIndex: Int, endIndexInclusive: Int): Boolean {
  * This formula assumes that the `heap` starts from the `0th index.`
  * If the `heap` does not start from the `0th index,` this formula does not work.
  */
-fun getRightChildIndex(parentIndex: Int) = (2 * parentIndex) + 2
+private fun getRightChildIndex(parentIndex: Int) = (2 * parentIndex) + 2
 
-fun hasRightChild(parentIndex: Int, endIndex: Int): Boolean {
+private fun hasRightChild(parentIndex: Int, endIndex: Int): Boolean {
     val rightChildIndex = getRightChildIndex(parentIndex)
     return (rightChildIndex in 0..endIndex)
 }
 
-fun swap(array: IntArray, positionOne: Int, positionTwo: Int) {
-    if (positionOne !in 0..<array.size || positionTwo !in 0..<array.size) return
+private fun swap(array: IntArray, positionOne: Int, positionTwo: Int) {
+    validateIndex(array.lastIndex, positionOne, positionTwo)
     array[positionOne] = array[positionTwo].also {
         array[positionTwo] = array[positionOne]
     }
@@ -320,10 +326,8 @@ fun swap(array: IntArray, positionOne: Int, positionTwo: Int) {
  * * There is no additional memory we use here that depends on or grows with the input size.
  * * Hence, the space complexity is `O(1)`.
  */
-fun extractMax(array: IntArray, lastAvailableUnsortedEndIndex: Int): Int {
-    if (array.isEmpty()) return -1
-    // Take the largest element from the root (index 0)
-    val max = array[0]
+private fun extractMax(array: IntArray, lastAvailableUnsortedEndIndex: Int) {
+    if (array.size <= 1) return
     // Swap the largest element with the last available end-index of the unsorted portion of the array.
     // We need the array and two positions to perform the swap operation.
     swap(array, 0, lastAvailableUnsortedEndIndex)
@@ -333,7 +337,6 @@ fun extractMax(array: IntArray, lastAvailableUnsortedEndIndex: Int): Int {
     // So, the `siftDown` function looks for the children within this (inclusive) `lastAvailableUnsortedEndIndex` only.
     // Post `lastAvailableUnsortedEndIndex,` we have the `sorted portion` that we don't want to change/disturb.
     siftDown(array, 0, lastAvailableUnsortedEndIndex - 1)
-    return max
 }
 
 fun main() {
