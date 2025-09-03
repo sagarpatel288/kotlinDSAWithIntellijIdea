@@ -1,4 +1,4 @@
-package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets
+package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.programmingAssignment01
 
 /**
  * # References / Resources

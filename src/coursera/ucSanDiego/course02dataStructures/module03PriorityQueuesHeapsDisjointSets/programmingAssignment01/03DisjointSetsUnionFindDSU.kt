@@ -1,4 +1,4 @@
-package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets
+package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.programmingAssignment01
 
 /**
  * # References / Resources
@@ -27,7 +27,7 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  * The reason is that we can get the `size` of any subtree in `O(1)`.
  *
  * So, please check the alternative implementation also:
- * [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.DisjointSetBySize]
+ * [DisjointSetBySize]
  *
  */
 class DisjointSet(private val size: Int) {

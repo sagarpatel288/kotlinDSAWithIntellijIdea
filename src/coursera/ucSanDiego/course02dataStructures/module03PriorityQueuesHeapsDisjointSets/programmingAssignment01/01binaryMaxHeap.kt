@@ -1,4 +1,4 @@
-package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets
+package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.programmingAssignment01
 
 /**
  * # Implement a binary max heap tree data structure
@@ -564,9 +564,9 @@ class BinaryMaxHeap<T: Comparable<T>>() {
  *
  * * It removes an element from the given [index].
  * * To remove the element, it makes the priority of the element infinite or the maximum.
- * * To do so, it uses the [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap.changePriorityOf]
+ * * To do so, it uses the [BinaryMaxHeap.changePriorityOf]
  * * It guarantees that the element we want to remove is now at the root.
- * * So, now it calls the [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap.extractMax]
+ * * So, now it calls the [BinaryMaxHeap.extractMax]
  *
  * # ToDo: Concern
  *

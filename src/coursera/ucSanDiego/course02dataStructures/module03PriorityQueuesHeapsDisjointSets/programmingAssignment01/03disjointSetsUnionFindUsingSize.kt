@@ -1,10 +1,10 @@
-package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets
+package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.programmingAssignment01
 
 /**
  *
  * # References / Resources
  * This is a more practical implementation of
- * [coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.DisjointSet].
+ * [DisjointSet].
  *
  * Here, we use [treeSize] array to perform the [unionByTreeSize] operation instead of using `height`.
  * The reason is that the [treeSize] can tell us about the number of nodes of a particular `subtree`.

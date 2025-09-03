@@ -29,9 +29,9 @@
 * Why `Binary Heap Trees`? What is the purpose? Why do we need it? When do we need it? 
   * [Previous: Priority Queue And Naive Implementations](../../section01priorityQueuesIntroduction/priorityQueues.md)
 * [Next: Complete Binary Tree](../topic03CompleteBinaryTrees/completeBinaryTrees.md)
-* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/01binaryMaxHeap.kt)
 * [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
-* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/02heapSort.kt)
 * [Coursera: UC San Diego: Data Structures](https://www.coursera.org/learn/data-structures) 
 
 ## Binary Max Heap Tree
@@ -189,9 +189,9 @@
 ## Next
 
 * [Next: Complete Binary Tree](../topic03CompleteBinaryTrees/completeBinaryTrees.md)
-* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/01binaryMaxHeap.kt)
 * [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
-* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+* [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/02heapSort.kt)
 
 ## Application Summary: Purpose And Reason
 
