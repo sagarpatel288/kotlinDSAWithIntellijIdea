@@ -20,6 +20,7 @@
         * [Process](#process)
     * [Question: Binary Max Heap Tree Height](#question-binary-max-heap-tree-height)
   * [Next](#next)
+  * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
 <!-- TOC -->
 
 ## Resources / References 
@@ -31,6 +32,7 @@
 * [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
 * [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
 * [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+* [Coursera: UC San Diego: Data Structures](https://www.coursera.org/learn/data-structures) 
 
 ## Binary Max Heap Tree
 
@@ -190,3 +192,14 @@
 * [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
 * [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
 * [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+
+## Application Summary: Purpose And Reason
+
+* Once we understand the [entire priority queue material](#next), the purpose and reasoning of the priority queue becomes clearer.
+* We use the priority queue to perform:
+    * If we get unorganized data, we can `build a heap` in `O(n)` time. And then:
+        * `insert` in `O(log n)` time.
+        * `peekMax,` or `peekMin` in `O(1)` time.
+        * `extractMax,` or `extractMin` in `O(log n)` time.
+        * `changePriority` in `O(log n)` time.
+        * `sort` the data in `O(n log n)` time.

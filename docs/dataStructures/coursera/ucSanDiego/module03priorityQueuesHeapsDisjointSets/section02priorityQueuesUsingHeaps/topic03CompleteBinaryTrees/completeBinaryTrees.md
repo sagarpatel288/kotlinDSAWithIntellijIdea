@@ -24,6 +24,7 @@
       * [Insert (or add): To the Left-most vacant position in the last level](#insert-or-add-to-the-left-most-vacant-position-in-the-last-level)
       * [ExtractMax: With the last leaf of the last level](#extractmax-with-the-last-leaf-of-the-last-level)
   * [Next](#next)
+  * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
 <!-- TOC -->
 
 ## References / Resources
@@ -291,3 +292,14 @@ $h = \lfloor\log_2(n)\rfloor$
 * [Next: Binary Max Heap Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
 * [Next: Heap Sort Theory](../../section03HeapSort/heapSort.md)
 * [Next: Heap Sort Code](../../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+
+## Application Summary: Purpose And Reason
+
+* Once we understand the [entire priority queue material](#next), the purpose and reasoning of the priority queue becomes clearer.
+* We use the priority queue to perform:
+    * If we get unorganized data, we can `build a heap` in `O(n)` time. And then:
+        * `insert` in `O(log n)` time.
+        * `peekMax,` or `peekMin` in `O(1)` time.
+        * `extractMax,` or `extractMin` in `O(log n)` time.
+        * `changePriority` in `O(log n)` time.
+        * `sort` the data in `O(n log n)` time.

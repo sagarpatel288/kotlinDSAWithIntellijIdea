@@ -27,6 +27,7 @@
   * [Explain a binary heap tree.](#explain-a-binary-heap-tree)
   * [Summary: Priority Queue](#summary-priority-queue)
   * [Next](#next)
+  * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
 <!-- TOC -->
 
 ## Resources / References
@@ -261,7 +262,7 @@ Indices       0     1     2     3     4     5     6
 
 ## Explain a binary heap tree.
 
-[binaryHeapTrees.md](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
+* [binaryHeapTrees.md](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
 
 ## Summary: Priority Queue
 
@@ -279,4 +280,20 @@ Indices       0     1     2     3     4     5     6
 
 ## Next
 
-[Binary Heap](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
+* [Binary Heap Theory](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
+* [Complete Binary Tree Theory](../section02priorityQueuesUsingHeaps/topic03CompleteBinaryTrees/completeBinaryTrees.md)
+* [Binary Max Heap Implementation](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/01binaryMaxHeap.kt)
+* [Heap Sort Theory](../section03HeapSort/heapSort.md)
+* [Heap Sort Implementation](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+
+## Application Summary: Purpose And Reason
+
+* Once we understand the [entire priority queue material](#next), the purpose and reasoning of the priority queue becomes clearer.
+* We use the priority queue to perform:
+  * If we get unorganized data, we can `build a heap` in `O(n)` time. And then:
+    * `insert` in `O(log n)` time.
+    * `peekMax,` or `peekMin` in `O(1)` time.
+    * `extractMax,` or `extractMin` in `O(log n)` time.
+    * `changePriority` in `O(log n)` time.
+    * `sort` the data in `O(n log n)` time.
+  

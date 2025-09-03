@@ -12,11 +12,13 @@
     * [Benefits of realistic `buildHeap` analysis](#benefits-of-realistic-buildheap-analysis)
   * [Recap: Heap Sort Algorithm](#recap-heap-sort-algorithm)
   * [Practical Implementation](#practical-implementation)
+  * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
 <!-- TOC -->
 
 ## References / Resources
 
 * [Michael Sambol](https://youtu.be/2DmK_H7IdTo?si=K6g9BPvsCyOY9_eC)
+* [Coursera: UC San Diego: Data Structures](https://www.coursera.org/learn/data-structures) 
 
 ## Prerequisites
 
@@ -234,3 +236,15 @@ $$
   * [Local: Heap Sort](src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
   * [Local: 02heapSort.kt](../../../../../../src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
   * [GitHub: Heap Sort](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b2092da9d8da57067f5e5fdf5b0772f6c1db1201/src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/02heapSort.kt)
+
+## Application Summary: Purpose And Reason
+
+* Now, we understand why a priority queue uses a binary heap.
+* And with that, we can understand the purpose and reasoning of the priority queue (or a binary heap).
+* We use the priority queue (or a binary heap) to perform:
+    * If we get unorganized data, we can `build a heap` in `O(n)` time. And then:
+        * `insert` in `O(log n)` time.
+        * `peekMax,` or `peekMin` in `O(1)` time.
+        * `extractMax,` or `extractMin` in `O(log n)` time.
+        * `changePriority` in `O(log n)` time.
+        * `sort` the data in `O(n log n)` time.
