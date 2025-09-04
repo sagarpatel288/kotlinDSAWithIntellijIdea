@@ -54,30 +54,39 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
  *
  * ## Sample 1.
  *
- * Input:
+ * ### Input:
+ * ```
  * 5
  * 5 4 3 2 1
+ * ```
  *
- * Output:
+ * ### Output:
+ * ```
  * 3
  * 1 4
  * 0 1
  * 1 3
+ * ```
  *
- * After swapping elements 4 in position 1 and 1 in position 4, the array becomes 5 1 3 2 4.
- * After swapping elements 5 in position 0 and 1 in position 1, the array becomes 1 5 3 2 4.
- * After swapping elements 5 in position 1 and 2 in position 3, the array becomes 1 2 3 5 4, which is
+ * * After swapping elements 4 in position 1 and 1 in position 4, the array becomes 5 1 3 2 4.
+ * * After swapping elements 5 in position 0 and 1 in position 1, the array becomes 1 5 3 2 4.
+ * * After swapping elements 5 in position 1 and 2 in position 3, the array becomes 1 2 3 5 4, which is
  * already a heap, because `𝑎_0 = 1 < 2 = 𝑎_1, 𝑎_0 = 1 < 3 = 𝑎_2, 𝑎_1 = 2 < 5 = 𝑎_3, 𝑎_1 = 2 < 4 = 𝑎_4.`
  *
  * ## Sample 2.
  *
- * Input:
+ * ### Input
+ * ```
  * 5
  * 1 2 3 4 5
- * Output:
- * 0
+ * ```
  *
- * The input array is already a heap, because it is sorted in increasing order.
+ * ### Output
+ * ```
+ * 0
+ * ```
+ *
+ * * The input array is already a heap, because it is sorted in increasing order.
  *
  *
  * # Time Complexity
