@@ -130,12 +130,40 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  *
  * ## Thought Process:
  *
+ * ### Given Data
+ *
+ * * Buffer size `S`, Total number of packets `n`,
+ * arrival time of each packet `Ai,` and process time of each packet `Pi`.
+ *
+ * ### Required Data
+ *
+ * * Start time of each packet
+ *
+ * ### Hints to find, build, and provide the required data from the given data
+ *
+ * * **When will the buffer start processing a packet? What will be the `process start` time of a packet?**
+ *
+ * * If there is no packet in the buffer, if the buffer is empty, then as soon as the packet arrives.
+ * * Otherwise, as soon as the buffer finishes processing the previous packet.
+ * * And if the packet arrives after some time, after the buffer finishes the previous packet,
+ * where the arrival time is greater than the process finish time of the previous packet,
+ * then the arrival time becomes the process start time.
+ *
+ * * **When will the buffer finish processing the previous packet?**
+ *
+ * * Based on the given `process time` of the packet, and the `process start` time of the packet.
+ * * So, the `process finish time = process start time + process time`.
+ *
+ * ### Data Structure
+ *
  * * It is given in the problem description that:
  * ```
  * There is only one processor, and it processes the incoming packets in the order of their arrival.
  * ```
  * * The above statement clearly indicates a queue data structure that follows
  * `Order of their arrival` = `first come, first served`, which is the `FIFO - First In First Out` principle.
+ *
+ * ### Process
  *
  * * **What do we add to the buffer queue? Arrival time, process time, or something else?**
  *
