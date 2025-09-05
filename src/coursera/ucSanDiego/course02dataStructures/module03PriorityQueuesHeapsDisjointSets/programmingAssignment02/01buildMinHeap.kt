@@ -2,6 +2,13 @@ package coursera.ucSanDiego.course02dataStructures.module03PriorityQueuesHeapsDi
 
 /**
  *
+ * # References / Resources / Prerequisites
+ *
+ * [Local: heapSort.md](docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ *
+ * [GitHub: heapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a244469d45534a60ac027a4925e07ac3f1d256e3/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ *
+ *
  * # Problem Introduction
  *
  * In this problem, you will convert an array of integers into a heap. This is the crucial step of the sorting
