@@ -148,11 +148,34 @@ package coursera.ucSanDiego.course02dataStructures.module01.section04assignmentP
  * * And if the packet arrives after some time, after the buffer finishes the previous packet,
  * where the arrival time is greater than the process finish time of the previous packet,
  * then the arrival time becomes the process start time.
+ * **Example-01**
+ * * The buffer is empty.
+ * * A packet arrives.
+ * * The buffer will immediately start processing it as soon as it arrives.
+ * * In this case, the process start time is the arrival time of the packet itself.
+ * **Example-02**
+ * * The buffer finishes processing all the packets by `1 PM`.
+ * * But, the new packet may not arrive immediately.
+ * * So, the buffer waits for the new packet to arrive.
+ * * The new packet arrives at `3 PM`.
+ * * So, in this case, the maximum value is the arrival time.
+ * * So, in this case, the arrival time is greater than the process finish time of the last packet.
+ * * So, the process start time of this new packet will be its arrival time.
+ * **Example-03**
+ * * The new packet arrives at `1 PM`.
+ * * But, the last packet process finishes at `3 PM`.
+ * * So, in this case, the maximum value is the process finish time of the last packet.
+ * * So, the process start time of this new packet will be the process finish time of the last packet.
+ * **Conclusion**
+ * > The `process start time` of any packet is =
+ * > `if` (buffer is empty) arrival time of the packet
+ * > `else` maxOf(process finish time of the last item, arrival time of this new packet)
  *
  * * **When will the buffer finish processing the previous packet?**
  *
  * * Based on the given `process time` of the packet, and the `process start` time of the packet.
- * * So, the `process finish time = process start time + process time`.
+ * * So,
+ * > The `process finish time = process start time + process time`.
  *
  * ### Data Structure
  *
