@@ -127,14 +127,14 @@ import java.util.PriorityQueue
  *
  * * Number of threads, n.
  * * Number of jobs, m.
- * * Process time for each job
+ * * Process time for each job.
  *
  * ### Required Data
  *
  * * Which thread will take which job, and when will it finish the job?
  * * So, basically, a total of `m` lines where each line contains two values (space-separated).
  * * Each line shows the information for each job sequentially, as per the given order of jobs.
- * * The first value indicates the thread index.
+ * * The first value indicates the thread index that takes and processes a particular job.
  * * The second value indicates the start time of the job.
  *
  * **Example**
@@ -147,6 +147,8 @@ import java.util.PriorityQueue
  *
  * #### Data Structure
  *
+ * * It is given that:
+ * > If there is a free thread, it immediately takes the next job from the list.
  * * The thread that becomes `free` first and earliest, picks up the `job` first.
  * * It clearly means that we need to sort the `threads` based on their `finish time`.
  * * Also, the statement:
@@ -230,7 +232,7 @@ import java.util.PriorityQueue
  * * We are doing it `m` times. So, it becomes `O(m log n)`.
  *
  * **Conclusion**
- * * The overall time complexity is `O(m log n)`.
+ * * The overall (and dominant) time complexity is `O(m log n)`.
  *
  *
  * # Space Complexity
@@ -252,11 +254,22 @@ import java.util.PriorityQueue
  */
 class ParallelProcessing {
 
+    /**
+     * The [finishTime] tells us about when this thread will be free.
+     * It indicates the time when this thread will be free to pick up the next job.
+     */
     data class ThreadState(val threadIndex: Int, val finishTime: Long): Comparable<ThreadState> {
         override fun compareTo(other: ThreadState): Int {
+            // If there is a free thread, it immediately takes the next job from the list.
+            // It means that the thread that finishes the previous job first is the thread that takes the new job first.
             if (this.finishTime != other.finishTime) {
                 return this.finishTime.compareTo(other.finishTime)
             }
+            // If several threads try to take jobs from the list simultaneously,
+            // the thread with the smaller index takes the job.
+            // It means that if multiple threads finish their jobs at the same time,
+            // there are multiple threads that can take the next job.
+            // However, in such cases, the priority goes to the thread whose index is the smaller one.
             return this.threadIndex.compareTo(other.threadIndex)
         }
     }
@@ -266,13 +279,22 @@ fun main() {
     val (totalThreads, totalJobs) = readln().split(" ").map { it.toInt() }
     val jobProcessTimeList = readln().split(" ").map { it.toLong() }
     val priorityQueue = PriorityQueue<ThreadState>()
+    // Add all the threads to the `PriorityQueue` so that we can pick up a `thread` based on the `priority`.
+    // By default, the built-in `PriorityQueue` maintains a `min heap`.
     repeat(totalThreads) { index ->
         priorityQueue.add(ThreadState(index, 0L))
     }
     val stringBuilder = StringBuilder()
     for (jobProcessTime in jobProcessTimeList) {
+        // A `PriorityQueue` maintains a `min heap`.
+        // So, a `thread` with the lowest `finishTime` is at the root.
+        // Hence, `poll` removes a `thread` from the `priorityQueue` whose `finishTime` is the lowest one.
+        // The `thread` with the lowest `finishTime` is the one that becomes free first and earliest.
+        // And the `thread` that becomes free first and earliest is the one that picks up the job.
         val availableThread = priorityQueue.poll()
         stringBuilder.append("${availableThread.threadIndex} ${availableThread.finishTime}\n")
+        // `process finish time = process start time + process time`.
+        // `process start time = last (current) process finish time`.
         val processFinishTime = availableThread.finishTime + jobProcessTime
         priorityQueue.add(ThreadState(availableThread.threadIndex, processFinishTime))
     }
