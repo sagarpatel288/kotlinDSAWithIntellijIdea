@@ -292,10 +292,12 @@ fun main() {
         // The `thread` with the lowest `finishTime` is the one that becomes free first and earliest.
         // And the `thread` that becomes free first and earliest is the one that picks up the job.
         val availableThread = priorityQueue.poll()
-        stringBuilder.append("${availableThread.threadIndex} ${availableThread.finishTime}\n")
+        // If there is a free thread, it immediately takes the next job from the list.
+        // So, the `process finish time` of the last job becomes the `process start time` of the new job.
+        val processStartTime = availableThread.finishTime
+        stringBuilder.append("${availableThread.threadIndex} $processStartTime\n")
         // `process finish time = process start time + process time`.
-        // `process start time = last (current) process finish time`.
-        val processFinishTime = availableThread.finishTime + jobProcessTime
+        val processFinishTime = processStartTime + jobProcessTime
         priorityQueue.add(ThreadState(availableThread.threadIndex, processFinishTime))
     }
     println(stringBuilder.toString())
