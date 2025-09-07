@@ -261,37 +261,43 @@ class DisjointSetUnion(private val listOfEachTableSize: List<Int>) {
         return true
     }
 
-    private fun findParentOf(child: Int): Int {
-        if (!validIndex(child)) return -1
+    private fun findRootOf(child: Int): Int {
+        validIndex(child)
         if (parentArray[child] == child) {
             return child
         }
         // Path Compression
-        parentArray[child] = findParentOf(parentArray[child])
+        parentArray[child] = findRootOf(parentArray[child])
         return parentArray[child]
     }
 
-    fun union(source: Int, destination: Int): Boolean {
-        require(validIndex(source) && validIndex(destination))
-        val parentOfSource = findParentOf(source)
-        val parentOfDestination = findParentOf(destination)
-        if (parentOfSource == parentOfDestination) {
+    fun union(destination: Int, source: Int): Boolean {
+        require(validIndex(destination) && validIndex(source))
+        val rootOfDestination = findRootOf(destination)
+        val rootOfSource = findRootOf(source)
+        if (rootOfSource == rootOfDestination) {
             return false
         }
         // Union by size
         // The problem does not explicitly ask us to follow the union by size heuristic.
         // However, a + b = b + a.
-        // So, in terms of the `size` calculation, it doesn't make any difference.
-        // On the other side, it gives us the benefit of a `shallow` tree.
-        if (sizeOfTables[parentOfSource] < sizeOfTables[parentOfDestination]) {
-            parentArray[parentOfSource] = parentOfDestination
-            sizeOfTables[parentOfDestination] += sizeOfTables[parentOfSource]
-            maxSize = maxOf(maxSize, sizeOfTables[parentOfDestination])
+        // So, in terms of the `max size` calculation, it doesn't make any difference.
+        // On the other side, the `union by size` heuristic gives us the benefit of a `shallow` tree.
+        // Please note that this approach changes the expected structure of the `DSU`.
+        // The answer of `maximum size` does not change, but the answer of `which table has the maximum size` changes.
+        // So, if we were asked to print the table that has the maximum size,
+        // then we would strictly follow the problem rule.
+        // In that case, we always merge `source` into the `destination` regardless of their current `size`.
+        if (sizeOfTables[rootOfSource] < sizeOfTables[rootOfDestination]) {
+            parentArray[rootOfSource] = rootOfDestination
+            sizeOfTables[rootOfDestination] += sizeOfTables[rootOfSource]
+            maxSize = maxOf(maxSize, sizeOfTables[rootOfDestination])
         } else {
-            parentArray[parentOfDestination] = parentOfSource
-            sizeOfTables[parentOfSource] += sizeOfTables[parentOfDestination]
-            maxSize = maxOf(maxSize, sizeOfTables[parentOfSource])
+            parentArray[rootOfDestination] = rootOfSource
+            sizeOfTables[rootOfSource] += sizeOfTables[rootOfDestination]
+            maxSize = maxOf(maxSize, sizeOfTables[rootOfSource])
         }
+
         return true
     }
 }
@@ -302,8 +308,8 @@ fun main() {
     val dsu = DisjointSetUnion(sizeOfTables)
     val stringBuilder = StringBuilder()
     repeat(totalQueries) {
-        val (source, destination) = readln().split(" ").map { it.toInt() }
-        dsu.union(source - 1, destination - 1)
+        val (destination, source) = readln().split(" ").map { it.toInt() }
+        dsu.union(destination - 1, source - 1)
         stringBuilder.append("${dsu.maxSize}\n")
     }
     println(stringBuilder)
