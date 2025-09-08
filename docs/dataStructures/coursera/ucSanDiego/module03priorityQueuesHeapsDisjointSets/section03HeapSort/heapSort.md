@@ -6,8 +6,8 @@
   * [Prerequisites](#prerequisites)
   * [Reflection](#reflection)
   * [`In-Place` Sorting](#in-place-sorting)
-  * [Worst-Case Analysis](#worst-case-analysis)
-  * [Realistic Analysis](#realistic-analysis)
+  * [Worst-Case Analysis Of Building A Heap](#worst-case-analysis-of-building-a-heap)
+  * [Realistic Analysis Of Building A Heap](#realistic-analysis-of-building-a-heap)
     * [Mathematical Calculation](#mathematical-calculation)
     * [Benefits of realistic `buildHeap` analysis](#benefits-of-realistic-buildheap-analysis)
   * [Recap: Heap Sort Algorithm](#recap-heap-sort-algorithm)
@@ -75,7 +75,7 @@
 * So, we repeat the process of `extractMax` till we cover all the elements from the largest one to the smallest one.
 * Or in other words, we repeat this `extractMax` process till the index-end-boundary goes down from `size - 1` to `0`, which would then indicate that we have covered all the elements.
 
-## Worst-Case Analysis
+## Worst-Case Analysis Of Building A Heap
 
 * We perform the `siftDown` operation for at least $\frac{n}{2}$ elements.
 * We know that the height of a complete binary tree that we use for the heap tree is `log n`.
@@ -86,7 +86,7 @@
 * And for $\frac{n}{2}$ elements, it becomes $\frac{n}{2} * \log n$.
 * Which is, $n\:\log n$ time, because we drop the constant $\frac{1}{2}$.
 
-## Realistic Analysis
+## Realistic Analysis Of Building A Heap
 
 ![03realisticAnalysisOfBuildHeap.png](../../../../../../assets/images/dataStructures/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/03realisticAnalysisOfBuildHeap.png)
 
@@ -242,7 +242,7 @@ $$
 * Now, we understand why a priority queue uses a binary heap.
 * And with that, we can understand the purpose and reasoning of the priority queue (or a binary heap).
 * We use the priority queue (or a binary heap) to perform:
-    * If we get unorganized data, we can `build a heap` in `O(n)` time. And then:
+    * `buildHeap` in `O(n)` time. And then:
         * `insert` in `O(log n)` time.
         * `peekMax,` or `peekMin` in `O(1)` time.
         * `extractMax,` or `extractMin` in `O(log n)` time.
