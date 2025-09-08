@@ -1,12 +1,50 @@
 package coursera.ucSanDiego.course01algorithmicToolbox.module04DivideAndConquer
 
 /**
- * Explain or demonstrate the quickSort algorithm. (aka, deterministic quicksort or fixed pivot quicksort).
- * Please note that: (Disclaimer, Pre-Note, Conditions, Known data and facts, etc.)
- * The array (input) is not sorted or nearly sorted. The array is not reversed.
- * The array (input) does not contain any duplicate elements.
- * Stability is not a concern here.
- * The solution can have a maximum time complexity of O(n log n) and a maximum space complexity of O(log n).
+ * # Quick Sort Algorithm
+ *
+ * * Explain or demonstrate the quickSort algorithm. (aka, deterministic quicksort or fixed pivot quicksort).
+ * * Please note that: (Disclaimer, Pre-Note, Conditions, Known data and facts, etc.)
+ * * The array (input) is not sorted or nearly sorted. The array is not reversed.
+ * * The array (input) does not contain any duplicate elements.
+ * * Stability is not a concern here.
+ * * The solution can have a maximum time complexity of `O(n log n)` and a maximum space complexity of `O(log n)`.
+ *
+ * ## References / Resources
+ *
+ * * [Apana College - Shradha](https://youtu.be/QXum8HQd_l4?si=65Hz5e3oZo_Yb5dw)
+ * * [Jenny's Lectures](https://youtu.be/QN9hnmAgmOc?si=XGJmFrhStWHS7vap)
+ * * [Visualization by cups](https://youtu.be/MZaf_9IZCrc?si=kbN4GFYw8RorQRds)
+ * * [Animation](https://youtu.be/pM-6r5xsNEY?si=ImLHHNPViIvfF_sc)
+ * * [Animation](https://youtube.com/shorts/gptBZml12lU?si=CbDFdZKWPGQETaLe)
+ * * [Animation](https://youtube.com/shorts/t40PfJDPWkk?si=PHph8LQdpqw32KVA)
+ *
+ * ## Time Complexity
+ *
+ * * Given that the input is not already in any form of sorted order (ascending, descending, or duplicate),
+ * we are sure that we have already eliminated the `worst-case` possibility.
+ * * Hence, the time complexity of this algorithm for the given input is `O(n log n)` where `n` is the input size.
+ * * However, please note that if the `input` is sorted in any form (ascending, descending, or duplicate),
+ * we might end up with an unbalanced partition of the given `input`.
+ * * Which can result into the `O(n^2)` time complexity.
+ * * Because in that case, we always compare each element with almost every other element.
+ * * The geometric series/arithmetic progression series would then simplify to `O(n^2)` time complexity.
+ * * So, overall:
+ * * The best and the average time-complexity is: `O(n log n)`
+ * * The worst case time complexity is: `O(n^2)`.
+ *
+ * ## Space complexity
+ *
+ * * The `Quick Sort` algorithm is an `in-place` algorithm.
+ * * It means that we do not need auxiliary memory that depends on or grows with the input size.
+ * * Hence, the space complexity of the quick sort algorithm is `O(1)`.
+ *
+ * ## Next
+ *
+ * * [Next: Part-02: Randomization By: GATE Applied Course](https://youtu.be/HY64dw_Af94?si=DnxKbcwXevD3tzV5)
+ * * [Randomization By: The GATEHUB](https://youtu.be/nUlEfx-HgII?si=i9KMK7FTWHIZgn0-)
+ * * [3-Flags-Dutch Quick Sort by CodeSmart](https://youtu.be/9pdkbqGwUhs?si=OOJVvFFfhA6_3I3w)
+ *
  */
 fun main() {
 
