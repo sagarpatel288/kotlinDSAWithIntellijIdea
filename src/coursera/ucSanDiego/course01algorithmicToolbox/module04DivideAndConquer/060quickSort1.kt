@@ -38,6 +38,9 @@ package coursera.ucSanDiego.course01algorithmicToolbox.module04DivideAndConquer
  * * The `Quick Sort` algorithm is an `in-place` algorithm.
  * * It means that we do not need auxiliary memory that depends on or grows with the input size.
  * * Hence, the space complexity of the quick sort algorithm is `O(1)`.
+ * * However, if we count the `recursion stack`, then it is:
+ * * `O(n)` for the worst-case due to unbalanced partitions (more recursive depth).
+ * * `O(log n)` for the average and best case due to balanced partitions (less recursive depth).
  *
  * ## Next
  *
