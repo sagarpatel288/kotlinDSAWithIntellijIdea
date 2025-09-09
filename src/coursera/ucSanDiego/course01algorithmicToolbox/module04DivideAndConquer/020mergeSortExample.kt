@@ -99,7 +99,7 @@ package coursera.ucSanDiego.course01algorithmicToolbox.module04DivideAndConquer
  *
  * ## Questions
  *
- * * Why don't we simply divide the input into two parts and then call the conquer function,
+ * * Why don't we simply divide the input into two parts and then call the merge function,
  * which compares each element of both sides and inserts the smaller element into the sorted array?
  *
  * **Answer**
@@ -121,9 +121,9 @@ package coursera.ucSanDiego.course01algorithmicToolbox.module04DivideAndConquer
 fun main() {
 
     /**
-     * # What and why of this [conquer] function
+     * # What and why of this [merge] function
      *
-     * * The [divideAndConquer] function gives the two parts that this [conquer] function needs to merge in sorted order.
+     * * The [mergeSort] function gives the two parts that this [merge] function needs to merge in sorted order.
      *
      * # How does this function do that?
      *
@@ -132,7 +132,7 @@ fun main() {
      * * In that case, we might get `[startIndex] = 0`, `[mid] = 2`, and `[endIndex] = 4`.
      * * It means that the left part is from index `[startIndex] to [mid] = 0 to 2`.
      * * The right part is from index `[mid] + 1 to [endIndex] = 3 to 4`.
-     * * The [conquer] function compares each element of these left and right parts.
+     * * The [merge] function compares each element of these left and right parts.
      * * To compare and to ensure that we don't cross the boundaries of any part, we use `pointers` or `markers`.
      * * For example, the `leftPointer` will move from `[startIndex] to [mid] = 0 to 2`.
      * * And the `rightPointer` will move from `[mid] + 1 to [endIndex] = 3 to 4`.
@@ -161,7 +161,7 @@ fun main() {
      * back to the original [array] using the [startIndex].
      * * So in that sense, we modify the existing [array] using the sorted `temp` array and `[startIndex]`.
      */
-    fun conquer(array: IntArray, startIndex: Int, mid: Int, endIndex: Int) {
+    fun merge(array: IntArray, startIndex: Int, mid: Int, endIndex: Int) {
         val tempArray = IntArray(endIndex - startIndex + 1)
         var currentIndexOfLeft = startIndex
         var currentIndexOfRight = mid + 1
@@ -216,7 +216,7 @@ fun main() {
      *
      * * Recursion.
      *
-     * # About this function: [divideAndConquer]
+     * # About this function: [mergeSort]
      *
      * ## What does this function do? Why? How?
      *
@@ -234,8 +234,8 @@ fun main() {
      * * One part before and up to the middle point, and the second part, after the middle point.
      * * We recursively call the function for each part until the size of each part becomes 1.
      * * Once we reach the base case (where the size of a sub-array is 1) for both the parts,
-     * we call the [conquer] function.
-     * * The [conquer] function compares both the parts and merges them back in sorted order.
+     * we call the [merge] function.
+     * * The [merge] function compares both the parts and merges them back in sorted order.
      * * We can understand the function with the following example:
      * * Suppose the original input array is: `[51, 42, 33, 24, 15]`
      *
@@ -251,7 +251,7 @@ fun main() {
      * | Merge [24] & [15]     	| [24]         	| [15]       	| [15, 24]             	|
      * | Final Merge           	| [33, 42, 51] 	| [15, 24]   	| [15, 24, 33, 42, 51] 	|
      */
-    fun divideAndConquer(array: IntArray, startIndex: Int, endIndex: Int) {
+    fun mergeSort(array: IntArray, startIndex: Int, endIndex: Int) {
         if (array.size <= 1) {
             return
         }
@@ -266,12 +266,12 @@ fun main() {
             // i.e., If we do (startIndex + endIndex) /2, the addition can cross the `integer` boundary!
             val mid = startIndex + (endIndex - startIndex) / 2
             // The left part (startIndex to mid), where the mid-index becomes the endIndex.
-            divideAndConquer(array, startIndex, mid)
+            mergeSort(array, startIndex, mid)
             // The right part (mid + 1 to endIndex) where the mid + 1 becomes the startIndex.
             // The below function will get executed only after the above first recursive call is completed.
-            divideAndConquer(array, mid + 1, endIndex)
+            mergeSort(array, mid + 1, endIndex)
             // Only after the above two recursive calls are completed, this call will happen.
-            conquer(array, startIndex, mid, endIndex)
+            merge(array, startIndex, mid, endIndex)
         }
     }
 
@@ -280,5 +280,5 @@ fun main() {
     }
 
     val input = getInput()
-    divideAndConquer(input, 0, input.lastIndex)
+    mergeSort(input, 0, input.lastIndex)
 }
