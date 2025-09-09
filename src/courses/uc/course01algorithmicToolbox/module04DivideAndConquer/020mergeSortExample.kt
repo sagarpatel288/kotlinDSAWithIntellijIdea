@@ -76,7 +76,7 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
  *
  * ## Time Complexity
  *
- * The best, average, and worst-case runtime complexity of a merge-sort algorithm is O(n log n).
+ * * The best, average, and worst-case runtime complexity of a merge-sort algorithm is O(n log n).
  *
  * **How? Why?**
  *
@@ -107,6 +107,20 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
  * * While it is possible, the fact that neither the left nor the right part is sorted,
  * increases the complexity and inefficiency when we attempt to insert the element into the sorted array.
  *
+ * ## Key-Points
+ *
+ * **`mergeSort` function**
+ * * Middle index, two parts, and recursive call
+ *
+ * **`merge` function**
+ * * 3 markers (pointers) and their initial values
+ * * 3 separate (independent) `while` loops, and
+ * * Copy from the temp array
+ *
+ * **Copy formula**
+ * ```
+ * `original[i + startIndex] = temp[i]`
+ * ```
  *
  * ## Knowledge: Lessons to learn and understand
  *
@@ -114,8 +128,8 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
  *
  * * How to sort a collection?
  * * How to divide a collection?
- * * How to merge a collection in ascending order?
- * * How to validate the index range of a collection? (start <= end)
+ * * How to merge a collection in sorted order?
+ * * How to validate the index range of a collection? (start < end)
  *
  */
 fun main() {
