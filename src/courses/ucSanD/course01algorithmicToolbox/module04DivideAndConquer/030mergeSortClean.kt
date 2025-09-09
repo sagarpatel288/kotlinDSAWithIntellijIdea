@@ -1,13 +1,25 @@
 package courses.ucSanD.course01algorithmicToolbox.module04DivideAndConquer
 
 /**
- * Explain `Merge Sort` with an example:
+ * # Explain `Merge Sort` with an example:
  *
- * Merge Sort is a "divide and conquer" sorting algorithm.
- * It works by breaking down a list into smaller sublists until each sublist contains only one element
+ * * Merge Sort is a "divide and conquer" sorting algorithm.
+ * * It works by breaking down a list into smaller sublists until each sublist contains only one element
  * (which is considered sorted by itself, and it is our base case),
  * and then merging those sublists back together in a sorted order.
- * This approach ensures that the final output is a sorted list.
+ * * This approach ensures that the final output is a sorted list.
+ *
+ * ## Time Complexity:
+ *
+ * * The best, average, and worst-case time complexity of a `merge sort` algorithm is `O(n log n)`.
+ * * Because the recursion depth of the `mergeSort` function is `O(log n)`,
+ * * and each `mergeSort` function calls the `merge` function, which takes `O(n)` time.
+ * * So, the total time complexity is `O(n log n)`.
+ *
+ * ## Space Complexity:
+ *
+ * * We take a temporary `sorted` array during the `merge` function call.
+ * * So, the space complexity is `O(n)`.
  */
 fun main() {
 
