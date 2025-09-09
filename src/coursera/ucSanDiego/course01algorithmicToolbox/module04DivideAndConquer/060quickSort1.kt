@@ -89,6 +89,10 @@ fun main() {
      * area or the adult area. OK?
      */
     fun swapElements(input: IntArray, positionOne: Int, positionTwo: Int) {
+        require(positionOne in 0..input.lastIndex && positionTwo in 0..input.lastIndex) {
+            "Index $positionOne and Index $positionTwo for size ${input.size} exceed bounds"
+        }
+        if (positionOne == positionTwo) return
         val temp = input[positionOne]
         input[positionOne] = input[positionTwo]
         input[positionTwo] = temp
@@ -103,6 +107,12 @@ fun main() {
      * * Once we select the pivot element and start comparing other elements, we divide the array into two sub-arrays.
      * * The element lower or equal to the pivot element goes to the left side,
      * and the element higher than the pivot element goes to the right side.
+     * * Let us assume that we have a `pivot`.
+     * * Now, let us also assume that we have a `marker` index.
+     * * If the `marker` index finds that `input[marker] <= pivot`, then it `marks` the current position `tested OK`.
+     * * And moves on to check the next position. So, it becomes: `marker++`.
+     * * We do this for the given range that is from `[start] to [end]`.
+     * * So, we iterate from [start] to [end] and we check each element within this range.
      * * Essentially, we divide the array into two sub-arrays using the pivot element.
      * * This process is known as partition.
      *
@@ -184,11 +194,55 @@ fun main() {
         // So, the iteration goes up to <end, instead of <=end.
         for (j in start..<end) {
             if (input[j] <= pivot) {
-
                 // When we find an element that is less than or equal to the pivot,
                 // we increase the partitionIndex. So that we can say, all the elements to the left of the partitionIndex
                 // are less than or equal to the pivot element.
                 partitionIndex++
+                // Note that we are going inside this block only if `input[j] <= pivot`.
+                // We increase the marker index, the `partitionIndex` only when `input[j] <= pivot`.
+                // We can provide an analogy for this process.
+                // Every time we find that `input[j] <= pivot`, the `partitionIndex` will create a seat for the
+                // element, which is currently at position `j`.
+                // So, every time we find `input[j] <= pivot`, the `partitionIndex` will create a seat, and we will
+                // move the element from the position `j` to the position created by the `partitionIndex`.
+                // But then, what will happen to the element which is already at the `partitionIndex` position?
+                // The element at the current `partitionIndex` position will move to the `j` position.
+                // So basically, every time we find that `input[j] <= pivot`, the `partitionIndex` will create a seat
+                // and we will swap the elements at positions `partitionIndex` and `j`.
+                // It means that for the cases when `input[j] > pivot`, the `partitionIndex` does not make progress.
+                // But in that case, `j` continues making progress.
+                // It means that if we find that `partitionIndex` lags behind `j`,
+                // we are sure that it is due to the case where `j` found an element which is greater than the `pivot`.
+                // As soon as we find this, we immediately swap the elements at positions `partitionIndex` and `j`.
+                // Why do we swap `j` with the current `partitionIndex`?
+                // How can we ensure that the current `partitionIndex` needs to be swapped with `j`?
+                // Shouldn't we swap `j` with the `partitionIndex + 1` instead of the `partitionIndex`?
+                // Well, the point is, swapping also happens only when we find `input[j] <= pivot`.
+                // And by the time we swap, so before we swap, the `partitionIndex` is already moved by 1.
+                // And this time, the `partitionIndex` is indicating a greater value than the pivot!
+                // We can better understand this with an example.
+                // Suppose we have an array: `[3, 8, 5, 9, 7]`
+                // We make the element `7` the `pivot` element.
+                // `start` is index `0` and `end` is index `4`.
+                // Initially, the `partitionIndex` is `start - 1 = 0 - 1 = -1`.
+                // `3 <= 7`, so our `partitionIndex` moves 1 step forward and confirms that the index `0` is tested OK.
+                // The `partitionIndex` is at position `0`.
+                // Next, `8 > 7`. So, the `partitionIndex` does not move.
+                // Next, `5 <= 7`. So, the `partitionIndex` moves 1 step forward, and now it is at position `1`!
+                // We find that `partitionIndex` and `j` are not at the same position.
+                // The `partitionIndex` is at position `1`, whereas `j` is at position `2`.
+                // The current position of `j` indicates an element that is less than or equal to the pivot.
+                // That's why we could enter into this `if` condition.
+                // And the current position of `partitionIndex` indicates an element that is greater than the pivot.
+                // If the position of `partitionIndex` and `j` were the same,
+                // it would have meant that we did not find any element that is greater than the pivot.
+                // But if we ever find an element that is smaller than or equal to the pivot,
+                // we increase the `partitionIndex`, and if we still find that the position of the `partitionIndex`,
+                // and `j` are not the same, it would mean that the current position of the `partitionIndex` shows an
+                // element that is greater than the pivot.
+                // And the current position of `j` would represent an element that is smaller than or equal to the
+                // pivot.
+                // That's why we swap the elements at the current positions of the `partitionIndex` and `j`.
                 // Assume a movie theater where we expect the seating arrangement from younger to older.
                 // Assume that there are two guards. 1. The partitionIndex. 2. The iteration j.
                 // They both start the iteration from the same point, together, which is the `start`.
