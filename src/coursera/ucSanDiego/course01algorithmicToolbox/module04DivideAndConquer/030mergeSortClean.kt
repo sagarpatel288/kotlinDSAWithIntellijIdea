@@ -11,7 +11,7 @@ package coursera.ucSanDiego.course01algorithmicToolbox.module04DivideAndConquer
  */
 fun main() {
 
-    fun conquer(array: IntArray, startIndex: Int, midIndex: Int, endIndex: Int) {
+    fun merge(array: IntArray, startIndex: Int, midIndex: Int, endIndex: Int) {
         var currentLeftIndex = startIndex
         var currentRightIndex = midIndex + 1
         var currentSortedIndex = 0
@@ -38,7 +38,7 @@ fun main() {
         }
     }
 
-    fun divideAndConquer(array: IntArray, startIndex: Int, endIndex: Int) {
+    fun mergeSort(array: IntArray, startIndex: Int, endIndex: Int) {
         if (array.size <= 1) {
             println(": :sorted: ${array.toList()}")
         }
@@ -47,10 +47,10 @@ fun main() {
             // If we do (startIndex + endIndex) / 2, the addition can cross the integer boundary.
             val midIndex = startIndex + (endIndex - startIndex) / 2
             // Left half part of the incoming array.
-            divideAndConquer(array, startIndex, midIndex)
+            mergeSort(array, startIndex, midIndex)
             // Right half part of the incoming array.
-            divideAndConquer(array, midIndex + 1, endIndex)
-            conquer(array, startIndex, midIndex, endIndex)
+            mergeSort(array, midIndex + 1, endIndex)
+            merge(array, startIndex, midIndex, endIndex)
         }
     }
 
@@ -59,6 +59,6 @@ fun main() {
     }
 
     val input = getInput()
-    divideAndConquer(input, 0, input.lastIndex)
+    mergeSort(input, 0, input.lastIndex)
     println(": :main: sorted: ${input.toList()}")
 }
