@@ -1,0 +1,76 @@
+package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
+
+/**
+ * # Explain `Merge Sort` with an example:
+ *
+ * * Merge Sort is a "divide and conquer" sorting algorithm.
+ * * It works by breaking down a list into smaller sublists until each sublist contains only one element
+ * (which is considered sorted by itself, and it is our base case),
+ * and then merging those sublists back together in a sorted order.
+ * * This approach ensures that the final output is a sorted list.
+ *
+ * ## Time Complexity:
+ *
+ * * The best, average, and worst-case time complexity of a `merge sort` algorithm is `O(n log n)`.
+ * * Because the recursion depth of the `mergeSort` function is `O(log n)`,
+ * * and each `mergeSort` function calls the `merge` function, which takes `O(n)` time.
+ * * So, the total time complexity is `O(n log n)`.
+ *
+ * ## Space Complexity:
+ *
+ * * We take a temporary `sorted` array during the `merge` function call.
+ * * So, the space complexity is `O(n)`.
+ */
+fun main() {
+
+    fun merge(array: IntArray, startIndex: Int, midIndex: Int, endIndex: Int) {
+        var currentLeftIndex = startIndex
+        var currentRightIndex = midIndex + 1
+        var currentSortedIndex = 0
+        val sortedArray = IntArray(endIndex - startIndex + 1)
+
+        while (currentLeftIndex <= midIndex && currentRightIndex <= endIndex) {
+            if (array[currentLeftIndex] <= array[currentRightIndex]) {
+                sortedArray[currentSortedIndex++] = array[currentLeftIndex++]
+            } else {
+                sortedArray[currentSortedIndex++] = array[currentRightIndex++]
+            }
+        }
+
+        while (currentLeftIndex <= midIndex) {
+            sortedArray[currentSortedIndex++] = array[currentLeftIndex++]
+        }
+
+        while (currentRightIndex <= endIndex) {
+            sortedArray[currentSortedIndex++] = array[currentRightIndex++]
+        }
+
+        for (i in sortedArray.indices) {
+            array[startIndex + i] = sortedArray[i]
+        }
+    }
+
+    fun mergeSort(array: IntArray, startIndex: Int, endIndex: Int) {
+        if (array.size <= 1) {
+            println(": :sorted: ${array.toList()}")
+        }
+        if (startIndex < endIndex) {
+            // A better way to find the midIndex.
+            // If we do (startIndex + endIndex) / 2, the addition can cross the integer boundary.
+            val midIndex = startIndex + (endIndex - startIndex) / 2
+            // Left half part of the incoming array.
+            mergeSort(array, startIndex, midIndex)
+            // Right half part of the incoming array.
+            mergeSort(array, midIndex + 1, endIndex)
+            merge(array, startIndex, midIndex, endIndex)
+        }
+    }
+
+    fun getInput(): IntArray {
+        return intArrayOf(51, 42, 33, 24, 15)
+    }
+
+    val input = getInput()
+    mergeSort(input, 0, input.lastIndex)
+    println(": :main: sorted: ${input.toList()}")
+}
