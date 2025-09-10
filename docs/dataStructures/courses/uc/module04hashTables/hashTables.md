@@ -16,6 +16,9 @@
 * [Monis Yousuf](https://youtu.be/pMM9cIAFAug?si=4dtGaEEywYDxLPiP)
 * [Simplilearn](https://youtu.be/jmtzX-NPFDc?si=dCNRHOF93cFlI4w7)
 
+**Internals**
+* [Arpit Bhayani](https://youtube.com/playlist?list=PLsdq-3Z1EPT2UnueESBLReaVSLIo_BuAc&si=mbgu-ku-Zw5_9nil)
+
 ## ToDo
 
 * What problem does it solve? (Why do we need it? Benefits?)
