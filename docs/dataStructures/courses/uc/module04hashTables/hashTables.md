@@ -63,6 +63,7 @@
 * But the domain and size of the input `key` are almost infinite.
 * It means that we might end up getting the same `index` for different `keys`.
 * This incident is called `collision`.
+* Technically, if more than one `keys` get the same `index` value, we call it `collision`.
 * For example, we have only two seats, but we have sold them to 10 different people.
 * Clearly, more than one person will try to claim the seat.
 * So, we have limited seats for an unlimited number of people. 
