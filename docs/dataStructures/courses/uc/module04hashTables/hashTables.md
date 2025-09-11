@@ -56,12 +56,20 @@
 * We then compress this `hash code` to produce an index from `[0,..,m-1]`, where `m` is the size of the `hash table`.  
 * To compress the `hash code`, we use `hashCode % size of the hash table`.
 * So, `index = hashCode % m,` where `m` is the size of the hash table.
-* This is how the given `key` becomes an `index`.
-* But the domain and size of the `key` is almost infinite, and the range of the `indices` is limited.
+* So, this is how the given `key` becomes an `index`.
+* The range of this index is called **cardinality**.
+* It means that the total number of possible unique output.
+* We know that this range is limited. `R = [0,..,m-1]`, where `m` is the size of the hash table. 
+* But the domain and size of the input `key` are almost infinite.
 * It means that we might end up getting the same `index` for different `keys`.
 * This incident is called `collision`.
-* We will be learning about the `collision` a bit later.
-* Let us see the technical definition of the `hash function`.
+* For example, we have only two seats, but we have sold them to 10 different people.
+* Clearly, more than one person will try to claim the seat.
+* So, we have limited seats for an unlimited number of people. 
+* We will be learning more about the `collision` a bit later.
+* We will also see that it should be impossible to produce the input `key` from the output.
+* It means that the `hash function` should be `irreversible`. 
+* But for now, let us see the technical definition of the `hash function`.
 
 ### Technical Definition
 
@@ -81,3 +89,28 @@ $$
 
 * A hash function `h` is a deterministic function that maps an input key `k` of arbitrary size from a large domain `U` (the universe of keys) to a fixed-size output `h(k)` (also known as a `hash code`), which is then compressed to a smaller index within the range `R = [0,..,m - 1]`, where `m` is the size of the `hash table`. 
 
+### Load Factor
+
+* We might think that if we have a large hash table (so, a higher cardinality), we might get fewer collisions.
+* But then we spend more memory. Right?
+* And if we have a smaller cardinality, we increase the possibility of collision, right?
+* So, how do we manage this? Is there a standard ratio or measurement?
+* Yes. We call it a **load factor**.
+
+$$
+\text{Load factor } \alpha = \frac{n}{m}, \text{ where n is the number of items, and m is the hash table size}
+$$
+
+* We try to maintain this ratio at around `0.75`.
+* We will also learn more about it.
+
+### Properties
+
+* A hash function should be deterministic.
+* It means that the same input should produce the same output.
+* The output must be of fixed size.
+* The hash function should be irreversible.
+* It means that it should be impossible to get the input key from the output.
+* The hash function should be fast enough. 
+* So that we can perform various operations such as find, insert, update, delete, etc., fast enough.
+* The possibility of collision should be minimized.
