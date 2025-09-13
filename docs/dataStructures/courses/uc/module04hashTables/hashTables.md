@@ -20,6 +20,11 @@
     * [Examples](#examples)
   * [Collision](#collision)
   * [Chaining](#chaining)
+  * [Asymptotic Analysis](#asymptotic-analysis)
+    * [HasKey(key)](#haskeykey)
+    * [Set(key, value)](#setkey-value)
+    * [Delete(key)](#deletekey)
+    * [Get(key)](#getkey)
 <!-- TOC -->
 
 ## Resources / References
@@ -49,6 +54,7 @@
 
 ## ToDo
 
+* We need to ensure that this document does not introduce `disconnection`.
 * What problem does it solve? (Why do we need it? Benefits?)
 * How? (How does it work? Implementation. Analysis.)
 * When to use it?
@@ -219,12 +225,81 @@ $$
 ![085collisionSimpleList.png](../../../../../assets/images/dataStructures/uc/module04HashTables/085collisionSimpleList.png)
 
 * But if we use a simple list of values for each index, we still have a problem.
-* Suppose, at index `2` we have multiple values.
+* Suppose, at index `2`, we have multiple values.
 * Now, for a `key` that maps to index `2`, which value will we return?
 * So, we use a list of pairs.
 
 ![090separateChainingClosedAddressing.png](../../../../../assets/images/dataStructures/uc/module04HashTables/090separateChainingClosedAddressing.png)
 
 * Each index stores a list of pairs.
-* To avoid the `shifting` problem when we delete an item, we use a `linked list` instead of a simple `list`.
-* And to avoid the worst-case search time of the `linked list`, that is `O(n)`, we switch to a `balanced binary tree` (Red-Black Tree) when we hit a threshold.
+* To avoid the `shifting` problem, we use a `linked list` instead of a simple `list`.
+* And to avoid the worst-case search time of the `linked list`, that is `O(n)`, we switch to a `balanced binary tree` (For example, a Red-Black Tree) when we hit a threshold.
+
+## Asymptotic Analysis with Pseudocode
+
+* If the array is `chains`, then at any particular `index`, it gives us a `chain` of a linked list.
+
+### HasKey(key)
+
+```kotlin
+fun <T> hashKey(key: T): Boolean {
+    //The index of the `chains` array gives us a linked list at that position
+    val chain = chains[hash(key)]
+    // We iterate through the entire linked list `chain` to find the `key-value`
+    for ((_key, value) in chain) {
+        if (key == _key) {
+            return true
+        }
+    }
+    return false
+}
+```
+
+### Get(key)
+
+```kotlin
+
+fun <T, V> get(key: T): V? {
+    val chain = chains[hash(key)]
+    for ((_key, value) in chain) {
+        if (key == _key) {
+            return value
+        }
+    }
+    return null
+}
+```
+
+### Set(key, value)
+
+```kotlin
+
+fun <T, V> set(key: T, value: V) {
+    val chain = chains[hash(key)]
+    // If we already have this `key`, we replace the value.
+    for ((_key, _value) in chain) {
+        if (key == _key) {
+            chain[_key] = value
+        }
+    }
+    // Otherwise, we add this new key-value pair.
+    chain.add(key to value)
+}
+```
+
+### Analysis
+
+**Time Complexity**
+
+* If we have `n` keys, the size of a particular `chain` can be `n` in the worst-case, where all the `keys` go at the same `index`.
+* So, the worst-case time complexity is `O(n)`.
+
+**Space Complexity**
+
+* We take `key-value` pairs.
+* Hence, if we have `n` keys, then we would have `n` key-value pairs.
+* Also, we use an array of size, `m`, where each index contains a linked list.
+* The maximum size of any linked list can be at most `n` in a array of size `m`.
+* Hence, the space complexity is `O(n + m)`.
+
+

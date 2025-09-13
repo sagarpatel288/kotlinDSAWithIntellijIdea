@@ -2,6 +2,7 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.idea/
 /.idea/caches/deviceStreaming.xml
 /.idea/misc.xml
 /.idea/runConfigurations.xml
@@ -9,6 +10,8 @@ out/
 /.idea/dictionaries/
 /.idea/inspectionProfiles/
 /temp.html
+/.idea/copilot.data.migration.agent.xml
+/.idea/copilot.data.migration.edit.xml
 
 ### Eclipse ###
 .apt_generated
