@@ -20,11 +20,11 @@
     * [Examples](#examples)
   * [Collision](#collision)
   * [Chaining](#chaining)
-  * [Asymptotic Analysis](#asymptotic-analysis)
+  * [Asymptotic Analysis with Pseudocode](#asymptotic-analysis-with-pseudocode)
     * [HasKey(key)](#haskeykey)
-    * [Set(key, value)](#setkey-value)
-    * [Delete(key)](#deletekey)
     * [Get(key)](#getkey)
+    * [Set(key, value)](#setkey-value)
+    * [Analysis](#analysis)
 <!-- TOC -->
 
 ## Resources / References
