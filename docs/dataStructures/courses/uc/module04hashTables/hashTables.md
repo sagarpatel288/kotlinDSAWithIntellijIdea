@@ -21,9 +21,9 @@
   * [Collision](#collision)
   * [Chaining](#chaining)
   * [Asymptotic Analysis with Pseudocode](#asymptotic-analysis-with-pseudocode)
-    * [HasKey(key)](#haskeykey)
-    * [Get(key)](#getkey)
-    * [Set(key, value)](#setkey-value)
+    * [containsKey(key)](#containskeykey)
+    * [get(key)](#getkey)
+    * [put(key, value)](#putkey-value)
     * [Analysis](#analysis)
 <!-- TOC -->
 
@@ -85,7 +85,7 @@
 * To compress the `hash code`, we use `hashCode % size of the hash table`.
 * So, `index = hashCode % m,` where `m` is the size of the hash table.
 * So, this is how the given `key` becomes an `index`.
-* The range of this index is called **cardinality**.
+* The range size of this index is called **cardinality**.
 * It means that the total number of possible unique outputs.
 * We know that this range is limited. `R = [0,..,m-1]`, where `m` is the size of the hash table. 
 * But the domain and size of the input `key` are almost infinite.
@@ -97,7 +97,8 @@
 * So, we have limited seats for an unlimited number of people. 
 * We will be learning more about the `collision` a bit later.
 * We will also see that it should be impossible to produce the input `key` from the output.
-* It means that the `hash function` should be `irreversible`. 
+* It means that the `hash function` should be `irreversible`.
+* It is a must for `cryptography`, and good to have property for a general purpose hash-tables.  
 * But for now, let us see the technical definition of the `hash function`.
 
 ### Technical Definition
@@ -138,7 +139,8 @@ $$
 * A hash function should be deterministic.
 * It means that the same input should produce the same output.
 * The output must be of fixed size.
-* The hash function should be irreversible.
+* The hash function must be irreversible for cryptography.
+* For general-purpose hash tables, it is good to have an irreversible hash function.
 * It means that it should be impossible to get the input key from the output.
 * The hash function should be fast enough. 
 * So that we can perform various operations such as find, insert, update, delete, etc., fast enough.
@@ -161,22 +163,22 @@ $$
 
 ### Methods
 
-**HashKey(object)**
+**hasKey(object) or containsKey(object)**
 
 * Checks whether there is any value corresponding to the given object (key).
 
-**Get(object)**
+**get(object)**
 
 * Returns the value corresponding to the given object (key) if any.
 
-**Set(object, value)**
+**set(object, value) or put(object, value)**
 
 * It takes two arguments: `object` (key) and `value`.
 * And sets the `value` corresponding to the given `object` (key) in the `map`.
 
 ### Technical Definition
 
-* A `Map` is an Abstract Data Type (ADT) that stores a collection of key-value pairs, where a duplicate key is not allowed, and it offers various operations such as `HashKey`, `Get`, `Set`, etc.
+* A `Map` is an Abstract Data Type (ADT) that stores a collection of key-value pairs, where a duplicate key is not allowed, and it offers various operations such as `hasKey (or containsKey)`, `get`, `set (or put)`, etc.
 
 ### Examples
 
@@ -239,10 +241,10 @@ $$
 
 * If the array is `chains`, then at any particular `index`, it gives us a `chain` of a linked list.
 
-### HasKey(key)
+### containsKey(key)
 
 ```kotlin
-fun <T> hashKey(key: T): Boolean {
+fun <T> containsKey(key: T): Boolean {
     //The index of the `chains` array gives us a linked list at that position
     val chain = chains[hash(key)]
     // We iterate through the entire linked list `chain` to find the `key-value`
@@ -255,7 +257,7 @@ fun <T> hashKey(key: T): Boolean {
 }
 ```
 
-### Get(key)
+### get(key)
 
 ```kotlin
 
@@ -270,16 +272,17 @@ fun <T, V> get(key: T): V? {
 }
 ```
 
-### Set(key, value)
+### put(key, value)
 
 ```kotlin
 
-fun <T, V> set(key: T, value: V) {
+fun <T, V> put(key: T, value: V) {
     val chain = chains[hash(key)]
     // If we already have this `key`, we replace the value.
-    for ((_key, _value) in chain) {
-        if (key == _key) {
-            chain[_key] = value
+    for (pair in chain) {
+        if (pair.first == key) {
+            pair.second = value
+            return
         }
     }
     // Otherwise, we add this new key-value pair.
