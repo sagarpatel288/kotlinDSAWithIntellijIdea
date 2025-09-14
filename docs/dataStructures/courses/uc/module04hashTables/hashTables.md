@@ -20,11 +20,18 @@
     * [Examples](#examples)
   * [Collision](#collision)
   * [Chaining](#chaining)
-  * [Asymptotic Analysis with Pseudocode](#asymptotic-analysis-with-pseudocode)
+  * [Methods And Asymptotic Analysis with Pseudocode](#methods-and-asymptotic-analysis-with-pseudocode)
     * [containsKey(key)](#containskeykey)
     * [get(key)](#getkey)
     * [put(key, value)](#putkey-value)
     * [Analysis](#analysis)
+  * [Set](#set)
+    * [ToDo](#todo-1)
+    * [Problem examples](#problem-examples)
+    * [Idea](#idea)
+    * [Technical Definition](#technical-definition-2)
+    * [Methods](#methods-1)
+      * [put(key)](#putkey)
 <!-- TOC -->
 
 ## Resources / References
@@ -38,7 +45,9 @@
 * [Simplilearn](https://youtu.be/jmtzX-NPFDc?si=dCNRHOF93cFlI4w7)
 
 **Internals**
-* [Arpit Bhayani](https://youtube.com/playlist?list=PLsdq-3Z1EPT2UnueESBLReaVSLIo_BuAc&si=mbgu-ku-Zw5_9nil)
+* [Inside Code: Hashing, Hash Tables](https://youtu.be/xdr2Y1P2H1U?si=QXukzX_BzRJofQ6N)
+* [Arpit Bhayani: Hashing, Collision, etc.](https://youtube.com/playlist?list=PLsdq-3Z1EPT2UnueESBLReaVSLIo_BuAc&si=mbgu-ku-Zw5_9nil)
+* [Inside Code: Set](https://youtu.be/XGaN3jRTlGA?si=9b5lMAF-seUrOY5u)
 
 ## Time complexity in various data structures
 
@@ -54,12 +63,19 @@
 
 ## ToDo
 
+* Problem example: linear search, insertion, and deletion in a phone book, library, bank account details, etc.
+* Distinct definition of: Hashing (the process), hash (the output code), HashMap, HashSet, and Hashtable.
 * We need to ensure that this document does not introduce `disconnection`.
 * What problem does it solve? (Why do we need it? Benefits?)
 * How? (How does it work? Implementation. Analysis.)
 * When to use it?
+* Doesn't it sound like a simple array? What is the difference?
+* Why do we call it a "Hash Table" when it is actually an array?
 * Comparison.
 * Completeness of this document as per our defined standard.
+* The order of sections.
+* Should we split the document into smaller, distinct, dedicated topic?
+* Common interview questions relevant to this document.
 * Correctness of this document.
 
 ## Direct Addressing
@@ -160,6 +176,7 @@ $$
 * Hence, each possible `key` appears at most once.
 * There can be multiple `key-value` pairs.
 * Hence, the `map` stores a collection of such `key-value` pairs.
+* The intent (purpose) of a `map` is to look up a `value` associated with a `key`. 
 
 ### Methods
 
@@ -237,7 +254,7 @@ $$
 * To avoid the `shifting` problem, we use a `linked list` instead of a simple `list`.
 * And to avoid the worst-case search time of the `linked list`, that is `O(n)`, we switch to a `balanced binary tree` (For example, a Red-Black Tree) when we hit a threshold.
 
-## Asymptotic Analysis with Pseudocode
+## Methods And Asymptotic Analysis with Pseudocode
 
 * If the array is `chains`, then at any particular `index`, it gives us a `chain` of a linked list.
 
@@ -305,4 +322,97 @@ fun <T, V> put(key: T, value: V) {
 * The maximum size of any linked list can be at most `n` in a array of size `m`.
 * Hence, the space complexity is `O(n + m)`.
 
+## Set
+
+### ToDo
+
+* Problem examples.
+* Introduction: The "Hero" that solves the above problems. 
+* Answers: Why do we need a "Set"? What problems does it solve?
+* Technical Definition.
+* How does it solve those problems? How does it work?
+* What are the differences between a map, a set, an array, and a hash table?
+* Why don't we use a simple list for a set?
+* Hash Table = Either HashSet or HashMap
+* Hash table uses hashing.
+
+### Problem examples
+
+* We want to pursue uniqueness.
+* For example, unique characters in a string.
+* Unique elements in a collection.
+* Unique phone numbers.
+* Unique IDs.
+* To mark already visited places.
+
+### Idea
+
+* We use [map](#map).
+* Instead of storing a key-value pair in a linked list, we simply store only a key.
+* If we get the same index for different keys, we simply use one of the many [collision](#collision) resolution techniques.
+* For example, one of the [collision](#collision) resolution techniques is [chaining](#chaining).
+* When we get the same `key` again, we don't perform the `put` operation.
+* And we can't have the `get` operation here. 
+* There is no `get(key)` function to get the associated `value`.
+* Because we don't store any associated `value` here.
+* It is just to store `keys`.
+* The intent (purpose) of a `Set` is to look up the existence of a `key`.
+
+### Technical Definition
+
+* A `Set` is an "Abstract Data Structure (ADT)" that stores a collection of unique elements.
+* It does not store duplicate keys.
+* It mainly offers `put(key)`, `contains(key)`, and `remove(key)` operations.
+
+### Methods
+
+#### contains(key)
+
+```kotlin
+
+fun <T> contains(key: T): Boolean {
+    // The chain at the hash (index) of this key
+    val chain = chains[hash(key)]
+    for (_key in chain) {
+        if (key == _key) {
+            return true
+        }
+    }
+    return false
+}
+
+```
+
+#### put(key)
+
+```kotlin
+
+fun <T> put(key: T): Boolean {
+    if (contains(key)) return false
+    chain.add(key)
+    return true
+}
+
+```
+
+### remove(key)
+
+```kotlin
+
+fun <T> remove(key: T): Boolean {
+    // The chain at the hash (index) of this key 
+    val chain = chains[hash(key)]
+    for (_key in chain) {
+        if (key == _key) {
+            chain.remove(_key)
+            return true
+        }
+    }
+    return false
+}
+
+```
+
+
+ 
 
