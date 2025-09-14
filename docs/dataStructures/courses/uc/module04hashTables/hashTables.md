@@ -180,7 +180,7 @@ $$
 
 ### Methods
 
-**hasKey(object) or containsKey(object)**
+**containsKey(object)**
 
 * Checks whether there is any value corresponding to the given object (key).
 
@@ -188,7 +188,7 @@ $$
 
 * Returns the value corresponding to the given object (key) if any.
 
-**set(object, value) or put(object, value)**
+**put(object, value)**
 
 * It takes two arguments: `object` (key) and `value`.
 * And sets the `value` corresponding to the given `object` (key) in the `map`.
@@ -322,6 +322,11 @@ fun <T, V> put(key: T, value: V) {
 * The maximum size of any linked list can be at most `n` in a array of size `m`.
 * Hence, the space complexity is `O(n + m)`.
 
+### ToDo
+
+* `pair` is an immutable object.
+* It does not support `pair.second` in [put](#putkey-value) method of the [map](#map).
+
 ## Set
 
 ### ToDo
@@ -353,7 +358,7 @@ fun <T, V> put(key: T, value: V) {
 * For example, one of the [collision](#collision) resolution techniques is [chaining](#chaining).
 * When we get the same `key` again, we don't perform the `put` operation.
 * And we can't have the `get` operation here. 
-* There is no `get(key)` function to get the associated `value`.
+* We may not need the `get(key)` function to get the associated `value`.
 * Because we don't store any associated `value` here.
 * It is just to store `keys`.
 * The intent (purpose) of a `Set` is to look up the existence of a `key`.
@@ -362,7 +367,7 @@ fun <T, V> put(key: T, value: V) {
 
 * A `Set` is an "Abstract Data Structure (ADT)" that stores a collection of unique elements.
 * It does not store duplicate keys.
-* It mainly offers `put(key)`, `contains(key)`, and `remove(key)` operations.
+* It mainly offers `add(key)`, `contains(key)`, and `remove(key)` operations.
 
 ### Methods
 
@@ -383,12 +388,16 @@ fun <T> contains(key: T): Boolean {
 
 ```
 
-#### put(key)
+#### add(key)
 
 ```kotlin
 
-fun <T> put(key: T): Boolean {
-    if (contains(key)) return false
+fun <T> add(key: T): Boolean {
+    // The chain at the hash (index) of the key
+    val chain = chains[hash(key)]
+    // If the chain already has the key, we don't add duplicate keys.
+    if (chain.contains(key)) return false
+    // Otherwise, we add the key to the chain.
     chain.add(key)
     return true
 }
