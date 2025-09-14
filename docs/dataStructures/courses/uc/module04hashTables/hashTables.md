@@ -404,7 +404,7 @@ fun <T> add(key: T): Boolean {
 
 ```
 
-### remove(key)
+#### remove(key)
 
 ```kotlin
 
