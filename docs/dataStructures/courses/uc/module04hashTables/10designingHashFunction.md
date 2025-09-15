@@ -7,6 +7,7 @@
   * [Terminologies](#terminologies)
   * [Problem Statement](#problem-statement)
   * [Expectations](#expectations)
+  * [Background](#background)
   * [Observation](#observation)
 <!-- TOC -->
 
