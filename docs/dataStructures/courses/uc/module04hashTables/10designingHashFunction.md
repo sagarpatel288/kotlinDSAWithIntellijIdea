@@ -114,7 +114,7 @@ $$
 * Then the probability of any fixed pairs of keys to introduce collision is reduced.
 * Because a "bad input" for a particular hash function might not be bad for another randomly and secretly selected hash function.
 * And if we choose our hash function randomly and secretly, then the chances of creating collision for any fixed pairs of keys reduces. 
-* The idea of having multiple hash functions and selecting a random hash function is to proactively reduce the worst-case collision probability for any fixed pairs of keys.
+* The idea of having multiple hash functions and selecting a random hash function is to proactively reduce the collision probability for any fixed pairs of keys.
 
 ### Technical Definition
 
