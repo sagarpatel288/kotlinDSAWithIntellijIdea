@@ -11,6 +11,7 @@
   * [Pigeonhole Principle](#pigeonhole-principle)
   * [Observation](#observation)
   * [Universal Family Of Hash Functions](#universal-family-of-hash-functions)
+    * [Introduction](#introduction)
     * [Technical Definition](#technical-definition)
       * [Notation](#notation)
       * [Definition](#definition)
@@ -101,7 +102,9 @@ $$
 
 ## Universal Family Of Hash Functions
 
-* While playing rock-paper-scissor, if we always choose the "rock", then the opponent can easily identify our pattern, and defeat us with the "paper".
+### Introduction
+
+* While playing the rock-paper-scissor, if we always choose the "rock", then the opponent can easily identify our pattern, and defeat us with the "paper".
 * Because our pattern is predictable.
 * What if we select our option randomly?
 * The "paper" can beat the "rock", but not the "scissor"!
