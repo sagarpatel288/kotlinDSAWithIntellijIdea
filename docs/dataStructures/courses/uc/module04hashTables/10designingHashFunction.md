@@ -106,7 +106,7 @@ $$
 * What if we select our option randomly?
 * The "paper" can beat the "rock", but not the "scissor"!
 * While the opponent is showing the "paper", we might be showing the "scissor"!
-* And the next time when the opponent shows "rock", we might show "paper"!
+* And the next time when the opponent shows the "rock", we might show the "paper"!
 * Basically, we reduce our chances of defeat.
 * Similarly, we have seen that a single and fixed hash function will always have a "bad input" as per [pigeonhole principle](#pigeonhole-principle) and our [observation](#observation).
 * But what if we have multiple hash functions and then we randomly choose a hash function?
