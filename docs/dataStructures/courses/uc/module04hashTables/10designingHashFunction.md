@@ -8,7 +8,12 @@
   * [Problem Statement](#problem-statement)
   * [Expectations](#expectations)
   * [Background](#background)
+  * [Pigeonhole Principle](#pigeonhole-principle)
   * [Observation](#observation)
+  * [Universal Family Of Hash Functions](#universal-family-of-hash-functions)
+    * [Technical Definition](#technical-definition)
+      * [Notation](#notation)
+      * [Definition](#definition)
 <!-- TOC -->
 
 ## Prerequisites, resources, and references
@@ -62,6 +67,15 @@
 * It helps us perform various operations in `O(1)`.
 * Hence, the efficiency of a hash table depends on the underlying hash function.
 
+## Pigeonhole Principle
+
+* If we have more pigeons than the pigeonholes, then at least one pigeonhole would contain more than one pigeons.
+* The size of input objects (keys) `n` is greater than the cardinality of a hash table, `m`.
+* It means that there must be at least one slot (index) that would contain more than one objects (keys).
+* When the same index contains more than one objects (keys), we call it "collision".
+* Or in other words, when multiple objects (keys) go to the same index, we call it "collision".
+* If we know the hash function and these objects (keys) that always go to the same index, we can intentionally create worst-case "collision". 
+
 ## Observation
 
 * The efficiency of a hash table depends on the efficiency of the underlying hash function.
@@ -73,4 +87,47 @@ $$
 
 * The longest chain must be greater than or equal to the size of an average chain.
 * For any hash function, there can be an input that can produce the worst-case collision. 
-* That is to say, worst-case input is inevitable.
+
+![110hashFunctionImplications.png](../../../../../assets/images/dataStructures/uc/module04HashTables/110hashFunctionImplications.png)
+
+* For example as shown in the image, the hash function uniformly distributes the keys `[k1, k2,...,k6]`, where the longest chain, `c = 3` for `n = 6`.
+* However, we know that certain bad input always collides, for example `k3, k4, and k6`.
+* It means that if we have these fixed pairs of keys from the set of bad input, which is `k3, k4, and k6`, we know that it will always collide for our hash function.
+* Because the hash function is fixed and we know the bad input for it.
+* Let us assume that the input `n = 3` and the keys are `[k3, k4, k6]`. 
+* Now, the same hash function that used to distribute the keys uniformly, now produces the worst-case chain, where `c = 3 = n`.
+* That is to say, worst-case input is inevitable when we have a single, fixed hash function.
+* This is where the idea of multiple hash functions rises.
+
+## Universal Family Of Hash Functions
+
+* While playing rock-paper-scissor, if we always choose "rock", then the opponent can easily identify our pattern, and defeat us with "paper".
+* Because our pattern is predictable.
+* What if we select our option randomly?
+* The "paper" can beat the "rock", but not the "scissor"!
+* While the opponent is showing the "paper", we might be showing the "scissor"!
+* Basically, we reduce our chances of defeat.
+* Similarly, we have seen that a single and fixed hash function will always have a "bad input" as per [pigeonhole principle](#pigeonhole-principle) and our [observation](#observation).
+* But what if we have multiple hash functions and then we randomly choose a hash function?
+* Then the probability of any fixed pairs of keys to introduce collision is reduced.
+* Because a "bad input" for a particular hash function might not be bad for another randomly and secretly selected hash function.
+* And if we choose our hash function randomly and secretly, then the chances of creating collision for any fixed pairs of keys reduces. 
+* The idea of having multiple hash functions and selecting a random hash function is to proactively reduce the worst-case collision probability for any fixed pairs of keys.
+
+### Technical Definition
+
+$$
+P_{r(h \in H)}[h(k1) = h(k2)] \leq \frac{1}{m}
+$$
+
+#### Notation
+
+* $P_r$ means the probability of
+* $h \in H$ means the randomly selected hash function `h` is a part of the universal family `H` that contains more than one hash functions.
+* `k1` and `k2` are two distinct (different) objects (keys) from the domain of universe `U`.
+* `m` is the number of slots in our hash table.
+* The cardinality of each hash function of the set `H` is `m`. 
+
+#### Definition
+
+* A set of hash functions, `H` is called a universal family of hash functions, if for any two different (distinct) keys `k1` and `k2` from the domain of universe `U`, the probability of their collision is less than or equal to `1 over m` when the hash function `h` is chosen randomly from the set of `H`.
