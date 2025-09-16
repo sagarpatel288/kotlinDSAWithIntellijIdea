@@ -101,13 +101,14 @@ $$
 
 ## Universal Family Of Hash Functions
 
-* While playing rock-paper-scissor, if we always choose "rock", then the opponent can easily identify our pattern, and defeat us with "paper".
+* While playing rock-paper-scissor, if we always choose the "rock", then the opponent can easily identify our pattern, and defeat us with the "paper".
 * Because our pattern is predictable.
 * What if we select our option randomly?
 * The "paper" can beat the "rock", but not the "scissor"!
 * While the opponent is showing the "paper", we might be showing the "scissor"!
 * And the next time when the opponent shows the "rock", we might show the "paper"!
-* Basically, we reduce our chances of defeat.
+* Basically, we reduce our chances of defeat if our pattern is not predictable.
+* So, the randomness helps here.
 * Similarly, we have seen that a single and fixed hash function will always have a "bad input" as per [pigeonhole principle](#pigeonhole-principle) and our [observation](#observation).
 * But what if we have multiple hash functions and then we randomly choose a hash function?
 * Then the probability of any fixed pairs of keys to introduce collision is reduced.
