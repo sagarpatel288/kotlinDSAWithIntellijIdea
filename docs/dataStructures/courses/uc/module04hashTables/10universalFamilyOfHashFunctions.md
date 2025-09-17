@@ -15,6 +15,7 @@
     * [Technical Definition](#technical-definition)
       * [Notation](#notation)
       * [Definition](#definition)
+  * [Next](#next)
 <!-- TOC -->
 
 ## Prerequisites, resources, and references
@@ -136,3 +137,7 @@ $$
 #### Definition
 
 * A set of hash functions, `H` is called a universal family of hash functions, if for any two different (distinct) keys `k1` and `k2` from the domain of universe `U`, the probability of their collision is less than or equal to `1 over m` when the hash function `h` is chosen randomly from the set of `H`.
+
+## Next
+
+* [Load Factor And Rehashing](15loadFactorAndRehashing.md)
