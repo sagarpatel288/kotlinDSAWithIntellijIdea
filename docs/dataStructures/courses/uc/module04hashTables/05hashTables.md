@@ -25,13 +25,17 @@
     * [get(key)](#getkey)
     * [put(key, value)](#putkey-value)
     * [Analysis](#analysis)
-  * [Set](#set)
     * [ToDo](#todo-1)
+  * [Set](#set)
+    * [ToDo](#todo-2)
     * [Problem examples](#problem-examples)
     * [Idea](#idea)
     * [Technical Definition](#technical-definition-2)
     * [Methods](#methods-1)
-      * [put(key)](#putkey)
+      * [contains(key)](#containskey)
+      * [add(key)](#addkey)
+      * [remove(key)](#removekey)
+  * [Next](#next)
 <!-- TOC -->
 
 ## Resources / References
@@ -422,6 +426,9 @@ fun <T> remove(key: T): Boolean {
 
 ```
 
+## Next
 
+* [Universal Family Of Hash Functions](10universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](15loadFactorAndRehashing.md)
  
 
