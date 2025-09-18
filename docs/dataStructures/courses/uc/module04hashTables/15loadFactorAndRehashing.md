@@ -8,6 +8,7 @@
     * [Expression](#expression)
     * [Explanation](#explanation)
   * [Rehashing](#rehashing)
+  * [Next](#next)
 <!-- TOC -->
 
 ## Previously, prerequisites, and references
@@ -73,3 +74,7 @@
 * So, we need a way to place all the existing keys into their new, correct, and uniformly distributed locations in the new hash table.
 * This procedure is called **rehashing**.
 * We iterate through the old hash table, reapply the hash code, use the new cardinality `m` to compress the generated hash code, and map each key into the new hash table. 
+
+## Next
+
+* [Formula Of The Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
