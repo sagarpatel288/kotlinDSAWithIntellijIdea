@@ -41,7 +41,7 @@ h(x) = ((ax + b) \mod p) \mod m
 $$
 
 * `x` is the input key.
-* `p` is the prime number that is greater than `a`, `b`, and `x`.
+* `p` is the prime number that is greater than `x`.
 * `a` and `b` are random parameters.
 * `a` can be anything between `1` and `p - 1`.
 * When the upper bound is `p`, we can say that there are a total of `p` choices.
