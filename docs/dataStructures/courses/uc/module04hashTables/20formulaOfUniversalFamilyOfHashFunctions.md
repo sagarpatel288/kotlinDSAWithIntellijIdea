@@ -57,13 +57,12 @@ $$
 * The universal family of such hash functions, `H` is:
 
 $$
-\mathcal{H}_p = \left{ \; h^{a,b}_p(x) = ((a \cdot x + b) \bmod p) \bmod m \right}
-\;\text{where}\; 1 \leq a \leq p-1, \; 0 \leq b \leq p-1 \;
+H_p = \{ h_{a,b}(x) = ((ax + b) \bmod p) \bmod m \} \text{ for all } a,b: 1 \le a \le p-1, 0 \le b \le p-1
 $$
 
 * $H_p$ means `H` is the set of hash functions or the universal family of hash functions that is defined by (we are talking about the particular set or family that uses) modular arithmetic with prime `p`.
-* $\left{....\right}$ indicates a set (collection) of hash functions. 
-* $h^{a, b}_p(x)$ means a hash function (from the hash family) that processes the input key, `x` using two parameters (or variables) `a` and `b` of random values.
+* $\{....\}$ indicates a set (collection) of hash functions. 
+* $h_{a, b}(x)$ means a hash function (from the hash family) that processes the input key, `x` using two parameters (or variables) `a` and `b` of random values.
 * $(a * x + b) \mod p$ indicates the main (core) general hash function formula (the calculation) that generates a hash code.
 * $\mod m$ indicates that we compress and map the generated hash code to the hash table index using `modulo m`, where `m` is the hash table size (cardinality).   
 * $1 \leq a \leq p-1, \; 0 \leq b \leq p-1 \;$ indicates the range (limit) of parameters (variables) `a` and `b`.   
