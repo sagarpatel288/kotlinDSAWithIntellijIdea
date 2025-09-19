@@ -118,7 +118,7 @@
 * We will be learning more about the `collision` a bit later.
 * We will also see that it should be impossible to produce the input `key` from the output.
 * It means that the `hash function` should be `irreversible`.
-* It is a must for `cryptography`, and good to have property for a general purpose hash-tables.  
+* It is a must for `cryptography`, and a good property to have for general-purpose hash tables.  
 * But for now, let us see the technical definition of the `hash function`.
 
 ### Technical Definition
@@ -163,7 +163,7 @@ $$
 * For general-purpose hash tables, it is good to have an irreversible hash function.
 * It means that it should be impossible to get the input key from the output.
 * The hash function should be fast enough. 
-* So that we can perform various operations such as find, insert, update, delete, etc., fast enough.
+* So that we can perform various operations, such as find, insert, update, delete, etc., fast enough.
 * The possibility of collision should be minimized.
 
 ## Map
