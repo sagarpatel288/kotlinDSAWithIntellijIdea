@@ -6,11 +6,12 @@
   * [Previously/Prerequisites/References](#previouslyprerequisitesreferences)
   * [Problem Description](#problem-description)
   * [Solution](#solution)
-    * [But how do we represent the power of x?](#but-how-do-we-represent-the-power-of-x)
+    * [But how do we represent the power of x?: Implementation](#but-how-do-we-represent-the-power-of-x-implementation)
   * [Notation](#notation)
   * [Expression](#expression)
   * [Note](#note)
   * [Extra](#extra)
+  * [Interview Questions](#interview-questions)
   * [Next](#next)
 <!-- TOC -->
 
@@ -58,7 +59,7 @@ $$
 * The reason behind a random `x` is to generate a random hash function instead of a single, fixed hash function.
 * The random `x` creates the universal family of hash functions.
 
-### But how do we represent the power of x?
+### But how do we represent the power of x?: Implementation
 
 * Although we have a built-in `pow` function, we use the "**Horner's Method**", which is faster. 
 * Let us continue our example.
@@ -140,9 +141,17 @@ $$
 * The hash function of a string represents the general $(ax + b)$ part of the universal family of hash functions.
 * It means that we have a slightly different hash function formula when the input key is a string.
 * Otherwise, the $\pmod m$ part of the formula for the universal family of the hash functions remains the same.
+* In the [expression](#expression), $S[i]x^i$ indicates that the power of `x` increases as we move forward and cover from left to right, character by character in the string input. 
+* But the [implementation](#but-how-do-we-represent-the-power-of-x-implementation) introduces a slightly different order where the power of x increases as we move from right to left character of the string input. 
+* However, the purpose, polynomial pattern, properties, and behavior remain the same.
+* That is, we take an input string, and our hash function generates a hash code using a polynomial pattern so that when we compress it and map it to a hash table index, we get minimum collisions.
 
 ## Extra
 
 * The normal `string.hashCode()` implementation in `java` (and hence, in `kotlin`) uses `x = 31` for some technical reason.
+
+## Interview Questions
+
+
 
 ## Next
