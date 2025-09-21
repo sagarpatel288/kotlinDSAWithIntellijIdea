@@ -1,7 +1,7 @@
-# Designing a good hash function (Parameters to consider, the though process, implications, etc.)
+# Designing a good hash function (Parameters to consider, the thought process, implications, etc.)
 
 <!-- TOC -->
-* [Designing a good hash function (Parameters to consider, the though process, implications, etc.)](#designing-a-good-hash-function-parameters-to-consider-the-though-process-implications-etc)
+* [Designing a good hash function (Parameters to consider, the thought process, implications, etc.)](#designing-a-good-hash-function-parameters-to-consider-the-thought-process-implications-etc)
   * [Prerequisites, resources, and references](#prerequisites-resources-and-references)
   * [ToDo](#todo)
   * [Terminologies](#terminologies)
@@ -26,10 +26,11 @@
 
 * Explain the impact of a hash function.
   * Should the example image(s) go here?
-* Explain: How do we intentionally choose time efficiency over space (the trade off, priority) and why.
+* Explain: How do we intentionally choose time efficiency over space (the trade-off, priority) and why?
 * Images? Showing a good and a bad hash function (impact) examples?
   * Too much wasted space (Almost double or maybe triple?).
-  * Too much collisions. (All the elements go to the same index).
+  * Too many collisions. (All the elements go to the same index.)
+* Do we need to prove that the collision probability is at most $\frac{1}{m}$?
 
 ## Terminologies
 
@@ -48,7 +49,7 @@
 ## Expectations
 
 * The hash function must be deterministic.
-* Uniform distribution of the keys (input) to get less collisions.
+* Uniform distribution of the keys (input) to get fewer collisions.
 
 ## Background
 
@@ -117,8 +118,8 @@ $$
 * But what if we have multiple hash functions and then we randomly choose a hash function?
 * Then the probability of any fixed pairs of keys to introduce collision is reduced.
 * Because a "bad input" for a particular hash function might not be bad for another randomly and secretly selected hash function.
-* And if we choose our hash function randomly and secretly, then the chances of creating collision for any fixed pairs of keys reduces. 
-* The idea of having multiple hash functions and selecting a random hash function is to proactively reduce the collision probability for any fixed pairs of keys.
+* And if we choose our hash function randomly and secretly, then the chances of creating collisions for any fixed pairs of keys are reduced. 
+* The idea of having multiple hash functions and selecting a random hash function is to proactively reduce the collision probability for any fixed pair of keys.
 
 ### Technical Definition
 
