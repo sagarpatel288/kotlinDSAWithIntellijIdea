@@ -15,6 +15,7 @@
   * [Collision Probability](#collision-probability-)
   * [Running Time](#running-time)
     * [But don't we have a for loop that depends on the input string length?](#but-dont-we-have-a-for-loop-that-depends-on-the-input-string-length)
+  * [TL;DR](#tldr)
   * [Interview Questions](#interview-questions)
   * [Next](#next)
 <!-- TOC -->
@@ -243,6 +244,20 @@ $$
 * We still have different methods to improve it.
 * For example, caching the hash, precomputed prefix hash, etc.
 * We will cover these optimization techniques later.
+
+## TL;DR
+
+**Collision Probability**
+
+* In the polynomial string hashing, the length of the longest string is `L`, and then we use `mod p`.
+* So, the probability of collision becomes $\frac{L}{p}$.
+* If we take $p \geq (m*L)$, where `m` is the cardinality, we get $\frac{1}{m}$.
+
+**Time Complexity**
+
+* If the string length is bounded by some constant `L`, then `O(L) = O(1)`.
+* Then, the time complexity is: `O(1 + load factor)`.
+* Otherwise, it is `O(L + load factor)`, where `L` is the length of the input string.
 
 ## Interview Questions
 
