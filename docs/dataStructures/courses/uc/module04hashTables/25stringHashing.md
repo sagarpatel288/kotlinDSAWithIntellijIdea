@@ -76,7 +76,7 @@ $$
 
 /**
  * @param cat Input string (key)
- * @param p Modulo to limit the output according to the hash table size
+ * @param p Modulo to limit the output to prevent integer overflow
  * @param x A random number
  */
 fun hashCode(cat: String, p: Int, x: Int): Int {
@@ -95,7 +95,7 @@ fun hashCode(cat: String, p: Int, x: Int): Int {
 ```
 
 * So, initially, `hash = 0`, and we start with the last character of the string, and then move downwards to the first character of the string. 
-* When `i = 0`, we get:
+* When `i = 2`, we get:
 
 $$
 (0 * x^0) + t.code = 0 + t.code = t.code = 116
@@ -107,7 +107,7 @@ $$
 (116 * x) + (a.code) = 116x + 97
 $$
 
-* When `i = 2`, we get:
+* When `i = 0`, we get:
 
 $$
 ((116x + 97) * x) + c.code  
