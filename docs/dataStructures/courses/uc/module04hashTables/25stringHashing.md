@@ -231,9 +231,18 @@ $$
 ### But don't we have a for loop that depends on the input string length?
 
 * While generating an integer from the given input string, we might perform a [for-loop](#but-how-do-we-represent-the-power-of-x-implementation).
-* But in general, we consider the length of a string a constant.
-* For example, even if it is `50 characters`, `50` is still a constant!
+* In general, we bound the string limit.
+* For example, we do not allow a username to be more than 20 characters.
+* In such cases, it is still a small constant.
+* But if we have a really long string input, then the running time becomes:
 
+$$
+O(L + \alpha) \text { where L is a length of the input string}
+$$
+
+* We still have different methods to improve it.
+* For example, caching the hash, precomputed prefix hash, etc.
+* We will cover these optimization techniques later.
 
 ## Interview Questions
 
