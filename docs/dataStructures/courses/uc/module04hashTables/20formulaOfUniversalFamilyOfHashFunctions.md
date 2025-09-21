@@ -7,6 +7,7 @@
   * [Notation](#notation)
   * [Expression](#expression)
   * [Example](#example)
+  * [Interview Questions](#interview-questions)
   * [Next](#next)
 <!-- TOC -->
 
@@ -62,7 +63,7 @@ $$
 
 * $H_p$ means `H` is the set of hash functions or the universal family of hash functions that is defined by (we are talking about the particular set or family that uses) modular arithmetic with prime `p`.
 * $\lbrace{....\rbrace}$ indicates a set (collection) of hash functions. 
-* $h_{a, b}(x)$ means a hash function (from the hash family) that processes the input key, `x` using two parameters (or variables) `a` and `b` of random values.
+* $h_{a, b}(x)$ means a hash function (from the hash family) that processes the input key `x`, using two parameters (or variables) `a` and `b` of random values.
 * $(a * x + b) \mod p$ indicates the main (core) general hash function formula (the calculation) that generates a hash code.
 * $\mod m$ indicates that we compress and map the generated hash code to the hash table index using `modulo m`, where `m` is the hash table size (cardinality).   
 * $1 \leq a \leq p-1, \; 0 \leq b \leq p-1 \;$ indicates the range (limit) of parameters (variables) `a` and `b`.   
@@ -78,4 +79,10 @@ $$
 * if `x` = 10, then $h(10) = ((30 + 7) \mod 13) \mod 5 = (11 \mod 5) = 1$.
 * The input key `x = 10` gets the index `1`.
 
+## Interview Questions
+
+
+
 ## Next
+
+[String Hashing](25stringHashing.md)
