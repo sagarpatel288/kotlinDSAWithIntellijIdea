@@ -8,9 +8,13 @@
   * [Solution](#solution)
     * [But how do we represent the power of x?: Implementation](#but-how-do-we-represent-the-power-of-x-implementation)
   * [Notation](#notation)
-  * [Expression](#expression)
+  * [Expression: The Polynomial family of hash functions](#expression-the-polynomial-family-of-hash-functions)
   * [Note](#note)
   * [Extra](#extra)
+  * [Part-02: Output of the polynomial hashing as an input to the integer hashing](#part-02-output-of-the-polynomial-hashing-as-an-input-to-the-integer-hashing)
+  * [Collision Probability](#collision-probability-)
+  * [Running Time](#running-time)
+    * [But don't we have a for loop that depends on the input string length?](#but-dont-we-have-a-for-loop-that-depends-on-the-input-string-length)
   * [Interview Questions](#interview-questions)
   * [Next](#next)
 <!-- TOC -->
@@ -123,7 +127,7 @@ $$
 * `S[i]` A character of string `S` at index position `i`.
 
 
-## Expression
+## Expression: The Polynomial family of hash functions
 
 $$
 \mathcal{P}_p = (\{ h_{p}^{x}(S) = \sum_{i=0}^{|S|-1} S[i]x^i \bmod p )\}
@@ -149,6 +153,96 @@ $$
 ## Extra
 
 * The normal `string.hashCode()` implementation in `java` (and hence, in `kotlin`) uses `x = 31` for some technical reason.
+
+## Part-02: Output of the polynomial hashing as an input to the integer hashing
+
+* The polynomial hash function: 
+
+$$
+\mathcal{P}_p = (\{ h_{p}^{x}(S) = \sum_{i=0}^{|S|-1} S[i]x^i \bmod p )\}
+$$
+
+* The polynomial hash function for a string is just the first part of the string hashing. 
+* Here, `p` is a large prime number.
+* So, the result might be an integer between `0` and `p - 1`.
+* But we need to compress it according to the hash table size.
+* So, the output integer number of our polynomial hash function becomes `x` for the universal family of hash functions.
+* The universal family of hash functions:
+
+$$
+H_p = \lbrace{ h_{a,b}(x) = ((ax + b) \bmod p) \bmod m \rbrace} \text{ for all } a,b: 1 \le a \le p-1, 0 \le b \le p-1
+$$
+
+* So, the overall expression of string hashing is:
+
+$$
+h_m(S) = h_{a,b}(h_x(S)) \mod m
+$$
+
+## Collision Probability 
+
+* The probability that two different input strings would generate the same output of the [polynomial hashing](#expression-the-polynomial-family-of-hash-functions) is $\frac{L}{p}$, where `L` is the length of the largest string, and `p` is a large prime number.
+* We have already seen that the probability of collision in the [universal family of hash functions](10universalFamilyOfHashFunctions.md#universal-family-of-hash-functions) is $\frac{1}{m}$. 
+* So, the total probability becomes:
+
+$$
+\frac{L}{p} + \frac{1}{m}
+$$
+
+* But, if we take $p >= m * L$, then:
+
+$$
+\frac{L}{p} = \frac{L}{mL} = \frac{1}{m}
+$$
+
+* So, the total probability becomes:
+
+$$
+\frac{1}{m} + \frac{1}{m} = \frac{2}{m}
+$$
+
+* It is still a constant probability.
+* We can represent it as:
+
+$$
+O(\frac{1}{m})
+$$
+
+## Running Time
+
+* In the [Load Factor](15loadFactorAndRehashing.md#explanation) section, we have learned that the running time of a hash table is directly proportional to the longest chain.
+* The longest chain is clearly greater than or equal to the average chain.
+* If we have `n` keys, then the average chain length is $\frac{n}{m}$.
+* We then consider some constant amount of work that we have to perform anyway, regardless of the input size.
+* For example, calculating the hash code, compressing the hash code, accessing the array index, etc.
+* If we add that constant time also, then it becomes:
+
+$$
+O(1 + \frac{n}{m})
+$$
+
+* We take $\alpha = \frac{n}{m}$.
+* So, it becomes:
+
+$$
+O(1 + \alpha)
+$$
+
+### But don't we have a for loop that depends on the input string length?
+
+* While generating an integer from the given input string, we might perform a [for-loop](#but-how-do-we-represent-the-power-of-x-implementation).
+* In general, we bound the string limit.
+* For example, we do not allow a username to be more than 20 characters.
+* In such cases, it is still a small constant.
+* But if we have a really long string input, then the running time becomes:
+
+$$
+O(L + \alpha) \text { where L is a length of the input string}
+$$
+
+* We still have different methods to improve it.
+* For example, caching the hash, precomputed prefix hash, etc.
+* We will cover these optimization techniques later.
 
 ## Interview Questions
 
