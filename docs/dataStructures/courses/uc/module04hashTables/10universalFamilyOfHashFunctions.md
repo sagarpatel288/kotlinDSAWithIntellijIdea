@@ -143,7 +143,7 @@ $$
 
 ## Interview Questions
 
-### What will be the average chain length for a hash table of size 1000 if the total number of keys is up to 12 digits?
+### What will be the average chain length for a hash table of size 1000 if the total number of keys (count of keys) is up to 12 digits?
 
 * Average chain length = $\frac{n}{m} = \frac{10^{12}}{10^{3}} = 10^9$
 
