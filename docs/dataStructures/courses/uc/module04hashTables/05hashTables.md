@@ -35,6 +35,7 @@
       * [contains(key)](#containskey)
       * [add(key)](#addkey)
       * [remove(key)](#removekey)
+  * [Interview Questions](#interview-questions)
   * [Next](#next)
 <!-- TOC -->
 
@@ -425,6 +426,12 @@ fun <T> remove(key: T): Boolean {
 }
 
 ```
+
+## Interview Questions
+
+### If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?
+
+* $10^8$, because in the direct addressing, we treat the integer key as the index of the array. 
 
 ## Next
 

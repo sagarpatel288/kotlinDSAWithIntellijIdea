@@ -81,7 +81,18 @@ $$
 
 ## Interview Questions
 
+### If we have integer keys up to 10 digits, what will be a good prime number `p` for a hash function?
 
+* 10000000003, because the prime number must be greater than the input key.
+
+### If we have integer keys from `-100` to `100`, then what will be a good prime number `p` for a hash function?
+
+* 203, because first we add the minimum value, `-100`, to each integer key to make it a positive number.
+* We make each integer key a positive number because we want to ensure that the result of our hash function is not negative.
+* We keep the result of a hash function positive because we map it to an index of the hash table, and an index cannot be negative.
+* So, the key with the highest value is `200`.
+* And we take the prime number that is greater than the input key.
+* So, we take `p = 203`.
 
 ## Next
 
