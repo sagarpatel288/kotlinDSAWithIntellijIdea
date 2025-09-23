@@ -182,7 +182,7 @@ $$
 
 ## Collision Probability 
 
-* The probability that two different input strings would generate the same output of the [polynomial hashing](#expression-the-polynomial-family-of-hash-functions) is $\frac{L}{p}$, where `L` is the length of the largest string, and `p` is a large prime number.
+* The probability that two different input strings would generate the same output of the [polynomial hashing](#expression-the-polynomial-family-of-hash-functions) is $\frac{L}{p}$, where `L` is the length of the string, and `p` is a large prime number.
 * We have already seen that the probability of collision in the [universal family of hash functions](10universalFamilyOfHashFunctions.md#universal-family-of-hash-functions) is $\frac{1}{m}$. 
 * So, the total probability becomes:
 
