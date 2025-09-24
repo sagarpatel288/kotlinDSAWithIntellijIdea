@@ -67,7 +67,7 @@ private fun areEqual(sub: String, p: String): Boolean {
 
 ### Initial Implementation (Without optimization)
 
-```kotlin
-
-```
+* Find the hash code of the pattern, `P`.
+* Find the hash code of each substring of `S`.
+* If the hash code of a substring matches the hash code of the pattern `P`, compare the substring with the pattern. 
 
