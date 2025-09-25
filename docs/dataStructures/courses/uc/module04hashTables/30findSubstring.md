@@ -69,5 +69,9 @@ private fun areEqual(sub: String, p: String): Boolean {
 
 * Find the hash code of the pattern, `P`.
 * Find the hash code of each substring of `S`.
-* If the hash code of a substring matches the hash code of the pattern `P`, compare the substring with the pattern. 
+* If the hash code of a substring matches the hash code of the pattern `P`, compare the substring with the pattern.
+
+### Recurrence Of A Polynomial Hash Function Of A String
+
+![150recurringPolynomialHashFunctions.png](../../../../../assets/images/dataStructures/uc/module04HashTables/150recurringPolynomialHashFunctions.png)
 
