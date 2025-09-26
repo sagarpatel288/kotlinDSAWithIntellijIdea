@@ -140,15 +140,22 @@ $$
 \text{ Actual Matches + False Alarms}
 $$
 $$
-= q + \left\{ (|T| - |P| + 1) * (\frac{|P|}{p}) \right\} .
+= q + \left\lbrace (|T| - |P| + 1) * (\frac{|P|}{p}) \right\rbrace .
 $$
 
 * Each `areEqual` method takes the running time of $O(|P|)$.
 * Hence, the total running time of `areEqual` method becomes:
 
 $$
-O \left( \left[q + \left\{ (|T| - |P| + 1) * (\frac{|P|}{p}) \right\} \right] |P| \right) ———————————(5)
+O \left( \left[ q + \left\lbrace (|T| - |P| + 1) * (\frac{|P|}{p}) \right\rbrace \right] |P| \right) ———————————(5)
 $$
+
+**The Cauchy-Schwarz Inequality**
+
+$$
+\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
+$$
+
 
 * For the big prime number $p >> (|T| * |P|)$, We can simplify it as:
 
