@@ -150,13 +150,6 @@ $$
 O \left( \left[ q + \left\lbrace (|T| - |P| + 1) * (\frac{|P|}{p}) \right\rbrace \right] |P| \right) ———————————(5)
 $$
 
-**The Cauchy-Schwarz Inequality**
-
-$$
-\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
-$$
-
-
 * For the big prime number $p >> (|T| * |P|)$, We can simplify it as:
 
 $$
@@ -166,7 +159,7 @@ $$
 * Now, we have the total time of the `areEqual` method and the total time of the `findSubstring` method.
 
 $$
-O \bigg( (|T| * |P|) + \left\{ (q + 1) |P| \right\} \bigg) ———————(7)
+O \bigg( (|T| * |P|) + \left\lbrace (q + 1) |P| \right\rbrace \bigg) ———————(7)
 $$
 
 * Which seems worse than the naive algorithm, if not better than that!
@@ -204,7 +197,7 @@ $$
 * If we use these expressions in (7), it becomes:
 
 $$
-O \bigg( ( |T| + |P| ) + \left\{ (q + 1) |P| \right\} \bigg) ———————(10).
+O \bigg( ( |T| + |P| ) + \left\lbrace (q + 1) |P| \right\rbrace \bigg) ———————(10).
 $$
 
 * If the actual matches “q” is small, then the dominant term is: 
