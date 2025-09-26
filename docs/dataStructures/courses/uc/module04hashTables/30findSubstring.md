@@ -131,7 +131,7 @@ $$
 * Hence, the total possible collisions (false alarms) are:
 
 $$
-\left\{(|T| - |P| + 1) * \frac{|P|}{p}\right\} ------------(4)
+\left\lbrace(|T| - |P| + 1) * \frac{|P|}{p}\right\rbrace ------------(4)
 $$
 
 * So, the total number of times we call the `areEqual` method becomes:
