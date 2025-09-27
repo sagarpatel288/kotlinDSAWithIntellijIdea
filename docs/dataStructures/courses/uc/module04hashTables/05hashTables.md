@@ -36,6 +36,7 @@
       * [add(key)](#addkey)
       * [remove(key)](#removekey)
   * [Interview Questions](#interview-questions)
+    * [If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?](#if-we-have-integer-keys-up-to-8-digits-what-will-be-the-size-of-an-array-in-the-direct-addressing-method)
   * [Next](#next)
 <!-- TOC -->
 
