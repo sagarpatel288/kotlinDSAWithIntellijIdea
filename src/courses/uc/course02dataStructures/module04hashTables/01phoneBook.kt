@@ -129,6 +129,13 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ## Solution
  *
+ * ### Hints
+ *
+ * * We are storing `number-name` key-value pairs.
+ * * We want to perform `add`, `update`, `delete`, and `find` queries.
+ * * We have a huge data.
+ * * All these hints indicate (suggest) the `HashMap` data structure.
+ *
  * ### Time Complexity
  *
  * #### Best and Average Cases:
