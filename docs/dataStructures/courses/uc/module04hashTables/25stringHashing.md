@@ -264,3 +264,7 @@ $$
 
 
 ## Next
+
+* [Find A Substring](30findSubstring.md)
+* [Hash Questions](35hashQuestions.md)
+* [Hashing In Blockchain](40hashingInBlockchain.md)

@@ -438,5 +438,10 @@ fun <T> remove(key: T): Boolean {
 
 * [Universal Family Of Hash Functions](10universalFamilyOfHashFunctions.md)
 * [Load Factor And Rehashing](15loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](25stringHashing.md)
+* [Find A Substring](30findSubstring.md)
+* [Hash Questions](35hashQuestions.md)
+* [Hashing In Blockchain](40hashingInBlockchain.md)
  
 

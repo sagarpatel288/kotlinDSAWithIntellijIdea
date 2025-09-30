@@ -2,13 +2,26 @@
 
 <!-- TOC -->
 * [Hash Questions](#hash-questions)
+  * [Prerequisites](#prerequisites)
   * [Trade-off: Which trade-off does a hash table make to achieve performance?](#trade-off-which-trade-off-does-a-hash-table-make-to-achieve-performance)
   * [What is "Uniform Distribution" by a hash function? What if it fails?](#what-is-uniform-distribution-by-a-hash-function-what-if-it-fails)
   * [Why do we use a linked list instead of an array for collision resolution?](#why-do-we-use-a-linked-list-instead-of-an-array-for-collision-resolution)
   * [Why do we have `Set` when we already have `Map`?](#why-do-we-have-set-when-we-already-have-map)
   * [What makes the Rabin-Karp algorithm more efficient?](#what-makes-the-rabin-karp-algorithm-more-efficient)
   * [Why do we use the universal family of hash functions instead of a single hash function?](#why-do-we-use-the-universal-family-of-hash-functions-instead-of-a-single-hash-function)
+  * [Next](#next)
 <!-- TOC -->
+
+## Prerequisites
+
+* [Hash Tables](05hashTables.md)
+* [Universal Family Of Hash Functions](10universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](15loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](25stringHashing.md)
+* [Find A Substring](30findSubstring.md)
+* [Hash Questions](35hashQuestions.md)
+* [Hashing In Blockchain](40hashingInBlockchain.md)
 
 ## Trade-off: Which trade-off does a hash table make to achieve performance?
 
@@ -51,3 +64,7 @@
 * Even though the family is known, the two random variables `a` and `b` remain a secret.
 * Hence, we cannot predict the exact hash function in use.
 * Therefore, we cannot create a "bad input."
+
+## Next
+
+* [Hashing In Blockchain](40hashingInBlockchain.md)
