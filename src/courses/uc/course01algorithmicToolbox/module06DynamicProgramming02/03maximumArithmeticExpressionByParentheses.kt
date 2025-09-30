@@ -1468,7 +1468,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * So, the maximum memory we use is n * n = n^2.
  * Hence, the space complexity is O(n^2).
  *
- * # ----------------------- Coursera's Grader Output -----------------------
+ * # ----------------------- Grader Output -----------------------
  * Good job! (Max time used: 0.10/2.00, max memory used: 43524096/536870912.)
  *
  */

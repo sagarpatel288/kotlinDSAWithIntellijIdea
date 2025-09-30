@@ -235,7 +235,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * * So, it makes the total auxiliary space of `O(2n)` where `n` is the number of tables.
  * * Hence, the space complexity is `O(n)`.
  *
- * ## Coursera's Grader Output
+ * ## Grader Output
  *
  * ```
  * Good job! (Max time used: 0.87/4.00, max memory used: 162140160/536870912.)

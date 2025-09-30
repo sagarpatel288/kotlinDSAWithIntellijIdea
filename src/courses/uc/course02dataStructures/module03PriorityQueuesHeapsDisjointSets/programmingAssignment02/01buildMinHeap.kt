@@ -114,7 +114,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * * However, if we count the output space, then it is `O(m)`, where `m` is the size of the [swaps].
  *
  *
- * # Coursera's Grader Output
+ * # Grader Output
  *
  * Good job! (Max time used: 0.73/2.00, max memory used: 93962240/536870912.)
  */

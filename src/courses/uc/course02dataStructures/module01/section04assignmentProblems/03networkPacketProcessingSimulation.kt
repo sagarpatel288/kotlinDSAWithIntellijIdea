@@ -509,7 +509,7 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * * Because printing the output can be done without storing it anywhere.
  * * So, the space complexity is `O(S)`, where `S` is the buffer queue size.
  *
- * ## ----------------------- Coursera's Grader Output -----------------------
+ * ## ----------------------- Grader Output -----------------------
  * ```
  * Good job! (Max time used: 0.59/4.00, max memory used: 96755712/536870912.)
  * ```

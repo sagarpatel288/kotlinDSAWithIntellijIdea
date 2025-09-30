@@ -225,7 +225,7 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * So, unlike the [Edit distance with backtracking](),
  * where the space complexity was `O(n * m)`, here we get the space complexity as `O(n)`.
  *
- * # ----------------------- Coursera's Grader Output -----------------------
+ * # ----------------------- Grader Output -----------------------
  *
  * Good job! (Max time used: 0.08/2.00, max memory used: 42364928/536870912.)
  *

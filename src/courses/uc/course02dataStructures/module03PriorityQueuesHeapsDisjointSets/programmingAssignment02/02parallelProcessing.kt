@@ -245,7 +245,7 @@ import java.util.PriorityQueue
  * * But since it is part of the `output`, we don't consider it as part of the `algorithm`.
  * * Thus, the auxiliary space we use here is `O(n + m)`.
  *
- * # Coursera's Grader Output
+ * # Grader Output
  *
  * ```
  * Good job! (Max time used: 0.66/4.00, max memory used: 89063424/536870912.)

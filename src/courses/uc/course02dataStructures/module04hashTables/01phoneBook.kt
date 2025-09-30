@@ -166,7 +166,7 @@ package courses.uc.course02dataStructures.module04hashTables
  * * We use a [MutableMap] of size equivalent to number of `add` queries.
  * * So, if the number of `add` queries is `n`, then the space complexity is `O(n)`.
  *
- * ### Coursera's Grader Output
+ * ### Grader Output
  *
  * ```
  * Good job! (Max time used: 0.54/6.00, max memory used: 86454272/671088640.)

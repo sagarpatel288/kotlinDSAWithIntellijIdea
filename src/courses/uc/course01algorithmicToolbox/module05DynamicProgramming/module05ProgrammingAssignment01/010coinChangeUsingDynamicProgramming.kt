@@ -277,7 +277,7 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * 3. The total space complexity is:
  * `O(amount)`
  *
- * ## ----------------------- Coursera's Grader Output -----------------------
+ * ## ----------------------- Grader Output -----------------------
  *
  * (Max time used: 0.09/2.00, max memory used: 44609536/536870912.)
  *

@@ -124,7 +124,7 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * We do not count constants during the complexity analysis.
  * Hence, the space complexity is `O(l * m * n)`.
  *
- * ## ----------------------- Coursera's Grader Output -----------------------
+ * ## ----------------------- Grader Output -----------------------
  *
  * Good job! (Max time used: 0.19/2.00, max memory used: 49692672/536870912.)
  */

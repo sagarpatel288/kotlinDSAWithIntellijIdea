@@ -588,7 +588,7 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  *
  * ```
  *
- * ## ----------------------- Coursera's Grader Output -----------------------
+ * ## ----------------------- Grader Output -----------------------
  * (Max time used: 0.11/3.00, max memory used: 46972928/536870912.)
  *
  */

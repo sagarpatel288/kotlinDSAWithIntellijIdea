@@ -744,7 +744,7 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * * Why? Because the constant becomes insignificant as `n` grows larger.
  * * So, the net total space complexity is `O(n)`.
  *
- * # Coursera's Grader Output:
+ * # Grader Output:
  *
  * ```
  * Good job! (Max time used: 0.47/2.00, max memory used: 87289856/536870912.)
