@@ -1,7 +1,7 @@
 package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module05ProgrammingAssignment01
 
 /**
- * ## ----------------------- Coursera's Grader Output -----------------------
+ * ## ----------------------- Grader Output -----------------------
  * (Max time used: 0.10/3.00, max memory used: 46772224/536870912.)
  */
 fun main() {

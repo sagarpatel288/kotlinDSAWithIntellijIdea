@@ -1094,7 +1094,7 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * * At any given point in time, the `deque` contains at most `m = window size` elements.
  * * So, the overall auxiliary space complexity is `O(m)` where `m = window size`.
  *
- * ## ----------------------- Coursera's Grader Output -----------------------
+ * ## ----------------------- Grader Output -----------------------
  *
  * ```
  * Good job! (Max time used: 0.48/2.00, max memory used: 74780672/536870912.)

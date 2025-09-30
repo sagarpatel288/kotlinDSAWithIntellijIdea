@@ -278,7 +278,7 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * * We take a `Deque` to store each bracket. In the worst case where all the characters are opening brackets only,
  * it would be `O(n)`.
  *
- * ## ----------------------- Coursera's Grader Output -----------------------
+ * ## ----------------------- Grader Output -----------------------
  *
  * Good job! (Max time used: 0.15/2.00, max memory used: 50716672/536870912.)
  *

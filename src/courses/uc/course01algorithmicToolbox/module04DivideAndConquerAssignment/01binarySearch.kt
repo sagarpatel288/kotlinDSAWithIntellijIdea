@@ -61,7 +61,7 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  * We store the result indices in a collection which has the same size of the given query list.
  * Hence, the space complexity is O(m) where m is the size of the given query list.
  *
- * Coursera's Grader output:
+ * Grader output:
  * (Max time used: 0.62/2.50, max memory used: 80027648/536870912.)
  *
  *

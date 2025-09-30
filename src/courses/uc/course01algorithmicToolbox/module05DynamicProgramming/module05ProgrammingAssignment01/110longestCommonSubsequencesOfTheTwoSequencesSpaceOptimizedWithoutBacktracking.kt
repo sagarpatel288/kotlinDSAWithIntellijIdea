@@ -34,7 +34,7 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * Hence, we effectively reduce the space complexity.
  * The space complexity is `O(minOf(n, m))` which is either `O(n)` or `O(m)`, whichever is minimum.
  *
- * # ----------------------- Coursera's Grader Output -----------------------
+ * # ----------------------- Grader Output -----------------------
  *
  * Good job! (Max time used: 0.10/2.00, max memory used: 46112768/536870912.).
  */

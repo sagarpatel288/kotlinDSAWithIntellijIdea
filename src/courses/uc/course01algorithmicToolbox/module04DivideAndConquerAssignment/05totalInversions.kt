@@ -104,7 +104,7 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  * We use a temp array to insert the elements. The maximum size of this array is equal to the input array.
  * Hence, the space complexity is O(n).
  *
- * ----------------------- Coursera's Grader Output -----------------------
+ * ----------------------- Grader Output -----------------------
  *
  * (Max time used: 0.37/2.00, max memory used: 62820352/536870912.)
  *

@@ -5,7 +5,7 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  * `error: the feature "data objects" is only available since language version 1.9`
  * Then, you can either increase the compiler language version or remove the `data` keyword from the `data object`.
  *
- * ----------------------- Coursera's Grader Output -----------------------
+ * ----------------------- Grader Output -----------------------
  *
  * (Max time used: 1.10/8.00, max memory used: 109531136/536870912.)
  */

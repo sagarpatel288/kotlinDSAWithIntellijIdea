@@ -220,7 +220,7 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  * The dominant factor here is, the event-list, which is based upon the segment size (n) + the query-points (m).
  * Hence, the space-complexity is O(n + m).
  *
- * ----------------------- Coursera's Grader Output -----------------------
+ * ----------------------- Grader Output -----------------------
  * (Max time used: 1.10/8.00, max memory used: 104460288/536870912.)
  *
  * ----------------------- TL;DR: -----------------------

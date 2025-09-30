@@ -636,7 +636,7 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * In that case, the space complexity can be reduced to min(n * m).
  *
  *
- * ## ----------------------- Coursera's Grader Output -----------------------
+ * ## ----------------------- Grader Output -----------------------
  *
  * (Max time used: 0.09/2.00, max memory used: 42418176/536870912.)
  *
