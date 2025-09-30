@@ -16,7 +16,7 @@
       * [Notation](#notation)
       * [Definition](#definition)
   * [Interview Questions](#interview-questions)
-    * [What will be the average chain length for a hash table of size 1000 if the total number of keys is up to 12 digits?](#what-will-be-the-average-chain-length-for-a-hash-table-of-size-1000-if-the-total-number-of-keys-is-up-to-12-digits)
+    * [What will be the average chain length for a hash table of size 1000 if the total number of keys (count of keys) is up to 12 digits?](#what-will-be-the-average-chain-length-for-a-hash-table-of-size-1000-if-the-total-number-of-keys-count-of-keys-is-up-to-12-digits)
   * [Next](#next)
 <!-- TOC -->
 
@@ -150,3 +150,8 @@ $$
 ## Next
 
 * [Load Factor And Rehashing](15loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](25stringHashing.md)
+* [Find A Substring](30findSubstring.md)
+* [Hash Questions](35hashQuestions.md)
+* [Hashing In Blockchain](40hashingInBlockchain.md)

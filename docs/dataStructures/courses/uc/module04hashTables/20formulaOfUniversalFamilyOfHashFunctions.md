@@ -8,6 +8,8 @@
   * [Expression](#expression)
   * [Example](#example)
   * [Interview Questions](#interview-questions)
+    * [If we have integer keys up to 10 digits, what will be a good prime number `p` for a hash function?](#if-we-have-integer-keys-up-to-10-digits-what-will-be-a-good-prime-number-p-for-a-hash-function)
+    * [If we have integer keys from `-100` to `100`, then what will be a good prime number `p` for a hash function?](#if-we-have-integer-keys-from--100-to-100-then-what-will-be-a-good-prime-number-p-for-a-hash-function)
   * [Next](#next)
 <!-- TOC -->
 
@@ -96,4 +98,7 @@ $$
 
 ## Next
 
-[String Hashing](25stringHashing.md)
+* [String Hashing](25stringHashing.md)
+* [Find A Substring](30findSubstring.md)
+* [Hash Questions](35hashQuestions.md)
+* [Hashing In Blockchain](40hashingInBlockchain.md)

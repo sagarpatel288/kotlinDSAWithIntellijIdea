@@ -82,4 +82,8 @@
 
 ## Next
 
-* [Formula Of The Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
+* [Formula Of Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](25stringHashing.md)
+* [Find A Substring](30findSubstring.md)
+* [Hash Questions](35hashQuestions.md)
+* [Hashing In Blockchain](40hashingInBlockchain.md)

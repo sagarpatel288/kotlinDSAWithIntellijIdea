@@ -1,5 +1,29 @@
 # Find Substring
 
+<!-- TOC -->
+* [Find Substring](#find-substring)
+  * [Prerequisites](#prerequisites)
+  * [Problem Statement](#problem-statement)
+  * [Examples](#examples)
+  * [Naive Approach](#naive-approach)
+    * [Time Complexity](#time-complexity)
+    * [Problems](#problems)
+  * [Rabin-Karp Algorithm](#rabin-karp-algorithm-)
+    * [Initial Implementation (Without optimization)](#initial-implementation-without-optimization)
+    * [Recurrence Of A Polynomial Hash Function Of A String](#recurrence-of-a-polynomial-hash-function-of-a-string)
+    * [Explanation](#explanation)
+    * [Realistic Analysis](#realistic-analysis)
+  * [Next](#next)
+<!-- TOC -->
+
+## Prerequisites
+
+* [Hash Tables](05hashTables.md)
+* [Universal Family Of Hash Functions](10universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](15loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](25stringHashing.md)
+
 ## Problem Statement
 
 * Given a string `s` and a pattern `p`, we need to print the starting indices of `p` that we find within `s`.
@@ -207,3 +231,8 @@ $$
 $$
 
 * Now, this is a great improvisation compared to the naive algorithm that gives the running time of $O( |T| * |P| )$.
+
+## Next
+
+* [Hash Questions](35hashQuestions.md)
+* [Hashing In Blockchain](40hashingInBlockchain.md)
