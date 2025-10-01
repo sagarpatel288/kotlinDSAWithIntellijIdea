@@ -96,10 +96,6 @@ private fun areEqual(sub: String, p: String): Boolean {
 * If the hash code of a substring matches the hash code of the pattern `P`, compare the substring with the pattern.
 * If it is a match, add the position `i` to the result list.
 
-### Recurrence Of A Polynomial Hash Function Of A String
-
-![150recurringPolynomialHashFunctions.png](../../../../../assets/images/dataStructures/uc/module04HashTables/150recurringPolynomialHashFunctions.png)
-
 ### Explanation
 
 * Brute force works in $O(|T| * |P|)$ where `|T|` is the length of the given text and `|P|` is the length of the pattern. 
@@ -205,6 +201,34 @@ $$
 \text{Total substrings of T * Time of calculating the hash code of each substring}
 $$
 
+#### Recurrence Of A Polynomial Hash Function Of A String
+
+![150recurringPolynomialHashFunctions.png](../../../../../assets/images/dataStructures/uc/module04HashTables/150recurringPolynomialHashFunctions.png)
+
+![155recurringPolynomialHashFunctions.png](../../../../../assets/images/dataStructures/uc/module04HashTables/155recurringPolynomialHashFunctions.png)
+
+* Let us take a mathematical example.
+* Suppose we have the number `582793`, and the pattern length is `3`.
+* The base is `10`.
+* Now, the first window is `582`.
+* So, $h(S_1) = (5 * 10^2) + (8 * 10^1) + (2 * 10^0) $.
+* Note that the highest degree (power) of $h(S_1)$ is $2$.
+* Now, the second window is `827`.
+* We can reuse the previous hash code to calculate the hash code of this new window.
+* We will use three constant-time operations instead of the full polynomial calculation from scratch.
+* Subtraction, multiplication, and addition.
+* We subtract the outgoing character `5`, multiply the remaining part `82` by the base, and add the new character `7`.
+* **Subtract the outgoing character as $T[i] * x^{\text{highest power of }h(S_1)}$**
+* $T[i] = 5$ and the highest power of $h(S_1)$ is $2$.
+* So, the subtraction term is: $(5 * 10^2)$.
+* $h(S_1) - (5 * 10^2) = 582 - 500 = 82$
+* **Multiply by the base**
+* $82 * 10 = 820$
+* **Add new (next) character**
+* $820 + 7 = 827$
+* We calculated the hash code of the first window only.
+* And then, we just do three constant-time operations: Subtraction, Multiplication, and Addition.
+* We do not calculate the hash code of each window.
 * The realistic analysis proves that the average running time of calculating each substring is $O(1)$, not $O(|P|)$.
 * This is due to the property of the polynomial hash function. 
 * It allows us to calculate a hash code of the next substring in $O(1)$ using the hash code of the previous substring.
