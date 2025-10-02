@@ -163,12 +163,18 @@ package courses.uc.course02dataStructures.module04hashTables
  * * So, it all comes down to a balanced decision between fast computation Vs. effective distribution.
  *
  * **Why did we start the iteration from `i = 1` while calculating the `baseWithHighestPower`?**
+ * **How do we calculate the highest degree (or power) of the base in code?**
  *
- * * The highest degree is `|P| - 1`.
- * * We initialise the degree with `1`, which is `x^0 = 1`.
+ * * The `baseWithHighestPower` is our result.
+ * * Initially, it is `1L`, which represents `x^0 = 1L`.
  * * It means that we have already covered the `0th` index.
- * * Next, it goes like `x^1, x^2, and so on... until |P| - 1`.
- * * So, we start from `i = 1`, and go until `|P|` to achieve `|P| - 1` degree.
+ * * The highest degree is `|P| - 1`.
+ * * It means that if the pattern length is `3`, then we want to achieve the final result as `x^2`.
+ * * Now, the loop starts from `i = 1`, and goes until |P| (stops before the length).
+ * * When `i = 1`, it becomes `result * x = 1L * x`. The result becomes `x`. So, it is `x^1`.
+ * * Next, when `i = 2`, it becomes `result * x = x * x = x^2`.
+ * * We stop here, because the pattern length is `3`.
+ * * So, we start with `i = 1`, and it goes like `x^1, x^2, and so on... until |P|`.
  *
  * **Why do we need to perform `% p` while calculating the `baseWithHighestPower`?**
  *
