@@ -175,6 +175,10 @@ package courses.uc.course02dataStructures.module04hashTables
  * * To prevent the overflow.
  * * To keep the `baseWithHighestPower` value within the data type range `Long` that we have taken.
  *
+ * **Why didn't we use the `Math.pow` function to calculate the `baseWithHighestPower`?**
+ *
+ * * The `Math.pow` function can cause overflow.
+ *
  */
 fun main() {
 
