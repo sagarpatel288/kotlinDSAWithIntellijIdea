@@ -10,9 +10,9 @@
     * [Problems](#problems)
   * [Rabin-Karp Algorithm](#rabin-karp-algorithm-)
     * [Initial Implementation (Without optimization)](#initial-implementation-without-optimization)
-    * [Recurrence Of A Polynomial Hash Function Of A String](#recurrence-of-a-polynomial-hash-function-of-a-string)
     * [Explanation](#explanation)
     * [Realistic Analysis](#realistic-analysis)
+      * [Recurrence Of A Polynomial Hash Function Of A String](#recurrence-of-a-polynomial-hash-function-of-a-string)
   * [Next](#next)
 <!-- TOC -->
 
