@@ -126,7 +126,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ## Grader Output
  * ```
- * Good job! (Max time used: 0.56/3.00, max memory used: 109912064/536870912.)
+ * Good job! (Max time used: 0.54/3.00, max memory used: 108654592/536870912.)
  * ```
  *
  * ## Interview Questions
@@ -214,6 +214,10 @@ fun main() {
             patternWindowHash = ((patternWindowHash * xBase) + pattern[i].code.toLong()) % prime
             textWindowHash = ((textWindowHash * xBase) + text[i].code.toLong()) % prime
         }
+
+        // Ensure positive values
+        patternWindowHash = (patternWindowHash % prime + prime) % prime
+        textWindowHash = (textWindowHash % prime + prime) % prime
 
         // Comparison and rolling hash (sliding window)
         for (i in 0..text.length - pattern.length) {
