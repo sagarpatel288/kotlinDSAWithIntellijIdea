@@ -1,5 +1,16 @@
 # Precomputed Prefixed Hashes: Storing incremental substrings
 
+<!-- TOC -->
+* [Precomputed Prefixed Hashes: Storing incremental substrings](#precomputed-prefixed-hashes-storing-incremental-substrings)
+  * [Prerequisites](#prerequisites)
+  * [Explanation](#explanation)
+    * [Range-Sum Query Example](#range-sum-query-example)
+    * [Precomputed Prefixed Hashes](#precomputed-prefixed-hashes)
+      * [Example](#example)
+  * [TL;DR Summary](#tldr-summary)
+  * [Next](#next)
+<!-- TOC -->
+
 ## Prerequisites
 
 * [Hash Tables](05hashTables.md)
