@@ -126,7 +126,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ## Grader Output
  * ```
- * Good job! (Max time used: 0.54/3.00, max memory used: 108654592/536870912.)
+ * Good job! (Max time used: 0.58/3.00, max memory used: 109809664/536870912.)
  * ```
  *
  * ## Interview Questions
@@ -215,7 +215,7 @@ fun main() {
             textWindowHash = ((textWindowHash * xBase) + text[i].code.toLong()) % prime
         }
 
-        // Ensure positive values
+        // Ensure positive values and consistency with the subsequent window hashing format
         patternWindowHash = (patternWindowHash % prime + prime) % prime
         textWindowHash = (textWindowHash % prime + prime) % prime
 
@@ -233,12 +233,12 @@ fun main() {
                 val subtract = text[i].code.toLong() * baseWithHighestPower
                 val add = text[i + pattern.length].code.toLong()
                 // Subtract the old (outgoing) character
-                textWindowHash -= subtract
+                textWindowHash = (textWindowHash - subtract) % prime
                 // Multiply by the base and prevent overflow
                 textWindowHash = (textWindowHash * xBase) % prime
                 // Add the new (next, incoming, upcoming) character and prevent overflow
                 textWindowHash = (textWindowHash + add) % prime
-                // Ensure positive value
+                // Ensure positive value, as the subtraction could have caused a negative value
                 textWindowHash = (textWindowHash % prime + prime) % prime
             }
         }
