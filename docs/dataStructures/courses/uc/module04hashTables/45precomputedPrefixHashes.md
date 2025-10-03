@@ -7,6 +7,7 @@
     * [Range-Sum Query Example](#range-sum-query-example)
     * [Precomputed Prefixed Hashes](#precomputed-prefixed-hashes)
       * [Example](#example)
+  * [Double Hashing](#double-hashing)
   * [TL;DR Summary](#tldr-summary)
   * [Next](#next)
 <!-- TOC -->
@@ -123,6 +124,20 @@ $$
 $$
 
 * Which is exactly the polynomial hash of the substring "`caba`" of the original `Text` string "`abacaba`".
+
+## Double Hashing
+
+* We have seen in the [Rabin-Karp Find-Match Pattern](30findSubstring.md) that after the hash codes of two substrings match, we double-check by the manual `areEqual` method to confirm if the substrings are truly a match or not.  
+* We have to do that manual check due to the collision probability.
+* We can reduce that collision probability even further and avoid the manual `areEqual` method.
+* We use two different `prime` numbers and calculate the hash code of each substring using both `prime` numbers.
+* Now, it is extremely rare (almost impossible) to have a "false alarm" where two different hash codes of the two different substrings match, but the substrings are still different - this can almost never happen.
+* So, if $h_1(S_1) == h_1(S_2) \;\text{ && }\; h_2(S_1) == h_2(S_2)$, we can safely say that these two substrings (or strings) $S_1$ and $S_2$ are indeed equal.
+* This technique is known as double-hashing.
+* The trade-off is that we avoid the manual `areEqual` method, where we have to iterate and cover each character up to the length of the given substring (or string).
+* If the length of these substrings or strings is very large, it consumes a lot of time.
+* To avoid that, we use extra space.
+* ToDo: Maybe we need to explain more, give some examples, maybe visuals. Maybe we need to improve this section.
 
 ## TL;DR Summary
 
