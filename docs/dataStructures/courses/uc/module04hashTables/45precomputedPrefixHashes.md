@@ -142,6 +142,7 @@ $$
 
 * Each substring gets two different hash codes.
 * Now, it is extremely rare (almost impossible) to have a "false alarm" where two different hash codes of the two different substrings match, but the substrings are still different - this can almost never happen.
+* In other words, if two different hash codes of a substring $S_1$ match with the corresponding hash codes of a substring $S_2$, we can safely say that these substrings are equal. 
 * So, if $h_1(S_1) == h_1(S_2) \;\text{ && }\; h_2(S_1) == h_2(S_2)$, we can safely say that these two substrings (or strings) $S_1$ and $S_2$ are indeed equal.
 * This technique is known as double-hashing.
 * The trade-off is that we avoid the manual `areEqual` method, where we have to iterate and cover each character up to the length of the given substring (or string).
