@@ -131,6 +131,16 @@ $$
 * We have to do that manual check due to the collision probability.
 * We can reduce that collision probability even further and avoid the manual `areEqual` method.
 * We use two different `prime` numbers and calculate the hash code of each substring using both `prime` numbers.
+
+$$
+\text{Hash code } h_1 \text{ of substring } S_1 = h_1(S_1) \text{ Using prime1}
+$$
+
+$$
+\text{Hash code } h_2 \text{ of substring } S_1 = h_2(S_1) \text{ Using prime2}
+$$
+
+* Each substring gets two different hash codes.
 * Now, it is extremely rare (almost impossible) to have a "false alarm" where two different hash codes of the two different substrings match, but the substrings are still different - this can almost never happen.
 * So, if $h_1(S_1) == h_1(S_2) \;\text{ && }\; h_2(S_1) == h_2(S_2)$, we can safely say that these two substrings (or strings) $S_1$ and $S_2$ are indeed equal.
 * This technique is known as double-hashing.
