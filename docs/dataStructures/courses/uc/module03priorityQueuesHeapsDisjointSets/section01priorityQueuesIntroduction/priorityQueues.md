@@ -132,8 +132,7 @@
 * However, we can also provide a custom rule externally.
 * For example, for a custom data class, we can provide a custom, external comparator to the priority queue.
 * We can also provide this custom, external comparator for the classes that implement the Comparable interface.
-* In that case, the custom, external comparator takes priority as it conveys that we want to overwrite the default,
-implemented Comparable interface.
+* In that case, the custom, external comparator takes priority as it conveys that we want to overwrite the default, implemented Comparable interface.
 
 ## What is the problem if we implement a priority queue using an array?
 
@@ -193,6 +192,8 @@ Indices       0     1     2     3     4     5     6
 ```
 
 * If we use a sorted array, then we can get the maximum element, the element with the highest priority, in `O(1)`.
+* Because if it is in ascending order, the last element has the highest priority.
+* And if it is in descending order, the first element has the highest priority.
 * However, to insert an element, we have two options:
 
 #### Linear insertion
