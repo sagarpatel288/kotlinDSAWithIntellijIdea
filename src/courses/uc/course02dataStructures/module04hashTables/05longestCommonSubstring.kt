@@ -76,8 +76,11 @@ package courses.uc.course02dataStructures.module04hashTables
  * * HashTables (Set, Map)
  * * String Hashing
  * * Rolling Hashing
+ * * Double Hashing
  *
  * ### Thought Process
+ *
+ * #### Binary Search For Length
  *
  * * Suppose the length of `s` is `sl` and the length of `t` is `tl`.
  * * Now, the maximum length of the common substring cannot be more than `minOf(sl, tl)`.
@@ -107,6 +110,19 @@ package courses.uc.course02dataStructures.module04hashTables
  * * Because if there is no common substring of length `3`, then there cannot be a common substring of length > 3.
  * * In that case, the higher-end would decrease to `mid-1 = 3 - 1 = 2` and the lower bound `0` remains the same.
  * * So, in that case, the range would have become `0 to 2`.
+ *
+ * #### Hash Code
+ *
+ * * The binary search gives a specific length to the function that calculates a hash code.
+ * * The hash function calculates the hash code of each substring of the given length of a specific string.
+ * * The hash function uses double hashing and rolling hashing.
+ * * The hash function gives two different hash codes and the starting index for each substring.
+ * * So, the return type would be a collection that can hold a pair of hash codes as a key and the starting index of the substring as a value.
+ * * We use this hash function for both strings and get the result for each string.
+ * * We iterate through the pair of hash codes of one string and check if the result of another string also contains the same pair of hash codes.
+ * * When both strings contain the same pair of hash codes, it means that we found a common substring.
+ * * And the hash function also returns the starting index.
+ * * And we also have the length that we give through the binary search.
  *
  */
 fun main() {
