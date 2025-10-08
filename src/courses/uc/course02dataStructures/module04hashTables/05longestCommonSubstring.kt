@@ -1,5 +1,8 @@
 package courses.uc.course02dataStructures.module04hashTables
 
+import java.io.BufferedReader
+import java.io.InputStreamReader
+
 /**
  * # Longest Common Substring
  *
@@ -125,6 +128,107 @@ package courses.uc.course02dataStructures.module04hashTables
  * * And we also have the length that we give through the binary search.
  *
  */
-fun main() {
+private data class LongestCommonStrings(val startIndex1: Int, val startIndex2: Int, val length: Int)
 
+private fun checkForLength(string1: String, string2: String, length: Int): LongestCommonStrings? {
+    // Edge Cases
+    if (length == 0) return LongestCommonStrings(0, 0, 0)
+    if (length > string1.length || length > string2.length) return null
+
+    fun getAllHashes(string: String, length: Int): Map<Pair<Long, Long>, Int> {
+        val prime1 = 1_000_000_007L
+        val prime2 = 1_000_000_009L
+        val xBase = 263L
+        val hashes = mutableMapOf<Pair<Long, Long>, Int>()
+        var hash1 = 0L
+        var hash2 = 0L
+        var xPower1 = 1L
+        var xPower2 = 1L
+
+        // First window
+        for (i in 0 until length) {
+            hash1 = ((hash1 * xBase) + string[i].code.toLong()) % prime1
+            hash2 = ((hash2 * xBase) + string[i].code.toLong()) % prime2
+        }
+
+        hash1 = (hash1 % prime1 + prime1) % prime1
+        hash2 = (hash2 % prime2 + prime2) % prime2
+
+        hashes[hash1 to hash2] = 0
+
+        // Maximum degree (power) to use in the rolling hash
+        for (i in 1 until length) {
+            xPower1 = (xPower1 * xBase) % prime1
+            xPower2 = (xPower2 * xBase) % prime2
+        }
+
+        // Rolling Hash
+        for (i in 1..string.length - length) {
+            val sub1 = (string[i - 1].code.toLong() * xPower1) % prime1
+            val add1 = string[i + length - 1].code.toLong()
+            hash1 = (hash1 - sub1 + prime1) % prime1
+            hash1 = (hash1 * xBase) % prime1
+            hash1 = (hash1 + add1) % prime1
+            hash1 = (hash1 % prime1 + prime1) % prime1
+
+            val sub2 = (string[i - 1].code.toLong() * xPower2) % prime2
+            val add2 = string[i + length - 1].code.toLong()
+            hash2 = (hash2 - sub2 + prime2) % prime2
+            hash2 = (hash2 * xBase) % prime2
+            hash2 = (hash2 + add2) % prime2
+            hash2 = (hash2 % prime2 + prime2) % prime2
+
+            // ToDo: Store all the hash codes anyway, with different starting positions `i`.
+            // Maybe, we are getting the same hash codes for different substrings!
+            // We'd better try to handle it!
+            if (!hashes.contains(hash1 to hash2)) {
+                hashes[hash1 to hash2] = i
+            }
+        }
+
+        return hashes
+    }
+
+    val hashes1 = getAllHashes(string1, length)
+    val hashes2 = getAllHashes(string2, length)
+
+    for ((hashCodePair, startIndex) in hashes1) {
+        if (hashes2.containsKey(hashCodePair)) {
+            val startIndex2 = hashes2[hashCodePair]!!
+            if (string1.substring(startIndex, startIndex + length) == string2.substring(startIndex2, startIndex2 + length)) {
+                return LongestCommonStrings(startIndex, startIndex2, length)
+            }
+        }
+    }
+
+    return null
+}
+
+fun main() {
+    val reader = BufferedReader(InputStreamReader(System.`in`))
+    var line = reader.readLine()
+    val output = StringBuilder()
+    while (line != null && line.isNotBlank()) {
+        val (string1, string2) = line.split(" ")
+        var start = 0
+        var end = minOf(string1.length, string2.length)
+        var bestAnswer = LongestCommonStrings(0, 0, 0)
+
+        while (start <= end) {
+            val mid = start + (end - start) / 2
+            val result = checkForLength(string1, string2, mid)
+            if (result != null) {
+                bestAnswer = result
+                // Check for a longer length
+                start = mid + 1
+            } else {
+                // Check for a shorter length
+                end = mid - 1
+            }
+        }
+
+        output.append("${bestAnswer.startIndex1} ${bestAnswer.startIndex2} ${bestAnswer.length}\n")
+        line = reader.readLine()
+    }
+    println(output)
 }

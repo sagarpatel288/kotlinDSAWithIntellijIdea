@@ -203,6 +203,13 @@ fun main() {
 
         // Calculate the highest power (degree): x^{|P| - 1}
         // We start the iteration with 1, because the initial power is already 1.
+        // So, it goes as below (notice the interesting pattern):
+        // 1 * x = x^1
+        // x^1 * x = x^2
+        // x^2 * x = x^3
+        // Observe that with each iteration, the power (degree) increases by 1.
+        // So, if there are 5 iterations, we get x^5.
+        // If there are "l" iterations, we get x^l.
         for (i in 1 until pattern.length) {
             baseWithHighestPower = (baseWithHighestPower * xBase) % prime
         }
