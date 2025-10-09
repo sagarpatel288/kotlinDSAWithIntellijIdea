@@ -137,8 +137,9 @@ private fun checkForLength(string1: String, string2: String, length: Int): Longe
 
     fun getAllHashes(string: String, length: Int): Map<Pair<Long, Long>, Int> {
         val prime1 = 1_000_000_007L
-        val prime2 = 1_000_000_009L
-        val xBase = 263L
+        val prime2 = 1_000_000_061L
+        val xBase1 = 31L
+        val xBase2 = 263L
         val hashes = mutableMapOf<Pair<Long, Long>, Int>()
         var hash1 = 0L
         var hash2 = 0L
@@ -147,8 +148,10 @@ private fun checkForLength(string1: String, string2: String, length: Int): Longe
 
         // First window
         for (i in 0 until length) {
-            hash1 = ((hash1 * xBase) + string[i].code.toLong()) % prime1
-            hash2 = ((hash2 * xBase) + string[i].code.toLong()) % prime2
+            hash1 = (hash1 * xBase1) % prime1
+            hash1 = (hash1 + string[i].code.toLong()) % prime1
+            hash2 = (hash2 * xBase2) % prime2
+            hash2 = (hash2 + string[i].code.toLong()) % prime2
         }
 
         hash1 = (hash1 % prime1 + prime1) % prime1
@@ -158,8 +161,8 @@ private fun checkForLength(string1: String, string2: String, length: Int): Longe
 
         // Maximum degree (power) to use in the rolling hash
         for (i in 1 until length) {
-            xPower1 = (xPower1 * xBase) % prime1
-            xPower2 = (xPower2 * xBase) % prime2
+            xPower1 = (xPower1 * xBase1) % prime1
+            xPower2 = (xPower2 * xBase2) % prime2
         }
 
         // Rolling Hash
@@ -167,21 +170,23 @@ private fun checkForLength(string1: String, string2: String, length: Int): Longe
             val sub1 = (string[i - 1].code.toLong() * xPower1) % prime1
             val add1 = string[i + length - 1].code.toLong()
             hash1 = (hash1 - sub1 + prime1) % prime1
-            hash1 = (hash1 * xBase) % prime1
+            hash1 = (hash1 * xBase1) % prime1
             hash1 = (hash1 + add1) % prime1
             hash1 = (hash1 % prime1 + prime1) % prime1
 
             val sub2 = (string[i - 1].code.toLong() * xPower2) % prime2
             val add2 = string[i + length - 1].code.toLong()
             hash2 = (hash2 - sub2 + prime2) % prime2
-            hash2 = (hash2 * xBase) % prime2
+            hash2 = (hash2 * xBase2) % prime2
             hash2 = (hash2 + add2) % prime2
             hash2 = (hash2 % prime2 + prime2) % prime2
 
-            // ToDo: Store all the hash codes anyway, with different starting positions `i`.
-            // Maybe, we are getting the same hash codes for different substrings!
-            // We'd better try to handle it!
-            if (!hashes.contains(hash1 to hash2)) {
+            if (hashes.containsKey(hash1 to hash2)) {
+                val startIndex = hashes[hash1 to hash2]!!
+                if (string.substring(startIndex, startIndex + length) != string.substring(i, i + length)) {
+                    hashes[hash1 to hash2] = i
+                }
+            } else {
                 hashes[hash1 to hash2] = i
             }
         }
@@ -210,23 +215,26 @@ fun main() {
     val output = StringBuilder()
     while (line != null && line.isNotBlank()) {
         val (string1, string2) = line.split(" ")
-        var start = 0
-        var end = minOf(string1.length, string2.length)
         var bestAnswer = LongestCommonStrings(0, 0, 0)
-
-        while (start <= end) {
-            val mid = start + (end - start) / 2
-            val result = checkForLength(string1, string2, mid)
-            if (result != null) {
-                bestAnswer = result
-                // Check for a longer length
-                start = mid + 1
-            } else {
-                // Check for a shorter length
-                end = mid - 1
+        if (string1.isNotEmpty() && string2.isNotEmpty()) {
+            var start = 0
+            var end = minOf(string1.length, string2.length)
+            while (start <= end) {
+                val mid = start + (end - start) / 2
+                if (mid == 0) {
+                    start = 1
+                }
+                val result = checkForLength(string1, string2, mid)
+                if (result != null) {
+                    bestAnswer = result
+                    // Check for a longer length
+                    start = mid + 1
+                } else {
+                    // Check for a shorter length
+                    end = mid - 1
+                }
             }
         }
-
         output.append("${bestAnswer.startIndex1} ${bestAnswer.startIndex2} ${bestAnswer.length}\n")
         line = reader.readLine()
     }
