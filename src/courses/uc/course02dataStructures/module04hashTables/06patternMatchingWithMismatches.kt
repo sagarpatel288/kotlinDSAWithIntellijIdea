@@ -70,5 +70,12 @@ package courses.uc.course02dataStructures.module04hashTables
  * from `t`.
  * * For the fifth triple, `t` and `p` differ in three positions.
  *
+ * ## Solution
  *
+ * ### Intuition
+ *
+ * * Precomputed prefix hashing
+ * * Binary search for length
+ * * Counting mismatches
+ * * If matched lengths + counted mismatches = pattern length --> Maybe, we have found the answer and can exit.
  */
