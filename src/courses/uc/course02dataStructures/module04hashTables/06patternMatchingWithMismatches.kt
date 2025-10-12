@@ -106,6 +106,8 @@ package courses.uc.course02dataStructures.module04hashTables
  * }
  * ```
  *
+ * **String comparison using binary search**
+ *
  * * Now, in the `longest common substring` problem, we have learned that the `binary search` helps string comparison.
  * * The idea is, instead of comparing character by character, we check characters in bulk.
  * * And `Characters in bulk` means substrings.
