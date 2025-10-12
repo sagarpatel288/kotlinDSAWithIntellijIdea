@@ -140,3 +140,6 @@ package courses.uc.course02dataStructures.module04hashTables
  * * If matched lengths + counted mismatches = pattern length --> Maybe, we have found the answer and can exit.
  * * Otherwise, slide the window until we reach the end of the text string.
  */
+fun main() {
+
+}
