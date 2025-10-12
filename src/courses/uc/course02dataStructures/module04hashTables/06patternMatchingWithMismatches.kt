@@ -74,8 +74,69 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ### Intuition
  *
+ * **How do we naively compare two strings?**
+ * **Pseudocode (core part) of naive implementation**
+ *
+ * * We compare two strings character by character.
+ * * So, it looks like below:
+ *
+ * ```
+ * // This outer loop increments the pointer of the text string
+ * for (t in 0 until text.length) {
+ *     // This inner loop increments the pointer of the pattern string
+ *     for (p in 0 until pattern.length) {
+ *         // Comparing characters
+ *         if (text[t] != pattern[p]) {
+ *             // With each mismatch, we increase the "mismatch" counter
+ *             mismatch++
+ *         } else {
+ *             // If it is a match, we increment the "matchLen" counter
+ *             matchLen++
+ *         }
+ *         if (mismatch > k) {
+ *             // We crossed the maximum allowed mismatches
+ *             matchLen = 0
+ *             break
+ *         }
+ *     }
+ *     // Result based on the mismatch counter
+ *     if (mismatch <= k) {
+ *         result.add(t) // The text index from where the pattern matching with allowed mismatches starts
+ *     }
+ * }
+ * ```
+ *
+ * * Now, in the `longest common substring` problem, we have learned that the `binary search` helps string comparison.
+ * * The idea is, instead of comparing character by character, we check characters in bulk.
+ * * And `Characters in bulk` means substrings.
+ * * And when we want to compare substrings, we use hash codes.
+ * * So, the idea is:
+ * * We use precomputed prefix hashing for the text string and the pattern string.
+ * * The binary search gives us a length.
+ * * We use the following formula to compare the substrings:
+ *
+ * ```
+ * H(a, l) = [ H(a + l) - { H(a) * x^l } ] % prime
+ * ```
+ *
+ * * And to reduce the collisions, we can use double hashing.
+ * * Now, it is possible that we don't find any match, and the binary search finishes.
+ * * For example, the binary search would start with `mid (length) = 3`, then `2`, then `1`.
+ * * What does that mean? It means that we need to move on.
+ * * We tried binary search for a particular position `t` of the text string and `p` of the pattern string.
+ * * Now, we need to try the next `t` position = `t++`, and the next `p` position = `p++`.
+ * * However, if there was a match of any length, we can `jump` over that part.
+ * * For example, let us assume that the text string is `abcdef` and the pattern is `abxy`.
+ * * Now, the binary search can tell us that it could find the maximum `matchLen = 2`.
+ * * So, we can perform `t = t + 2` and `p = p + 2`.
+ * * Also, the `matchLen` value indicates that past this `matchLen`, there is a `mismatch.`
+ *
+ *
+ * ### TL;DR
+ *
  * * Precomputed prefix hashing
  * * Binary search for length
  * * Counting mismatches
  * * If matched lengths + counted mismatches = pattern length --> Maybe, we have found the answer and can exit.
+ * * Otherwise, slide the window until we reach the end of the text string.
  */
