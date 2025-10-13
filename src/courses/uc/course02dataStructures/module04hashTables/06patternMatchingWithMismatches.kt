@@ -576,6 +576,24 @@ package courses.uc.course02dataStructures.module04hashTables
  * }
  * ```
  *
+ * **What does the `while (p < pattern.length)` indicate?**
+ *
+ * * It indicates the `character-by-character` comparison part of the `pattern`.
+ * * The pattern index `p` always starts with `p = 0` before and above this `while` loop.
+ * * Inside this `while` loop, we use the `binary search`.
+ * * The `binary search` gives us the `matchLen`.
+ * * We jump over the `matchLen` and land upon the `mismatch`.
+ * * We cross the `mismatch` by `p++`.
+ * * We do this to cover the entire pattern length.
+ * * But we need to ensure that this increments of `p` does not go beyond the `pattern.length`.
+ * * Because `p` is something that we use as a starting index inside the `binary search` with length `mid` of `pattern`.
+ * * We use it as `pattern(p, mid)` to compare a substring with the text substring `text(t, mid)`.
+ * * So, we need to ensure that we don't get `IndexOutOfBounds` exception.
+ * * Hence, `p` must be less than `pattern.length`.
+ * * And that's why this condition and this loop as `while (p < pattern.length)`.
+ *
+ * **How do we discard the comparison as long as we find too many mismatches?**
+ *
  *
  *
  * ### TL;DR
