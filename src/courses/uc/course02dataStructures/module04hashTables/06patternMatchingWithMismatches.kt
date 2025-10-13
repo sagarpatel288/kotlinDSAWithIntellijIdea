@@ -849,9 +849,44 @@ package courses.uc.course02dataStructures.module04hashTables
  * * If `mismatches <= k` and `matchLen + mismatches == pattern.length` --> Maybe, we have found a matching pattern!
  * * Otherwise, slide the window until we reach the end of the text string.
  *
+ * ## Time Complexity
+ *
+ * * Precomputed prefix hashes for the text and the pattern: |T| + |P|
+ * * Binary search: log(|P|)
+ * * The binary search runs for: |T| Times (But exits as long as mismatches > k. So, runs for `k + 1` times.)
+ * * Binary search total time: |T| * k * log(|P|) (Took `k` from `k + 1`, ignoring the constant `+ 1`).
+ * * Hence, the total time becomes:
+ * ```
+ * = Precomputation cost + Main loop cost
+ * = (|T| + |P|) + ( |T| * k * log(|P|) )
+ * ```
+ * * Now, compared to the precomputation cost, the main loop cost is higher due to the multiplicative nature.
+ * ```
+ * |T| * k * log(|P|) >> |T|
+ * ```
+ * * Similarly:
+ * ```
+ * |T| * k * log(|P|) >> |P|, given that |T| >= |P|
+ * ```
+ * * Hence, the dominant term is:
+ * ```
+ * O( |T| * k * log(|P|) )
+ * ```
+ * * Now:
+ * * If k <= 5, we can ignore it.
+ * * In that case, the total time becomes:
+ * ```
+ * O(|T| * log(|P|))
+ * ```
+ *
+ * ## Space Complexity
+ *
+ * * We use multiple arrays of size: |T| and |P| for the precomputation.
+ * * Hence, the auxiliary space is: O(|T| + |P|).
+ *
  * ## Grader output
  * ```
- * Good job! (Max time used: 2.47/5.00, max memory used: 146264064/536870912.)
+ * Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
  * ```
  */
 class PatternMatchingWithMismatches(private val text: String, private val pattern: String) {
@@ -947,6 +982,9 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                 var end = pattern.length - p
                 while (start <= end) {
                     val mid = start + (end - start) / 2
+                    if (t + mid > text.length || p + mid > pattern.length) {
+                        continue
+                    }
                     val (hash1a, hash2a) = textHashes(t, mid)
                     val (hash1b, hash2b) = patternHashes(p, mid)
                     if (hash1a == hash1b && hash2a == hash2b) {
