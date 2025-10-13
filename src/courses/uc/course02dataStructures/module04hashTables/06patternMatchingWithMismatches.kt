@@ -370,6 +370,133 @@ package courses.uc.course02dataStructures.module04hashTables
  * }
  * ```
  *
+ * * This setup, the outer `for` loop, and the two inner `while` loops, where the inner most `while` loop represents
+ * the binary search, is essentially a `character-by-character` comparison with the power of `binary search`.
+ * * Imagine a digital game where we have this `binary search` power.
+ * * We use this `binary search` power and it generates `matchLen` that we can use to `jump`.
+ * * Every jump is an acceleration and helps us finish the process (work) faster.
+ * * However, it is also possible that we always get `matchLen = 0`.
+ * * For example, the text string is `abcdef`, the pattern string is `xyz`, and `k = 0`.
+ * * After using the `binary search` power, we find that `matchLen = 0` only.
+ * * It means that:
+ * ```
+ * t += matchLen
+ * t = 0 + 0
+ * t = 0 // This doesn't make any progress. It was at 0 and it ended up at 0 only after the binary search.
+ * ```
+ * * And similarly
+ * ```
+ * p += matchLen
+ * p = 0 + 0
+ * p = 0 // Same here. It did not make any progress. It was at 0 and it ended up at 0 only after the binary search.
+ * ```
+ * * So, fall back to character-by-character comparison (process).
+ * * We couldn't jump.
+ * * But we can walk.
+ * * So, we make `t` and `p` one step forward.
+ * ```
+ * t++
+ * p++
+ * ```
+ * * But we need to ensure that `p++` does not go beyond `pattern.length`.
+ * * So, it becomes safer as:
+ * ```
+ * // Did you understand the purpose of this outer for loop?
+ * // This is the sliding window of the text string that moves from left to right, character by character.
+ * // And for the window length, it uses the inner binary search.
+ * for (i in 0 until text.length) {
+ *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
+ *     var t = i
+ *     // Did you understand why do we take this variable `p` outside the `while` loops?
+ *     var p = 0
+ *     // Did you understand the purpose of this outer while loop?
+ *     while (p < pattern.length) {
+ *         // binary search
+ *         var start = p
+ *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand why do we take `matchLen` here between these two `while` loops?
+ *         var matchLen = 0
+ *         while (start <= end) {
+ *             val mid = start + (end - start) / 2
+ *             val (hash1a, hash2a) = textHashes(t, mid)
+ *             val (hash1b, hash2b) = patternHashes(p, mid)
+ *             if (hash1a == hash1b && hash2a == hash2b) {
+ *                 matchLen = mid
+ *                 // See if the longer length matches
+ *                 start = mid + 1
+ *             } else {
+ *                 // See if the shorter length matches
+ *                 end = mid - 1
+ *             }
+ *         }
+ *         t += matchLen
+ *         p += matchLen
+ *
+ *         if (p < pattern.length) {
+ *             mismatch++
+ *             t++
+ *             p++ // It is safe here to move `p` one step forward as long as it is less than `pattern.length`.
+ *         }
+ *     }
+ * }
+ * ```
+ * **Why do we `jump` the pointers `t` and `p` two times?**
+ * ```
+ *         // First time
+ *         t += matchLen
+ *         p += matchLen
+ *
+ *         if (p < pattern.length) {
+ *             mismatch++
+ *             // Second times
+ *             t++
+ *             p++ // It is safe here to move `p` one step forward as long as it is less than `pattern.length`.
+ *         }
+ * ```
+ * * Suppose the text string is `abcdef` and the pattern is `abcxyz`.
+ * * Now, we started the process with pointer `t = 0 = character a` of the text string.
+ * * The binary search gives us `matchLen = 3`.
+ * * So, we jump as:
+ * ```
+ * t += matchLen
+ * t = t + matchLen
+ * t = 0 + 3
+ * t = 3 // at character `d` of the text string `abcdef`.
+ * ```
+ * And:
+ * ```
+ * p += matchLen
+ * p = p + matchLen
+ * p = 0 + 3
+ * p = 3 // at character `x` of the pattern string `abcxyz`.
+ * ```
+ * * See the magic of the binary search result here.
+ * * As long as `p < pattern.length`, the `t += matchLen` and `p += matchLen` always end up on the `mismatch`.
+ * * We count that.
+ * * That's why we perform `mismatch++`.
+ * * It means we have already acknowledged (and hence processed!) the comparison of the current `t` and `p` positions.
+ * * So, we need to move on!
+ * * How do we move on?
+ * ```
+ * t++
+ * t = t + 1
+ * t = 3 + 1
+ * t = 4 // at character `e` of the text string `abcdef`.
+ * ```
+ * * And
+ * ```
+ * p++
+ * p = p + 1
+ * p = 3 + 1
+ * p = 4 // at character `y` of the pattern string `abcxyz`.
+ * ```
+ * * The binary search gives us the `matchLen`.
+ * * And by jumping over the `matchLen`, we land upon the `mismatch`.
+ * * Imagine the `matchLen` as a highway, and `mismatch` as a local-rough road.
+ * * The moment we cross the `matchLen`, we land upon the local-rough road.
+ * * We not only know the `matchLen`, but we also know the `mismatch`.
+ * * So, we not only jump over the `matchLen`, but we also jump over the `mismatch`.
+ *
  * **mismatch counter**
  *
  * * We need to keep track of our wild card - the number of allowed mismatches.
