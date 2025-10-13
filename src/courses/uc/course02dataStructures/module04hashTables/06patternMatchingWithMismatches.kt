@@ -88,7 +88,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *         // Comparing characters
  *         if (text[t] != pattern[p]) {
  *             // With each mismatch, we increase the "mismatch" counter
- *             mismatch++
+ *             mismatches++
  *         } else {
  *             // If it is a match, we increment the "matchLen" counter
  *             matchLen++
@@ -364,7 +364,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *         p += matchLen
  *
  *         if (p < pattern.length) {
- *             mismatch++
+ *             mismatches++
  *         }
  *     }
  * }
@@ -433,7 +433,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *         p += matchLen
  *
  *         if (p < pattern.length) {
- *             mismatch++
+ *             mismatches++
  *             t++
  *             p++ // It is safe here to move `p` one step forward as long as it is less than `pattern.length`.
  *         }
@@ -447,7 +447,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *         p += matchLen
  *
  *         if (p < pattern.length) {
- *             mismatch++
+ *             mismatches++
  *             // Second times
  *             t++
  *             p++ // It is safe here to move `p` one step forward as long as it is less than `pattern.length`.
@@ -473,7 +473,7 @@ package courses.uc.course02dataStructures.module04hashTables
  * * See the magic of the binary search result here.
  * * As long as `p < pattern.length`, the `t += matchLen` and `p += matchLen` always end up on the `mismatch`.
  * * We count that.
- * * That's why we perform `mismatch++`.
+ * * That's why we perform `mismatches++`.
  * * It means we have already acknowledged (and hence processed!) the comparison of the current `t` and `p` positions.
  * * So, we need to move on!
  * * How do we move on?
@@ -503,7 +503,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *         p += matchLen
  *
  *         if (p < pattern.length) {
- *             mismatch++
+ *             mismatches++
  *             // Second times
  *             // Already acknowledged the mismatch. Move on.
  *             t++
@@ -568,7 +568,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  *         if (p < pattern.length) {
  *             // After the `jump`, we land upon a mismatch - as long as `p < pattern.length`.
- *             mismatch++
+ *             mismatches++
  *             t++
  *             p++ // It is safe here to move `p` one step forward as long as it is less than `pattern.length`.
  *         }
@@ -594,7 +594,56 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * **How do we discard the comparison as long as we find too many mismatches?**
  *
+ * * We can do this after we increase the `mismatches` counter.
+ * * So, it becomes:
  *
+ * ```
+ * // Did you understand the purpose of this outer for loop?
+ * // This is the sliding window of the text string that moves from left to right, character by character.
+ * // And for the window length, it uses the inner binary search.
+ * for (i in 0 until text.length) {
+ *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
+ *     var t = i
+ *     // Did you understand why do we take this variable `p` outside the `while` loops?
+ *     var p = 0
+ *     // Did you understand the purpose of this outer while loop?
+ *     while (p < pattern.length) {
+ *         // binary search
+ *         var start = p
+ *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand why do we take `matchLen` here between these two `while` loops?
+ *         var matchLen = 0
+ *         while (start <= end) {
+ *             val mid = start + (end - start) / 2
+ *             val (hash1a, hash2a) = textHashes(t, mid)
+ *             val (hash1b, hash2b) = patternHashes(p, mid)
+ *             if (hash1a == hash1b && hash2a == hash2b) {
+ *                 matchLen = mid
+ *                 // See if the longer length matches
+ *                 start = mid + 1
+ *             } else {
+ *                 // See if the shorter length matches
+ *                 end = mid - 1
+ *             }
+ *         }
+ *         t += matchLen
+ *         p += matchLen
+ *
+ *         if (p < pattern.length) {
+ *             // After the `jump`, we land upon a mismatch - as long as `p < pattern.length`.
+ *             mismatches++
+ *             if (mismatches > k) {
+ *                 // If the window at `t` has too many mismatches, discard it.
+ *                 break
+ *             }
+ *             t++
+ *             p++ // It is safe here to move `p` one step forward as long as it is less than `pattern.length`.
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * **How do we finally store the result: Starting index of the pattern matching with mismatches?**
  *
  * ### TL;DR
  *
