@@ -848,6 +848,11 @@ package courses.uc.course02dataStructures.module04hashTables
  * * Count mismatches
  * * If `mismatches <= k` and `matchLen + mismatches == pattern.length` --> Maybe, we have found a matching pattern!
  * * Otherwise, slide the window until we reach the end of the text string.
+ *
+ * ## Grader output
+ * ```
+ * Good job! (Max time used: 2.47/5.00, max memory used: 146264064/536870912.)
+ * ```
  */
 class PatternMatchingWithMismatches(private val text: String, private val pattern: String) {
     private val prime1 = 1_000_000_007L
