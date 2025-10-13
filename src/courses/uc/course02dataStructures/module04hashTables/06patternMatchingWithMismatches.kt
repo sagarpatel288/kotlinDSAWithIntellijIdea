@@ -849,6 +849,146 @@ package courses.uc.course02dataStructures.module04hashTables
  * * If `mismatches <= k` and `matchLen + mismatches == pattern.length` --> Maybe, we have found a matching pattern!
  * * Otherwise, slide the window until we reach the end of the text string.
  */
-fun main() {
+class PatternMatchingWithMismatches(private val text: String, private val pattern: String) {
+    private val prime1 = 1_000_000_007L
+    private val prime2 = 1_000_000_079L
+    private val xBase = 263L
+    private val textHashes1 = LongArray(text.length + 1)
+    private val textHashes2 = LongArray(text.length + 1)
+    private val patternHashes1 = LongArray(pattern.length + 1)
+    private val patternHashes2 = LongArray(pattern.length + 1)
+    private val xPowers1a = LongArray(text.length + 1)
+    private val xPowers2a = LongArray(text.length + 1)
+    private val xPowers1b = LongArray(pattern.length + 1)
+    private val xPowers2b = LongArray(pattern.length + 1)
 
+    init {
+        textHashes1[0] = 0L
+        textHashes2[0] = 0L
+        patternHashes1[0] = 0L
+        patternHashes2[0] = 0L
+        xPowers1a[0] = 1L
+        xPowers2a[0] = 1L
+        xPowers1b[0] = 1L
+        xPowers2b[0] = 1L
+
+        for (i in 0 until text.length) {
+            textHashes1[i + 1] = ((textHashes1[i] * xBase) + text[i].code.toLong()) % prime1
+            textHashes2[i + 1] = ((textHashes2[i] * xBase) + text[i].code.toLong()) % prime2
+        }
+
+        for (i in 0 until pattern.length) {
+            patternHashes1[i + 1] = ((patternHashes1[i] * xBase) + pattern[i].code.toLong()) % prime1
+            patternHashes2[i + 1] = ((patternHashes2[i] * xBase) + pattern[i].code.toLong()) % prime2
+        }
+
+        for (i in 1 until text.length) {
+            xPowers1a[i] = (xPowers1a[i - 1] * xBase) % prime1
+            xPowers2a[i] = (xPowers2a[i - 1] * xBase) % prime2
+        }
+
+        for (i in 1 until pattern.length) {
+            xPowers1b[i] = (xPowers1b[i - 1] * xBase) % prime1
+            xPowers2b[i] = (xPowers2b[i - 1] * xBase) % prime2
+        }
+    }
+
+    private fun textHashes(startingIndex: Int, length: Int): Pair<Long, Long> {
+        val long1 = textHashes1[startingIndex + length]
+        val short1 = textHashes1[startingIndex]
+        val sub1 = (short1 * xPowers1a[length]) % prime1
+        var hash1 = (long1 - sub1) % prime1
+        hash1 = (hash1 % prime1 + prime1) % prime1
+
+        val long2 = textHashes2[startingIndex + length]
+        val short2 = textHashes2[startingIndex]
+        val sub2 = (short2 * xPowers2a[length]) % prime2
+        var hash2 = (long2 - sub2) % prime2
+        hash2 = (hash2 % prime2 + prime2) % prime2
+
+        return hash1 to hash2
+    }
+
+    private fun patternHashes(startingIndex: Int, length: Int): Pair<Long, Long> {
+        val long1 = patternHashes1[startingIndex + length]
+        val short1 = patternHashes1[startingIndex]
+        val sub1 = (short1 * xPowers1b[length]) % prime1
+        var hash1 = (long1 - sub1) % prime1
+        hash1 = (hash1 % prime1 + prime1) % prime1
+
+        val long2 = patternHashes2[startingIndex + length]
+        val short2 = patternHashes2[startingIndex]
+        val sub2 = (short2 * xPowers2b[length]) % prime2
+        var hash2 = (long2 - sub2) % prime2
+        hash2 = (hash2 % prime2 + prime2) % prime2
+
+        return hash1 to hash2
+    }
+
+    fun findPatternMatchingWithMismatches(kAllowedMismatches: Int): Pair<Int, List<Int>> {
+        val startingIndices = mutableListOf<Int>()
+        // Sliding Window
+        for (i in 0..(text.length - pattern.length)) {
+            // Text pointer (index)
+            var t = i
+            // Pattern pointer (index)
+            var p = 0
+            // Number of mismatches found
+            var mismatches = 0
+            while (p < pattern.length) {
+                // Matching length for this window
+                var matchLen = 0
+                var start = 0
+                var end = pattern.length - p
+                while (start <= end) {
+                    val mid = start + (end - start) / 2
+                    val (hash1a, hash2a) = textHashes(t, mid)
+                    val (hash1b, hash2b) = patternHashes(p, mid)
+                    if (hash1a == hash1b && hash2a == hash2b) {
+                        // Update matched length
+                        matchLen = mid
+                        // Try a longer length
+                        start = mid + 1
+                    } else {
+                        // Try a shorter length
+                        end = mid - 1
+                    }
+                }
+                // Jump over `matchLen`
+                t += matchLen
+                p += matchLen
+                if (p < pattern.length) {
+                    mismatches++
+                    if (mismatches > kAllowedMismatches) {
+                        break
+                    }
+                    // Move past the mismatched character
+                    t++
+                    p++
+                }
+            }
+            // Result of this text window that starts from the `i` index
+            if (mismatches <= kAllowedMismatches) {
+                startingIndices.add(i)
+            }
+        }
+        return startingIndices.size to startingIndices
+    }
 }
+
+fun main() {
+    val lines = generateSequence { readLine()?.takeIf { it.isNotBlank() } }.toList()
+    val results = mutableListOf<Pair<Int, List<Int>>>()
+    for (line in lines) {
+        val (kAllowedMismatches, text, pattern) = line.split(" ")
+        val solver = PatternMatchingWithMismatches(text, pattern)
+        val result = solver.findPatternMatchingWithMismatches(kAllowedMismatches.toInt())
+        results.add(result)
+    }
+    val output = StringBuilder()
+    for (result in results) {
+        output.append(result.first).append(" ").append(result.second.joinToString(" ")).append("\n")
+    }
+    println(output.toString())
+}
+
