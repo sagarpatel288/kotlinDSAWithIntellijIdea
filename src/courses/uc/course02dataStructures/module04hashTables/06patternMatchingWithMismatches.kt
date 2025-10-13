@@ -257,6 +257,41 @@ package courses.uc.course02dataStructures.module04hashTables
  * }
  * ```
  *
+ * * Now, we need to add a couple of more things here.
+ * * matchLen counter
+ * * mismatches counter
+ * * Starting index of the pattern matching with mismatches
+ *
+ * **Did you understand why we need to add them?**
+ * **Starting index of the pattern matching (with allowed mismatches) in the text string**
+ *
+ * * We have been asked to provide the starting index of the pattern matching with mismatches.
+ * * For example, if the text is `abcdef` and the pattern is `abx` with `k = 1`, then we need to output: `1 0`.
+ * * In the output, `1` represents the total matched patterns.
+ * * `0` represents the starting index in the text that matches the pattern (can use allowed mismatches).
+ *
+ * **matchLen counter = jump**
+ *
+ * *
+ *
+ * **mismatch counter**
+ *
+ * * We need to keep track of our wild card - the number of allowed mismatches.
+ * * For example, in our previous example, where `text = abcdef` and `pattern = abx`, and `k = 1`.
+ * * We have used `k = 1` to consider `c = x` in `abc = abx`.
+ * * If `k` was `0`, and we find that `mismatches > k`, we can't consider `abc = abx`.
+ * * In that case where `k = 0`, the pattern `abx` does not fit in the text `abcdef`.
+ * * With every mismatch, we can use the allowed `mismatches` wildcard.
+ *
+ * **When, where, and how do we use the mismatch counter?**
+ *
+ * * How does the binary search work here?
+ * * If we find a match, we increase the length to see if we can find a longer substring match.
+ * * If we do not find a match, we decrease the length to see if we can find a shorter substring match.
+ * * See, at some point, the binary search finishes.
+ * * What does the end of the binary search indicate?
+ * > It covered all the possible lengths (from 0 to pattern.length).
+ *
  * * Now, it is possible that we don't find any match, and the binary search finishes.
  * * For example, the binary search would start with `mid (length) = 3`, then `2`, then `1`.
  * * What does that mean? It means that we need to move on.
