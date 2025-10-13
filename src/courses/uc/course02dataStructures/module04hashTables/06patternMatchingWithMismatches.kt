@@ -234,7 +234,10 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ```
  * // Did you understand the purpose of this outer for loop?
+ * // This is the sliding window of the text string that moves from left to right, character by character.
+ * // And for the window length, it uses the inner binary search.
  * for (t in 0 until text.length) {
+ *     // Did you understand why do we take this variable `p` outside the `while` loops?
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
  *     while (p < p.length) {
@@ -272,7 +275,100 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * **matchLen counter = jump**
  *
- * *
+ * * Why do we use it?
+ * * It is our `jump`.
+ * * This is where we leverage the binary search implementation.
+ * * For example, suppose the text is `abcdef` and the pattern is `abcxyz` and the allowed mismatch is `k = 1`.
+ * * Now, as long as we learn it through the binary search that `abc` matches, we can skip the character-by-character
+ * matching for `b` and `c`, and we can jump over `d` in the text and `x` in the pattern.
+ * * So, we can directly assign that pointer (index) `t = 3` and `p = 3`.
+ * * Let us implement this part.
+ * ```
+ * // Did you understand the purpose of this outer for loop?
+ * // This is the sliding window of the text string that moves from left to right, character by character.
+ * // And for the window length, it uses the inner binary search.
+ * for (i in 0 until text.length) {
+ *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
+ *     var t = i
+ *     // Did you understand why do we take this variable `p` outside the `while` loops?
+ *     var p = 0
+ *     // Did you understand the purpose of this outer while loop?
+ *     while (p < p.length) {
+ *         // binary search
+ *         var start = p
+ *         var end = p.length - p // Did you understand this?
+ *         // Did you understand why do we take `matchLen` here between these two `while` loops?
+ *         var matchLen = 0
+ *         while (start <= end) {
+ *             val mid = start + (end - start) / 2
+ *             val (hash1a, hash2a) = textHashes(t, mid)
+ *             val (hash1b, hash2b) = patternHashes(p, mid)
+ *             if (hash1a == hash1b && hash2a == hash2b) {
+ *                 matchLen = mid
+ *                 // See if the longer length matches
+ *                 start = mid + 1
+ *             } else {
+ *                 // See if the shorter length matches
+ *                 end = mid - 1
+ *             }
+ *         }
+ *         t += matchLen
+ *         p += matchLen
+ *     }
+ * }
+ * ```
+ * * And notice the interesting pattern here.
+ * * The point where the binary search exits is the `mismatch` character `d` in the text Vs `x` in the pattern.
+ * * But this is valid only `if index p is less than p.length`.
+ * * For example, `p += matchLen` could make the `p` jump to `p.length`.
+ * * For example, if the text was `abcdef` and the pattern was `abc`, the `jump` would make `p = 3`.
+ * ```
+ * p = p + matchLen
+ * p = 0 + 3
+ * p = 3
+ * ```
+ * * It means that at the end of the binary search, if `p < p.length`, then `p += matchLen` represents the mismatch
+ * position.
+ * * Let us implement this.
+ *
+ * ```
+ * // Did you understand the purpose of this outer for loop?
+ * // This is the sliding window of the text string that moves from left to right, character by character.
+ * // And for the window length, it uses the inner binary search.
+ * for (i in 0 until text.length) {
+ *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
+ *     var t = i
+ *     // Did you understand why do we take this variable `p` outside the `while` loops?
+ *     var p = 0
+ *     // Did you understand the purpose of this outer while loop?
+ *     while (p < p.length) {
+ *         // binary search
+ *         var start = p
+ *         var end = p.length - p // Did you understand this?
+ *         // Did you understand why do we take `matchLen` here between these two `while` loops?
+ *         var matchLen = 0
+ *         while (start <= end) {
+ *             val mid = start + (end - start) / 2
+ *             val (hash1a, hash2a) = textHashes(t, mid)
+ *             val (hash1b, hash2b) = patternHashes(p, mid)
+ *             if (hash1a == hash1b && hash2a == hash2b) {
+ *                 matchLen = mid
+ *                 // See if the longer length matches
+ *                 start = mid + 1
+ *             } else {
+ *                 // See if the shorter length matches
+ *                 end = mid - 1
+ *             }
+ *         }
+ *         t += matchLen
+ *         p += matchLen
+ *
+ *         if (p < p.length) {
+ *             mismatch++
+ *         }
+ *     }
+ * }
+ * ```
  *
  * **mismatch counter**
  *
