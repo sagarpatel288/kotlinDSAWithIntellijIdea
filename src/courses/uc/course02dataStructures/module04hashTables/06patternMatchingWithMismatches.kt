@@ -122,6 +122,141 @@ package courses.uc.course02dataStructures.module04hashTables
  * ```
  *
  * * And to reduce the collisions, we can use double hashing.
+ * * Let us add a pinch of binary search and precomputed prefix hashing mixed with double hashing.
+ *
+ * **Precomputed prefix double hashing**
+ * ```
+ * val prime1 = 1_000_000_007L
+ * val prime2 = 1_000_000_079L
+ * val xBase = 263L
+ * val xTextPowers1 = LongArray(text.length + 1)
+ * val xTextPowers2 = LongArray(text.length + 1)
+ * val xPatternPowers1 = LongArray(pattern.length + 1)
+ * val xPatternPowers2 = LongArray(pattern.length + 1)
+ *
+ * textHashes1[0] = 0L
+ * textHashes2[0] = 0L
+ * patternHashes1[0] = 0L
+ * pattenHashes2[0] = 0L
+ * xTextPowers1[0] = 1L
+ * xTextPowers2[0] = 1L
+ * xPatternPowers1[0] = 1L
+ * xPatternPowers2[0] = 1L
+ *
+ * for (i in 1 until text.length) {
+ *     xTextPowers1[i] = (xTextPowers1[i - 1] * xBase) % prime1
+ *     xTextPowers2[i] = (xTextPowers2[i - 1] * xBase) % prime2
+ * }
+ *
+ * for (i in 1 until pattern.length) {
+ *     xPatternPowers1[i] = (xPatternPowers1[i - 1] * xBase) % prime1
+ *     xPatternPowers2[i] = (xPatternPowers2[i - 1] * xBase) % prime2
+ * }
+ *
+ * // Precomputed prefix double hashing of the text string (Given that pattern.length <= text.length)
+ * for (i in 0..text.length - pattern.length) {
+ *     textHashes1[i + 1] = ( ( textHashes1[i] * xBase ) + text[i].code.toLong() ) % prime1
+ *     textHashes2[i + 1] = ( ( textHashes2[i] * xBase ) + text[i].code.toLong() ) % prime2
+ * }
+ *
+ * // precomputed prefix double hashing of the patten string
+ * for (i in 0 until pattern.length) {
+ *     patternHashes1[i + 1] = ( (patternHashes1[i] * xBase) + pattern[i].code.toLong() ) % prime1
+ *     patternHashes2[i + 1] = ( (patternHashes2[i] * xBase) + pattern[i].code.toLong() ) % prime2
+ * }
+ *
+ * fun textHashes(startIndex: Int, length: Int): Pair<Long, Long> {
+ *     val longHash1 = textHashes1[startIndex + length]
+ *     val shortHash1 = textHashes1[startIndex]
+ *     val sub1 = (shortHash1 * xTextPowers1[length]) % prime1
+ *     val hash1 = (longHash1 - sub1) % prime1
+ *
+ *     val longHash2 = textHashes2[startIndex + length]
+ *     val shortHash2 = textHashes2[startIndex]
+ *     val sub2 = (shortHash2 * xTextPowers2[length]) % prime2
+ *     val hash2 = (longHash2 - sub2) % prime2
+ *
+ *     return hash1 to hash2
+ * }
+ *
+ * fun pattenHashes(startIndex: Int, length: Int): Pair<Long, Long> {
+ *     val longHash1 = patternHashes1[startIndex + length]
+ *     val shortHash1 = patternHashes1[startIndex]
+ *     val sub1 = (shortHash1 * xPatternPowers1[length]) % prime1
+ *     val hash1 = (longHash1 - sub1) % prime1
+ *
+ *     val longHash2 = patternHashes2[startIndex + length]
+ *     val shortHash2 = patternHashes2[startIndex]
+ *     val sub2 = (shortHash2 * xPatternPowers2[length]) % prime2
+ *     val hash2 = (longHash2 - sub2) % prime2
+ *
+ *     return hash1 to hash2
+ * }
+ * ```
+ *
+ * **Binary Search**
+ *
+ * ```
+ * val mid = start + (end - start) / 2
+ * (hash1a, hash2a) = textHashes(t, mid)
+ * (hash1b, hash2b) = patternHashes(p, mid)
+ * if (hash1a == hash1b && hash2a == hash2b) {
+ *     // See if the longer length matches
+ *     start = mid + 1
+ * } else {
+ *     end = mid - 1
+ * }
+ * ```
+ *
+ * * A couple of reflective questions and observation here.
+ *
+ * **We have to stop the binary search at some point. How do we stop? What will be the condition?**
+ *
+ * * The condition will be: `while (start <= end) binarySearch`.
+ * * Let us put this condition.
+ *
+ * ```
+ * while (start <= end) {
+ *     val mid = start + (end - start) / 2
+ *     val (hash1a, hash2a) = textHashes(t, mid)
+ *     val (hash1b, hash2b) = patternHashes(p, mid)
+ *     if (hash1a == hash1b && hash2a == hash2b) {
+ *         // See if the longer length matches
+ *         start = mid + 1
+ *     } else {
+ *         // See if the shorter length matches
+ *         end = mid - 1
+ *     }
+ * }
+ * ```
+ *
+ * **And what about those two starting indices: t and p? How do we get them?**
+ *
+ * ```
+ * // Did you understand the purpose of this outer for loop?
+ * for (t in 0 until text.length) {
+ *     var p = 0
+ *     // Did you understand the purpose of this outer while loop?
+ *     while (p < p.length) {
+ *         // binary search
+ *         var start = p
+ *         var end = p.length - p // Did you understand this?
+ *         while (start <= end) {
+ *             val mid = start + (end - start) / 2
+ *             val (hash1a, hash2a) = textHashes(t, mid)
+ *             val (hash1b, hash2b) = patternHashes(p, mid)
+ *             if (hash1a == hash1b && hash2a == hash2b) {
+ *                 // See if the longer length matches
+ *                 start = mid + 1
+ *             } else {
+ *                 // See if the shorter length matches
+ *                 end = mid - 1
+ *             }
+ *         }
+ *     }
+ * }
+ * ```
+ *
  * * Now, it is possible that we don't find any match, and the binary search finishes.
  * * For example, the binary search would start with `mid (length) = 3`, then `2`, then `1`.
  * * What does that mean? It means that we need to move on.
