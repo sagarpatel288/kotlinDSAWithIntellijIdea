@@ -766,12 +766,87 @@ package courses.uc.course02dataStructures.module04hashTables
  * }
  * ```
  *
+ * **Where should we initialize the `matchLen` variable? Why not as soon as we start the new text window?**
+ *
+ * * It is the `binary search` that gives the `matchLen` for the current window.
+ * * So, we initialize before the `binary search`.
+ * * If we initialize it at the start of the new text window, it will be an accumulation of multiple `p` characters
+ * and multiple `mid` lengths.
+ *
+ * **What should be the `end-index limit` for the sliding window?**
+ *
+ * * It should be: `text.length - pattern.length` inclusive.
+ * * For example, if the text string is `abcdef` and the pattern is `xyz`, then we would go till `i = 3`.
+ * * So, we would go till `i = text.length - pattern.length = 6 - 3 = 3 = d`.
+ * * So, the sliding window loop becomes:
+ * ```
+ * for (i in 0..(text.length - pattern.length)) {
+ *     // The rest of the code as it is
+ * }
+ * ```
+ * * So, the code becomes:
+ *
+ * ```
+ * val result = mutableListOf<Int>()
+ * // Did you understand the purpose of this outer for loop?
+ * // This is the sliding window of the text string that moves from left to right, character by character.
+ * // And for the window length, it uses the inner binary search.
+ * for (i in 0..(text.length - pattern.length)) {
+ *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
+ *     var t = i
+ *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     var p = 0
+ *     // Start the `mismatches` counter as soon as we start the new text window.
+ *     var mismatches = 0
+ *     // Did you understand the purpose of this outer while loop?
+ *     while (p < pattern.length) {
+ *         // binary search
+ *         var start = p
+ *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand why we take the `matchLen` here between these two `while` loops?
+ *         var matchLen = 0
+ *         while (start <= end) {
+ *             val mid = start + (end - start) / 2
+ *             val (hash1a, hash2a) = textHashes(t, mid)
+ *             val (hash1b, hash2b) = patternHashes(p, mid)
+ *             if (hash1a == hash1b && hash2a == hash2b) {
+ *                 matchLen = mid
+ *                 // See if the longer length matches
+ *                 start = mid + 1
+ *             } else {
+ *                 // See if the shorter length matches
+ *                 end = mid - 1
+ *             }
+ *         }
+ *         t += matchLen
+ *         p += matchLen
+ *
+ *         if (p < pattern.length) {
+ *             // After the `jump`, we land upon a mismatch - as long as `p < pattern.length`.
+ *             mismatches++
+ *             if (mismatches > k) {
+ *                 // If the window at `t` has too many mismatches, discard it.
+ *                 break
+ *             }
+ *             t++
+ *             p++ // It is safe here to move `p` one step forward as long as it is less than `pattern.length`.
+ *         }
+ *     }
+ *     if (mismatches <= k && matchLen + mismatches == pattern.length) {
+ *         result.add(i)
+ *     }
+ * }
+ * ```
+ *
  * ### TL;DR
  *
  * * Precomputed prefix hashing
- * * Binary search for length
- * * Counting mismatches
- * * If matched lengths + counted mismatches = pattern length --> Maybe, we have found the answer and can exit.
+ * * Sliding window for the text string
+ * * Initialize the `mismatches` counter
+ * * Binary search for length: Glance and Jump
+ * * Jump over `matchLen`
+ * * Count mismatches
+ * * If `mismatches <= k` and `matchLen + mismatches == pattern.length` --> Maybe, we have found a matching pattern!
  * * Otherwise, slide the window until we reach the end of the text string.
  */
 fun main() {
