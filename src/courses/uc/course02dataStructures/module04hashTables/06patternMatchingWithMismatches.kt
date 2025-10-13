@@ -492,16 +492,30 @@ package courses.uc.course02dataStructures.module04hashTables
  * ```
  * * The binary search gives us the `matchLen`.
  * * And by jumping over the `matchLen`, we land upon the `mismatch`.
- * * Imagine the `matchLen` as a highway, and `mismatch` as a local-rough road.
+ * * Imagine the `matchLen` as a highway, and `mismatch` as a local, rough road.
  * * The moment we cross the `matchLen`, we land upon the local-rough road.
  * * We not only know the `matchLen`, but we also know the `mismatch`.
  * * So, we not only jump over the `matchLen`, but we also jump over the `mismatch`.
+ * * That's why:
+ * ```
+ *         // First time
+ *         t += matchLen
+ *         p += matchLen
+ *
+ *         if (p < pattern.length) {
+ *             mismatch++
+ *             // Second times
+ *             // Already acknowledged the mismatch. Move on.
+ *             t++
+ *             p++ // It is safe here to move `p` one step forward as long as it is less than `pattern.length`.
+ *         }
+ * ```
  *
  * **mismatch counter**
  *
  * * We need to keep track of our wild card - the number of allowed mismatches.
- * * For example, in our previous example, where `text = abcdef` and `pattern = abx`, and `k = 1`.
- * * We have used `k = 1` to consider `c = x` in `abc = abx`.
+ * * For example, `text = abcdef` and `pattern = abx`, and `k = 1`.
+ * * We can use `k = 1` to consider `c = x` in `abc = abx`.
  * * If `k` was `0`, and we find that `mismatches > k`, we can't consider `abc = abx`.
  * * In that case where `k = 0`, the pattern `abx` does not fit in the text `abcdef`.
  * * With every mismatch, we can use the allowed `mismatches` wildcard.
@@ -514,17 +528,54 @@ package courses.uc.course02dataStructures.module04hashTables
  * * See, at some point, the binary search finishes.
  * * What does the end of the binary search indicate?
  * > It covered all the possible lengths (from 0 to pattern.length).
+ * * The binary search gives us the `matchLen` that we can use to make a `jump`.
+ * * Once we make a jump, and if we are still under `p < pattern.length`, we land upon a `mismatch`.
+ * * When and where the `matchLen` ends, the `mismatch` starts.
+ * * Otherwise, if the `mismatch` was not a mismatch, it would have become the part of the `matchLen`!
+ * * Hence, after the `matchLen`, it is always a `mismatch` (- as long as `p < pattern.length`).
+ * * So, it becomes:
+ * ```
+ * // Did you understand the purpose of this outer for loop?
+ * // This is the sliding window of the text string that moves from left to right, character by character.
+ * // And for the window length, it uses the inner binary search.
+ * for (i in 0 until text.length) {
+ *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
+ *     var t = i
+ *     // Did you understand why do we take this variable `p` outside the `while` loops?
+ *     var p = 0
+ *     // Did you understand the purpose of this outer while loop?
+ *     while (p < pattern.length) {
+ *         // binary search
+ *         var start = p
+ *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand why do we take `matchLen` here between these two `while` loops?
+ *         var matchLen = 0
+ *         while (start <= end) {
+ *             val mid = start + (end - start) / 2
+ *             val (hash1a, hash2a) = textHashes(t, mid)
+ *             val (hash1b, hash2b) = patternHashes(p, mid)
+ *             if (hash1a == hash1b && hash2a == hash2b) {
+ *                 matchLen = mid
+ *                 // See if the longer length matches
+ *                 start = mid + 1
+ *             } else {
+ *                 // See if the shorter length matches
+ *                 end = mid - 1
+ *             }
+ *         }
+ *         t += matchLen
+ *         p += matchLen
  *
- * * Now, it is possible that we don't find any match, and the binary search finishes.
- * * For example, the binary search would start with `mid (length) = 3`, then `2`, then `1`.
- * * What does that mean? It means that we need to move on.
- * * We tried binary search for a particular position `t` of the text string and `p` of the pattern string.
- * * Now, we need to try the next `t` position = `t++`, and the next `p` position = `p++`.
- * * However, if there was a match of any length, we can `jump` over that part.
- * * For example, let us assume that the text string is `abcdef` and the pattern is `abxy`.
- * * Now, the binary search can tell us that it could find the maximum `matchLen = 2`.
- * * So, we can perform `t = t + 2` and `p = p + 2`.
- * * Also, the `matchLen` value indicates that past this `matchLen`, there is a `mismatch.`
+ *         if (p < pattern.length) {
+ *             // After the `jump`, we land upon a mismatch - as long as `p < pattern.length`.
+ *             mismatch++
+ *             t++
+ *             p++ // It is safe here to move `p` one step forward as long as it is less than `pattern.length`.
+ *         }
+ *     }
+ * }
+ * ```
+ *
  *
  *
  * ### TL;DR
