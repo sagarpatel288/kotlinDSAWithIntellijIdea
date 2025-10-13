@@ -240,10 +240,10 @@ package courses.uc.course02dataStructures.module04hashTables
  *     // Did you understand why do we take this variable `p` outside the `while` loops?
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
- *     while (p < p.length) {
+ *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = p.length - p // Did you understand this?
+ *         var end = pattern.length - p // Did you understand this?
  *         while (start <= end) {
  *             val mid = start + (end - start) / 2
  *             val (hash1a, hash2a) = textHashes(t, mid)
@@ -293,10 +293,10 @@ package courses.uc.course02dataStructures.module04hashTables
  *     // Did you understand why do we take this variable `p` outside the `while` loops?
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
- *     while (p < p.length) {
+ *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = p.length - p // Did you understand this?
+ *         var end = pattern.length - p // Did you understand this?
  *         // Did you understand why do we take `matchLen` here between these two `while` loops?
  *         var matchLen = 0
  *         while (start <= end) {
@@ -319,15 +319,15 @@ package courses.uc.course02dataStructures.module04hashTables
  * ```
  * * And notice the interesting pattern here.
  * * The point where the binary search exits is the `mismatch` character `d` in the text Vs `x` in the pattern.
- * * But this is valid only `if index p is less than p.length`.
- * * For example, `p += matchLen` could make the `p` jump to `p.length`.
+ * * But this is valid only `if index p is less than pattern.length`.
+ * * For example, `p += matchLen` could make the `p` jump to `pattern.length`.
  * * For example, if the text was `abcdef` and the pattern was `abc`, the `jump` would make `p = 3`.
  * ```
  * p = p + matchLen
  * p = 0 + 3
  * p = 3
  * ```
- * * It means that at the end of the binary search, if `p < p.length`, then `p += matchLen` represents the mismatch
+ * * It means that at the end of the binary search, if `p < pattern.length`, then `p += matchLen` represents the mismatch
  * position.
  * * Let us implement this.
  *
@@ -341,10 +341,10 @@ package courses.uc.course02dataStructures.module04hashTables
  *     // Did you understand why do we take this variable `p` outside the `while` loops?
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
- *     while (p < p.length) {
+ *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = p.length - p // Did you understand this?
+ *         var end = pattern.length - p // Did you understand this?
  *         // Did you understand why do we take `matchLen` here between these two `while` loops?
  *         var matchLen = 0
  *         while (start <= end) {
@@ -363,7 +363,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *         t += matchLen
  *         p += matchLen
  *
- *         if (p < p.length) {
+ *         if (p < pattern.length) {
  *             mismatch++
  *         }
  *     }
