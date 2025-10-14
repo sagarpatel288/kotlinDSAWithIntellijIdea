@@ -1133,20 +1133,20 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
     private val textHashes2 = LongArray(text.length + 1)
     private val patternHashes1 = LongArray(pattern.length + 1)
     private val patternHashes2 = LongArray(pattern.length + 1)
-    private val xPowers1a = LongArray(text.length + 1)
-    private val xPowers2a = LongArray(text.length + 1)
-    private val xPowers1b = LongArray(pattern.length + 1)
-    private val xPowers2b = LongArray(pattern.length + 1)
+    private val xPowersText1 = LongArray(text.length + 1)
+    private val xPowersText2 = LongArray(text.length + 1)
+    private val xPowersPattern1 = LongArray(pattern.length + 1)
+    private val xPowersPattern2 = LongArray(pattern.length + 1)
 
     init {
         textHashes1[0] = 0L
         textHashes2[0] = 0L
         patternHashes1[0] = 0L
         patternHashes2[0] = 0L
-        xPowers1a[0] = 1L
-        xPowers2a[0] = 1L
-        xPowers1b[0] = 1L
-        xPowers2b[0] = 1L
+        xPowersText1[0] = 1L
+        xPowersText2[0] = 1L
+        xPowersPattern1[0] = 1L
+        xPowersPattern2[0] = 1L
 
         for (i in 0 until text.length) {
             textHashes1[i + 1] = ((textHashes1[i] * xBase) + text[i].code.toLong()) % prime1
@@ -1159,26 +1159,26 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
         }
 
         for (i in 1 until text.length) {
-            xPowers1a[i] = (xPowers1a[i - 1] * xBase) % prime1
-            xPowers2a[i] = (xPowers2a[i - 1] * xBase) % prime2
+            xPowersText1[i] = (xPowersText1[i - 1] * xBase) % prime1
+            xPowersText2[i] = (xPowersText2[i - 1] * xBase) % prime2
         }
 
         for (i in 1 until pattern.length) {
-            xPowers1b[i] = (xPowers1b[i - 1] * xBase) % prime1
-            xPowers2b[i] = (xPowers2b[i - 1] * xBase) % prime2
+            xPowersPattern1[i] = (xPowersPattern1[i - 1] * xBase) % prime1
+            xPowersPattern2[i] = (xPowersPattern2[i - 1] * xBase) % prime2
         }
     }
 
     private fun textHashes(startingIndex: Int, length: Int): Pair<Long, Long> {
         val long1 = textHashes1[startingIndex + length]
         val short1 = textHashes1[startingIndex]
-        val sub1 = (short1 * xPowers1a[length]) % prime1
+        val sub1 = (short1 * xPowersText1[length]) % prime1
         var hash1 = (long1 - sub1) % prime1
         hash1 = (hash1 % prime1 + prime1) % prime1
 
         val long2 = textHashes2[startingIndex + length]
         val short2 = textHashes2[startingIndex]
-        val sub2 = (short2 * xPowers2a[length]) % prime2
+        val sub2 = (short2 * xPowersText2[length]) % prime2
         var hash2 = (long2 - sub2) % prime2
         hash2 = (hash2 % prime2 + prime2) % prime2
 
@@ -1188,13 +1188,13 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
     private fun patternHashes(startingIndex: Int, length: Int): Pair<Long, Long> {
         val long1 = patternHashes1[startingIndex + length]
         val short1 = patternHashes1[startingIndex]
-        val sub1 = (short1 * xPowers1b[length]) % prime1
+        val sub1 = (short1 * xPowersPattern1[length]) % prime1
         var hash1 = (long1 - sub1) % prime1
         hash1 = (hash1 % prime1 + prime1) % prime1
 
         val long2 = patternHashes2[startingIndex + length]
         val short2 = patternHashes2[startingIndex]
-        val sub2 = (short2 * xPowers2b[length]) % prime2
+        val sub2 = (short2 * xPowersPattern2[length]) % prime2
         var hash2 = (long2 - sub2) % prime2
         hash2 = (hash2 % prime2 + prime2) % prime2
 
@@ -1218,9 +1218,9 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                 var end = pattern.length - p
                 while (start <= end) {
                     val mid = start + (end - start) / 2
-                    val (hash1a, hash2a) = textHashes(t, mid)
-                    val (hash1b, hash2b) = patternHashes(p, mid)
-                    if (hash1a == hash1b && hash2a == hash2b) {
+                    val (textHash1, textHash2) = textHashes(t, mid)
+                    val (patternHash1, patternHash2) = patternHashes(p, mid)
+                    if (textHash1 == patternHash1 && textHash2 == patternHash2) {
                         // Update matched length
                         matchLen = mid
                         // Try a longer length
