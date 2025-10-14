@@ -83,10 +83,12 @@ package courses.uc.course02dataStructures.module04hashTables
  * ```
  * // This outer loop increments the pointer of the text string
  * for (t in 0 until text.length) {
+ *     // matchLen for each text window
+ *     var matchLen = 0
  *     // This inner loop increments the pointer of the pattern string
  *     for (p in 0 until pattern.length) {
  *         // Comparing characters
- *         if (text[t] != pattern[p]) {
+ *         if (text[t++] != pattern[p]) {
  *             // With each mismatch, we increase the "mismatch" counter
  *             mismatches++
  *         } else {
@@ -113,7 +115,7 @@ package courses.uc.course02dataStructures.module04hashTables
  * * And `Characters in bulk` means substrings.
  * * And when we want to compare substrings, we use hash codes.
  * * So, the idea is:
- * * We use precomputed prefix hashing for the text string and the pattern string.
+ * * We use precomputed prefix hashing for the text and pattern strings.
  * * The binary search gives us a length.
  * * We use the following formula to compare the substrings:
  *
@@ -159,7 +161,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *     textHashes2[i + 1] = ( ( textHashes2[i] * xBase ) + text[i].code.toLong() ) % prime2
  * }
  *
- * // precomputed prefix double hashing of the patten string
+ * // precomputed prefix double hashing of the pattern string
  * for (i in 0 until pattern.length) {
  *     patternHashes1[i + 1] = ( (patternHashes1[i] * xBase) + pattern[i].code.toLong() ) % prime1
  *     patternHashes2[i + 1] = ( (patternHashes2[i] * xBase) + pattern[i].code.toLong() ) % prime2
@@ -237,13 +239,25 @@ package courses.uc.course02dataStructures.module04hashTables
  * // This is the sliding window of the text string that moves from left to right, character by character.
  * // And for the window length, it uses the inner binary search.
  * for (t in 0 until text.length) {
- *     // Did you understand why do we take this variable `p` outside the `while` loops?
+ *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     // For each new text window, we start pattern comparison from the beginning.
+ *     // This is to check if the `pattern` starts from `t`.
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
  *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand this?
+ *         // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
+ *         // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
+ *         // That is: `pattern.length - p = 6 - 3 = 3`.
+ *         // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
+ *         // The `start` represents the smallest possible substring length.
+ *         // And `end` represents the highest possible substring length.
+ *         // We keep changing the `start`, `end`, and `p` values based on the `match length`.
+ *         // Hence, we need to adjust the value of the highest possible substring length.
+ *         // And this is the formula to ensure we consider and calculate it properly.
+ *         var end = pattern.length - p
  *         while (start <= end) {
  *             val mid = start + (end - start) / 2
  *             val (hash1a, hash2a) = textHashes(t, mid)
@@ -290,13 +304,25 @@ package courses.uc.course02dataStructures.module04hashTables
  * for (i in 0 until text.length) {
  *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
  *     var t = i
- *     // Did you understand why do we take this variable `p` outside the `while` loops?
+ *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     // For each new text window, we start pattern comparison from the beginning.
+ *     // This is to check if the `pattern` starts from `t`.
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
  *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand this?
+ *         // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
+ *         // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
+ *         // That is: `pattern.length - p = 6 - 3 = 3`.
+ *         // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
+ *         // The `start` represents the smallest possible substring length.
+ *         // And `end` represents the highest possible substring length.
+ *         // We keep changing the `start`, `end`, and `p` values based on the `match length`.
+ *         // Hence, we need to adjust the value of the highest possible substring length.
+ *         // And this is the formula to ensure we consider and calculate it properly.
+ *         var end = pattern.length - p
  *         // Did you understand why do we take `matchLen` here between these two `while` loops?
  *         var matchLen = 0
  *         while (start <= end) {
@@ -338,14 +364,26 @@ package courses.uc.course02dataStructures.module04hashTables
  * for (i in 0 until text.length) {
  *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
  *     var t = i
- *     // Did you understand why do we take this variable `p` outside the `while` loops?
+ *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     // For each new text window, we start pattern comparison from the beginning.
+ *     // This is to check if the `pattern` starts from `t`.
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
  *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = pattern.length - p // Did you understand this?
- *         // Did you understand why do we take `matchLen` here between these two `while` loops?
+ *         // Did you understand this?
+ *         // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
+ *         // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
+ *         // That is: `pattern.length - p = 6 - 3 = 3`.
+ *         // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
+ *         // The `start` represents the smallest possible substring length.
+ *         // And `end` represents the highest possible substring length.
+ *         // We keep changing the `start`, `end`, and `p` values based on the `match length`.
+ *         // Hence, we need to adjust the value of the highest possible substring length.
+ *         // And this is the formula to ensure we consider and calculate it properly.
+ *         var end = pattern.length - p
+ *         // Did you understand why we take the `matchLen` here between these two `while` loops?
  *         var matchLen = 0
  *         while (start <= end) {
  *             val mid = start + (end - start) / 2
@@ -370,10 +408,10 @@ package courses.uc.course02dataStructures.module04hashTables
  * }
  * ```
  *
- * * This setup, the outer `for` loop, and the two inner `while` loops, where the inner most `while` loop represents
- * the binary search, is essentially a `character-by-character` comparison with the power of `binary search`.
+ * * This setup, the outer `for` loop, and the two inner `while` loops, where the innermost `while` loop represents
+ * a binary search, is essentially a `character-by-character` comparison with the power of `binary search`.
  * * Imagine a digital game where we have this `binary search` power.
- * * We use this `binary search` power and it generates `matchLen` that we can use to `jump`.
+ * * We use this `binary search` power, and it generates `matchLen` that we can use to `jump`.
  * * Every jump is an acceleration and helps us finish the process (work) faster.
  * * However, it is also possible that we always get `matchLen = 0`.
  * * For example, the text string is `abcdef`, the pattern string is `xyz`, and `k = 0`.
@@ -382,13 +420,13 @@ package courses.uc.course02dataStructures.module04hashTables
  * ```
  * t += matchLen
  * t = 0 + 0
- * t = 0 // This doesn't make any progress. It was at 0 and it ended up at 0 only after the binary search.
+ * t = 0 // This doesn't make any progress. It was at 0, and it ended up at `0` only after the binary search.
  * ```
  * * And similarly
  * ```
  * p += matchLen
  * p = 0 + 0
- * p = 0 // Same here. It did not make any progress. It was at 0 and it ended up at 0 only after the binary search.
+ * p = 0 // Same here. It did not make any progress. It was at 0, and it ended up at `0` only after the binary search.
  * ```
  * * So, fall back to character-by-character comparison (process).
  * * We couldn't jump.
@@ -407,14 +445,43 @@ package courses.uc.course02dataStructures.module04hashTables
  * for (i in 0 until text.length) {
  *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
  *     var t = i
- *     // Did you understand why do we take this variable `p` outside the `while` loops?
+ *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     // For each new text window, we start pattern comparison from the beginning.
+ *     // This is to check if the `pattern` starts from `t`.
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
  *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = pattern.length - p // Did you understand this?
- *         // Did you understand why do we take `matchLen` here between these two `while` loops?
+ *         // Did you understand this?
+ *         // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
+ *         // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
+ *         // That is: `pattern.length - p = 6 - 3 = 3`.
+ *         // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
+ *         // The `start` represents the smallest possible substring length.
+ *         // And `end` represents the highest possible substring length.
+ *         // We keep changing the `start`, `end`, and `p` values based on the `match length`.
+ *         // Hence, we need to adjust the value of the highest possible substring length.
+ *         // And this is the formula to ensure we consider and calculate it properly.
+ *         var end = pattern.length - p
+ *         // Did you understand why we take `matchLen` here between these two `while` loops?
+ *         // It is the binary search that gives us the `matchLen` result.
+ *         // So, the `matchLen` must be re-initialized before every binary search.
+ *         // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
+ *         // But we are also changing `p`.
+ *         // Each `p` represents a unique comparison.
+ *         // For example, text = `abcdef`, and pattern = `xycdef`.
+ *         // Now, for `t = 2`, it might go as below:
+ *         // For every `t`, `p` starts with `0`.
+ *         // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
+ *         // Now, `p` moves to the next position.
+ *         // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
+ *         // Again, `p` moves to the next position.
+ *         // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
+ *         // The `matchLen` result is for specific starting positions `t` and `p`.
+ *         // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
+ *         // Changing `p` must reset the `matchLen`.
+ *         // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
  *         var matchLen = 0
  *         while (start <= end) {
  *             val mid = start + (end - start) / 2
@@ -542,13 +609,42 @@ package courses.uc.course02dataStructures.module04hashTables
  *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
  *     var t = i
  *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     // For each new text window, we start pattern comparison from the beginning.
+ *     // This is to check if the `pattern` starts from `t`.
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
  *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand this?
+ *         // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
+ *         // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
+ *         // That is: `pattern.length - p = 6 - 3 = 3`.
+ *         // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
+ *         // The `start` represents the smallest possible substring length.
+ *         // And `end` represents the highest possible substring length.
+ *         // We keep changing the `start`, `end`, and `p` values based on the `match length`.
+ *         // Hence, we need to adjust the value of the highest possible substring length.
+ *         // And this is the formula to ensure we consider and calculate it properly.
+ *         var end = pattern.length - p
  *         // Did you understand why we take `matchLen` here between these two `while` loops?
+ *         // It is the binary search that gives us the `matchLen` result.
+ *         // So, the `matchLen` must be re-initialized before every binary search.
+ *         // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
+ *         // But we are also changing `p`.
+ *         // Each `p` represents a unique comparison.
+ *         // For example, text = `abcdef`, and pattern = `xycdef`.
+ *         // Now, for `t = 2`, it might go as below:
+ *         // For every `t`, `p` starts with `0`.
+ *         // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
+ *         // Now, `p` moves to the next position.
+ *         // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
+ *         // Again, `p` moves to the next position.
+ *         // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
+ *         // The `matchLen` result is for specific starting positions `t` and `p`.
+ *         // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
+ *         // Changing `p` must reset the `matchLen`.
+ *         // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
  *         var matchLen = 0
  *         while (start <= end) {
  *             val mid = start + (end - start) / 2
@@ -605,13 +701,42 @@ package courses.uc.course02dataStructures.module04hashTables
  *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
  *     var t = i
  *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     // For each new text window, we start pattern comparison from the beginning.
+ *     // This is to check if the `pattern` starts from `t`.
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
  *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand this?
+ *         // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
+ *         // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
+ *         // That is: `pattern.length - p = 6 - 3 = 3`.
+ *         // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
+ *         // The `start` represents the smallest possible substring length.
+ *         // And `end` represents the highest possible substring length.
+ *         // We keep changing the `start`, `end`, and `p` values based on the `match length`.
+ *         // Hence, we need to adjust the value of the highest possible substring length.
+ *         // And this is the formula to ensure we consider and calculate it properly.
+ *         var end = pattern.length - p
  *         // Did you understand why we take `matchLen` here between these two `while` loops?
+ *         // It is the binary search that gives us the `matchLen` result.
+ *         // So, the `matchLen` must be re-initialized before every binary search.
+ *         // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
+ *         // But we are also changing `p`.
+ *         // Each `p` represents a unique comparison.
+ *         // For example, text = `abcdef`, and pattern = `xycdef`.
+ *         // Now, for `t = 2`, it might go as below:
+ *         // For every `t`, `p` starts with `0`.
+ *         // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
+ *         // Now, `p` moves to the next position.
+ *         // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
+ *         // Again, `p` moves to the next position.
+ *         // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
+ *         // The `matchLen` result is for specific starting positions `t` and `p`.
+ *         // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
+ *         // Changing `p` must reset the `matchLen`.
+ *         // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
  *         var matchLen = 0
  *         while (start <= end) {
  *             val mid = start + (end - start) / 2
@@ -659,13 +784,42 @@ package courses.uc.course02dataStructures.module04hashTables
  *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
  *     var t = i
  *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     // For each new text window, we start pattern comparison from the beginning.
+ *     // This is to check if the `pattern` starts from `t`.
  *     var p = 0
  *     // Did you understand the purpose of this outer while loop?
  *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand this?
+ *         // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
+ *         // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
+ *         // That is: `pattern.length - p = 6 - 3 = 3`.
+ *         // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
+ *         // The `start` represents the smallest possible substring length.
+ *         // And `end` represents the highest possible substring length.
+ *         // We keep changing the `start`, `end`, and `p` values based on the `match length`.
+ *         // Hence, we need to adjust the value of the highest possible substring length.
+ *         // And this is the formula to ensure we consider and calculate it properly.
+ *         var end = pattern.length - p
  *         // Did you understand why we take the `matchLen` here between these two `while` loops?
+ *         // It is the binary search that gives us the `matchLen` result.
+ *         // So, the `matchLen` must be re-initialized before every binary search.
+ *         // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
+ *         // But we are also changing `p`.
+ *         // Each `p` represents a unique comparison.
+ *         // For example, text = `abcdef`, and pattern = `xycdef`.
+ *         // Now, for `t = 2`, it might go as below:
+ *         // For every `t`, `p` starts with `0`.
+ *         // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
+ *         // Now, `p` moves to the next position.
+ *         // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
+ *         // Again, `p` moves to the next position.
+ *         // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
+ *         // The `matchLen` result is for specific starting positions `t` and `p`.
+ *         // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
+ *         // Changing `p` must reset the `matchLen`.
+ *         // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
  *         var matchLen = 0
  *         while (start <= end) {
  *             val mid = start + (end - start) / 2
@@ -723,6 +877,8 @@ package courses.uc.course02dataStructures.module04hashTables
  *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
  *     var t = i
  *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     // For each new text window, we start pattern comparison from the beginning.
+ *     // This is to check if the `pattern` starts from `t`.
  *     var p = 0
  *     // Start the `mismatches` counter as soon as we start the new text window.
  *     var mismatches = 0
@@ -730,8 +886,35 @@ package courses.uc.course02dataStructures.module04hashTables
  *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand this?
+ *         // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
+ *         // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
+ *         // That is: `pattern.length - p = 6 - 3 = 3`.
+ *         // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
+ *         // The `start` represents the smallest possible substring length.
+ *         // And `end` represents the highest possible substring length.
+ *         // We keep changing the `start`, `end`, and `p` values based on the `match length`.
+ *         // Hence, we need to adjust the value of the highest possible substring length.
+ *         // And this is the formula to ensure we consider and calculate it properly.
+ *         var end = pattern.length - p
  *         // Did you understand why we take the `matchLen` here between these two `while` loops?
+ *         // It is the binary search that gives us the `matchLen` result.
+ *         // So, the `matchLen` must be re-initialized before every binary search.
+ *         // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
+ *         // But we are also changing `p`.
+ *         // Each `p` represents a unique comparison.
+ *         // For example, text = `abcdef`, and pattern = `xycdef`.
+ *         // Now, for `t = 2`, it might go as below:
+ *         // For every `t`, `p` starts with `0`.
+ *         // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
+ *         // Now, `p` moves to the next position.
+ *         // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
+ *         // Again, `p` moves to the next position.
+ *         // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
+ *         // The `matchLen` result is for specific starting positions `t` and `p`.
+ *         // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
+ *         // Changing `p` must reset the `matchLen`.
+ *         // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
  *         var matchLen = 0
  *         while (start <= end) {
  *             val mid = start + (end - start) / 2
@@ -772,6 +955,25 @@ package courses.uc.course02dataStructures.module04hashTables
  * * So, we initialize before the `binary search`.
  * * If we initialize it at the start of the new text window, it will be an accumulation of multiple `p` characters
  * and multiple `mid` lengths.
+ * * It is the binary search that gives us the `matchLen` result.
+ * * So, the `matchLen` must be re-initialized before every binary search.
+ * * The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
+ * * But we are also changing `p`.
+ * * Each `p` represents a unique comparison.
+ * * For example, text = `abcdef`, and pattern = `xycdef`.
+ * * Now, for `t = 2`, it might go as below:
+ * * For every `t`, `p` starts with `0`.
+ * * It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
+ * * Now, `p` moves to the next position.
+ * * So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
+ * * Again, `p` moves to the next position.
+ * * So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
+ * * The `matchLen` result is for specific starting positions `t` and `p`.
+ * * We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
+ * * Changing `p` must reset the `matchLen`.
+ * * Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
+ * * That's why the right place to initialize (or reset) the `matchLen` is between `while (p < patten.length)` and
+ * before we start the binary search.
  *
  * **What should be the `end-index limit` for the sliding window?**
  *
@@ -795,6 +997,8 @@ package courses.uc.course02dataStructures.module04hashTables
  *     // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
  *     var t = i
  *     // Did you understand why we take the variable `p` outside the `while` loops?
+ *     // For each new text window, we start pattern comparison from the beginning.
+ *     // This is to check if the `pattern` starts from `t`.
  *     var p = 0
  *     // Start the `mismatches` counter as soon as we start the new text window.
  *     var mismatches = 0
@@ -802,8 +1006,35 @@ package courses.uc.course02dataStructures.module04hashTables
  *     while (p < pattern.length) {
  *         // binary search
  *         var start = p
- *         var end = pattern.length - p // Did you understand this?
+ *         // Did you understand this?
+ *         // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
+ *         // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
+ *         // That is: `pattern.length - p = 6 - 3 = 3`.
+ *         // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
+ *         // The `start` represents the smallest possible substring length.
+ *         // And `end` represents the highest possible substring length.
+ *         // We keep changing the `start`, `end`, and `p` values based on the `match length`.
+ *         // Hence, we need to adjust the value of the highest possible substring length.
+ *         // And this is the formula to ensure we consider and calculate it properly.
+ *         var end = pattern.length - p
  *         // Did you understand why we take the `matchLen` here between these two `while` loops?
+ *         // It is the binary search that gives us the `matchLen` result.
+ *         // So, the `matchLen` must be re-initialized before every binary search.
+ *         // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
+ *         // But we are also changing `p`.
+ *         // Each `p` represents a unique comparison.
+ *         // For example, text = `abcdef`, and pattern = `xycdef`.
+ *         // Now, for `t = 2`, it might go as below:
+ *         // For every `t`, `p` starts with `0`.
+ *         // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
+ *         // Now, `p` moves to the next position.
+ *         // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
+ *         // Again, `p` moves to the next position.
+ *         // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
+ *         // The `matchLen` result is for specific starting positions `t` and `p`.
+ *         // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
+ *         // Changing `p` must reset the `matchLen`.
+ *         // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
  *         var matchLen = 0
  *         while (start <= end) {
  *             val mid = start + (end - start) / 2
@@ -848,6 +1079,11 @@ package courses.uc.course02dataStructures.module04hashTables
  * * Count mismatches
  * * If `mismatches <= k` and `matchLen + mismatches == pattern.length` --> Maybe, we have found a matching pattern!
  * * Otherwise, slide the window until we reach the end of the text string.
+ * * In one sentence:
+ * ```
+ * It quickly finds the `matchLen` (using allowed mismatches), where the matched substring starts from the position `t`
+ * in the text and `p` in the pattern.
+ * ```
  *
  * ## Time Complexity
  *
@@ -873,8 +1109,8 @@ package courses.uc.course02dataStructures.module04hashTables
  * O( |T| * k * log(|P|) )
  * ```
  * * Now:
- * * If k <= 5, we can ignore it.
- * * In that case, the total time becomes:
+ * * As per the problem statement, `k <= 5`, which makes `k` a small constant.
+ * * In that case, the effective total time becomes:
  * ```
  * O(|T| * log(|P|))
  * ```
@@ -982,9 +1218,6 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                 var end = pattern.length - p
                 while (start <= end) {
                     val mid = start + (end - start) / 2
-                    if (t + mid > text.length || p + mid > pattern.length) {
-                        continue
-                    }
                     val (hash1a, hash2a) = textHashes(t, mid)
                     val (hash1b, hash2b) = patternHashes(p, mid)
                     if (hash1a == hash1b && hash2a == hash2b) {
