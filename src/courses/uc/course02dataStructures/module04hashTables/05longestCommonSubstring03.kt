@@ -105,20 +105,18 @@ class LongestCommonSubstring03(private val string1: String, private val string2:
 }
 
 fun main() {
-    val reader = BufferedReader(InputStreamReader(System.`in`))
-    var line = reader.readLine()
+    val lines = generateSequence { readLine()?.takeIf { it.isNotBlank() } }.toList()
     val output = StringBuilder()
-    while (line != null && line.isNotBlank()) {
+    for (line in lines) {
         val (string1, string2) = line.split(" ")
         val lcs = LongestCommonSubstring03(string1, string2)
         var bestAnswer = Triple(0, 0, 0)
+        // Shortest possible length of a substring match
         var start = 0
+        // Longest possible length of a substring match
         var end = minOf(string1.length, string2.length)
         while (start <= end) {
             val mid = start + (end - start) / 2
-            if (mid == 0) {
-                start = 1
-            }
             val answer = lcs.checkForLength(mid)
             if (answer != null) {
                 bestAnswer = answer
@@ -128,7 +126,6 @@ fun main() {
             }
         }
         output.append("${bestAnswer.first} ${bestAnswer.second} ${bestAnswer.third}\n")
-        line = reader.readLine()
     }
     println(output.toString())
 }
