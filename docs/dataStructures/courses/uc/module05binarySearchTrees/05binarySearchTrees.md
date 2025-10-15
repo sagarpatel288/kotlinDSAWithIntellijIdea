@@ -252,3 +252,21 @@ flowchart TD
     style n4 stroke:none,fill:transparent
 ```
 
+* We processed all the elements.
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("3")) --> n1(("2")) & n2(("5"))
+    n1 --> n3(("1"))
+    n1 --- n4(("<br>"))
+    n2 --> n5(("4")) & n6(("6"))
+    style n4 stroke:none,fill:transparent
+    linkStyle 3 stroke:none,fill:none
+```
+
