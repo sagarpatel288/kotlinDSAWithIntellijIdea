@@ -28,6 +28,39 @@
 
 ### Why `BST`?
 
+#### Post-sorted Operations
+
+![15rangeSearchExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/15rangeSearchExample.png)
+
+* **Any operation that works faster on a pre-sorted data.** 
+* We might want to get the list of all the students with marks between **a particular range.**
+* We might want to get the list of a few students with marks below and above **a particular range**. So, a list of students with marks **near the given range**.
+* We might want to get the list of all the emails between **a particular date range**.
+* We might want to return **all the words** from a dictionary that starts with the **first letter of a given string**.
+
+#### Problems with the known data structures
+
+* Reference: [Priority Queue](../module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
+
+##### Arrays
+
+* An unsorted array would take `O(n)` time to find a range or neighbours.
+* A sorted array would take `O(n)` time for `insert`, and `delete` operations.
+
+##### Linked Lists
+
+* An unsorted linked list would take `O(n)` time to find a range or neighbours.
+* A sorted linked list would take `O(n)` time for the `insert` operation.
+* We cannot perform the `Binary Search` on a linked list.
+* Because a linked list is not a contiguous data structure.
+
+##### Hash Table
+
+* Look up is fine in a hash table. We can do it in `O(1)`.
+* But comparing and searching for a particular range, or neighbour, is almost impractical. We have to compare each element with all the other elements.
+
+#### Search
+
 * A normal binary tree can take `O(n)` (linear time) for searching a node, because we have to check each node. Reference: [Trees](../module01BasicDataStructures/section03trees/trees.md).
 * Whereas, a BST takes `O(Tree Height) = O(log n)` for searching.
 
