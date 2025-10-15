@@ -5,6 +5,7 @@
   * [Prerequisites/References](#prerequisitesreferences)
   * [Introduction](#introduction)
     * [Why `BST`?](#why-bst)
+    * [`In-Order` Traversal is sorted](#in-order-traversal-is-sorted)
 <!-- TOC -->
 
 ## Prerequisites/References
@@ -27,5 +28,227 @@
 
 ### Why `BST`?
 
-* A normal binary tree can take `O(n)` (linear time) for searching a node, because we have to check each node.
-* 
+* A normal binary tree can take `O(n)` (linear time) for searching a node, because we have to check each node. Reference: [Trees](../module01BasicDataStructures/section03trees/trees.md).
+* Whereas, a BST takes `O(Tree Height) = O(log n)` for searching.
+
+![10bstFindIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/10bstFindIntro.png)
+
+* For example, in the given image, we want to find `6`.
+* We may start with the root node: `3`.
+* We compare `3` and `6`. 
+* We find that `6 > 3`. 
+* It means that `6` must be at the right side.
+* So, we completely discard the left side of `3`.
+* We check the right child of `3`.
+* We find the right child of `3` is `5`.
+* We compare `5` and `6`.
+* We find that `6 > 5`.
+* It means that `6` must be at the right side.
+* So again, we completely discard the left side of `5`.
+* We check the right child of `5`.
+* We find the right child of `5` is `6`.
+
+### `In-Order(Left-Parent-Right)` Traversal is sorted
+
+![05binarySearchTreesBSTIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/05binarySearchTreesBSTIntro.png)
+
+* We may start the traversal with the root (parent) node `3`.
+* The `In-order` traversal follows `Left-Parent-Right` order.
+* So, we always prioritize and cover the `Left` children first.
+* Then, we cover the `parents`.
+* And in the end, we cover the `Right` children.
+* The process looks like below:
+---
+> Start: Standing at a node. This is the current parent. 
+> Cover the left child. Repeat from the start until there is no more left child.  
+> Cover the node itself.  
+> Cover the right child. Repeat from the start.  
+---
+* So, standing at `3`, we ask: Do we have a `left` child? 
+* Yes, we have: `2`. It becomes the current parent.
+* Again, standing at `2`, we ask: Do we have a `left` child?
+* Yes, we have: `1`. It becomes the current parent.
+* Again, standing at `1`, we ask: Do we have a `left` child?
+* No. 
+* So, we cover the current `parent`, that is `1`. 
+```
+1
+```
+* After covering the parent, we ask: Do we have a `right` child?
+* No. 
+* So, it is time to cover the `immediate parent` of the `current parent`.
+* The immediate parent of the current parent `1` is `2`.
+* Now, the the current parent is `2`.
+* Did we cover the left child of the current parent? Yes.
+* So, we cover the current parent, `2`.
+```
+1 --> 2
+```
+* After covering the parent, we ask: Do we have a `right` child?
+* No. 
+* So, it is time to cover the `immediate parent` of the `current parent`.
+* The immediate parent of the current parent, `2` is `3`.
+* Now, the current parent is `3`.
+* So, we cover `3`.
+```
+1 --> 2 --> 3
+```
+* After covering the parent, we ask: Do we have a `right` child?
+* Yes.
+* The right child is `5`.
+* So, it becomes the current parent.
+* Standing at the parent, we ask: Do we have a `left` child?
+* Yes.
+* The left child is `4`.
+* So, it becomes the current parent.
+* Standing at the parent, we ask: Do we have a `left` child?
+* No.
+* So, we cover the current parent, `4`.
+```
+1 --> 2 --> 3 --> 4
+```
+* After covering the parent, we ask: Do we have a `right` child?
+* No.
+* Cover the immediate parent, `5`.
+```
+1 --> 2 --> 3 --> 4 --> 5
+```
+* After covering the parent, we ask: Do we have a `right` child?
+* Yes. 
+* Go to the right child, `6`.
+* Ask: Do we have a `left` child?
+* No.
+* Cover the current parent, `6`.
+```
+1 --> 2 --> 3 --> 4 --> 5 --> 6
+```
+* After covering the parent, we ask: Do we have a `right` child?
+* No.
+* Done.
+
+### Building a BST (Binary Search Tree)
+
+* Let us say, we have an array: {3, 2, 1, 5, 6, 4}.
+* We want to build a binary search tree (BST) for it.
+* We cover each element of the array, one by one, one at a time.
+* We compare each element of the array with the BST using the `in-order` traversal.
+* The first element is: `3`.
+* The BST does not have any node yet. 
+* There is no root node in the BST yet.
+* So, in that case (a base case), the incoming element becomes the root.
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("3"))
+```
+* Then, we get `2`.
+* So, we compare it with the root: `3`.
+* `3` > `2`. So, `2` goes to the left.
+* There is no element to the left of the `3`.
+* So, we set `2` to the left of `3`.
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("3")) --> n1(("2")) & n2(("?"))
+    style n2 stroke:none,fill:transparent
+```
+
+* Then, we get `1`.
+* We start with the root, `3`. 
+* We compare it with the root, `3`.
+* `3` > `1`. So, `1` goes to the left of `3`.
+* When we go to the left of `3`, we find `2`.
+* So, we compare `1` with `2`.
+* `2` > `1`. So, `1` goes to the left of `2`.
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("3")) --> n1(("2")) & n2(("?"))
+    n1 --> n3(("1")) & n4(("?"))
+    style n2 stroke:none,fill:transparent
+    style n4 stroke:none,fill:transparent
+```
+
+* Then, we get `5`.
+* We compare it with the root, `3`.
+* `3` < `5`. So, `5` goes to the right of `3`.
+* When we go to the right of `3`, we don't find any node.
+* So, we set `5` to the right of `3`.
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("3")) --> n1(("2")) & n2(("5"))
+    n1 --> n3(("1")) & n4(("?"))
+    style n4 stroke:none,fill:transparent
+```
+
+* Then, we get `6`.
+* We compare it with the root, `3`.
+* `3` < `6`. So, we travel to the right of `3`.
+* We get `5`. We compare it with `6`.
+* `5` < `6`. So, `6` goes to the right of `5`.
+* We travel to the right of `5`.
+* We find nothing.
+* So, we place `6` to the right of `5`.
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("3")) --> n1(("2")) & n2(("5"))
+    n1 --> n3(("1")) & n4(("?"))
+    n2 --> n5(("?")) & n6(("6"))
+    style n4 stroke:none,fill:transparent
+    style n5 stroke:none,fill:transparent
+```
+
+* Then, we get `4`.
+* We compare it with the root, `3`.
+* `3` < `4`. So, we travel right to `3`.
+* We get `5`. We compare it with `4`.
+* `5` > `4`. So, we travel left to `5`.
+* We find nothing.
+* So, we place `4` to the left of `5`.
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("3")) --> n1(("2")) & n2(("5"))
+    n1 --> n3(("1")) & n4(("?"))
+    n2 --> n5(("4")) & n6(("6"))
+    style n4 stroke:none,fill:transparent
+```
+
