@@ -52,6 +52,8 @@ fun find(key: Int, rootNode: Node): Node {
 
 ![40bstNextLargerAdjacent02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/40bstNextLargerAdjacent02.png)
 
+
+
 ## Range Search
 
 ## Insert
