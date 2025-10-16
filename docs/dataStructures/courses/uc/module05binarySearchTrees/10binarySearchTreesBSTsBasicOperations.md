@@ -3,7 +3,7 @@
 <!-- TOC -->
 * [Binary Search Trees (BSTs): Basic Operations](#binary-search-trees-bsts-basic-operations)
   * [Find (Search)](#find-search)
-  * [Next (Adjacent Element)](#next-adjacent-element)
+  * [Next (Adjacent Element, Next Largest)](#next-adjacent-element-next-largest)
   * [Range Search](#range-search)
   * [Insert](#insert)
   * [Delete](#delete)
@@ -46,7 +46,11 @@ fun find(key: Int, rootNode: Node): Node {
 
 ```
 
-## Next (Adjacent Element)
+## Next (Adjacent Element, Next Largest)
+
+![35bstNextLargerAdjacent01.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/35bstNextLargerAdjacent01.png)
+
+![40bstNextLargerAdjacent02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/40bstNextLargerAdjacent02.png)
 
 ## Range Search
 
