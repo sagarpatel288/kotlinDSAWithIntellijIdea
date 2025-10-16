@@ -4,8 +4,16 @@
 * [Binary Search Trees](#binary-search-trees)
   * [Prerequisites/References](#prerequisitesreferences)
   * [Introduction](#introduction)
+  * [Examples](#examples)
     * [Why `BST`?](#why-bst)
-    * [`In-Order` Traversal is sorted](#in-order-traversal-is-sorted)
+      * [Post-sorted Operations](#post-sorted-operations)
+      * [Problems with the known data structures](#problems-with-the-known-data-structures)
+        * [Arrays](#arrays)
+        * [Linked Lists](#linked-lists)
+        * [Hash Table](#hash-table)
+      * [Search](#search)
+    * [`In-Order(Left-Parent-Right)` Traversal is sorted](#in-orderleft-parent-right-traversal-is-sorted)
+    * [Building a BST (Binary Search Tree)](#building-a-bst-binary-search-tree)
 <!-- TOC -->
 
 ## Prerequisites/References
@@ -26,6 +34,15 @@
 * Left child is less than the parent.
 * Parent is less than the right child.
 
+## Examples
+
+![25bstExamples.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/25bstExamples.png)
+
+* A and C are not proper binary search trees.
+* In `C`, `4` is at the right subtree of the node `5`.
+* But `4 < 5`. So, `4` should have been at the left subtree of the node `5`.
+* B is a proper binary search tree.
+
 ### Why `BST`?
 
 #### Post-sorted Operations
@@ -41,6 +58,8 @@
 #### Problems with the known data structures
 
 * Reference: [Priority Queue](../module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
+
+![20bstNeedPurposeIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/20bstNeedPurposeIntro.png)
 
 ##### Arrays
 
@@ -64,7 +83,7 @@
 * A normal binary tree can take `O(n)` (linear time) for searching a node, because we have to check each node. Reference: [Trees](../module01BasicDataStructures/section03trees/trees.md).
 * Whereas, a BST takes `O(Tree Height) = O(log n)` for searching.
 
-![10bstFindIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/10bstFindIntro.png)
+![10bstFindIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/12bstFindIntro.png)
 
 * For example, in the given image, we want to find `6`.
 * We may start with the root node: `3`.
