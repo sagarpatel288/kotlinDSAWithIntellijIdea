@@ -35,6 +35,7 @@
 * Left child < Parent < Right Child.
 * Left child is less than the parent.
 * Parent is less than the right child.
+* For a node `N`, its value is larger than the descendants of its left child, and smaller than the descendants of its right child.
 
 ## Examples
 
