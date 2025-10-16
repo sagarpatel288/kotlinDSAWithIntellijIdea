@@ -28,6 +28,8 @@
 
 ## Introduction
 
+![30bstStructure.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/30bstStructure.png)
+
 ![05binarySearchTreesBSTIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/05binarySearchTreesBSTIntro.png)
 
 * Left child < Parent < Right Child.
@@ -111,10 +113,10 @@
 * And in the end, we cover the `Right` children.
 * The process looks like below:
 ---
-> Start: Standing at a node. This is the current parent. 
-> Cover the left child. Repeat from the start until there is no more left child.  
-> Cover the node itself.  
-> Cover the right child. Repeat from the start.  
+> Start: Standing at a node. This is the current parent.     
+> Cover the left child. Repeat from the start until there is no more left child.    
+> Cover the node itself.    
+> Cover the right child. Repeat from the start.    
 ---
 * So, standing at `3`, we ask: Do we have a `left` child? 
 * Yes, we have: `2`. It becomes the current parent.
