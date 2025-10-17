@@ -112,7 +112,23 @@ fun nextLargerParent(node: Node): Node? {
 
 ## Range Search
 
-* 
+![60bstRangeSearch.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/60bstRangeSearch.png)
+
+* Suppose, we have got `rangeSearch(5, 12)`.
+* Now, if we denote the ranges as: `5 = x` and `12 = y`.
+* Then, we would keep looking for the next larger node until the node value becomes equal to or greater than `y`.
+
+```kotlin
+
+fun rangeSearch(xLeftLimit: Node, yRightLimit: Node) {
+    var node = xLeftLimit
+    val results = mutableListOf<Node>()
+    while (node.key < yRightLimit.key) {
+        node = nextLarger(node)
+        results.add(node)
+    }
+}
+```
 
 ## Insert
 
