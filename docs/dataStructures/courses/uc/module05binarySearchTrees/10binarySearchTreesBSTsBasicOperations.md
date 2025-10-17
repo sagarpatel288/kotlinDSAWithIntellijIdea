@@ -2,12 +2,25 @@
 
 <!-- TOC -->
 * [Binary Search Trees (BSTs): Basic Operations](#binary-search-trees-bsts-basic-operations)
+  * [Prerequisites/References](#prerequisitesreferences)
   * [Find (Search)](#find-search)
   * [Next (Adjacent Element, Next Largest)](#next-adjacent-element-next-largest)
   * [Range Search](#range-search)
   * [Insert](#insert)
   * [Delete](#delete)
+  * [Next](#next)
 <!-- TOC -->
+
+## Prerequisites/References
+
+
+* [Trees](../module01BasicDataStructures/section03trees/trees.md)
+* [Basic Data Structure Questions](../module01BasicDataStructures/questionsOnBasicDataStructures.md)
+* [Priority Queues](../module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
+* [Binary Heap Trees](../module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
+* [Complete Binary Tree](../module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic03CompleteBinaryTrees/completeBinaryTrees.md)
+* [Heap Sort](../module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+* [Binary Search Trees](05binarySearchTrees.md)
 
 ## Find (Search)
 
@@ -67,3 +80,4 @@ fun find(key: Int, rootNode: Node): Node {
 
 ## Delete
 
+## Next
