@@ -37,19 +37,20 @@
 
 ```kotlin
 
-fun find(key: Int, rootNode: Node): Node {
-    if (rootNode != null && rootNode.key == key) {
+fun find(key: Int, rootNode: Node): Node? {
+    if (rootNode == null) return null
+    if (rootNode.key == key) {
         return rootNode
     }
     var currentNode = rootNode
-    if (key > currentNode.key) {
-        return if (currentNode.right != null) {
+    return if (key > currentNode.key) {
+        if (currentNode.right != null) {
             find(key, currentNode.right)
         } else {
             currentNode
         }
     } else if (key < currentNode.key) {
-        return if (currentNode.left != null) {
+        if (currentNode.left != null) {
             find(key, currentNode.left)
         } else {
             currentNode
@@ -80,7 +81,8 @@ fun find(key: Int, rootNode: Node): Node {
 
 ```kotlin
 
-fun nextLarger(node: Node): Node? {
+fun nextLarger(node: Node?): Node? {
+    if (node == null) return null
     return if (node.right != null) {
         nextLargerLeftDescendant(node.right)
     } else {
@@ -88,24 +90,25 @@ fun nextLarger(node: Node): Node? {
     }
 }
 
-fun nextLargerLeftDescendant(node: Node): Node? {
-    return if (node == null || node.left == null) {
-        node
-    } else {
-        nextLargerLeftDescendant(node.left)
+fun nextLargerLeftDescendant(node: Node?): Node? {
+    if (node == null) return null
+    var currentNode = node
+    while (currentNode.left != null) {
+        currentNode = currentNode.left
     }
+    return currentNode
 }
 
-fun nextLargerParent(node: Node): Node? {
-    return if (node.parent != null && node.key < node.parent) {
-        node.parent
-    } else {
-        return if (node.parent != null) {
-            nextLargerParent(node.parent)
-        } else {
-            null
+fun nextLargerParent(node: Node?): Node? {
+    if (node == null) return null
+    var currentNode = node
+    while (currentNode.parent != null) {
+        currentNode = currentNode.parent
+        if (currentNode.key > node.key) {
+            return currentNode
         }
     }
+    return currentNode
 }
 
 ```
@@ -117,15 +120,16 @@ fun nextLargerParent(node: Node): Node? {
 * Suppose, we have got `rangeSearch(5, 12)`.
 * Now, if we denote the ranges as: `5 = x` and `12 = y`.
 * Then, we would keep looking for the next larger node until the node value becomes equal to or greater than `y`.
+* Note that we want to add nodes whose key values are greater than `x`, but less than `y`.
 
 ```kotlin
 
 fun rangeSearch(xLeftLimit: Node, yRightLimit: Node) {
-    var node = xLeftLimit
+    var node = nextLarger(xLeftLimit)
     val results = mutableListOf<Node>()
-    while (node.key < yRightLimit.key) {
-        node = nextLarger(node)
+    while (node != null && node.key < yRightLimit.key) {
         results.add(node)
+        node = nextLarger(node)
     }
 }
 ```
@@ -141,13 +145,18 @@ fun rangeSearch(xLeftLimit: Node, yRightLimit: Node) {
 
 ```kotlin
 
-fun insert(key: Node) {
+fun insert(key: Int, rootNode: Node?): Node {
+    val newNode = Node(key)
+    if (rootNode == null) {
+        return newNode
+    }
     val node = find(key, rootNode)
     if (node.key < key) {
-        node.right = Node(key)
+        node.right = newNode
     } else {
-        node.left = Node(key)
+        node.left = newNode
     }
+    return newNode
 }
 ```
 
