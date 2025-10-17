@@ -74,6 +74,34 @@ fun find(key: Int, rootNode: Node): Node {
 * If `N` does not have a right child, then:
   * Keep going upwards through parents until we find the larger key than `N`.
 
+```kotlin
+
+fun nextLarger(node: Node): Node? {
+    return if (node.right != null) {
+        nextLargerLeftDescendant(node.right)
+    } else {
+        nextLargerParent(node)
+    }
+}
+
+fun nextLargerLeftDescendant(node: Node): Node? {
+    return if (node == null || node.left == null) {
+        node
+    } else {
+        nextLargerLeftDescendant(node.left)
+    }
+}
+
+fun nextLargerParent(node: Node): Node? {
+    return if (node.parent != null && node.key < node.parent) {
+        node.parent
+    } else {
+        return nextLargerParent(node.parent)
+    }
+}
+
+```
+
 ## Range Search
 
 ## Insert
