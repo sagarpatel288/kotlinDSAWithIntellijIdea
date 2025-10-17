@@ -67,12 +67,16 @@ fun find(key: Int, rootNode: Node): Node {
 
 ![45bstNextLargerAdjacent03.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/45bstNextLargerAdjacent03.png)
 
+![50bstNextLargerAdjacent04.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/50bstNextLargerAdjacent04.png)
+
 * Suppose we want to find `nextLarger(N)`.
 * If we have a right child of `N`, then:
   * Go to the right side once.
   * And then keep going to the left side until we hit the end.
 * If `N` does not have a right child, then:
   * Keep going upwards through parents until we find the larger key than `N`.
+* If we reach the root and do not find any larger key than `N`, then:
+  * Return the best output: Error, null, the subject node `N` itself, the last node we reached (might be a misleading, wrong, confusing choice), etc.
 
 ```kotlin
 
@@ -96,13 +100,19 @@ fun nextLargerParent(node: Node): Node? {
     return if (node.parent != null && node.key < node.parent) {
         node.parent
     } else {
-        return nextLargerParent(node.parent)
+        return if (node.parent != null) {
+            nextLargerParent(node.parent)
+        } else {
+            null
+        }
     }
 }
 
 ```
 
 ## Range Search
+
+* 
 
 ## Insert
 
