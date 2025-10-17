@@ -44,7 +44,7 @@ fun find(key: Int, rootNode: Node): Node {
     var currentNode = rootNode
     if (key > currentNode.key) {
         return if (currentNode.right != null) {
-            find(key, currentNode)
+            find(key, currentNode.right)
         } else {
             currentNode
         }
@@ -131,6 +131,25 @@ fun rangeSearch(xLeftLimit: Node, yRightLimit: Node) {
 ```
 
 ## Insert
+
+![70bstInsert.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/70bstInsert.png)
+
+* Reference: [Find Operation](#find-search)
+* Suppose, we want to insert a node with key `3`.
+* The [Find](#find-search) operation may or may not find a node with key `3`.
+* But it gives us the nearest position where the node with key `3` should fit.
+
+```kotlin
+
+fun insert(key: Node) {
+    val node = find(key, rootNode)
+    if (node.key < key) {
+        node.right = Node(key)
+    } else {
+        node.left = Node(key)
+    }
+}
+```
 
 ## Delete
 
