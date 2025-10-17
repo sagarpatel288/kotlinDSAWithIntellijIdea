@@ -153,4 +153,25 @@ fun insert(key: Node) {
 
 ## Delete
 
+![80bstDelete.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete.png)
+
+* Suppose, we want to delete `13`.
+* Then, we would first replace `13` with its `nextLarger` node.
+* And then, the next larger node takes the place of `13`.
+* And if the next larger node has any right child, then it will take the vacant place of its parent - as its parent has moved to take place of `13`.
+* ToDo: 
+* What if the node we want to delete does not have any right child? 
+
+
+```kotlin
+
+fun delete(node: Node) {
+    val deletingNode = find(node, rootNode)
+    val nextLargerNode = nextLarger(node)
+    val rightChild = nextLargerNode.right
+    
+}
+
+```
+
 ## Next
