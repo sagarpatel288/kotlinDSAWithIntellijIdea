@@ -52,7 +52,14 @@ fun find(key: Int, rootNode: Node): Node {
 
 ![40bstNextLargerAdjacent02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/40bstNextLargerAdjacent02.png)
 
+![45bstNextLargerAdjacent03.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/45bstNextLargerAdjacent03.png)
 
+* Suppose we want to find `nextLarger(N)`.
+* If we have a right child of `N`, then:
+  * Go to the right side once.
+  * And then keep going to the left side until we hit the end.
+* If `N` does not have a right child, then:
+  * Keep going upwards through parents until we find the larger key than `N`.
 
 ## Range Search
 
