@@ -38,6 +38,17 @@
 * Parent is less than the right child.
 * For a node `N`, its value is larger than the descendants of its left child, and smaller than the descendants of its right child.
 
+```kotlin
+
+data class TreeNode(
+    var key: Int,
+    var parent: TreeNode? = null,
+    var leftChild: TreeNode? = null,
+    var rightChild: TreeNode? = null
+)
+
+```
+
 ## Examples
 
 ![25bstExamples.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/25bstExamples.png)
