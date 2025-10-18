@@ -217,8 +217,8 @@ fun nextLargerParent(node: Node?): Node? {
 
 ![60bstRangeSearch.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/60bstRangeSearch.png)
 
-* Suppose, we have got `rangeSearch(5, 12)`.
-* Now, if we denote the ranges as: `5 = x` and `12 = y`.
+* Suppose, we have got `rangeSearch(5, 19)`.
+* Now, if we denote the ranges as: `5 = x` and `19 = y`.
 * Then, we would keep looking for the next larger node until the node value becomes equal to or greater than `y`.
 * Note that we want to add nodes whose key values are greater than `x`, but less than `y`.
 
