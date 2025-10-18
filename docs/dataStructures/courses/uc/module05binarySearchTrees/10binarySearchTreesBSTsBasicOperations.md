@@ -24,38 +24,83 @@
 
 ## Find (Search)
 
+* Find and return the node that has the given key value.
+* 
+
 ![10bstFindIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/12bstFindIntro.png)
 
-* We start with the root node. 
-* So, `currentNode = rootNode`.
 * If the key we want to find is equal to the root key, we return the root.
+* Otherwise, we start with the root node. 
+* So, `currentNode = rootNode`.
+* And then we will start our searching journey using iteration.
+
+**Code Translation**
+
+```kotlin
+if (rootNode.key == key) return rootNode
+var currentNode = rootNode
+```
+
+* We will stop our searching: 
+  * As soon as we find a node that has the given key.
+  * Or when we fall off the tree! (We finish the tree, but can't find the key!)
+  
+**Code Translation** 
+
+```kotlin
+
+// Keep searching as long as we haven't fallen off the tree
+// That is to say: Keep searching as long as the "currentNode != null"
+while (currentNode != null) {
+    
+}
+```
+
+**Inside the `while` loop: Looking for the key**
+
+* If `key == currentNode.key`, we return the `currentNode`.
 * Otherwise, if the `key > currentNode.key`, we need to go to the right side (direction) of the current node.
   * But only if the `currentNode` has a right child! 
 * If the `key < currentNode.key`, we need to go left side of the current node.
   * But only if the `currentNode` has a left child!
 * If we can't find the given key, the last station (node) is the closest one where the key would come.
 
+**Code Translation**
+
 ```kotlin
 
-fun find(key: Int, rootNode: Node): Node? {
+when {
+    key == currentNode.key -> return currentNode
+    key > currentNode.key -> currentNode = currentNode.right
+    key < currentNode.key -> currentNode = currentNode.left
+}
+```
+
+**What if we reach the end of the tree?**
+
+* When the `currentNode.right` or `currentNode.left` gives a `null` value, we finished (fallen off) the tree. 
+* So, the `while` condition `currentNode != null` becomes false, and we exit the loop.
+* Hence, we get a `null` value for the `currentNode` after the `while` loop.  
+
+**Pseudocode**
+
+```kotlin
+
+fun find(key: Int, rootNode: Node?): Node? {
     if (rootNode == null) return null
     if (rootNode.key == key) {
         return rootNode
     }
     var currentNode = rootNode
-    return if (key > currentNode.key) {
-        if (currentNode.right != null) {
-            find(key, currentNode.right)
-        } else {
-            currentNode
-        }
-    } else if (key < currentNode.key) {
-        if (currentNode.left != null) {
-            find(key, currentNode.left)
-        } else {
-            currentNode
+    while (currentNode != null) {
+        when {
+            key == currentNode.key -> return currentNode
+            key < currentNode.key -> currentNode == currentNode.left
+            key > currentNode.key -> currentNode == currentNode.right
         }
     }
+    // The `while` loop finished. We fallen off the tree. The `currentNode` is `null`.
+    return currentNode
 }
 
 ```
