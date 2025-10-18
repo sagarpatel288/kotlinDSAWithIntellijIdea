@@ -107,22 +107,78 @@ fun find(key: Int, rootNode: Node?): Node? {
 
 ## Next (Adjacent Element, Next Largest)
 
+* We want to find the **next largest** key than the given node.
+* Now, there are two possibilities:
+  * Either the subject node has a right subtree.
+  * The subject does not have a right subtree.
+* If the subject has a right subtree:
+  * We go to the right side of the subject once.
+  * And then we keep going to the left side until we hit the end.
+
 ![35bstNextLargerAdjacent01.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/35bstNextLargerAdjacent01.png)
 
 ![40bstNextLargerAdjacent02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/40bstNextLargerAdjacent02.png)
 
+**We go to the right side once and then to the left side. But what if there is no left subtree?**
+
+* In that case, the right side node is the **next largest** node.
+
+![40bstNextLargerAdjacent02b.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/40bstNextLargerAdjacent02b.png)
+
+**Code Translation**
+
+```kotlin
+
+var currentNode = subjectNode
+if (subjectNode.right != null) {
+    // Go to the right direction once
+    currentNode = subjectNode.right
+    // Then go to the left most node
+    while (currentNode?.left != null) {
+        currentNode = currentNode.left
+    }
+    // This left most node is the next largest node
+    return currentNode
+}
+
+```
+
+
+* If the subject does not have a right subtree:
+  * We travel upwards via parents until we find the next larger node.
+
 ![45bstNextLargerAdjacent03.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/45bstNextLargerAdjacent03.png)
+
+**When will we find the next larger parent?**
+
+* As long as the current node is not null and it is a right child of the parent, the parent cannot be the next larger node.
+* Only once we find that the current node is a left child of the parent, it is the next larger node.
+
+```kotlin
+var currentNode = subjectNode
+if (subjectNode.right == null) {
+    var parentNode = currentNode.parent
+    // Keep climbing upside
+    while (parentNode != null && currentNode == parentNode.right) {
+        currentNode = parentNode
+        parentNode = parentNode.parent
+    }
+    // When the `while` loop exits:
+    // Either the `parentNode` is `null`. So, we couldn't find the next larger node.
+    // Or `currentNode == parentNode.left` that makes the `parentNode` the next larger node.
+    return parentNode
+}
+```
+
+* Now, when we travel upwards via parents, we may or may not find the next larger node.
 
 ![50bstNextLargerAdjacent04.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/50bstNextLargerAdjacent04.png)
 
 * Suppose we want to find `nextLarger(N)`.
-* If we have a right child of `N`, then:
-  * Go to the right side once.
-  * And then keep going to the left side until we hit the end.
-* If `N` does not have a right child, then:
-  * Keep going upwards through parents until we find the larger key than `N`.
 * If we reach the root and do not find any larger key than `N`, then:
   * Return the best output: Error, null, the subject node `N` itself, the last node we reached (might be a misleading, wrong, confusing choice), etc.
+  * Here, we return `null` that indicates there is no next larger node.
+  * It means that the subject node itself is the largest node!
 
 ```kotlin
 
@@ -147,13 +203,12 @@ fun nextLargerLeftDescendant(node: Node?): Node? {
 fun nextLargerParent(node: Node?): Node? {
     if (node == null) return null
     var currentNode = node
-    while (currentNode.parent != null) {
-        currentNode = currentNode.parent
-        if (currentNode.key > node.key) {
-            return currentNode
-        }
+    var parentNode = currentNode.parent
+    while (parentNode != null && currentNode == parentNode.right) {
+        currentNode = parentNode
+        parentNode = parentNode.parent
     }
-    return currentNode
+    return parentNode
 }
 
 ```
