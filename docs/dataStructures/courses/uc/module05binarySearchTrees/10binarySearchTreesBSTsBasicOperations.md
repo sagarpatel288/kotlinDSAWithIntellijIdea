@@ -183,25 +183,99 @@ fun rangeSearch(xLeftLimit: Node, yRightLimit: Node) {
 
 ![70bstInsert.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/70bstInsert.png)
 
-* Reference: [Find Operation](#find-search)
-* Suppose, we want to insert a node with key `3`.
-* The [Find](#find-search) operation may or may not find a node with key `3`.
-* But it gives us the nearest position where the node with key `3` should fit.
+* Suppose, we want to insert a node with key `4`.
+* We want to insert a new node.
+* So, we need to create a new node.
+
+**Code Translation**
+
+```kotlin
+val newNode = Node(key = 4)
+```
+
+**Initial base conditions**
+
+* If the `rootNode` is `null`, the `newNode` becomes the `rootNode` and we are done.
+
+**Code Translation**
 
 ```kotlin
 
-fun insert(key: Int, rootNode: Node?): Node {
+if (rootNode == null) {
+    rootNode = newNode
+    return
+}
+```
+
+**What if the `rootNode` is not `null`?**
+
+* In that case, we need to find the correct `parent` under which the `newNode` should fit.
+
+**What happens to the existing `child` of the `parent` under which the `newNode` would fit?**
+
+* This is the magic of the binary search tree!
+* The correct spot (position, location) will always be `null` for the `newNode` in a valid binary search tree.
+* The `newNode` that we insert always ends up being a `leaf` node.
+
+**How do we insert the `newNode`?**
+
+* We follow the [find](#find-search) approach to travel the tree.
+* When the `currentNode` becomes `null` (when we exit the `while` loop), we fit the `newNode` right there.
+* But we cannot fit (float!) the `newNode` in the air! 
+* We need a `parentNode` under which we can attach the `newNode`.
+* And the `parentNode` is the node right before the `currentNode` became `null`. 
+* It means that we need to keep track of the `parentNode` as well along with the `currentNode`.
+* Because `currentNode` tells the spot where we fit the `newNode` and the `parentNode` holds the `newNode`.
+* Now, as we can see in the [find](#find-search), inside the `while` loop, the `currentNode` is not `null`.
+* So, we can assign the `parentNode` inside the `while` loop.
+
+**Code Translation**
+
+```kotlin
+val newNode = Node(key = 4)
+var currentNode = rootNode
+var parentNode = currentNode
+while (currentNode != null) {
+    parentNode = currentNode
+    when {
+        newNode.key == currentNode.key -> return
+        newNode.key > currentNode.key -> currentNode = currentNode.right
+        newNode.key < currentNode.key -> currentNode = currentNode.left
+    }
+}
+newNode.parent = parentNode
+if (newNode.key > parentNode.key) {
+    parentNode.right = newNode
+} else {
+    parentNode.left = newNode
+}
+```
+
+* So, the full pseudocode is as below:
+
+```kotlin
+
+fun insert(key: Int, rootNode: Node?) {
     val newNode = Node(key)
     if (rootNode == null) {
         return newNode
     }
-    val node = find(key, rootNode)
-    if (node.key < key) {
-        node.right = newNode
-    } else {
-        node.left = newNode
+    var currentNode = rootNode
+    var parentNode = currentNode
+    while (currentNode != null) {
+        parentNode = currentNode
+        when {
+            key == currentNode.key -> return
+            key < currentNode.key -> currentNode = currentNode.left
+            key > currentNode.key -> currentNode = currentNode.right
+        }
     }
-    return newNode
+    newNode.parent = parentNode
+    if (key < parentNode.key) {
+        parentNode.left = newNode
+    } else {
+        parentNode.right = newNode
+    }
 }
 ```
 
