@@ -293,7 +293,6 @@ val tree = [1, 4, 6, 7, 8, 10, 11, 13, 17, 18, 20, 25, 30, 35, 40, 50]
 * Clones send results to the boss mutant.
 * So, we don't revisit (re-travel, re-touch) a single node twice!
 * But yes, we pay the price of: Clones (recursion stack).
-* However, the price cannot be more than the tree height (log n)
 
 **Code Translation**
 
