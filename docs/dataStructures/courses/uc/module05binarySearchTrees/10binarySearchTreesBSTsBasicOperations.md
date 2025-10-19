@@ -152,7 +152,7 @@ if (subjectNode.right != null) {
 **When will we find the next larger parent?**
 
 * As long as the current node is not null and it is a right child of the parent, the parent cannot be the next larger node.
-* Only once we find that the current node is a left child of the parent, it is the next larger node.
+* Only once we find that the current node is a left child of the parent, the `parent` is the next larger node.
 
 ```kotlin
 var currentNode = subjectNode
@@ -217,20 +217,113 @@ fun nextLargerParent(node: Node?): Node? {
 
 ![60bstRangeSearch.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/60bstRangeSearch.png)
 
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("7")) --> n1(("4")) & n2(("13"))
+    n1 --> n3(("1")) & n4(("6"))
+    n2 --> n5(("10"))
+    n2 --- n6(("30"))
+    n3 ~~~ n9(("<br>"))
+    n5 --> n10(("8")) & n11(("11"))
+    n6 --> n12(("20")) & n13(("40"))
+    n12 --> n14(("17")) & n15(("25"))
+    n14 ~~~ n16(("<br>"))
+    n14 --> n17(("18"))
+    n13 --> n18(("35")) & n19(("50"))
+    style n9 stroke:none,fill:transparent
+    style n16 stroke:none,fill:transparent
+
+```
+* Suppose the tree is:
+```kotlin
+
+val tree = [1, 4, 6, 7, 8, 10, 11, 13, 17, 18, 20, 25, 30, 35, 40, 50]
+```
 * Suppose, we have got `rangeSearch(5, 19)`.
 * Now, if we denote the ranges as: `5 = x` and `19 = y`.
-* Then, we would keep looking for the next larger node until the node value becomes equal to or greater than `y`.
-* Note that we want to add nodes whose key values are greater than `x`, but less than `y`.
+* We want to add nodes whose key values are between `x` and `y` inclusive.
+* Then, we can keep looking for the next larger node until the node value becomes equal to or greater than `y`.
+* The `nextLarger` approach must start with one `find` call to stand on the `x` node.
+* And from there, we can keep looking for the `nextLarger` node.
+* The `find` operation takes `O(Tree Height)` = $O(\;log (n)\;)$ time.
+* The problem with this `nextLarger` approach is that we may re-visit (re-travel) nodes and paths along the way.
+* For example, in the given image, the `nextLarger` travels `7 --> 13 --> 10 --> 8` to find `nextLarger(7)`.
+* Then, from `8`, the same person travels and touches the nodes `8 --> 10`. 
+* So, `10` is re-touched, (re-visited, re-travelled).
+* From `10`, the person travels to `11`.
+* And from `11`, the person travels as: `11 --> 10 --> 13`.
+* See, all these two nodes, `10` and `13` are re-touched (re-visited, re-travelled) again.
+* We can do better than that.
+* The idea is: We do `Pruned In-Order Traversal`.
+* `Prune` means: To trim (cut) away dead or overgrown branches from trees to improve their growth or shape.
+* So, while following `L-P-R` traversal, if at any point, the node is out of range, we discard the subtree.
+* In case of the `nextLarger` approach, we had a single normal human being.
+* In case of the `Pruned In-Order Traversal,` we hire a mutant.
+* The mutant has a super-power of creating multiple self-cloning (recursion).
+* But the mutant is also lazy!
+* The mutant does not visit more than 1 node!
+* Instead of visiting each node by himself, the mutant creates clones and follows `In-Order: L-P-R`.
+* Now, the mutant is so lazy (or smart) that before creating clones, he checks: Do I need to?
+* For example, the mutant at node `4` does not create any `left-side clone` as he finds everything is small down there.
+* Similarly, the mutant at node `30` does not create any `right-side clone` as he finds everything is large down there.
+* The mutant that creates a clone, becomes the boss mutant.
+* If there is a left-side, the boss mutant creates a left-side clone and sends them to the left-side.
+* Once the left-side clone finishes the travelling, they call the boss mutant (returns the result) and disappears.
+* Yes, once the mutant calls the boss (returns the result), he disappears (Garbage collected). 
+* Then, the boss mutant processes the occupied node (does his job of comparison for the `rangeSearch`).
+* And then the boss mutant creates a right-side clone.
+* Once the right-side clone finishes the job, they call the boss mutant (returns the result) and disappears.
+* And then the boss mutant calls his boss mutant, and disappears.
+* Now, the mutant doesn't even need to `find` the lower-end boundary of the range.
+* The mutant starts with the root, `7`. 
+* And for our example, after `7`, it will be the `right-side clone` who will visit `13`.
+* `13` creates a `left-side clone` (recursion) that visits `10`.
+* `10` creates a `left-side clone` (recursion) that visits `8`.
+* `8` does not create any clone, finishes the job, and calls (returns the result) to the boss mutant `10`.
+* `10` processes the occupied node and creates a `right-side clone` (recursion) that visits `11`.
+* `11` does not create any clone, finishes the job, and calls (returns the result) to `10`.
+* `10` calls (returns the result) to `13`.
+* Each mutant only visits a single node and sends clones for other nodes.
+* Clones send results to the boss mutant.
+* So, we don't revisit (re-travel, re-touch) a single node twice!
+* But yes, we pay the price of: Clones (recursion stack).
+* However, the price cannot be more than the tree height (log n)
+
+**Code Translation**
 
 ```kotlin
 
-fun rangeSearch(xLeftLimit: Node, yRightLimit: Node) {
-    var node = nextLarger(xLeftLimit)
-    val results = mutableListOf<Node>()
-    while (node != null && node.key < yRightLimit.key) {
-        results.add(node)
-        node = nextLarger(node)
+fun rangeSearch(xLeftLimit: Int, yRightLimit: Int): List<Int> {
+    val results = mutableListOf<Int>()
+    fun rangeSearchHelper(node: Node?, xLeftLimit: Int, yRightLimit: Int) {
+        if (node == null) return
+        // The `Left` part of `Left-Parent-Right`.
+        // Don't worry. We follow `L-P-R`.
+        // So, even though we know that `node.key > xLeftLimit`, we will process it after finishing the `L` part.
+        // Before proceeding the left part, check if the left subtree is within the range.
+        if (node.key > xLeftLimit) {
+            rangeSearchHelper(node.left, xLeftLimit, yRightLimit)
+        }
+        // The `P` part of `L-Parent-R`.
+        if (node.key >= xLeftLimit && node.key <= yRightLimit) {
+            results.add(node.key)
+        }
+        // Before proceeding the right subtree, check if the right subtree is within the range.
+        if (node.key < yRightLimit) {
+            rangeSearchHelper(node.right, xLeftLimit, yRightLimit)
+        }
     }
+    // Handle edge cases
+    if (xLeftLimit > yRightLimit) {
+        return results
+    }
+    return rangeSearchHelper(rootNode, xLeftLimit, yRightLimit)
 }
 ```
 
