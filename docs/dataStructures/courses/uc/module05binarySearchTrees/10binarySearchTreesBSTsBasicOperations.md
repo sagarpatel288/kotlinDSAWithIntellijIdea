@@ -557,7 +557,7 @@ fun replaceNode(nodeToDelete: Node?, childOfNodeToDelete: Node?) {
 
 **Case: 03: `nodeToDelete` has two children**
 
-![80bstDelete.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete.png)
+![80bstDelete03.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete03.png)
 
 * Suppose, we want to delete `13`.
 * Then, we would first replace `13` with its `nextLarger` node. (`nodeToDelete = nextLargerNode`)
