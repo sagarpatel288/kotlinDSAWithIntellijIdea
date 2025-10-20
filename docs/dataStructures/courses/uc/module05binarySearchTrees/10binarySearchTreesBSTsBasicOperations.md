@@ -95,8 +95,8 @@ fun find(key: Int, rootNode: Node?): Node? {
     while (currentNode != null) {
         when {
             key == currentNode.key -> return currentNode
-            key < currentNode.key -> currentNode == currentNode.left
-            key > currentNode.key -> currentNode == currentNode.right
+            key < currentNode.key -> currentNode = currentNode.left
+            key > currentNode.key -> currentNode = currentNode.right
         }
     }
     // The `while` loop finished. We fallen off the tree. The `currentNode` is `null`.
@@ -159,6 +159,9 @@ var currentNode = subjectNode
 if (subjectNode.right == null) {
     var parentNode = currentNode.parent
     // Keep climbing upside
+    // As long as we are (`currentNode`) is at the right side of the parent, the parent is smaller than us. 
+    // Such a parent cannot be the `next larger` node.
+    // So, we keep looking until we find ourselves as the left child of the parent.
     while (parentNode != null && currentNode == parentNode.right) {
         currentNode = parentNode
         parentNode = parentNode.parent
@@ -322,7 +325,8 @@ fun rangeSearch(xLeftLimit: Int, yRightLimit: Int): List<Int> {
     if (xLeftLimit > yRightLimit) {
         return results
     }
-    return rangeSearchHelper(rootNode, xLeftLimit, yRightLimit)
+    rangeSearchHelper(rootNode, xLeftLimit, yRightLimit)
+    return results
 }
 ```
 
@@ -405,7 +409,8 @@ if (newNode.key > parentNode.key) {
 fun insert(key: Int, rootNode: Node?) {
     val newNode = Node(key)
     if (rootNode == null) {
-        return newNode
+        rootNode = newNode
+        return
     }
     var currentNode = rootNode
     var parentNode = currentNode
@@ -476,6 +481,7 @@ if (nodeToDelete.left == null && nodeToDelete.right == null) {
     } else {
         nodeToDelete.parent.right = null
     }
+    nodeToDelete = null
 }
 
 ```
@@ -545,6 +551,7 @@ fun replaceNode(nodeToDelete: Node?, childOfNodeToDelete: Node?) {
         parent?.right = childOfNodeToDelete
     }
     childOfNodeToDelete?.parent = parent
+    nodeToDelete = null
 }
 ```
 
@@ -559,12 +566,14 @@ fun replaceNode(nodeToDelete: Node?, childOfNodeToDelete: Node?) {
 
 ```kotlin
 
-fun delete(node: Node) {
-    val deletingNode = find(node, rootNode)
-    val nextLargerNode = nextLarger(node)
-    val rightChild = nextLargerNode.right
-    deletingNode = nextLargerNode 
-    replace(nextLargerNode, nextLargerNode.right)
+fun delete(key: Int) {
+    val deletingNode = find(key, rootNode)
+    if (deletingNode != null) {
+        val nextLargerNode = nextLarger(node)
+        val rightChild = nextLargerNode.right
+        deletingNode = nextLargerNode
+        replace(nextLargerNode, nextLargerNode.right)
+    }
 }
 ```
 
