@@ -428,15 +428,134 @@ fun insert(key: Int, rootNode: Node?) {
 
 ## Delete
 
+* While performing the `delete` operation, we need to ensure and keep the tree a valid BST.
+* We can keep the tree a valid binary search tree by taking care of (by handling):
+  * Parent
+  * Left Subtree
+  * Right Subtree
+* Suppose the node we want to delete is `nodeToDelete`.
+* Now, when we delete a node, what gets affected?
+  * The parent of the `nodeToDelete`
+  * The left subtree of the `nodeToDelete`
+  * And the right subtree of the `nodeToDelete`
+* So, we need to handle those `3` pointers, along with the edge cases.
+* What are the edge cases?
+  * Maybe, the `nodeToDelete` is `null`. 
+  * Maybe, the `nodeToDelete` is the `rootNode`!
+
+**How do we manage the pointers?**
+
+```kotlin
+
+// The `nodeToDelete` is `null`.
+if (nodeToDelete == null) {
+    return
+}
+
+// The `nodeToDelete` is the `rootNode`.
+if (nodeToDelete.parent == null) {
+    rootNode = null
+}
+
+```
+
+**Case: 01: `nodeToDelete` does not have any children** 
+
+![80bstDelete01.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete01.png)
+
+* In this case, we just disconnect `nodeToDelete` and its parent.
+* So, it becomes:
+
+```kotlin
+
+// If `nodeToDelete` does not have any children
+if (nodeToDelete.left == null && nodeToDelete.right == null) {
+    // If `nodeToDelete` is a left child 
+    if (nodeToDelete == nodeToDelete.parent.left) {
+        nodeToDelete.parent.left = null
+    } else {
+        nodeToDelete.parent.right = null
+    }
+}
+
+```
+
+**Case: 02: `nodeToDelete` has a single child**
+
+![80bstDelete02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete02.png)
+
+* In this case, the child of `nodeToDelete` takes the place of `nodeToDelete`.
+* Now, either the `nodeToDelete` is a left-child or a right-child of the parent.
+* Also, either the `nodeToDelete` has a left-child or a right-child.
+* So, the pseudocode becomes:
+
+```kotlin
+
+// If `nodeToDelete` is a left child of the parent
+if (nodeToDelete == nodeToDelete.parent.left) {
+    // If `nodeToDelete` has only a right child
+    if (nodeToDelete.left == null && nodeToDelete.right != null) {
+        // The parent of `nodeToDelete` points to the child of `nodeToDelete`
+        nodeToDelete.parent.left = nodeToDelete.right
+        // Needs to change the parent of `nodeToDelete.right`
+        nodeToDelete.right.parent = nodeToDelete.parent 
+        // If `nodeToDelete` has only a left child
+    } else if (nodeToDelete.right == null && nodeToDelete.left != null) {
+        // The parent of `nodeToDelete` points to the child of `nodeToDelete`
+        nodeToDelete.parent.left = nodeToDelete.left
+        // Needs to change the parent of the `nodeToDelete.left`
+        nodeToDelete.left.parent = nodeToDelete.parent
+    }
+    // If `nodeToDelete` is a right child of the parent
+} else if (nodeToDelete == nodeToDelete.parent.right) {
+    // If `nodeToDelete` has only a right child
+    if (nodeToDelete.left == null && nodeToDelete.right != null) {
+        // The parent of `nodeToDelete` points to the child of `nodeToDelete`
+        nodeToDelete.parent.right = nodeToDelete.right
+        // Needs to change the parent of the `nodeToDelete.right`
+        nodeToDelete.right = nodeToDelete.parent
+        // If `nodeToDelete` has only a left child
+    } else if (nodeToDelete.right == null && nodeToDelete.left != null) {
+        // The parent of `nodeToDelete` points to the child of `nodeToDelete`
+        nodeToDelete.parent.right = nodeToDelete.left
+        // Needs to change the parent of the `nodeToDelete.left`
+        nodeToDelete.left.parent = nodeToDelete.parent
+    }
+}
+```
+* In two sentences, when `nodeToDelete` has only one child, the `parent` of `nodeToDelete` points to the `child` of the `nodeToDelete`.
+* And the child of `nodeToDelete` points to the `nodeToDelete.parent`.
+* And in one sentence, the `nodeToDelete` is replaced by its child.
+* So, let us assume the replacement code where we get two parameters: `nodeToDelete`, and `childOfNodeToDelete`.
+* So, the pseudocode might look like follow:
+
+```kotlin
+
+fun replaceNode(nodeToDelete: Node?, childOfNodeToDelete: Node?) {
+    if (nodeToDelete == null) return
+    if (nodeToDelete == rootNode) {
+        rootNode = childOfNodeToDelete
+        childOfNodeToDelete?.parent = null
+        return
+    }
+    val parent = nodeToDelete?.parent
+    if (nodeToDelete == parent?.left) {
+        parent?.left = childOfNodeToDelete
+    } else {
+        parent?.right = childOfNodeToDelete
+    }
+    childOfNodeToDelete?.parent = parent
+}
+```
+
+**Case: 03: `nodeToDelete` has two children**
+
 ![80bstDelete.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete.png)
 
 * Suppose, we want to delete `13`.
-* Then, we would first replace `13` with its `nextLarger` node.
-* And then, the next larger node takes the place of `13`.
+* Then, we would first replace `13` with its `nextLarger` node. (`nodeToDelete = nextLargerNode`)
 * And if the next larger node has any right child, then it will take the vacant place of its parent - as its parent has moved to take place of `13`.
-* ToDo: 
-* What if the node we want to delete does not have any right child? 
-
+* So, the pseudocode might look like follow:
 
 ```kotlin
 
@@ -444,7 +563,52 @@ fun delete(node: Node) {
     val deletingNode = find(node, rootNode)
     val nextLargerNode = nextLarger(node)
     val rightChild = nextLargerNode.right
+    deletingNode = nextLargerNode 
+    replace(nextLargerNode, nextLargerNode.right)
+}
+```
+
+**The complete delete pseudocode**
+
+```kotlin
+
+fun delete(nodeToDelete: Node?) {
+    if (nodeToDelete == null) return
+    fun replace(nodeToDelete: Node?, childOfDeletingNode: Node?) {
+        if (nodeToDelete == null) return
+        // `nodeToDelete` is a `rootNode`
+        if (nodeToDelete?.parent == null) {
+            rootNode = childOfDeletingNode
+            nodeToDelete = null
+            return
+        }
+        val parent = nodeToDelete?.parent
+        if (nodeToDelete == parent?.left) {
+            parent?.left = childOfDeletingNode
+        } else {
+            parent?.right = childOfDeletingNode
+        }
+        childOfDeletingNode?.parent = parent
+        nodeToDelete = null
+    }
     
+    val deletingNode = find(nodeToDelete)
+    
+    // `deletingNode` might have only right child
+    if (deletingNode?.left == null) {
+        replace(deletingNode, deletingNode.right)
+    } else if (deletingNode?.right == null) {
+        // `deletingNode` might have only left child
+        replace(deletingNode, deletingNode?.left)
+    } else {
+        // `deletingNode` has two children (left and right)
+        val nextLarger = nextLarger(deletingNode)
+        if (nextLarger != null) {
+            deletingNode.key = nextLarger.key
+            // By the definition of `nextLarger,` it cannot have the `left child`.
+            replace(nextLarger, nextLarger.right)
+        }
+    }
 }
 
 ```

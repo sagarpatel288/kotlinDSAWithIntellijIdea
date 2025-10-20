@@ -658,13 +658,13 @@ flowchart TD
 
 * `Root` comes inside the `Left` and the `Right` sides.
 * So, the order becomes: `Left-Root-Right`.
-* Hence, the `in-order` traversal for the given example will be as below:
+* Hence, the `in-order` traversal for the given example will be as follows:
 * We start with the root node, `A`. <------------------------------ 
 * Cover the left side of `A`. <------------------------------
-* The `in-order` sequence prioritizes the `Left` side first, before the `Root` part.
+* The `in-order` sequence prioritises the `Left` side first, before the `Root` part.
 * So, we continue the depth traversal towards the left side of `A`.
 * The root node `A` has two children. `B` and `C`.
-* The `in-order` sequence prioritizes the `left` part first.
+* The `in-order` sequence prioritises the `left` part first.
 * So, we traverse through the left side, `B`.
 * We get `B`.
 * Cover the left side of `B`. <------------------------------ 
@@ -680,8 +680,8 @@ flowchart TD
 * So, it becomes: `B -- D`. ------------------------------------------------------------------------------(2).
 * Cover the right side of `D`. <------------------------------ 
 * But, it does not have a right side.
-* Then, as the `Right` side of `B` is finished, we can move backward.
-* The subtree `B` is covered. So, we move backward (upward).
+* Then, as the `Right` side of `B` is finished, we can move backwards.
+* The subtree `B` is covered. So, we move backwards (upward).
 * The subtree `B` was the `Left` side of the `Root` node, `A`. <------------------------------
 * It means we have finished the `Left` part of the `Left-Root-Right` for the `Root` node, `A`.
 * So, now comes the turn of the `Root` node, `A`. <------------------------------
@@ -699,13 +699,13 @@ flowchart TD
 * So, cover the root, `G`. (It is a root of a subtree that starts with itself.) <------------------------------
 * Hence, it becomes: `B -- D -- A -- G`. --------------------------------------------------------------------(4).
 * Cover the right side of `G`. <------------------------------
-* `G` does not have any children. So, we move backward (upward).
+* `G` does not have any children. So, we move backwards (upward).
 * We get `E`. Can we take it? Yes. Why? Because we have already covered its left side.
 * Cover the root, `E`. (It is a root of a subtree that starts with itself.) <------------------------------
 * So, now it becomes: `B -- D -- A -- G -- E`. --------------------------------------------------------------(5).
 * Cover the right side of `E`. <------------------------------
 * Does `E` have the right side? No.
-* So, we move backward (upward).
+* So, we move backwards (upward).
 * We get `C`. Should we take it? Yes. Why? Because we have already covered the left side of `C`.
 * Now, cover the root, `C`. (It is a root of a subtree that starts with itself.) <------------------------------
 * So, it becomes: `B -- D -- A -- G -- E -- C`. -------------------------------------------------------------(6).
@@ -718,7 +718,7 @@ flowchart TD
 * Cover the left side of `H`. <------------------------------
 * `H` does not have a left side. So, we can take it.
 * So, it becomes: `B -- D -- A -- G -- E -- C -- H`. --------------------------------------------------------(7).
-* What is next? Does `H` have a right side? No. So, we can move backward (upward).
+* What is next? Does `H` have a right side? No. So, we can move backwards (upward).
 * Cover the root of `H`. <------------------------------
 * We get `F`. Should we take it? Well, did we cover the left side of it? Yes. Then, we can take it.
 * Cover the root, `F`. (It is a root of a subtree that starts with itself.) <------------------------------
@@ -732,7 +732,7 @@ flowchart TD
 * So, it becomes: `B -- D -- A -- G -- E -- C -- H -- F -- I`. -----------------------------------------(9).
 * What is next? Did we cover the right of `I`? 
 * Cover the right side of `I`. <------------------------------ 
-* Well, it does not have any. So, we can move backward (upward).
+* Well, it does not have any. So, we can move backwards (upward).
 * We have already taken F, C, and A.
 * All the subtrees have been covered. The entire tree has been covered.
 * We travelled and covered one subtree after another.
