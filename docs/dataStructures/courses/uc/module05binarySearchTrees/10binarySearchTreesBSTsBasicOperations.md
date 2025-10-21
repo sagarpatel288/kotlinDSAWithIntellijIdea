@@ -8,6 +8,7 @@
   * [Range Search](#range-search)
   * [Insert](#insert)
   * [Delete](#delete)
+  * [Summary](#summary)
   * [Next](#next)
 <!-- TOC -->
 
@@ -273,8 +274,12 @@ val tree = [1, 4, 6, 7, 8, 10, 11, 13, 17, 18, 20, 25, 30, 35, 40, 50]
 * The mutant does not visit more than 1 node!
 * Instead of visiting each node by himself, the mutant creates clones and follows `In-Order: L-P-R`.
 * Now, the mutant is so lazy (or smart) that before creating clones, he checks: Do I need to?
+* Because if the `mutant.key < x`, then entire left-subtree will be even smaller, making it out of range.
+* So, to continue on the left-subtree, `mutant.key > x`.
 * For example, the mutant at node `4` does not create any `left-side clone` as he finds everything is small down there.
-* Similarly, the mutant at node `30` does not create any `right-side clone` as he finds everything is large down there.
+* Similarly, if the `mutant.key > y`, the entire right-subtree will be larger, making it out of range.
+* So, to continue on the right side, `mutant.key < y`.
+* For example, the mutant at node `30` does not create any `right-side clone` as he finds everything is large down there.
 * The mutant that creates a clone, becomes the boss mutant.
 * If there is a left-side, the boss mutant creates a left-side clone and sends them to the left-side.
 * Once the left-side clone finishes the travelling, they call the boss mutant (returns the result) and disappears.
@@ -621,5 +626,61 @@ fun delete(nodeToDelete: Node?) {
 }
 
 ```
+
+## Summary
+
+### Find(key, node = root)
+
+* Takes `key` and `node` with default value `root` if not given already.
+* Start with the root.
+* Use binary search.
+* when:
+* key == node.key -> return node
+* key > node.key -> node = node.right
+* key < node.key -> node = node.left
+
+### NextLarger(key: Int)
+
+* Start with root
+* Two cases: (1) Has a right child (2) No right child
+* (1) Has a right child: 
+* Go to the right side once and then keep going to the left-side
+* `while(current?.left != null) { current = current.left }`
+* (2) No right child:
+* Go through the parents (Travel upwards through the parents)
+* `while(parent != null && current == parent.right)`
+* Return the `parent` for which `current == parent.left` or `parent == null`.
+
+### RangeSearch(x, y)
+
+* Uses the pruned binary search with the help of `recursion`
+* Start with the root
+* Follow `L-P-R-In-Order-Traversal`
+* If `node.key < x`, then the entire left-subtree is smaller than `x`.
+* So, `node.key` needs to be larger than `x` to continue the left side. 
+* `if (node.key > x) { rangeSearch(x, y, node.left) }`
+* `if (node.key >= x && node.key <= y) { results.add(node.key) }`
+* If `node.key > y`, then the entire right-subtree will be larger than `y`.
+* So, to continue on the right-subtree, `node.key` must be smaller than `y`.
+* `if (node.key < y) { rangeSearch(x, y, node.right) }`
+
+### Insert(key, node = root)
+
+* Uses binary search
+* Start with the root node
+* Need to keep track of the parent node also, because the last node will be null
+* Otherwise, it is almost similar to the [find](#find-search)
+* `while(current != null) { current = parent, parent = parent.node }`
+* `current` becomes `null` and that is the location where the new node will be inserted
+* Use `parent` to connect `parent.left = newNode` or `parent.right = newNode` and `newNode.parent = parent`.
+
+### Delete(key)
+
+* 3 cases: 2 methods
+* case 1: 0 child (Simply, disconnect)
+* case 2: 1 child (replace: The child takes the place of the `nodeToDelete`)
+* case 3: 2 children (2 steps)
+* (1) `nextLarger`: `nodeToDelete.key = nextLarger.key`
+* (2) Follow the case 2 for the `nextLarger`.
 
 ## Next
