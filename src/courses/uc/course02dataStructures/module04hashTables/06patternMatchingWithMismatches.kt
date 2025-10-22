@@ -1218,6 +1218,9 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                 var end = pattern.length - p
                 while (start <= end) {
                     val mid = start + (end - start) / 2
+                    // TODO: Print i, t, p, mid, and substrings (text and pattern) to understand how this works
+                    // Use the given sample inputs to understand the dry run
+                    // Understand how it compares (the pattern) and how it moves ahead (proceeds)
                     val (textHash1, textHash2) = textHashes(t, mid)
                     val (patternHash1, patternHash2) = patternHashes(p, mid)
                     if (textHash1 == patternHash1 && textHash2 == patternHash2) {
