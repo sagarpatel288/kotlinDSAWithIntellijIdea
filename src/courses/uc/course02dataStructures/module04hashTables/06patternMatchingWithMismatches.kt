@@ -1069,6 +1069,20 @@ package courses.uc.course02dataStructures.module04hashTables
  * }
  * ```
  *
+ * ### Observation and Insights: ToDo// Confirm this understanding.
+ *
+ * **Text: Sliding Window**
+ *
+ * * Inside the window, it always moves forward, stays within the boundaries, and tries (compares) different lengths.
+ *
+ * **Pattern**
+ *
+ * * It always starts with `0` for every new sliding window.
+ * * It increases with `t`.
+ * * In the worst case, it matches character by character.
+ * * But it doesn't go beyond the "k-Allowed mismatches" limit.
+ * * So, the moment we find more mismatches than allowed, we break the loop and slide (start a new) the window.
+ *
  * ### TL;DR
  *
  * * Precomputed prefix hashing
