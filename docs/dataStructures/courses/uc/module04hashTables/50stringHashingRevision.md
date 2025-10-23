@@ -17,6 +17,27 @@ $$
 hash = \left( (hash * xBase) + S[i].code.toLong() \right) \text{ % prime}
 $$
 
+```kotlin
+
+var hash = 0
+for (i in 0 until text.length) {
+    hash = ( (hash * xBase) + text[i].code.toLong() ) % prime
+}
+
+```
+
+```mermaid
+---
+config:
+  theme: redux
+---
+flowchart TD
+    A(["abc"]) --> n1["a"]
+    n1 --> n2["$$ax + b$$"]
+    n2 --> n3["$$(ax + b)x + c$$"]
+    n3 --> n4["$$ax^2 + bx + c$$"]
+```
+
 ## Calculating The Highest Degree Base
 
 ```kotlin
