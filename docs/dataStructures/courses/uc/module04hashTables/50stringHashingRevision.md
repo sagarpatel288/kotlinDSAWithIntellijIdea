@@ -13,6 +13,8 @@
 * Character by character
 * Horner's Method to make it a polynomial
 
+
+
 $$
 hash = \left( (hash * xBase) + S[i].code.toLong() \right) \text{ % prime}
 $$
