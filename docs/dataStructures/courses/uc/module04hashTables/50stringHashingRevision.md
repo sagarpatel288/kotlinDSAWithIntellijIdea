@@ -1,9 +1,17 @@
 # String Hashing Revision
 
-## String Hashing
+<!-- TOC -->
+* [String Hashing Revision](#string-hashing-revision)
+  * [Horner's Method Of Polynomial String Hashing](#horners-method-of-polynomial-string-hashing)
+  * [Calculating The Highest Degree Base](#calculating-the-highest-degree-base)
+  * [Substring Hashing From The Previous Substring Hash (Rabin-Karp, Rolling Hash, Sliding Window)](#substring-hashing-from-the-previous-substring-hash-rabin-karp-rolling-hash-sliding-window)
+  * [Precomputed Prefix Hashing](#precomputed-prefix-hashing)
+<!-- TOC -->
+
+## Horner's Method Of Polynomial String Hashing
 
 * Character by character
-* Horner's Method to make it polynomial
+* Horner's Method to make it a polynomial
 
 $$
 hash = \left( (hash * xBase) + S[i].code.toLong() \right) \text{ % prime}
