@@ -13,7 +13,7 @@
 * Character by character
 * Horner's Method to make it a polynomial
 
-
+![120hornersStringPolynomialHashing.png](../../../../../assets/images/dataStructures/uc/module04HashTables/120hornersStringPolynomialHashing.png)
 
 $$
 hash = \left( (hash * xBase) + S[i].code.toLong() \right) \text{ % prime}
@@ -56,6 +56,8 @@ private fun highestDegreeOfBase(substring: String): Long {
 ```
 
 ## Substring Hashing From The Previous Substring Hash (Rabin-Karp, Rolling Hash, Sliding Window)
+
+![130rabinKarpIdeaExample.png](../../../../../assets/images/dataStructures/uc/module04HashTables/130rabinKarpIdeaExample.png)
 
 * Calculate the [Highest degree of the base](#calculating-the-highest-degree-base)
 * Calculate the [hash](#string-hashing) of the first substring = $h(i)$
