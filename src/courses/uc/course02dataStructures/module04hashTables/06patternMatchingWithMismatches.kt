@@ -1071,11 +1071,18 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ### Observation and Insights: ToDo// Confirm this understanding.
  *
- * **Text: Sliding Window**
+ * #### Variables
+ *
+ * * `i` = Text index. Starting position of the sliding window.
+ * * `t` = Text index. Always starts with `t = i`. It uses the "Binary search" power ("Glance and jump").
+ * * `p` = Pattern index. Always starts with "0" for each new text window.
+ * * `start, end, mid` = Binary search team. `mid` is the "Glance" length based on "start" and "end".
+ *
+ * #### Text: Sliding Window
  *
  * * Inside the window, it always moves forward, stays within the boundaries, and tries (compares) different lengths.
  *
- * **Pattern**
+ * #### Pattern
  *
  * * It always starts with `0` for every new sliding window.
  * * It increases with `t`.
@@ -1087,7 +1094,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * * Precomputed prefix hashing
  * * Sliding window for the text string
- * * Initialize the `mismatches` counter
+ * * Initialise the `mismatches` counter
  * * Binary search for length: Glance and Jump
  * * Jump over `matchLen`
  * * Count mismatches
@@ -1231,10 +1238,15 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                 var start = 0
                 var end = pattern.length - p
                 while (start <= end) {
+                    println("i: $i, t: $t, p: $p")
                     val mid = start + (end - start) / 2
+                    // ToDo: We might exit early based on the `mid` value and `k-AllowedMismatches`.
+                    // For example, if `mid + kAllowedMismatches != pattern.length`, then what is the point of processing it?
                     // TODO: Print i, t, p, mid, and substrings (text and pattern) to understand how this works
                     // Use the given sample inputs to understand the dry run
                     // Understand how it compares (the pattern) and how it moves ahead (proceeds)
+                    println("before: start: $start, end: $end, mid: $mid")
+                    println("text substring: ${text.substring(t, t + mid)} pattern: ${pattern.substring(p, p + mid)}")
                     val (textHash1, textHash2) = textHashes(t, mid)
                     val (patternHash1, patternHash2) = patternHashes(p, mid)
                     if (textHash1 == patternHash1 && textHash2 == patternHash2) {
@@ -1246,6 +1258,8 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                         // Try a shorter length
                         end = mid - 1
                     }
+                    // Also print "start" and "end" to understand how it goes and when it stops
+                    println("after: start: $start, end: $end")
                 }
                 // Jump over `matchLen`
                 t += matchLen
