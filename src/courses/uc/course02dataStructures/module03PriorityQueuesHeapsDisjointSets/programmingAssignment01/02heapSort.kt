@@ -88,6 +88,17 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * * And it will require an extra pass (extra work).
  * * So, to get an ascending (non-decreasing) order sorted array, `maxHeap` is an optimal choice.
  *
+ * # TL;DR
+ *
+ * * [buildHeap] out of the unsorted array by using the formulas below (from the index `n over 2` `downTo` `0`):
+ * ```
+ * parent = (i - 1) / 2
+ * leftChild = (2 * i) + 1
+ * rightChild = (2 * i) + 2
+ * ```
+ * * Call [extractMax] and place the maximum element at the last using the [siftDown] function.
+ * * Shrink the `heap tree` and keep calling [extractMax] until we cover the entire `heap tree`.
+ *
  * # Time Complexity
  *
  * * It uses the [buildHeap] function, whose realistic time complexity is `O(n)`.
