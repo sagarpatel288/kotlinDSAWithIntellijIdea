@@ -1,5 +1,12 @@
 # Tree Data Structure
 
+//ToDo: 
+
+* This is a huge file. We should split this file into multiple separate files.
+* Each file should have previous(prerequisites, references) and next sections.
+* Each file should have FAQ.
+* Each file should have a list of relevant (associated) practical (programming) questions.
+
 ## Table Of Contents
 
 - [What does it represent?](#what-does-it-represent)
