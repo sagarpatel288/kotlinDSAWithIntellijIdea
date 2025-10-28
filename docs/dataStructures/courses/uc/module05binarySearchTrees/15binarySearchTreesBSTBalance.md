@@ -8,6 +8,7 @@
   * [The depth problem](#the-depth-problem)
   * [How does the re-balancing solve the depth problem?](#how-does-the-re-balancing-solve-the-depth-problem)
   * [What can create an unbalanced tree?](#what-can-create-an-unbalanced-tree)
+  * [How do we keep the binary search tree balanced?](#how-do-we-keep-the-binary-search-tree-balanced)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
   * [Next](#next)
 <!-- TOC -->
