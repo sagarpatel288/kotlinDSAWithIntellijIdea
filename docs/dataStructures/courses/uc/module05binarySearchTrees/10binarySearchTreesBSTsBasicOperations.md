@@ -9,6 +9,11 @@
   * [Insert](#insert)
   * [Delete](#delete)
   * [Summary](#summary)
+    * [Find(key, node = root)](#findkey-node--root)
+    * [NextLarger(key: Int)](#nextlargerkey-int)
+    * [RangeSearch(x, y)](#rangesearchx-y)
+    * [Insert(key, node = root)](#insertkey-node--root)
+    * [Delete(key)](#deletekey)
   * [Next](#next)
 <!-- TOC -->
 
