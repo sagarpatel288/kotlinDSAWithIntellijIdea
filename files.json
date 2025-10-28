@@ -1,794 +1,142 @@
 [
   {
-    "name": "questionsOnBasicDataStructures.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module01BasicDataStructures/questionsOnBasicDataStructures.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "01abstractDataType.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module01BasicDataStructures/section01arraysAndLinkedLists/01abstractDataType.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "queue.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module01BasicDataStructures/section02stacksAndQueues/video02queues/queue.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "trees.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module01BasicDataStructures/section03trees/trees.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-10-28T14:23:14Z"
-  },
-  {
-    "name": "dynamicArrays.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module02dynamicArraysAndAmortizedAnalysis/dynamicArrays.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "priorityQueues.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-10-06T13:37:58Z"
-  },
-  {
-    "name": "binaryHeapTrees.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "completeBinaryTrees.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic03CompleteBinaryTrees/completeBinaryTrees.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "heapSort.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "disjointSets.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsImplementation/disjointSets.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "disjointSets02implementation.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsImplementation/disjointSets02implementation.md",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "05hashTables.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/05hashTables.md",
-    "createdDate": "2025-09-15T14:56:44Z",
-    "modifiedDate": "2025-09-30T13:21:24Z"
-  },
-  {
-    "name": "10universalFamilyOfHashFunctions.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/10universalFamilyOfHashFunctions.md",
-    "createdDate": "2025-09-17T13:28:22Z",
-    "modifiedDate": "2025-09-30T13:21:24Z"
-  },
-  {
-    "name": "15loadFactorAndRehashing.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/15loadFactorAndRehashing.md",
-    "createdDate": "2025-09-17T13:28:58Z",
-    "modifiedDate": "2025-09-30T13:21:24Z"
-  },
-  {
-    "name": "20formulaOfUniversalFamilyOfHashFunctions.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/20formulaOfUniversalFamilyOfHashFunctions.md",
-    "createdDate": "2025-09-18T14:48:20Z",
-    "modifiedDate": "2025-09-30T13:21:24Z"
-  },
-  {
-    "name": "25stringHashing.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/25stringHashing.md",
-    "createdDate": "2025-09-20T12:37:43Z",
-    "modifiedDate": "2025-09-30T13:21:24Z"
-  },
-  {
-    "name": "30findSubstring.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/30findSubstring.md",
-    "createdDate": "2025-09-23T16:14:50Z",
-    "modifiedDate": "2025-10-02T16:38:55Z"
-  },
-  {
-    "name": "35hashQuestions.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/35hashQuestions.md",
-    "createdDate": "2025-09-27T15:53:14Z",
-    "modifiedDate": "2025-09-30T13:21:24Z"
-  },
-  {
-    "name": "40hashingInBlockchain.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/40hashingInBlockchain.md",
-    "createdDate": "2025-09-28T15:23:41Z",
-    "modifiedDate": "2025-09-30T13:21:24Z"
-  },
-  {
-    "name": "45precomputedPrefixHashes.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/45precomputedPrefixHashes.md",
-    "createdDate": "2025-10-02T16:39:42Z",
-    "modifiedDate": "2025-10-04T09:03:25Z"
-  },
-  {
-    "name": "50stringHashingRevision.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module04hashTables/50stringHashingRevision.md",
-    "createdDate": "2025-10-04T10:25:19Z",
-    "modifiedDate": "2025-10-23T14:23:18Z"
-  },
-  {
-    "name": "05binarySearchTrees.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module05binarySearchTrees/05binarySearchTrees.md",
-    "createdDate": "2025-10-15T08:01:46Z",
-    "modifiedDate": "2025-10-18T07:01:56Z"
-  },
-  {
-    "name": "10binarySearchTreesBSTsBasicOperations.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md",
-    "createdDate": "2025-10-16T12:34:39Z",
-    "modifiedDate": "2025-10-28T12:39:03Z"
-  },
-  {
-    "name": "15binarySearchTreesBSTBalance.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md",
-    "createdDate": "2025-10-28T12:39:03Z",
-    "modifiedDate": "2025-10-28T14:10:41Z"
-  },
-  {
-    "name": "comparison.md",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/docs/dataStructures/courses/uc/revision/comparison.md",
-    "createdDate": "2025-09-11T13:34:40Z",
-    "modifiedDate": "2025-09-11T13:34:40Z"
-  },
-  {
-    "name": "005naivePrintFibonacciUpTo.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/005naivePrintFibonacciUpTo.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "007nthFibonacciRecursively.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/007nthFibonacciRecursively.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "010nthFibonacci.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/010nthFibonacci.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "012nthFibonacciModulo.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/012nthFibonacciModulo.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "013nthFibonacciModuloArithmetically.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/013nthFibonacciModuloArithmetically.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "015lastDigitOfNthFibonacci.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/015lastDigitOfNthFibonacci.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "020hugeNthFibonacciModuloDynamic.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/020hugeNthFibonacciModuloDynamic.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "028naiveLastDigit4SumOfNthFibonacci.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/028naiveLastDigit4SumOfNthFibonacci.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "030lastDigit4sumOfNthFibonacci.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/030lastDigit4sumOfNthFibonacci.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "035lastDigitOfPartialSumOfNthFibonacci.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/035lastDigitOfPartialSumOfNthFibonacci.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "036lastDigitOfPartialSumOfNthFibonacci.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/036lastDigitOfPartialSumOfNthFibonacci.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "040lastDigitOfSumOfSquareOfNthFibonacci.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/040lastDigitOfSumOfSquareOfNthFibonacci.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "070gcdOrHcfUsingEuclid.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/070gcdOrHcfUsingEuclid.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "071gcdOrHcfUsingEuclid.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/071gcdOrHcfUsingEuclid.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "080lcmUsingEuclideanTheory.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/080lcmUsingEuclideanTheory.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "090Josephus.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/090Josephus.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "091josephusProblem.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/091josephusProblem.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "100RangeSumQueryImmutable.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/100RangeSumQueryImmutable.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "102rangeSumQueryAnotherWay.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/102rangeSumQueryAnotherWay.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "010MoneyChangeDenomination.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/010MoneyChangeDenomination.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "020maximumLoot.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/020maximumLoot.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "030carFueling.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/030carFueling.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "032carFuelingSimpleWay.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/032carFuelingSimpleWay.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "034carFuelingSimplestWay.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/034carFuelingSimplestWay.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "040maximumDotProductOf2Sequences.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/040maximumDotProductOf2Sequences.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "050minimumPointsToCoverUnionSegments.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/050minimumPointsToCoverUnionSegments.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "060distinctSummandsProblem.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/060distinctSummandsProblem.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "070largestConcatenatedNumber.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/070largestConcatenatedNumber.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "010selectionSortExample.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/010selectionSortExample.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "020mergeSortExample.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/020mergeSortExample.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:20:45Z"
-  },
-  {
-    "name": "030mergeSortClean.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/030mergeSortClean.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "040countSortExample.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/040countSortExample.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "050countSortClean.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/050countSortClean.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "060quickSort1.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/060quickSort1.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "070quickSort1Clean.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/070quickSort1Clean.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "080quickSortRandomized.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/080quickSortRandomized.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "090quickSortTailRecursionElimination.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/090quickSortTailRecursionElimination.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "100quickSortTailRecursionClean.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/100quickSortTailRecursionClean.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "110quickSort3wayPartitioning.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/110quickSort3wayPartitioning.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "120ThreeWayDutchFlagPartitioningQuickSortClean.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/120ThreeWayDutchFlagPartitioningQuickSortClean.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "01binarySearch.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquerAssignment/01binarySearch.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "02binarySearchFirstOccurrence.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquerAssignment/02binarySearchFirstOccurrence.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "03majorityElement.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquerAssignment/03majorityElement.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "04quickSortWithManyDuplicate.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquerAssignment/04quickSortWithManyDuplicate.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "05totalInversions.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquerAssignment/05totalInversions.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "06a_pointsAndSegments.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquerAssignment/06a_pointsAndSegments.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "06b_pointsAndSegments.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquerAssignment/06b_pointsAndSegments.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "07closestPointsAndDistance.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquerAssignment/07closestPointsAndDistance.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "08nthFibonacciTopDown.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/08nthFibonacciTopDown.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "010coinChangeUsingDynamicProgramming.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/010coinChangeUsingDynamicProgramming.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "020coinChangeDynamicProgram.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/020coinChangeDynamicProgram.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "030primitiveCalculator.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/030primitiveCalculator.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "040primitiveCalculatorClean.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/040primitiveCalculatorClean.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "050editDistanceMatchStrings.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/050editDistanceMatchStrings.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "060editDistanceClean.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/060editDistanceClean.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "070editDistanceBacktrackReconstruct.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/070editDistanceBacktrackReconstruct.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "080editDistanceSpaceOptimizedNoBacktracking.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/080editDistanceSpaceOptimizedNoBacktracking.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "090longestCommonSubsequenceOfTwoSequencesStrings.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/090longestCommonSubsequenceOfTwoSequencesStrings.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "100longestCommonSequencesOfTwoSequencesWithBacktracking.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/100longestCommonSequencesOfTwoSequencesWithBacktracking.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "110longestCommonSubsequencesOfTheTwoSequencesSpaceOptimizedWithoutBacktracking.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/110longestCommonSubsequencesOfTheTwoSequencesSpaceOptimizedWithoutBacktracking.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "120lcsOfThreeSequences.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05ProgrammingAssignment01/120lcsOfThreeSequences.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "010twoPilesOfRocks.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05puzzleAssignment02/010twoPilesOfRocks.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "020twoPilesOfRocksClean.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05puzzleAssignment02/020twoPilesOfRocksClean.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "030twoPilesOfRocksOops.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05puzzleAssignment02/030twoPilesOfRocksOops.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "010twoPilesThreeRocks.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05puzzleAssignment03/010twoPilesThreeRocks.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "020twoPilesThreeRocks02.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05puzzleAssignment03/020twoPilesThreeRocks02.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "030twoPilesThreeRocks03.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05puzzleAssignment03/030twoPilesThreeRocks03.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "01knapsackProblem01EitherOr.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module06DynamicProgramming02/01knapsackProblem01EitherOr.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "01knapsackProblem02EitherOrWithBacktracking.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module06DynamicProgramming02/01knapsackProblem02EitherOrWithBacktracking.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "01knapsackProblem03EitherOrSpaceOptimized.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module06DynamicProgramming02/01knapsackProblem03EitherOrSpaceOptimized.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "02equalSumPartition.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module06DynamicProgramming02/02equalSumPartition.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "02equalSumPartitionClean.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module06DynamicProgramming02/02equalSumPartitionClean.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "03maximumArithmeticExpressionByParentheses.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course01algorithmicToolbox/module06DynamicProgramming02/03maximumArithmeticExpressionByParentheses.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "03SinglyLinkedList.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section01arraysAndLinkedLists/video02LinkedLists/03SinglyLinkedList.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "05SinglyLinkedListWithTail.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section01arraysAndLinkedLists/video02LinkedLists/05SinglyLinkedListWithTail.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "07DoublyLinkedListWithTail.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section01arraysAndLinkedLists/video02LinkedLists/07DoublyLinkedListWithTail.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "01stackUsingArray.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video01Stack/01stackUsingArray.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "02stackUsingLinkedList.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video01Stack/02stackUsingLinkedList.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "03MinStackUsingArray.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video01Stack/03MinStackUsingArray.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "04minStackUsingArrayDeque.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video01Stack/04minStackUsingArrayDeque.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "01QueueUsingCircularArray.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video02queues/01QueueUsingCircularArray.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "02queueUsingLinkedList.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video02queues/02queueUsingLinkedList.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "01checkBracketsInCode.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section04assignmentProblems/01checkBracketsInCode.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "02computeTreeHeight.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section04assignmentProblems/02computeTreeHeight.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "03networkPacketProcessingSimulation.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section04assignmentProblems/03networkPacketProcessingSimulation.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "04extendingStackInterface.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section04assignmentProblems/04extendingStackInterface.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "05maximumInSlidingWindow.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module01/section04assignmentProblems/05maximumInSlidingWindow.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "01binaryMaxHeap.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/01binaryMaxHeap.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "02heapSort.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/02heapSort.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-10-25T18:58:20Z"
-  },
-  {
-    "name": "03DisjointSetsUnionFindDSU.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03DisjointSetsUnionFindDSU.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "03disjointSetsUnionFindUsingSize.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03disjointSetsUnionFindUsingSize.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-09T13:14:13Z"
-  },
-  {
-    "name": "01buildMinHeap.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/01buildMinHeap.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "02parallelProcessing.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/02parallelProcessing.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "03mergeTable.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/03mergeTable.kt",
-    "createdDate": "2025-09-09T13:14:13Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "01phoneBook.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/01phoneBook.kt",
-    "createdDate": "2025-09-29T13:46:58Z",
-    "modifiedDate": "2025-09-30T17:31:28Z"
-  },
-  {
-    "name": "02stringHashingWithChain.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/02stringHashingWithChain.kt",
-    "createdDate": "2025-09-30T17:32:22Z",
-    "modifiedDate": "2025-09-30T17:32:22Z"
-  },
-  {
-    "name": "03findSubstring.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/03findSubstring.kt",
-    "createdDate": "2025-10-01T15:20:21Z",
-    "modifiedDate": "2025-10-08T16:18:03Z"
-  },
-  {
-    "name": "04substringEquality.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/04substringEquality.kt",
-    "createdDate": "2025-10-03T13:22:58Z",
-    "modifiedDate": "2025-10-03T13:22:58Z"
-  },
-  {
-    "name": "05lcs03.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/05lcs03.kt",
-    "createdDate": "2025-10-09T13:51:08Z",
-    "modifiedDate": "2025-10-09T13:51:08Z"
-  },
-  {
-    "name": "05longestCommonSubstring.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/05longestCommonSubstring.kt",
-    "createdDate": "2025-10-07T08:30:46Z",
-    "modifiedDate": "2025-10-09T13:35:18Z"
-  },
-  {
-    "name": "05longestCommonSubstring03.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/05longestCommonSubstring03.kt",
-    "createdDate": "2025-10-09T13:35:18Z",
-    "modifiedDate": "2025-10-14T11:16:33Z"
-  },
-  {
-    "name": "06patternMatchingWithMismatches.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/06patternMatchingWithMismatches.kt",
-    "createdDate": "2025-10-10T07:52:33Z",
-    "modifiedDate": "2025-10-24T14:29:54Z"
-  },
-  {
-    "name": "generateString.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/generateString.kt",
-    "createdDate": "2025-10-09T13:51:08Z",
-    "modifiedDate": "2025-10-09T13:51:08Z"
-  },
-  {
-    "name": "lcs_kotlin_3.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/courses/uc/course02dataStructures/module04hashTables/lcs_kotlin_3.kt",
-    "createdDate": "2025-10-09T13:51:08Z",
-    "modifiedDate": "2025-10-09T13:51:08Z"
-  },
-  {
     "name": "array.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level02DataTypes/array.kt",
-    "createdDate": "2024-05-19T11:16:22Z",
-    "modifiedDate": "2024-05-19T11:16:22Z"
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level02DataTypes/array.kt"
   },
   {
     "name": "scanner.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level06/scanner.kt",
-    "createdDate": "2024-05-19T11:16:22Z",
-    "modifiedDate": "2024-05-19T11:16:22Z"
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level06/scanner.kt"
   },
   {
     "name": "maxPairProduct.kt",
-    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level10/maxPairProduct.kt",
-    "createdDate": "2024-05-19T11:16:22Z",
-    "modifiedDate": "2024-05-19T11:35:11Z"
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level10/maxPairProduct.kt"
+  },
+  {
+    "name": "010nthFibonacci.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/010nthFibonacci.kt"
+  },
+  {
+    "name": "012nthFibonacciModulo.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/012nthFibonacciModulo.kt"
+  },
+  {
+    "name": "013nthFibonacciModuloArithmetically.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/013nthFibonacciModuloArithmetically.kt"
+  },
+  {
+    "name": "015lastDigitOfNthFibonacci.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/015lastDigitOfNthFibonacci.kt"
+  },
+  {
+    "name": "020hugeNthFibonacciModuloDynamic.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/020hugeNthFibonacciModuloDynamic.kt"
+  },
+  {
+    "name": "028naiveLastDigit4SumOfNthFibonacci.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/028naiveLastDigit4SumOfNthFibonacci.kt"
+  },
+  {
+    "name": "030lastDigit4sumOfNthFibonacci.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/030lastDigit4sumOfNthFibonacci.kt"
+  },
+  {
+    "name": "035lastDigitOfPartialSumOfNthFibonacci.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/035lastDigitOfPartialSumOfNthFibonacci.kt"
+  },
+  {
+    "name": "036lastDigitOfPartialSumOfNthFibonacci.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/036lastDigitOfPartialSumOfNthFibonacci.kt"
+  },
+  {
+    "name": "040lastDigitOfSumOfSquareOfNthFibonacci.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/040lastDigitOfSumOfSquareOfNthFibonacci.kt"
+  },
+  {
+    "name": "05naivePrintFibonacciUpTo.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/05naivePrintFibonacciUpTo.kt"
+  },
+  {
+    "name": "070gcdOrHcfUsingEuclid.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/070gcdOrHcfUsingEuclid.kt"
+  },
+  {
+    "name": "071gcdOrHcfUsingEuclid.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/071gcdOrHcfUsingEuclid.kt"
+  },
+  {
+    "name": "080lcmUsingEuclideanTheory.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/080lcmUsingEuclideanTheory.kt"
+  },
+  {
+    "name": "090Josephus.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/090Josephus.kt"
+  },
+  {
+    "name": "091josephusProblem.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/091josephusProblem.kt"
+  },
+  {
+    "name": "100RangeSumQueryImmutable.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level20Week2AlgorithmicWarmUp/100RangeSumQueryImmutable.kt"
+  },
+  {
+    "name": "010MoneyChangeDenomination.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level30Module3AlgorithmExercise/010MoneyChangeDenomination.kt"
+  },
+  {
+    "name": "020maximumLoot.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level30Module3AlgorithmExercise/020maximumLoot.kt"
+  },
+  {
+    "name": "030carFueling.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level30Module3AlgorithmExercise/030carFueling.kt"
+  },
+  {
+    "name": "032carFueling2ndWay.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level30Module3AlgorithmExercise/032carFueling2ndWay.kt"
+  },
+  {
+    "name": "040maximumDotProductOf2Sequences.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level30Module3AlgorithmExercise/040maximumDotProductOf2Sequences.kt"
+  },
+  {
+    "name": "050minimumPointsToCoverUnionSegments.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level30Module3AlgorithmExercise/050minimumPointsToCoverUnionSegments.kt"
+  },
+  {
+    "name": "060distinctSummandsProblem.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level30Module3AlgorithmExercise/060distinctSummandsProblem.kt"
+  },
+  {
+    "name": "070largestConcatenatedNumber.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level30Module3AlgorithmExercise/070largestConcatenatedNumber.kt"
+  },
+  {
+    "name": "010selectionSortExample.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level40Module4AlgorithmExercise/010selectionSortExample.kt"
+  },
+  {
+    "name": "020mergeSortExample.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level40Module4AlgorithmExercise/020mergeSortExample.kt"
+  },
+  {
+    "name": "030mergeSortClean.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level40Module4AlgorithmExercise/030mergeSortClean.kt"
+  },
+  {
+    "name": "040countSortExample.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level40Module4AlgorithmExercise/040countSortExample.kt"
+  },
+  {
+    "name": "050countSortClean.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level40Module4AlgorithmExercise/050countSortClean.kt"
+  },
+  {
+    "name": "060quickSort1.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level40Module4AlgorithmExercise/060quickSort1.kt"
+  },
+  {
+    "name": "070quickSort1Clean.kt",
+    "url": "https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/main/src/level40Module4AlgorithmExercise/070quickSort1Clean.kt"
   }
 ]

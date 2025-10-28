@@ -5,6 +5,9 @@
   * [Prerequisites/References](#prerequisitesreferences)
   * [Objectives](#objectives)
   * [Understanding the basic runtime of a binary search tree operation](#understanding-the-basic-runtime-of-a-binary-search-tree-operation)
+  * [The depth problem](#the-depth-problem)
+  * [How does the re-balancing solve the depth problem?](#how-does-the-re-balancing-solve-the-depth-problem)
+  * [What can create an unbalanced tree?](#what-can-create-an-unbalanced-tree)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
   * [Next](#next)
 <!-- TOC -->
@@ -45,14 +48,26 @@
 
 ![120bstDepthProblemExample3.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/120bstDepthProblemExample3.png)
 
-* If a binary search tree is not balanced, we take `O(n)` time for the `find` operation. 
+* If a binary search tree is not balanced, we might take `O(n)` time for the `find` operation. 
 
 ## How does the re-balancing solve the depth problem?
 
 ![130bstBalancingExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/130bstBalancingExample.png)
 
-* Re-balancing reduces the depth.
+* Re-balancing reduces the depth and keeps the `in-order (LPR)` sorted.
 * Hence, the `find` operation becomes faster (efficient).
+
+## What can create an unbalanced tree?
+
+![140bstInsertDeleteProblem.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/140bstInsertDeleteProblem.png)
+
+* Insert and delete operations.
+
+## How do we keep the binary search tree balanced?
+
+* Using the rotation technique.
+
+ToDo: Next: Rotation overview.
 
 ## What is the difference between a binary heap tree and a binary search tree?
 
