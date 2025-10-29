@@ -9,6 +9,12 @@
   * [How does the re-balancing solve the depth problem?](#how-does-the-re-balancing-solve-the-depth-problem)
   * [What can create an unbalanced tree?](#what-can-create-an-unbalanced-tree)
   * [How do we keep the binary search tree balanced?](#how-do-we-keep-the-binary-search-tree-balanced)
+  * [Rotation of a binary search tree](#rotation-of-a-binary-search-tree)
+  * [Balancing Thought Process](#balancing-thought-process)
+  * [Height of a node](#height-of-a-node)
+  * [A balanced binary search tree](#a-balanced-binary-search-tree)
+  * [A node structure for balance](#a-node-structure-for-balance)
+  * [AVL Claim: AVL Properties](#avl-claim-avl-properties)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
   * [Next](#next)
 <!-- TOC -->
@@ -101,10 +107,23 @@ val heightOfNode = 1 + maxOf(Node.left.height, Node.right.height)
 * If the height of a left sub-tree is equal to the height of a right sub-tree, we call it a balanced tree.
 * It means that, we need to add another field, "height" to the node structure.
 * So that we can measure and keep track of the "balance".
+* And when a tree is balanced:
+
+
+$$
+N.left.height == N.right.height
+$$
+$$
+N.left.height - N.right.height <= 1
+$$
 
 ## A node structure for balance
 
 ![180bstAvlNodeStructure.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/180bstAvlNodeStructure.png)
+
+## AVL Claim: AVL Properties
+
+// ToDo: O(log n) and proof
 
 ## What is the difference between a binary heap tree and a binary search tree?
 
