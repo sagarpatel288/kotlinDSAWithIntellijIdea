@@ -68,7 +68,43 @@
 
 * Using the rotation technique.
 
-ToDo: Next: Rotation overview.
+## Rotation of a binary search tree
+
+* It is possible to change the structure of a binary search tree without violating the rules that define the binary search tree.
+* For example, as shown in the image below: 
+
+![150bstRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/150bstRotation.png)
+
+## Balancing Thought Process
+
+* To maintain the balance of a binary search tree, we need to define, measure, and keep track of the "balance".
+* We use the term "height" to define, measure, and keep track of the "balance."
+
+## Height of a node
+
+![160nodeHeight.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/160nodeHeight.png)
+
+![170nodeHeight2.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/170nodeHeight2.png)
+
+* The longest path from the node to the leaf
+
+```kotlin
+
+val heightOfNode = 1 + maxOf(Node.left.height, Node.right.height) 
+
+```
+
+## A balanced binary search tree
+
+![190balancedBst.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/190balancedBst.png)
+
+* If the height of a left sub-tree is equal to the height of a right sub-tree, we call it a balanced tree.
+* It means that, we need to add another field, "height" to the node structure.
+* So that we can measure and keep track of the "balance".
+
+## A node structure for balance
+
+![180bstAvlNodeStructure.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/180bstAvlNodeStructure.png)
 
 ## What is the difference between a binary heap tree and a binary search tree?
 
