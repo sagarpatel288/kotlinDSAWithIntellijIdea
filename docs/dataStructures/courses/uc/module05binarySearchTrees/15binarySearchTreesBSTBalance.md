@@ -246,6 +246,45 @@ $$
 
 * We just proved that the maximum height of an AVL-Tree is $log_2(n)$.
 
+## Summary: TL;DR
+
+* A binary search tree (BST) becomes inefficient as we perform the insert or delete operations.
+* Insert or delete operations can skew the BST and make it taller and thin. 
+* As a result, various operations such as `find(search)` become inefficient.
+* The efficiency depends on the tree height.
+* Tree height depends on the height of the subtrees.
+* If we can control the height of the subtrees, we can maintain the height and efficiency of the tree.
+* However, the efforts of controlling the height of the subtrees should not defeat the core purpose.
+* The core purpose is to perform various operations such as `find(search)` efficiently.
+* It turned out that, if we can control $N.left.height - N.right.height <= 1$, we get a nice enough balance.
+* It is known as the "Adelson-Velsky and Landis (AVL)" property. 
+* The minimum number of nodes for an AVL-Tree of height, `h` is:
+
+$$
+N(h) = 1 + N(h - 1) + N(h - 2)
+$$
+
+* We can relate it with a Fibonacci number, $F_h$.
+
+$$
+F_h >= 2^{\frac{h}{2}}
+$$
+
+$$
+n >= 2^{\frac{h}{2}}
+$$
+
+$$
+log_2(n) >= h
+$$
+
+$$
+h <= log_2(n)
+$$
+
+* It means that the maximum height of an AVL-Tree is $log(n)$. 
+* Next, we will see how to maintain the AVL-Tree property through the "rotation" technique.
+
 //ToDo: Follow The Standard Improvement Process.
 
 ## What is the difference between a binary heap tree and a binary search tree?
