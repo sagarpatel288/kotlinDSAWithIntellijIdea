@@ -15,6 +15,7 @@
   * [A balanced binary search tree](#a-balanced-binary-search-tree)
   * [A node structure for balance](#a-node-structure-for-balance)
   * [AVL Claim: AVL Properties](#avl-claim-avl-properties)
+  * [Summary: TL;DR](#summary-tldr)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
   * [Next](#next)
 <!-- TOC -->
