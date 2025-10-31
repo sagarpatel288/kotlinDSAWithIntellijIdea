@@ -16,6 +16,8 @@
   * [A node structure for balance](#a-node-structure-for-balance)
   * [AVL Claim: AVL Properties](#avl-claim-avl-properties)
   * [Summary: TL;DR](#summary-tldr)
+  * [AVL-Tree Basic Left Rotation Idea](#avl-tree-basic-left-rotation-idea)
+  * [AVL-Tree Basic Right Rotation Idea](#avl-tree-basic-right-rotation-idea)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
   * [Next](#next)
 <!-- TOC -->
@@ -285,6 +287,14 @@ $$
 
 * It means that the maximum height of an AVL-Tree is $log(n)$. 
 * Next, we will see how to maintain the AVL-Tree property through the "rotation" technique.
+
+## AVL-Tree Basic Left Rotation Idea
+
+![210avlBasicLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/210avlBasicLeftRotation.png)
+
+## AVL-Tree Basic Right Rotation Idea
+
+![220avlBasicRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/220avlBasicRightRotation.png)
 
 //ToDo: Follow The Standard Improvement Process.
 
