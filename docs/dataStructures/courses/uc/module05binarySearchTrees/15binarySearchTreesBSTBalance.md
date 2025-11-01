@@ -317,6 +317,19 @@ $$
 
 ![245avlTreeRightRotaionAnalogyPulley.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/245avlTreeRightRotaionAnalogyPulley.png)
 
+## AVL-Tree Basic Left-Right Rotation Idea
+
+* Sometimes, we need to perform multiple rotations to balance the tree.
+* The below image shows a left-rotation followed by the right-rotation. 
+
+![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
+
+## AVL-Tree Basic Right-Left Rotation Idea
+
+* Similarly, the below image shows a right-rotation followed by the left-rotation.
+
+![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
+
 //ToDo: Follow The Standard Improvement Process.
 
 ## What is the difference between a binary heap tree and a binary search tree?
