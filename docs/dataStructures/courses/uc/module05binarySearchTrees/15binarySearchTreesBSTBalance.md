@@ -33,6 +33,7 @@
 * [Binary Search Trees](05binarySearchTrees.md)
 * [Binary Search Trees: Basic Operations](10binarySearchTreesBSTsBasicOperations.md)
 * [AVL Visualization](https://www.cs.usfca.edu/~galles/visualization/AVLtree.html)
+* [Abdul Bari Sir: AVL Tree](https://youtu.be/jDM6_TnYIqE?si=ozgBIYnV79pJw8Nc)
 
 ## Objectives
 
@@ -290,11 +291,31 @@ $$
 
 ## AVL-Tree Basic Left Rotation Idea
 
+* When we have an excessive right-subtree, we perform the left-rotation.
+
 ![210avlBasicLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/210avlBasicLeftRotation.png)
+
+* We can understand this with an analogy of a pulley.
+
+![230avlTreeLeftRotaionAnalogyPulley.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/230avlTreeLeftRotaionAnalogyPulley.png)
+
+* When the right-side is more weighted, we pull the left-side to maintain the balance.
+
+![235avlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/235avlTreeLeftRotationPulleyAnalogy.png)
 
 ## AVL-Tree Basic Right Rotation Idea
 
+* When we have an excessive left-subtree, we perform the right-rotation.
+
 ![220avlBasicRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/220avlBasicRightRotation.png)
+
+* We can understand this with an analogy of a pulley.
+
+![240avlTreeRightRotaionAnalogyPulley.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/240avlTreeRightRotaionAnalogyPulley.png)
+
+* When the left-side is more weighted, we pull the right-side to maintain the balance.
+
+![245avlTreeRightRotaionAnalogyPulley.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/245avlTreeRightRotaionAnalogyPulley.png)
 
 //ToDo: Follow The Standard Improvement Process.
 
