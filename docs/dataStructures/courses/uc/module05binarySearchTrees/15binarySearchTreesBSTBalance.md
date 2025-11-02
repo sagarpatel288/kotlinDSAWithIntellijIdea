@@ -289,11 +289,32 @@ $$
 * It means that the maximum height of an AVL-Tree is $log(n)$. 
 * Next, we will see how to maintain the AVL-Tree property through the "rotation" technique.
 
+## How do we find (calculate) which side is more weighted?
+
+* We use the "height" property of a node to measure and fix the balance.
+* The formula (AVL-Tree Property) is:
+
+$$
+| \text{Balance Factor} | = | \text{Height Of A Left-Subtree} - \text{Height Of A Right-Subtree} |
+$$
+
+* And we want to ensure that:
+
+$$
+| \text{Balance Factor} | <= 1
+$$
+
 ## AVL-Tree Basic Left Rotation Idea
 
 * When we have an excessive right-subtree, we perform the left-rotation.
+* It is also known as "RR-Rotation (Right of right rotation)".
+* Because it happens when the right of right node causes the imbalance.
+* So, the name "RRR" is based upon the root cause of the rotation.
+* And to fix that, we perform the "Left Rotation."
 
 ![210avlBasicLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/210avlBasicLeftRotation.png)
+
+![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
 
 * We can understand this with an analogy of a pulley.
 
@@ -306,8 +327,14 @@ $$
 ## AVL-Tree Basic Right Rotation Idea
 
 * When we have an excessive left-subtree, we perform the right-rotation.
+* We also call it "LL-Rotation."
+* Because it happens when the left of left node causes the imbalance.
+* So, remember that the name "LLR" is based upon the root cause of the imbalance.
+* And to fix it, we perform "Right Rotation."
 
 ![220avlBasicRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/220avlBasicRightRotation.png)
+
+![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
 
 * We can understand this with an analogy of a pulley.
 
@@ -316,6 +343,14 @@ $$
 * When the left-side is more weighted, we pull the right-side to maintain the balance.
 
 ![245avlTreeRightRotaionAnalogyPulley.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/245avlTreeRightRotaionAnalogyPulley.png)
+
+* Now, we can take an example of a dense tree.
+
+![270avlTreeRightRotationDenseExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/270avlTreeRightRotationDenseExample.png)
+
+* Again, we can visualize and understand it better with the pulley analogy. 
+
+//ToDo: Pulley: Left-side extra thread-branch (Br) goes to the right-side 
 
 ## AVL-Tree Basic Left-Right Rotation Idea
 
