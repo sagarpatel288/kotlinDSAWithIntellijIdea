@@ -400,6 +400,8 @@ $$
 
 ![350avlImbalancedInsertionFixExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/350avlImbalancedInsertionFixExample.png)
 
+* Next: Insert 22 and 50.
+
 //ToDo: Follow The Standard Improvement Process.
 
 ## What is the difference between a binary heap tree and a binary search tree?
