@@ -382,6 +382,14 @@ $$
 
 ![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
 
+* Right-Left Rotation in two steps, as shown in the image below:
+
+![330avlTreeRightLeftRotationInTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/330avlTreeRightLeftRotationInTwoSteps.png)
+
+* An example of a dense tree, as shown in the image below:
+
+![340denseAvlTreeRightLeftRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/340denseAvlTreeRightLeftRotationTwoSteps.png)
+
 //ToDo: Follow The Standard Improvement Process.
 
 ## What is the difference between a binary heap tree and a binary search tree?
