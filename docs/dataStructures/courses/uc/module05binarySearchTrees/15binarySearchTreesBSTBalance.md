@@ -368,6 +368,14 @@ $$
 
 ![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
 
+* We can do the Left-Right Rotation in two steps also, as shown in the image below.
+
+![310avlTreeLeftRightRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/310avlTreeLeftRightRotationTwoSteps.png)
+
+* Now, we can take an example of a dense tree, as shown in the image below.
+
+![320denseAvlTreeLeftRightRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/320denseAvlTreeLeftRightRotationTwoSteps.png)
+
 ## AVL-Tree Basic Right-Left Rotation Idea
 
 * Similarly, the below image shows a right-rotation followed by the left-rotation.
