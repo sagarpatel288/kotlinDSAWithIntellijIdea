@@ -324,6 +324,15 @@ $$
 
 ![235avlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/235avlTreeLeftRotationPulleyAnalogy.png)
 
+* Now, we can take an example of a dense tree.
+
+![290denseAvlTreeLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/290denseAvlTreeLeftRotation.png)
+
+* We can see that no matter how dense the tree is, we need to change the parents of only 3 nodes to balance the entire tree.
+* We can understand this with the pulley example also.
+
+![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
+
 ## AVL-Tree Basic Right Rotation Idea
 
 * When we have an excessive left-subtree, we perform the right-rotation.
@@ -350,7 +359,7 @@ $$
 
 * Again, we can visualize and understand it better with the pulley analogy. 
 
-//ToDo: Pulley: Left-side extra thread-branch (Br) goes to the right-side 
+![280denseAvlTreeRightRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/280denseAvlTreeRightRotationPulleyAnalogy.png)
 
 ## AVL-Tree Basic Left-Right Rotation Idea
 
