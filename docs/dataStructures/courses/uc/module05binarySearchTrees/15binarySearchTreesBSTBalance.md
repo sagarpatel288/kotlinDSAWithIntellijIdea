@@ -390,6 +390,16 @@ $$
 
 ![340denseAvlTreeRightLeftRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/340denseAvlTreeRightLeftRotationTwoSteps.png)
 
+## On which node do we perform the rotation when multiple nodes are imbalanced?
+
+**When, how, and on which node do we perform a rotation?**
+
+* The first unbalanced ancestor node becomes the subject.
+* And the type of rotation depends on the relative position between the node that causes the imbalance and the subject node (the first unbalanced ancestor node).
+* For example:
+
+![350avlImbalancedInsertionFixExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/350avlImbalancedInsertionFixExample.png)
+
 //ToDo: Follow The Standard Improvement Process.
 
 ## What is the difference between a binary heap tree and a binary search tree?
