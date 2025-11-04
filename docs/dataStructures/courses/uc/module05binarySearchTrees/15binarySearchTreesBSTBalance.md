@@ -15,7 +15,7 @@
   * [A balanced binary search tree](#a-balanced-binary-search-tree)
   * [A node structure for balance](#a-node-structure-for-balance)
   * [AVL Claim: AVL Properties](#avl-claim-avl-properties)
-  * [Summary: TL;DR](#summary-tldr)
+  * [AVL Introduction Summary: TL;DR](#avl-introduction-summary-tldr)
   * [How do we find (calculate) which side is more weighted?](#how-do-we-find-calculate-which-side-is-more-weighted)
   * [AVL-Tree Basic Left Rotation Idea](#avl-tree-basic-left-rotation-idea)
   * [AVL-Tree Basic Right Rotation Idea](#avl-tree-basic-right-rotation-idea)
@@ -189,7 +189,7 @@ $$
 * Let us denote it as `N(h - 1)` that says the minimum nodes in an AVL-Tree of height `h - 1`.
 * And the subtree of height `h - 2` must have at least `h - 2` nodes.
 * So, `N(h - 2)` says the minimum nodes in an AVL-Tree of height `h - 2`.
-* Now, if we add `+1(the root node)` to `N(h - 1) + N(h - 2)`, we get the minimum nodes in a tree of height `h`.
+* Now, if we add `+1(the root node)` to `N(h - 1) + N(h - 2)`, we get the minimum nodes in an AVL-Tree of height `h` (Refer the above [image](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/200heightAndNodesRelation.png) to get the idea).
 * So, it is:
 
 $$
@@ -197,13 +197,14 @@ N(h) = 1 + N(h - 1) + N(h - 2)
 $$
 
 * It indicates a recursive formula!
-* On the other hand, for a Fibonacci number $F_h$, we can say:
+* And it is similar to a Fibonacci formula!
+* For a Fibonacci number $F_h$, we can say:
 
 $$
 F_h = F_{h - 1} + F_{h - 2}
 $$
 
-* The value of a Fibonacci number, $F_h$ is a summation of the previous (last) Fibonacci number, $F_{h - 1}$ and the second previous (second last) Fibonacci number, $F_{h - 2}$.
+* The value of a Fibonacci number, $F_h$ is a summation of the previous (last) Fibonacci number, $F_{h - 1}$ and the second previous (the second last) Fibonacci number, $F_{h - 2}$.
 * And since $N(h)$ represents "minimum number of nodes for an AVL-Tree of height `h`," we can say:
 
 $$
@@ -251,7 +252,7 @@ $$
 * We just proved that the maximum height of an AVL-Tree is $2\;log_2(n)$.
 * Asymptotically, it is `O(log n)`.
 
-## Summary: TL;DR
+## AVL Introduction Summary: TL;DR
 
 * A binary search tree (BST) becomes inefficient as we perform the insert or delete operations.
 * Insert or delete operations can skew the BST and make it taller and thin. 
@@ -296,7 +297,7 @@ $$
 * The formula (AVL-Tree Property) is:
 
 $$
-| \text{Balance Factor} | = | \text{Height Of A Left-Subtree} - \text{Height Of A Right-Subtree} |
+\text{Balance Factor} = \text{Height Of A Left-Subtree} - \text{Height Of A Right-Subtree}
 $$
 
 * And we want to ensure that:
@@ -329,7 +330,7 @@ $$
 
 ![290denseAvlTreeLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/290denseAvlTreeLeftRotation.png)
 
-* We can see that no matter how dense the tree is, we need to change the parents of only 3 nodes to balance the entire tree.
+* We can see that no matter how dense the tree is, we need to change the parents of only few nodes (3 to 4) to balance the entire tree.
 * We can understand this with the pulley example also.
 
 ![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
@@ -431,6 +432,7 @@ $$
 ## Conclusion
 
 * The first unbalanced ancestor node becomes the anchor of the rotation.
+* To find the first unbalanced ancestor node, we travel upwards via parents of the root-cause node that has caused the imbalance.
 * To decide the rotation, we check only the first two nodes from the first unbalanced ancestor to the node that has caused the imbalance. 
 * The rotation changes maximum 4 nodes.
 * The area of changes includes: Child-Parent relation and the balance factor (height).
