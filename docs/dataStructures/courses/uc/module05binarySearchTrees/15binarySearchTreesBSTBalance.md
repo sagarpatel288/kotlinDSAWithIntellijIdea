@@ -161,7 +161,7 @@ $$
 
 * Here, `N(h)` means "minimum number of nodes for an AVL-Tree of height `h`."
 * The formula connects (associates) the "minimum number of nodes" with the "height".
-* And we will see that using the "rotation" technique, we can maintain this "flexible balance" (also known as: "enough balance," "perfectly imperfect balance," etc.) in just `O(1)` time!
+* And we will see that using the "rotation" technique, we can maintain this "flexible balance" (also known as: "controlled balance," "enough balance," "perfectly imperfect balance," etc.) in just `O(1)` time!
 * It means that we don't spend more time in maintaining the balance, and we can still maintain the tree height at most `O(log n)`.
 * Now, to maintain the "balance," we need to maintain the "height".
 * And to maintain the "height," we need to track it.
@@ -185,10 +185,10 @@ $$
 
 ![200heightAndNodesRelation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/200heightAndNodesRelation.png)
 
-* Now, the subtree of height `h - 1` must have at least `h - 1` nodes.
-* Let us denote it as `N(h - 1)` that says the minimum nodes in a tree of height `h - 1`.
+* Now, the subtree of height `h - 1` must have at least `h - 1` nodes under the AVL-Tree constraint (properties).
+* Let us denote it as `N(h - 1)` that says the minimum nodes in an AVL-Tree of height `h - 1`.
 * And the subtree of height `h - 2` must have at least `h - 2` nodes.
-* So, `N(h - 2)` says the minimum nodes in a tree of height `h - 2`.
+* So, `N(h - 2)` says the minimum nodes in an AVL-Tree of height `h - 2`.
 * Now, if we add `+1(the root node)` to `N(h - 1) + N(h - 2)`, we get the minimum nodes in a tree of height `h`.
 * So, it is:
 
@@ -196,6 +196,7 @@ $$
 N(h) = 1 + N(h - 1) + N(h - 2)
 $$
 
+* It indicates a recursive formula!
 * On the other hand, for a Fibonacci number $F_h$, we can say:
 
 $$
@@ -260,7 +261,7 @@ $$
 * If we can control the height of the subtrees, we can maintain the height and efficiency of the tree.
 * However, the efforts of controlling the height of the subtrees should not defeat the core purpose.
 * The core purpose is to perform various operations such as `find(search)` efficiently.
-* It turned out that, if we can control $| N.left.height - N.right.height | <= 1$, we get a nice enough balance.
+* It turned out that, if we can control $| N.left.height - N.right.height | <= 1$, we get a nice enough balance (controlled balance).
 * It is known as the "Adelson-Velsky and Landis (AVL)" property. 
 * The minimum number of nodes for an AVL-Tree of height, `h` is:
 
