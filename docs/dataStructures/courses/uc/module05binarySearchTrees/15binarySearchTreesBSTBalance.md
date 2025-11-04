@@ -16,8 +16,13 @@
   * [A node structure for balance](#a-node-structure-for-balance)
   * [AVL Claim: AVL Properties](#avl-claim-avl-properties)
   * [Summary: TL;DR](#summary-tldr)
+  * [How do we find (calculate) which side is more weighted?](#how-do-we-find-calculate-which-side-is-more-weighted)
   * [AVL-Tree Basic Left Rotation Idea](#avl-tree-basic-left-rotation-idea)
   * [AVL-Tree Basic Right Rotation Idea](#avl-tree-basic-right-rotation-idea)
+  * [AVL-Tree Basic Left-Right Rotation Idea](#avl-tree-basic-left-right-rotation-idea)
+  * [AVL-Tree Basic Right-Left Rotation Idea](#avl-tree-basic-right-left-rotation-idea)
+  * [On which node do we perform the rotation when multiple nodes are imbalanced?](#on-which-node-do-we-perform-the-rotation-when-multiple-nodes-are-imbalanced)
+  * [Conclusion](#conclusion)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
   * [Next](#next)
 <!-- TOC -->
@@ -144,7 +149,7 @@ $$
 * In an AVL tree, we maintain the below property: 
 
 $$
-N.left.height - N.right.height <= 1
+| N.left.height - N.right.height | <= 1
 $$
 
 * It is known as the "controlled balance."
@@ -235,20 +240,15 @@ $$
 * Multiplying both the sides by 2:
 
 $$
-2log_2(n) >= h
+2\;log_2(n) >= h
 $$
 
 $$
-h <= 2log_2(n)
+h <= 2\;log_2(n)
 $$
 
-* Dropping the constant `2`,
-
-$$
-h <= log_2(n)
-$$
-
-* We just proved that the maximum height of an AVL-Tree is $log_2(n)$.
+* We just proved that the maximum height of an AVL-Tree is $2\;log_2(n)$.
+* Asymptotically, it is `O(log n)`.
 
 ## Summary: TL;DR
 
@@ -260,7 +260,7 @@ $$
 * If we can control the height of the subtrees, we can maintain the height and efficiency of the tree.
 * However, the efforts of controlling the height of the subtrees should not defeat the core purpose.
 * The core purpose is to perform various operations such as `find(search)` efficiently.
-* It turned out that, if we can control $N.left.height - N.right.height <= 1$, we get a nice enough balance.
+* It turned out that, if we can control $| N.left.height - N.right.height | <= 1$, we get a nice enough balance.
 * It is known as the "Adelson-Velsky and Landis (AVL)" property. 
 * The minimum number of nodes for an AVL-Tree of height, `h` is:
 
@@ -279,11 +279,11 @@ n >= 2^{\frac{h}{2}}
 $$
 
 $$
-log_2(n) >= h
+2\;log_2(n) >= h
 $$
 
 $$
-h <= log_2(n)
+h <= 2\;log_2(n)
 $$
 
 * It means that the maximum height of an AVL-Tree is $log(n)$. 
@@ -442,11 +442,30 @@ $$
 
 * The binary heap tree is not a sorted tree.
 * The binary search tree is sorted for `In-Order(Left-Parent-Right)` traversal.
-* `Insert` is `O(log n)` in both the trees (to find the right place without violating the properties).
-* `Search` is also `O(log n)` in both the trees.
-* `Delete`: `O(log n)` to `find` the node + `O(log n)` to `maintain` the `properties`.
-  * So, `asymptotically`, it is `O(log n)` only.
-* `ExtractMax` is `O(1)` in the `maxHeap` tree and `O(log n)` in `BST`.
-* Similarly, `extractMin` is `O(1)` in the `minHeap` tree and `O(log n)` in `BST`.
+* For almost every other operations, we need to consider two variations of a binary search tree: (1) A balanced binary search tree (2) A skewed binary search tree.
+* `Insert` is `O(log n)` in a heap.
+* In a heap, we perform the `swiftUp` operation to maintain the properties.
+* It takes `O(log n)` time (Tree height).
+* In a binary search tree, we start from the root and find the right place.
+* If it is a balanced binary search tree, it takes `O(log n)`.
+* Otherwise, a skewed `BST` can take `O(n)` time.
+* `Search` is tricky. 
+* `Search` for a balanced binary search tree (and not a skewed `BST`) is `O(log n)`. 
+* Otherwise, it can be `O(n)` for a skewed `BST`.
+* `searchMax` (`findMax`) is `O(1)` for a `maxHeap`.
+* `searchMin` (`findMin`) is `O(1)` for a `minHeap`.
+* `Search`, it can be `O(n)` for a heap. Because, we know that the `parent` is `greater` than children in the `maxHeap`, and `smaller` than children in the `minHeap`, but we don't know in which direction to go after the parent. 
+* `Delete` is also tricky.
+* `Delete`: If it is a balanced binary search tree (and not a skewed `BST`), then it is `O(log n)`. Otherwise, it can be `O(n)` for a skewed `BST` as we have to travel through each node.
+* `Delete` can make the `BST` unbalanced. 
+* We need to perform a rotation operation to rebalance the tree, which takes `O(1)` time.
+* For a heap, it can be `O(n)` as we can't know in which direction to go after the parent. Hence, we might have to visit each node.
+* In a heap, we may take `O(n)` time to find the node that we want to delete. 
+* Then we increase the priority, which follows the `swiftUp` process and it takes `O(log n)` time. 
+* And then, we extract it by swapping it with the leaf node, which follows the `swiftDown` process and it takes `O(log n)` time.
+* So overall, for the `delete` operation, a `heap` takes `O(n) + O(log n) + O(log n)` time, where the dominant term is `O(n)`.
+* `ExtractMax` is `O(1)` in the `maxHeap` tree.
+* For a balanced binary search tree, it is `O(log n)`. Otherwise, it can be `O(n)` for a skewed binary search tree. 
+* Similarly, `extractMin` is `O(1)` in the `minHeap` tree, `O(log n)` for a balanced binary search tree, and `O(n)` for a skewed binary search tree.
 
 ## Next
