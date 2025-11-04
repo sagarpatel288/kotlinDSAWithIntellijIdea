@@ -471,4 +471,10 @@ $$
 * For a balanced binary search tree, it is `O(log n)`. Otherwise, it can be `O(n)` for a skewed binary search tree. 
 * Similarly, `extractMin` is `O(1)` in the `minHeap` tree, `O(log n)` for a balanced binary search tree, and `O(n)` for a skewed binary search tree.
 
+## ToDo
+
+* Under each rotation theory -> Pseudocode
+* Actual implementation
+* Relevant problems
+
 ## Next
