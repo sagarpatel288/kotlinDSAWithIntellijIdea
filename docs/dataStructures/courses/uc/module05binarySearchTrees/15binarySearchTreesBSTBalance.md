@@ -400,10 +400,53 @@ $$
 
 ![350avlImbalancedInsertionFixExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/350avlImbalancedInsertionFixExample.png)
 
-* Next: Insert 22 and 50.
+* Now, if we insert 22:
+
+![360avlImbalancedInsertionFixExample2.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/360avlImbalancedInsertionFixExample2.png)
+
+* Inserting `22` made the node `20` unbalanced.
+* `20` is the first and only unbalanced ancestor node.
+* The direction of first two nodes from the first unbalanced ancestor node, `20` towards the node that has caused imbalance is `RL`.
+* Yes, we take only the first two nodes and it doesn't have to reach the node that has caused the imbalance.
+* So, we perform the `RL-Rotation.`
+* The root-cause node, `22` becomes the parent, and the old-parent, `20` goes to the left side.
+* The process changes the parent of `4` nodes.
+
+---
+
+**Why do we take only the first two nodes to detect and decide the rotation?**
+
+* Because, the direction of the first two nodes from the first unbalanced ancestor to the root-cause node is enough to decide the rotation and balance the tree.
+* For example, if we had inserted `27` instead of `22`:
+
+![370avlImbalancedInsertionFixExample3.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/370avlImbalancedInsertionFixExample3.png)
+
+---
+
+* Now, insert `50` (after inserting `22`):
+
+![380avlImbalancedInsertionFixExample4.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/380avlImbalancedInsertionFixExample4.png)
+
+## Conclusion
+
+* The first unbalanced ancestor node becomes the anchor of the rotation.
+* To decide the rotation, we check only the first two nodes from the first unbalanced ancestor to the node that has caused the imbalance. 
+* The rotation changes maximum 4 nodes.
+* The area of changes includes: Child-Parent relation and the balance factor (height).
+* The rebalance must happen immediately after the moment of imbalance.
+* We must not accumulate the imbalance weight (score). Otherwise, it becomes chaos.
 
 //ToDo: Follow The Standard Improvement Process.
 
 ## What is the difference between a binary heap tree and a binary search tree?
+
+* The binary heap tree is not a sorted tree.
+* The binary search tree is sorted for `In-Order(Left-Parent-Right)` traversal.
+* `Insert` is `O(log n)` in both the trees (to find the right place without violating the properties).
+* `Search` is also `O(log n)` in both the trees.
+* `Delete`: `O(log n)` to `find` the node + `O(log n)` to `maintain` the `properties`.
+  * So, `asymptotically`, it is `O(log n)` only.
+* `ExtractMax` is `O(1)` in the `maxHeap` tree and `O(log n)` in `BST`.
+* Similarly, `extractMin` is `O(1)` in the `minHeap` tree and `O(log n)` in `BST`.
 
 ## Next
