@@ -318,6 +318,32 @@ $$
 
 ![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
 
+### Pseudocode: Basic Left Rotation (Cause: RR)
+
+* This is not a final code that covers all the cases.
+* This is just a piece of code based on the recent explanation about the basic left rotation.
+* We will slowly and gradually cover the final code with all the cases, including the edge cases.
+* Think about these properties: Parent, left child, right child, and height of a node.
+* Whenever we rotate the tree, we need to take care of these properties of the affected node.
+* And we need to understand which nodes get affected by a particular rotation.
+
+```kotlin
+val bf = balanceFactor(unbalancedNode)
+// This is the condition for the left-rotation (and also for the RL-Rotation. We will improve it.)
+if (bf < -1) {
+    // Right child of the unbalanced node becomes the new root (parent)
+    val newParent = unbalancedNode.right
+    // The unbalanced node becomes the left child of the new parent
+    newParent.left = unbalancedNode
+    // We will handle the case of a dense AVL-Tree shortly
+    // Update the parent of the unbalanced node to point to the new parent
+    unbalancedNode.parent = newParent
+    // Update the height of affected nodes
+    updateHeight(newParent)
+    updateHeight(unbalancedNode)
+}
+```
+
 * We can understand this with an analogy of a pulley.
 
 ![230avlTreeLeftRotaionAnalogyPulley.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/230avlTreeLeftRotaionAnalogyPulley.png)
@@ -331,11 +357,31 @@ $$
 ![290denseAvlTreeLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/290denseAvlTreeLeftRotation.png)
 
 * We can see that no matter how dense the tree is, we need to change the parents of only few nodes (3 to 4) to balance the entire tree.
+
+```kotlin
+
+val bf = balanceFactor(unbalancedNode)
+// This is the condition for the left rotation (and also for the RL-Rotation. We will improve it.)
+if (bf < -1) {
+    // Right child of the unbalanced node becomes the new parent
+    val newParent = unbalancedNode.right
+    // Take the reference of the left child of the new parent as we will have to update its parent
+    val oldLeftOfNewParent = newParent.left
+    // Update the left side of the new parent - The unbalanced node becomes the left child
+    newParent.left = unbalancedNode
+    // Update the parent of the unbalanced node - The new parent node becomes the parent
+    unbalancedNode.parent = newParent
+    // Update the right child of the unbalanced node - The old left child of the new parent
+    unbalancedNode.right = oldLeftOfNewParent
+}
+
+```
+
 * We can understand this with the pulley example also.
 
 ![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
 
-## AVL-Tree Basic Right Rotation Idea
+## AVL-Tree Basic Right Rotation Idea: (LL-Cause)
 
 * When we have an excessive left-subtree, we perform the right-rotation.
 * We also call it "LL-Rotation."
@@ -346,6 +392,20 @@ $$
 ![220avlBasicRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/220avlBasicRightRotation.png)
 
 ![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
+
+```kotlin
+val bf = balanceFactor(unbalancedNode)
+// This is the condition for the right rotation (and also for LR-Rotation. We will improve.)
+if (bf > 1) {
+    // The left child of the unbalanced node becomes the new parent
+    val newParent = unbalancedNode.left
+    // The unbalanced node goes to the right side of the new parent
+    newParent.right = unbalancedNode
+    // The "newParent" becomes the parent node of the unbalanced node 
+    unbalancedNode.parent = newParent
+    // We will shortly see an example of a dense tree
+}
+```
 
 * We can understand this with an analogy of a pulley.
 
@@ -358,6 +418,28 @@ $$
 * Now, we can take an example of a dense tree.
 
 ![270avlTreeRightRotationDenseExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/270avlTreeRightRotationDenseExample.png)
+
+```kotlin
+
+val bf = balanceFactor(unbalancedNode)
+// This is the condition for the right rotation (and also for the LR-Rotation). We will improve it.
+if (bf > 1) {
+    // The left child of the unbalanced node becomes the new parent.
+    val newParent = unbalancedNode.left
+    // The right child of the new parent node gets affected - if any.
+    val oldRightOfNewParent = newParent.right
+    // The unbalanced node becomes the right child of the new parent.
+    newParent.right = unbalancedNode
+    // Update the parent of the unbalanced node.
+    unbalancedNode.parent = newParent
+    // The old right child of the new parent (if any) becomes the left child of the unbalanced node.
+    unbalancedNode.left = oldRightOfNewParent
+    updateHeight(unbalancedNode)
+    updateHeight(newParent)
+    updateHeight(oldRightOfNewParent)
+}
+
+```
 
 * Again, we can visualize and understand it better with the pulley analogy. 
 
@@ -474,6 +556,7 @@ $$
 ## ToDo
 
 * Under each rotation theory -> Pseudocode
+  * Add step-by-step progress along with those 4 properties: Parent, left, right, and height.
 * Actual implementation
 * Relevant problems
 
