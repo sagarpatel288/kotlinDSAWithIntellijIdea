@@ -527,6 +527,18 @@ if (bf > 1) {
 
 ![340denseAvlTreeRightLeftRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/340denseAvlTreeRightLeftRotationTwoSteps.png)
 
+![345denseAvlTreeRightLeftRotationProcess.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/345denseAvlTreeRightLeftRotationProcess.png)
+
+```kotlin
+
+val bf = balanceFactor(unbalancedNode)
+if (bf < -1) {
+    rotateRight(unbalancedNode.right)
+    rotateLeft(unbalancedNode)
+}
+
+```
+
 ## On which node do we perform the rotation when multiple nodes are imbalanced?
 
 **When, how, and on which node do we perform a rotation?**
@@ -563,6 +575,17 @@ if (bf > 1) {
 * Now, insert `50` (after inserting `22`):
 
 ![380avlImbalancedInsertionFixExample4.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/380avlImbalancedInsertionFixExample4.png)
+
+## Rotation summary
+
+* if `bf > 1`, it means the tree is left-sided. 
+* So, we perform either right rotation or the LR-rotation.
+  * How to remember? At the end, we do the right rotation only in `LR`.
+* If `bf < -1`, it means that the tree is right-sided.
+* So, we perform either the left rotation or the RL-rotation.
+  * How to remember? At the end, we do the left rotation only in `RL`.
+* `LR-Rotation`: (1) Left rotation on the `unbalancedNode.left` and then (2) Right rotation on the `unbalancedNode`.
+* `RL-Rotation`: (1) Right rotation on the `unbalancedNode.right` and then (2) Left rotation on the `unbalancedNode`.
 
 ## Conclusion
 
