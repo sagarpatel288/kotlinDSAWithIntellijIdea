@@ -18,12 +18,15 @@
   * [AVL Introduction Summary: TL;DR](#avl-introduction-summary-tldr)
   * [How do we find (calculate) which side is more weighted?](#how-do-we-find-calculate-which-side-is-more-weighted)
   * [AVL-Tree Basic Left Rotation Idea](#avl-tree-basic-left-rotation-idea)
-  * [AVL-Tree Basic Right Rotation Idea](#avl-tree-basic-right-rotation-idea)
+    * [Code Consideration: Thought Process](#code-consideration-thought-process)
+    * [Pseudocode: Basic Left Rotation (Cause: RR)](#pseudocode-basic-left-rotation-cause-rr)
+  * [AVL-Tree Basic Right Rotation Idea: (LL-Cause)](#avl-tree-basic-right-rotation-idea-ll-cause)
   * [AVL-Tree Basic Left-Right Rotation Idea](#avl-tree-basic-left-right-rotation-idea)
   * [AVL-Tree Basic Right-Left Rotation Idea](#avl-tree-basic-right-left-rotation-idea)
   * [On which node do we perform the rotation when multiple nodes are imbalanced?](#on-which-node-do-we-perform-the-rotation-when-multiple-nodes-are-imbalanced)
   * [Conclusion](#conclusion)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
+  * [ToDo](#todo)
   * [Next](#next)
 <!-- TOC -->
 
@@ -318,6 +321,26 @@ $$
 
 ![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
 
+### Code Consideration: Thought Process
+
+* Identify the cause and decide the rotation. 
+  * For example, LL-Cause leads right rotation, RR-Cause leads left rotation, LR-Cause leads LR-Rotation, and RL-Cause leads RL-Rotation. 
+  * Decide the rotation based on the cause and effect.
+* Visualize the image, recall the rotation, and affected nodes.
+* Start with the unbalanced node and the upcoming (new, future) parent.
+  * For example, in the left rotation, the right child of the unbalanced node becomes the new parent.
+  * And if the new parent has some children, we may need to store them in a temporary variable.
+* Think about the affected nodes.
+* Consider 4 properties: Parent, left, right, and height (including the relevant edge cases).
+  * Consider the edge cases. 
+  * For example, the upcoming (new, future) parent might not have all the children.
+* Take required references before the rotation. 
+  * For example, children of the upcoming (new, future) parent.
+* Apply the changes to perform the rotation. 
+  * For example, shifting the unbalanced node by changing the properties (pointers).
+* Update the properties of the affected nodes after the rotation.
+* Update the height of all the affected nodes at the end - after we are done with all the position shifting.
+
 ### Pseudocode: Basic Left Rotation (Cause: RR)
 
 * This is not a final code that covers all the cases.
@@ -331,13 +354,16 @@ $$
 val bf = balanceFactor(unbalancedNode)
 // This is the condition for the left-rotation (and also for the RL-Rotation. We will improve it.)
 if (bf < -1) {
-    // Right child of the unbalanced node becomes the new root (parent)
+    // Start with the unbalanced node.
+    // Unbalanced node: Parent, left, right, and height.
+    // Left child of the unbalanced node remains as it is.
+    // Right child of the unbalanced node becomes the new parent.
     val newParent = unbalancedNode.right
+    // Update the parent of the unbalanced node to point to the new parent.
+    // We will handle the case of a dense AVL-Tree shortly.
+    unbalancedNode.parent = newParent
     // The unbalanced node becomes the left child of the new parent
     newParent.left = unbalancedNode
-    // We will handle the case of a dense AVL-Tree shortly
-    // Update the parent of the unbalanced node to point to the new parent
-    unbalancedNode.parent = newParent
     // Update the height of affected nodes
     updateHeight(newParent)
     updateHeight(unbalancedNode)
@@ -363,14 +389,17 @@ if (bf < -1) {
 val bf = balanceFactor(unbalancedNode)
 // This is the condition for the left rotation (and also for the RL-Rotation. We will improve it.)
 if (bf < -1) {
+    // Start with the unbalanced node.
+    // Left child of the unbalanced node remains as it is.
     // Right child of the unbalanced node becomes the new parent
     val newParent = unbalancedNode.right
-    // Take the reference of the left child of the new parent as we will have to update its parent
-    val oldLeftOfNewParent = newParent.left
-    // Update the left side of the new parent - The unbalanced node becomes the left child
-    newParent.left = unbalancedNode
     // Update the parent of the unbalanced node - The new parent node becomes the parent
     unbalancedNode.parent = newParent
+    // Take the reference of the left child of the new parent as we will have to update its parent
+    val oldLeftOfNewParent = newParent.left
+    // Right child of the new parent remains as it is.
+    // Update the left side of the new parent - The unbalanced node becomes the left child
+    newParent.left = unbalancedNode
     // Update the right child of the unbalanced node - The old left child of the new parent
     unbalancedNode.right = oldLeftOfNewParent
 }
@@ -403,7 +432,9 @@ if (bf > 1) {
     newParent.right = unbalancedNode
     // The "newParent" becomes the parent node of the unbalanced node 
     unbalancedNode.parent = newParent
-    // We will shortly see an example of a dense tree
+    updateHeight(unbalancedNode)
+    updateHeight(newParent)
+    // We will shortly see an example of a dense tree, where the new parent might have children.
 }
 ```
 
