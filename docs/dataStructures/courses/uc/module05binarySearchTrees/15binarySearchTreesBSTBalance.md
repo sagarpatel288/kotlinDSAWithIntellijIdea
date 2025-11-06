@@ -491,6 +491,28 @@ if (bf > 1) {
 
 ![320denseAvlTreeLeftRightRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/320denseAvlTreeLeftRightRotationTwoSteps.png)
 
+![325denseAvlTreeLeftRightRotationProcess1.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/325denseAvlTreeLeftRightRotationProcess1.png)
+
+### Pseudocode of Left-Right Rotation
+
+* Left rotation on the `unbalancedNode.left`.
+  * The left rotation should also update the height of the affected nodes.
+* And the right rotation on the `unbalancedNode` itself.
+  * The right rotation would also update the height of the affected nodes.
+
+```kotlin
+
+val bf = balanceFactor(unbalancedNode)
+// We will see how to distinguish b/w right-rotation and LR-rotation soon.
+if (bf > 1) {
+    // Start with the unbalancedNode.left and perform the left rotation on it
+    val leftOfUnbalanced = unbalancedNode.left
+    // The rotate operation should also update the height of the relevant (affected) nodes.
+    rotateLeft(leftOfUnbalanced)
+    rotateRight(unbalancedNode)
+}
+```
+
 ## AVL-Tree Basic Right-Left Rotation Idea
 
 * Similarly, the below image shows a right-rotation followed by the left-rotation.
