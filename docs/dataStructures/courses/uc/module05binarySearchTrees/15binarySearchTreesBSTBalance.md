@@ -22,8 +22,12 @@
     * [Pseudocode: Basic Left Rotation (Cause: RR)](#pseudocode-basic-left-rotation-cause-rr)
   * [AVL-Tree Basic Right Rotation Idea: (LL-Cause)](#avl-tree-basic-right-rotation-idea-ll-cause)
   * [AVL-Tree Basic Left-Right Rotation Idea](#avl-tree-basic-left-right-rotation-idea)
+    * [Pseudocode of Left-Right Rotation](#pseudocode-of-left-right-rotation)
   * [AVL-Tree Basic Right-Left Rotation Idea](#avl-tree-basic-right-left-rotation-idea)
   * [On which node do we perform the rotation when multiple nodes are imbalanced?](#on-which-node-do-we-perform-the-rotation-when-multiple-nodes-are-imbalanced)
+  * [How to distinguish between the right rotation and the LR-Rotation?](#how-to-distinguish-between-the-right-rotation-and-the-lr-rotation)
+  * [How to distinguish between the left rotation and the RL-Rotation?](#how-to-distinguish-between-the-left-rotation-and-the-rl-rotation-)
+  * [Rotation summary](#rotation-summary)
   * [Conclusion](#conclusion)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
   * [ToDo](#todo)
@@ -324,12 +328,18 @@ $$
 ### Code Consideration: Thought Process
 
 * Identify the cause and decide the rotation. 
-  * For example, LL-Cause leads right rotation, RR-Cause leads left rotation, LR-Cause leads LR-Rotation, and RL-Cause leads RL-Rotation. 
+  * For example, if (bf < -1), then it is right-sided tree.
+  * It means we need to perform either left rotation or RL-rotation.
+  * Similarly, if (bf > 1), then it is left-sided tree.
+  * So, we need to perform either right rotation or LR-rotation.
+  * LL-Cause leads right rotation, RR-Cause leads left rotation, LR-Cause leads LR-Rotation, and RL-Cause leads RL-Rotation. 
   * Decide the rotation based on the cause and effect.
 * Visualize the image, recall the rotation, and affected nodes.
 * Start with the unbalanced node and the upcoming (new, future) parent.
   * For example, in the left rotation, the right child of the unbalanced node becomes the new parent.
-  * And if the new parent has some children, we may need to store them in a temporary variable.
+  * And if the new parent has a left child, we may need to store it in a temporary variable as the unbalanced node will become its new parent.
+  * It will become the right child of the unbalanced node.
+  * Think about this for the rotation that we perform.
 * Think about the affected nodes.
 * Consider 4 properties: Parent, left, right, and height (including the relevant edge cases).
   * Consider the edge cases. 
@@ -575,6 +585,10 @@ if (bf < -1) {
 * Now, insert `50` (after inserting `22`):
 
 ![380avlImbalancedInsertionFixExample4.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/380avlImbalancedInsertionFixExample4.png)
+
+## How to distinguish between the right rotation and the LR-Rotation?
+
+## How to distinguish between the left rotation and the RL-Rotation? 
 
 ## Rotation summary
 
