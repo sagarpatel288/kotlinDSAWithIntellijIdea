@@ -184,7 +184,7 @@ $$
 
 ## AVL Claim: AVL Properties
 
-* We claim that the height of a balanced binary tree (AVL) is at most $O(log\ n)$.
+* We claim that the height of a balanced binary tree (AVL) is at most almost $O(log\ n)$.
 * Now, height is made up with nodes.
 * So, it is possible to get an idea about the total number of nodes based upon the height of the tree.
 * And we can add (consider) the "balance" property into this relationship.
@@ -196,9 +196,9 @@ $$
 
 ![200heightAndNodesRelation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/200heightAndNodesRelation.png)
 
-* Now, the subtree of height `h - 1` must have at least `h - 1` nodes under the AVL-Tree constraint (properties).
+* Now, the subtree of height `h - 1` must have at least `N(h - 1)` nodes under the AVL-Tree constraint (properties).
 * Let us denote it as `N(h - 1)` that says the minimum nodes in an AVL-Tree of height `h - 1`.
-* And the subtree of height `h - 2` must have at least `h - 2` nodes.
+* And the subtree of height `h - 2` must have at least `N(h - 2)` nodes.
 * So, `N(h - 2)` says the minimum nodes in an AVL-Tree of height `h - 2`.
 * Now, if we add `+1(the root node)` to `N(h - 1) + N(h - 2)`, we get the minimum nodes in an AVL-Tree of height `h` (Refer the above [image](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/200heightAndNodesRelation.png) to get the idea).
 * So, it is:
@@ -261,6 +261,10 @@ h <= 2\;log_2(n)
 $$
 
 * We just proved that the maximum height of an AVL-Tree is $2\;log_2(n)$.
+* $log_2(n)$ indicates a perfect balanced binary tree, but we take some flexibility in an AVL-Tree.
+* Due to this flexibility, it can become twice as tall as a perfectly balanced binary tree.
+* `2` is the price we pay to rebalance the tree in `O(1)`.
+* It means that, we don't spend too much time in rebalancing, and `find(search)` operation is still efficient.
 * Asymptotically, it is `O(log n)`.
 
 ## AVL Introduction Summary: TL;DR
@@ -299,7 +303,7 @@ $$
 h <= 2\;log_2(n)
 $$
 
-* It means that the maximum height of an AVL-Tree is $log(n)$. 
+* It means that the maximum height of an AVL-Tree is $2\;log_2(n)$. 
 * Next, we will see how to maintain the AVL-Tree property through the "rotation" technique.
 
 ## How do we find (calculate) which side is more weighted?
@@ -378,9 +382,9 @@ if (bf < -1) {
     unbalancedNode.parent = newParent
     // The unbalanced node becomes the left child of the new parent
     newParent.left = unbalancedNode
-    // Update the height of affected nodes
-    updateHeight(newParent)
+    // Update the height of affected nodes from children to parent order
     updateHeight(unbalancedNode)
+    updateHeight(newParent)
 }
 ```
 
@@ -416,6 +420,11 @@ if (bf < -1) {
     newParent.left = unbalancedNode
     // Update the right child of the unbalanced node - The old left child of the new parent
     unbalancedNode.right = oldLeftOfNewParent
+    oldLeftOfNewParent.parent = unbalancedNode
+    // Update the height from children to parent order
+    updateHeight(oldLeftOfNewParent)
+    updateHeight(unbalancedNode)
+    updateHeight(newParent)
 }
 
 ```
@@ -446,6 +455,7 @@ if (bf > 1) {
     newParent.right = unbalancedNode
     // The "newParent" becomes the parent node of the unbalanced node 
     unbalancedNode.parent = newParent
+    // Update the height from children to parent order 
     updateHeight(unbalancedNode)
     updateHeight(newParent)
     // We will shortly see an example of a dense tree, where the new parent might have children.
@@ -479,9 +489,11 @@ if (bf > 1) {
     unbalancedNode.parent = newParent
     // The old right child of the new parent (if any) becomes the left child of the unbalanced node.
     unbalancedNode.left = oldRightOfNewParent
+    oldRightOfNewParent.parent = unbalancedNode
+    // Update the height from children to parent order
+    updateHeight(oldRightOfNewParent)
     updateHeight(unbalancedNode)
     updateHeight(newParent)
-    updateHeight(oldRightOfNewParent)
 }
 
 ```
@@ -655,9 +667,11 @@ if (bf > 1 && balanceFactor(node.left) >= 0) {
     node.parent = oldLeftOfUnbalancedNode
     oldLeftOfUnbalancedNode.right = node
     node.left = rightChildIfAnyOfNewParent
+    rightChildIfAnyOfNewParent.parent = node
+    // Update the height from children to parent order
+    updateHeight(rightChildIfAnyOfNewParent)
     updateHeight(node)
     updateHeight(oldLeftOfUnbalancedNode)
-    updateHeight(rightChildIfAnyOfNewParent)
 }
 
 ```
@@ -703,8 +717,10 @@ if (bf < -1 && balanceFactor(node.right) <= 0) {
     node.parent = rightOfUnbalancedNode
     rightOfUnbalancedNode.left = node
     node.right = leftOfNewParentIfAny
-    updateHeight(node)
+    leftOfNewParentIfAny.parent = node
+    // Update the height from children to parent order.
     updateHeight(rightOfUnbalancedNode)
+    updateHeight(node)
     updateHeight(leftOfNewParentIfAny)
 }
 
@@ -787,6 +803,7 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 * Under each rotation theory -> Pseudocode
   * Add step-by-step progress along with those 4 properties: Parent, left, right, and height.
 * When and how do we recalculate the balance factor? Do we have to recalculate the balance factor of each node after each insert or delete operation? How does that work? 
+* Why does the height update order matter?
 * Actual implementation
 * Relevant problems
 
