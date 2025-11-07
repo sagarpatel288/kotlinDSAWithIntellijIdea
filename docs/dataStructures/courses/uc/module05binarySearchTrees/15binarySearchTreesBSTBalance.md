@@ -26,7 +26,11 @@
   * [AVL-Tree Basic Right-Left Rotation Idea](#avl-tree-basic-right-left-rotation-idea)
   * [On which node do we perform the rotation when multiple nodes are imbalanced?](#on-which-node-do-we-perform-the-rotation-when-multiple-nodes-are-imbalanced)
   * [How to distinguish between the right rotation and the LR-Rotation?](#how-to-distinguish-between-the-right-rotation-and-the-lr-rotation)
+  * [Final pseudocode for the right rotation](#final-pseudocode-for-the-right-rotation)
+  * [Final pseudocode for the LR-Rotation](#final-pseudocode-for-the-lr-rotation)
   * [How to distinguish between the left rotation and the RL-Rotation?](#how-to-distinguish-between-the-left-rotation-and-the-rl-rotation-)
+  * [Final pseudocode for the left rotation](#final-pseudocode-for-the-left-rotation)
+  * [Final pseudocode for the RL-Rotation](#final-pseudocode-for-the-rl-rotation)
   * [Rotation summary](#rotation-summary)
   * [Conclusion](#conclusion)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
@@ -591,12 +595,12 @@ if (bf < -1) {
 **When do we perform the right rotation?**
 
 * When we have a left-sided tree.
-* So, when `bf > 1` for the unbalanced node.
+* So, when `balanceFactor(unbalancedNode) > 1` for the unbalanced node.
 * For example:
 
 ![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
 
-* If it is a pure (straight) left-sided tree, then the left child of the unbalanced node must have `bf >= 0`.
+* If it is a pure (straight) left-sided tree, then the left child of the unbalanced node must have `balanceFactor(unbalancedNode.left) >= 0`.
 * However, if `balanceFactor(unbalancedNode.left) < 0`, then it is zigzag and it is LR-Rotation.
 * For example:
 
@@ -614,8 +618,10 @@ if (bf > 1) {
 ```
 
 * Now, if it is a pure, straight left-sided tree, then the left child of the unbalanced node cannot be right-sided.
-* So, in a pure unbalanced left-sided AVL-tree, `unbalancedNode.left >= 0`.
-* If `unbalancedNode.left < 0`, it means that the unbalanced node itself is left-sided, but the left child of the unbalanced node is right-sided.
+* So, in a pure unbalanced left-sided AVL-tree, `balanceFactor(unbalancedNode.left) >= 0`.
+* In a pure, straight left-sided unbalanced AVL-Tree, both the `unbalancedNode` and `unbalancedNode.left` belong to the same `positive` family.
+* But if `balanceFactor(unbalancedNode.left) < 0`, it means that the unbalanced node itself is left-sided, but the left child of the unbalanced node is right-sided.
+* So, in the `RL-Cause`, the balance factor of the `unbalancedNode` belongs to the `positive` family, but the balance factor of its left child belongs to the `negative` family!
 * So, the condition for the pure and straight unbalanced left-sided AVL-tree is:
 
 ```kotlin
@@ -665,18 +671,67 @@ if (bf > 1 && balanceFactor(node.left) < 0) {
 
 ## How to distinguish between the left rotation and the RL-Rotation? 
 
+**When do we perform the left rotation?**
+
+* When the BST is right-sided.
+* It means when `balanceFactor(unbalancedNode) < -1`.
+* We can remember it in this way: The balance factor of the unbalanced node belongs to the negative family for the **left rotation**.
+* If the balance factor of the right child of the unbalanced node also belongs to the negative family or to the neutral family (zero), it is only the **single left rotation**.
+* For example:
+
+![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
+
+* However, when the unbalanced node belongs to the negative family, but the right child of the unbalanced node belongs to the positive family, it is the case of the double rotation: RL-Rotation.
+* For example:
+
+![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
+
 ## Final pseudocode for the left rotation
 
+```kotlin
+
+val bf = balanceFactor(node)
+if (bf < -1 && balanceFactor(node.right) <= 0) {
+    // This is the case of a single left rotation
+    val rightOfUnbalancedNode = node.right
+    val leftOfNewParentIfAny = rightOfUnbalancedNode.left
+    node.parent = rightOfUnbalancedNode
+    rightOfUnbalancedNode.left = node
+    node.right = leftOfNewParentIfAny
+    updateHeight(node)
+    updateHeight(rightOfUnbalancedNode)
+    updateHeight(leftOfNewParentIfAny)
+}
+
+```
+
 ## Final pseudocode for the RL-Rotation
+
+```kotlin
+
+val bf = balanceFactor(node)
+if (bf < -1 && balanceFactor(node.right > 0)) {
+    // This is the case of the double rotation: RL-Rotation
+    rotateRight(node.right)
+    rotateLeft(node)
+}
+
+```
 
 ## Rotation summary
 
 * if `bf > 1`, it means the tree is left-sided. 
 * So, we perform either right rotation or the LR-rotation.
   * How to remember? At the end, we do the right rotation only in `LR`.
+  * For the left-sided tree, we check the left child.
+  * If both the unbalanced node and the left child belong to the same family, it is the case of the single rotation: Right rotation.
+  * Otherwise, it is the case of the double rotation: LR-Rotation.
 * If `bf < -1`, it means that the tree is right-sided.
 * So, we perform either the left rotation or the RL-rotation.
   * How to remember? At the end, we do the left rotation only in `RL`.
+  * For the right-sided tree, we check the right child.
+  * If both the unbalanced node and the right child belong to the same family, it is the case of the single rotation: Left rotation.
+  * Otherwise, it is the case of the double rotation: RL-Rotation.
 * `LR-Rotation`: (1) Left rotation on the `unbalancedNode.left` and then (2) Right rotation on the `unbalancedNode`.
 * `RL-Rotation`: (1) Right rotation on the `unbalancedNode.right` and then (2) Left rotation on the `unbalancedNode`.
 
