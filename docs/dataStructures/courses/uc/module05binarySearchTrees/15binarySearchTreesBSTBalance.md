@@ -588,7 +588,86 @@ if (bf < -1) {
 
 ## How to distinguish between the right rotation and the LR-Rotation?
 
+**When do we perform the right rotation?**
+
+* When we have a left-sided tree.
+* So, when `bf > 1` for the unbalanced node.
+* For example:
+
+![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
+
+* If it is a pure (straight) left-sided tree, then the left child of the unbalanced node must have `bf >= 0`.
+* However, if `balanceFactor(unbalancedNode.left) < 0`, then it is zigzag and it is LR-Rotation.
+* For example:
+
+![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
+
+**How to remember?**
+
+* Be it the right rotation or the LR-rotation, it always starts with:
+
+```kotlin
+// The common condition for the right rotation and LR-Rotation
+if (bf > 1) {
+    
+}
+```
+
+* Now, if it is a pure, straight left-sided tree, then the left child of the unbalanced node cannot be right-sided.
+* So, in a pure unbalanced left-sided AVL-tree, `unbalancedNode.left >= 0`.
+* If `unbalancedNode.left < 0`, it means that the unbalanced node itself is left-sided, but the left child of the unbalanced node is right-sided.
+* So, the condition for the pure and straight unbalanced left-sided AVL-tree is:
+
+```kotlin
+
+if (balanceFactor(unbalancedNode) > 1 && balanceFactor(unbalancedNode.left) >= 0) {
+    // This is a pure, straight unbalanced left-sided AVL-tree
+}
+```
+
+* And the condition for the LR-Cause is:
+
+```kotlin
+
+if (balanceFactor(unbalancedNode) > 1 && balanceFactor(unbalancedNode.left) < 0) {
+    // This is LR-Caused imbalance
+}
+```
+
+## Final pseudocode for the right rotation
+
+```kotlin
+
+val bf = balanceFactor(node)
+if (bf > 1 && balanceFactor(node.left) >= 0) {
+    val oldLeftOfUnbalancedNode = node.left
+    val rightChildIfAnyOfNewParent = oldLeftOfUnbalancedNode.right
+    node.parent = oldLeftOfUnbalancedNode
+    oldLeftOfUnbalancedNode.right = node
+    node.left = rightChildIfAnyOfNewParent
+    updateHeight(node)
+    updateHeight(oldLeftOfUnbalancedNode)
+    updateHeight(rightChildIfAnyOfNewParent)
+}
+
+```
+
+## Final pseudocode for the LR-Rotation
+
+```kotlin
+
+val bf = balanceFactor(node)
+if (bf > 1 && balanceFactor(node.left) < 0) {
+    rotateLeft(node.left)
+    rotateRight(node)
+}
+```
+
 ## How to distinguish between the left rotation and the RL-Rotation? 
+
+## Final pseudocode for the left rotation
+
+## Final pseudocode for the RL-Rotation
 
 ## Rotation summary
 
@@ -647,6 +726,7 @@ if (bf < -1) {
 
 * Under each rotation theory -> Pseudocode
   * Add step-by-step progress along with those 4 properties: Parent, left, right, and height.
+* When and how do we recalculate the balance factor? Do we have to recalculate the balance factor of each node after each insert or delete operation? How does that work? 
 * Actual implementation
 * Relevant problems
 
