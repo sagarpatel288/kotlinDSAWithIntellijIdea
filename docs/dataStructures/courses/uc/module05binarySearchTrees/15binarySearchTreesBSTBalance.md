@@ -596,12 +596,16 @@ if (bf < -1) {
 
 * When we have a left-sided tree.
 * So, when `balanceFactor(unbalancedNode) > 1` for the unbalanced node.
+* So, the balance factor of the unbalanced node belongs to the `positive` family.
 * For example:
 
 ![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
 
+* For the left-sided tree, we also check the left child of the unbalanced node.
 * If it is a pure (straight) left-sided tree, then the left child of the unbalanced node must have `balanceFactor(unbalancedNode.left) >= 0`.
+* So, the left child of the unbalanced node also belongs to the `positive` family, or at least the neutral (zero) family.
 * However, if `balanceFactor(unbalancedNode.left) < 0`, then it is zigzag and it is LR-Rotation.
+* So, when the balance factor of the unbalanced node belongs the positive family, but the balance factor of the left child of the unbalanced node belongs to the negative family, it is LR-Rotation.  
 * For example:
 
 ![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
@@ -676,6 +680,7 @@ if (bf > 1 && balanceFactor(node.left) < 0) {
 * When the BST is right-sided.
 * It means when `balanceFactor(unbalancedNode) < -1`.
 * We can remember it in this way: The balance factor of the unbalanced node belongs to the negative family for the **left rotation**.
+* For the right-sided tree, we also check the right child of the unbalanced node.
 * If the balance factor of the right child of the unbalanced node also belongs to the negative family or to the neutral family (zero), it is only the **single left rotation**.
 * For example:
 
