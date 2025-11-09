@@ -27,8 +27,8 @@ data class AvlNode(
     var keyValue: Int,
     var left: AvlNode? = null,
     var right: AvlNode? = null,
-    // Policy: A single node without any parent and children has a height of 1.
-    // So, the height of the leaf node is 1.
+    // Policy: A single node without any parents or children has a height of 1.
+    // The height of the leaf node is 1.
     var height: Int = 1
 )
 
@@ -130,5 +130,26 @@ class AvlTree {
     }
 
 
+    /**
+     * **Prerequisites/References:**
+     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     *
+     * **WHAT:**
+     * *
+     *
+     * **PURPOSE:**
+     * *
+     *
+     * * To insert a [key], we need to [find] the right place.
+     * * After inserting the [key], we need to update the height of the relevant nodes (ancestors).
+     * * Then, we need to ensure that this [AvlTree] is still balanced.
+     * * So, we check the [balanceFactor].
+     * * If we find that the [insert] operation has caused an imbalance, we [balance] this [AvlTree] using rotations.
+     * * The appropriate rotation function should also update the height of the relevant nodes.
+     */
+    fun insert(key: Int) {
+
+    }
 
 }
