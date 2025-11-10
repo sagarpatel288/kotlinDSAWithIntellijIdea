@@ -129,6 +129,65 @@ class AvlTree {
         return height(avlNode.left) - height(avlNode.right)
     }
 
+    /**
+     * **Prerequisites/References:**
+     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     *
+     * **WHAT:**
+     * * Performs `Right Rotation` on the given [node].
+     *
+     * **PURPOSE:**
+     * * We perform the right rotation on the [node] when the [node] is heavy on the left side.
+     * * We cannot rotate a null [node]. So, a non-null parameter/argument for the function.
+     * * Similarly, we return a non-null and balanced [node], a new node that takes the place of this [node].
+     * * So, a non-null return type.
+     */
+    private fun rotateRight(node: AvlNode): AvlNode {
+        // Left cannot be null, because we are doing `rotateRight` on the `node`.
+        // It means that the `node` is left-heavy!
+        val left = node.left!!
+        // No null-safe operator on the `left` because we have used `!!` before.
+        val rightOfleft = left.right
+        left.right = node
+        node.left = rightOfleft
+        // Update height from children to parent order
+        updateHeight(rightOfleft)
+        updateHeight(node)
+        updateHeight(left)
+        // Return `node.left` that has taken the place of the incoming `node`.
+        return left
+    }
+
+    /**
+     * **Prerequisites/References:**
+     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     *
+     * **WHAT:**
+     * * Rotates the given [node] left side to rebalance it.
+     *
+     * **PURPOSE:**
+     * * We perform the left rotation on the given [node] when it is heavy on the right side.
+     * * We expect that the incoming [node] is not null.
+     * * We return the new non-null node that takes the place of this incoming [node].
+     */
+    private fun rotateLeft(node: AvlNode): AvlNode {
+        // We are rotating the incoming `node` on the left side.
+        // It means that the incoming `node` is heavy on the right side.
+        // So, we can safely expect that the right side of this incoming `node` is not null.
+        val right = node.right!!
+        // We don't need to use the null-safe operator on the `right` node, because we have already used `!!` before.
+        val leftOfRight = right.left
+        right.left = node
+        node.right = leftOfRight
+        // Update the height from children to parent order
+        updateHeight(leftOfRight)
+        updateHeight(node)
+        updateHeight(right)
+        // Return the `node.right` that has taken the place of the incoming `node`.
+        return right
+    }
 
     /**
      * **Prerequisites/References:**
@@ -147,9 +206,79 @@ class AvlTree {
      * * So, we check the [balanceFactor].
      * * If we find that the [insert] operation has caused an imbalance, we [balance] this [AvlTree] using rotations.
      * * The appropriate rotation function should also update the height of the relevant nodes.
+     * * We reassign the [root] to the updated one, because the height and probably also the balance factor of the
+     * [root] changes after the [insert] operation.
+     * * This is the public API, and it uses the private helper function [insert].
+     * * The private helper function [insert] gives the [root] node with the updated height and ensures the balance.
      */
     fun insert(key: Int) {
+        root = insert(root, key)
+    }
 
+    /**
+     * **Prerequisites/References:**
+     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     *
+     * **WHAT:**
+     * * It is a recursive function that takes a parent node [node] under which we want to insert a new node of [key].
+     *
+     * **PURPOSE:**
+     * * Performs standard BST insert operation for the given [key].
+     * * The insert operation might change the height of several ancestors.
+     * * It can also make the AVL-Tree imbalance.
+     * * This [insert] operation updates the height of each ancestor and ensures the balance.
+     * * It checks the balance factor of the relevant nodes.
+     * * If required, it performs the relevant rotation(s) on the relevant nodes to keep the AVL-Tree balanced.
+     */
+    private fun insert(node: AvlNode?, key: Int): AvlNode {
+        // Standard BST insert.
+        // Base case.
+        if (node == null) {
+            // The default height of the [AvlNode] is `1` only. So, we don't need to do anything else.
+            // Hence, we return.
+            return AvlNode(key)
+        }
+        // We don't need to use the null safe operator `?` because we have already checked the null node case before.
+        if (key > node.keyValue) {
+            node.right = insert(node.right, key)
+        } else if (key < node.keyValue) {
+            node.left = insert(node.left, key)
+        } else {
+            // We don't allow duplicate nodes/keys
+            return node
+        }
+
+        // Update the height of this ancestor node as it has a new child
+        updateHeight(node)
+
+        // Ensure the balance
+        val bf = balanceFactor(node)
+        if (bf > 1 && balanceFactor(node.left) >= 0) {
+            // This `node` is heavy on the left side. So, we need to `rotateRight`.
+            return rotateRight(node)
+        }
+        if (bf > 1 && balanceFactor(node.left) < 0) {
+            // There is an LR-imbalance. So, we need to perform the double rotation: LR-Rotation.
+            // We can safely expect a non-null left child when the node is LR-imbalanced.
+            // The resultant node of the rotation becomes the `node.left`.
+            node.left = rotateLeft(node.left!!)
+            return rotateRight(node)
+        }
+        if (bf < -1 && balanceFactor(node.right) <= 0) {
+            // The node is heavy on the right side. So, we need to rotate it towards the left side.
+            return rotateLeft(node)
+        }
+        if (bf < -1 && balanceFactor(node.right) > 0) {
+            // There is an RL-imbalance. So, we need to perform the double rotation: RL-Rotation.
+            // It is an RL-imbalance.
+            // So, we can safely expect a non-null right child of the unbalanced node.
+            // The resultant node of the rotation becomes the `node.right`.
+            node.right = rotateRight(node.right!!)
+            return rotateLeft(node)
+        }
+        // Return the node if there was(is) no imbalance
+        return node
     }
 
 }
