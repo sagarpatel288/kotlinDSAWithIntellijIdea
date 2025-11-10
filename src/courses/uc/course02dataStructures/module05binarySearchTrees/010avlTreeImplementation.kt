@@ -230,6 +230,21 @@ class AvlTree {
      * * This [insert] operation updates the height of each ancestor and ensures the balance.
      * * It checks the balance factor of the relevant nodes.
      * * If required, it performs the relevant rotation(s) on the relevant nodes to keep the AVL-Tree balanced.
+     *
+     * **HOW:**
+     * * We start from the [root] node to insert a new node of [key].
+     * * It follows a standard `BST-Binary Search Tree` approach.
+     * * We are using recursion here.
+     * * After insertion, we [updateHeight] of the parent node.
+     * * Then, we check the [balanceFactor] of the node.
+     * * If we find that the [node] is unbalanced, we perform the relevant rotation on it to rebalance it.
+     * * We repeat this process of updating the height, checking the balance factor, and rebalancing if required.
+     * * We do it from the parent [node] of the new node of [key] all the way up to the [root] node.
+     * * Finally, we return the updated [root].
+     *
+     * @param node The [AvlNode] under which we insert a new [AvlNode] of [key].
+     * @param key The [AvlNode.keyValue] property of the new [AvlNode] that we want to insert as a child of [node].
+     * @return The updated [root]. Because inserting a new node can change the height of the [root].
      */
     private fun insert(node: AvlNode?, key: Int): AvlNode {
         // Standard BST insert.
@@ -281,4 +296,141 @@ class AvlTree {
         return node
     }
 
+    /**
+     * **Prerequisites/References:**
+     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     *
+     * **WHAT:**
+     * * A public API to delete an [AvlNode] of the given [key] from this [AvlTree].
+     *
+     * **PURPOSE:**
+     * * Deletes the [AvlNode] of the given [key] from this [AvlTree].
+     * * It also updates the [root] as deleting a node can change the height of the [root].
+     *
+     * **HOW:**
+     * * It uses a private helper function [delete].
+     */
+    fun delete(key: Int) {
+        root = delete(root, key)
+    }
+
+    /**
+     * Returns the next larger node
+     */
+    private fun nextLarger(node: AvlNode): AvlNode? {
+        var curr = node.right
+        while (curr?.left != null) {
+            curr = curr.left
+        }
+        return curr
+    }
+
+    /**
+     * **Prerequisites/References:**
+     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     *
+     * [Local: BST Basic Operations](docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
+     * [GitHub: BST Basic Operations](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/68ba000c11a35863c194531eca2f277eb7d6f984/docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
+     *
+     * **IMPORTANT:**
+     * * To understand this [delete] operation, please go through the above `BST Basic Operations` file first.
+     * * It has visual representation (images) of this [delete] operation.
+     * * It helps understand the code.
+     *
+     * **WHAT:**
+     * * It takes [node] and [key].
+     * * It deletes an [AvlNode] of [key].
+     * * It uses [node] to find, travel, and compare the [AvlNode] of [key] through this [AvlTree].
+     *
+     * **PURPOSE:**
+     * * It takes [node] to find, travel, and compare the [AvlNode] of [key] to delete from this [AvlTree].
+     * * It also updates the height of all the ancestors of the deleted node.
+     * * It also checks the balance factor of each ancestor.
+     * * If it finds any unbalanced node, it rebalances it using the relevant rotation.
+     * * It returns the updated [root].
+     */
+    private fun delete(node: AvlNode?, key: Int): AvlNode? {
+        // If the node is null, it means that we finished travelling the entire tree,
+        // and we couldn't find any [AvlNode] having the given [key].
+        // So, in that case, we return `null`.
+        if (node == null) {
+            return null
+        }
+
+        // Standard BST style of finding and deleting the [AvlNode] of [key]
+        // We don't need to use the null-safe operator on the [node] now,
+        // because we have already checked for the case when the given [node] is null.
+        if (key > node.keyValue) {
+            node.right = delete(node.right, key)
+        } else if (key < node.keyValue) {
+            node.left = delete(node.left, key)
+        } else {
+            // We found the node to delete.
+            // Recall the 3 cases: 0 child, 1 child, and 3 children.
+            // Here, `node` is the [AvlNode] we want to delete.
+            if (node.left == null) {
+                // The node that we want to delete does not have a left child.
+                // So, we return the right child.
+                // The `nodeToDelete.right` is attached to one of the two previous assignments:
+                // It might end up as: node.left = nodeToDelete.right or node.right = nodeToDelete.right
+                return node.right
+            } else if (node.right == null) {
+                // If the node that we want to delete does not have a right child,
+                // we return its left child.
+                // The `nodeToDelete.left` is attached to one of the two previous assignments:
+                // It might end up as: node.left = nodeToDelete.left or node.right = nodeToDelete.left
+                return node.left
+            } else {
+                // This is a tricky case. The node that we want to delete has two children.
+                // In that case, we are interested in the `nextLarger` child of the `nodeToDelete`.
+                // We replace the `nodeToDelete.key` with `nextLarger.key`.
+                // And then, we delete the `nextLarger`.
+                // It means, we call this [delete] function, and pass `node.right` and `nextToLarger.key`.
+                // But that can change the structure of the AVL-Tree.
+                // The deletion can cause a rotation and can bring a different node than the original node.
+                // We need to ensure the correct and proper link to that different node.
+                // It will be on the right side of `node`.
+                // So, the code becomes:
+                val nextLarger = nextLarger(node)
+                // We are sure that the `nextLarger` node cannot be null.
+                // Because, to be a non-null `nextLarger` node, the `node` must have a right child.
+                // This code executes after the previous two `if` conditions.
+                // It means that the `node` has two children.
+                // It guarantees that the `node` has a right child.
+                // And thus, the `nextLarger` node cannot be null.
+                node.keyValue = nextLarger?.keyValue!!
+                node.right = delete(node.right, nextLarger.keyValue)
+            }
+        }
+
+        updateHeight(node)
+        val bf = balanceFactor(node)
+        if (bf > 1 && balanceFactor(node.left) >= 0) {
+            // The `node` is heavy on the left side. We need to rotate it to the right side to rebalance it.
+            return rotateRight(node)
+        }
+        if (bf > 1 && balanceFactor(node.left) < 0) {
+            // The `node` is LR-imbalanced. So, we need to perform the double rotation: LR-Rotation.
+            // RL-imbalance ensures that the `node` has a left child.
+            // So, we can use `node.left!!`.
+            node.left = rotateLeft(node.left!!)
+            return rotateRight(node)
+        }
+        if (bf < -1 && balanceFactor(node.right) <= 0) {
+            // The `node` is heavy on the right side.
+            // So, we need to rotate the `node` towards the left side.
+            return rotateLeft(node)
+        }
+        if (bf < -1 && balanceFactor(node.right) > 0) {
+            // The `node` has RL-imbalance.
+            // So, we need to perform the double rotation: RL-Rotation.
+            // The `RL-Imbalance` ensures that the `node` has `right` child.
+            // So, we can use `node.right!!`.
+            node.right = rotateRight(node.right!!)
+            return rotateLeft(node)
+        }
+        return node
+    }
 }
