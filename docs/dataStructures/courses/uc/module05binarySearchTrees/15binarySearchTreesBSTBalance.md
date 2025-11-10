@@ -510,6 +510,9 @@ if (bf > 1) {
 
 ![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
 
+* First, we perform the left rotation on the "**unbalancedNode.left**".
+* It establishes a different "left" child to the "**unbalancedNode**".
+* And then, we perform the right rotation on the "**unbalancedNode**".
 * We can do the Left-Right Rotation in two steps also, as shown in the image below.
 
 ![310avlTreeLeftRightRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/310avlTreeLeftRightRotationTwoSteps.png)
@@ -546,6 +549,9 @@ if (bf > 1) {
 
 ![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
 
+* First, we perform the right rotation on the "**unbalancedNode.right**".
+* It establishes a different right child to the "**unbalancedNode**".
+* Then, we perform the left rotation on the "**unbalancedNode**".
 * Right-Left Rotation in two steps, as shown in the image below:
 
 ![330avlTreeRightLeftRotationInTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/330avlTreeRightLeftRotationInTwoSteps.png)
