@@ -25,6 +25,7 @@
     * [Pseudocode of Left-Right Rotation](#pseudocode-of-left-right-rotation)
   * [AVL-Tree Basic Right-Left Rotation Idea](#avl-tree-basic-right-left-rotation-idea)
   * [On which node do we perform the rotation when multiple nodes are imbalanced?](#on-which-node-do-we-perform-the-rotation-when-multiple-nodes-are-imbalanced)
+    * [Insert example](#insert-example)
   * [How to distinguish between the right rotation and the LR-Rotation?](#how-to-distinguish-between-the-right-rotation-and-the-lr-rotation)
   * [Final pseudocode for the right rotation](#final-pseudocode-for-the-right-rotation)
   * [Final pseudocode for the LR-Rotation](#final-pseudocode-for-the-lr-rotation)
@@ -572,6 +573,10 @@ if (bf < -1) {
 * The first unbalanced ancestor node becomes the subject.
 * And the type of rotation depends on the relative position between the node that causes the imbalance and the subject node (the first unbalanced ancestor node).
 * For example:
+
+### Insert example
+
+![349avlInsertionProcessCodeExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/349avlInsertionProcessCodeExample.png)
 
 ![350avlImbalancedInsertionFixExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/350avlImbalancedInsertionFixExample.png)
 
