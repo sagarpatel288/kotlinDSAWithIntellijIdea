@@ -795,6 +795,8 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 
 ![390avlTreeDelete.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/390avlTreeDelete.png)
 
+![400avlTreeDeleteWithoutEmb.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/400avlTreeDeleteWithoutEmb.svg)
+
 * When the node that we want to delete has 2 children (left and right), we replace "**nodeToDelete.key**" with "**nextLarger.key**".
 * At this moment, we have two duplicate keys (`nodeToDelete.key == nextLarger.key`).
 * So, we delete the `nextLarger` node and its right child takes its vacant place.
