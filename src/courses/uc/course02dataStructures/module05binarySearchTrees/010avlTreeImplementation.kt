@@ -346,30 +346,46 @@ class AvlTree {
      *
      * **PURPOSE:**
      * * It takes [node] to find, travel, and compare the [AvlNode] of [key] to delete from this [AvlTree].
+     * * The [node] argument (parameter) is nullable, because we may not find the [key] even after travelling the tree.
+     * * It returns a nullable [AvlNode] to indicate that we couldn't find the [key].
+     * * When we can't find the [key], we can't [delete] it, and we don't need to update anything else.
+     * * To delete the [key], we first need to find it.
+     * * So, we start with the [root] node.
      * * It also updates the height of all the ancestors of the deleted node.
      * * It also checks the balance factor of each ancestor.
      * * If it finds any unbalanced node, it rebalances it using the relevant rotation.
-     * * It returns the updated [root].
+     * * Finally, it returns the updated [root].
+     *
+     * @param node The [AvlNode] using which we can find the direction of the [AvlNode] of the given [key]
+     * @param key We want to find and delete the [AvlNode] having this [key]
+     * @return [AvlNode] Returns null if we can't find the [AvlNode] of the given [key]
+     * Otherwise, returns the updated [root] from where we started the journey of finding and deleting the [key]
      */
     private fun delete(node: AvlNode?, key: Int): AvlNode? {
         // If the node is null, it means that we finished travelling the entire tree,
         // and we couldn't find any [AvlNode] having the given [key].
+        // In other words, we fell off the tree, and we couldn't find the [AvlNode] having the given [key].
         // So, in that case, we return `null`.
         if (node == null) {
             return null
         }
 
-        // Standard BST style of finding and deleting the [AvlNode] of [key]
-        // We don't need to use the null-safe operator on the [node] now,
+        // Standard BST style of finding and deleting the [AvlNode] of [key].
+        // We don't need to use the null-safe operator `?` on the [node] now,
         // because we have already checked for the case when the given [node] is null.
         if (key > node.keyValue) {
+            // If the given [key] is greater than the current node's key, find from `node.right`, and delete the [key].
+            // The resultant parent node will be assigned to `node.right`.
             node.right = delete(node.right, key)
         } else if (key < node.keyValue) {
+            // If the given [key] is less than the current node's key, find from `node.left`, and delete the [key].
+            // The resultant parent node will be assigned to `node.left`.
             node.left = delete(node.left, key)
         } else {
             // We found the node to delete.
             // Recall the 3 cases: 0 child, 1 child, and 3 children.
             // Here, `node` is the [AvlNode] we want to delete.
+            // To understand, we will call it `nodeToDelete`.
             if (node.left == null) {
                 // The node that we want to delete does not have a left child.
                 // So, we return the right child.
@@ -390,8 +406,11 @@ class AvlTree {
                 // It means, we call this [delete] function, and pass `node.right` and `nextToLarger.key`.
                 // But that can change the structure of the AVL-Tree.
                 // The deletion can cause a rotation and can bring a different node than the original node.
-                // We need to ensure the correct and proper link to that different node.
+                // We need to ensure the correct and proper link between this node and that other node.
                 // It will be on the right side of `node`.
+                // Because by definition of the BST, the `nextLarger` node of `nodeToDelete` is on the right side of
+                // the `nodeToDelete`.
+                // And this `node` is the `nodeToDelete`.
                 // So, the code becomes:
                 val nextLarger = nextLarger(node)
                 // We are sure that the `nextLarger` node cannot be null.
@@ -401,6 +420,18 @@ class AvlTree {
                 // It guarantees that the `node` has a right child.
                 // And thus, the `nextLarger` node cannot be null.
                 node.keyValue = nextLarger?.keyValue!!
+                // The `node` says:
+                // My key has just been replaced by the `nextLarger.key`.
+                // It means that there are two similar (duplicate) `nextLarger.key`.
+                // The one that I have just received and the original one.
+                // So, we need to delete the original one.
+                // To delete the original `nextLarger,` we first need to find it.
+                // And I know that we can start our hunting from my right side: `node.right`.
+                // Because that's the direction from which we get my `nextLarger`.
+                // But deleting the `nextLarger` may or may not change the AVL-Tree structure.
+                // There can be a rotation, and it can replace my existing right node with a different one.
+                // I just want to ensure that whether it is the same old node, or a different node,
+                // it will sit on my right side.
                 node.right = delete(node.right, nextLarger.keyValue)
             }
         }
