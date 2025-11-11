@@ -34,10 +34,6 @@
   * [Final pseudocode for the RL-Rotation](#final-pseudocode-for-the-rl-rotation)
   * [Rotation summary](#rotation-summary)
   * [Conclusion](#conclusion)
-  * [Delete Example](#delete-example)
-    * [No Child](#no-child)
-    * [1 Child](#1-child)
-    * [2 Children](#2-children)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
   * [ToDo](#todo)
   * [Next](#next)
@@ -781,31 +777,6 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 * The rebalance must happen immediately after the moment of imbalance.
 * We must not accumulate the imbalance weight (score). Otherwise, it becomes chaos.
 
-## Delete Example
-
-### No Child
-
-![80bstDelete01.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete01.png)
-
-### 1 Child
-
-![80bstDelete02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete02.png)
-
-### 2 Children
-
-![390avlTreeDelete.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/390avlTreeDelete.png)
-
-![400avlTreeDeleteWithoutEmb.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/400avlTreeDeleteWithoutEmb.svg)
-
-* When the node that we want to delete has 2 children (left and right), we replace "**nodeToDelete.key**" with "**nextLarger.key**".
-* At this moment, we have two duplicate keys (`nodeToDelete.key == nextLarger.key`).
-* So, we delete the `nextLarger` node and its right child takes its vacant place.
-* This process might change the height and balance factor of `nodeToDelete.right`.
-* In that case, we update the height of the ancestor nodes, establish the right connection, and also perform the relevant rotations as and when required.
-* For example:
-* `nodeToDelete.right = delete(nodeToDelete.right, nextLarger.key)`.
-* The `delete` operation should handle updating the height and ensuring the balance in the AVL-Tree.
-
 ## What is the difference between a binary heap tree and a binary search tree?
 
 * The binary heap tree is not a sorted tree.
@@ -842,8 +813,18 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
   * Add step-by-step progress along with those 4 properties: Parent, left, right, and height.
 * When and how do we recalculate the balance factor? Do we have to recalculate the balance factor of each node after each insert or delete operation? How does that work? 
 * Why does the height update order matter?
+* Maybe we can have a separate file for the insert and delete operations as this file has become too long.
+  * I am unsure if it is better to have relevant (associated) concepts at one place. 
+  * For example: Both the `insert` and `delete` operations also use `updateHeight`, `balanceFactor`, and `rotations`.
+  * But this file focuses mainly on the `rotation` part.
+  * If we use a separate file for the `insert` and `delete` operations, it will be step-by-step (the next step) progress.
+  * I am convinced to have a separate file for the `insert` and `delete` operations.
 * Actual implementation
 * Relevant problems
   //ToDo: Follow The Standard Improvement Process.
 
 ## Next
+
+* [20avlTreeInsertOperation.md](20avlTreeInsertOperation.md)
+* [25avlTreeDeleteOperation.md](25avlTreeDeleteOperation.md)
+* [010avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
