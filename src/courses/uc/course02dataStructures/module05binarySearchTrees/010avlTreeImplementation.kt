@@ -428,10 +428,13 @@ class AvlTree {
                 // To delete the original `nextLarger,` we first need to find it.
                 // And I know that we can start our hunting from my right side: `node.right`.
                 // Because that's the direction from which we get my `nextLarger`.
-                // But deleting the `nextLarger` may or may not change the AVL-Tree structure.
+                // But deleting the `nextLarger` will change the height of many ancestors.
+                // It may or may not change the AVL-Tree structure.
                 // There can be a rotation, and it can replace my existing right node with a different one.
                 // I just want to ensure that whether it is the same old node, or a different node,
-                // it will sit on my right side.
+                // it will be on my right side.
+                // So, the `delete` function might update and rebalance all the ancestors up to my right side.
+                // So, I need to reassign my right side.
                 node.right = delete(node.right, nextLarger.keyValue)
             }
         }
@@ -463,5 +466,67 @@ class AvlTree {
             return rotateLeft(node)
         }
         return node
+    }
+
+    fun find(key: Int): AvlNode? {
+        return find(root, key)
+    }
+
+    private fun find(node: AvlNode?, key: Int): AvlNode? {
+        // We finished travelling the tree.
+        // We fell off the tree, but we couldn't find the [AvlNode] of [key].
+        if (node == null) {
+            return null
+        }
+        var curr = node
+        while (curr != null) {
+            when {
+                key > curr.keyValue -> curr = curr.right
+                key < curr.keyValue -> curr = curr.left
+                else -> return curr
+            }
+        }
+        // We finished travelling the tree.
+        // We fell off the tree, but we couldn't find the [AvlNode] of [key].
+        return null
+    }
+
+    fun min(): AvlNode? {
+        return findMin(root)
+    }
+
+    private fun findMin(node: AvlNode?): AvlNode? {
+        if (node == null) return null
+        var curr = node
+        // `curr` is a `var`. It is mutable and nullable. So, we have to use the null-safe operator `?` on it.
+        while (curr?.left != null) {
+            // We have already checked for the null-safety on the `curr` in the `while` condition.
+            // So, we don't have to use it again.
+            curr = curr.left
+        }
+        return curr
+    }
+
+    fun max() = findMax(root)
+
+    private fun findMax(node: AvlNode?): AvlNode? {
+        if (node == null) return null
+        var curr = node
+        while (curr?.right != null) {
+            curr = curr.right
+        }
+        return curr
+    }
+
+    fun printInOrder() {
+        printInOrder(root)
+    }
+
+    private fun printInOrder(node: AvlNode?) {
+        if (node == null) return
+        printInOrder(node.left)
+        println(node.keyValue)
+        printInOrder(node.right)
+        println()
     }
 }
