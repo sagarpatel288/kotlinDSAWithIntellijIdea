@@ -486,7 +486,7 @@ class AvlTree {
         }
         // We finished travelling the tree.
         // We fell off the tree, but we couldn't find the [AvlNode] of [key].
-        return null
+        return curr
     }
 
     fun min(): AvlNode? {
