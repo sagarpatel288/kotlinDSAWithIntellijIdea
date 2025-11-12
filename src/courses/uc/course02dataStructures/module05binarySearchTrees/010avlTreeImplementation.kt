@@ -20,7 +20,9 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * @property right: The right child of this node.
  * @property height: Height of this node. Height is the longest path from this node to the leaf node.
  *
- * * Policy: The height of the leaf node is 1.
+ * **Policy:**
+ * * The height of a null node is 0.
+ * * So, the height of the leaf node is 1.
  *
  */
 data class AvlNode(
@@ -28,7 +30,8 @@ data class AvlNode(
     var left: AvlNode? = null,
     var right: AvlNode? = null,
     // Policy: A single node without any parents or children has a height of 1.
-    // The height of the leaf node is 1.
+    // The height of a null node is 0.
+    // So, the height of the leaf node is 1.
     var height: Int = 1
 )
 
@@ -152,7 +155,8 @@ class AvlTree {
         left.right = node
         node.left = rightOfleft
         // Update height from children to parent order
-        updateHeight(rightOfleft)
+        // The children of `rightOfLeft` are unaffected.
+        // So, there is no change in the height of the `rightOfLeft`.
         updateHeight(node)
         updateHeight(left)
         // Return `node.left` that has taken the place of the incoming `node`.
@@ -182,11 +186,46 @@ class AvlTree {
         right.left = node
         node.right = leftOfRight
         // Update the height from children to parent order
-        updateHeight(leftOfRight)
+        // The children of `leftOfRight` are unaffected.
+        // So, there is no change in the height of the `leftOfRight`.
         updateHeight(node)
         updateHeight(right)
         // Return the `node.right` that has taken the place of the incoming `node`.
         return right
+    }
+
+    private fun rebalance(node: AvlNode): AvlNode {
+        updateHeight(node)
+        val bf = balanceFactor(node)
+        when {
+            // This `node` is heavy on the left side. So, we need to `rotateRight`.
+            bf > 1 && balanceFactor(node.left) >= 0 -> return rotateRight(node)
+            bf > 1 && balanceFactor(node.left) < 0 -> {
+                // This is ultimately a left-sided tree only, but there is an LR-imbalance.
+                // So, we need to perform the double rotation: LR-Rotation.
+                // We can safely expect a non-null left child when the node is LR-imbalanced.
+                // In an LR-imbalance, first we rotate the `node.left` towards the left side.
+                // The resultant node of the rotation becomes the `node.left`.
+                // Then we rotate the unbalanced `node` towards the right side.
+                node.left = rotateLeft(node.left!!)
+                return rotateRight(node)
+            }
+            // The node is heavy on the right side. So, we need to rotate it towards the left side.
+            bf < -1 && balanceFactor(node.right) <= 0 -> return rotateLeft(node)
+            bf < - 1 && balanceFactor(node.right) > 0 -> {
+                // The tree is right-sided, but there is an RL-imbalance.
+                // So, we need to perform the double rotation: RL-Rotation.
+                // So, first we rotate the `node.right` towards the right side.
+                // It is an RL-imbalance.
+                // So, we can safely expect a non-null right child of the unbalanced node.
+                // The resultant node of the rotation becomes the `node.right`.
+                // And then we rotate the unbalanced `node` towards the left side.
+                node.right = rotateRight(node.right!!)
+                return rotateLeft(node)
+            }
+            // The `node` is already balanced. No need to do anything. We return the already balanced node as it is.
+            else -> return node
+        }
     }
 
     /**
@@ -249,6 +288,8 @@ class AvlTree {
     private fun insert(node: AvlNode?, key: Int): AvlNode {
         // Standard BST insert.
         // Base case.
+        // We found a vacant place.
+        // So, we create a new [AvlNode] of the given [key] and place at this vacant place.
         if (node == null) {
             // The default height of the [AvlNode] is `1` only. So, we don't need to do anything else.
             // Hence, we return.
@@ -260,40 +301,17 @@ class AvlTree {
         } else if (key < node.keyValue) {
             node.left = insert(node.left, key)
         } else {
-            // We don't allow duplicate nodes/keys
+            // We don't allow duplicate nodes/keys.
+            // If an [AvlNode] of the given [key] already exists, we do nothing. We don't change the structure.
+            // We just return the [AvlNode] of the given [key].
             return node
         }
 
         // Update the height of this ancestor node as it has a new child
         updateHeight(node)
 
-        // Ensure the balance
-        val bf = balanceFactor(node)
-        if (bf > 1 && balanceFactor(node.left) >= 0) {
-            // This `node` is heavy on the left side. So, we need to `rotateRight`.
-            return rotateRight(node)
-        }
-        if (bf > 1 && balanceFactor(node.left) < 0) {
-            // There is an LR-imbalance. So, we need to perform the double rotation: LR-Rotation.
-            // We can safely expect a non-null left child when the node is LR-imbalanced.
-            // The resultant node of the rotation becomes the `node.left`.
-            node.left = rotateLeft(node.left!!)
-            return rotateRight(node)
-        }
-        if (bf < -1 && balanceFactor(node.right) <= 0) {
-            // The node is heavy on the right side. So, we need to rotate it towards the left side.
-            return rotateLeft(node)
-        }
-        if (bf < -1 && balanceFactor(node.right) > 0) {
-            // There is an RL-imbalance. So, we need to perform the double rotation: RL-Rotation.
-            // It is an RL-imbalance.
-            // So, we can safely expect a non-null right child of the unbalanced node.
-            // The resultant node of the rotation becomes the `node.right`.
-            node.right = rotateRight(node.right!!)
-            return rotateLeft(node)
-        }
-        // Return the node if there was(is) no imbalance
-        return node
+        // Ensure the balance and return the balanced node.
+        return rebalance(node)
     }
 
     /**
@@ -391,12 +409,18 @@ class AvlTree {
                 // So, we return the right child.
                 // The `nodeToDelete.right` is attached to one of the two previous assignments:
                 // It might end up as: node.left = nodeToDelete.right or node.right = nodeToDelete.right
+                // It means that we replace (cut, bypass) this `nodeToDelete` with `nodeToDelete.right`.
+                // It means that there will be no reference to this `nodeToDelete`.
+                // So, it will be garbage-collected.
                 return node.right
             } else if (node.right == null) {
                 // If the node that we want to delete does not have a right child,
                 // we return its left child.
                 // The `nodeToDelete.left` is attached to one of the two previous assignments:
                 // It might end up as: node.left = nodeToDelete.left or node.right = nodeToDelete.left
+                // It means that we replace (cut, bypass) this `nodeToDelete` with `nodeToDelete.left`.
+                // It means that there will be no reference to this `nodeToDelete`.
+                // So, it will be garbage-collected.
                 return node.left
             } else {
                 // This is a tricky case. The node that we want to delete has two children.
@@ -438,34 +462,8 @@ class AvlTree {
                 node.right = delete(node.right, nextLarger.keyValue)
             }
         }
-
-        updateHeight(node)
-        val bf = balanceFactor(node)
-        if (bf > 1 && balanceFactor(node.left) >= 0) {
-            // The `node` is heavy on the left side. We need to rotate it to the right side to rebalance it.
-            return rotateRight(node)
-        }
-        if (bf > 1 && balanceFactor(node.left) < 0) {
-            // The `node` is LR-imbalanced. So, we need to perform the double rotation: LR-Rotation.
-            // RL-imbalance ensures that the `node` has a left child.
-            // So, we can use `node.left!!`.
-            node.left = rotateLeft(node.left!!)
-            return rotateRight(node)
-        }
-        if (bf < -1 && balanceFactor(node.right) <= 0) {
-            // The `node` is heavy on the right side.
-            // So, we need to rotate the `node` towards the left side.
-            return rotateLeft(node)
-        }
-        if (bf < -1 && balanceFactor(node.right) > 0) {
-            // The `node` has RL-imbalance.
-            // So, we need to perform the double rotation: RL-Rotation.
-            // The `RL-Imbalance` ensures that the `node` has `right` child.
-            // So, we can use `node.right!!`.
-            node.right = rotateRight(node.right!!)
-            return rotateLeft(node)
-        }
-        return node
+        // Ensure the balance. Return the balanced node.
+        return rebalance(node)
     }
 
     fun find(key: Int): AvlNode? {
@@ -480,9 +478,9 @@ class AvlTree {
         }
         var curr = node
         while (curr != null) {
-            when {
-                key > curr.keyValue -> curr = curr.right
-                key < curr.keyValue -> curr = curr.left
+            curr = when {
+                key > curr.keyValue -> curr.right
+                key < curr.keyValue -> curr.left
                 else -> return curr
             }
         }
@@ -527,6 +525,5 @@ class AvlTree {
         printInOrder(node.left)
         println(node.keyValue)
         printInOrder(node.right)
-        println()
     }
 }
