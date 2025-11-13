@@ -16,4 +16,6 @@
 
 ## One tree has more height than the other
 
+![420avlTreeMergeCase02.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/420avlTreeMergeCase02.svg)
+
 ## Next
