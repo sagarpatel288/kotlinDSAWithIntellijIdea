@@ -57,11 +57,25 @@ pivot.right = rightTree
 
 ## Pseudocode
 
+### deleteMax
 
+```kotlin
+
+private fun deleteMax(node: AvlNode?): AvlNode? {
+    if (node == null) return null
+    if (node.right != null) {
+        node.right = deleteMax(node.right)
+    } else {
+        return node.left
+    }
+    return rebalance(node)
+}
+
+```
 
 ## ToDo
 
-* Show why naive ways do not work - why it breaks the AVL Properties.
-* Also add the case where Tree2 is larger than the Tree1.
+* Show why naive ways do not work - why they break the AVL Properties.
+* Also add the case where `Tree2` is larger than the `Tree1`.
 
 ## Next
