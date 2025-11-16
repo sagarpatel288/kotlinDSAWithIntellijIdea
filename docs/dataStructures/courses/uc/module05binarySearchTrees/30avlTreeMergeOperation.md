@@ -105,11 +105,10 @@ private fun findMax(node: AvlNode?): AvlNode? {
 * So, the `deleteMax` function might look like:
 
 ```kotlin
-
 private fun deleteMax(node: AvlNode?): AvlNode? {
     if (node == null) return null
     if (node.right != null) {
-        node.right = delete(node.right)
+        node.right = deleteMax(node.right)
     } else {
         // There is no more `node.right` now.
         // It means that this is the `rightmost` node that we want to delete and make it a pivot.
@@ -119,7 +118,6 @@ private fun deleteMax(node: AvlNode?): AvlNode? {
         return node.left
     }
 }
-
 ```
 
 * We found the max of the light tree.
