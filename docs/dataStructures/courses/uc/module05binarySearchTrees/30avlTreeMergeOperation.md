@@ -6,6 +6,9 @@
   * [Having almost the same height](#having-almost-the-same-height)
   * [One tree has more height than the other](#one-tree-has-more-height-than-the-other)
   * [Process](#process)
+    * [Prerequisites/Previously/References](#prerequisitespreviouslyreferences)
+    * [Back to the present](#back-to-the-present)
+  * [Process: TL;DR](#process-tldr)
   * [Pseudocode](#pseudocode)
   * [ToDo](#todo)
   * [Next](#next)
@@ -25,7 +28,41 @@
 
 ## Process
 
-* Find the pivot.
+* We need a function that takes two trees that we want to merge.
+* And we don't pass the entire trees.
+* We can pass the roots of the trees.
+* We can travel and play with the trees using their roots.
+
+```kotlin
+
+private fun merge(lightTreeRoot: AvlNode?, heavyTreeRoot: AvlNode): AvlTree {
+    // The `merge` function needs to return a merged `AvlTree`.
+    // So, we create a new `AvlTree` and call it `mergedAvlTree`.
+    val mergedAvlTree = AvlTree()
+    // Base cases. Edge cases.
+    if (lightTreeRoot == null) {
+        // The lightTreeRoot is null.
+        // It means that there is no lightTree.
+        // But we can't simply directly return the `heavyTreeRoot`, because it is an `AvlNode`.
+        // We need to return a merged `AvlTree`.
+        // So, we create a new AvlTree.
+        // We call it a `mergedTree`.
+        // And we make the given `heavyTreeRoot` the root node of the `mergedTree`.
+        mergedAvlTree.root = heavyTreeRoot
+        // And then we return the `mergedTree`.
+        return mergedAvlTree
+    }
+    if (heavyTreeRoot == null) {
+        mergedAvlTree.root = lightTreeRoot
+        return mergedAvlTree
+    }
+}
+
+```
+
+* Now, what if none of the given nodes are null?
+* So, both the given nodes are non-null.
+* In that case, we need to find the pivot on which we can hang two trees.
 * The `pivot` is always the rightmost node of the light tree.
 * The `rightmost` node is the `max` node of the light tree.
 * So, we can call it a `findMax` operation.
@@ -90,7 +127,7 @@ private fun deleteMax(node: AvlNode?): AvlNode? {
 * Now, we make it a pivot.
 
 ```kotlin
-
+// ...continue in the `merge` function
 val rightMost = findMax(lightTreeRoot)
 // Using the `rightMost` node's key, we create a new node `pivot`.
 // A new node because we cannot reuse the left, right, and height properties of the `rightMost`.
@@ -117,7 +154,7 @@ pivot.right = rightTree
 
 ```kotlin
 
-private fun mergeAvlTrees(lightTree: AvlNode?, heavyTree: AvlNode?, pivot: AvlNode?): AvlNode? {
+private fun mergeTwoAvlTrees(lightTree: AvlNode?, heavyTree: AvlNode?, pivot: AvlNode?): AvlNode? {
     
     if (abs(height(lightTree) - height(heavyTree)) <= 1) {
         pivot.left = lightTree
@@ -136,38 +173,102 @@ private fun mergeAvlTrees(lightTree: AvlNode?, heavyTree: AvlNode?, pivot: AvlNo
 
 * If the light tree is taller, then travel right to find the subtree whose height is almost equivalent ($\pm1$) to the height of the other tree.
   * How to remember? Light = Right.
-* If the heavy tree is taller, then travel left to find the subtree whose height is almost equivalent ($\pm1$) to the height of the other tree.
-  * How to remember? Heavy lifting = Left.
-* Merge these two trees of the same height.
-* So:
-
-```kotlin
-pivot.left = lightTree
-pivot.right = rightTree
-```
-
-* Now, we need to attach this `pivot` to the taller tree at its original place.
-* So, if the light tree was taller, then we attach this `pivot` to the right side.
-* Otherwise, we attach it to the left side.
-* And then we need to rebalance the parent of this `pivot`.
-
-## Pseudocode
-
-### deleteMax
+  * So, we pass `lightTree.right` to our `mergeAvlTrees` function.
+  * This recursive process continues until we get the height difference in controlled-balanced.
 
 ```kotlin
 
-private fun deleteMax(node: AvlNode?): AvlNode? {
-    if (node == null) return null
-    if (node.right != null) {
-        node.right = deleteMax(node.right)
-    } else {
-        return node.left
+private fun mergeTwoAvlTrees(lightTree: AvlNode?, heavyTree: AvlNode?, pivot: AvlNode?): AvlNode? {
+    
+    if (abs.(height(lightTree) - height(heavyTree)) <= 1) {
+        pivot.left = lightTree
+        pivot.right = heavyTree
+        updateHeight(pivot)
+        return pivot
+    } else if (height(lightTree) > height(heavyTree)) {
+        // The light tree is taller.
+        // Light = Right.
+        // We keep going to the right side of the light tree until we find a subtree whose height equals `height(heavyTree) + 1`.
+        // When we reach that case, we fall into the first `if` condition.
+        // The first `if` condition returns the `pivot`.
+        // The `lightTree.right` assignment `=` attaches the `pivot` returned by the above `if` condition to the right side of the `light tree`.
+        // The `pivot.left` has a light subtree and the `pivot.right` has the heavy tree.
+        // It means that after attaching the `pivot`, the parent of the `pivot` must be updated and balanced.
+        // And the parent of the `pivot` is the `lightTree` node.
+        // So, we rebalance the `lightTree`.
+        lightTree.right = mergeTwoAvlTrees(lightTree.right, heavyTree, pivot)
+        return rebalance(lightTree)
     }
-    return rebalance(node)
 }
 
 ```
+
+* If the heavy tree is taller, then travel left to find the subtree whose height is almost equivalent ($\pm1$) to the height of the other tree.
+  * How to remember? Heavy lifting = Left.
+  * So, we keep going towards the left side of the heavy tree until the height of the heavy subtree is `height(lightTree) + 1`.
+  * Once we get that situation, we merge the left heavy subtree and the light tree.
+* Merge these two trees whose height difference is controlled and balanced.
+* So:
+
+```kotlin
+
+private fun mergeTwoAvlTrees(lightTree: AvlNode?, heavyTree: AvlNode?, pivot: AvlNode): AvlNode {
+    
+    if (abs(height(lightTree) - height(heavytree)) <= 1) {
+        pivot.left = lightTree
+        pivot.right = heavyTree
+        updateHeight(pivot)
+        return pivot
+    } else if (height(lightTree) > height(heavyTree)) {
+        lightTree.right = mergeTwoAvlTrees(lightTree.right, heavyTree, pivot)
+        return rebalance(lightTree)
+    } else {
+        heavyTree.left = mergeTwoAvlTrees(lightTree, heavyTree.left, pivot)
+        return rebalance(heavyTree)
+    }
+}
+
+```
+
+* Now, if we remember, we passed the roots of the light tree and the heavy tree to this `mergeTwoAvlTrees` function.
+* It returns a balanced `AvlNode`.
+* And the rebalancing process might have performed some rotations.
+* And the rotation can change the original root.
+* So, the node returned by the `mergeTwoAvlTrees` function is the final root.
+
+```kotlin
+//...continue in the `merge` function
+val newRoot = mergeTwoAvlTrees(lightTree, heavyTree, pivot)
+val mergedTree = AvlTree()
+mergedTree.root = newRoot
+return mergedTree
+```
+
+
+## Process: TL;DR
+
+* The `merge` function takes two roots: `lightTreeRoot` and `heavyTreeRoot`.
+* The `merge` function returns a merged `AvlTree`.
+* To return a merged `AvlTree`, we need to create one.
+* This `AvlTree` has to have a `root` node.
+* If one of the two given roots of the `AvlTrees` is `null`:
+```kotlin
+mergedAvlTree.root = nonNullRoot // The root node that is non-null
+```
+* Otherwise, we find a `pivot`.
+* The `pivot` node is always the rightmost node of the light tree.
+* To find a `pivot`, we use `findMax` and `deleteMax` on the light tree.
+* Once we find the `pivot`, we pass it as an argument to the `mergeTwoAvlTrees` along with the given two root nodes.
+* The `mergeTwoAvlTrees` function is a recursive function.
+* We keep passing either `lightTree.right` or `heavyTree.left` to the `mergeTwoAvlTrees`, depending upon which tree is taller, until we get the controlled and balanced height difference.
+* We initially passed the root nodes to the `mergeTwoAvlTrees`.
+* So, it returns a balanced root node.
+* We assign this balanced root node to our `mergedAvlTree` as a root node.
+```kotlin
+mergedAvlTree.root = mergeTwoAvlTrees(lightTree, heavyTree, pivot)
+```
+
+## Pseudocode
 
 ## ToDo
 
