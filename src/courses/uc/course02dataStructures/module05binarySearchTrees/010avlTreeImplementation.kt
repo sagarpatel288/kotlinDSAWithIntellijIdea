@@ -1,5 +1,7 @@
 package courses.uc.course02dataStructures.module05binarySearchTrees
 
+import java.lang.Math.abs
+
 /**
  * **Prerequisites/References:**
  * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
@@ -194,7 +196,8 @@ class AvlTree {
         return right
     }
 
-    private fun rebalance(node: AvlNode): AvlNode {
+    private fun rebalance(node: AvlNode?): AvlNode? {
+        if (node == null) return null
         updateHeight(node)
         val bf = balanceFactor(node)
         when {
@@ -212,7 +215,7 @@ class AvlTree {
             }
             // The node is heavy on the right side. So, we need to rotate it towards the left side.
             bf < -1 && balanceFactor(node.right) <= 0 -> return rotateLeft(node)
-            bf < - 1 && balanceFactor(node.right) > 0 -> {
+            bf < -1 && balanceFactor(node.right) > 0 -> {
                 // The tree is right-sided, but there is an RL-imbalance.
                 // So, we need to perform the double rotation: RL-Rotation.
                 // So, first we rotate the `node.right` towards the right side.
@@ -311,7 +314,9 @@ class AvlTree {
         updateHeight(node)
 
         // Ensure the balance and return the balanced node.
-        return rebalance(node)
+        // At this point, we are sure that the `node` is not null.
+        // Hence, the `rebalance` cannot return a `null` value.
+        return rebalance(node)!!
     }
 
     /**
@@ -514,6 +519,119 @@ class AvlTree {
             curr = curr.right
         }
         return curr
+    }
+
+    /**
+     * A recursive function instead of an iterative function,
+     * because we don't just find and delete the node.
+     * We need to maintain the links and balance each ancestor till the root node as we move back to the top.
+     * So, it is like saying:
+     * "Hey [rootNode], I want you to find and delete the maximum node you have in your AvlTree.
+     * And when you delete the maximum node, one or more parents or grandparents might become unbalanced.
+     * So, I want you to return the balanced AVLTree's balanced root node."
+     * The [rootNode] delegates this task to its right node, and we keep delegating (passing on) the task until there is
+     * no more right node.
+     * But the last right node might have a left child.
+     * We don't want to abandon it and make it an orphan.
+     * It takes the place of its parent. Its parent was to the right side of its grandparent.
+     * So, the possible left child of the rightmost node will also go to the right side.
+     * Basically, the possible left child of the rightmost node takes the place of its parent.
+     * And then, we need to travel backwards to the top while rebalancing all the parent nodes we face.
+     * So, in the end, what we return is a balanced root node.
+     * So, we don't just delete a node. We return a balanced AVLTree with a balanced root node.
+     */
+    private fun deleteMax(rootNode: AvlNode?): AvlNode? {
+        if (rootNode == null) return null
+        if (rootNode.right != null) {
+            rootNode.right = deleteMax(rootNode.right)
+        } else {
+            // This possible left child of the last rightmost node links to the above `rootNode.right = ` assignment.
+            // It means that this possible left child takes the place of its parent node.
+            // It means that no one refers to the parent of this left child (the rightmost node) anymore.
+            // So, the rightmost node is garbage collected.
+            return rootNode.left
+        }
+        return rebalance(rootNode)
+    }
+
+    /**
+     *
+     */
+    private fun mergeTwoAvlTrees(lightTreeNode: AvlNode?, heavyTreeNode: AvlNode?, pivot: AvlNode): AvlNode? {
+        val lightTreeHeight = height(lightTreeNode)
+        val heavyTreeHeight = height(heavyTreeNode)
+        return when {
+            kotlin.math.abs(lightTreeHeight - heavyTreeHeight) <= 1 -> {
+                pivot.left = lightTreeNode
+                pivot.right = heavyTreeNode
+                // The height difference between the trees is already controlled and balanced.
+                // So, we just need to update the height of the pivot and return.
+                // We don't need to rebalance the pivot in this condition.
+                updateHeight(pivot)
+                pivot
+            }
+
+            lightTreeHeight > heavyTreeHeight -> {
+                // The light tree is taller than the heavy tree.
+                // It is not possible not to have `lightTreeNode.right` at this point.
+                // Keep going towards the right side of the light tree until we find a subtree whose height is:
+                // `height(lightSubTree) = height(heavyTreeNode) + 1`
+                // When that happens, we fall into the above first condition.
+                // We would merge those two trees with the pivot: The light subtree, the heavy tree, and the pivot.
+                // And we would return that tree with its root (pivot) and re-attach it here via the assignment:
+                // `lightTreeNode.right = ...`
+                lightTreeNode?.right = mergeTwoAvlTrees(lightTreeNode.right!!, heavyTreeNode, pivot)
+                rebalance(lightTreeNode)
+            }
+
+            else -> {
+                // This is the condition when heavyTreeHeight > lightTreeHeight
+                // It is not possible not to have `heavyTreeNode.left` at this point.
+                // We keep going towards the left side of the heavy tree until we find a subtree whose height is:
+                // `height(heavySubtree) = height(lightTreeNode) + 1`
+                // And when that happens, we fall into the first condition where the | height difference | is <= 1.
+                // There, we merge those two trees and the pivot: The heavy subtree, the light tree, and the pivot.
+                // It returns us the root (pivot) of that merged tree.
+                // We get it here and re-attach via the assignment:
+                // `heavyTreeNode.left = ...`
+                heavyTreeNode?.left = mergeTwoAvlTrees(lightTreeNode, heavyTreeNode.left!!, pivot)
+                rebalance(heavyTreeNode)
+            }
+        }
+    }
+
+    /**
+     * * This function merges two AVLTrees.
+     * * The condition is that they are AVLTrees; So, they must be balanced.
+     * * One AVLTree can be taller than the other, or both trees can have the same height.
+     * * We need to return a merged AVLTree.
+     * * We return an AVLTree.
+     * * It means that the tree we return must be a balanced AVLTree.
+     */
+    fun mergeTwoAvlTrees(lightTreeRoot: AvlNode?, heavyTreeRoot: AvlNode?): AvlTree {
+        val mergedTree = AvlTree()
+        if (lightTreeRoot == null) {
+            mergedTree.root = heavyTreeRoot
+            return mergedTree
+        }
+        if (heavyTreeRoot == null) {
+            mergedTree.root = lightTreeRoot
+            return mergedTree
+        }
+        // At this point, we are sure that the `lightTreeRoot` is not null.
+        // So, the `findMax` cannot return a null value.
+        // So, the `lightMax` cannot be a null value.
+        val lightMax = findMax(lightTreeRoot)!!
+        val pivot = AvlNode(lightMax.keyValue)
+        // This is the new balanced root of the light tree after deleting the max node from it
+        val lightRoot = deleteMax(lightTreeRoot)
+        // It is possible that the light tree had only one node - the root node that we deleted (extracted).
+        // In that case, the `lightRoot` can be null, and we still need to proceed.
+        // Because we have the `heavyTreeRoot` to attach to the right side of the `pivot`.
+        // That's why it becomes important to know and understand whether to take a nullable variable.
+        val mergedRoot = mergeTwoAvlTrees(lightRoot, heavyTreeRoot, pivot)
+        mergedTree.root = mergedRoot
+        return mergedTree
     }
 
     fun printInOrder() {

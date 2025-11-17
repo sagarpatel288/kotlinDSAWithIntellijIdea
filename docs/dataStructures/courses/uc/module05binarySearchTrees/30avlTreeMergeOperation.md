@@ -16,6 +16,20 @@
 
 ## Prerequisites/References:
 
+* [Trees](../module01BasicDataStructures/section03trees/trees.md)
+* [Basic Data Structure Questions](../module01BasicDataStructures/questionsOnBasicDataStructures.md)
+* [Priority Queues](../module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
+* [Binary Heap Trees](../module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
+* [Complete Binary Tree](../module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic03CompleteBinaryTrees/completeBinaryTrees.md)
+* [Heap Sort](../module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+* [Binary Search Trees](05binarySearchTrees.md)
+* [Binary Search Trees: Basic Operations](10binarySearchTreesBSTsBasicOperations.md)
+* [AVL Visualization](https://www.cs.usfca.edu/~galles/visualization/AVLtree.html)
+* [Abdul Bari Sir: AVL Tree](https://youtu.be/jDM6_TnYIqE?si=ozgBIYnV79pJw8Nc)
+* [AVL Insert](20avlTreeInsertOperation.md)
+* [AVL Delete](25avlTreeDeleteOperation.md)
+* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+
 ## Having almost the same height
 
 ![410avlTreeMerge.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/410avlTreeMerge.svg)
@@ -89,16 +103,16 @@ private fun findMax(node: AvlNode?): AvlNode? {
 
 ### Prerequisites/Previously/References
 
-* Recall the `delete` operation we have seen earlier.
+* Recall the `delete` operation we have seen earlier in a BST (Binary Search Tree).
 * The `delete` operation where the node has 1 child.
 
 ![80bstDelete02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete02.png)
 
 * The image shows a `delete` operation in a binary search tree.
-* And we have a balanced binary search tree: AVLTree.
-* Also, we have seen the `delete` operation in `AVLTreeImplementation`.
+* And here, we have a balanced binary search tree: An AVLTree.
+* Also, we have seen the `delete` operation in the `AVLTreeImplementation`.
 
-[010avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+[avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
 
 ### Back to the present
 
@@ -134,7 +148,6 @@ val rightMost = findMax(lightTreeRoot)
 val pivot = AvlNode(rightMost.key) 
 val lightTree = deleteMax(lightTreeRoot)
 ```
-
 
 * Now, when it comes to `merge,` check the heights of both the trees.
 * If the height of both the trees is the same, then:
@@ -288,10 +301,5 @@ fun merge(lightTreeRoot: AvlNode?, heavyTreeRoot: AvlNode?): AvlTree {
     return mergedTree
 } 
 ```
-
-## ToDo
-
-* Show why naive ways do not work - why they break the AVL Properties.
-* Also add the case where `Tree2` is larger than the `Tree1`.
 
 ## Next
