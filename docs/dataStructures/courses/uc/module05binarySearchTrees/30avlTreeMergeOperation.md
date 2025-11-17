@@ -268,6 +268,27 @@ mergedAvlTree.root = mergeTwoAvlTrees(lightTree, heavyTree, pivot)
 
 ## Pseudocode
 
+```kotlin
+
+fun merge(lightTreeRoot: AvlNode?, heavyTreeRoot: AvlNode?): AvlTree {
+    val mergedTree = AvlTree()
+    if (lightTreeRoot == null) {
+        mergedTree.root = heavyTreeRoot
+        return mergedTree
+    }
+    if (heavyTreeRoot == null) {
+        mergedTree.root = lightTreeRoot
+        return mergedTree
+    }
+    val lightMax = findMax(lightTreeRoot)
+    val pivot = AvlNode(lightMax.key)
+    val lightRoot = deleteMax(lightTreeRoot)
+    val mergedRoot = mergeTwoAvlTrees(lightRoot, heavyTreeRoot, pivot)
+    mergedTree.root = mergedRoot
+    return mergedTree
+} 
+```
+
 ## ToDo
 
 * Show why naive ways do not work - why they break the AVL Properties.
