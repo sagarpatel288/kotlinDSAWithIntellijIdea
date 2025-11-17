@@ -10,7 +10,6 @@
     * [Back to the present](#back-to-the-present)
   * [Process: TL;DR](#process-tldr)
   * [Pseudocode](#pseudocode)
-  * [ToDo](#todo)
   * [Next](#next)
 <!-- TOC -->
 
