@@ -2,8 +2,8 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
 
 /**
  * **Prerequisites/References:**
- * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
- * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+ * * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+ * * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
  *
  * **WHAT**:
  * * A data class that represents a single node of an AVL-Tree.
@@ -12,8 +12,8 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * * We use its various properties for various [AvlTree] (Self-Balanced BST) operations.
  *
  * * For example:
- * `find` uses [keyValue] to decide the direction,
- * `rebalancing` uses [height], etc.
+ * * `find` uses [keyValue] to decide the direction,
+ * * `rebalancing` uses [height], etc.
  *
  * @param keyValue: The value of the node. This must be [Comparable].
  * @property left: The left child of this node.
@@ -29,19 +29,26 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  *
  */
 data class AvlNode(
+    // Why do we have it as a `var`?
+    // Because, for example, we replace the node key with the key of the next larger (successor) node in `delete`,
+    // where the node that we want to delete has two children.
     var keyValue: Int,
+    // Why do we have the `left` child as a `var` and `nullable`?
+    // Because, for example, a `root` node cannot have a `left` or a `right` child when it is the only node in the tree.
+    // It is `var` because we change the `left` and `right` values during certain operations, such as `rotation`.
     var left: AvlNode? = null,
     var right: AvlNode? = null,
     // Policy: A single node without any parents or children has a height of 1.
     // The height of a null node is 0.
     // So, the height of the leaf node is 1.
+    // The default value `1` indicates that the height of a single node is `1`.
     var height: Int = 1
 )
 
 /**
  * **Prerequisites/References:**
- * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
- * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+ * * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+ * * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
  *
  * **WHAT:**
  * * This represents an AVL-Tree data structure.
@@ -57,6 +64,9 @@ class AvlTree {
     // Unlike a heap, where the insert operation starts with the bottom of the tree (leaf),
     // in an [AvlTree], we always travel from the [root].
     // So, [root] is the single entry point of this data structure.
+    // Why is it `var` and `nullable`?
+    // Because in an empty `AvlTree`, there is no `root` node, hence `nullable`.
+    // And we may change the `root` value during various operations such as rotation,
     var root: AvlNode? = null
 
     /**
@@ -68,7 +78,7 @@ class AvlTree {
      * * A safe helper function to get the height of an [AvlNode].
      *
      * **PURPOSE:**
-     * * We use and compare the height of the left and right subtrees to [balance] the [AvlTree].
+     * * We use and compare the height of the left and right subtrees to [rebalance] the [AvlTree].
      * * The purpose of this helper function is to return `0` if the [avlNode] is null.
      * * It indicates that the height of a null [AvlNode] is `0`.
      * * So that we don't have to check every time on [AvlNode.height].
@@ -90,12 +100,20 @@ class AvlTree {
      * * Recalculates and updates the height of the given [avlNode].
      *
      * **PURPOSE:**
-     * * After every [insert], or [delete] operation, we need to [balance] the [AvlTree].
-     * * The [balance] operation uses various rotations such as [rotateLeft], [rotateRight], [rotateLeftRight], and
+     * * After every [insert], or [delete] operation, we need to [rebalance] the [AvlTree].
+     * * The [rebalance] operation uses various rotations such as [rotateLeft], [rotateRight], [rotateLeftRight], and
      * [rotateRightLeft].
      * * It might change the position of one or more [AvlNode]s.
      * * When an [AvlNode] gets a new position, it might also change its height.
      * * So, we use this [updateHeight] function on the changed [avlNode] to recalculate and update its height.
+     *
+     * **Why does it accept a nullable value?**
+     * * So that we don't have to use the null-safe operator at many places.
+     * * We have to update the height of a node whenever we perform:
+     * * [insert], [delete], [deleteMax], [mergeTwoAvlTrees], [rebalance], etc.
+     *
+     * **Time Complexity**
+     * * [updateHeight] is `O(1)` operation.
      *
      * @param avlNode The node for which we need to recalculate and update the height.
      */
@@ -124,7 +142,16 @@ class AvlTree {
      * ```
      * | balance factor | = | node.left.height - node.right.height | <= 1
      * ```
-     * * If there is a different balance factor, then we need to [balance] the [AvlTree].
+     * * If there is a different balance factor, then we need to [rebalance] the [AvlTree].
+     *
+     * **Why does the function [balanceFactor] accept a nullable value?**
+     * * So that we don't have to use the null-safe operator at many places.
+     * * The [balanceFactor] is mainly a part of [rebalance].
+     * * We need to check the [balanceFactor] of a node whenever we perform:
+     * * [insert], [delete], [deleteMax], [mergeTwoAvlTrees], etc.
+     *
+     * **Time Complexity**
+     * * Checking the [balanceFactor] of an [AvlNode] is an `O(1)` time operation.
      *
      * @param avlNode The [AvlNode] for which we need to check the balance factor.
      *
@@ -148,10 +175,26 @@ class AvlTree {
      * * We cannot rotate a null [node]. So, a non-null parameter/argument for the function.
      * * Similarly, we return a non-null and balanced [node], a new node that takes the place of this [node].
      * * So, a non-null return type.
+     *
+     * **Why doesn't it (the [rotateRight] function) take a nullable argument?**
+     * * If the [node] is null, we can't rotate it.
+     * * But then the question or concern is: The caller function needs to use a null-safe operator.
+     * * In that case, the answer of expecting a non-null value contradicts the earlier answers, such as:
+     * * [updateHeight], [balanceFactor], etc.
+     * * The point is, we perform [rotateRight] after checking the [balanceFactor].
+     * * Hence, it is not possible to have a null [AvlNode] for which we are performing [rotateRight].
+     * * If we are calling [rotateRight] on and for an [AvlNode], we are sure that the [AvlNode] is not null.
+     *
+     * **Time Complexity**
+     * * In the [rotateRight] operation, we update some pointers and [updateHeight] for a couple of [AvlNode]s.
+     * * It is `O(1)` time operation.
      */
     private fun rotateRight(node: AvlNode): AvlNode {
         // Left cannot be null, because we are doing `rotateRight` on the `node`.
         // It means that the `node` is left-heavy!
+        // Does it sound like a code-smell?
+        // Does it tell us that the type signature is not as tight as it should be?
+        // Just let me know if we can do this in a better way.
         val left = node.left!!
         // No null-safe operator on the `left` because we have used `!!` before.
         val rightOfleft = left.right
@@ -178,11 +221,23 @@ class AvlTree {
      * * We perform the left rotation on the given [node] when it is heavy on the right side.
      * * We expect that the incoming [node] is not null.
      * * We return the new non-null node that takes the place of this incoming [node].
+     *
+     * **Why does it (the [rotateLeft] function) expect a non-null argument?**
+     * * Because [rotateLeft] happens after checking the [balanceFactor].
+     * * And the [AvlNode] we want to [rotateLeft] cannot be null.
+     * * If we are calling [rotateLeft] on and for an [AvlNode], we are sure that the [AvlNode] is not null.
+     *
+     * **Time Complexity**
+     * * It changes a few pointers and updates the height of a couple of [AvlNode]s.
+     * * It is `O(1)` time operation.
      */
     private fun rotateLeft(node: AvlNode): AvlNode {
         // We are rotating the incoming `node` on the left side.
         // It means that the incoming `node` is heavy on the right side.
         // So, we can safely expect that the right side of this incoming `node` is not null.
+        // Does it sound like a code-smell?
+        // Does it tell us that the type signature is not as tight as it should be?
+        // Just let me know if we can do this in a better way.
         val right = node.right!!
         // We don't need to use the null-safe operator on the `right` node, because we have already used `!!` before.
         val leftOfRight = right.left
@@ -197,6 +252,14 @@ class AvlTree {
         return right
     }
 
+    /**
+     * **Why does it (the [rebalance] function) expect a non-null argument?**
+     * * It depends on who uses (calls) it (the [rebalance] function).
+     * * [insert], [delete], [deleteMax], and [mergeTwoAvlTrees].
+     * * When we [insert], [delete], or [deleteMax], we do the null-check before calling this [rebalance] function.
+     * * So, we are sure that [node] is non-null.
+     * * For [mergeTwoAvlTrees],
+     */
     private fun rebalance(node: AvlNode): AvlNode {
         updateHeight(node)
         val bf = balanceFactor(node)
@@ -246,7 +309,7 @@ class AvlTree {
      * * After inserting the [key], we need to update the height of the relevant nodes (ancestors).
      * * Then, we need to ensure that this [AvlTree] is still balanced.
      * * So, we check the [balanceFactor].
-     * * If we find that the [insert] operation has caused an imbalance, we [balance] this [AvlTree] using rotations.
+     * * If we find that the [insert] operation has caused an imbalance, we [rebalance] this [AvlTree] using rotations.
      * * The appropriate rotation function should also update the height of the relevant nodes.
      * * We reassign the [root] to the updated one, because the height and probably also the balance factor of the
      * [root] changes after the [insert] operation.
@@ -316,7 +379,7 @@ class AvlTree {
         // Ensure the balance and return the balanced node.
         // At this point, we are sure that the `node` is not null.
         // Hence, the `rebalance` cannot return a `null` value.
-        return rebalance(node)!!
+        return rebalance(node)
     }
 
     /**
