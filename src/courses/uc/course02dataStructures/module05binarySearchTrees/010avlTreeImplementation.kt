@@ -258,7 +258,21 @@ class AvlTree {
      * * [insert], [delete], [deleteMax], and [mergeTwoAvlTrees].
      * * When we [insert], [delete], or [deleteMax], we do the null-check before calling this [rebalance] function.
      * * So, we are sure that [node] is non-null.
-     * * For [mergeTwoAvlTrees],
+     * * For [mergeTwoAvlTrees], we call [rebalance] in two cases:
+     * * When `h1 > h2` or when `h2 > h1`.
+     * * In both the cases, we get one [AvlTree] taller than the other.
+     * * So, we find a smaller subtree from the taller [AvlTree] and merge it with the other.
+     * * And then, we hang this merged tree on the taller tree.
+     * * So, it possibly changes the height of the parent upon which we hang the merged tree.
+     * * And that's where we call this [rebalance] method.
+     * * At this point, we are sure that the [AvlNode] that we want to [rebalance] is not null.
+     *
+     * **Time Complexity:**
+     * * We [updateHeight], which takes `O(1)` time.
+     * * We check the [balanceFactor], which takes `O(1)` time.
+     * * And depending upon the [balanceFactor], we either call [rotateRight], [rotateLeft], or their combinations.
+     * * All the rotation methods, such as [rotateRight] and [rotateLeft], also take `O(1)` time.
+     * * So, the entire [rebalance] operation is `O(1)` time operation, which is wonderful!
      */
     private fun rebalance(node: AvlNode): AvlNode {
         updateHeight(node)
@@ -347,6 +361,24 @@ class AvlTree {
      * * We do it from the parent [node] of the new node of [key] all the way up to the [root] node.
      * * Finally, we return the updated [root].
      *
+     * **Time Complexity:**
+     * * To insert an [AvlNode], we use the typical binary search tree approach.
+     * * And the fact that we are inserting an [AvlNode] in an [AvlTree], it cannot take more than `O(log n)` time.
+     * * Because an [AvlTree] is a balanced tree.
+     * * To insert an [AvlNode], we start our journey from the [root] and travel down until we find a vacant spot.
+     * * However, once we insert an [AvlNode], it may change the height and balance of its parent.
+     * * So, we start the journey backward and re-balance every ancestor as we reach the [root] again.
+     * * This happens recursively.
+     * * So, the journey downwards to insert the [AvlNode] takes `O(log n)`.
+     * * And then the backward journey up to [root] also takes `O(log n)`.
+     * * And then we might have to [rebalance] each ancestor as we reach [root].
+     * * Each [rebalance] operation takes `O(1)` and we cannot have more than `O(log n)` operations.
+     * * So asymptotically, the entire [insert] function takes `O(log n)` time.
+     *
+     * **Space Complexity:**
+     * * This is a recursive function.
+     * * So, we use `O(log n)` operation memory.
+     *
      * @param node The [AvlNode] under which we insert a new [AvlNode] of [key].
      * @param key The [AvlNode.keyValue] property of the new [AvlNode] that we want to insert as a child of [node].
      * @return The updated [root]. Because inserting a new node can change the height of the [root].
@@ -430,6 +462,21 @@ class AvlTree {
      * * It also checks the balance factor of each ancestor.
      * * If it finds any unbalanced node, it rebalances it using the relevant rotation.
      * * Finally, it returns the updated [root].
+     *
+     * **Time Complexity:**
+     * * Similar to the [insert] operation, we use the binary search tree approach to find the [AvlNode] to delete it.
+     * * Finding the [AvlNode] that we want to delete takes `O(log n)` time.
+     * * And then deleting the [AvlNode] might change the height and balance of its parent.
+     * * So, we have to [rebalance] it, and it continues as we continue our backward journey to reach the [root].
+     * * So again, the backward journey till we reach the [root] node also takes `O(log n)` time.
+     * * And we may [rebalance] each ancestor along the way.
+     * * Each [rebalance] takes `O(1)` time.
+     * * So, the total [rebalance] time can be `O(log n)`.
+     * * Hence, asymptotically, the time complexity of this [delete] function is `O(log n)`.
+     *
+     * **Space Complexity:**
+     * * This is a recursive function.
+     * * So, it takes the additional `O(log n)` memory.
      *
      * @param node The [AvlNode] using which we can find the direction of the [AvlNode] of the given [key]
      * @param key We want to find and delete the [AvlNode] having this [key]
@@ -524,6 +571,16 @@ class AvlTree {
         return rebalance(node)
     }
 
+    /**
+     * **Time Complexity:**
+     * * To find an [AvlNode] having the given [key], we use the typical binary search approach.
+     * * The fact that this is an [AvlTree] ensures that the height of the tree cannot be more than `O(log n)`.
+     * * So, this [find] operation takes `O(log n)` time.
+     *
+     * **Space Complexity:**
+     * * We are not using any additional memory that depends on or grows with the input size.
+     * * So, the space complexity is `O(1)`.
+     */
     fun find(key: Int): AvlNode? {
         // We finished travelling the tree.
         // We fell off the tree, but we couldn't find the [AvlNode] of [key].
@@ -547,6 +604,16 @@ class AvlTree {
         return findMin(root)
     }
 
+    /**
+     * **Time Complexity:**
+     * * The leftmost node is the minimum node.
+     * * This is an [AvlTree].
+     * * So, it doesn't take more than `O(log n)` time.
+     *
+     * **Space Complexity:**
+     * * We are not using any additional memory that grows with or depends on the input size.
+     * * So, the space complexity is `O(1)`.
+     */
     private fun findMin(node: AvlNode?): AvlNode? {
         if (node == null) return null
         var curr = node
@@ -594,7 +661,7 @@ class AvlTree {
      * * And then, we need to travel backwards to the top while rebalancing all the parent nodes we face.
      * * So, in the end, what we return is a balanced root node.
      * * So, we don't just delete a node. We return a balanced AVLTree with a balanced root node.
-     * * The time complexity and space complexity of this recursive function is `O(log n)`.
+     * * The time complexity and space complexity of this recursive function are `O(log n)`.
      */
     private fun deleteMax(rootNode: AvlNode?): AvlNode? {
         if (rootNode == null) return null
