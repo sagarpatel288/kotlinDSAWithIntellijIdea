@@ -9,6 +9,8 @@
     * [Return type](#return-type)
     * [Building the function](#building-the-function)
     * [Break and Merge](#break-and-merge)
+    * [The meaning of changing the path](#the-meaning-of-changing-the-path)
+    * [Returning the result](#returning-the-result)
   * [Next](#next)
 <!-- TOC -->
 
