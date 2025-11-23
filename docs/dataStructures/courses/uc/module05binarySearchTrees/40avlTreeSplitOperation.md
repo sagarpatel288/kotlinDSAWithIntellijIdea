@@ -258,12 +258,54 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 * //ToDo: It will be interesting and helpful to know and understand why and how the `t1LeftTree` belongs to the $T_1$ tree. Maybe it has something to do with the fact that we process the `uncertain` part when we recursively call the `split` function. Maybe this behavior (action, process) holds `t1LeftTree`. Maybe this is how we accumulate, segregate, assort, and collect the nodes that belong to the $T_1$ tree. Consider explaining.
 * And the `node` itself belongs to the $T_1$ tree, because its `key <= x`.
 * So, inside `node.key <= x`, we have `leftChild`, `t1LeftTree`, and `node` as the pivot.  
-* 
+
+```kotlin
+fun split(node: AvlNode, target: AvlNode): SplitResult {
+    if (node == null) return SplitResult(null, null)
+    // Before breaking the node, we need to take references to its children as we use them later
+    val leftChild = node.left
+    val rightChild = node.right
+    node.left = null
+    node.right = null
+    node.height = 1
+    if (node.key <= target) {
+        val (t1LeftTree, t2RightTree) = split(rightChild, target)
+        val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
+    } else {
+        val (t1LeftTree, t2RightTree) = split(leftChild, target)
+        val mergedTree = mergeTwoAvlTrees(whatDoWePassHere, whatDoWePassHere, whatDoWePassHere)
+    }
+}
+```
+
 `else` (which means when `node.key > x`):
 * The `rightChild` that we read and stored earlier belongs to the $T_2$ tree.
 * The `node` belongs to the $T_2$ because its `key > x`.
 * And the `t2RightTree` belongs to the $T_2$. 
 * //ToDo: It will be interesting and helpful to know and understand why and how the `t2RightTree` belongs to the $T_2$ tree. Maybe it has something to do with the fact that we process the `uncertain` part when we recursively call the `split` function. Maybe this behavior (action, process) holds `t2RightTree`. Maybe this is how we accumulate, segregate, assort, and collect the nodes that belong to the $T_2$ tree. Consider explaining.
 * So, inside the `else` part, we have the `rightChild`, `t2RightTree`, and the `node` as the pivot.
+
+```kotlin
+
+fun split(node: AvlNode, target: AvlNode): SplitResult {
+    if (node == null) return null
+    val leftChild = node.left
+    val rightChild = node.right
+    node.left = null
+    node.right = null
+    node.height = 1
+    if (node.key <= target) {
+        val (t1LeftTree, t2RightTree) = split(rightChild, target)
+        val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
+    } else {
+        val (t1LeftTree, t2RightTree) = split(leftChild, target)
+        val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
+    }
+}
+```
+
+### The meaning of changing the path
+
+### Returning the result
 
 ## Next
