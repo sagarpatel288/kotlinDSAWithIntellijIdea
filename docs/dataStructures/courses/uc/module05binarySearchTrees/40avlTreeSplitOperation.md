@@ -11,6 +11,7 @@
     * [Building the function](#building-the-function)
     * [Understanding the `split` function and its returned values](#understanding-the-split-function-and-its-returned-values)
     * [Break and Merge (Break and build)](#break-and-merge-break-and-build)
+    * [Justifying the property names of the `SplitResult`](#justifying-the-property-names-of-the-splitresult)
     * [The meaning of changing the path](#the-meaning-of-changing-the-path)
     * [Returning the result](#returning-the-result)
   * [Next](#next)
@@ -62,16 +63,20 @@ $$T_2 > x$$
 
 ### Approach, idea
 
+![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+
 * Our approach is to build the tree from the bottom.
 * So, we start the traversal from the root of the given `AvlTree`.
 * And to build a tree, we need 3 data: The parent node, left subtree (a.k.a. left tree or left child), and the right subtree (a.k.a. right tree or right child).
-* Now, when we reach the leaf node, we need to have the references of the parent node and the right node, so that we can merge them.
-* And this merged tree will be a subtree for a certain parent node.
+* Now, when we reach the leaf node, we need to have the references of the parent node and the right node (the right subtree, the right child), so that we can merge them.
+* And this merged tree will be a subtree for a particular parent node.
 * And this process keeps going on.
 * So that will be the reverse journey.
 * First, we travel towards the bottom, and then we travel towards the top.
 * As we travel towards the top, we merge and build the tree.
-* Every time we build a tree, we need to know whether the tree is a part of $T_1$ or $T_2$.
+* Notice that the return type gives us a tree that we need to attach to the parent node.
+* And every time we need to attach the tree to a particular node, we need to know whether the tree goes to the right side of the parent node or the left side of the parent node.
+* Every time we merge a tree, we need to know whether the tree is a part of $T_1$ or $T_2$.
 * The condition to decide whether a particular node is a part of $T_1$ or $T_2$ is simple.
 * `if (node.key <= target)`, then it is the part of $T_1$.
 * Else, it is part of $T_2$.
@@ -144,9 +149,14 @@ fun split(target: AvlNode): SplitResult {
   * However, the right child of the node `50` is `60`.
   * And it doesn't mean that all the children, the entire subtree of `60` is greater than `60`.
   * For example, the right subtree of `50` is `60` and it includes many nodes, such as the entire `55` subtree, that is `<= 60`.
-  * The point is, when the `node.key <= x`, we are sure that the entire `node.left` subtree must be `<= x`.
-  * But, we are not sure about the `node.right` subtree.
+  * The point is, when the `node.key <= x`, we are sure (certain) that the entire `node.left` subtree must be `<= x`.
+  * But, we are not sure (uncertain) about the `node.right` subtree.
   * So, when `node.key <= x`, we want to explore the `node.right` path.
+  * We explore the uncertain path.
+  * To help us visualize and remember this concept, imagine that we are getting two types of data: Certain (Classified) and Uncertain (Unclassified).
+  * Our objective (goal, aim) is to classify the entire data.
+  * So, whenever we get "certain" data, we don't touch it.
+  * But, we send the "uncertain" data back to the process to make them certain and classified.
   * So, it might look like:
 
 ```kotlin
@@ -211,7 +221,7 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 * The `split` function returns `SplitResult`.
 * `SplitResult` is a `data class` and it has two properties: `t1LeftTree` and `t2RightTree`.
 * So, we store the returned values of the `split` function under this `if` condition as: `val (t1LeftTree, t2RightTree)`.
-* `t1LeftTree` represents all the nodes whose key values are at most to the `target` we pass to the `split` function.
+* `t1LeftTree` represents all the nodes whose key values are at most the `target` we pass to the `split` function.
 * And we start our traversal from the `node` that we pass to the `split` function.
 * Passing `node = node.right` and `target = target` as arguments to the `split` function under this `if` condition conveys the following:
 
@@ -349,6 +359,43 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
     }
 }
 ```
+
+### Justifying the property names of the `SplitResult`
+
+`t1LeftTree`:
+
+* The first property of the `SplitResult` is `t1LeftTree`.
+* The name suggests that it belongs to $T_1$.
+* But, how do we make it so? How, when, and where does that happen?
+* We use it inside the `if` condition.
+* Inside the `if` condition, we pass `leftChild,` `t1LeftTree,` and `node` to the `mergeTwoAvlTrees` function.
+* We are inside the `if` condition.
+* So, we are sure that `node.key <= x`.
+* And by definition of the `AvlTree,` the `leftChild.key` of the `node` is also `<= x`.
+* Now, when we reach the leaf node in this way, we hit the first base condition inside our `if` condition.
+* So, the top `SplitResult` is `(null, null)`.
+* Then, we call the `merge` function and pass the above arguments.
+* Now, the top merged tree `t1LeftTree` we get inside the `if` condition is made up of `node.key <= x` and `leftChild.key <= x`.
+* And then it returns to such a node that is also `node.key <= x`.
+* And it keeps going on until our call stack becomes empty.
+* That's why we say that the first property `t1LeftTree <= x`.
+
+`t2RightTree`
+
+* Similar to the above explanation of `t1LeftTree`.
+* `t2RightTree` is the second property of the `SplitResult`.
+* We use it as one of the arguments to the `mergeTwoAvlTrees` function inside the `else` condition.
+* Now, if we are in the `else` condition, it means that `node.key > x`.
+* When we hit the base condition for the first time in the `else` condition, we return the `SplitResult` as `(null, null)`.
+* And then we call the `mergeTwoAvlTrees` function.
+* We pass three arguments: `rightChild`, `t2RightTree,` and `node`.
+* Now, we know that `node.key > x`.
+* So, `rightChild.key > x`.
+* We merge them.
+* And this is how we get our top merged tree inside the `else` condition.
+* Now, it returns inside the `else` condition to such a node that is also `node.key > x`.
+* And it keeps going on until our call stack becomes empty.
+* That's why we say that the second property `t2RightTree > x`.
 
 ### The meaning of changing the path
 
