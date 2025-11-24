@@ -7,8 +7,10 @@
   * [Thought Process: Brick by brick, Step by step:](#thought-process-brick-by-brick-step-by-step)
     * [Understanding the requirements and output](#understanding-the-requirements-and-output-)
     * [Return type](#return-type)
+    * [Approach, idea](#approach-idea)
     * [Building the function](#building-the-function)
-    * [Break and Merge](#break-and-merge)
+    * [Understanding the `split` function and its returned values](#understanding-the-split-function-and-its-returned-values)
+    * [Break and Merge (Break and build)](#break-and-merge-break-and-build)
     * [The meaning of changing the path](#the-meaning-of-changing-the-path)
     * [Returning the result](#returning-the-result)
   * [Next](#next)
@@ -57,6 +59,22 @@ $$T_2 > x$$
 
 * Two `AvlTrees` so that $T_1 <= x$, and $T_2 > x$.
 * So, we can return a pair of `AvlTrees` or return an encapsulated `data class`.
+
+### Approach, idea
+
+* Our approach is to build the tree from the bottom.
+* So, we start the traversal from the root of the given `AvlTree`.
+* And to build a tree, we need 3 data: The parent node, left subtree (a.k.a. left tree or left child), and the right subtree (a.k.a. right tree or right child).
+* Now, when we reach the leaf node, we need to have the references of the parent node and the right node, so that we can merge them.
+* And this merged tree will be a subtree for a certain parent node.
+* And this process keeps going on.
+* So that will be the reverse journey.
+* First, we travel towards the bottom, and then we travel towards the top.
+* As we travel towards the top, we merge and build the tree.
+* Every time we build a tree, we need to know whether the tree is a part of $T_1$ or $T_2$.
+* The condition to decide whether a particular node is a part of $T_1$ or $T_2$ is simple.
+* `if (node.key <= target)`, then it is the part of $T_1$.
+* Else, it is part of $T_2$.
 
 ### Building the function
 
@@ -153,6 +171,7 @@ split(root, target)
 fun split(node: AvlNode, target: AvlNode): SplitResult {
     if (node == null) return SplitResult(null, null)
     if (node.key <= target) {
+        // We will learn about these returned values soon. 
         val (t1LeftTree, t2RightTree) = split(node.right, target)
     } else {
         
@@ -169,19 +188,44 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 fun split(node: AvlNode, target: AvlNode): SplitResult {
     if (node == null) return SplitResult(null, null)
     if (node.key <= target) {
+        // We will learn about these returned values soon.
         val (t1LeftTree, t2RightTree) = split(node.right, target) 
     } else {
+        // We will learn about these returned values soon.
         val (t1LeftTree, t2RightTree) = split(node.left, target)
     }
 }
 
 ```
 
+### Understanding the `split` function and its returned values
+
+* The `split` function takes two arguments: 
+* `node` is the starting point of the traversal.
+* `target` is the split point.
+* We call the `split` function two times:
+
+`if (node.key) <= target`
+
+* Under this condition, we pass `node = node.right` and `target = target` to the `split` function.
+* The `split` function returns `SplitResult`.
+* `SplitResult` is a `data class` and it has two properties: `t1LeftTree` and `t2RightTree`.
+* So, we store the returned values of the `split` function under this `if` condition as: `val (t1LeftTree, t2RightTree)`.
+* `t1LeftTree` represents all the nodes whose key values are at most to the `target` we pass to the `split` function.
+* And we start our traversal from the `node` that we pass to the `split` function.
+* Passing `node = node.right` and `target = target` as arguments to the `split` function under this `if` condition conveys the following:
+
+![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+
+
+* "We are calling this `split` function under this `if(node.key <= target` condition. So, we know that the left subtree of this `node` has all the nodes whose key values are at most the `target`. That is the certain part. But, the left subtree of `node.right` might have (the uncertainty) nodes whose key values are also at most the `target` value, but we are not sure about it. We need to travel through it to find such nodes. So, we resume the traversal from the `node.right` and try to find the nodes whose key values are at most the `target` value."
+* Now, the `split` function returns `SplitResult`.
+* This `SplitResult` contains two properties: `t1LeftTree`, and `t2RightTree`.
 * Now, at this point, the function `split` doesn't have any process to build the proper trees.
 * It only returns `null` trees.
 * In the following steps, we will learn about how to build and return proper and balanced `AvlTrees`.
 
-### Break and Merge
+### Break and Merge (Break and build)
 
 ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
