@@ -8,12 +8,11 @@
     * [Understanding the requirements and output](#understanding-the-requirements-and-output-)
     * [Return type](#return-type)
     * [Approach, idea](#approach-idea)
+      * [Pattern](#pattern)
     * [Building the function](#building-the-function)
-    * [Understanding the `split` function and its returned values](#understanding-the-split-function-and-its-returned-values)
     * [Break and Merge (Break and build)](#break-and-merge-break-and-build)
     * [Justifying the property names of the `SplitResult`](#justifying-the-property-names-of-the-splitresult)
-    * [The meaning of changing the path](#the-meaning-of-changing-the-path)
-    * [Returning the result](#returning-the-result)
+    * [Understanding the recursion part (Dry Run)](#understanding-the-recursion-part-dry-run)
   * [Next](#next)
 <!-- TOC -->
 
@@ -35,7 +34,7 @@
 
 ## The Problem Statement
 
-* Split the given `AvlTree` from the node of key `x` in such a way that we get two `AVLTrees` where one `AvlTree` gets all the nodes that are less than or equal to the `x`, and the other `AvlTree` gets all the nodes that are greater than `x`.
+* Split the given `AvlTree` from the node of key `x` in such a way that we get two `AVLTrees` where one `AvlTree` gets all the nodes that are less than or equal to `x`, and the other `AvlTree` gets all the nodes that are greater than `x`.
 
 $$T_1 <= x$$
 $$T_2 > x$$
@@ -65,10 +64,124 @@ $$T_2 > x$$
 
 ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
-* Our approach is to build the tree from the bottom.
-* So, we start the traversal from the root of the given `AvlTree`.
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart LR
+    subgraph AVLTree
+        n1(("50")) --> n2(("40")) & n3(("60"))
+        n2 --> n4(("30")) & n5(("45"))
+        n3 --> n6(("55")) & n7(("70"))
+        n4 --> n8(("25")) & n9(("35"))
+        n5 --> n10(("43")) & n11(("47"))
+        n6 --> n12(("53")) & n13(("57"))
+        n7 --> n14(("65")) & n15(("80"))
+    end
+L[Free Online Mermaid Editor]
+click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _blank
+```
+
+* We want to know whether a particular node belongs to $T_1 <= x$, or $T2 > x$.
+* So, we are doing some sort of segregation and classification here.
+* To identify, segregate, and classify all the nodes, we need to travel.
+* We start our traversal from the root of the given `AvlTree`.
+* Now, there is an interesting magic (observation, characteristics) of an `AvlTree`.
+* We don't have to visit all the nodes.
+* We can classify a chunk of multiple nodes (a subtree) based on the current node.
+* For example, suppose that we have the above given `AvlTree`.
+* And suppose that the `target` is `60`.
+* Now, we start our traversal from `50`.
+* The current node: `50 <= target` belongs to $T_1$.
+* At this point, we know that the entire left subtree of `50` also belongs to $T_1$.
+* This is a certain part.
+* So, we need to leverage this characteristic of the `AvlTree`.
+* Maybe we can somehow avoid going further down the left side of `50`.
+* And we can just travel towards the right side of `50`.
+* Because the right child of `50` can still have a left subtree that might belong to $T_1$.
+* But we are unsure about it.
+* The right child of `50` may or may not have such a subtree.
+* So, this is the uncertain part that we still need to travel.
+* Not only because it is the uncertain part, but we need to classify a subtree or a node that belongs to $T_2$.
+* So, to classify a subtree or a node for $T_2$, we travel towards the right side of `50`.
+* Think of it in the following way:
+* When `node.key <= target`, we immediately classify the entire `node.left` as $T_1$ without traveling there.
+* Next, we need to classify the remaining uncertain side (`node.right`), about which we are unsure.
+* So, when `node.key <= target`, we move towards the `node.right` side.
+* Similarly, when we are at `70`, we are sure that the entire right side from `70` must belong to $T_2$.
+* Because that is the characteristic of an `AvlTree`.
+* So again, this is a certain part.
+* And again, maybe we can somehow avoid going further down the right side of `70`.
+* But we still need to travel to the left side of `70`.
+* Because deep down the left side of `70` can have a subtree that might belong to $T_1$.
+* But we are unsure about it.
+* The left side of `70` may or may not have such a subtree or node.
+* So, this is the uncertain part that we still need to travel.
+* Again, we can think of it in the following way:
+* When `node.key > target`, we immediately classify the entire `node.right` as $T_2$ without traveling there.
+* Next, we need to classify the remaining uncertain side (`node.left`), about which we are unsure.
+* So, when `node.key > target`, we travel towards the `node.left` side.
+
+#### Pattern
+
+* At any node, we classify it, and possibly also a particular side (subtree) of it, and then we decide in which direction to go further.
+* This process of classification remains the same; only the input keeps changing.
+* So, it suggests the recursion pattern.
+
+```kotlin
+fun split(node: AvlNode, target: AvlNode) {
+    if (node.key <= target.key) {
+        // We are sure that `node.left` also belongs to $T_1$. 
+        // So, we travel towards the remaining uncertain side, which is `node.right`.
+        // Note that at this point, this is just a traversal.
+        // There is no way to store the classification information at the moment.
+        // We will build the entire solution gradually, brick by brick, step by step.
+        split(node.right)
+    } else {
+        // We are sure that `node.right` also belongs to $T_2$.
+        // So, we travel towards the remaining uncertain side, which is `node.left`.
+        // Note that at this point, this is just a traversal.
+        // There is no way to store the classification information at the moment.
+        // We will build the entire solution gradually, brick by brick, step by step.
+        split(node.left)
+    }
+}
+```
+
+* At some point, we will hit a leaf node.
+* And for a leaf node, left and right children (sides) are null.
+* So, we need to consider that, maybe as our base case.
+
+```kotlin
+fun split(node: AvlNode, target: AvlNode) {
+    if (node == null) return
+    if (node.key <= target.key) {
+        // We are sure that `node.left` also belongs to $T_1$. 
+        // So, we travel towards the remaining uncertain side, which is `node.right`.
+        // Note that at this point, this is just a traversal.
+        // There is no way to store the classification information at the moment.
+        // We will build the entire solution gradually, brick by brick, step by step.
+        split(node.right)
+    } else {
+        // We are sure that `node.right` also belongs to $T_2$.
+        // So, we travel towards the remaining uncertain side, which is `node.left`.
+        // Note that at this point, this is just a traversal.
+        // There is no way to store the classification information at the moment.
+        // We will build the entire solution gradually, brick by brick, step by step.
+        split(node.left)
+    }
+}
+```
+
+* Now, at some point, we will be at the leaf node.
+* //ToDo: It feels like a few things (dots, links, explanation) are missing between these two (above and below) lines. It feels like a disconnection and a missing information. It doesn't feel like fluid and connected. Something is missing in between here.
+* A tree is always built from the bottom.
+* So, we need to build the tree from the bottom.
 * And to build a tree, we need 3 data: The parent node, left subtree (a.k.a. left tree or left child), and the right subtree (a.k.a. right tree or right child).
-* Now, when we reach the leaf node, we need to have the references of the parent node and the right node (the right subtree, the right child), so that we can merge them.
+* Now, when we reach the leaf node, we need to have the references of the parent node, so that we can merge them.
 * And this merged tree will be a subtree for a particular parent node.
 * And this process keeps going on.
 * So that will be the reverse journey.
@@ -85,6 +198,27 @@ $$T_2 > x$$
 
 ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart LR
+    subgraph AVLTree
+        n1(("50")) --> n2(("40")) & n3(("60"))
+        n2 --> n4(("30")) & n5(("45"))
+        n3 --> n6(("55")) & n7(("70"))
+        n4 --> n8(("25")) & n9(("35"))
+        n5 --> n10(("43")) & n11(("47"))
+        n6 --> n12(("53")) & n13(("57"))
+        n7 --> n14(("65")) & n15(("80"))
+    end
+L[Free Online Mermaid Editor]
+click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _blank
+```
+
 * We want to split the given `AvlTree` into two `AvlTrees`.
 * So, let us call the function: `split`.
 * And we want to split it from a particular node.
@@ -95,7 +229,7 @@ $$T_2 > x$$
 * This `SplitResult` data class might look like below:
 
 ```kotlin
-
+// We will clarify and justify the names and order of the properties soon.
 data class SplitResult(val t1LeftTree: AvlTree, val t2RightTree: AvlTree)
 
 ```
@@ -107,7 +241,7 @@ data class SplitResult(val t1LeftTree: AvlTree, val t2RightTree: AvlTree)
 
 ```kotlin
 
-fun split(target: AvlNode): SplitResult {
+fun split(node: AvlNode, target: AvlNode): SplitResult {
     
 }
 
@@ -120,127 +254,60 @@ fun split(target: AvlNode): SplitResult {
 
 ```kotlin
 
-fun split(target: AvlNode): SplitResult {
-    var curr = root
-    if (curr == null) {
-        return SplitResult(null, null)
-    }
-    while (curr != null) {
-        if (curr.key <= target) {
-            //...
-        } else {
-            //...
-        }
+fun split(node: AvlNode, target: AvlNode): SplitResult {
+    if (node == null) return SplitResult(null, null)
+    if (node.key <= target.key) {
+        // We are sure that `node.left` also belongs to $T_1$. 
+        // So, we travel towards the remaining uncertain side, which is `node.right`.
+        // Note that at this point, this is just a traversal.
+        // There is no way to store the classification information at the moment.
+        // We will build the entire solution gradually, brick by brick, step by step.
+        // We will also clarify and justify the names and order of the properties soon.
+        val (t1LeftTree, t2RightTree) = split(node.right)
+    } else {
+        // We are sure that `node.right` also belongs to $T_2$.
+        // So, we travel towards the remaining uncertain side, which is `node.left`.
+        // Note that at this point, this is just a traversal.
+        // There is no way to store the classification information at the moment.
+        // We will build the entire solution gradually, brick by brick, step by step.
+        // We will also clarify and justify the names and order of the properties soon.
+        val (t1LeftTree, t2RightTree) = split(node.left)
     }
 }
-```
 
-![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
-
-* When we are at a particular node and we find that $node.key <= x$, we are sure that this `node` belongs to the $T_1$.
-  * We also know that the left children of this `node` will also be at most `x`. 
-  * So, we know that $node.left <= x$.
-  * But, we don't know about the right node and its children.
-  * For example, as shown in the given image, we want to split from `60`.
-  * Let us call `60` our `x`, `target`, or `limit` node.
-  * We start from `50`, which is the `root` node.
-  * $50 <= 60$. At this point, we are sure that all the left children of the node `50` must be smaller than `60`, because that is the `AvlTree` (or Binary Search Tree) property.
-  * So, the entire left subtree of the node `50` is `<= 60`.
-  * However, the right child of the node `50` is `60`.
-  * And it doesn't mean that all the children, the entire subtree of `60` is greater than `60`.
-  * For example, the right subtree of `50` is `60` and it includes many nodes, such as the entire `55` subtree, that is `<= 60`.
-  * The point is, when the `node.key <= x`, we are sure (certain) that the entire `node.left` subtree must be `<= x`.
-  * But, we are not sure (uncertain) about the `node.right` subtree.
-  * So, when `node.key <= x`, we want to explore the `node.right` path.
-  * We explore the uncertain path.
-  * To help us visualize and remember this concept, imagine that we are getting two types of data: Certain (Classified) and Uncertain (Unclassified).
-  * Our objective (goal, aim) is to classify the entire data.
-  * So, whenever we get "certain" data, we don't touch it.
-  * But, we send the "uncertain" data back to the process to make them certain and classified.
-  * So, it might look like:
-
-```kotlin
-
-if (curr.key <= x) {
-    // We will learn more about this `explore` method soon.
-    explore(node.right)
-}
-```
-
-* **Now, what are the expectations from this `explore` function?**
-* **What do we say when we pass `node.right` to the `explore` function?**
-* We are saying that:
-* "Hey, for a particular `target` and a particular `node`, if `node.key <= x`, we already know that going further down towards the left side of this node will get us all the nodes that will belong to $T_1$. Now, we want to do the same exercise when the root node, the starting point of our traversal, is `node.right`.
-* So, the `input` is changed, but the process remains the same.
-* So, it looks like a recursion.
-* Hence, we will adjust our `split` function as follows:
-
-```kotlin
-// When we call the `split` function for the first time, from the outside, we pass `root`, because that's the node from where we start our binary search type traversal. 
+// When we call the `split` function for the first time, from the outside, we pass `root`.
+// Because that's the node from where we start our binary search type traversal. 
 split(root, target)
-fun split(node: AvlNode, target: AvlNode): SplitResult {
-    if (node == null) return SplitResult(null, null)
-    if (node.key <= target) {
-        // We will learn about these returned values soon. 
-        val (t1LeftTree, t2RightTree) = split(node.right, target)
-    } else {
-        
-    }
-}
-```
-
-* Now, similar to the `node.key <= x` case, when we reach a particular node where `node.key > x`, we are sure that `node.right > x`.
-  * So, when `node.key > x`, we want to explore the `node.left` path.
-  * So, the function might look like this:
-
-```kotlin
-
-fun split(node: AvlNode, target: AvlNode): SplitResult {
-    if (node == null) return SplitResult(null, null)
-    if (node.key <= target) {
-        // We will learn about these returned values soon.
-        val (t1LeftTree, t2RightTree) = split(node.right, target) 
-    } else {
-        // We will learn about these returned values soon.
-        val (t1LeftTree, t2RightTree) = split(node.left, target)
-    }
-}
 
 ```
-
-### Understanding the `split` function and its returned values
-
-* The `split` function takes two arguments: 
-* `node` is the starting point of the traversal.
-* `target` is the split point.
-* We call the `split` function two times:
-
-`if (node.key) <= target`
-
-* Under this condition, we pass `node = node.right` and `target = target` to the `split` function.
-* The `split` function returns `SplitResult`.
-* `SplitResult` is a `data class` and it has two properties: `t1LeftTree` and `t2RightTree`.
-* So, we store the returned values of the `split` function under this `if` condition as: `val (t1LeftTree, t2RightTree)`.
-* `t1LeftTree` represents all the nodes whose key values are at most the `target` we pass to the `split` function.
-* And we start our traversal from the `node` that we pass to the `split` function.
-* Passing `node = node.right` and `target = target` as arguments to the `split` function under this `if` condition conveys the following:
-
-![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
-
-
-* "We are calling this `split` function under this `if(node.key <= target` condition. So, we know that the left subtree of this `node` has all the nodes whose key values are at most the `target`. That is the certain part. But, the left subtree of `node.right` might have (the uncertainty) nodes whose key values are also at most the `target` value, but we are not sure about it. We need to travel through it to find such nodes. So, we resume the traversal from the `node.right` and try to find the nodes whose key values are at most the `target` value."
-* Now, the `split` function returns `SplitResult`.
-* This `SplitResult` contains two properties: `t1LeftTree`, and `t2RightTree`.
-* Now, at this point, the function `split` doesn't have any process to build the proper trees.
-* It only returns `null` trees.
-* In the following steps, we will learn about how to build and return proper and balanced `AvlTrees`.
 
 ### Break and Merge (Break and build)
 
 ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart LR
+    subgraph AVLTree
+        n1(("50")) --> n2(("40")) & n3(("60"))
+        n2 --> n4(("30")) & n5(("45"))
+        n3 --> n6(("55")) & n7(("70"))
+        n4 --> n8(("25")) & n9(("35"))
+        n5 --> n10(("43")) & n11(("47"))
+        n6 --> n12(("53")) & n13(("57"))
+        n7 --> n14(("65")) & n15(("80"))
+    end
+L[Free Online Mermaid Editor]
+click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _blank
+```
+
  * Now, to create two `AvlTrees` from the one `AvlTree`, we need to break it first.
- * We break and group (segregate, assort) it in such a way that we get two `AvlTres` as $T_1 <= x$ and $T_2 > x$.
+ * We break and group (segregate, classify) it in such a way that we get two `AvlTres` as $T_1 <= x$ and $T_2 > x$.
  * Now, when we say `break` the `AvlTree`, we are talking about breaking the connections of the nodes.
  * **So, how do we break the connections of a node?**
 
@@ -263,19 +330,42 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
     node.right = null
     node.height = 1
     if (node.key <= target) {
+        // We will also clarify and justify the names and order of the properties soon.
         val (t1LeftTree, t2RightTree) = split(rightChild, target)
     } else {
+        // We will also clarify and justify the names and order of the properties soon.
         val (t1LeftTree, t2RightTree) = split(leftChild, target)
     }
 }
 
 ```
 
-* Now, after breaking the tree, we also need to `merge` the segregated, assorted nodes.
+* Now, after breaking the tree, we also need to `merge` the segregated, classified nodes.
 * **So, how do we merge two `AvlTrees`?**
 * Prerequisites/Reference: The `merge` process is already implemented below:
 
 * [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart LR
+    subgraph AVLTree
+        n1(("50")) --> n2(("40")) & n3(("60"))
+        n2 --> n4(("30")) & n5(("45"))
+        n3 --> n6(("55")) & n7(("70"))
+        n4 --> n8(("25")) & n9(("35"))
+        n5 --> n10(("43")) & n11(("47"))
+        n6 --> n12(("53")) & n13(("57"))
+        n7 --> n14(("65")) & n15(("80"))
+    end
+L[Free Online Mermaid Editor]
+click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _blank
+```
 
 * Where do we call this `mergeTwoAvlTrees` function?
 * The `SplitResult` returns two trees.
@@ -291,9 +381,11 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
     node.right = null
     node.height = 1
     if (node.key <= target) {
+        // We will also clarify and justify the names and order of the properties soon.
         val (t1LeftTree, t2RightTree) = split(rightChild, target)
         val mergedTree = mergeTwoAvlTrees(whatDoWePassHere, whatDoWePassHere, whatDoWePassHere)
     } else {
+        // We will also clarify and justify the names and order of the properties soon.
         val (t1LeftTree, t2RightTree) = split(leftChild, target)
         val mergedTree = mergeTwoAvlTrees(whatDoWePassHere, whatDoWePassHere, whatDoWePassHere)
     }
@@ -351,9 +443,11 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
     node.right = null
     node.height = 1
     if (node.key <= target) {
+        // We will also clarify and justify the names and order of the properties soon.
         val (t1LeftTree, t2RightTree) = split(rightChild, target)
         val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
     } else {
+        // We will also clarify and justify the names and order of the properties soon.
         val (t1LeftTree, t2RightTree) = split(leftChild, target)
         val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
     }
@@ -376,9 +470,11 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 * So, the top `SplitResult` is `(null, null)`.
 * Then, we call the `merge` function and pass the above arguments.
 * Now, the top merged tree `t1LeftTree` we get inside the `if` condition is made up of `node.key <= x` and `leftChild.key <= x`.
+* When we are in the `if` condition, we pass this `mergedTree` as `t1LeftTree` to the `SplitResult`.
 * And then it returns to such a node that is also `node.key <= x`.
 * And it keeps going on until our call stack becomes empty.
-* That's why we say that the first property `t1LeftTree <= x`.
+* That's why we say that the first property `t1LeftTree <= x`, and it belongs to $T_1$.
+* The properties of the `t1LeftTree` aligns with the properties of $T_1$.
 
 `t2RightTree`
 
@@ -393,12 +489,145 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 * So, `rightChild.key > x`.
 * We merge them.
 * And this is how we get our top merged tree inside the `else` condition.
+* When we are in the `else` condition, we pass this `mergedTree` as `t2RightTree` to `SplitResult`.
 * Now, it returns inside the `else` condition to such a node that is also `node.key > x`.
 * And it keeps going on until our call stack becomes empty.
-* That's why we say that the second property `t2RightTree > x`.
+* That's why we say that the second property `t2RightTree > x`, and it belongs to $T_2$.
+* The properties of the `t2RightTree` aligns with the properties of $T_2$.
 
-### The meaning of changing the path
+### Understanding the recursion part (Dry Run)
 
-### Returning the result
+* We need to give two `AvlTrees`.
+* We have `if(node.key <= target)`, and `else` part.
+* We start the traversal from the root of the given `AvlTree`.
+* Now, the beautiful and magical part of the recursion is that as we return, we know the path we have taken.
+
+![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart LR
+    subgraph AVLTree
+        n1(("50")) --> n2(("40")) & n3(("60"))
+        n2 --> n4(("30")) & n5(("45"))
+        n3 --> n6(("55")) & n7(("70"))
+        n4 --> n8(("25")) & n9(("35"))
+        n5 --> n10(("43")) & n11(("47"))
+        n6 --> n12(("53")) & n13(("57"))
+        n7 --> n14(("65")) & n15(("80"))
+    end
+L[Free Online Mermaid Editor]
+click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _blank
+```
+
+* For example, suppose that the target for the given `AVLTree` is `60`.
+* We start from `50`.
+
+`split(50, 60)`
+
+* `node = 50, target = 60`
+* `leftChild = 40`, `rightChild = 60`.
+* `50 <= 60` (The `if` condition.)
+* `50` calls: `split(node.right, target) = split(50.right, 60) = split(60, 60)`
+
+`split(60, 60)`
+
+* `node = 60, target = 60`
+* `leftChild = 55`, `rightChild = 70`.
+* `60 <= 60` (The `if` condition.)
+* `60` calls: `split(node.right, target) = split(70, 60)`
+
+`split(70, 60)`
+
+* `node = 70, target = 60`
+* `leftChild = 65`, `rightChild 80`.
+* `70 > 60` (The `else` part.)
+* `70` calls: `split(node.left, target) = split(65, 60)`
+
+`split(65, 60)`
+
+* `node = 65, target = 60`
+* `leftChild = null`, `rightChild = null`.
+* `65 > 60` (The `else` part.)
+* `65` calls: `split(node.left, target) = split(null, 60)`
+
+`split(null, 60)`
+
+* We hit the base condition.
+* So, it starts the "**unwinding**" phase.
+* It returns `SplitResult(null, null)` to `split(65, 60)`.
+
+`split(65, 60)` gets the result of `split(null, 60)`
+
+* Now, the node `65 > target 60`.
+* So, we are in the `else` condition.
+* Here, we call `mergeTwoAvlTrees` and pass the following arguments:
+* `rightChild = null`, `t2RightTree = null`, and `node = 65`.
+* So, the merged tree contains only the node `65`.
+* We return this merged tree as `SplitResult(t1LeftTree, t2RightTree = mergedTree)`.
+* Note that when we are in the `else` part, we consider the `mergedTree` as the `t2RightTree`.
+* So, we return `SplitResult(null, 65)`.
+* The returned result goes back to the caller of `split(65, 60)`.
+* The caller of `split(65, 60)` was `split(70, 60)`.
+
+`split(70, 60)` gets the result of `split(65, 60)`
+
+* Now, the node `70 > target 60`.
+* So, we are in the `else` condition.
+* The `SplitResult` we have got here is: `(t1LeftTree = null, t2RightTree = 65)`.
+* We pass `t2RightTree = 65` as one of the arguments to the `mergeTwoAvlTrees` as below:
+* `rightChild = 80`, `t2RightTree = 65`, and `node = 70`.
+* We get the `mergedTree` as `65, 70, 80`.
+* We pass this `mergedTree` as `t2RightTree` to the `SplitResult` as below:
+* `SplitResult(t1LeftTree = null, t2RightTree = 65, 70, 80)`.
+* This result returns to the caller of `split(70, 60)`.
+* The caller of `split(70, 60)` is `split(60, 60)`.
+
+`split(60, 60)` gets the result of `split(70, 60)`
+
+* Now, the node `60 <= target 60`.
+* So, we are in the `if` condition.
+* The `SplitResult` we have received here is: `(t1LeftTree = null, t2RightTree = 65, 70, 80)`.
+* Now, we call the `mergeTwoAvlTrees` and pass the following arguments.
+* `leftChild = 55`, `t1LeftTree = null`, and `node = 60`.
+* Now, we never traveled through the node `55`.
+* It means that we have never broken the connection and properties of the node `55`.
+* It means that the entire subtree `55` is as it is.
+* Hence, the `mergedTree` contains the following nodes:
+* `53, 55, 57, 60`.
+* We are inside the `if` condition.
+* So, we pass this `mergedTree` as `t1LeftTree` to the `SplitResult`.
+* So, the `SplitResult` becomes:
+* `t1LeftTree = 53, 55, 57, 60`, `t2RightTree = 65, 70, 80`.
+* This result returns to the caller of the `split(60, 60)`.
+* The caller of the `split(60, 60)` is `split(50, 60)`.
+
+`split(50, 60)` gets the result of `split(60, 60)`
+
+* Now, `50` is (was) the root node of the original given `AvlTree`.
+* It means that this is the last function in the call stack.
+* Here, we are going to get the final result.
+* The node `50 <= target 60`.
+* So, we are in the `if` condition.
+* The `SplitResult` we have received here is:
+* `t1LeftTree = 53, 55, 57, 60`, `t2RightTree = 65, 70, 80`.
+* Now, we call the `mergeTwoAvlTrees` and pass the following arguments:
+* `leftChild = 40`, `t1LeftTree = 53, 55, 57, 60`, `node = 50`.
+* Now, we have never traveled through the `leftChild = 40`.
+* So, we have not broken the connection and properties of the node `40`.
+* Hence, the entire subtree `40` is as it is.
+* As a result, the `mergeTwoAvlTrees` with the above arguments gives:
+* `mergedTree = 25, 30, 35, 40, 43, 45, 47, 50, 53, 55, 57, 60`.
+* We are in the `if` condition.
+* So, we pass this `mergedTree` as `t1LeftTree` to the `SplitResult`.
+* Hence, the `SplitResult` becomes:
+* `t1LeftTree = 25, 30, 35, 40, 43, 45, 47, 50, 53, 55, 57, 60`.
+* `t2RightTree = 65, 70, 80`.
+* And those are the final two `AvlTrees`.
 
 ## Next
