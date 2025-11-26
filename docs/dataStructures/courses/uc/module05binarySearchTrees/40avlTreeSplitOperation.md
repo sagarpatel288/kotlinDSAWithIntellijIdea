@@ -11,6 +11,7 @@
       * [Pattern](#pattern)
     * [Building the function](#building-the-function)
     * [Break and Merge (Break and build)](#break-and-merge-break-and-build)
+    * [Returning the "SplitResult"](#returning-the-splitresult)
     * [Justifying the property names of the `SplitResult`](#justifying-the-property-names-of-the-splitresult)
     * [Understanding the recursion part (Dry Run)](#understanding-the-recursion-part-dry-run)
   * [Next](#next)
@@ -87,7 +88,7 @@ click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _bla
 
 * We want to know whether a particular node belongs to $T_1 <= x$, or $T2 > x$.
 * So, we are doing some sort of segregation and classification here.
-* To identify, segregate, and classify all the nodes, we need to travel.
+* To identify, segregate, and classify all the nodes, we need to travel and visit (inspect) the node.
 * We start our traversal from the root of the given `AvlTree`.
 * Now, there is an interesting magic (observation, characteristics) of an `AvlTree`.
 * We don't have to visit all the nodes.
@@ -132,7 +133,7 @@ click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _bla
 * So, it suggests the recursion pattern.
 
 ```kotlin
-fun split(node: AvlNode, target: AvlNode) {
+fun split(node: AvlNode?, target: AvlNode) {
     if (node.key <= target.key) {
         // We are sure that `node.left` also belongs to $T_1$. 
         // So, we travel towards the remaining uncertain side, which is `node.right`.
@@ -156,7 +157,7 @@ fun split(node: AvlNode, target: AvlNode) {
 * So, we need to consider that, maybe as our base case.
 
 ```kotlin
-fun split(node: AvlNode, target: AvlNode) {
+fun split(node: AvlNode?, target: AvlNode) {
     if (node == null) return
     if (node.key <= target.key) {
         // We are sure that `node.left` also belongs to $T_1$. 
@@ -254,7 +255,7 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 
 ```kotlin
 
-fun split(node: AvlNode, target: AvlNode): SplitResult {
+fun split(node: AvlNode?, target: AvlNode): SplitResult {
     if (node == null) return SplitResult(null, null)
     if (node.key <= target.key) {
         // We are sure that `node.left` also belongs to $T_1$. 
@@ -321,7 +322,7 @@ node.height = 1
 
 ```kotlin
 
-fun split(node: AvlNode, target: AvlNode): SplitResult {
+fun split(node: AvlNode?, target: AvlNode): SplitResult {
     if (node == null) return SplitResult(null, null)
     // Before breaking the node, we need to take references to its children as we use them later
     val leftChild = node.left
@@ -372,7 +373,7 @@ click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _bla
 * So, it can be as given below:
 
 ```kotlin
-fun split(node: AvlNode, target: AvlNode): SplitResult {
+fun split(node: AvlNode?, target: AvlNode): SplitResult {
     if (node == null) return SplitResult(null, null)
     // Before breaking the node, we need to take references to its children as we use them later
     val leftChild = node.left
@@ -403,12 +404,16 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 * The `leftChild` that we read and stored earlier belongs to the $T_1$ tree.
 * We know that the `node.key <= x` belongs to the $T_1$ tree.
 * Inside that condition, `t1LeftTree` also belongs to the $T_1$ tree.
-* //ToDo: It will be interesting and helpful to know and understand why and how the `t1LeftTree` belongs to the $T_1$ tree. Maybe it has something to do with the fact that we process the `uncertain` part when we recursively call the `split` function. Maybe this behavior (action, process) holds `t1LeftTree`. Maybe this is how we accumulate, segregate, assort, and collect the nodes that belong to the $T_1$ tree. Consider explaining.
+* It will be interesting and helpful to know and understand why and how the `t1LeftTree` belongs to the $T_1$ tree.
+  * Maybe it has something to do with the fact that we process the `uncertain` part when we recursively call the `split` function. 
+  * Maybe this behavior (action, process) somehow holds `t1LeftTree`. 
+  * Maybe this is how we accumulate, segregate, collect, and classify the nodes that belong to the $T_1$ tree.
+  * We have covered this at: [Justifying the "SplitResult" properties](#justifying-the-property-names-of-the-splitresult).
 * And the `node` itself belongs to the $T_1$ tree, because its `key <= x`.
 * So, inside `node.key <= x`, we have `leftChild`, `t1LeftTree`, and `node` as the pivot.  
 
 ```kotlin
-fun split(node: AvlNode, target: AvlNode): SplitResult {
+fun split(node: AvlNode?, target: AvlNode): SplitResult {
     if (node == null) return SplitResult(null, null)
     // Before breaking the node, we need to take references to its children as we use them later
     val leftChild = node.left
@@ -430,12 +435,16 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 * The `rightChild` that we read and stored earlier belongs to the $T_2$ tree.
 * The `node` belongs to the $T_2$ because its `key > x`.
 * And the `t2RightTree` belongs to the $T_2$. 
-* //ToDo: It will be interesting and helpful to know and understand why and how the `t2RightTree` belongs to the $T_2$ tree. Maybe it has something to do with the fact that we process the `uncertain` part when we recursively call the `split` function. Maybe this behavior (action, process) holds `t2RightTree`. Maybe this is how we accumulate, segregate, assort, and collect the nodes that belong to the $T_2$ tree. Consider explaining.
+* It will be interesting and helpful to know and understand why and how the `t2RightTree` belongs to the $T_2$ tree. 
+  * Maybe it has something to do with the fact that we process the `uncertain` part when we recursively call the `split` function. 
+  * Maybe this behavior (action, process) somehow holds `t2RightTree`.
+  * Maybe this is how we accumulate, segregate, assort, and collect the nodes that belong to the $T_2$ tree. 
+  * We have covered this at: [Justifying the "SplitResult" properties](#justifying-the-property-names-of-the-splitresult).
 * So, inside the `else` part, we have the `rightChild`, `t2RightTree`, and the `node` as the pivot.
 
 ```kotlin
 
-fun split(node: AvlNode, target: AvlNode): SplitResult {
+fun split(node: AvlNode?, target: AvlNode): SplitResult {
     if (node == null) return null
     val leftChild = node.left
     val rightChild = node.right
@@ -450,6 +459,45 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
         // We will also clarify and justify the names and order of the properties soon.
         val (t1LeftTree, t2RightTree) = split(leftChild, target)
         val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
+    }
+}
+```
+
+### Returning the "SplitResult"
+
+`if(node.key <= target)`
+
+* Inside this condition, we know that the `mergedTree` represents `t1LeftTree`.
+  * How? Recall: [Break and merge](#break-and-merge-break-and-build)
+* So, inside this `if` condition, we return:
+* `SplitResult(mergedTree, t2RightTree)`.
+
+`else`
+
+* Similarly, inside this `else` condition, we know that the `mergedTree` represents the `t2RightTree`. 
+  * How? Recall: [Break and merge](#break-and-merge-break-and-build)
+* So, inside this `else` condition, we return:
+* `SplitResult(t1LeftTree, mergedTree)`
+
+`Pseudocode`
+
+```kotlin
+
+fun split(node: AvlNode?, target: AvlNode): SplitResult {
+    if (node == null) return SplitResult(null, null)
+    val leftChild = node.left
+    val rightChild = node.right
+    node.left = null
+    node.right = null
+    node.height = 1
+    if (node.key <= target) {
+        val (t1LeftTree, t2RightTree) = split(node.right, target)
+        val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
+        return SplitResult(mergedTree, t2RightTree)
+    } else {
+        val (t1LeftTree, t2RightTree) = split(node.left, target)
+        val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
+        return SplitResult(t1LeftTree, mergedTree)
     }
 }
 ```
@@ -472,6 +520,7 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 * Now, the top merged tree `t1LeftTree` we get inside the `if` condition is made up of `node.key <= x` and `leftChild.key <= x`.
 * When we are in the `if` condition, we pass this `mergedTree` as `t1LeftTree` to the `SplitResult`.
 * And then it returns to such a node that is also `node.key <= x`.
+  * How? Check: [Understanding the recursion part with dry run](#understanding-the-recursion-part-dry-run)
 * And it keeps going on until our call stack becomes empty.
 * That's why we say that the first property `t1LeftTree <= x`, and it belongs to $T_1$.
 * The properties of the `t1LeftTree` aligns with the properties of $T_1$.
@@ -491,6 +540,7 @@ fun split(node: AvlNode, target: AvlNode): SplitResult {
 * And this is how we get our top merged tree inside the `else` condition.
 * When we are in the `else` condition, we pass this `mergedTree` as `t2RightTree` to `SplitResult`.
 * Now, it returns inside the `else` condition to such a node that is also `node.key > x`.
+  * How? Check: [Understanding the recursion part with dry run](#understanding-the-recursion-part-dry-run)
 * And it keeps going on until our call stack becomes empty.
 * That's why we say that the second property `t2RightTree > x`, and it belongs to $T_2$.
 * The properties of the `t2RightTree` aligns with the properties of $T_2$.
@@ -523,6 +573,28 @@ flowchart LR
     end
 L[Free Online Mermaid Editor]
 click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _blank
+```
+
+```kotlin
+
+fun split(node: AvlNode?, target: AvlNode): SplitResult {
+    if (node == null) return SplitResult(null, null)
+    val leftChild = node.left
+    val rightChild = node.right
+    node.left = null
+    node.right = null
+    node.height = 1
+    if (node.key <= target) {
+        val (t1LeftTree, t2RightTree) = split(node.right, target)
+        val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
+        return SplitResult(mergedTree, t2RightTree)
+    } else {
+        val (t1LeftTree, t2RightTree) = split(node.left, target)
+        val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
+        return SplitResult(t1LeftTree, mergedTree)
+    }
+}
+
 ```
 
 * For example, suppose that the target for the given `AVLTree` is `60`.
