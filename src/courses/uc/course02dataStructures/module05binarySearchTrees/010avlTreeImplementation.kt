@@ -818,6 +818,14 @@ class AvlTree {
      * [Local: Split an AvlTree](docs/dataStructures/courses/uc/module05binarySearchTrees/40avlTreeSplitOperation.md)
      * [GitHub: Split an AvlTree](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b4b1fb255743fdca41c04b0216da8a953e374cc3/docs/dataStructures/courses/uc/module05binarySearchTrees/40avlTreeSplitOperation.md)
      *
+     * **Time Complexity:**
+     *
+     * `O(log n)` mainly due to the tree traversal.
+     *
+     * **Space Complexity:**
+     *
+     * `O(log n)` due to the recursion stack call.
+     *
      */
     fun split(node: AvlNode?, target: Int): SplitResult {
         if (node == null) return SplitResult(null, null)
