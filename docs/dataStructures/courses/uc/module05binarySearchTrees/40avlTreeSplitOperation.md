@@ -14,6 +14,8 @@
     * [Returning the "SplitResult"](#returning-the-splitresult)
     * [Justifying the property names of the `SplitResult`](#justifying-the-property-names-of-the-splitresult)
     * [Understanding the recursion part (Dry Run)](#understanding-the-recursion-part-dry-run)
+  * [Time Complexity](#time-complexity)
+  * [Space Complexity](#space-complexity)
   * [Next](#next)
 <!-- TOC -->
 
@@ -701,5 +703,16 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
 * `t1LeftTree = 25, 30, 35, 40, 43, 45, 47, 50, 53, 55, 57, 60`.
 * `t2RightTree = 65, 70, 80`.
 * And those are the final two `AvlTrees`.
+
+## Time Complexity
+
+* During this `split` operation, we travel the given tree, which takes `O(log n)`.
+* Each `merge` operation takes `O(1)`.
+* So, this `split` operation takes a total of `O(log n)` time.
+
+## Space Complexity
+
+* The recursion call stack takes `O(log n)` space.
+* The total space complexity is `O(log n)`.
 
 ## Next
