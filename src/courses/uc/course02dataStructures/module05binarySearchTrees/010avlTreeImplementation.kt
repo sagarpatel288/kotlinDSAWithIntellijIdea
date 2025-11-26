@@ -46,6 +46,13 @@ data class AvlNode(
 )
 
 /**
+ *
+ * @param t1LeftTree Root [AvlNode] of the left-side subtree
+ * @param t2RightTree Root [AvlNode] of the right-side subtree
+ */
+data class SplitResult(val t1LeftTree: AvlNode?, val t2RightTree: AvlNode?)
+
+/**
  * **Prerequisites/References:**
  * * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
  * * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
@@ -689,6 +696,7 @@ class AvlTree {
 
     /**
      * * None of the parameters of this function [mergeTwoAvlTrees] is nullable.
+     * * //ToDo: After adding the [split], we may need to adjust this `nullable` thing.
      * * Because, before we call this function from the [mergeTwoAvlTrees], we already check if any node is null.
      * * And this is the reason it returns a non-null [AvlNode].
      * * The maximum traveling to find the subtree where `| height difference | is <= 1`, cannot be more than `O(log n)`.
@@ -699,7 +707,7 @@ class AvlTree {
      * * This is a recursive function.
      * * And the call stack cannot be more than `O(log n)`.
      */
-    private fun mergeTwoAvlTrees(leftTreeNode: AvlNode, rightTreeNode: AvlNode, pivot: AvlNode): AvlNode {
+    private fun mergeTwoAvlTrees(leftTreeNode: AvlNode?, rightTreeNode: AvlNode?, pivot: AvlNode): AvlNode {
         val leftTreeHeight = height(leftTreeNode)
         val rightTreeHeight = height(rightTreeNode)
         return when {
@@ -726,10 +734,10 @@ class AvlTree {
                 // It is technically true that an [AvlNode] can have a null right child, but not in this case.
                 // So, we have to use the non-null assertion.
                 // I don't know if we can do it in a better way (tight signature, and no code-smell).
-                leftTreeNode.right = mergeTwoAvlTrees(leftTreeNode.right!!, rightTreeNode, pivot)
+                leftTreeNode?.right = mergeTwoAvlTrees(leftTreeNode.right!!, rightTreeNode, pivot)
                 // Clearly, the children and hence, the height of the `leftTreeNode` might have been changed.
                 // So, before we return the `leftTreeNode`, we need to rebalance it.
-                rebalance(leftTreeNode)
+                rebalance(leftTreeNode!!)
             }
 
             else -> {
@@ -742,10 +750,10 @@ class AvlTree {
                 // It returns us the root (pivot) of that merged tree.
                 // We get it here and re-attach via the assignment:
                 // `rightTreeNode.left = ...`
-                rightTreeNode.left = mergeTwoAvlTrees(leftTreeNode, rightTreeNode.left!!, pivot)
+                rightTreeNode?.left = mergeTwoAvlTrees(leftTreeNode, rightTreeNode.left!!, pivot)
                 // The children and hence the height of the `rightTreeNode` might have been changed.
                 // We must rebalance it.
-                rebalance(rightTreeNode)
+                rebalance(rightTreeNode!!)
             }
         }
     }
@@ -803,6 +811,30 @@ class AvlTree {
         val mergedRoot = mergeTwoAvlTrees(leftRoot, rightTreeRoot, pivot)
         mergedTree.root = mergedRoot
         return mergedTree
+    }
+
+    /**
+     * **Prerequisites/References:**
+     * [Local: Split an AvlTree](docs/dataStructures/courses/uc/module05binarySearchTrees/40avlTreeSplitOperation.md)
+     * [GitHub: Split an AvlTree](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b4b1fb255743fdca41c04b0216da8a953e374cc3/docs/dataStructures/courses/uc/module05binarySearchTrees/40avlTreeSplitOperation.md)
+     *
+     */
+    fun split(node: AvlNode?, target: Int): SplitResult {
+        if (node == null) return SplitResult(null, null)
+        val leftChild = node.left
+        val rightChild = node.right
+        node.left = null
+        node.right = null
+        node.height = 1
+        if (node.keyValue <= target) {
+            val (t1LeftTree, t2RightTree) = split(rightChild, target)
+            val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
+            return SplitResult(mergedTree, t2RightTree)
+        } else {
+            val (t1LeftTree, t2RightTree) = split(leftChild, target)
+            val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
+            return SplitResult(t1LeftTree, mergedTree)
+        }
     }
 
     fun printInOrder() {
