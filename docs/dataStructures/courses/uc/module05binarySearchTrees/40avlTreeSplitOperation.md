@@ -716,3 +716,5 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
 * The total space complexity is `O(log n)`.
 
 ## Next
+
+* [AVLTree: Kth Small Key](50avlTreeFindKthSmallKey.md)
