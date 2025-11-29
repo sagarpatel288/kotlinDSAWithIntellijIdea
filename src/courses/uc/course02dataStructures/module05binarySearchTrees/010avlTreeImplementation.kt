@@ -214,9 +214,9 @@ class AvlTree {
         val rightOfleft = left.right
         left.right = node
         node.left = rightOfleft
-        // Update height from children to parent order
+        // Update height and size from children to parent order
         // The children of `rightOfLeft` are unaffected.
-        // So, there is no change in the height of the `rightOfLeft`.
+        // So, there is no change in the height and size of the `rightOfLeft`.
         updateHeightAndSize(node)
         updateHeightAndSize(left)
         // Return `node.left` that has taken the place of the incoming `node`.
@@ -257,9 +257,9 @@ class AvlTree {
         val leftOfRight = right.left
         right.left = node
         node.right = leftOfRight
-        // Update the height from children to parent order
+        // Update the height and size from children to parent order
         // The children of `leftOfRight` are unaffected.
-        // So, there is no change in the height of the `leftOfRight`.
+        // So, there is no change in the height and size of the `leftOfRight`.
         updateHeightAndSize(node)
         updateHeightAndSize(right)
         // Return the `node.right` that has taken the place of the incoming `node`.
@@ -274,7 +274,7 @@ class AvlTree {
      * * So, we are sure that [node] is non-null.
      * * For [mergeTwoAvlTrees], we call [rebalance] in two cases:
      * * When `h1 > h2` or when `h2 > h1`.
-     * * In both the cases, we get one [AvlTree] taller than the other.
+     * * In both cases, we get one [AvlTree] taller than the other.
      * * So, we find a smaller subtree from the taller [AvlTree] and merge it with the other.
      * * And then, we hang this merged tree on the taller tree.
      * * So, it possibly changes the height of the parent upon which we hang the merged tree.
@@ -419,7 +419,7 @@ class AvlTree {
             return node
         }
 
-        // Update the height of this ancestor node as it has a new child
+        // Update the height and size of this ancestor node as it has a new child
         updateHeightAndSize(node)
 
         // Ensure the balance and return the balanced node.
@@ -722,8 +722,10 @@ class AvlTree {
                 pivot.left = leftTreeNode
                 pivot.right = rightTreeNode
                 // The height difference between the trees is already controlled and balanced.
-                // So, we just need to update the height of the pivot and return.
-                // We don't need to rebalance the pivot in this condition.
+                // So, we just need to update the height and size of the pivot and return.
+                // Because the pivot has just received two children (subtrees).
+                // But we don't need to rebalance the pivot in this condition.
+                // Because the subtrees the pivot has received are already controlled and balanced.
                 updateHeightAndSize(pivot)
                 pivot
             }

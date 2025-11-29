@@ -6,6 +6,7 @@
   * [Thought Process](#thought-process)
     * [Dry run when k = 7](#dry-run-when-k--7)
     * [Dry run when k = 9](#dry-run-when-k--9)
+  * [Caution](#caution)
   * [Questions-Answers](#questions-answers)
   * [Next](#next)
 <!-- TOC -->
@@ -135,6 +136,9 @@ fun findKthSmallestKey(node: AvlNode, k: Int): AvlNode {
 * Check the implementation here: 
 
 [010avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+
+* It follows the same order in which we update the height field.
+* So, first we update the size of the child node, and then parent.
 
 ## Questions-Answers
 
