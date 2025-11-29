@@ -26,6 +26,11 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  *
  * **ToDo:**
  * * Explain time and space complexity for each function.
+ * * Add and maintain one more field, called `size`.
+ * * The `size` field is useful for problems like: Find the $K^{th}$ smallest element (key).
+ * * We need to ensure that we update the `size` field just like we update the `height` field.
+ * * For example, after every rotation.
+ * * Every time we update the [height], we need to update the [size] also.
  *
  */
 data class AvlNode(
@@ -42,7 +47,8 @@ data class AvlNode(
     // The height of a null node is 0.
     // So, the height of the leaf node is 1.
     // The default value `1` indicates that the height of a single node is `1`.
-    var height: Int = 1
+    var height: Int = 1,
+    var size: Int = 1
 )
 
 /**
@@ -112,7 +118,7 @@ class AvlTree {
      * [rotateRightLeft].
      * * It might change the position of one or more [AvlNode]s.
      * * When an [AvlNode] gets a new position, it might also change its height.
-     * * So, we use this [updateHeight] function on the changed [avlNode] to recalculate and update its height.
+     * * So, we use this [updateHeightAndSize] function on the changed [avlNode] to recalculate and update its height.
      *
      * **Why does it accept a nullable value?**
      * * So that we don't have to use the null-safe operator at many places.
@@ -120,11 +126,11 @@ class AvlTree {
      * * [insert], [delete], [deleteMax], [mergeTwoAvlTrees], [rebalance], etc.
      *
      * **Time Complexity**
-     * * [updateHeight] is `O(1)` operation.
+     * * [updateHeightAndSize] is `O(1)` operation.
      *
      * @param avlNode The node for which we need to recalculate and update the height.
      */
-    private fun updateHeight(avlNode: AvlNode?) {
+    private fun updateHeightAndSize(avlNode: AvlNode?) {
         // `1` for the node itself + the longest path to the leaf node.
         // Or we can also say:
         // `1` for the node itself + the height of the longest (tallest) child.
@@ -132,6 +138,7 @@ class AvlTree {
         // But, our helper function [height] handles it.
         // So, this is the reason (purpose) of that helper function [height].
         avlNode?.height = 1 + maxOf(height(avlNode.left), height(avlNode.right))
+        avlNode?.size = 1 + (avlNode.left?.size ?: 0) + (avlNode.right?.size ?: 0)
     }
 
     /**
@@ -187,13 +194,13 @@ class AvlTree {
      * * If the [node] is null, we can't rotate it.
      * * But then the question or concern is: The caller function needs to use a null-safe operator.
      * * In that case, the answer of expecting a non-null value contradicts the earlier answers, such as:
-     * * [updateHeight], [balanceFactor], etc.
+     * * [updateHeightAndSize], [balanceFactor], etc.
      * * The point is, we perform [rotateRight] after checking the [balanceFactor].
      * * Hence, it is not possible to have a null [AvlNode] for which we are performing [rotateRight].
      * * If we are calling [rotateRight] on and for an [AvlNode], we are sure that the [AvlNode] is not null.
      *
      * **Time Complexity**
-     * * In the [rotateRight] operation, we update some pointers and [updateHeight] for a couple of [AvlNode]s.
+     * * In the [rotateRight] operation, we update some pointers and [updateHeightAndSize] for a couple of [AvlNode]s.
      * * It is `O(1)` time operation.
      */
     private fun rotateRight(node: AvlNode): AvlNode {
@@ -210,8 +217,8 @@ class AvlTree {
         // Update height from children to parent order
         // The children of `rightOfLeft` are unaffected.
         // So, there is no change in the height of the `rightOfLeft`.
-        updateHeight(node)
-        updateHeight(left)
+        updateHeightAndSize(node)
+        updateHeightAndSize(left)
         // Return `node.left` that has taken the place of the incoming `node`.
         return left
     }
@@ -253,8 +260,8 @@ class AvlTree {
         // Update the height from children to parent order
         // The children of `leftOfRight` are unaffected.
         // So, there is no change in the height of the `leftOfRight`.
-        updateHeight(node)
-        updateHeight(right)
+        updateHeightAndSize(node)
+        updateHeightAndSize(right)
         // Return the `node.right` that has taken the place of the incoming `node`.
         return right
     }
@@ -275,14 +282,14 @@ class AvlTree {
      * * At this point, we are sure that the [AvlNode] that we want to [rebalance] is not null.
      *
      * **Time Complexity:**
-     * * We [updateHeight], which takes `O(1)` time.
+     * * We [updateHeightAndSize], which takes `O(1)` time.
      * * We check the [balanceFactor], which takes `O(1)` time.
      * * And depending upon the [balanceFactor], we either call [rotateRight], [rotateLeft], or their combinations.
      * * All the rotation methods, such as [rotateRight] and [rotateLeft], also take `O(1)` time.
      * * So, the entire [rebalance] operation is `O(1)` time operation, which is wonderful!
      */
     private fun rebalance(node: AvlNode): AvlNode {
-        updateHeight(node)
+        updateHeightAndSize(node)
         val bf = balanceFactor(node)
         when {
             // This `node` is heavy on the left side. So, we need to `rotateRight`.
@@ -361,7 +368,7 @@ class AvlTree {
      * * We start from the [root] node to insert a new node of [key].
      * * It follows a standard `BST-Binary Search Tree` approach.
      * * We are using recursion here.
-     * * After insertion, we [updateHeight] of the parent node.
+     * * After insertion, we [updateHeightAndSize] of the parent node.
      * * Then, we check the [balanceFactor] of the node.
      * * If we find that the [node] is unbalanced, we perform the relevant rotation on it to rebalance it.
      * * We repeat this process of updating the height, checking the balance factor, and rebalancing if required.
@@ -413,7 +420,7 @@ class AvlTree {
         }
 
         // Update the height of this ancestor node as it has a new child
-        updateHeight(node)
+        updateHeightAndSize(node)
 
         // Ensure the balance and return the balanced node.
         // At this point, we are sure that the `node` is not null.
@@ -717,7 +724,7 @@ class AvlTree {
                 // The height difference between the trees is already controlled and balanced.
                 // So, we just need to update the height of the pivot and return.
                 // We don't need to rebalance the pivot in this condition.
-                updateHeight(pivot)
+                updateHeightAndSize(pivot)
                 pivot
             }
 
@@ -842,6 +849,34 @@ class AvlTree {
             val (t1LeftTree, t2RightTree) = split(leftChild, target)
             val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
             return SplitResult(t1LeftTree, mergedTree)
+        }
+    }
+
+    /**
+     * **Time Complexity:**
+     * `O(log n)` due to the traversal.
+     *
+     * **Space Complexity:**
+     * `O(log n)` due to the recursion call stack.
+     */
+    fun findKthSmallestKey(node: AvlNode?, kthSmallest: Int): AvlNode? {
+        val sizeOfLeft = node?.left?.size ?: 0
+        return when {
+            kthSmallest == (sizeOfLeft + 1) -> {
+                node
+            }
+            kthSmallest < (sizeOfLeft + 1) -> {
+                findKthSmallestKey(node?.left, kthSmallest)
+            }
+            kthSmallest > (sizeOfLeft + 1) -> {
+                findKthSmallestKey(node?.right, kthSmallest - sizeOfLeft - 1)
+            }
+            else -> {
+                // I don't know if this needs to be improved.
+                // To make the `when` statement exhaustive, this `else` condition is necessary.
+                // Otherwise, it gives an error: "The `when` statement must be exhaustive.
+                null
+            }
         }
     }
 
