@@ -128,6 +128,14 @@ fun findKthSmallestKey(node: AvlNode, k: Int): AvlNode {
 * `k == sizeOfLeft + 1`
 * `return 53`
 
+## Caution
+
+* Similar to the `height` field, we need to update the `size` field every time we change the structure.
+* For example, every time we perform the `rotation`, we need to ensure that we also update the `size` field.
+* Check the implementation here: 
+
+[010avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+
 ## Questions-Answers
 
 ## Next
