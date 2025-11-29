@@ -138,8 +138,10 @@ fun findKthSmallestKey(node: AvlNode, k: Int): AvlNode {
 [010avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
 
 * It follows the same order in which we update the height field.
-* So, first we update the size of the child node, and then parent.
+* So, first we update the size of the child node, and then the parent.
 
 ## Questions-Answers
 
 ## Next
+
+* [Flip (Replace) Using An AvlTree](60flipReplaceWithAvlTree.md)
