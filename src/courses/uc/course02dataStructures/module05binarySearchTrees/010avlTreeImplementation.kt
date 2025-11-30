@@ -105,6 +105,14 @@ class AvlTree {
     }
 
     /**
+     *
+     */
+    private fun size(avlNode: AvlNode?): Int {
+        if (avlNode == null) return 0
+        return 1 + (avlNode.left?.size ?: 0) + (avlNode.right?.size ?: 0)
+    }
+
+    /**
      * **Prerequisites/References:**
      * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
@@ -457,7 +465,7 @@ class AvlTree {
      *
      * **IMPORTANT:**
      * * To understand this [delete] operation, please go through the above `BST Basic Operations` file first.
-     * * It has visual representation (images) of this [delete] operation.
+     * * It has a visual representation (images) of this [delete] operation.
      * * It helps understand the code.
      *
      * **WHAT:**

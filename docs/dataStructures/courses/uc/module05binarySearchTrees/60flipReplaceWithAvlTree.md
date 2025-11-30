@@ -5,7 +5,7 @@
   * [Prerequisites / References](#prerequisites--references)
   * [Problem Statement](#problem-statement)
   * [Naive approach](#naive-approach)
-  * [Using Two AVLTrees](#using-two-avltrees)
+  * [Using Two AVL Trees](#using-two-avl-trees)
   * [Next](#next)
 <!-- TOC -->
 
