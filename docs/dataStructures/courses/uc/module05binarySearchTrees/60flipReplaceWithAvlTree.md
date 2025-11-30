@@ -62,3 +62,6 @@
 ![580flipUsingTwoAvlTreesSplitMerge.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/580flipUsingTwoAvlTreesSplitMerge.svg)
 
 ## Next
+
+* [Splay Trees](70splayTrees.md)
+* [Red-Black Trees](80redBlackTrees.md)

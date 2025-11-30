@@ -719,3 +719,5 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
 
 * [AVLTree: Kth Small Key](50avlTreeFindKthSmallKey.md)
 * [Flip (Replace) Using An AvlTree](60flipReplaceWithAvlTree.md)
+* [Splay Trees](70splayTrees.md)
+* [Red-Black Trees](80redBlackTrees.md)

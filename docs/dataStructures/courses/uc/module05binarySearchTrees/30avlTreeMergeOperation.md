@@ -302,3 +302,9 @@ fun merge(lightTreeRoot: AvlNode?, heavyTreeRoot: AvlNode?): AvlTree {
 ```
 
 ## Next
+
+* [AVLTree: Split Operation](40avlTreeSplitOperation.md)
+* [AVLTree: Kth Small Key](50avlTreeFindKthSmallKey.md)
+* [Flip (Replace) Using An AvlTree](60flipReplaceWithAvlTree.md)
+* [Splay Trees](70splayTrees.md)
+* [Red-Black Trees](80redBlackTrees.md)
