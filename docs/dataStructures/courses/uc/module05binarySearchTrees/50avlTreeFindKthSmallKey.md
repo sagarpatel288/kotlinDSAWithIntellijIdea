@@ -55,6 +55,13 @@ click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _bla
 
 * If we can add a new field, called `size`, to the `AvlNode` data class, we can find the $k^{th}$ smallest key quickly.
 * So, in the given image above of an `AvlTree`, each node has this `size` field.
+
+```kotlin
+
+node.size = 1 + (node.left?.size ?: 0) + (node.right?.size ?: 0)
+
+```
+
 * Now, we have the following pseudocode: 
 
 ```kotlin
