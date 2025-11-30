@@ -340,3 +340,13 @@ flowchart TD
 ## Next
 
 * [Basic Operations Of A Binary Search Tree (BST)](10binarySearchTreesBSTsBasicOperations.md)
+* [BST: Self-Balancing = AVLTree](15binarySearchTreesBSTBalance.md)
+* [AVLTree: Insert Operation](20avlTreeInsertOperation.md)
+* [AVLTree: Delete Operation](25avlTreeDeleteOperation.md)
+* [AVLTree: Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+* [AVLTree: Merge Operation](30avlTreeMergeOperation.md)
+* [AVLTree: Split Operation](40avlTreeSplitOperation.md)
+* [AVLTree: Kth Small Key](50avlTreeFindKthSmallKey.md)
+* [Flip (Replace) Using An AvlTree](60flipReplaceWithAvlTree.md)
+* [Splay Trees](70splayTrees.md)
+* [Red-Black Trees](80redBlackTrees.md)

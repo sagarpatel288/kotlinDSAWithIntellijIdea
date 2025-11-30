@@ -152,3 +152,5 @@ fun findKthSmallestKey(node: AvlNode, k: Int): AvlNode {
 ## Next
 
 * [Flip (Replace) Using An AvlTree](60flipReplaceWithAvlTree.md)
+* [Splay Trees](70splayTrees.md)
+* [Red-Black Trees](80redBlackTrees.md)
