@@ -95,7 +95,7 @@
 * First, we pull the grandparent in the left direction.
 * And then we pull the parent in the left direction.
 
-### Zig-Zag rotations
+### Zig-Zag rotations (First-Parent-Then-Grandparent)
 
 #### Zig-Zag rotation
 
@@ -103,10 +103,14 @@
 * The node on which we perform the rotation(s), has grandparent.
 * So, we perform double rotations.
 * When we perform two rotations.
-* The parent is on the left side. 
+* First, we perform the rotation on the parent. 
 * The first rotation is in the right direction (clockwise).
-* The grandparent is on the right side.
+* It means that the parent is having the node in the left direction. 
+* So, we rotate the parent in the right direction.
+* Then, we perform the rotation on the grandparent.
 * And the second rotation is in the left direction (anti-clockwise).
+* It means that the parent node is in the right direction of the grandparent node.
+* So, we rotate the grandparent in the left direction.
 
 #### Zag-Zig rotations
 
@@ -114,8 +118,14 @@
 * The node on which we perform the rotation(s), has grandparent.
 * So, we perform double rotations.
 * When we perform two rotations.
+* First, we perform the rotation on the parent.
 * The first rotation is in the left direction (anti-clockwise).
+* It means that the parent is having the node in the right direction.
+* So, we rotate the parent in the left direction.
+* Then, we perform the rotation on the grandparent.
 * And the second rotation is in the right direction (clockwise).
+* It means that the parent node is in the left direction of the grandparent node. 
+* So, we rotate the grandparent in the right direction.
 
 ## Introduction
 
