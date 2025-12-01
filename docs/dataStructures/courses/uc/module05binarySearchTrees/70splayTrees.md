@@ -11,7 +11,7 @@
     * [Zig-Zig rotations](#zig-zig-rotations)
       * [Zig-Zig rotations (Zig-Zig Right)](#zig-zig-rotations-zig-zig-right)
       * [Zag-Zag rotations (Zig-Zig Left)](#zag-zag-rotations-zig-zig-left)
-    * [Zig-Zag rotations](#zig-zag-rotations)
+    * [Zig-Zag rotations (First-Parent-Then-Grandparent)](#zig-zag-rotations-first-parent-then-grandparent)
       * [Zig-Zag rotation](#zig-zag-rotation)
       * [Zag-Zig rotations](#zag-zig-rotations)
   * [Introduction](#introduction)
