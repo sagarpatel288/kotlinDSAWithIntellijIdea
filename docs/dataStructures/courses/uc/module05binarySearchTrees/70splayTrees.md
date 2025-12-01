@@ -5,16 +5,18 @@
   * [Prerequisites/References](#prerequisitesreferences)
   * [Purpose](#purpose)
   * [Terminologies](#terminologies)
-    * [Zig rotations](#zig-rotations-)
-      * [Zig rotation](#zig-rotation)
-      * [Zag rotation](#zag-rotation)
+    * [Zig rotations](#zig-rotations)
+      * [Zig rotation (Zig-Right)](#zig-rotation-zig-right)
+      * [Zag rotation (Zig-Left)](#zag-rotation-zig-left)
     * [Zig-Zig rotations](#zig-zig-rotations)
-      * [Zig-Zig rotations](#zig-zig-rotations-1)
-      * [Zag-Zag rotations](#zag-zag-rotations)
+      * [Zig-Zig rotations (Zig-Zig Right)](#zig-zig-rotations-zig-zig-right)
+      * [Zag-Zag rotations (Zig-Zig Left)](#zag-zag-rotations-zig-zig-left)
     * [Zig-Zag rotations](#zig-zag-rotations)
       * [Zig-Zag rotation](#zig-zag-rotation)
       * [Zag-Zig rotations](#zag-zig-rotations)
   * [Introduction](#introduction)
+  * [Insert](#insert)
+  * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
 
@@ -49,33 +51,92 @@
 
 ## Terminologies
 
-### Zig rotations 
+### Zig rotations
 
-#### Zig rotation
+#### Zig rotation (Zig-Right)
 
-#### Zag rotation
+* Right Rotation.
+* It is also known as **Zig-Right Rotation**.
+* The node on which we perform the rotation does not have any grandparent.
+* So, we perform a single rotation on the node.
+* When we rotate a node in the right-side direction (clockwise).
+
+#### Zag rotation (Zig-Left)
+
+* Left Rotation.
+* It is also known as **Zig-Left Rotation**.
+* The node on which we perform the rotation does not have any grandparent.
+* So, we perform a single rotation on the node.
+* When we rotate a node in the left-side direction (anti-clockwise).
 
 ### Zig-Zig rotations
 
-#### Zig-Zig rotations
+#### Zig-Zig rotations (Zig-Zig Right)
 
-#### Zag-Zag rotations
+* Right-Right Rotation.
+* It is also known as **Zig-Zig Right Rotations**.
+* The node on which we perform the rotation(s), has grandparent.
+* So, we perform double rotations.
+* When we perform two rotations.
+* Both the parent and the grandparent are on the left side.
+* Both rotations are in the right direction (clockwise).
+* First, we pull the grandparent in the right direction.
+* And then we pull the parent in the right direction.
+
+#### Zag-Zag rotations (Zig-Zig Left)
+
+* Left-Left Rotation.
+* It is also known as **Zig-Zig Left Rotations**.
+* The node on which we perform the rotation(s), has grandparent.
+* So, we perform double rotations.
+* When we perform two rotations.
+* Both the parent and the grandparent are on the right side.
+* Both the rotations are in the left direction (anti-clockwise).
+* First, we pull the grandparent in the left direction.
+* And then we pull the parent in the left direction.
 
 ### Zig-Zag rotations
 
 #### Zig-Zag rotation
 
+* Right-Left Rotation.
+* The node on which we perform the rotation(s), has grandparent.
+* So, we perform double rotations.
+* When we perform two rotations.
+* The parent is on the left side. 
+* The first rotation is in the right direction (clockwise).
+* The grandparent is on the right side.
+* And the second rotation is in the left direction (anti-clockwise).
+
 #### Zag-Zig rotations
+
+* Left-Right Rotation.
+* The node on which we perform the rotation(s), has grandparent.
+* So, we perform double rotations.
+* When we perform two rotations.
+* The first rotation is in the left direction (anti-clockwise).
+* And the second rotation is in the right direction (clockwise).
 
 ## Introduction
 
 * [AVLTrees](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt) are strictly balanced binary search trees.
 * Splay trees are roughly balanced binary search trees.
 * //ToDo: Elaborate
-* In a splay tree, the node on which we perform a search or an insert operation becomes the root of the tree!
+* In a splay tree, the recent node (via search or insert) becomes the root or moves closer to the root.
 * The search or insert operation follows the splay operation.
 * It means that after every search or insert operation, we have to rearrange the tree.
-* 
+* The resultant tree may not be perfectly (strictly) balanced.
+* But it still maintains the amortized cost as `O(log n)`.
+* Because we reduce the access time (search or insert) of the recent node.
+* That's the reason we use `Splay Trees` for `Caches`. 
+
+## Insert
+
+
+
+## ToDos
+
+* Example of all the rotations (Before and After).
 
 ## Next
 
