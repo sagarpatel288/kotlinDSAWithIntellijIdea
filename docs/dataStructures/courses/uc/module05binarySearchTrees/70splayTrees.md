@@ -5,17 +5,18 @@
   * [Prerequisites/References](#prerequisitesreferences)
   * [Purpose](#purpose)
   * [Terminologies](#terminologies)
-    * [Zig rotations](#zig-rotations)
-      * [Zig rotation (Zig-Right)](#zig-rotation-zig-right)
-      * [Zag rotation (Zig-Left)](#zag-rotation-zig-left)
-    * [Zig-Zig rotations](#zig-zig-rotations)
-      * [Zig-Zig rotations (Zig-Zig Right)](#zig-zig-rotations-zig-zig-right)
-      * [Zag-Zag rotations (Zig-Zig Left)](#zag-zag-rotations-zig-zig-left)
-    * [Zig-Zag rotations (First-Parent-Then-Grandparent)](#zig-zag-rotations-first-parent-then-grandparent)
-      * [Zig-Zag rotation](#zig-zag-rotation)
-      * [Zag-Zig rotations](#zag-zig-rotations)
+    * [Zig Rotations (Terminal Step)](#zig-rotations-terminal-step)
+      * [Zig Rotation (Zig-Right)](#zig-rotation-zig-right)
+      * [Zag Rotation (Zig-Left)](#zag-rotation-zig-left)
+    * [Zig-Zig Rotations (Homogeneous Rotations)](#zig-zig-rotations-homogeneous-rotations)
+      * [Zig-Zig Rotation (Zig-Zig Right)](#zig-zig-rotation-zig-zig-right)
+      * [Zag-Zag Rotation (Zig-Zig Left)](#zag-zag-rotation-zig-zig-left)
+    * [Zig-Zag Rotations (First-Parent-Then-Grandparent): Heterogeneous Rotations](#zig-zag-rotations-first-parent-then-grandparent-heterogeneous-rotations)
+      * [Zig-Zag Rotation](#zig-zag-rotation)
+      * [Zag-Zig Rotation](#zag-zig-rotation)
   * [Introduction](#introduction)
   * [Insert](#insert)
+  * [Questions-Answers](#questions-answers)
   * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
@@ -51,17 +52,24 @@
 
 ## Terminologies
 
-### Zig rotations
+### Zig Rotations (Terminal Step)
 
-#### Zig rotation (Zig-Right)
+![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
+
+#### Zig Rotation (Zig-Right)
+
+![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
 
 * Right Rotation.
 * It is also known as **Zig-Right Rotation**.
 * The node on which we perform the rotation does not have any grandparent.
+* It means that the parent of the node is the root.
 * So, we perform a single rotation on the node.
 * When we rotate a node in the right-side direction (clockwise).
 
-#### Zag rotation (Zig-Left)
+#### Zag Rotation (Zig-Left)
+
+![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
 
 * Left Rotation.
 * It is also known as **Zig-Left Rotation**.
@@ -69,9 +77,11 @@
 * So, we perform a single rotation on the node.
 * When we rotate a node in the left-side direction (anti-clockwise).
 
-### Zig-Zig rotations
+### Zig-Zig Rotations (Homogeneous Rotations)
 
-#### Zig-Zig rotations (Zig-Zig Right)
+#### Zig-Zig Rotation (Zig-Zig Right)
+
+![620splayTreesZigZigRightTwice.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/620splayTreesZigZigRightTwice.svg)
 
 * Right-Right Rotation.
 * It is also known as **Zig-Zig Right Rotations**.
@@ -83,7 +93,9 @@
 * First, we pull the grandparent in the right direction.
 * And then we pull the parent in the right direction.
 
-#### Zag-Zag rotations (Zig-Zig Left)
+#### Zag-Zag Rotation (Zig-Zig Left)
+
+![640splayTreesZagZagLeftTwice.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/640splayTreesZagZagLeftTwice.svg)
 
 * Left-Left Rotation.
 * It is also known as **Zig-Zig Left Rotations**.
@@ -95,9 +107,11 @@
 * First, we pull the grandparent in the left direction.
 * And then we pull the parent in the left direction.
 
-### Zig-Zag rotations (First-Parent-Then-Grandparent)
+### Zig-Zag Rotations (First-Parent-Then-Grandparent): Heterogeneous Rotations
 
-#### Zig-Zag rotation
+#### Zig-Zag Rotation
+
+![660splayTreesZigZagRightLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/660splayTreesZigZagRightLeft.svg)
 
 * Right-Left Rotation.
 * The node on which we perform the rotation(s), has grandparent.
@@ -112,7 +126,9 @@
 * It means that the parent node is in the right direction of the grandparent node.
 * So, we rotate the grandparent in the left direction.
 
-#### Zag-Zig rotations
+#### Zag-Zig Rotation
+
+![680splayTreesZagZigLeftRight.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/680splayTreesZagZigLeftRight.svg)
 
 * Left-Right Rotation.
 * The node on which we perform the rotation(s), has grandparent.
@@ -124,7 +140,7 @@
 * So, we rotate the parent in the left direction.
 * Then, we perform the rotation on the grandparent.
 * And the second rotation is in the right direction (clockwise).
-* It means that the parent node is in the left direction of the grandparent node. 
+* It means that the parent node is to the left of the grandparent node. 
 * So, we rotate the grandparent in the right direction.
 
 ## Introduction
@@ -141,6 +157,10 @@
 * That's the reason we use `Splay Trees` for `Caches`. 
 
 ## Insert
+
+
+
+## Questions-Answers
 
 
 
