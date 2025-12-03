@@ -158,7 +158,7 @@
 
 ## Insert
 
-
+![700splayTreeInsertOperation.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/700splayTreeInsertOperation.svg)
 
 ## Questions-Answers
 
