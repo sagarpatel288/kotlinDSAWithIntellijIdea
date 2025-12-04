@@ -16,7 +16,11 @@
       * [Zag-Zig Rotation](#zag-zig-rotation)
   * [Introduction](#introduction)
   * [Insert](#insert)
+  * [Delete](#delete)
+    * [Bottom-Up Delete](#bottom-up-delete)
+    * [Top-Down Delete](#top-down-delete)
   * [Questions-Answers](#questions-answers)
+    * [What is the difference between the bottom-up and the top-down approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-top-down-approaches-of-the-delete-operation-in-a-splay-tree)
   * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
@@ -160,9 +164,45 @@
 
 ![700splayTreeInsertOperation.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/700splayTreeInsertOperation.svg)
 
+## Delete
+
+### Bottom-Up Delete
+
+![720splayTreeDeleteOperation.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/720splayTreeDeleteOperation.svg)
+
+* Delete the target node and perform the splay operation on the parent node.
+* If we don't find the target node, we still perform the splay operation on the parent node for which the target node could have been a child.
+* In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
+
+### Top-Down Delete
+
+* Splay the target node (Make the target node the root).
+* Delete the target node (Now, the root).
+* If we don't find the target node, we still perform the splay operation on the parent node for which the target node could have been a child.
+* In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
+
+**Two Children**
+
+* We might get two orphan children: The left subtree and the right subtree.
+* Perform the splay operation on the node with the maximum value of the left subtree.
+* The node with the maximum value becomes the root node in the left subtree.
+* Make the right subtree the right child of this new root.
+
+**Right Child**
+
+* Suppose that after deleting the target node, we only have a right-side child of it.
+* In this case, the right subtree is the final tree. 
+
+**Left Child**
+
+* Suppose that after deleting the target node, we only have a left-side child of it.
+* In this case, we perform the splay operation on the node with the maximum value of the left subtree.
+* So, the node with the maximum value becomes the root of the left subtree.
+* And that will be the final tree.
+
 ## Questions-Answers
 
-
+### What is the difference between the bottom-up and the top-down approaches of the delete operation in a splay tree?
 
 ## ToDos
 
