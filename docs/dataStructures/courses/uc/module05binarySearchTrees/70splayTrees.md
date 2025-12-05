@@ -19,6 +19,8 @@
   * [Delete](#delete)
     * [Bottom-Up Delete](#bottom-up-delete)
     * [Top-Down Delete](#top-down-delete)
+      * [Found The Subject?](#found-the-subject)
+      * [No Subject?](#no-subject)
   * [Questions-Answers](#questions-answers)
     * [What is the difference between the bottom-up and the top-down approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-top-down-approaches-of-the-delete-operation-in-a-splay-tree)
   * [ToDos](#todos)
@@ -176,29 +178,38 @@
 
 ### Top-Down Delete
 
+![740splayTreeDeleteUsingJoin.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/740splayTreeDeleteUsingJoin.svg)
+
+#### Found The Subject?
+
 * Splay the target node (Make the target node the root).
 * Delete the target node (Now, the root).
-* If we don't find the target node, we still perform the splay operation on the parent node for which the target node could have been a child.
-* In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
 
-**Two Children**
+**Two Children: Left and Right Subtrees**
 
 * We might get two orphan children: The left subtree and the right subtree.
-* Perform the splay operation on the node with the maximum value of the left subtree.
-* The node with the maximum value becomes the root node in the left subtree.
+* Perform the splay operation on the maximum key of the left subtree.
+* The key with the maximum value becomes the root node in the left subtree.
 * Make the right subtree the right child of this new root.
+* Done. This is our final tree.
 
-**Right Child**
+**Only The Right Child: Only The Right Subtree. No Left Subtree.**
 
 * Suppose that after deleting the target node, we only have a right-side child of it.
 * In this case, the right subtree is the final tree. 
 
-**Left Child**
+**Only The Left Child: Only The Left Subtree. No Right Subtree.**
 
 * Suppose that after deleting the target node, we only have a left-side child of it.
-* In this case, we perform the splay operation on the node with the maximum value of the left subtree.
+* In this case, we still perform the splay operation on the maximum key of the left subtree.
 * So, the node with the maximum value becomes the root of the left subtree.
 * And that will be the final tree.
+
+#### No Subject?
+
+* If we don't find the target node, we still perform the splay operation on the parent node for which the target node could have been a child.
+* In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
+* So, even if we don't find the subject node, we still perform the splay operation. 
 
 ## Questions-Answers
 
@@ -207,6 +218,8 @@
 ## ToDos
 
 * Example of all the rotations (Before and After).
+* Translation of each step, comparison, check, decision, operation, etc., into pseudocode.
+
 
 ## Next
 
