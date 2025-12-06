@@ -52,8 +52,8 @@
 ## Purpose
 
 * To reduce the time of the search operation.
-* We bring the most frequently accessed node near the root.
-* So, it gradually takes less time.
+* We make the recently accessed node the root.
+* Next time, it takes `O(1)` only.
 * That is the reason we use it for `caches`.
 
 ## Terminologies
@@ -66,12 +66,50 @@
 
 ![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
 
-* Right Rotation.
+![605splayTreeZigRight.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/605splayTreeZigRight.png)
+
+**General Overview: Understanding The Right Rotation**
 * It is also known as **Zig-Right Rotation**.
 * The node on which we perform the rotation does not have any grandparent.
 * It means that the parent of the node is the root.
 * So, we perform a single rotation on the node.
-* When we rotate a node in the right-side direction (clockwise).
+* We rotate the parent node in the right-side direction (clockwise).
+* It pulls the subject node upward.
+
+**Main Points: Right Rotation**
+
+* 3 nodes change their child-parent pointers.
+* The order of these three nodes is: 
+  1. Right child of the target node.
+  2. The target node.
+  3. Current node (Current parent node of the target).
+
+**Pseudocode: Right Rotation**
+
+```kotlin
+
+fun rotateRight(current: Node<T>) {
+    // Find the target node.
+    // In a right-side rotation, the target node is the left child.
+    val target = current?.left ?: return
+
+    // The right child of the target node becomes the left child of the current node.
+    current.left = target.right
+    target.right?.parent = current
+
+    // Target node takes the place of the current node.
+    // The parent of the current node becomes the parent of the target node.
+    target.parent = current.parent
+    // It might make the target node the root, left, or right child.
+    if (target.parent == null) root = target
+    else if (current.isLeftChild()) current.parent?.left = target
+    else current.parent?.right = target
+
+    // The current node becomes the right child of the target node
+    target.right = current
+    current.parent = target
+}
+```
 
 #### Zag Rotation (Zig-Left)
 
@@ -154,12 +192,12 @@
 * [AVLTrees](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt) are strictly balanced binary search trees.
 * Splay trees are roughly balanced binary search trees.
 * //ToDo: Elaborate
-* In a splay tree, the recent node (via search or insert) becomes the root or moves closer to the root.
+* In a splay tree, the recently accessed node becomes the root.
 * The search or insert operation follows the splay operation.
 * It means that after every search or insert operation, we have to rearrange the tree.
 * The resultant tree may not be perfectly (strictly) balanced.
 * But it still maintains the amortized cost as `O(log n)`.
-* Because we reduce the access time (search or insert) of the recent node.
+* Because we reduce the access time of the recent node to `O(1)`.
 * That's the reason we use `Splay Trees` for `Caches`. 
 
 ## Insert
@@ -219,6 +257,7 @@
 
 * Example of all the rotations (Before and After).
 * Translation of each step, comparison, check, decision, operation, etc., into pseudocode.
+* Complete implementation in Kotlin.
 
 
 ## Next
