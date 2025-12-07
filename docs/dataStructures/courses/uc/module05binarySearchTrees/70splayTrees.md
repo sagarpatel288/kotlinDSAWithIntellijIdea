@@ -115,11 +115,50 @@ fun rotateRight(current: Node<T>) {
 
 ![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
 
-* Left Rotation.
+![610splayTreeZagLeftWithChildren.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/610splayTreeZagLeftWithChildren.png)
+
+**General Overview: Understanding The Left Rotation**
+
 * It is also known as **Zig-Left Rotation**.
 * The node on which we perform the rotation does not have any grandparent.
 * So, we perform a single rotation on the node.
 * When we rotate a node in the left-side direction (anti-clockwise).
+
+**Main Points: Left Rotation**
+
+* 3 Nodes change their child-parent pointers.
+* The order of these three nodes is:
+  1. Left child of the target node.
+  2. The target node.
+  3. Current node (Current parent of the target node).
+
+**Pseudocode: Left Rotation**
+
+```kotlin
+
+fun rotateLeft(current: Node<T>) {
+    // Find the target node.
+    // For the left rotation, the target node is the right child of the current node.
+    val target = current.right ?: return
+    
+    // The left child of the target node becomes the right child of the current node.
+    current.right = target.left
+    target.left?.parent = current
+    
+    // The target node takes the place of the current node.
+    // The parent of the current node becomes the parent of the target node.
+    target.parent = current.parent
+    if (target.parent == null) root = target
+    else if (current.isRightChild()) current.parent?.right = target
+    else current.parent?.left = target
+    
+    // Finally, the current node becomes the left child of the target node.
+    // The target node becomes the parent of the current node.
+    target.left = current
+    current.parent = target
+}
+
+```
 
 ### Zig-Zig Rotations (Homogeneous Rotations)
 
