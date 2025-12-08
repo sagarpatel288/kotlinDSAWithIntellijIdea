@@ -4,7 +4,7 @@
 * [Splay Trees](#splay-trees)
   * [Prerequisites/References](#prerequisitesreferences)
   * [Purpose](#purpose)
-  * [Terminologies](#terminologies)
+  * [Rotations And Terminologies](#rotations-and-terminologies)
     * [Zig Rotations (Terminal Step)](#zig-rotations-terminal-step)
       * [Zig Rotation (Zig-Right)](#zig-rotation-zig-right)
       * [Zag Rotation (Zig-Left)](#zag-rotation-zig-left)
@@ -15,7 +15,10 @@
       * [Zig-Zag Rotation](#zig-zag-rotation)
       * [Zag-Zig Rotation](#zag-zig-rotation)
   * [Introduction](#introduction)
+  * [Splay](#splay)
+    * [Pseudocode](#pseudocode)
   * [Insert](#insert)
+  * [Search (Find)](#search-find-)
   * [Delete](#delete)
     * [Bottom-Up Delete](#bottom-up-delete)
     * [Top-Down Delete](#top-down-delete)
@@ -56,7 +59,7 @@
 * Next time, it takes `O(1)` only.
 * That is the reason we use it for `caches`.
 
-## Terminologies
+## Rotations And Terminologies
 
 ### Zig Rotations (Terminal Step)
 
@@ -66,7 +69,7 @@
 
 ![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
 
-![605splayTreeZigRight.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/605splayTreeZigRight.png)
+![605splayTreeZigRightWithChildren.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/605splayTreeZigRightWithChildren02.png)
 
 **General Overview: Understanding The Right Rotation**
 * It is also known as **Zig-Right Rotation**.
@@ -88,26 +91,33 @@
 
 ```kotlin
 
-fun rotateRight(current: Node<T>) {
-    // Find the target node.
+/**
+ * The reason we call it [parent] is to help us remember.
+ * The node that we pass to the `rotate` functions is the `parent` of the subject node.
+ * The subject node is the one that we want to make the root.
+ * If the param name [parent] seems confusing, feel free to replace it with a simple `node` or `current`.
+ * Just remember that it should be the `parent` of the subject node.
+ */
+fun rotateRight(parent: Node<T>) {
+    // 1. Find the target node.
     // In a right-side rotation, the target node is the left child.
-    val target = current?.left ?: return
+    val target = parent?.left ?: return
 
-    // The right child of the target node becomes the left child of the current node.
-    current.left = target.right
-    target.right?.parent = current
+    // 2. The right child of the target node becomes the left child of the current parent node.
+    parent.left = target.right
+    target.right?.parent = parent
 
-    // Target node takes the place of the current node.
-    // The parent of the current node becomes the parent of the target node.
-    target.parent = current.parent
+    // 3. The target node replaces its parent.
+    // The parent of the current parent node becomes the parent of the target node.
+    target.parent = parent.parent
     // It might make the target node the root, left, or right child.
     if (target.parent == null) root = target
-    else if (current.isLeftChild()) current.parent?.left = target
-    else current.parent?.right = target
+    else if (parent.isLeftChild()) parent.parent?.left = target
+    else parent.parent?.right = target
 
-    // The current node becomes the right child of the target node
-    target.right = current
-    current.parent = target
+    // 4. The current parent node becomes the right child of the target node
+    target.right = parent
+    parent.parent = target
 }
 ```
 
@@ -115,7 +125,7 @@ fun rotateRight(current: Node<T>) {
 
 ![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
 
-![610splayTreeZagLeftWithChildren.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/610splayTreeZagLeftWithChildren.png)
+![610splayTreesZagLeftWithChildren02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/610splayTreesZagLeftWithChildren02.png)
 
 **General Overview: Understanding The Left Rotation**
 
@@ -136,26 +146,34 @@ fun rotateRight(current: Node<T>) {
 
 ```kotlin
 
-fun rotateLeft(current: Node<T>) {
-    // Find the target node.
-    // For the left rotation, the target node is the right child of the current node.
-    val target = current.right ?: return
+/**
+ * The reason we call it [parent] is to help us remember.
+ * The node that we pass to the `rotate` functions is the `parent` of the subject node.
+ * The subject node is the one that we want to make the root.
+ * If the param name [parent] seems confusing, feel free to replace it with a simple `node` or `current`.
+ * Just remember that it should be the `parent` of the subject node.
+ */
+fun rotateLeft(parent: Node<T>) {
+    // 1. Find the target node.
+    // For the left rotation, the target node is the right child of the current parent node.
+    val target = parent.right ?: return
     
-    // The left child of the target node becomes the right child of the current node.
-    current.right = target.left
-    target.left?.parent = current
+    // 2. The left child of the target node becomes the right child of the current parent node.
+    parent.right = target.left
+    target.left?.parent = parent
     
-    // The target node takes the place of the current node.
-    // The parent of the current node becomes the parent of the target node.
-    target.parent = current.parent
+    // 3. The target node replaces the parent node.
+    // The parent of the parent node becomes the parent of the target node.
+    // It might make the target node the root, left, or right child.
+    target.parent = parent.parent
     if (target.parent == null) root = target
-    else if (current.isRightChild()) current.parent?.right = target
-    else current.parent?.left = target
+    else if (parent.isRightChild()) parent.parent?.right = target
+    else parent.parent?.left = target
     
-    // Finally, the current node becomes the left child of the target node.
+    // 4. Finally, the current parent node becomes the left child of the target node.
     // The target node becomes the parent of the current node.
-    target.left = current
-    current.parent = target
+    target.left = parent
+    parent.parent = target
 }
 
 ```
@@ -239,9 +257,76 @@ fun rotateLeft(current: Node<T>) {
 * Because we reduce the access time of the recent node to `O(1)`.
 * That's the reason we use `Splay Trees` for `Caches`. 
 
+## Splay
+
+* After `search(find)`, `insert`, or `delete` operation, we perform the `splay` operation on the node.
+* The purpose of the `splay` operation is to make the recently accessed node the root node.
+* Now, depending upon the position of the recently accessed node, we might perform various (one or multiple and different) rotations on the node to make it the root node.
+* We have already seen various [rotations](#rotations-and-terminologies).
+* If we find that the node has no grandparent, then we perform one of the `zig rotations`.
+* Otherwise, we perform either one of the `zig-zig` or one of the `zig-zag` rotations.
+* We keep performing these rotations until the node becomes the root.
+
+### Pseudocode
+
+```kotlin
+
+fun splay(node: Node<T>) {
+    // Keep performing the rotations until the node becomes the root.
+    // It means that keep performing the rotations until the node becomes `parentless`.
+    while (node.parent != null) {
+        // To decide the rotation, we use the parent and the grandparent.
+        val parent = node.parent
+        val grandParent = parent?.parent
+        
+        if (grandParent == null) {
+            // If there is no grandparent, it is one of the `zig rotations`.
+            // If the node is a left child, we rotate the parent to the right side.
+            // Otherwise, we rotate the parent to the left side.
+            // In both cases, the rotation brings the parent down and the child up.
+            // Note that we pass the `parent` to the `rotate` functions.
+            // Because we have designed the `rotate` functions in that way. 
+            // It expects the parent, because that's the node on which we perform the rotation.
+            if (node.isLeftChild()) rotateRight(parent)
+            else rotateLeft(parent)
+        } else {
+            // If there is a grandparent, we have 4 possible rotations.
+            // Zig-Zig-Right, Zag-Zag-Left, Zig-Zag-Right-Left, and Zag-Zig-Left-Right.
+            // We check the node and its parent to determine the rotations.
+            // If both the node and parent are on the left side (left aligned), it is Zig-Zig-Right.
+            if (node.isLeftChild() && parent.isLeftChild()) {
+                // First, we rotate the grandparent.
+                rotateRight(grandParent)
+                // Then, we rotate the parent.
+                rotateRight(parent)
+            } else if (node.isRightChild() && parent.isRightChild()) {
+                // First, rotate the grandparent.
+                rotateLeft(grandParent)
+                // Then, rotate the parent.
+                rotateLeft(parent)
+            } else if (node.isLeftChild() && parent.isRightChild()) {
+                // Rotate the parent first.
+                rotateRight(parent)
+                // Then, rotate the grandparent.
+                rotateLeft(grandParent)
+            } else {
+                // Node is a right child, and parent is a left child.
+                // First, rotate the parent.
+                rotateLeft(parent)
+                // Then, rotate the grandparent.
+                rotateRight(grandParent)
+            }
+        }
+    }
+}
+
+```
+
 ## Insert
 
 ![700splayTreeInsertOperation.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/700splayTreeInsertOperation.svg)
+
+## Search (Find) 
 
 ## Delete
 
@@ -294,11 +379,16 @@ fun rotateLeft(current: Node<T>) {
 
 ## ToDos
 
-* Example of all the rotations (Before and After).
 * Translation of each step, comparison, check, decision, operation, etc., into pseudocode.
 * Complete implementation in Kotlin.
+* Pseudocode for:
+  * Splay
+  * Search
+  * Insert
+  * Delete
 
 
 ## Next
 
 * [Red-Black Trees](80redBlackTrees.md)
+* 
