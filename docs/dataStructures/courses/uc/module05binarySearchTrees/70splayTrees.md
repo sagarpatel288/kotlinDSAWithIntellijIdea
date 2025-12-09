@@ -382,6 +382,40 @@ fun insert(key: T) {
 
 ## Search (Find)
 
+### Steps
+
+* Perform the typical binary search to find the subject node.
+* Perform the splay operation on the subject node.
+* If we don't find the subject node, perform the splay operation on the last accessed node. (Don't forget this!)
+
+### Pseudocode Of Search
+
+```kotlin
+
+fun search(key: T): Node? {
+    if (root == null) return null
+    var curr = root
+    var lastAccessed = curr
+    while (curr != null) {
+        lastAccessed = curr
+        if (key < curr.key) {
+            curr = curr.left
+        } else if (key > curr.key) {
+            curr = curr.right
+        } else {
+            splay(curr)
+            return curr
+        }
+    }
+    // We did not find the node.
+    // We still perform the splay operation on the `lastAccessed` node.
+    splay(lastAccessed)
+    // We return `null` to indicate that we could not find the subject node.
+    return null
+} 
+
+```
+
 ## Delete
 
 ### Bottom-Up Delete
