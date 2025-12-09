@@ -16,9 +16,11 @@
       * [Zag-Zig Rotation](#zag-zig-rotation)
   * [Introduction](#introduction)
   * [Splay](#splay)
-    * [Pseudocode](#pseudocode)
+    * [Pseudocode Of Splay](#pseudocode-of-splay)
   * [Insert](#insert)
-  * [Search (Find)](#search-find-)
+    * [Steps](#steps)
+    * [Pseudocode Of Insert](#pseudocode-of-insert)
+  * [Search (Find)](#search-find)
   * [Delete](#delete)
     * [Bottom-Up Delete](#bottom-up-delete)
     * [Top-Down Delete](#top-down-delete)
@@ -50,7 +52,7 @@
 * [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
 * [Splay Tree Introduction By Jenny's Lectures](https://youtu.be/qMmqOHr75b8?si=o84h4uQAOPIwNALb)
 * [Splay Tree: Insert Operation By Jenny's Lectures](https://youtu.be/1HeIZNP3w4A?si=s0xuQMVg8OBzpmP8)
-* 
+*
 
 ## Purpose
 
@@ -72,6 +74,7 @@
 ![605splayTreeZigRightWithChildren.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/605splayTreeZigRightWithChildren02.png)
 
 **General Overview: Understanding The Right Rotation**
+
 * It is also known as **Zig-Right Rotation**.
 * The node on which we perform the rotation does not have any grandparent.
 * It means that the parent of the node is the root.
@@ -82,10 +85,10 @@
 **Main Points: Right Rotation**
 
 * 3 nodes change their child-parent pointers.
-* The order of these three nodes is: 
-  1. Right child of the target node.
-  2. The target node.
-  3. Current node (Current parent node of the target).
+* The order of these three nodes is:
+    1. Right child of the target node.
+    2. The target node.
+    3. Current node (Current parent node of the target).
 
 **Pseudocode: Right Rotation**
 
@@ -138,9 +141,9 @@ fun rotateRight(parent: Node<T>) {
 
 * 3 Nodes change their child-parent pointers.
 * The order of these three nodes is:
-  1. Left child of the target node.
-  2. The target node.
-  3. Current node (Current parent of the target node).
+    1. Left child of the target node.
+    2. The target node.
+    3. Current node (Current parent of the target node).
 
 **Pseudocode: Left Rotation**
 
@@ -157,11 +160,11 @@ fun rotateLeft(parent: Node<T>) {
     // 1. Find the target node.
     // For the left rotation, the target node is the right child of the current parent node.
     val target = parent.right ?: return
-    
+
     // 2. The left child of the target node becomes the right child of the current parent node.
     parent.right = target.left
     target.left?.parent = parent
-    
+
     // 3. The target node replaces the parent node.
     // The parent of the parent node becomes the parent of the target node.
     // It might make the target node the root, left, or right child.
@@ -169,7 +172,7 @@ fun rotateLeft(parent: Node<T>) {
     if (target.parent == null) root = target
     else if (parent.isRightChild()) parent.parent?.right = target
     else parent.parent?.left = target
-    
+
     // 4. Finally, the current parent node becomes the left child of the target node.
     // The target node becomes the parent of the current node.
     target.left = parent
@@ -218,9 +221,9 @@ fun rotateLeft(parent: Node<T>) {
 * The node on which we perform the rotation(s), has grandparent.
 * So, we perform double rotations.
 * When we perform two rotations.
-* First, we perform the rotation on the parent. 
+* First, we perform the rotation on the parent.
 * The first rotation is in the right direction (clockwise).
-* It means that the parent is having the node in the left direction. 
+* It means that the parent is having the node in the left direction.
 * So, we rotate the parent in the right direction.
 * Then, we perform the rotation on the grandparent.
 * And the second rotation is in the left direction (anti-clockwise).
@@ -241,12 +244,13 @@ fun rotateLeft(parent: Node<T>) {
 * So, we rotate the parent in the left direction.
 * Then, we perform the rotation on the grandparent.
 * And the second rotation is in the right direction (clockwise).
-* It means that the parent node is to the left of the grandparent node. 
+* It means that the parent node is to the left of the grandparent node.
 * So, we rotate the grandparent in the right direction.
 
 ## Introduction
 
-* [AVLTrees](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt) are strictly balanced binary search trees.
+* [AVLTrees](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+  are strictly balanced binary search trees.
 * Splay trees are roughly balanced binary search trees.
 * //ToDo: Elaborate
 * In a splay tree, the recently accessed node becomes the root.
@@ -255,19 +259,20 @@ fun rotateLeft(parent: Node<T>) {
 * The resultant tree may not be perfectly (strictly) balanced.
 * But it still maintains the amortized cost as `O(log n)`.
 * Because we reduce the access time of the recent node to `O(1)`.
-* That's the reason we use `Splay Trees` for `Caches`. 
+* That's the reason we use `Splay Trees` for `Caches`.
 
 ## Splay
 
 * After `search(find)`, `insert`, or `delete` operation, we perform the `splay` operation on the node.
 * The purpose of the `splay` operation is to make the recently accessed node the root node.
-* Now, depending upon the position of the recently accessed node, we might perform various (one or multiple and different) rotations on the node to make it the root node.
+* Now, depending upon the position of the recently accessed node, we might perform various (one or multiple and
+  different) rotations on the node to make it the root node.
 * We have already seen various [rotations](#rotations-and-terminologies).
 * If we find that the node has no grandparent, then we perform one of the `zig rotations`.
 * Otherwise, we perform either one of the `zig-zig` or one of the `zig-zag` rotations.
 * We keep performing these rotations until the node becomes the root.
 
-### Pseudocode
+### Pseudocode Of Splay
 
 ```kotlin
 
@@ -278,7 +283,7 @@ fun splay(node: Node<T>) {
         // To decide the rotation, we use the parent and the grandparent.
         val parent = node.parent
         val grandParent = parent?.parent
-        
+
         if (grandParent == null) {
             // If there is no grandparent, it is one of the `zig rotations`.
             // If the node is a left child, we rotate the parent to the right side.
@@ -326,7 +331,56 @@ fun splay(node: Node<T>) {
 
 ![700splayTreeInsertOperation.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/700splayTreeInsertOperation.svg)
 
-## Search (Find) 
+### Steps
+
+* This is a typical binary tree insert operation followed by the splay operation.
+* If the root is null, this new node becomes the root.
+* Otherwise, we perform the standard binary search traversal.
+* We select the left direction if the value is less than the current node.
+* We select the right direction if the value is greater than the current node.
+* If the value is equal to the current node, we return.
+* That is to say, we don't allow duplicate values.
+* Once we reach the leaf node, we attach this new node as a child.
+* We update the respective (relevant) pointers for this child and the parent node.
+* And finally, we perform the splay operation on this newly inserted node.
+
+### Pseudocode Of Insert
+
+```kotlin
+
+fun insert(key: T) {
+    val node = Node(key) // `parent`, `left`, and `right` are null at the moment.
+    if (root == null) {
+        root = node
+        return
+    }
+    var curr = root
+    var parent = curr
+    while (curr != null) {
+        parent = curr
+        if (key < curr.key) {
+            curr = curr.left
+        } else if (key > curr.key) {
+            curr = curr.right
+        } else {
+            // The node already exists.
+            // Next: splay
+            splay(curr)
+            return
+        }
+    }
+    if (key < parent.key) {
+        parent.left = node
+    } else {
+        parent.right = node
+    }
+    node.parent = parent
+    splay(node)
+}
+
+```
+
+## Search (Find)
 
 ## Delete
 
@@ -335,7 +389,8 @@ fun splay(node: Node<T>) {
 ![720splayTreeDeleteOperation.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/720splayTreeDeleteOperation.svg)
 
 * Delete the target node and perform the splay operation on the parent node.
-* If we don't find the target node, we still perform the splay operation on the parent node for which the target node could have been a child.
+* If we don't find the target node, we still perform the splay operation on the parent node for which the target node
+  could have been a child.
 * In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
 
 ### Top-Down Delete
@@ -358,7 +413,7 @@ fun splay(node: Node<T>) {
 **Only The Right Child: Only The Right Subtree. No Left Subtree.**
 
 * Suppose that after deleting the target node, we only have a right-side child of it.
-* In this case, the right subtree is the final tree. 
+* In this case, the right subtree is the final tree.
 
 **Only The Left Child: Only The Left Subtree. No Right Subtree.**
 
@@ -369,9 +424,10 @@ fun splay(node: Node<T>) {
 
 #### No Subject?
 
-* If we don't find the target node, we still perform the splay operation on the parent node for which the target node could have been a child.
+* If we don't find the target node, we still perform the splay operation on the parent node for which the target node
+  could have been a child.
 * In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
-* So, even if we don't find the subject node, we still perform the splay operation. 
+* So, even if we don't find the subject node, we still perform the splay operation.
 
 ## Questions-Answers
 
@@ -382,11 +438,10 @@ fun splay(node: Node<T>) {
 * Translation of each step, comparison, check, decision, operation, etc., into pseudocode.
 * Complete implementation in Kotlin.
 * Pseudocode for:
-  * Splay
-  * Search
-  * Insert
-  * Delete
-
+    * Splay
+    * Search
+    * Insert
+    * Delete
 
 ## Next
 
