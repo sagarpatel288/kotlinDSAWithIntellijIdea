@@ -21,11 +21,14 @@
     * [Steps](#steps)
     * [Pseudocode Of Insert](#pseudocode-of-insert)
   * [Search (Find)](#search-find)
+    * [Steps](#steps-1)
+    * [Pseudocode Of Search](#pseudocode-of-search)
   * [Delete](#delete)
     * [Bottom-Up Delete](#bottom-up-delete)
-    * [Top-Down Delete](#top-down-delete)
+    * [Top-Down-Join Delete](#top-down-join-delete)
       * [Found The Subject?](#found-the-subject)
       * [No Subject?](#no-subject)
+    * [Pseudocode Of Delete (Top-Down-Join)](#pseudocode-of-delete-top-down-join)
   * [Questions-Answers](#questions-answers)
     * [What is the difference between the bottom-up and the top-down approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-top-down-approaches-of-the-delete-operation-in-a-splay-tree)
   * [ToDos](#todos)
@@ -412,7 +415,7 @@ fun search(key: T): Node? {
     splay(lastAccessed)
     // We return `null` to indicate that we could not find the subject node.
     return null
-} 
+}
 
 ```
 
@@ -427,7 +430,7 @@ fun search(key: T): Node? {
   could have been a child.
 * In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
 
-### Top-Down Delete
+### Top-Down-Join Delete
 
 ![740splayTreeDeleteUsingJoin.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/740splayTreeDeleteUsingJoin.svg)
 
@@ -462,6 +465,48 @@ fun search(key: T): Node? {
   could have been a child.
 * In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
 * So, even if we don't find the subject node, we still perform the splay operation.
+
+### Pseudocode Of Delete (Top-Down-Join)
+
+```kotlin
+
+fun delete(key: T) {
+    // The search operation internally performs the splay operation, too. 
+    val target = search(key)
+    if (target == null || target.key != key) {
+        return
+    }
+    val leftRoot = target.left
+    val rightRoot = target.right
+    
+    // Disconnect to delete the target
+    leftRoot?.parent = null
+    rightRoot?.parent = null
+    target.left = null
+    target.right = null
+  
+    // If the `leftRoot` is null
+    if (leftRoot == null) {
+        root = rightRoot
+        return
+    }
+  
+    // Find max of the leftRoot
+    var max = leftRoot
+    while (max.right != null) {
+        max = max.right
+    }
+    splay(max)
+    
+    // Now, the `max` is the `root` of the `leftRoot`
+    max.right = rightRoot
+    rightRoot?.parent = max
+  
+    // Update the root (Don't forget this!)
+    root = max
+}
+
+```
 
 ## Questions-Answers
 
