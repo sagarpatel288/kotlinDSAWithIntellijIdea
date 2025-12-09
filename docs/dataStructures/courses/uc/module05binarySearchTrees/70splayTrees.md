@@ -29,6 +29,8 @@
       * [Found The Subject?](#found-the-subject)
       * [No Subject?](#no-subject)
     * [Pseudocode Of Delete (Top-Down-Join)](#pseudocode-of-delete-top-down-join)
+  * [Time Complexity](#time-complexity)
+  * [Space Complexity](#space-complexity)
   * [Questions-Answers](#questions-answers)
     * [What is the difference between the bottom-up and the top-down approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-top-down-approaches-of-the-delete-operation-in-a-splay-tree)
   * [ToDos](#todos)
@@ -507,6 +509,15 @@ fun delete(key: T) {
 }
 
 ```
+
+## Time Complexity
+
+* We can access the recently accessed node in `O(1)`
+* We maintain the amortized cost of `search`, `insert`, and `delete` operations to `O(log n)`.
+
+## Space Complexity
+
+* `O(n)` where `n` is the number of nodes.
 
 ## Questions-Answers
 
