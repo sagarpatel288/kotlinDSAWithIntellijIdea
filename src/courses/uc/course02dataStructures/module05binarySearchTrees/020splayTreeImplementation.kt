@@ -1,6 +1,9 @@
 package courses.uc.course02dataStructures.module05binarySearchTrees
 
 /**
+ * # Prerequisites/References
+ * * [Local File](docs/dataStructures/courses/uc/module05binarySearchTrees/70splayTrees.md)
+ * * [GitHub File](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5a2e8434fe79b140afedf34d5fd6542b3152451e/docs/dataStructures/courses/uc/module05binarySearchTrees/70splayTrees.md)
  *
  */
 data class Node<T : Comparable<T>>(
@@ -193,8 +196,8 @@ class SplayTree<T : Comparable<T>> {
             max = max.right
         }
         splay(max)
-        root = max
         max?.right = rightRoot
         rightRoot?.parent = max
+        root = max
     }
 }
