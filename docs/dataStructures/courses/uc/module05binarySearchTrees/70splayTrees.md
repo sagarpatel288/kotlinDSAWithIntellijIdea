@@ -33,7 +33,8 @@
   * [Time Complexity](#time-complexity)
   * [Space Complexity](#space-complexity)
   * [Questions-Answers](#questions-answers)
-    * [What is the difference between the bottom-up and the top-down approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-top-down-approaches-of-the-delete-operation-in-a-splay-tree)
+    * [What if we don't involve the grandparent and perform the splay (rotate-to-root) operation using the parent node only?](#what-if-we-dont-involve-the-grandparent-and-perform-the-splay-rotate-to-root-operation-using-the-parent-node-only)
+    * [What is the difference between the bottom-up and the top-down-join approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-top-down-join-approaches-of-the-delete-operation-in-a-splay-tree)
   * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
@@ -58,7 +59,8 @@
 * [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
 * [Splay Tree Introduction By Jenny's Lectures](https://youtu.be/qMmqOHr75b8?si=o84h4uQAOPIwNALb)
 * [Splay Tree: Insert Operation By Jenny's Lectures](https://youtu.be/1HeIZNP3w4A?si=s0xuQMVg8OBzpmP8)
-*
+* [Splay Tree: Delete Operation Bottom-Up Splaying By Jenny's Lectures](https://youtu.be/ewRSYHStdSA?si=aVfdewuntlW501EE)
+* [Splay Tree: Delete Operation Top-Down-Join By Jenny's Lectures](https://youtu.be/MumJoiP84J0?si=01Pn1u3lGC6z0egS)
 
 ## Purpose
 
@@ -526,17 +528,24 @@ fun delete(key: T) {
 
 ## Questions-Answers
 
-### What is the difference between the bottom-up and the top-down approaches of the delete operation in a splay tree?
+### What if we don't involve the grandparent and perform the splay (rotate-to-root) operation using the parent node only?
+
+![800rotateToRootVsSplaying.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/800rotateToRootVsSplaying.png)
+
+* The unbalanced tree remains unbalanced.
+* It might make a balanced tree unbalanced beyond the acceptable range.
+* Then, each operation might take `O(n)`.
+* We might access the recent node in `O(1)`, but overall, it becomes costly. 
+* The amortized cost increases in this case from `O(log n)` to `O(n)`.
+* It means that we get linear time cost.
+* It means that a simple, non-optimal rotate-to-root strategy degrades (downgrades) the performance from logarithmic expectation to linear result.
+* We want a solution that helps us access the recent node faster, while maintaining the amortized cost `O(log n)`.
+
+### What is the difference between the bottom-up and the top-down-join approaches of the delete operation in a splay tree?
 
 ## ToDos
 
 * Translation of each step, comparison, check, decision, operation, etc., into pseudocode.
-* Complete implementation in Kotlin.
-* Pseudocode for:
-    * Splay
-    * Search
-    * Insert
-    * Delete
 
 ## Next
 
