@@ -29,11 +29,16 @@
       * [Found The Subject?](#found-the-subject)
       * [No Subject?](#no-subject)
     * [Pseudocode Of Delete (Top-Down-Join)](#pseudocode-of-delete-top-down-join)
+  * [Split](#split)
+  * [Merge](#merge)
   * [Implementation](#implementation)
   * [Time Complexity](#time-complexity)
   * [Space Complexity](#space-complexity)
   * [Questions-Answers](#questions-answers)
     * [What if we don't involve the grandparent and perform the splay (rotate-to-root) operation using the parent node only?](#what-if-we-dont-involve-the-grandparent-and-perform-the-splay-rotate-to-root-operation-using-the-parent-node-only)
+    * [Can a splay operation produce an unbalanced tree? If yes, why do we use splay trees?](#can-a-splay-operation-produce-an-unbalanced-tree-if-yes-why-do-we-use-splay-trees)
+      * [Can a single operation (e.g., `find`) take `O(n)` time in a `splay tree`? If yes, why do we use the `splay tree`?](#can-a-single-operation-eg-find-take-on-time-in-a-splay-tree-if-yes-why-do-we-use-the-splay-tree)
+    * [Why do we splay even when we don't find the node?](#why-do-we-splay-even-when-we-dont-find-the-node)
     * [What is the difference between the bottom-up and the top-down-join approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-top-down-join-approaches-of-the-delete-operation-in-a-splay-tree)
   * [ToDos](#todos)
   * [Next](#next)
@@ -513,6 +518,14 @@ fun delete(key: T) {
 
 ```
 
+## Split
+
+
+
+## Merge
+
+
+
 ## Implementation
 
 [splayTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020splayTreeImplementation.kt)
@@ -540,6 +553,41 @@ fun delete(key: T) {
 * It means that we get linear time cost.
 * It means that a simple, non-optimal rotate-to-root strategy degrades (downgrades) the performance from logarithmic expectation to linear result.
 * We want a solution that helps us access the recent node faster, while maintaining the amortized cost `O(log n)`.
+
+### Can a splay operation produce an unbalanced tree? If yes, why do we use splay trees?
+
+#### Can a single operation (e.g., `find`) take `O(n)` time in a `splay tree`? If yes, why do we use the `splay tree`?
+
+![810splayTreesJustification.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/810splayTreesJustification.png)
+
+![815splayTreeJustification3.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/815splayTreeJustification3.png)
+
+* Yes, a splay operation can temporary produce an unbalanced tree.
+* And a single operation (for example, `find`) can take `O(n)` time.
+* But the tree gets re-balanced after a few splay operations.
+* Each expensive splay operation makes the tree more balanced.
+* In such a way that it maintains the amortized cost at `O(log n)`.
+* In addition, we get recently accessed node at `O(1)`.
+* That's the reason we use `splay trees` for `caching`.
+
+### Why do we splay even when we don't find the node?
+
+* To maintain the amortized cost at `O(log n)`.
+* For example, suppose that we have the below splay tree.
+
+![840splayFindJustification.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/840splayFindJustification.png)
+
+* Now, we try to find `1`.
+* We start with `10`. 
+* **Step: 1:** `1` < `10`. So, we go to the left side of `10`.
+* **Step: 2:** `1` < `5`. So, we go to the left side of `5`.
+* **Step: 3:** `3` < `5`. So, we go to the left side of `3`.
+* **Result:** But `3` does not have any child. So, we could not find `1`.
+* But we still perform the `splay` operation on `3`.
+* Now, the next time we try to find `1`, we take less time.
+* We start with `3`.
+* **Step: 1:** `1` < `3`. So, we go to the left side of `3`.
+* **Result:** But `3` does not have any child. So, we could not find `1`.
 
 ### What is the difference between the bottom-up and the top-down-join approaches of the delete operation in a splay tree?
 
