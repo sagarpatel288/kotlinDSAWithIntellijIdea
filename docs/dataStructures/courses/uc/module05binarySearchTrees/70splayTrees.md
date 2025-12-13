@@ -25,21 +25,31 @@
     * [Pseudocode Of Search](#pseudocode-of-search)
   * [Delete](#delete)
     * [Bottom-Up Delete](#bottom-up-delete)
-    * [Top-Down-Join Delete](#top-down-join-delete)
+    * [Top-Down-Splaying (Pointerless)](#top-down-splaying-pointerless)
+    * [Splay-To-Root-Delete-Join](#splay-to-root-delete-join)
       * [Found The Subject?](#found-the-subject)
       * [No Subject?](#no-subject)
-    * [Pseudocode Of Delete (Top-Down-Join)](#pseudocode-of-delete-top-down-join)
+    * [Pseudocode Of Delete (Splay-To-Root-Delete-Join)](#pseudocode-of-delete-splay-to-root-delete-join)
   * [Split](#split)
+    * [Pseudocode](#pseudocode)
   * [Merge](#merge)
+    * [Pseudocode](#pseudocode-1)
   * [Implementation](#implementation)
   * [Time Complexity](#time-complexity)
   * [Space Complexity](#space-complexity)
   * [Questions-Answers](#questions-answers)
+    * [Do we lose the BST invariant properties due to rotations?](#do-we-lose-the-bst-invariant-properties-due-to-rotations)
     * [What if we don't involve the grandparent and perform the splay (rotate-to-root) operation using the parent node only?](#what-if-we-dont-involve-the-grandparent-and-perform-the-splay-rotate-to-root-operation-using-the-parent-node-only)
+    * [Why do we first rotate the grandparent in the `Zig-Zig rotations`?](#why-do-we-first-rotate-the-grandparent-in-the-zig-zig-rotations)
     * [Can a splay operation produce an unbalanced tree? If yes, why do we use splay trees?](#can-a-splay-operation-produce-an-unbalanced-tree-if-yes-why-do-we-use-splay-trees)
       * [Can a single operation (e.g., `find`) take `O(n)` time in a `splay tree`? If yes, why do we use the `splay tree`?](#can-a-single-operation-eg-find-take-on-time-in-a-splay-tree-if-yes-why-do-we-use-the-splay-tree)
     * [Why do we splay even when we don't find the node?](#why-do-we-splay-even-when-we-dont-find-the-node)
-    * [What is the difference between the bottom-up and the top-down-join approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-top-down-join-approaches-of-the-delete-operation-in-a-splay-tree)
+    * [What is the difference between the bottom-up and the splay-to-root-delete-join approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-splay-to-root-delete-join-approaches-of-the-delete-operation-in-a-splay-tree)
+    * [Why don't we store `balance` information in `SplayTrees` like `AVLTrees`?](#why-dont-we-store-balance-information-in-splaytrees-like-avltrees)
+    * [Is a `SplayTree` as efficient as a `Static Binary Balanced Tree`?](#is-a-splaytree-as-efficient-as-a-static-binary-balanced-tree)
+    * [When should we use `SplayTrees`?](#when-should-we-use-splaytrees)
+    * [When should we not use `SplayTrees`?](#when-should-we-not-use-splaytrees)
+    * [Why can't we use `SplayTrees` for a highly concurrent read-heavy cache?](#why-cant-we-use-splaytrees-for-a-highly-concurrent-read-heavy-cache)
   * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
@@ -76,6 +86,9 @@
 
 ## Rotations And Terminologies
 
+* Each rotation preserves the BST properties (invariant).
+* `keys (left) < node.key < keys (right)`
+
 ### Zig Rotations (Terminal Step)
 
 ![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
@@ -97,7 +110,7 @@
 
 **Main Points: Right Rotation**
 
-* 3 nodes change their child-parent pointers.
+* A few nodes change their child-parent pointers.
 * The order of these three nodes is:
     1. Right child of the target node.
     2. The target node.
@@ -152,7 +165,7 @@ fun rotateRight(parent: Node<T>) {
 
 **Main Points: Left Rotation**
 
-* 3 Nodes change their child-parent pointers.
+* A few nodes change their child-parent pointers.
 * The order of these three nodes is:
     1. Left child of the target node.
     2. The target node.
@@ -440,7 +453,11 @@ fun search(key: T): Node? {
   could have been a child.
 * In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
 
-### Top-Down-Join Delete
+### Top-Down-Splaying (Pointerless)
+
+* //ToDo
+
+### Splay-To-Root-Delete-Join
 
 ![740splayTreeDeleteUsingJoin.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/740splayTreeDeleteUsingJoin.svg)
 
@@ -476,7 +493,7 @@ fun search(key: T): Node? {
 * In that case, the last node we reach in a standard binary search traversal is the parent of this target ghost node.
 * So, even if we don't find the subject node, we still perform the splay operation.
 
-### Pseudocode Of Delete (Top-Down-Join)
+### Pseudocode Of Delete (Splay-To-Root-Delete-Join)
 
 ```kotlin
 
@@ -577,6 +594,8 @@ private fun cutRight(root: Node<T>): SplitResult {
 
 ## Merge
 
+> Assuming that all the keys in the left tree are smaller than the right tree.
+
 * We find the largest element in the left subtree and splay it.
 * And then, we just attach the right tree as a right child of it.
 
@@ -599,7 +618,7 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 
 ## Time Complexity
 
-* We can access the recently accessed node in `O(1)`
+* After the `splay` operation, subsequent immediate access takes `O(1)`.
 * We maintain the amortized cost of `search`, `insert`, and `delete` operations to `O(log n)`.
 
 ## Space Complexity
@@ -607,6 +626,10 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 * `O(n)` where `n` is the number of nodes.
 
 ## Questions-Answers
+
+### Do we lose the BST invariant properties due to rotations?
+
+* No. `Splay Trees` and `Splaying` maintain the BST invariants (properties).
 
 ### What if we don't involve the grandparent and perform the splay (rotate-to-root) operation using the parent node only?
 
@@ -620,6 +643,11 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 * It means that we get linear time cost.
 * It means that a simple, non-optimal rotate-to-root strategy degrades (downgrades) the performance from logarithmic expectation to linear result.
 * We want a solution that helps us access the recent node faster, while maintaining the amortized cost `O(log n)`.
+
+### Why do we first rotate the grandparent in the `Zig-Zig rotations`?
+
+* Rotating the grandparent first in the `Zig-Zig Rotations` is the key to re-balance the tree and maintain the amortized cost at `O(log n)`.
+* If we don't rotate the grandparent first, we don't improve the overall balance and amortized cost.
 
 ### Can a splay operation produce an unbalanced tree? If yes, why do we use splay trees?
 
@@ -656,7 +684,7 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 * **Step: 1:** `1` < `3`. So, we go to the left side of `3`.
 * **Result:** But `3` does not have any child. So, we could not find `1`.
 
-### What is the difference between the bottom-up and the top-down-join approaches of the delete operation in a splay tree?
+### What is the difference between the bottom-up and the splay-to-root-delete-join approaches of the delete operation in a splay tree?
 
 **Bottom-up**
 
@@ -664,7 +692,7 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 * And then we perform the `splay` operation on the parent node.
 * If we could not find the subject node, we still perform the `splay` operation on the last accessed node.
 
-**Top-Down-Join**
+**Splay-To-Root-Delete-Join**
 
 * We perform the `splay` operation on the subject node.
 * We perform the `split` operation as below:
@@ -680,8 +708,41 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 
 * Both the approaches are valid and give the same performance.
 
+### Why don't we store `balance` information in `SplayTrees` like `AVLTrees`?
+
+* Because in `SplayTrees`, we trade `balance` for `amortized cost`.
+* At some point, the tree can be linear.
+* But we focus on `sequence of operations` instead of `one operation`.
+* We still maintain the `amortized cost` to `O(log n)` with an additional benefit where immediate access of recently `splayed` node takes `O(1)`.
+
+### Is a `SplayTree` as efficient as a `Static Binary Balanced Tree`?
+
+* Yes. Even if we don't know that which node we are going to access frequently, the `SplayTree` makes it the root node after `splaying`.
+* So initially, the `SplayTree` might take more time than the static balanced tree.
+* But then immediate subsequent access time will be `O(1)` in the `SplayTree`, where it could be more in the static balanced tree.
+* This is known as `Static Optimality Theorem`.
+* Overall, we maintain the amortized cost to `O(log n)`.
+
+### When should we use `SplayTrees`?
+
+* Caching
+
+### When should we not use `SplayTrees`?
+
+* Real-time systems
+* Hard latency SLAs
+* Concurrent workloads without locks
+
+### Why can't we use `SplayTrees` for a highly concurrent read-heavy cache?
+
+* Because a `find` operation in a `splayTree` is a `write` operation.
+* We perform the `splay` operation during the `find` operation.
+* And a `splay` operation changes the structure of the tree.
+* So, if multiple threads are trying to read values, we have to use several `write-locks`, and it creates bottlenecks.
+
 ## ToDos
 
+* Top-Down-Splaying (Pointerless)
 * Translation of each step, comparison, check, decision, operation, etc., into pseudocode.
 * Standard improvement process.
 
