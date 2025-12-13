@@ -14,6 +14,7 @@
       * [Search](#search)
     * [`In-Order(Left-Parent-Right)` Traversal is sorted](#in-orderleft-parent-right-traversal-is-sorted)
     * [Building a BST (Binary Search Tree)](#building-a-bst-binary-search-tree)
+    * [Terminologies](#terminologies)
   * [Next](#next)
 <!-- TOC -->
 
@@ -336,6 +337,34 @@ flowchart TD
     style n4 stroke:none,fill:transparent
     linkStyle 3 stroke:none,fill:none
 ```
+
+### Terminologies
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TD
+    A(("3")) --> n1(("2")) & n2(("5"))
+    n1 --> n3(("1"))
+    n1 --- n4(("<br>"))
+    n2 --> n5(("4")) & n6(("6"))
+    style n4 stroke:none,fill:transparent
+    linkStyle 3 stroke:none,fill:none
+```
+
+#### Successor
+
+* The next large node of the current node is called a successor.
+* For example, if we are at `5`, then the successor is `6`.
+
+#### Predecessor
+
+* The previous small node of the current node is called a predecessor.
+* For example, if we are at `5`, then the predecessor is `3`.
 
 ## Next
 

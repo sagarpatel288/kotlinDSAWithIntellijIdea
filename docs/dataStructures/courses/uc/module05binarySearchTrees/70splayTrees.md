@@ -520,11 +520,78 @@ fun delete(key: T) {
 
 ## Split
 
+* We `splay` for the given `split key`.
+* Now, we may or may not find the `split key`.
+* So, we end up with three possibilities:
 
+`split.key < root.key`
+
+* In this case, we would return: `root.left`, and `root`.
+
+`split.key > root.key`
+
+* In this case, we would return: `root.right`, and `root`.
+
+`split.key == root.key`
+
+* In this case, we can return: `root`, and `root.right`.
+* Or, we can return: `root.left`, and `root`.
+
+### Pseudocode
+
+```kotlin
+
+fun split(key: T): SplitResult {
+    val root = find(key)
+    when {
+        key < root.key -> {
+            return cutLeft(root)
+        }
+        key > root.key -> {
+            return cutRight(root)
+        }
+        key == root.key -> {
+            // Return cutLeft(root) or cutRight(root)
+            // If we want to keep the `root` as a part of `right tree`, return `cutLeft(root)`. (root.left Vs. root).
+            // Otherwise, return `cutRight(root)`. (root Vs. root.right).
+            return cutRight(root) 
+        }
+    }
+}
+
+private fun cutLeft(root: Node<T>): SplitResult {
+    val left = root.left
+    left.parent = null
+    root.left = null
+    return SplitResult(left, root)
+}
+
+private fun cutRight(root: Node<T>): SplitResult {
+    val right = root.right
+    root.right = null
+    right.parent = null
+    return SplitResult(root, right)
+}
+
+```
 
 ## Merge
 
+* We find the largest element in the left subtree and splay it.
+* And then, we just attach the right tree as a right child of it.
 
+### Pseudocode
+
+```kotlin
+
+fun merge(left: Node<T>, right: Node<T>): Node<T> {
+    val root = findMax(left) // `findMax` internally performs the `splay` operation on the `max`.
+    root.right = right
+    right.parent = root
+    return root
+}
+
+```
 
 ## Implementation
 
@@ -591,11 +658,35 @@ fun delete(key: T) {
 
 ### What is the difference between the bottom-up and the top-down-join approaches of the delete operation in a splay tree?
 
+**Bottom-up**
+
+* We perform the standard BST delete operation.
+* And then we perform the `splay` operation on the parent node.
+* If we could not find the subject node, we still perform the `splay` operation on the last accessed node.
+
+**Top-Down-Join**
+
+* We perform the `splay` operation on the subject node.
+* We perform the `split` operation as below:
+* We delete the `root`.
+* We perform the `splay` operation on the `max` of the `left subtree` of the deleted `root`.
+* The `max` of the `left subtree` becomes the root.
+* We attach the `right subtree` to this new root.
+* If we don't find the subject node, we still perform the `splay` operation on the last accessed node, and then we stop.
+* If there is no left subtree of the deleted root, then the `right subtree` is the final tree.
+* If there is no right subtree of the deleted root, we still perform `splay` on `max` of `left`.
+
+**Comparison**
+
+* Both the approaches are valid and give the same performance.
+
 ## ToDos
 
 * Translation of each step, comparison, check, decision, operation, etc., into pseudocode.
+* Standard improvement process.
 
 ## Next
 
 * [Red-Black Trees](80redBlackTrees.md)
-* 
+* Tries?
+* B+ Trees?
