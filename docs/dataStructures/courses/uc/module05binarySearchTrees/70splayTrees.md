@@ -35,6 +35,7 @@
   * [Merge](#merge)
     * [Pseudocode](#pseudocode-1)
   * [Implementation](#implementation)
+  * [Amortized Analysis: Potential Theory](#amortized-analysis-potential-theory)
   * [Time Complexity](#time-complexity)
   * [Space Complexity](#space-complexity)
   * [Questions-Answers](#questions-answers)
@@ -615,6 +616,28 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 ## Implementation
 
 [splayTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020splayTreeImplementation.kt)
+
+## Amortized Analysis: Potential Theory
+
+* Potential energy is defined using the subtree size.
+* Technically, we say that if the tree is highly unbalanced, like a linear chain, it has the higher potential compared to the tree that is more balanced.
+* So, if the insertion is cheap (that produces the highly unbalanced tree like a chain), we end up with the high potential tree.
+* The more unbalanced the tree is, the higher its potential energy.
+* And just because we are talking about the energy, we would say that we need more energy to bring the node up.
+* So during the rotations, as the node goes up, it consumes the energy, and if the node goes down, it releases the energy.
+* Nodes closer to the root have higher ranks and higher potentials, because it has consumed (collected) good amount of energy.
+* When we perform various rotations as a part of the `splay` operation on a leaf node, it's potential energy increases as it becomes the root node.
+* But many nodes along the way loses their potential energy as they move down.
+* That decrease pays for the rotations.
+* This drop in ranks and potential cancel out the cost of rotations.
+* It is like ancestor nodes volunteerly donates their energy to push the subject node up during the splay operation.
+* And this nice collaboration and support make the tree more balanced.
+* As the tree gets balanced, its potential energy decreases.
+* So, we can say that this converstion, this transformation from higher potential to lower potential energy pays for all the hard work (rotations) we perform to make a leaf (or any other) node the root node. 
+* So the next time we want to perform the `splay` operation on a leaf node, we will need less energy, because the tree is already balanced.
+* When we go deep to a leaf node, and we perform a lot of `splay` operations (rotations) on it to make it the root node, we burn a lot of potential energy.
+* We get this energy from the ancestors as they go down along the way.
+* So, even though the actual cost (work) might be linear `O(n)`, we get help from the ancestors as they release and donate their potential energy (potential difference) and it makes the amortized cost of any sequence of operations `O(log n)`.
 
 ## Time Complexity
 
