@@ -36,6 +36,11 @@
     * [Pseudocode](#pseudocode-1)
   * [Implementation](#implementation)
   * [Amortized Analysis: Potential Theory](#amortized-analysis-potential-theory)
+  * [Other Benefits](#other-benefits)
+    * [Recency: Working Bound: Time Or Temporal Locality](#recency-working-bound-time-or-temporal-locality-)
+    * [Frequency: Weighted Bound](#frequency-weighted-bound)
+    * [Spatial Locality: Dynamic Finger Bound: Neighbour Benefit](#spatial-locality-dynamic-finger-bound-neighbour-benefit)
+    * [Overall: Dynamic Optimality Conjecture: The Worst Case Constant](#overall-dynamic-optimality-conjecture-the-worst-case-constant)
   * [Time Complexity](#time-complexity)
   * [Space Complexity](#space-complexity)
   * [Questions-Answers](#questions-answers)
@@ -638,6 +643,39 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 * When we go deep to a leaf node, and we perform a lot of `splay` operations (rotations) on it to make it the root node, we burn a lot of potential energy.
 * We get this energy from the ancestors as they go down along the way.
 * So, even though the actual cost (work) might be linear `O(n)`, we get help from the ancestors as they release and donate their potential energy (potential difference) and it makes the amortized cost of any sequence of operations `O(log n)`.
+
+## Other Benefits
+
+### Recency: Working Bound: Time Or Temporal Locality 
+
+* The fresher the recency, the faster the access.
+* The subsequent access of recent and repeatedly accessed items take less time.
+* As the item becomes old and less frequently accessed, it goes deep down.
+* This forms a nice order where most recently and frequently accessed items take less time than the old and less frequently accessed items.
+* And this happens automatically.
+* For example, if we access `x`, and we want to access it immediately again, it only takes `O(1)`.
+* And if we access 3 other items after that, then accessing `x` again takes only `log 3`.
+* So, the time of accessing a particular item depends on the recent access or the last access of the same item.
+* Or in other words, accessing a particular item depends on how many other items we have accessed since the last access of the current subject.
+* This is particularly helpful for caching.
+
+### Frequency: Weighted Bound
+
+* The higher the frequency, faster the access.
+* If we access a particular item more frequently, it means that the item is more important to us and in this sense, it has more weight.
+* Frequently accessed items stay near to the root.
+* So that we can access them faster than the less frequently accessed items.
+
+### Spatial Locality: Dynamic Finger Bound: Neighbour Benefit
+
+* The nearby key takes less time than the far-apart (far away) key.
+* So, if we want to access the items in order, it is much faster.
+* So, walking through a sorted data is faster.
+* This is particularly helpful in range queries, ordered iteration, and cursor-based navigation.
+
+### Overall: Dynamic Optimality Conjecture: The Worst Case Constant
+
+* All these benefits together confirms that even if we build a perfect static binary search tree that knows the future access sequence, the splay tree that doesn't know about the sequence performs the same with a constant factor.
 
 ## Time Complexity
 
