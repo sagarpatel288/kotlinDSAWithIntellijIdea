@@ -50,6 +50,8 @@
     * [Can a splay operation produce an unbalanced tree? If yes, why do we use splay trees?](#can-a-splay-operation-produce-an-unbalanced-tree-if-yes-why-do-we-use-splay-trees)
       * [Can a single operation (e.g., `find`) take `O(n)` time in a `splay tree`? If yes, why do we use the `splay tree`?](#can-a-single-operation-eg-find-take-on-time-in-a-splay-tree-if-yes-why-do-we-use-the-splay-tree)
     * [Why do we splay even when we don't find the node?](#why-do-we-splay-even-when-we-dont-find-the-node)
+    * [What happens when we splay on the smallest key?](#what-happens-when-we-splay-on-the-smallest-key)
+    * [What happens when we splay on the predecessor first, and then on the node?](#what-happens-when-we-splay-on-the-predecessor-first-and-then-on-the-node)
     * [What is the difference between the bottom-up and the splay-to-root-delete-join approaches of the delete operation in a splay tree?](#what-is-the-difference-between-the-bottom-up-and-the-splay-to-root-delete-join-approaches-of-the-delete-operation-in-a-splay-tree)
     * [Why don't we store `balance` information in `SplayTrees` like `AVLTrees`?](#why-dont-we-store-balance-information-in-splaytrees-like-avltrees)
     * [Is a `SplayTree` as efficient as a `Static Binary Balanced Tree`?](#is-a-splaytree-as-efficient-as-a-static-binary-balanced-tree)
@@ -744,6 +746,28 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 * We start with `3`.
 * **Step: 1:** `1` < `3`. So, we go to the left side of `3`.
 * **Result:** But `3` does not have any child. So, we could not find `1`.
+---
+
+* On the other hand, if we didn't splay on `3`, every time we try to find anything smaller than `3`, we would take `O(n)` time and the system would not maintain the amortized cost `O(log n)`.
+
+### What happens when we splay on the smallest key?
+
+![840splayFindJustification.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/840splayFindJustification.png)
+
+* The smallest key becomes the root.
+* Because it is the smallest key, all the other nodes will be on the right side of it.
+* So, the root will not have any left child.
+
+### What happens when we splay on the predecessor first, and then on the node?
+
+![900splayPredecessorThenNode.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/900splayPredecessorThenNode.png)
+
+* The node becomes the root, and the predecessor (old and original predecessor) will be the left child of the root, and it will not have any right child.
+* This happens because of the fact that predecessor is smaller than the node.
+* So, when the node becomes the root, the predecessor goes to the left side.
+* Now, the right child of the predecessor must be bigger than the predecessor but smaller than the node.
+* This cannot happen because if there was such a key between predecessor and the node, that key would be the predecessor in the first place (and not the existing one).
+* There can't be any key between the predecessor and the node.
 
 ### What is the difference between the bottom-up and the splay-to-root-delete-join approaches of the delete operation in a splay tree?
 
