@@ -27,7 +27,7 @@
 * [Abdul Bari Sir: AVL Tree](https://youtu.be/jDM6_TnYIqE?si=ozgBIYnV79pJw8Nc)
 * [AVL Insert](20avlTreeInsertOperation.md)
 * [AVL Delete](25avlTreeDeleteOperation.md)
-* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
 
 ## Having almost the same height
 
@@ -111,7 +111,7 @@ private fun findMax(node: AvlNode?): AvlNode? {
 * And here, we have a balanced binary search tree: An AVLTree.
 * Also, we have seen the `delete` operation in the `AVLTreeImplementation`.
 
-[avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+[avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
 
 ### Back to the present
 

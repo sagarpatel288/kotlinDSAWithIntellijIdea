@@ -26,7 +26,7 @@
 * [AVL Delete](25avlTreeDeleteOperation.md)
 * [AVL Split](40avlTreeSplitOperation.md)
 * [Find Kth Smallest Using An AVLTree](50avlTreeFindKthSmallKey.md)
-* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
 
 ## Problem Statement
 
