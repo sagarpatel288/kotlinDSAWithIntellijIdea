@@ -693,7 +693,7 @@ fun delete(nodeToDelete: Node?) {
 * [BST: Self-Balancing = AVLTree](15binarySearchTreesBSTBalance.md)
 * [AVLTree: Insert Operation](20avlTreeInsertOperation.md)
 * [AVLTree: Delete Operation](25avlTreeDeleteOperation.md)
-* [AVLTree: Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+* [AVLTree: Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
 * [AVLTree: Merge Operation](30avlTreeMergeOperation.md)
 * [AVLTree: Split Operation](40avlTreeSplitOperation.md)
 * [AVLTree: Kth Small Key](50avlTreeFindKthSmallKey.md)

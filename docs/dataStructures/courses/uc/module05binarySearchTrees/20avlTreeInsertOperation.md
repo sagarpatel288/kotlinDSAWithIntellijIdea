@@ -11,7 +11,7 @@
 ## Next:
 
 * [AVLTree: Delete Operation](25avlTreeDeleteOperation.md)
-* [010avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010avlTreeImplementation.kt)
+* [010avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
 * [AVLTree: Merge Operation](30avlTreeMergeOperation.md)
 * [AVLTree: Split Operation](40avlTreeSplitOperation.md)
 * [AVLTree: Kth Small Key](50avlTreeFindKthSmallKey.md)
