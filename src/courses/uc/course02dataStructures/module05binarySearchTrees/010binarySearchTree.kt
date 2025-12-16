@@ -9,7 +9,14 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * [Local: bstOperations.md](docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
  * [GitHub: bstOperations.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/f08de016ccea24454b55ed81b429634c55e180ca/docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
  *
+ * [Tushar Roy: Binary Search Tree-BST: Pre-Order Traversal Using A Stack](https://youtu.be/elQcrJrfObg?si=0mJhLS3Z-k05a6O0)
+ * [Tushar Roy: Binary Search Tree-BST: In-Order Traversal Using A Stack](https://youtu.be/nzmtCFNae9k?si=6imsFFpH3wHfZzbx)
+ * [Tushar Roy: Binary Search Tree-BST: Post-Order Traversal Using A Stack](https://youtu.be/xLQKdq0Ffjg?si=3GOfPN1gVtUu7Daz)
+ *
  * # Problem Statement
+ *
+ * [Local image](assets/images/dataStructures/uc/module05binarySearchTreesBST/1010buildBst.png)
+ * [GitHub image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a4f1ca3d080af04712c68ac061a80fdaab78789e/assets/images/dataStructures/uc/module05binarySearchTreesBST/1010buildBst.png)
  *
  * ## Binary tree traversals
  *
