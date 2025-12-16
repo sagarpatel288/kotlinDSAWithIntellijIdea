@@ -575,7 +575,7 @@ Sam             Hugh            Jim
 ## Tree Traversal
 
 - [Depth First](#depth-first)
-- [Breadth Search](#breadth-search)
+- [Breadth First Search](#breadth-first-search)
 - [3 Main Types Of Depth First Search](#3-main-types-of-depth-first-search)
 - [In-Order (Left-Root-Right)](#in-order-left-root-right)
 - [Pre-Order (Root-Left-Right)](#pre-order-root-left-right)
@@ -621,7 +621,7 @@ click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _bla
 10. We will study each order in detail.
 11. The time and space complexity for each of these 3 main DFS types is `O(n)` as we visit each node once, and we use a stack as an underlying data structure or the recursion that uses a stack. 
 
-### Breadth-Search
+### Breadth-First-Search
 
 1. Here, **we travel level-by-level**.
 2. So, **first we finish travelling with all the siblings.**
