@@ -15,6 +15,8 @@
     * [`In-Order(Left-Parent-Right)` Traversal is sorted](#in-orderleft-parent-right-traversal-is-sorted)
     * [Building a BST (Binary Search Tree)](#building-a-bst-binary-search-tree)
     * [Terminologies](#terminologies)
+      * [Successor](#successor)
+      * [Predecessor](#predecessor)
   * [Next](#next)
 <!-- TOC -->
 
