@@ -690,6 +690,7 @@ fun delete(nodeToDelete: Node?) {
 
 ## Next
 
+* [Binary Tree Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
 * [BST: Self-Balancing = AVLTree](15binarySearchTreesBSTBalance.md)
 * [AVLTree: Insert Operation](20avlTreeInsertOperation.md)
 * [AVLTree: Delete Operation](25avlTreeDeleteOperation.md)
@@ -700,3 +701,4 @@ fun delete(nodeToDelete: Node?) {
 * [Flip (Replace) Using An AvlTree](60flipReplaceWithAvlTree.md)
 * [Splay Trees](70splayTrees.md)
 * [Red-Black Trees](80redBlackTrees.md)
+* 

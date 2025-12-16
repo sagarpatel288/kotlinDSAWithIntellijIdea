@@ -29,10 +29,12 @@
 * [Heap Sort](../module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
 * [Binary Search Trees](05binarySearchTrees.md)
 * [Binary Search Trees: Basic Operations](10binarySearchTreesBSTsBasicOperations.md)
+* [Binary Tree Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
 * [AVL Visualization](https://www.cs.usfca.edu/~galles/visualization/AVLtree.html)
 * [Abdul Bari Sir: AVL Tree](https://youtu.be/jDM6_TnYIqE?si=ozgBIYnV79pJw8Nc)
 * [AVL Insert](20avlTreeInsertOperation.md)
 * [AVL Delete](25avlTreeDeleteOperation.md)
+* [AVL Merge](30avlTreeMergeOperation.md)
 * [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
 
 ## The Problem Statement
