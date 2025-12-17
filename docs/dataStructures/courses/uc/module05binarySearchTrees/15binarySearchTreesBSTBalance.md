@@ -41,7 +41,7 @@
 
 ## Prerequisites/References
 
-* [Trees](../module01BasicDataStructures/section03trees/trees.md)
+* [Trees](../module01BasicDataStructures/section03trees/010trees.md)
 * [Basic Data Structure Questions](../module01BasicDataStructures/questionsOnBasicDataStructures.md)
 * [Priority Queues](../module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
 * [Binary Heap Trees](../module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
@@ -68,7 +68,7 @@
 * For example, while trying to find `6`.
 * Similarly, if the node has a lower depth, we take less time.
 * For example, `3`.
-* If you remember, we have associated the well analogy with `depth` in [Trees](../module01BasicDataStructures/section03trees/trees.md).
+* If you remember, we have associated the well analogy with `depth` in [Trees](../module01BasicDataStructures/section03trees/010trees.md).
 * So, it is like a node that we want to find is in a well.
 * It is looking upside waiting for someone to descend into the well.
 
