@@ -25,7 +25,7 @@
 
 ## Resources / References 
 
-* [Tree Basics](../../../module01BasicDataStructures/section03trees/trees.md)
+* [Tree Basics](../../../module01BasicDataStructures/section03trees/010trees.md)
 * Why `Binary Heap Trees`? What is the purpose? Why do we need it? When do we need it? 
   * [Previous: Priority Queue And Naive Implementations](../../section01priorityQueuesIntroduction/priorityQueues.md)
 * [Next: Complete Binary Tree](../topic03CompleteBinaryTrees/completeBinaryTrees.md)

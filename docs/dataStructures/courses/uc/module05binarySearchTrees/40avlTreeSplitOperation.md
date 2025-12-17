@@ -21,7 +21,7 @@
 
 ## Prerequisites
 
-* [Trees](../module01BasicDataStructures/section03trees/trees.md)
+* [Trees](../module01BasicDataStructures/section03trees/010trees.md)
 * [Basic Data Structure Questions](../module01BasicDataStructures/questionsOnBasicDataStructures.md)
 * [Priority Queues](../module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
 * [Binary Heap Trees](../module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)

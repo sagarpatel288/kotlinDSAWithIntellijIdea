@@ -30,7 +30,7 @@
 ![02disjointSetsIntroduction01.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/02disjointSetsIntroduction01.png)
 
 * The image shows a forest, where we have several independent trees without any children.
-  * [Forest tree reference](../../module01BasicDataStructures/section03trees/trees.md#forest)
+  * [Forest tree reference](../../module01BasicDataStructures/section03trees/010trees.md#forest)
   * They are disconnected. They are disjointed. They are independent.
 * Each tree has only one element.
 * It means that the element itself is a parent, a leader, a representative of that set.

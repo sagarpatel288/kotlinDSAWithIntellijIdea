@@ -22,7 +22,7 @@
 
 ## Prerequisites/References
 
-* [Trees](../module01BasicDataStructures/section03trees/trees.md)
+* [Trees](../module01BasicDataStructures/section03trees/010trees.md)
 * [Basic Data Structure Questions](../module01BasicDataStructures/questionsOnBasicDataStructures.md)
 * [Priority Queues](../module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
 * [Binary Heap Trees](../module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
@@ -98,7 +98,7 @@ data class TreeNode(
 
 #### Search
 
-* A normal binary tree can take `O(n)` (linear time) for searching a node, because we have to check each node. Reference: [Trees](../module01BasicDataStructures/section03trees/trees.md).
+* A normal binary tree can take `O(n)` (linear time) for searching a node, because we have to check each node. Reference: [Trees](../module01BasicDataStructures/section03trees/010trees.md).
 * Whereas, a BST takes `O(Tree Height) = O(log n)` for searching.
 
 ![10bstFindIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/12bstFindIntro.png)

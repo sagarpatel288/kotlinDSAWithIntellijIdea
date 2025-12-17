@@ -7,9 +7,9 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  *
  * ### Trees
  *
- * [Local trees.md](../../../../../docs/dataStructures/courses/uc/module01BasicDataStructures/section03trees/trees.md).
+ * [Local 010trees.md](../../../../../docs/dataStructures/courses/uc/module01BasicDataStructures/section03trees/010trees.md).
  *
- * [GitHub trees.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/19e0b04eac7682842989adac42d1813c543e3be1/docs/dataStructures/coursera/ucSanDiego/module01BasicDataStructures/section03trees/trees.md)
+ * [GitHub 010trees.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/19e0b04eac7682842989adac42d1813c543e3be1/docs/dataStructures/coursera/ucSanDiego/module01BasicDataStructures/section03trees/trees.md)
  *
  * ### Priority Queues
  *
