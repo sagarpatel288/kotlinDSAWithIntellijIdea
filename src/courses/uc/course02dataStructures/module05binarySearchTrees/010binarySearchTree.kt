@@ -110,3 +110,35 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * ```
  *
  */
+class BuildAndTravelBst {
+
+    data class Node(val key: Int, val leftChildIndex: Int, val rightChildIndex: Int)
+
+    /**
+     * Pre-Order = Parent(Root)-Left-Right
+     */
+    fun getPreOrder(nodes: Array<Node>): List<Int> {
+        val result = mutableListOf<Int>()
+        if (nodes.isEmpty()) return result
+        val stack = ArrayDeque<Int>()
+        stack.addLast(0)
+        while (stack.isNotEmpty()) {
+            val currNodeIndex = stack.last()
+            val currNode = nodes[currNodeIndex]
+            result.add(currNode.key)
+            if (currNode.rightChildIndex != -1) {
+                stack.addLast(currNode.rightChildIndex)
+            }
+            if (currNode.leftChildIndex != -1) {
+                stack.addLast(currNode.leftChildIndex)
+            }
+        }
+        return result
+    }
+
+    fun getInOrder(nodes: Array<Node>): List<Node> {
+        val result = mutableListOf<Node>()
+        if (nodes.isEmpty()) return result
+
+    }
+}
