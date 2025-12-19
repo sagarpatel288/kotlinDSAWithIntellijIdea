@@ -15,7 +15,7 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  *
  * # Problem Statement
  *
- * [Local image](assets/images/dataStructures/uc/module05binarySearchTreesBST/1010buildBst.png)
+ * [Local image](assets/images/dataStructures/uc/module05binarySearchTreesBST/05buildBst.png)
  * [GitHub image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a4f1ca3d080af04712c68ac061a80fdaab78789e/assets/images/dataStructures/uc/module05binarySearchTreesBST/1010buildBst.png)
  *
  * ## Binary tree traversals

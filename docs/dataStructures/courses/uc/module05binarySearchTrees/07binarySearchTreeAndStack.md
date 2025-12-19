@@ -65,10 +65,14 @@ flowchart TB
 
 #### Can a particular order of push and pop operations of a stack produce DFS-Pre-Order traversal of a BST?
 
+![010buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/010buildBstUsingStack.png)
+
 * A stack follows LIFO.
 * So, the node we want to process (output, print, etc.) first, should be added last in the stack.
 * We start our journey with the root.
 * We add it to the stack.
+
+![020buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/020buildBstUsingStack.png)
 
 ```ascii
 
@@ -85,6 +89,8 @@ flowchart TB
 > 50, 
 * But after we pop it, we add its right child first, followed by the left child.
 
+![030buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/030buildBstUsingStack.png)
+
 ```ascii
 
 |      |
@@ -100,6 +106,8 @@ flowchart TB
 * We pop it, we get `40`, and we process it.
 > 50, 40,
 * After we pop it, we add its right child, and then its left child.
+
+![040buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/040buildBstUsingStack.png)
 
 ```ascii
 
@@ -118,6 +126,8 @@ flowchart TB
 * We pop `30`, and process it.
 > 50, 40, 30
 * Then, we add its right child followed by the left child.
+
+![050buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/050buildBstUsingStack.png)
 
 ```ascii
 
@@ -141,6 +151,8 @@ flowchart TB
 * It doesn't have any child.
 * So, we pop the next element.
 
+![060buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/060buildBstUsingStack.png)
+
 ```ascii
 
 |      |
@@ -163,6 +175,8 @@ flowchart TB
 * But it doesn't have any child.
 * So, we pop the next element.
 
+![070buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/070buildBstUsingStack.png)
+
 ```ascii
 
 |      |
@@ -179,6 +193,8 @@ flowchart TB
 * We pop `45`, and process it.
 > 50, 40, 30, 25, 35, 45,
 * Then, we add its right child followed by its left child.
+
+![080buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/080buildBstUsingStack.png)
 
 ```ascii
 
@@ -202,6 +218,8 @@ flowchart TB
 * But it doesn't have any child.
 * So, we pop the next element.
 
+![090buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/090buildBstUsingStack.png)
+
 ```ascii
 
 |      |
@@ -222,6 +240,8 @@ flowchart TB
 * But, it doesn't have any child.
 * So, we pop the next element.
 
+![100buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/100buildBstUsingStack.png)
+
 ```ascii
 
 |      |
@@ -236,6 +256,8 @@ flowchart TB
 * We pop `60`, and process it.
 > 50, 40, 30, 25, 35, 45, 43, 47, 60, 
 * Then, we add its right child, followed by the left child.
+
+![110buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/110buildBstUsingStack.png)
 
 ```ascii
 
@@ -254,6 +276,8 @@ flowchart TB
 * We pop `55`, and process it.
 > 50, 40, 30, 25, 35, 45, 43, 47, 60, 55
 * Then, we add its right child, followed by the left child.
+
+![120buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/120buildBstUsingStack.png)
 
 ```ascii
 
@@ -277,6 +301,8 @@ flowchart TB
 * But, it doesn't have any child.
 * So, we pop the next element.
 
+![130buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/130buildBstUsingStack.png)
+
 ```ascii
 
 |      |
@@ -297,6 +323,8 @@ flowchart TB
 * But, it doesn't have any child.
 * So, we pop the next element.
 
+![140buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/140buildBstUsingStack.png)
+
 ```ascii
 
 |      |
@@ -312,6 +340,8 @@ flowchart TB
 * We pop `70`, and process it.
 > 50, 40, 30, 25, 35, 45, 43, 47, 60, 55, 53, 57, 70, 
 * Then, we add its right child, followed by the left child.
+
+![150buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/150buildBstUsingStack.png)
 
 ```ascii
 
@@ -333,6 +363,8 @@ flowchart TB
 * But, it doesn't have any child.
 * So, we pop the next element.
 
+![160buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/160buildBstUsingStack.png)
+
 ```ascii
 
 |      |
@@ -347,9 +379,15 @@ flowchart TB
 
 * We pop `80`, and process it.
 > 50, 40, 30, 25, 35, 45, 43, 47, 60, 55, 53, 57, 70, 65, 80
+
+![170buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/170buildBstUsingStack.png)
+
 * Then, we add its right child, followed by the left child.
 * But, it doesn't have any child.
 * So, we pop the next element.
+
+![180buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/180buildBstUsingStack.png)
+
 * But, the stack is empty.
 * So, we are done.
 ---
