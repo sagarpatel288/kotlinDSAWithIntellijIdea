@@ -10,6 +10,19 @@
       * [Depth-First-Search: In-Order: Left-Parent(Root)-Right](#depth-first-search-in-order-left-parentroot-right)
       * [Depth-First-Search: Post-Order: Left-Right-Parent(Root)](#depth-first-search-post-order-left-right-parentroot)
     * [Breadth-First-Search (Level-By-Level-Top-To-Bottom-Left-To-Right)](#breadth-first-search-level-by-level-top-to-bottom-left-to-right)
+  * [Problem Description](#problem-description)
+    * [Problem Introduction](#problem-introduction)
+    * [Problem Description](#problem-description-1)
+      * [Task](#task-)
+      * [Input Format](#input-format-)
+      * [Constraints](#constraints-)
+      * [Output Format](#output-format-)
+    * [Sample 01](#sample-01)
+      * [Input](#input)
+      * [Output](#output)
+    * [Sample 2](#sample-2)
+      * [Input](#input-1)
+      * [Output](#output-1)
   * [Next](#next)
 <!-- TOC -->
 
@@ -526,9 +539,34 @@ flowchart TB
   4 2 1 3 5  
   1 3 2 5 4  
   2  
+>
+
+### Sample 2
+
+#### Input
+
+> 10  
+ 0 7 2  
+ 10 -1 -1  
+ 20 -1 6  
+ 30 8 9  
+ 40 3 -1  
+ 50 -1 -1  
+ 60 1 -1  
+ 70 5 4  
+ 80 -1 -1  
+ 90 -1 -1  
 > 
 
 
+
+#### Output
+
+
+> 50 70 80 30 90 40 0 20 10 60  
+ 0 70 50 40 30 80 90 20 60 10  
+ 50 80 90 30 40 70 10 60 20 0  
+> 
 
 ## Next
 
