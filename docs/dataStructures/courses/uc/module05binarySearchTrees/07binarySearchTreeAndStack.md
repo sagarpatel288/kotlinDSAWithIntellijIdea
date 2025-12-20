@@ -568,5 +568,23 @@ flowchart TB
  50 80 90 30 40 70 10 60 20 0  
 > 
 
+## Pseudocode
+
+```kotlin
+
+data class Node(val key: Int, val leftIndex: Int, val rightIndex: Int)
+
+fun main() {
+    
+    val total = readln().toInt()
+    val nodes = Array<Nodes>(total)
+    repeat(total) {
+        val nodeParts = readln().split(" ").map { it.toInt() }
+        nodes[it - 1] = Node(nodeParts[0], nodeParts[1], nodeParts[2])
+    }
+}
+
+```
+
 ## Next
 
