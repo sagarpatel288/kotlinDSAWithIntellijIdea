@@ -2,11 +2,11 @@
 
 <!-- TOC -->
 * [Reading Input](#reading-input)
-  * [Why is it better to use `BufferReader` instead of `readln()` or `scanner`?](#why-is-it-better-to-use-bufferreader-instead-of-readln-or-scanner)
+  * [Why is it better to use `BufferedReader` instead of `readln()` or `scanner`?](#why-is-it-better-to-use-bufferedreader-instead-of-readln-or-scanner)
     * [readln](#readln)
     * [.split(" ")](#split-)
     * [.map{ it.toInt() }](#map-ittoint-)
-    * [BufferReader](#bufferreader)
+    * [BufferedReader](#bufferedreader)
     * [StringTokenizer](#stringtokenizer)
     * [toInt()](#toint)
     * [Pseudocode](#pseudocode)
@@ -14,7 +14,7 @@
     * [InputStreamReader](#inputstreamreader)
 <!-- TOC -->
 
-## Why is it better to use `BufferReader` instead of `readln()` or `scanner`?
+## Why is it better to use `BufferedReader` instead of `readln()` or `scanner`?
 
 ### readln
 
@@ -31,8 +31,6 @@
   * `readln`, and `standard Scanner` reads small.
   * It means, it causes more context switches.
   * And this happens per line, and not in bulk.
-* Reads entire line. Reads bytes, and decodes them to chars.
-* Creates a new string object for the whole line.
 
 ### .split(" ")
 
@@ -66,14 +64,14 @@
   * For example, the memory usage of every 4 bytes turns into 24 bytes per number.
   * This requires additional memory and time.
 
-### BufferReader
+### BufferedReader
 
 * Reads large blocks (8KB+).
   * Explain how with examples and comparisons.
   * Give examples.
   * The `readln` moves one brick at a time. 
-  * The `BufferReader` moves multiple bricks (like a wheelbarrow) at once.
-  * How? The `BufferReader` uses an internal array of size 8KB (8192 bytes).
+  * The `BufferedReader` moves multiple bricks (like a wheelbarrow) at once.
+  * How? The `BufferedReader` uses an internal array of size 8KB (8192 bytes).
   * When we ask for the data, it fills the entire 8KB data at once.
   * So, one system call fills 8KB data.
   * Then, the subsequent `read()` call takes bytes from this array, which is fast.
