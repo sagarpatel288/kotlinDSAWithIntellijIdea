@@ -1,5 +1,10 @@
 package courses.uc.course02dataStructures.module05binarySearchTrees
 
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.util.StringTokenizer
+import courses.uc.course02dataStructures.module05binarySearchTrees.BuildAndTravelBst.Node
+
 /**
  * # Prerequisites
  *
@@ -118,12 +123,12 @@ class BuildAndTravelBst {
      * Pre-Order = Parent(Root)-Left-Right
      */
     fun getPreOrder(nodes: Array<Node>): List<Int> {
+        if (nodes.isEmpty()) return emptyList()
         val result = mutableListOf<Int>()
-        if (nodes.isEmpty()) return result
         val stack = ArrayDeque<Int>()
         stack.addLast(0)
         while (stack.isNotEmpty()) {
-            val currNodeIndex = stack.last()
+            val currNodeIndex = stack.removeLast()
             val currNode = nodes[currNodeIndex]
             result.add(currNode.key)
             if (currNode.rightChildIndex != -1) {
@@ -136,9 +141,43 @@ class BuildAndTravelBst {
         return result
     }
 
-    fun getInOrder(nodes: Array<Node>): List<Node> {
-        val result = mutableListOf<Node>()
-        if (nodes.isEmpty()) return result
-
+    fun onEmptyOrNullInput() {
+        repeat(3) {
+            println()
+        }
     }
+
+    fun printList(list: List<Int>) {
+        if (list.isEmpty()) println("The list is empty!")
+        println(list.joinToString(" "))
+    }
+
+}
+
+fun main() {
+    val reader = BufferedReader(InputStreamReader(System.`in`))
+    val firstLine = reader.readLine()
+    val traversal = BuildAndTravelBst()
+    if (firstLine == null) {
+        traversal.onEmptyOrNullInput()
+        return
+    }
+    val total = firstLine.toInt()
+    if (total == 0) {
+        traversal.onEmptyOrNullInput()
+        return
+    }
+    val nodes = Array<Node>(total) { Node(0, -1, -1) }
+    repeat(total) {
+        val line = reader.readLine()
+        if (line == null) {
+            traversal.onEmptyOrNullInput()
+        }
+        val token = StringTokenizer(line)
+        val key = token.nextToken().toInt()
+        val leftChildIndex = token.nextToken().toInt()
+        val rightChildIndex = token.nextToken().toInt()
+        nodes[it] = Node(key, leftChildIndex, rightChildIndex)
+    }
+    traversal.printList(traversal.getPreOrder(nodes))
 }

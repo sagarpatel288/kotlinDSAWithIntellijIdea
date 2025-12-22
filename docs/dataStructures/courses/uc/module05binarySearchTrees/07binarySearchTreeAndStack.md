@@ -558,7 +558,7 @@ flowchart TB
  90 -1 -1  
 > 
 
-
+![07buildBst.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/07buildBst.png)
 
 #### Output
 
@@ -576,12 +576,6 @@ data class Node(val key: Int, val leftIndex: Int, val rightIndex: Int)
 
 fun main() {
     
-    val total = readln().toInt()
-    val nodes = Array<Nodes>(total)
-    repeat(total) {
-        val nodeParts = readln().split(" ").map { it.toInt() }
-        nodes[it - 1] = Node(nodeParts[0], nodeParts[1], nodeParts[2])
-    }
 }
 
 ```
