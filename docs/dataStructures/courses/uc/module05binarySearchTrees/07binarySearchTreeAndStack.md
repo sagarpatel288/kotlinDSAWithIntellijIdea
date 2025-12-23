@@ -8,6 +8,7 @@
       * [Depth-First-Search: Pre-Order: Parent(Root)-Left-Right](#depth-first-search-pre-order-parentroot-left-right)
       * [Can a particular order of push and pop operations of a stack produce DFS-Pre-Order traversal of a BST?](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-produce-dfs-pre-order-traversal-of-a-bst)
       * [Depth-First-Search: In-Order: Left-Parent(Root)-Right](#depth-first-search-in-order-left-parentroot-right)
+      * [Can a particular order of push and pop operations of a stack create BST `In-Order` traversal?](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-create-bst-in-order-traversal)
       * [Depth-First-Search: Post-Order: Left-Right-Parent(Root)](#depth-first-search-post-order-left-right-parentroot)
     * [Breadth-First-Search (Level-By-Level-Top-To-Bottom-Left-To-Right)](#breadth-first-search-level-by-level-top-to-bottom-left-to-right)
   * [Problem Description](#problem-description)
@@ -23,6 +24,8 @@
     * [Sample 2](#sample-2)
       * [Input](#input-1)
       * [Output](#output-1)
+  * [Pseudocode](#pseudocode)
+  * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
 
@@ -77,6 +80,8 @@ flowchart TB
 ---
 
 #### Can a particular order of push and pop operations of a stack produce DFS-Pre-Order traversal of a BST?
+
+* ToDo: Add the overview steps like [BST In-Order Using A Stack.](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-create-bst-in-order-traversal)
 
 ![010buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/010buildBstUsingStack.png)
 
@@ -451,6 +456,18 @@ flowchart TB
   * Right side comes after me.
 ---
 
+#### Can a particular order of push and pop operations of a stack create BST `In-Order` traversal?
+
+* Yes.
+* We start with the root.
+* The current node is the root.
+* Then, we follow the below pattern:
+1. If the current node is valid, we push it to the stack.  
+2. After the push operation, the current node points to the left child.  
+3. If the current node is invalid (null), we perform the pop operation.  
+4. After the pop operation, the current node points to the right child.
+* The below is the step-by-step visual presentation (illustration).
+
 #### Depth-First-Search: Post-Order: Left-Right-Parent(Root)
 
 > 25, 35, 30, 43, 47, 45, 40, 53, 57, 55, 65, 80, 70, 60, 50  
@@ -579,6 +596,13 @@ fun main() {
 }
 
 ```
+
+## ToDos
+
+* Each step for each order (Top to bottom comparison)
+  * 1 -> Pre-Order: Image + Relevant Code
+  * 2 -> In-Order: Image + Relevant Code
+  * 3 -> Post-Order: Image + Relevant Code
 
 ## Next
 
