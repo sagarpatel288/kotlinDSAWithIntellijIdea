@@ -7,8 +7,10 @@
     * [Depth-First-Search](#depth-first-search)
       * [Depth-First-Search: Pre-Order: Parent(Root)-Left-Right](#depth-first-search-pre-order-parentroot-left-right)
       * [Can a particular order of push and pop operations of a stack produce DFS-Pre-Order traversal of a BST?](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-produce-dfs-pre-order-traversal-of-a-bst)
+        * [Pseudocode Of BST-Pre-Order Using A Stack](#pseudocode-of-bst-pre-order-using-a-stack)
       * [Depth-First-Search: In-Order: Left-Parent(Root)-Right](#depth-first-search-in-order-left-parentroot-right)
       * [Can a particular order of push and pop operations of a stack create BST `In-Order` traversal?](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-create-bst-in-order-traversal)
+        * [Pseudocode Of BST-In-Order Using A Stack](#pseudocode-of-bst-in-order-using-a-stack)
       * [Depth-First-Search: Post-Order: Left-Right-Parent(Root)](#depth-first-search-post-order-left-right-parentroot)
     * [Breadth-First-Search (Level-By-Level-Top-To-Bottom-Left-To-Right)](#breadth-first-search-level-by-level-top-to-bottom-left-to-right)
   * [Problem Description](#problem-description)
@@ -446,6 +448,30 @@ flowchart TB
 * Clearly, we can produce the `DFS-Pre-Order` using a stack.
 ---
 
+##### Pseudocode Of BST-Pre-Order Using A Stack
+
+* Start with the root node.
+* Current node is the root node.
+1. Push the node to the stack.
+2. Pop.
+3. Push the right child if any.
+4. Push the left child if any.
+5. Repeat 2 to 4 until the stack is empty.
+
+```kotlin
+
+stack.addLast(root)
+while (stack.isNotEmpty()) {
+    val currentNode = stack.removeLast()
+    if (currentNode.rightChild != null) {
+        stack.addLast(currentNode.rightChild)
+    }
+    if (currentNode.leftChild != null) {
+        stack.addLast(currentNode.leftChild)
+    }
+}
+```
+
 #### Depth-First-Search: In-Order: Left-Parent(Root)-Right
 
 > 25, 30, 35, 40, 43, 45, 47, 50, 53, 55, 57, 60, 65, 70, 80
@@ -539,6 +565,30 @@ flowchart TB
 ![500bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/500bstInOrderUsingStack.png)
 
 ![510bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/510bstInOrderUsingStack.png)
+
+##### Pseudocode Of BST-In-Order Using A Stack
+
+* We start with the root node.
+* The current node points to the root node.
+1. If the node is valid, push it to the stack.
+2. After the push, the current node points to the left child.
+3. If the node is invalid, perform the pop operation.
+4. After the pop, the current node points to the right child.
+5. Repeat steps 1 to 4 until the stack is empty.
+
+```kotlin
+
+var currentNode = root
+while (stack.isNotEmpty()) {
+    while (currentNode != null) {
+        stack.push(currentNode)
+        currentNode = currentNode.leftChild
+    }
+    val poppedNode = stack.pop()
+    currentNode = poppedNode.rightChild
+}
+
+```
 
 #### Depth-First-Search: Post-Order: Left-Right-Parent(Root)
 
