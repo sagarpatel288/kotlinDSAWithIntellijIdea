@@ -141,6 +141,27 @@ class BuildAndTravelBst {
         return result
     }
 
+    /**
+     * In-Order = Left-Parent(Root)-Right
+     */
+    fun getInOrder(nodes: Array<Node>): List<Int> {
+        if (nodes.isEmpty()) return emptyList()
+        var currentNodeIndex = 0
+        val stack = ArrayDeque<Node>()
+        val result = mutableListOf<Int>()
+        while (stack.isNotEmpty()) {
+            while (currentNodeIndex != -1) {
+                val currentNode = nodes[currentNodeIndex]
+                stack.addLast(currentNode)
+                currentNodeIndex = currentNode.leftChildIndex
+            }
+            val poppedNode = stack.removeLast()
+            result.add(poppedNode.key)
+            currentNodeIndex = poppedNode.rightChildIndex
+        }
+        return result
+    }
+
     fun onEmptyOrNullInput() {
         repeat(3) {
             println()
