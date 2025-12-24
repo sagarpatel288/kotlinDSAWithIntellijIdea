@@ -81,7 +81,15 @@ flowchart TB
 
 #### Can a particular order of push and pop operations of a stack produce DFS-Pre-Order traversal of a BST?
 
-* ToDo: Add the overview steps like [BST In-Order Using A Stack.](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-create-bst-in-order-traversal)
+* Yes.
+* We start with the root node.
+* The current node points to the root node.
+
+1. We push the current node to the stack.
+2. We perform the pop operation.
+3. If the current node has a right child, we push it to the stack.
+4. If the current node has a left child, we push it to the stack.
+5. Repeat the steps from 2 to 4 until the stack becomes empty.
 
 ![010buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/010buildBstUsingStack.png)
 
@@ -467,6 +475,70 @@ flowchart TB
 3. If the current node is invalid (null), we perform the pop operation.  
 4. After the pop operation, the current node points to the right child.
 * The below is the step-by-step visual presentation (illustration).
+
+![200bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/200bstInOrderUsingStack.png)
+
+![210bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/210bstInOrderUsingStack.png)
+
+![220bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/220bstInOrderUsingStack.png)
+
+![230bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/230bstInOrderUsingStack.png)
+
+![240bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/240bstInOrderUsingStack.png)
+
+![250bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/250bstInOrderUsingStack.png)
+
+![260bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/260bstInOrderUsingStack.png)
+
+![270bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/270bstInOrderUsingStack.png)
+
+![280bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/280bstInOrderUsingStack.png)
+
+![290bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/290bstInOrderUsingStack.png)
+
+![300bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/300bstInOrderUsingStack.png)
+
+![310bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/310bstInOrderUsingStack.png)
+
+![320bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/320bstInOrderUsingStack.png)
+
+![330bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/330bstInOrderUsingStack.png)
+
+![340bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/340bstInOrderUsingStack.png)
+
+![350bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/350bstInOrderUsingStack.png)
+
+![360bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/360bstInOrderUsingStack.png)
+
+![370bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/370bstInOrderUsingStack.png)
+
+![380bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/380bstInOrderUsingStack.png)
+
+![390bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/390bstInOrderUsingStack.png)
+
+![400bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/400bstInOrderUsingStack.png)
+
+![410bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/410bstInOrderUsingStack.png)
+
+![420bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/420bstInOrderUsingStack.png)
+
+![430bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/430bstInOrderUsingStack.png)
+
+![440bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/440bstInOrderUsingStack.png)
+
+![450bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/450bstInOrderUsingStack.png)
+
+![460bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/460bstInOrderUsingStack.png)
+
+![470bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/470bstInOrderUsingStack.png)
+
+![480bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/480bstInOrderUsingStack.png)
+
+![490bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/490bstInOrderUsingStack.png)
+
+![500bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/500bstInOrderUsingStack.png)
+
+![510bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/510bstInOrderUsingStack.png)
 
 #### Depth-First-Search: Post-Order: Left-Right-Parent(Root)
 
