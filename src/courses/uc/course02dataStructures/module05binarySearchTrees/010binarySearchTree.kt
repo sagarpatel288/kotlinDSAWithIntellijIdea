@@ -149,7 +149,13 @@ class BuildAndTravelBst {
         var currentNodeIndex = 0
         val stack = ArrayDeque<Node>()
         val result = mutableListOf<Int>()
-        while (stack.isNotEmpty()) {
+        // Did you understand these two conditions?
+        // We can't just have `stack.isNotEmpty()`, because initially, the stack is empty only!
+        // Also, imagine a BST with only two nodes: Root and the right child.
+        // After we pop the root node from the stack, the current node index points to the right child.
+        // But the stack is empty.
+        // So, if we had only one condition: `stack.isNotEmpty()`, we could not have processed the right sub-tree.
+        while (currentNodeIndex != -1 || stack.isNotEmpty()) {
             while (currentNodeIndex != -1) {
                 val currentNode = nodes[currentNodeIndex]
                 stack.addLast(currentNode)
@@ -193,6 +199,7 @@ fun main() {
         val line = reader.readLine()
         if (line == null) {
             traversal.onEmptyOrNullInput()
+            return
         }
         val token = StringTokenizer(line)
         val key = token.nextToken().toInt()
@@ -200,5 +207,6 @@ fun main() {
         val rightChildIndex = token.nextToken().toInt()
         nodes[it] = Node(key, leftChildIndex, rightChildIndex)
     }
+    traversal.printList(traversal.getInOrder(nodes))
     traversal.printList(traversal.getPreOrder(nodes))
 }
