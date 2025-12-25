@@ -579,13 +579,16 @@ while (stack.isNotEmpty()) {
 ```kotlin
 
 var currentNode = root
-while (stack.isNotEmpty()) {
+while (currentNode != null && stack.isNotEmpty()) {
     while (currentNode != null) {
         stack.push(currentNode)
         currentNode = currentNode.leftChild
     }
     val poppedNode = stack.pop()
+    // After the pop operation, the stack might be empty.
+    // But we might still have a right child to push.
     currentNode = poppedNode.rightChild
+    // At this point, we don't know whether the currentNode is valid.
 }
 
 ```
