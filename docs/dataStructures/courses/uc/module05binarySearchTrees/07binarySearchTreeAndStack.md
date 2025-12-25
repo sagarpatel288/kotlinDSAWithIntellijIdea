@@ -607,6 +607,25 @@ while (stack.isNotEmpty()) {
   * Does the right side come before me?
 ---
 
+#### Can we produce the BST-Post-Order Traversal using a Stack?
+
+* Yes. And the trick is:
+
+##### The Trick
+
+**Pre-Order**
+> Parent(Root)-Left-Right
+
+**Modified Pre-Order**
+> Parent(Root)-Right-Left
+
+**Reversed Modified Pre-Order**
+> Left-Right-Parent(Root), which is exactly the Post-Order!
+
+* It means that, we will perform the **modified pre-order** operations.
+* Once we finish the process, we reverse the list.
+* The reversed list is exactly the **BST-Post-Order-Traversal**. 
+
 ### Breadth-First-Search (Level-By-Level-Top-To-Bottom-Left-To-Right)
 
 > 50, 40, 60, 30, 45, 55, 70, 25, 35, 43, 47, 53, 57, 65, 80
