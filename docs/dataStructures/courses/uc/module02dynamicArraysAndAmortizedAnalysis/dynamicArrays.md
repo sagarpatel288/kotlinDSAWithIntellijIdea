@@ -557,7 +557,7 @@ $$
 
 ## The banker method of Amortized Analysis
 
-![Banker Method Gif](../../../../../res/coursera/ucSanDiego/course02dataStructures/module02/video03bankersMethodForAmortizedAnalysis/030bankerMethodAnimation.gif)
+![Banker Method Gif](../../../../../res/courses/uc/course02dataStructures/module02/video03bankersMethodForAmortizedAnalysis/030bankerMethodAnimation.gif)
 
 * The banker's method of Amortized Analysis contains the following major points:
 
@@ -1878,7 +1878,7 @@ $\frac{\text{ Total Copies }}{\text{ Total Resize Operations}} = \frac{7}{4} = 1
 
 ### Solution image
 
-![MCQ:01 Solution Image](../../../../../res/coursera/ucSanDiego/course02dataStructures/module02/assignmentMcqs/mcq020.png)
+![MCQ:01 Solution Image](../../../../../res/courses/uc/course02dataStructures/module02/assignmentMcqs/mcq020.png)
 
 ## MCQ: 02
 
@@ -2591,4 +2591,4 @@ $= \frac{capacity_{i - 1}}{4}$
 
 ### Solution image
 
-![MCQ:02 Solution Image](../../../../../res/coursera/ucSanDiego/course02dataStructures/module02/assignmentMcqs/mcq030.png)
+![MCQ:02 Solution Image](../../../../../res/courses/uc/course02dataStructures/module02/assignmentMcqs/mcq030.png)
