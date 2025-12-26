@@ -29,7 +29,10 @@
     * [Sample 2](#sample-2)
       * [Input](#input-1)
       * [Output](#output-1)
-  * [Pseudocode](#pseudocode)
+  * [Code](#code)
+  * [Complexity Analysis](#complexity-analysis)
+    * [Time Complexity](#time-complexity)
+    * [Space Complexity](#space-complexity)
   * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
@@ -628,7 +631,7 @@ while (stack.isNotEmpty()) {
 ```kotlin
 
 var currentNode = root
-while (currentNode != null && stack.isNotEmpty()) {
+while (currentNode != null || stack.isNotEmpty()) {
     while (currentNode != null) {
         stack.push(currentNode)
         currentNode = currentNode.leftChild
@@ -746,7 +749,7 @@ return result.reverse()
 
 ---
 
-*
+* We can produce the BFS output using a queue.
 
 ---
 
@@ -843,17 +846,19 @@ return result.reverse()
 > 50 80 90 30 40 70 10 60 20 0
 >
 
-## Pseudocode
+## Code
 
-```kotlin
+[010binarySearchTree.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
 
-data class Node(val key: Int, val leftIndex: Int, val rightIndex: Int)
+## Complexity Analysis
 
-fun main() {
+### Time Complexity
 
-}
 
-```
+
+### Space Complexity
+
+
 
 ## ToDos
 
