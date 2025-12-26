@@ -12,6 +12,8 @@
       * [Can a particular order of push and pop operations of a stack create BST `In-Order` traversal?](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-create-bst-in-order-traversal)
         * [Pseudocode Of BST-In-Order Using A Stack](#pseudocode-of-bst-in-order-using-a-stack)
       * [Depth-First-Search: Post-Order: Left-Right-Parent(Root)](#depth-first-search-post-order-left-right-parentroot)
+      * [Can we produce the BST-Post-Order Traversal using a Stack?](#can-we-produce-the-bst-post-order-traversal-using-a-stack)
+        * [The Trick](#the-trick)
     * [Breadth-First-Search (Level-By-Level-Top-To-Bottom-Left-To-Right)](#breadth-first-search-level-by-level-top-to-bottom-left-to-right)
   * [Problem Description](#problem-description)
     * [Problem Introduction](#problem-introduction)
@@ -628,6 +630,61 @@ while (currentNode != null && stack.isNotEmpty()) {
 * It means that, we will perform the **modified pre-order** operations.
 * Once we finish the process, we reverse the list.
 * The reversed list is exactly the **BST-Post-Order-Traversal**. 
+* Below is the step-by-step visual presentation (illustration).
+
+![610buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/610buildBstUsingStack.png)
+
+
+![620buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/620buildBstUsingStack.png)
+
+
+![630buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/630buildBstUsingStack.png)
+
+
+![640buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/640buildBstUsingStack.png)
+
+
+![650buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/650buildBstUsingStack.png)
+
+
+![660buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/660buildBstUsingStack.png)
+
+
+![670buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/670buildBstUsingStack.png)
+
+
+![690buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/690buildBstUsingStack.png)
+
+
+![700buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/700buildBstUsingStack.png)
+
+
+![710buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/710buildBstUsingStack.png)
+
+
+![720buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/720buildBstUsingStack.png)
+
+
+![730buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/730buildBstUsingStack.png)
+
+
+![740buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/740buildBstUsingStack.png)
+
+
+![750buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/750buildBstUsingStack.png)
+
+
+![760buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/760buildBstUsingStack.png)
+
+
+![770buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/770buildBstUsingStack.png)
+
+
+![780buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/780buildBstUsingStack.png)
+
+
+![790buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/790buildBstUsingStack.png)
+
 
 ### Breadth-First-Search (Level-By-Level-Top-To-Bottom-Left-To-Right)
 
