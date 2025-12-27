@@ -114,6 +114,43 @@ import courses.uc.course02dataStructures.module05binarySearchTrees.BuildAndTrave
  * 50 80 90 30 40 70 10 60 20 0
  * ```
  *
+ * ## Does this solution work only for `BST(Binary Search Tree)`, or any `Binary Tree`?
+ * * It works for any binary tree. It doesn't have to strictly be a `BST`.
+ *
+ * ## Why didn't we use recursion?
+ * * It can cause overflow.
+ *
+ * ## What will be the difference in having `nodes` as a class constructor once Vs. each method (function) parameter?
+ *
+ * * When we have one static `nodes`, and we perform all the operations on it, we make it a class constructor.
+ * * In this case, it is a stateful design, where we have a specific `nodes` state (one specific data).
+ * * And we perform various operations on this specific `nodes`.
+ * * For a different `nodes`, we must create a different object on which we can call various functions.
+ * * If different operations use different `nodes`, we may use it as a function parameter.
+ * * In this case, it is a stateless design, where each function might use a different `nodes` object.
+ * * A single object of this class is enough for different `nodes`, because each function will have its own `nodes`.
+ * * We use it as a helper or utility.
+ *
+ * ## Time Complexity
+ *
+ * * `O(n)` because we visit each node once for each operation.
+ * * The stack operations (push and pop) we use take constant time.
+ * * So, Printing:
+ * * In-Order: `O(n)`
+ * * Pre-Order: `O(n)`
+ * * Post-Order: `O(n)`
+ *
+ * ## Space Complexity
+ *
+ * * `O(h)` where `h` is the height of the tree.
+ * * So, the maximum size of the stack we use, will be `O(h)`.
+ * * In the worst case, the height can be `n` (Skewed binary tree).
+ * * In the best case, the height can be `log n` (Balanced binary tree).
+ *
+ * ## Coursera's Grader Output
+ * ```
+ *
+ * ```
  */
 class BuildAndTravelBst {
 
@@ -168,6 +205,27 @@ class BuildAndTravelBst {
         return result
     }
 
+    /**
+     * Post-Order-Traversal: Left-Right-Parent(root)
+     */
+    fun getPostOrder(nodes: Array<Node>): List<Int> {
+        if (nodes.isEmpty()) return emptyList()
+        val result = mutableListOf<Int>()
+        val stack = ArrayDeque<Node>()
+        stack.addLast(nodes[0])
+        while (stack.isNotEmpty()) {
+            val poppedNode = stack.removeLast()
+            result.add(poppedNode.key)
+            if (poppedNode.leftChildIndex != -1) {
+                stack.addLast(nodes[poppedNode.leftChildIndex])
+            }
+            if (poppedNode.rightChildIndex != -1) {
+                stack.addLast(nodes[poppedNode.rightChildIndex])
+            }
+        }
+        return result.reversed()
+    }
+
     fun onEmptyOrNullInput() {
         repeat(3) {
             println()
@@ -175,7 +233,6 @@ class BuildAndTravelBst {
     }
 
     fun printList(list: List<Int>) {
-        if (list.isEmpty()) println("The list is empty!")
         println(list.joinToString(" "))
     }
 
@@ -209,4 +266,5 @@ fun main() {
     }
     traversal.printList(traversal.getInOrder(nodes))
     traversal.printList(traversal.getPreOrder(nodes))
+    traversal.printList(traversal.getPostOrder(nodes))
 }
