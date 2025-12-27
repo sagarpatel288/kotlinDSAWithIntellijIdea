@@ -4,6 +4,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.StringTokenizer
 import courses.uc.course02dataStructures.module05binarySearchTrees.BuildAndTravelBst.Node
+import java.util.ArrayDeque
 
 /**
  * # Prerequisites
@@ -115,10 +116,26 @@ import courses.uc.course02dataStructures.module05binarySearchTrees.BuildAndTrave
  * ```
  *
  * ## Does this solution work only for `BST(Binary Search Tree)`, or any `Binary Tree`?
+ *
  * * It works for any binary tree. It doesn't have to strictly be a `BST`.
  *
  * ## Why didn't we use recursion?
+ *
  * * It can cause overflow.
+ *
+ * ## Why recursion cause overflow, but not the manual stack?
+ * *---
+ * * The call stack is handled by JVM/OS and it has a limited size.
+ * * It can handle around 10,000 stacks.
+ * * It has to store many more things like call(return) addresses, function metadata, etc.
+ * * And the most important point is, it resides (lives, stays) on the stack memory.
+ * * The stack memory is small and fixed.
+ * * So, it gets filled up very quickly for a deep recursion and we get the `stackOverflow` error.
+ * *---
+ * * The manual stack resides (lives, stays) on the heap memory.
+ * * The heap memory is large and flexible.
+ * * We decide and control the size of our manual stack.
+ * * We don't store additional data like function metadata, and call(return) addresses.
  *
  * ## What will be the difference in having `nodes` as a class constructor once Vs. each method (function) parameter?
  *
@@ -130,6 +147,13 @@ import courses.uc.course02dataStructures.module05binarySearchTrees.BuildAndTrave
  * * In this case, it is a stateless design, where each function might use a different `nodes` object.
  * * A single object of this class is enough for different `nodes`, because each function will have its own `nodes`.
  * * We use it as a helper or utility.
+ *
+ * ## Edge Cases:
+ *
+ * * Empty nodes (input).
+ * * Only one node.
+ * * Left skewed binary tree.
+ * * Right skewed binary tree.
  *
  * ## Time Complexity
  *
@@ -149,7 +173,7 @@ import courses.uc.course02dataStructures.module05binarySearchTrees.BuildAndTrave
  *
  * ## Coursera's Grader Output
  * ```
- *
+ * Good job! (Max time used: 0.68/1.50, max memory used: 129232896/2147483648.)
  * ```
  */
 class BuildAndTravelBst {
@@ -184,7 +208,7 @@ class BuildAndTravelBst {
     fun getInOrder(nodes: Array<Node>): List<Int> {
         if (nodes.isEmpty()) return emptyList()
         var currentNodeIndex = 0
-        val stack = ArrayDeque<Node>()
+        val stack = ArrayDeque<Int>()
         val result = mutableListOf<Int>()
         // Did you understand these two conditions?
         // We can't just have `stack.isNotEmpty()`, because initially, the stack is empty only!
@@ -194,11 +218,12 @@ class BuildAndTravelBst {
         // So, if we had only one condition: `stack.isNotEmpty()`, we could not have processed the right sub-tree.
         while (currentNodeIndex != -1 || stack.isNotEmpty()) {
             while (currentNodeIndex != -1) {
+                stack.addLast(currentNodeIndex)
                 val currentNode = nodes[currentNodeIndex]
-                stack.addLast(currentNode)
                 currentNodeIndex = currentNode.leftChildIndex
             }
-            val poppedNode = stack.removeLast()
+            val poppedNodeIndex = stack.removeLast()
+            val poppedNode = nodes[poppedNodeIndex]
             result.add(poppedNode.key)
             currentNodeIndex = poppedNode.rightChildIndex
         }
@@ -211,16 +236,17 @@ class BuildAndTravelBst {
     fun getPostOrder(nodes: Array<Node>): List<Int> {
         if (nodes.isEmpty()) return emptyList()
         val result = mutableListOf<Int>()
-        val stack = ArrayDeque<Node>()
-        stack.addLast(nodes[0])
+        val stack = ArrayDeque<Int>()
+        stack.addLast(0)
         while (stack.isNotEmpty()) {
-            val poppedNode = stack.removeLast()
+            val poppedNodeIndex = stack.removeLast()
+            val poppedNode = nodes[poppedNodeIndex]
             result.add(poppedNode.key)
             if (poppedNode.leftChildIndex != -1) {
-                stack.addLast(nodes[poppedNode.leftChildIndex])
+                stack.addLast(poppedNode.leftChildIndex)
             }
             if (poppedNode.rightChildIndex != -1) {
-                stack.addLast(nodes[poppedNode.rightChildIndex])
+                stack.addLast(poppedNode.rightChildIndex)
             }
         }
         return result.reversed()
