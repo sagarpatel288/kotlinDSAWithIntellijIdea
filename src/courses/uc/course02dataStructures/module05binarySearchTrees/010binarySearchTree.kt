@@ -181,7 +181,13 @@ class BuildAndTravelBst {
     data class Node(val key: Int, val leftChildIndex: Int, val rightChildIndex: Int)
 
     /**
-     * Pre-Order = Parent(Root)-Left-Right
+     * **Pre-Order = Parent(Root)-Left-Right**
+     * * Start with the root node.
+     * * Initially, push the root node to the stack.
+     * 1. Pop and add it to the result.
+     * 2. If the popped node has a right child, push it to the stack.
+     * 3. If the popped node has a left child, push it to the stack.
+     * 4. Repeat steps 1 to 3 until the stack is empty.
      */
     fun getPreOrder(nodes: Array<Node>): List<Int> {
         if (nodes.isEmpty()) return emptyList()
@@ -205,7 +211,14 @@ class BuildAndTravelBst {
     }
 
     /**
-     * In-Order = Left-Parent(Root)-Right
+     * **In-Order = Left-Parent(Root)-Right**
+     * * Start with the root node.
+     * * Set the current node to the root node.
+     * 1. If the node is valid, push it to the stack.
+     * 2. After push, set the current node to the left child of the pushed node.
+     * 3. If the node is invalid (null or -1, etc.), pop and add it to the result.
+     * 4. After pop, set the current node to the right child of the popped node.
+     * 5. Repeat steps 1 to 4 as long as the current node is valid or the stack is not empty.
      */
     fun getInOrder(nodes: Array<Node>): List<Int> {
         if (nodes.isEmpty()) return emptyList()
@@ -233,7 +246,20 @@ class BuildAndTravelBst {
     }
 
     /**
-     * Post-Order-Traversal: Left-Right-Parent(root)
+     * **Post-Order-Traversal: Left-Right-Parent(root)**
+     * ---
+     * > The Trick:
+     * > Pre-Order: Parent(Root)-Left-Right
+     * > Modified Pre-Order: Parent(Root)-Right-Left
+     * > Return the reversed result of the modified pre-order
+     * ---
+     * * Start with the root node.
+     * * Initially, push the root node to the stack.
+     * 1. Pop and add it to the result.
+     * 2. If the popped node has a left child, push it to the stack.
+     * 3. If the popped node has a right child, push it to the stack.
+     * 4. Repeat steps 1 to 3 until the stack is empty.
+     * 5. Return the reversed result.
      */
     fun getPostOrder(nodes: Array<Node>): List<Int> {
         if (nodes.isEmpty()) return emptyList()
