@@ -185,6 +185,8 @@ class BuildAndTravelBst {
      */
     fun getPreOrder(nodes: Array<Node>): List<Int> {
         if (nodes.isEmpty()) return emptyList()
+        // Can you explain why did we take the type `Int` instead of `Node`?
+        // To keep it light.
         val result = mutableListOf<Int>()
         val stack = ArrayDeque<Int>()
         stack.addLast(0)
@@ -235,6 +237,8 @@ class BuildAndTravelBst {
      */
     fun getPostOrder(nodes: Array<Node>): List<Int> {
         if (nodes.isEmpty()) return emptyList()
+        // Can you explain why did we take the type `Int` instead of `Node`?
+        // To keep it light.
         val result = mutableListOf<Int>()
         val stack = ArrayDeque<Int>()
         stack.addLast(0)
@@ -279,6 +283,8 @@ fun main() {
     }
     val nodes = Array<Node>(total) { Node(0, -1, -1) }
     repeat(total) {
+        // Notice that we read line every time and then generate the token.
+        // Can you explain why?
         val line = reader.readLine()
         if (line == null) {
             traversal.onEmptyOrNullInput()

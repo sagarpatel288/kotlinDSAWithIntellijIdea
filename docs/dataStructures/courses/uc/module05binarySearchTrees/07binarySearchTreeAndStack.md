@@ -854,18 +854,21 @@ return result.reverse()
 
 ### Time Complexity
 
-
+* `O(n)` for each operation, because we visit each node once for every operation.
+* So, `Pre-Order` takes `O(n)`.
+* `In-Order` takes `O(n)`.
+* `Post-Order` takes `O(n)`.
 
 ### Space Complexity
 
-
+* The stack uses `O(h)` where `h` is the height of the binary tree.
+* Notice that the maximum size of the stack depends on the tree structure.
+* In the worst case, the tree is skewed and `O(h)` = `O(n)`.
+* In the best case, the tree is balanced and `O(h)` = `O(log n)`.
 
 ## ToDos
 
-* Each step for each order (Top to bottom comparison)
-    * 1 -> Pre-Order: Image + Relevant Code
-    * 2 -> In-Order: Image + Relevant Code
-    * 3 -> Post-Order: Image + Relevant Code
+* 
 
 ## Next
 
