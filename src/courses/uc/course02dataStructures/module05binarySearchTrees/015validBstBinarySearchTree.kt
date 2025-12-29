@@ -4,7 +4,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.ArrayDeque
 import java.util.StringTokenizer
-import courses.uc.course02dataStructures.module05binarySearchTrees.ValidBinarySearchTree.Node
+import courses.uc.course02dataStructures.module05binarySearchTrees.ValidateBinarySearchTree.Node
 
 /**
  * # Prerequisites:
@@ -92,11 +92,11 @@ import courses.uc.course02dataStructures.module05binarySearchTrees.ValidBinarySe
  * Good job! (Max time used: 0.26/3.00, max memory used: 71426048/2147483648.)
  * ```
  */
-class ValidBinarySearchTree {
+class ValidateBinarySearchTree {
 
     data class Node(val key: Int, val leftChildIndex: Int, val rightChildIndex: Int)
 
-    fun validBst(nodes: Array<Node>): Boolean {
+    fun isValidBst(nodes: Array<Node>): Boolean {
         if (nodes.isEmpty()) return true
         var prevKey = Int.MIN_VALUE
         val stack = ArrayDeque<Int>()
@@ -142,8 +142,8 @@ fun main() {
         val rightChildIndex = token.nextToken().toInt()
         nodes[index] = Node(key, leftChildIndex, rightChildIndex)
     }
-    val validater = ValidBinarySearchTree()
-    val result = validater.validBst(nodes)
+    val validater = ValidateBinarySearchTree()
+    val result = validater.isValidBst(nodes)
     if (result) {
         println("CORRECT")
     } else {
