@@ -836,5 +836,6 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 ## Next
 
 * [Red-Black Trees](80redBlackTrees.md)
+* [Morris Traversal](90morrisTraversal.md)
 * Tries?
 * B+ Trees?
