@@ -64,6 +64,12 @@ import java.util.ArrayDeque
  * * The second line should contain the keys of the vertices in the pre-order traversal of the tree.
  * * The third line should contain the keys of the vertices in the post-order traversal of the tree.
  *
+ * ### Time Limit
+ *
+ * | language   	| C 	| C++ 	| Java 	| Python 	| C# 	| Haskell 	| JavaScript 	| Ruby 	| Scala 	|
+ * |------------	|---	|-----	|------	|--------	|----	|---------	|------------	|------	|-------	|
+ * | time (sec) 	| 2 	| 2   	| 3    	| 10     	| 3  	| 4       	| 10         	| 10   	| 6     	|
+ *
  * ### Memory Limit
  *
  * * 512MB
@@ -136,6 +142,20 @@ import java.util.ArrayDeque
  * * The heap memory is large and flexible.
  * * We decide and control the size of our manual stack.
  * * We don't store additional data like function metadata, and call(return) addresses.
+ *
+ * ## Why didn't we use a queue instead of a deque (stack)?
+ *
+ * * A queue follows FIFO.
+ * * No matter what, when, and how we deque an item, we always end up getting the oldest item in the output.
+ * * In this way, we cannot mimic any BST-Traversal orders using the queue alone.
+ * * ToDO: Improve and Finish.
+ *
+ * ## Why don't we compare only the immediate left child, the node, and the immediate right child?
+ *
+ * * The definition of a binary search tree (BST) says that:
+ * > The node (root, parent) must be greater than the entire left subtree, and smaller than the entire right subtree.
+ * * Clearly, it is not limited to a single immediate child.
+ * * We need to compare the entire subtrees.
  *
  * ## What will be the difference in having `nodes` as a class constructor once Vs. each method (function) parameter?
  *
