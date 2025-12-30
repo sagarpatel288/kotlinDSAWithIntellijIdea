@@ -28,7 +28,7 @@
 * [AVL Merge](30avlTreeMergeOperation.md)
 * [AVL Split](40avlTreeSplitOperation.md)
 * [Find Kth Smallest Using An AVLTree](50avlTreeFindKthSmallKey.md)
-* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
+* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
 ## Problem Statement
 

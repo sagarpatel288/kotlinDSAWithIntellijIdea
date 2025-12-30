@@ -28,7 +28,7 @@
 * [AVL Delete](25avlTreeDeleteOperation.md)
 * [AVL Merge](30avlTreeMergeOperation.md)
 * [AVL Split](40avlTreeSplitOperation.md)
-* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
+* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
 ## Thought Process
 
@@ -144,7 +144,7 @@ fun findKthSmallestKey(node: AvlNode, k: Int): AvlNode {
 * For example, every time we perform the `rotation`, we need to ensure that we also update the `size` field.
 * Check the implementation here: 
 
-[010avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
+[010avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
 * It follows the same order in which we update the height field.
 * So, first we update the size of the child node, and then the parent.
