@@ -35,7 +35,7 @@
 * [AVL Insert](20avlTreeInsertOperation.md)
 * [AVL Delete](25avlTreeDeleteOperation.md)
 * [AVL Merge](30avlTreeMergeOperation.md)
-* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
+* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
 ## The Problem Statement
 
@@ -349,7 +349,7 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
 * **So, how do we merge two `AvlTrees`?**
 * Prerequisites/Reference: The `merge` process is already implemented below:
 
-* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
+* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
 ```mermaid
 ---

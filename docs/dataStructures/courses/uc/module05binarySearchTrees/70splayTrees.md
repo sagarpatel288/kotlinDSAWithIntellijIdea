@@ -81,7 +81,7 @@
 * [AVL Split](40avlTreeSplitOperation.md)
 * [Find Kth Smallest Using An AVLTree](50avlTreeFindKthSmallKey.md)
 * [Flip the values using an AVLTree](60flipReplaceWithAvlTree.md)
-* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
+* [avlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 * [Splay Tree Introduction By Jenny's Lectures](https://youtu.be/qMmqOHr75b8?si=o84h4uQAOPIwNALb)
 * [Splay Tree: Insert Operation By Jenny's Lectures](https://youtu.be/1HeIZNP3w4A?si=s0xuQMVg8OBzpmP8)
 * [Splay Tree: Delete Operation Bottom-Up Splaying By Jenny's Lectures](https://youtu.be/ewRSYHStdSA?si=aVfdewuntlW501EE)
@@ -285,7 +285,7 @@ fun rotateLeft(parent: Node<T>) {
 
 ## Introduction
 
-* [AVLTrees](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020avlTreeImplementation.kt)
+* [AVLTrees](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
   are strictly balanced binary search trees.
 * Splay trees are roughly balanced binary search trees.
 * //ToDo: Elaborate
@@ -624,7 +624,7 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 
 ## Implementation
 
-[splayTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030splayTreeImplementation.kt)
+[splayTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/040splayTreeImplementation.kt)
 
 ## Amortized Analysis: Potential Theory
 
