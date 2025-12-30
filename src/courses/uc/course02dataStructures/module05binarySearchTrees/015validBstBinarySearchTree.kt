@@ -77,6 +77,16 @@ import courses.uc.course02dataStructures.module05binarySearchTrees.ValidateBinar
  * description), output one word “CORRECT” (without quotes).
  * * Otherwise, output one word “INCORRECT” (without quotes).
  *
+ * ### Time Limit
+ *
+ * | language   	| C 	| C++ 	| Java 	| Python 	| C# 	| Haskell 	| JavaScript 	| Ruby 	| Scala 	|
+ * |------------	|---	|-----	|------	|--------	|----	|---------	|------------	|------	|-------	|
+ * | time (sec) 	| 2 	| 2   	| 3    	| 10     	| 3  	| 4       	| 10         	| 10   	| 6     	|
+ *
+ * ### Memory Limit
+ *
+ * * 512MB
+ *
  * ## Time Complexity
  *
  * * `O(n)` as we visit each node once.
