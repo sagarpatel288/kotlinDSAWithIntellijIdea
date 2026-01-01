@@ -13,6 +13,7 @@
     * [Time Limit](#time-limit)
     * [Memory Limit](#memory-limit)
     * [Solution: Thought Process](#solution-thought-process)
+    * [Summary](#summary)
     * [Time Complexity](#time-complexity)
     * [Space Complexity](#space-complexity)
     * [Code](#code)
@@ -478,6 +479,25 @@
 
 * We have covered (traveled) the entire tree.
 * And we found that each node is a valid node.
+
+### Summary
+
+* We check each node until we find an invalid node.
+* If we find an invalid node at any point, we declare the tree as an invalid binary search tree.
+* If we do not find any invalid node, and we cover (travel) the entire tree, we declare the tree as a valid binary search tree.
+* To cover each node, we follow one of the BST traversal orders.
+* We follow the `Pre-Order` traversal.
+* We start with the root and initial boundaries.
+* The initial boundaries are: `min = Long.MIN_VALUE, max = Long.MAX_VALUE`.
+* We push the root node along with the boundaries.
+1. Pop and validate the node using the attached boundaries.
+2. If the node is invalid, abort, return, and declare the tree as an invalid binary search tree.
+3. If the valid popped node has a right child, we push it (the right child).
+4. When we push the right child, the key (value) of the popped ndoe becomes the `min`, and the `max` remains the same as of the popped node.
+5. After the right child, if the valid popped node has a left child, we push it (the left child).
+6. When we push the left child, the key (value) of the popped node becomes the `max`, and the `min` remains the same as of the popped node.
+7. Repeat steps 1 to 6 until the stack becomes empty.
+8. If the stack is empty (we covered the entire tree and found no invalid node), return and declare the tree as a valid binary search tree.
 
 ### Time Complexity
 
