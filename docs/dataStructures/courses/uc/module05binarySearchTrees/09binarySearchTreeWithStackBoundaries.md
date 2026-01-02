@@ -14,9 +14,11 @@
     * [Memory Limit](#memory-limit)
     * [Solution: Thought Process](#solution-thought-process)
     * [Summary](#summary)
+    * [Pseudocode](#pseudocode)
     * [Time Complexity](#time-complexity)
     * [Space Complexity](#space-complexity)
-    * [Code](#code)
+    * [Relevant Questions](#relevant-questions)
+    * [Next](#next)
 <!-- TOC -->
 
 > left subtree < parent <= right subtree 
@@ -84,17 +86,163 @@
 
 ### Solution: Thought Process
 
-* We cannot use the previous solution: [Validate BinarySearchTree](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/015validBstBinarySearchTree.kt).
-  * Because how do we compare and validate the case where a deep node from the right subtree can be equal to the anscestor, where the ancestor doesn't have to be an immediate parent.
-  * The ancestor can be a grand-parent or grand-grand-parent, and so on.
+* The data that we are going to read:
+
+```kotlin
+
+data class Node(val key: Long, val leftChildIndex: Int, val rightChildIndex: Int)
+```
+
+* So, we will read and store all the input data to the:
+
+```kotlin
+
+val nodes = Array<Node>(total) { Node(0, -1, -1) }
+
+```
+
+* We have a clear definition of what to check and how to validate:
+
+> For any node of the tree, if its key is 𝑥, then for any
+node in its left subtree its key must be strictly less than 𝑥, and for any node in its right subtree its key
+must be greater than or equal to 𝑥. In other words, smaller elements are to the left, bigger elements
+are to the right, and duplicates are always to the right. You need to check whether the given binary
+tree structure satisfies this condition.
+
+* Note that the immediate comparison alone and only does not work here.
+* For example:
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TB
+    A(("50")) --> n1(("40")) & n2(("60"))
+    n1 --> n3(("30")) & n4(("45"))
+    n4 --> n5(("42")) & n6(("55"))
+
+    style n6 stroke:#D50000,color:#D50000
+```
+
+* In the given example above, the left subtree of `50` has deep down a node, `55` that is greater than `50`.
+* The definition of a valid binary search tree in the problem says that **any node** in its left subtree must be strictly smaller.
+* Hence, the given example is an invalid binary search tree.
+* So, the naive approach where we might be tempted to compare only the immediate left child and right child fails here.
+* And keeping the reference of each node for its entire left and right subtrees is also not an optimal way to solve this problem.
+* This is the same reason we cannot use the previous solution: [Validate BinarySearchTree](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/015validBstBinarySearchTree.kt) either.
+* For example:
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TB
+    A(("50")) --> n1(("40")) & n2(("60"))
+    n1 --> n3(("30")) & n4(("45"))
+    n4 --> n5(("42")) & n6(("50"))
+
+    style n6 stroke:#D50000,color:#D50000
+``` 
+* The simple `in-order` traversal and checking the sorted (ascending order) output fails here.
+* Because the `in-order` output is: `30, 40, 42, 45, 50, 50, 60`.
+* How do we decide the relationship between these two `50, 50`?
+* How do we decide which one is a child and which one is a parent out of these two `50, 50`?
+* How do we decide if the child is a left child or a right child?
+* How do we get to know that one of these two `50, 50`, one is a left child and one is a parent, and hence, it is an invalid binary search tree?
+  * Similarly, how do we compare and validate the case where a deep node from the right subtree can be equal to the ancestor, where the ancestor doesn't have to be an immediate parent.
+  * The ancestor can be a grandparent or grand-grand-parent, and so on.
   * In the previous solution, we used a stack, and followed the `in-order` traversal.
   * Every time we pop a node, we compare it with the previous key and check that the recently popped key must be greater than the previous key.
   * And then, we update the previous key.
-  * When we pop a node, we cannot know whether it is a left child or a right child or a deep right child to some really old ancestor.
+  * When we pop a node, we cannot know whether it is a left child or a right child or a deep right child to some older or oldest ancestor.
   * All we get is a sorted list in ascending order.
   * So, we only know about the previous key, but not the relation.
+  * The simple `in-order` traversal gives an ascending sorted order output, and it works only if the binary search tree definition is strictly: `left < key < right` and no duplicate is allowed.
   * In this new problem, we need to compare the value of a key with its parent to ensure that the value is within the given boundaries. 
-* Here, we use the given rule to create boundaries for each node.
+* However, there is a definite pattern in a valid binary search tree.
+* For example:
+
+![09bstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
+
+* There is an interesting pattern here.
+* We can see that each node has certain lower and upper boundaries.
+* For example, in the above given image of a valid binary search tree, `40` is a left child of `50`.
+* So, `40` must be smaller than `50`.
+* It means that `40` gets upper boundary.
+* However, the lower boundary for `40` is infinite.
+* Now, if we start with the root node, the lower boundary of `50` is also infinite.
+* It means that the left child of `50`, that is the node `40`, took (inherited) the lower boundary of the parent `50` and updated the upper boundary to the parent.
+* Let us revise this pattern.
+* `50` is the root node. 
+* The root node has initial boundaries as: `Long.MIN_VALUE` and `Long.MAX_VALUE`.
+* So, for the root node, both lower and upper boundaries are infinite.
+> 50 (key = 50, min = Long.MIN_VALUE, max = Long.MAX_VALUE)
+* Now, the left child of `50` is `40`.
+* And the lower boundary of `40` is the same as the lower boundary of its parent, that is `Long.MIN_VALUE`.
+* But the upper boundary of `40` equals to the parent key.
+* So, the upper boundary of `40` is `50`.
+> 40 (key = 40, min = Long.MIN_VALUE, max = 50)
+* It means that for a left child:
+> parent.min <= leftChild.key < parent.key
+* To validate our assumption, we can continue going left side and check if this pattern continues.
+* The left child of `40` must be strictly smaller than `40`.
+* So, the upper bound (max) of `40.leftChild` is `40`.
+* And the left child of `40` inherits the lower bound from the parent.
+* Now, the left child of `40` is `30`.
+* And `Long.MIN_VALUE <= 30 < 40`.
+> 30 (key = 30, min = Long.MIN_VALUE, max = 40)
+* So, the pattern continued.
+* Now, let us check the right subtree.
+* We can start with any node.
+* We start with the root node.
+> 50 (key = 50, min = Long.MIN_VALUE, max = Long.MAX_VALUE)
+* Now, the right child of `50` must be greater than or equal to `50`.
+* In other words, the right child of `50` must be at least `50`.
+* That is the lower bound.
+* The right child of `50` is `60`.
+* The lower bound (min) of `60` is `50`.
+* And it inherits the upper bound (max) from the parent.
+> 60 (key = 60, min = 50, max = Long.MAX_VALUE)
+* So, for a right child, the boundary becomes:
+> parent.key <= rightChild.Key < parent.max
+* To validate our assumption, we can continue going right side and check if the pattern continues.
+* The right child of `60` must be equal to or greater than `60`.
+* In other words, `60.rightChild` must be at least `60`.
+* That is the lower boundary (min).
+* And it inherits the upper boundary (max) from the parent.
+* Now, the right child of `60` is `70`.
+> 70 (key = 70, min = 60, max = Long.MAX_VALUE)
+* The pattern continued.
+* We can test this pattern for any nested node.
+* For example, the leaf node `43` is a left child of `45`.
+* So, the upper boundary (max) of `43` is `45`.
+* And it inherits the lower boundary from the parent, `45`.
+* We get the lower boundary if the node is a right child.
+* `45` is a right child of `40`.
+* So, the lower boundary (min, equal to or greater than) of `45` is `40`.
+* `43` is a left child of `45`.
+* Hence, it inherits the lower boundary from `45`.
+* So, `43` must be at least (min, equal to or greater than) `40`. 
+> 40 <= 43 < 45
+* This is indeed, a valid equation, even for a deep (leaf) node.
+* It means that each node has a specific lower and upper boundaries. 
+* And we can pass these boundaries to a child depending upon the position (left or right) of the child.
+* The interesting and impressive benefit here is that we don't have to keep record of each node.
+* Because we can attach and pass these boundaries from a parent node to a child node and once we are done with that, we no longer need to hold the parent.
+* We just continue doing this until we find an invalid node (that breaks the boundaries) or cover the entire tree.
+> 1. For a left child, the parent.key becomes the max boundary, and it inherits the min boundary from the parent.  
+> 2. For a right child, the parent.key becomes the min boundary, and it inherits the max boundary from the parent.  
+> 3. For a valid node: `min <= key < max`
+> 4. The `min <= key` part indicates that the `key` is a right child of the `min`, where `min` is the `parent.key`.
+> 5. The `key < max` part indicates that the `key` is a left child of the `max`, where `max` is the `parent.key`.
+> 6. If any one of these conditions fails, the node (The `key` part in the equation) is an invalid node and hence, it is an invalid binary search tree. 
+* We use the given rule to create boundaries for each node.
 * We push a node along with its boundaries.
 * When we pop, we compare the node key with its boundaries.
 * We can follow any traversal order to cover the entire tree.
@@ -499,6 +647,43 @@
 7. Repeat steps 1 to 6 until the stack becomes empty.
 8. If the stack is empty (we covered the entire tree and found no invalid node), return and declare the tree as a valid binary search tree.
 
+### Pseudocode
+
+```kotlin
+
+data class Node(val key: Long, val leftChildIndex: Int, val rightChildIndex: Int)
+
+data class NodeWithBoundaries(val index: Int, val min: Long, val max: Long)
+
+fun isValidBst(nodes: Array<Node>): Boolean {
+  if (nodes.isEmpty()) return true
+  val stack = ArrayDeque<NodeWithBoundaries>()
+  val nodeWithBoundaries = NodeWithBoundaries(currentIndex, Long.MIN_VALUE, Long.MAX_VALUE)
+  while (stack.isNotEmpty()) {
+    val nodeState = stack.pop()
+    val originalNode = nodes[nodeState.index]
+    val key = originalNode.key
+    val min = nodeState.min
+    val max = nodeState.max
+    if (key < min || key >= max) {
+      return false
+    }
+    if (originalNode.rightChildIndex != -1) {
+      stack.push(
+        NodeWithBoundaries(originalNode.rightChildIndex, key, max)
+      )
+    }
+    if (originalNode.leftChildIndex != -1) {
+        stack.push(
+            NodeWithBoundaries(originalNode.leftChildIndex, min, key)
+        )
+    }
+  }
+  return true
+}
+
+```
+
 ### Time Complexity
 
 * We visit each node once.
@@ -510,4 +695,31 @@
 * So, in the worst case (A skewed binary tree), `O(h) = O(n)`.
 * And in the best case (A perfectly balanced binary tree), `O(h) = O(log n)`.
 
-### Code
+### Relevant Questions
+
+> Validation variants
+* Validate a BST (no duplicates).
+* Validate a BST (duplicates on the left side).
+* Validate a BST (duplicates on the right side).
+* Validate a BST using the Morris Traversal.
+* Validate a BST using parent pointers.
+* Validate a BST when only child pointers are known (No parent pointers).
+* Validate a BST in streaming (progressive, step-by-step) input (add, remove, swap, split, join, etc.).
+
+> BST Range/Constraint
+* Count nodes in a given range. 
+* Range sum of BST.
+* Trim BST to a range.
+* Validate a BST after a node is added or removed.
+
+> BST Structural
+* Lowest Common Ancestor (LCA) in BST.
+* Kth smallest or largest element.
+* Convert a sorted array to BST.
+* Convert a BST to a sorted DLL.
+* Recover a BST after swapping two nodes. 
+
+> Other
+* 
+
+### Next
