@@ -10,21 +10,22 @@
   * [Input Format](#input-format)
   * [Constraints](#constraints)
   * [Output Format](#output-format)
-    * [Time Limit](#time-limit)
-    * [Memory Limit](#memory-limit)
-    * [Solution: Thought Process](#solution-thought-process)
+  * [Time Limit](#time-limit)
+  * [Memory Limit](#memory-limit)
+  * [Solution: Thought Process](#solution-thought-process)
     * [Summary](#summary)
     * [Pseudocode](#pseudocode)
     * [Beads](#beads)
-    * [Time Complexity](#time-complexity)
-    * [Space Complexity](#space-complexity)
-    * [Questions](#questions)
-      * [Can we follow any other way to cover the entire tree than the `Pre-Order` traversal? Will it make any difference? Does it work?](#can-we-follow-any-other-way-to-cover-the-entire-tree-than-the-pre-order-traversal-will-it-make-any-difference-does-it-work)
-      * [What would `min < key <= max` mean?](#what-would-min--key--max-mean)
-      * [What would `min < key < max` mean?](#what-would-min--key--max-mean-1)
-      * [Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?](#why-didnt-we-use-the-simple-in-order-traversal-where-we-can-simply-compare-a-parent-and-a-child-doesnt-it-work)
-    * [Relevant DSA Questions](#relevant-dsa-questions)
-    * [Next](#next)
+  * [Time Complexity](#time-complexity)
+  * [Space Complexity](#space-complexity)
+  * [Questions](#questions)
+    * [Can we follow any other way to cover the entire tree than the `Pre-Order` traversal? Will it make any difference? Does it work?](#can-we-follow-any-other-way-to-cover-the-entire-tree-than-the-pre-order-traversal-will-it-make-any-difference-does-it-work)
+    * [What would `min < key <= max` mean?](#what-would-min--key--max-mean)
+    * [What would `min < key < max` mean?](#what-would-min--key--max-mean-1)
+    * [Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?](#why-didnt-we-use-the-simple-in-order-traversal-where-we-can-simply-compare-a-parent-and-a-child-doesnt-it-work)
+  * [Relevant DSA Questions](#relevant-dsa-questions)
+  * [ToDos](#todos)
+  * [Next](#next)
 <!-- TOC -->
 
 > left subtree < parent <= right subtree 
@@ -78,7 +79,7 @@
 * one word “CORRECT” (without quotes).
 * Otherwise, output one word “INCORRECT” (without quotes).
 
-### Time Limit
+## Time Limit
 
 ```markdown
 | language   	| C 	| C++ 	| Java 	| Python 	| C# 	| Haskell 	| JavaScript 	| Ruby 	| Scala 	|
@@ -86,11 +87,11 @@
 | time (sec) 	| 2 	| 2   	| 3    	| 10     	| 3  	| 4       	| 10         	| 10   	| 6     	|
 ```
 
-### Memory Limit
+## Memory Limit
 
 * 512 MB
 
-### Solution: Thought Process
+## Solution: Thought Process
 
 * The data that we are going to read:
 
@@ -705,20 +706,20 @@ fun isValidBst(nodes: Array<Node>): Boolean {
 * The `key < max` part indicates that the `key` is a left child, and the `max` is the `parent.key`. It translates into: "The left child must be strictly smaller than the parent."
 * 
 
-### Time Complexity
+## Time Complexity
 
 * We visit each node once.
 * So, the time complexity is `O(n)`.
 
-### Space Complexity
+## Space Complexity
 
 * We use a stack and the maximum size of the stack would be `O(h)`, where `h = Tree Height`.
 * So, in the worst case (A skewed binary tree), `O(h) = O(n)`.
 * And in the best case (A perfectly balanced binary tree), `O(h) = O(log n)`.
 
-### Questions
+## Questions
 
-#### Can we follow any other way to cover the entire tree than the `Pre-Order` traversal? Will it make any difference? Does it work?
+### Can we follow any other way to cover the entire tree than the `Pre-Order` traversal? Will it make any difference? Does it work?
 
 * Yes. We can follow any approach to cover the entire tree.
 * The approach to cover the tree is not important here.
@@ -735,19 +736,19 @@ fun isValidBst(nodes: Array<Node>): Boolean {
 * Other nodes like `50`, `40`, `30`, etc. have to wait for the validation.
 * So, a particular approach might make a `constant` difference in the time complexity, but it works as long as the validation logic is correct (right).
 
-#### What would `min < key <= max` mean?
+### What would `min < key <= max` mean?
 
 * The `min < key` part indicates that the right node must be strictly greater than the parent node.
 * The `key <= max` part indicates that the left node must be equal to or less than the parent node.
 
-#### What would `min < key < max` mean?
+### What would `min < key < max` mean?
 
 * It is the ideal binary search tree condition, where a duplicate key is not allowed.
 * The `min < key` part says that the right child must be strictly greater than the parent node.
 * The `key < max` part says that the left child must be strictly smaller (less) than the parent node.
 * Again, no duplicate keys are allowed.
 
-#### Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?
+### Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?
 
 * Comparing an immediate parent and immediate child is not enough, because we have to confirm the entire subtree.
 * We need to ensure that the `Any node of the entire left subtree < parent.key <= Any node of the entire right subtree`.
@@ -781,7 +782,7 @@ flowchart TB
 * So, the valid condition `min <= key < max` fails here.
 * And we correctly conclude it as an invalid binary search tree.
 
-### Relevant DSA Questions
+## Relevant DSA Questions
 
 > Validation variants
 * Validate a BST (no duplicates).
@@ -808,4 +809,6 @@ flowchart TB
 > Other
 * 
 
-### Next
+## ToDos
+
+## Next
