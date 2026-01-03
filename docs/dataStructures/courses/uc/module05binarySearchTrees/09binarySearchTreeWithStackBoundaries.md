@@ -15,9 +15,15 @@
     * [Solution: Thought Process](#solution-thought-process)
     * [Summary](#summary)
     * [Pseudocode](#pseudocode)
+    * [Beads](#beads)
     * [Time Complexity](#time-complexity)
     * [Space Complexity](#space-complexity)
-    * [Relevant Questions](#relevant-questions)
+    * [Questions](#questions)
+      * [Can we follow any other way to cover the entire tree than the `Pre-Order` traversal? Will it make any difference? Does it work?](#can-we-follow-any-other-way-to-cover-the-entire-tree-than-the-pre-order-traversal-will-it-make-any-difference-does-it-work)
+      * [What would `min < key <= max` mean?](#what-would-min--key--max-mean)
+      * [What would `min < key < max` mean?](#what-would-min--key--max-mean-1)
+      * [Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?](#why-didnt-we-use-the-simple-in-order-traversal-where-we-can-simply-compare-a-parent-and-a-child-doesnt-it-work)
+    * [Relevant DSA Questions](#relevant-dsa-questions)
     * [Next](#next)
 <!-- TOC -->
 
@@ -635,15 +641,16 @@ flowchart TB
 * If we do not find any invalid node, and we cover (travel) the entire tree, we declare the tree as a valid binary search tree.
 * To cover each node, we follow one of the BST traversal orders.
 * We follow the `Pre-Order` traversal.
+* Note that the algorithm (the core logic) has nothing strictly tied up with a particular order. It is just a preference or convention out of many other ways to cover the entire tree.
 * We start with the root and initial boundaries.
 * The initial boundaries are: `min = Long.MIN_VALUE, max = Long.MAX_VALUE`.
 * We push the root node along with the boundaries.
 1. Pop and validate the node using the attached boundaries.
 2. If the node is invalid, abort, return, and declare the tree as an invalid binary search tree.
 3. If the valid popped node has a right child, we push it (the right child).
-4. When we push the right child, the key (value) of the popped ndoe becomes the `min`, and the `max` remains the same as of the popped node.
+4. For a right child, the `parent.key` becomes the `min`, and the right child inherits the `max` from the parent. This is intuitive because as we go right, the `min` might increase.
 5. After the right child, if the valid popped node has a left child, we push it (the left child).
-6. When we push the left child, the key (value) of the popped node becomes the `max`, and the `min` remains the same as of the popped node.
+6. For a left child, the `parent.key` becomes the `max`, and it inherits the `min` from the parent. This is intuitive because as we go left, the `max` decreases.
 7. Repeat steps 1 to 6 until the stack becomes empty.
 8. If the stack is empty (we covered the entire tree and found no invalid node), return and declare the tree as a valid binary search tree.
 
@@ -684,6 +691,20 @@ fun isValidBst(nodes: Array<Node>): Boolean {
 
 ```
 
+### Beads
+
+* For a valid binary search tree, each node is naturally constrained by certain boundaries. 
+* We attach boundaries for each node so that we don't have to check whether the node is a left, or a right child, and what is the value of its parent, etc.
+* To attach the boundaries to a node, we need the parent node and the child node. Once we attach the boundaries to the child node, we can move on. We don't need to hold and keep the reference of the parent. The process continues.
+* As the process continues, the boundaries for each node keeps changing as per the definition of the binary search tree.
+* If it is a right child, we know that it must be greater than or equal to the parent. That is, we know the minimum value, the lower bound of the right child.
+* Similarly, if it is a left child, we know that it must be smaller than the parent. That is, the maximum value, the upper bound of the left child.
+* We push a node along with its boundaries so that whenever we pop the node, we can validate it using its attached boundaries.
+* Did you understand this condition: `min <= key < max`?
+* The `min <= key` part indicates that the `key` is a right child, and the `min` is the `parent.key`. Essentially, it translates into: "The right child must be greater than or equal to the parent."
+* The `key < max` part indicates that the `key` is a left child, and the `max` is the `parent.key`. It translates into: "The left child must be strictly smaller than the parent."
+* 
+
 ### Time Complexity
 
 * We visit each node once.
@@ -695,7 +716,72 @@ fun isValidBst(nodes: Array<Node>): Boolean {
 * So, in the worst case (A skewed binary tree), `O(h) = O(n)`.
 * And in the best case (A perfectly balanced binary tree), `O(h) = O(log n)`.
 
-### Relevant Questions
+### Questions
+
+#### Can we follow any other way to cover the entire tree than the `Pre-Order` traversal? Will it make any difference? Does it work?
+
+* Yes. We can follow any approach to cover the entire tree.
+* The approach to cover the tree is not important here.
+* The important part is that we validate a node properly.
+* The `Pre-Order` is a `fail-fast` approach compared to `in-order` or `post-order`.
+* Because, in the `pre-order`, we don't have to wait to validate the node that we visit.
+* For example, if we use `in-order`, we have to go deep down to cover the left leaf child first. 
+
+![09bstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
+
+* For the given image, we have to validate `25` first before `40`.
+* This process forces us to delay the validation of all the other nodes we visited (came across) while reaching the last left leaf child, `25`.
+* Because the first `pop` operation happens only after we cover the last left leaf child in the `in-order` traversal.
+* Other nodes like `50`, `40`, `30`, etc. have to wait for the validation.
+* So, a particular approach might make a `constant` difference in the time complexity, but it works as long as the validation logic is correct (right).
+
+#### What would `min < key <= max` mean?
+
+* The `min < key` part indicates that the right node must be strictly greater than the parent node.
+* The `key <= max` part indicates that the left node must be equal to or less than the parent node.
+
+#### What would `min < key < max` mean?
+
+* It is the ideal binary search tree condition, where a duplicate key is not allowed.
+* The `min < key` part says that the right child must be strictly greater than the parent node.
+* The `key < max` part says that the left child must be strictly smaller (less) than the parent node.
+* Again, no duplicate keys are allowed.
+
+#### Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?
+
+* Comparing an immediate parent and immediate child is not enough, because we have to confirm the entire subtree.
+* We need to ensure that the `Any node of the entire left subtree < parent.key <= Any node of the entire right subtree`.
+* The immediate parent and immediate child do not cover and check deep nodes of a subtree.
+* Hence, it can produce a wrong result.
+* For example:
+
+```mermaid
+---
+config:
+  theme: redux
+  flowchart:
+    curve: linear
+---
+flowchart TB
+    A(("50")) --> n1(("40")) & n2(("60"))
+    n1 --> n3(("30")) & n4(("45"))
+    n4 --> n5(("42")) & n6(("50"))
+
+    style n6 stroke:#D50000,color:#D50000
+``` 
+
+* Here, `50` is a right child of `45`. 
+* The validation check between the immediate parent `45` and the immediate child `50` concludes that `50` is a valid node.
+* However, the deep (leaf) node `50` is a part of the left subtree of the root node `50`.
+* And according to the problem definition, any node of the left subtree must be strictly smaller (less) than the parent node.
+* Hence, this is an invalid binary search tree.
+* However, the boundary approach still works, because it adjusts the boundaries for each node as we travel.
+* We check the node against its attached boundaries.
+* In this case, the deep leaf node, `50` will have `min = 45`, and `max = 50`.
+* So, the valid condition `min <= key < max` fails here.
+* And we correctly conclude it as an invalid binary search tree.
+
+### Relevant DSA Questions
 
 > Validation variants
 * Validate a BST (no duplicates).

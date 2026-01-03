@@ -17,6 +17,9 @@
     * [Terminologies](#terminologies)
       * [Successor](#successor)
       * [Predecessor](#predecessor)
+  * [Questions](#questions)
+    * [What is the difference between a binary tree and a binary search tree?](#what-is-the-difference-between-a-binary-tree-and-a-binary-search-tree)
+  * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
 
@@ -367,6 +370,20 @@ flowchart TD
 
 * The previous small node of the current node is called a predecessor.
 * For example, if we are at `5`, then the predecessor is `3`.
+
+## Questions
+
+### What is the difference between a binary tree and a binary search tree?
+
+* A binary tree has no strict rules regarding the left child, parent, and right child values.
+* Any node having at most two children (one left and one right) is an enough condition for a binary tree.
+* However, for a binary search tree, the left subtree must be strictly smaller (less) than the parent node, and the right subtree must be strictly greater than the parent node.
+* In a binary search tree, we cannot have any node in the left subtree greater than or equal to the parent node.
+* Similarly, we cannot have any node in the right subtree smaller than or equal to the parent node.
+
+## ToDos
+
+* Standard proofread
 
 ## Next
 
