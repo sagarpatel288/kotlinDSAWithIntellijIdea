@@ -69,37 +69,37 @@ import java.util.StringTokenizer
  *
  * * 512 MB
  *
+ * ### Grader Output
+ *
+ * ```
+ * Good job! (Max time used: 0.31/3.00, max memory used: 74686464/2147483648.)
+ * ```
  *
  */
 class ValidateBinarySearchTreeHavingDuplicateKeys {
 
     data class Node(val key: Long, val leftChildIndex: Int, val rightChildIndex: Int)
 
+    data class NodeWithBoundaries(val nodeIndex: Int, val min: Long, val max: Long)
+
     fun isValidBst(nodes: Array<Node>): Boolean {
         if (nodes.isEmpty()) return true
-        val stack = ArrayDeque<Node>()
-        var currentIndex = 0
-        stack.push(nodes[currentIndex])
-        while (currentIndex != -1 && stack.isNotEmpty()) {
-            while (currentIndex != -1) {
-                val node = nodes[currentIndex]
-                stack.push(node)
-                currentIndex = node.leftChildIndex
+        val stack = ArrayDeque<NodeWithBoundaries>()
+        stack.push(NodeWithBoundaries(0, Long.MIN_VALUE, Long.MAX_VALUE))
+        while (stack.isNotEmpty()) {
+            val state = stack.pop()
+            val node = nodes[state.nodeIndex]
+            if (node.key < state.min || node.key >= state.max) return false
+            if (node.rightChildIndex != -1) {
+                stack.push(
+                    NodeWithBoundaries(node.rightChildIndex, node.key, state.max)
+                )
             }
-            val poppedNode = stack.pop()
-            if (poppedNode.leftChildIndex != -1) {
-                val leftChild = nodes[poppedNode.leftChildIndex]
-                if (poppedNode.key <= leftChild.key) {
-                    return false
-                }
+            if (node.leftChildIndex != -1) {
+                stack.push(
+                    NodeWithBoundaries(node.leftChildIndex, state.min, node.key)
+                )
             }
-            if (poppedNode.rightChildIndex != -1) {
-                val rightChild = nodes[poppedNode.rightChildIndex]
-                if (poppedNode.key > rightChild.key) {
-                    return false
-                }
-            }
-            currentIndex = poppedNode.rightChildIndex
         }
         return true
     }
