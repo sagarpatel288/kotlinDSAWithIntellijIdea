@@ -1,5 +1,40 @@
 # Tree Traversals
 
+<!-- TOC -->
+* [Tree Traversals](#tree-traversals)
+  * [Prerequisites/References](#prerequisitesreferences)
+  * [Table Of Contents](#table-of-contents)
+    * [Depth-First](#depth-first)
+    * [Breadth-First-Search](#breadth-first-search)
+    * [3 Main Types Of Depth-First Search](#3-main-types-of-depth-first-search)
+      * [In-Order (Left-Root-Right)](#in-order-left-root-right)
+        * [Resources / References:](#resources--references)
+        * [The `In-Order` Traversal Of A Binary Tree Gives A Sorted Order Output:](#the-in-order-traversal-of-a-binary-tree-gives-a-sorted-order-output)
+        * [Pseudocode Of `In-Order` Traversal:](#pseudocode-of-in-order-traversal)
+        * [Complexity Analysis Of `In-Order`](#complexity-analysis-of-in-order)
+      * [Pre-Order (Root-Left-Right)](#pre-order-root-left-right)
+        * [Resources / References:](#resources--references-1)
+        * [Pseudocode Of `Pre-Order` Traversal:](#pseudocode-of-pre-order-traversal)
+        * [Complexity Analysis Of `Pre-Order`](#complexity-analysis-of-pre-order)
+  * [Questions](#questions)
+    * [What problem does a tree data structure solve?](#what-problem-does-a-tree-data-structure-solve)
+    * [What are the pros and cons of a tree data structure?](#what-are-the-pros-and-cons-of-a-tree-data-structure)
+    * [How does a tree data structure work?](#how-does-a-tree-data-structure-work)
+      * [Post-Order (Left-Right-Root)](#post-order-left-right-root)
+        * [Resources / References:](#resources--references-2)
+        * [Pseudocode for `Post-Order` Tree Traversal:](#pseudocode-for-post-order-tree-traversal)
+        * [Complexity Analysis Of `Post-Order`](#complexity-analysis-of-post-order)
+      * [Questions](#questions-1)
+        * [Different depth-first traversal types.](#different-depth-first-traversal-types)
+        * [Which tree traversal technique is useful to get a binary tree in a sorted order?](#which-tree-traversal-technique-is-useful-to-get-a-binary-tree-in-a-sorted-order)
+        * [Can we use the `In-Order` traversal for a generic tree?](#can-we-use-the-in-order-traversal-for-a-generic-tree)
+        * [How `Pre-Order` and `Post-Order` tree traversal techniques can be applied to a generic tree, and not only to a binary tree?](#how-pre-order-and-post-order-tree-traversal-techniques-can-be-applied-to-a-generic-tree-and-not-only-to-a-binary-tree)
+    * [Breadth-First-Search (Lever-Order Traversal):](#breadth-first-search-lever-order-traversal)
+      * [Pseudocode](#pseudocode)
+      * [Complexity Analysis](#complexity-analysis)
+    * [Complexity Analysis Of A Tree Traversal](#complexity-analysis-of-a-tree-traversal)
+<!-- TOC -->
+
 ## Prerequisites/References
 
 - [Trees](010trees.md)
@@ -362,6 +397,21 @@ fun <T> preOrderTreeTraversal(key: T) {
 * The time complexity of `Pre-Order` traversal is `O(n)` as we visit each node once.
 * The space complexity of `Pre-Order` traversal is `O(n)` as we keep track of each visit using a stack through the recursion.
 
+## Questions
+
+### What problem does a tree data structure solve?
+* When do we use a tree data structure?
+
+### What are the pros and cons of a tree data structure?
+
+
+### How does a tree data structure work?
+
+* How do we implement a tree?
+* What underlying data structure do we use to implement a tree?
+* How do we perform various operations on a tree?
+* What is the time complexity of various operations on a tree?
+* What is the space complexity of various operations on a tree?
 
 #### Post-Order (Left-Right-Root)
 

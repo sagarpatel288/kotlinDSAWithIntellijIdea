@@ -21,6 +21,10 @@
     * [Question: Binary Max Heap Tree Height](#question-binary-max-heap-tree-height)
   * [Next](#next)
   * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
+  * [Questions:](#questions)
+    * [What problem does a binary heap tree solve?](#what-problem-does-a-binary-heap-tree-solve)
+    * [What are the pros and cons of a binary heap tree?](#what-are-the-pros-and-cons-of-a-binary-heap-tree)
+    * [How does a binary heap tree work?](#how-does-a-binary-heap-tree-work)
 <!-- TOC -->
 
 ## Resources / References 
@@ -203,3 +207,19 @@
         * `extractMax,` or `extractMin` in `O(log n)` time.
         * `changePriority` in `O(log n)` time.
         * `sort` the data in `O(n log n)` time.
+
+## Questions:
+
+### What problem does a binary heap tree solve?
+* When do we use a binary heap tree?
+
+### What are the pros and cons of a binary heap tree?
+
+
+### How does a binary heap tree work?
+
+* How do we implement a binary heap tree?
+* What underlying data structure do we use to implement a binary heap tree?
+* How do we perform various operations on a binary heap tree?
+* What is the time complexity of various operations on a binary heap tree? How?
+* What is the space complexity of various operations on a binary heap tree? How?

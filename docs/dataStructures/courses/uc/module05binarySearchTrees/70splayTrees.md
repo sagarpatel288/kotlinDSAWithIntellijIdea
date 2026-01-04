@@ -44,6 +44,9 @@
   * [Time Complexity](#time-complexity)
   * [Space Complexity](#space-complexity)
   * [Questions-Answers](#questions-answers)
+    * [What problem does a splay tree solve?](#what-problem-does-a-splay-tree-solve)
+    * [What are the pros and cons of a splay tree?](#what-are-the-pros-and-cons-of-a-splay-tree)
+    * [How does a splay tree work?](#how-does-a-splay-tree-work)
     * [Do we lose the BST invariant properties due to rotations?](#do-we-lose-the-bst-invariant-properties-due-to-rotations)
     * [What if we don't involve the grandparent and perform the splay (rotate-to-root) operation using the parent node only?](#what-if-we-dont-involve-the-grandparent-and-perform-the-splay-rotate-to-root-operation-using-the-parent-node-only)
     * [Why do we first rotate the grandparent in the `Zig-Zig rotations`?](#why-do-we-first-rotate-the-grandparent-in-the-zig-zig-rotations)
@@ -691,6 +694,20 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 * `O(n)` where `n` is the number of nodes.
 
 ## Questions-Answers
+
+### What problem does a splay tree solve?
+* When do we use a splay tree?
+
+### What are the pros and cons of a splay tree?
+
+
+### How does a splay tree work?
+
+* How do we implement a splay tree?
+* What underlying data structure do we use to implement a splay tree?
+* How do we perform various operations on a splay tree?
+* What is the time complexity of various operations on a splay tree?
+* What is the space complexity of various operations on a splay tree?
 
 ### Do we lose the BST invariant properties due to rotations?
 

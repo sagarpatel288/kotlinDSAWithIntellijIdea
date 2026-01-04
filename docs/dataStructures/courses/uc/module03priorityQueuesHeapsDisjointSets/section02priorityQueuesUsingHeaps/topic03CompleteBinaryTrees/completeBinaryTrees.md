@@ -25,6 +25,10 @@
       * [ExtractMax: With the last leaf of the last level](#extractmax-with-the-last-leaf-of-the-last-level)
   * [Next](#next)
   * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
+  * [Questions:](#questions)
+    * [What problem does a complete binary tree solve?](#what-problem-does-a-complete-binary-tree-solve)
+    * [What are the pros and cons of a complete binary tree?](#what-are-the-pros-and-cons-of-a-complete-binary-tree)
+    * [How does a complete binary tree work?](#how-does-a-complete-binary-tree-work)
 <!-- TOC -->
 
 ## References / Resources
@@ -303,3 +307,19 @@ $h = \lfloor\log_2(n)\rfloor$
         * `extractMax,` or `extractMin` in `O(log n)` time.
         * `changePriority` in `O(log n)` time.
         * `sort` the data in `O(n log n)` time.
+
+## Questions:
+
+### What problem does a complete binary tree solve?
+* When do we use a complete binary tree?
+
+### What are the pros and cons of a complete binary tree?
+
+
+### How does a complete binary tree work?
+
+* How do we implement a complete binary tree?
+* What underlying data structure do we use to implement a complete binary tree?
+* How do we perform various operations on a complete binary tree?
+* What is the time complexity of various operations on a complete binary tree? How?
+* What is the space complexity of various operations on a complete binary tree? How?

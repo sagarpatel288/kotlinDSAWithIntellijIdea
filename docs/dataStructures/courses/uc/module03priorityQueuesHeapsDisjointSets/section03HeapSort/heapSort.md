@@ -13,6 +13,10 @@
   * [Recap: Heap Sort Algorithm](#recap-heap-sort-algorithm)
   * [Practical Implementation](#practical-implementation)
   * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
+  * [Questions:](#questions)
+    * [What problem does a heap sort solve?](#what-problem-does-a-heap-sort-solve)
+    * [What are the pros and cons of a heap sort?](#what-are-the-pros-and-cons-of-a-heap-sort)
+    * [How does a heap sort work?](#how-does-a-heap-sort-work)
 <!-- TOC -->
 
 ## References / Resources
@@ -248,3 +252,19 @@ $$
         * `extractMax,` or `extractMin` in `O(log n)` time.
         * `changePriority` in `O(log n)` time.
         * `sort` the data in `O(n log n)` time.
+
+## Questions:
+
+### What problem does a heap sort solve?
+* When do we use a heap sort?
+
+### What are the pros and cons of a heap sort?
+
+
+### How does a heap sort work?
+
+* How do we implement a heap sort?
+* What underlying data structure do we use to implement a heap sort?
+* How do we perform various operations on a heap sort?
+* What is the time complexity of various operations on a heap sort? How?
+* What is the space complexity of various operations on a heap sort? How?
