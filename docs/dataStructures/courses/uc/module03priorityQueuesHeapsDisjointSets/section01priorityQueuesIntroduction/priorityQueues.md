@@ -28,6 +28,10 @@
   * [Summary: Priority Queue](#summary-priority-queue)
   * [Next](#next)
   * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
+  * [Questions:](#questions)
+    * [What problem does a priority queue solve?](#what-problem-does-a-priority-queue-solve)
+    * [What are the pros and cons of a priority queue?](#what-are-the-pros-and-cons-of-a-priority-queue)
+    * [How does a priority queue work?](#how-does-a-priority-queue-work)
 <!-- TOC -->
 
 ## Resources / References
@@ -298,3 +302,18 @@ Indices       0     1     2     3     4     5     6
     * `changePriority` in `O(log n)` time.
     * `sort` the data in `O(n log n)` time.
   
+## Questions:
+
+### What problem does a priority queue solve?
+* When do we use a priority queue?
+
+### What are the pros and cons of a priority queue?
+
+
+### How does a priority queue work?
+
+* How do we implement a priority queue?
+* What underlying data structure do we use to implement a priority queue?
+* How do we perform various operations on a priority queue?
+* What is the time complexity of various operations on a priority queue? How?
+* What is the space complexity of various operations on a priority queue? How?

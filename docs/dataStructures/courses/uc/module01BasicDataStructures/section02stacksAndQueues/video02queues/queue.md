@@ -11,6 +11,26 @@
 A **queue** is a linear data structure that follows the **First-In-First-Out (FIFO)** principle. 
 Elements are added at the rear (end) and removed from the front (beginning).
 
+<!-- TOC -->
+* [Queue Data Structure (FIFO)](#queue-data-structure-fifo)
+  * [Table of Contents](#table-of-contents)
+    * [Enqueue (Add Element)](#enqueue-add-element)
+    * [Dequeue (Remove Element)](#dequeue-remove-element)
+    * [Peek/Front](#peekfront)
+    * [IsEmpty](#isempty)
+    * [IsFull (for fixed-size array)](#isfull-for-fixed-size-array)
+    * [Use Cases](#use-cases)
+    * [Edge Cases](#edge-cases)
+    * [Why Use a Tail Pointer?](#why-use-a-tail-pointer)
+    * [Operations](#operations)
+    * [What if we `dequeue` from the tail and `enqueue` to the head?](#what-if-we-dequeue-from-the-tail-and-enqueue-to-the-head)
+    * [Why Use a Circular Array instead of a Plain Array?](#why-use-a-circular-array-instead-of-a-plain-array)
+    * [Operations](#operations-1)
+  * [Questions](#questions)
+    * [What problem does a `Queue` solve?](#what-problem-does-a-queue-solve)
+    * [What are the pros and cons of a `Queue`?](#what-are-the-pros-and-cons-of-a-queue)
+    * [How does a `Queue` work?](#how-does-a-queue-work)
+<!-- TOC -->
 
 ---
 
@@ -165,3 +185,19 @@ head == null
 ```
 
 </details>
+
+## Questions
+
+### What problem does a `Queue` solve?
+* When do we use a `Queue`?
+
+### What are the pros and cons of a `Queue`?
+
+
+### How does a `Queue` work?
+
+* How do we implement a `Queue`?
+* What underlying data structure do we use to implement a `Queue`?
+* How do we perform various operations on a `Queue`?
+* What is the time complexity of various operations on a `Queue`?
+* What is the space complexity of various operations on a `Queue`?

@@ -14,6 +14,9 @@
     * [RangeSearch(x, y)](#rangesearchx-y)
     * [Insert(key, node = root)](#insertkey-node--root)
     * [Delete(key)](#deletekey)
+  * [Questions](#questions)
+    * [What problem does a binary search tree solve?](#what-problem-does-a-binary-search-tree-solve)
+    * [What are the pros and cons of a binary search tree?](#what-are-the-pros-and-cons-of-a-binary-search-tree)
   * [Next](#next)
 <!-- TOC -->
 
@@ -687,6 +690,22 @@ fun delete(nodeToDelete: Node?) {
 * case 3: 2 children (2 steps)
 * (1) `nextLarger`: `nodeToDelete.key = nextLarger.key`
 * (2) Follow the case 2 for the `nextLarger`.
+
+## Questions
+
+### What problem does a binary search tree solve?
+* When do we use a binary search tree?
+
+### What are the pros and cons of a binary search tree?
+
+
+### How does a binary search tree work?
+
+* How do we implement a binary search tree?
+* What underlying data structure do we use to implement a binary search tree?
+* How do we perform various operations on a binary search tree?
+* What is the time complexity of various operations on a binary search tree?
+* What is the space complexity of various operations on a binary search tree?
 
 ## Next
 

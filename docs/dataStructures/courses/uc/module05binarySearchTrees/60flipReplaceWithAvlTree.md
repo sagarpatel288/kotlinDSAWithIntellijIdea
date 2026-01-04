@@ -6,6 +6,10 @@
   * [Problem Statement](#problem-statement)
   * [Naive approach](#naive-approach)
   * [Using Two AVL Trees](#using-two-avl-trees)
+  * [Questions](#questions)
+    * [What problem does an AVL Tree solve?](#what-problem-does-an-avl-tree-solve)
+    * [What are the pros and cons of using an AVL Tree?](#what-are-the-pros-and-cons-of-using-an-avl-tree)
+    * [How does an AVL Tree work?](#how-does-an-avl-tree-work)
   * [Next](#next)
 <!-- TOC -->
 
@@ -62,6 +66,22 @@
 * So, it becomes:
 
 ![580flipUsingTwoAvlTreesSplitMerge.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/580flipUsingTwoAvlTreesSplitMerge.svg)
+
+## Questions
+
+### What problem does an AVL Tree solve?
+* When do we use an AVL Tree?
+
+### What are the pros and cons of using an AVL Tree?
+
+
+### How does an AVL Tree work?
+
+* How do we implement an AVL Tree?
+* What underlying data structure do we use to implement an AVL Tree?
+* How do we perform various operations on an AVL Tree?
+* What is the time complexity of various operations on an AVL Tree?
+* What is the space complexity of various operations on an AVL Tree?
 
 ## Next
 

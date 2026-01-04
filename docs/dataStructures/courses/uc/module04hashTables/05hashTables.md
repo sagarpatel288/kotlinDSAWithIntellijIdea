@@ -37,6 +37,9 @@
       * [remove(key)](#removekey)
   * [Interview Questions](#interview-questions)
     * [If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?](#if-we-have-integer-keys-up-to-8-digits-what-will-be-the-size-of-an-array-in-the-direct-addressing-method)
+    * [What problem does a hash table solve?](#what-problem-does-a-hash-table-solve)
+    * [What are the pros and cons of a hash table?](#what-are-the-pros-and-cons-of-a-hash-table)
+    * [How does a hash table work?](#how-does-a-hash-table-work)
   * [Next](#next)
 <!-- TOC -->
 
@@ -432,7 +435,21 @@ fun <T> remove(key: T): Boolean {
 
 ### If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?
 
-* $10^8$, because in the direct addressing, we treat the integer key as the index of the array. 
+* $10^8$, because in the direct addressing, we treat the integer key as the index of the array.
+
+### What problem does a hash table solve?
+* When do we use a hash table?
+
+### What are the pros and cons of a hash table?
+
+
+### How does a hash table work?
+
+* How do we implement a hash table?
+* What underlying data structure do we use to implement a hash table?
+* How do we perform various operations on a hash table?
+* What is the time complexity of various operations on a hash table? How?
+* What is the space complexity of various operations on a hash table? How?
 
 ## Next
 
