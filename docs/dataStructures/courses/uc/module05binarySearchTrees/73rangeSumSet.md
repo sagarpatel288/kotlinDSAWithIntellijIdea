@@ -25,3 +25,29 @@
 * So, `node.sum = node.key + node.left.sum + node.right.sum`.
 * This way, the root of the `[l, r]` part quickly gives us the sum of the range.
 * And then, we can merge them back together.
+* Reference: [Splay Trees](70splayTrees.md).
+
+# The `Node` class based on the requirements and responsibilities
+
+* A `Node` contains a `key`.
+* A `Node` must know its left child and right child. 
+  * In other words, it must know its left subtree and right subtree.
+* A `Node` must know its parent. For example, we use it to decide the rotation.
+* A `Node` must know the sum of its left and right subtrees.
+  * So that we don't have to traverse the whole tree to find the sum of the subtree.
+  * It helps us find the sum of the subtrees in `O(1)`.
+
+# Operations
+
+* After understanding why we need to use a Splay tree, and designing the `Node` class, we can understand the operations.
+* We know the public APIs: `add`, `delete`, `find`, and `rangeSum`.
+* We understood that `rangeSum` uses `split` and `merge`.
+* In the `merge` operation, we call `findMax` on the left tree. 
+* Except `split` and `merge`, each operation uses `splay` in the end to make the recently (last) accessed node the root node.
+* The `splay` operation brings the node to the root of the tree by performing rotations.
+* We use `rotateRight` and `rotateLeft` to perform various rotations like `zig`, `zig-zig`, and `zig-zag`.
+* After every rotation, various properties of a few nodes may change.
+* For example, the parent, left child, right child, height, and sum.
+* So, we need the `update` function.
+* We would call `update` after every rotation.
+* And we call `update` after every `split` and `merge` operations, too.

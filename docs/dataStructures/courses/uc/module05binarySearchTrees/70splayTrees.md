@@ -550,6 +550,7 @@ fun delete(key: T) {
 
 ## Split
 
+* Prerequisite/Reference: [AVLTree: Split](40avlTreeSplitOperation.md)
 * We `splay` for the given `split key`.
 * Now, we may or may not find the `split key`.
 * So, we end up with three possibilities:
@@ -560,7 +561,7 @@ fun delete(key: T) {
 
 `split.key > root.key`
 
-* In this case, we would return: `root.right`, and `root`.
+* In this case, we would return: `root`, and `root.right`.
 
 `split.key == root.key`
 
@@ -609,6 +610,7 @@ private fun cutRight(root: Node<T>): SplitResult {
 
 > Assuming that all the keys in the left tree are smaller than the right tree.
 
+* Prerequisite/Reference: [AVLTree: Merge](30avlTreeMergeOperation.md)
 * We find the largest element in the left subtree and splay it.
 * And then, we just attach the right tree as a right child of it.
 
