@@ -52,3 +52,22 @@
 * So, we need the `update` function.
 * We would call `update` after every rotation.
 * And we call `update` after every `split` and `merge` operations, too.
+
+# Using `Split` and `Merge` for `Add` and `Delete` Operations
+
+* Traditionally, `add` would do a standard BST insertion followed by a `splay` operation.
+* And `delete` would `find` the node to delete, `splay` it to the root, `delete` (disconnect) it, `findMax` on the left subtree, and `splay` it to the root, and finally, connect it with the right subtree.
+* However, we can use `split` and `merge` to do `add` and `delete` and follow the `DRY` principle.
+* For example, suppose that we have a set as: `S: {1, 3, 6, 8, 10}`.
+* Now, we want to `add` `7` to the set.
+* So, we `split` `S` into `S1` and `S2` such that `S1 < 7` and  `S2 >= 7`.
+* So, `S1` becomes `S1: {1, 3, 6}`, and `S2` becomes `S2: {8, 10)`.
+* Then, we `merge` `S1` and `7` to get `S3: {1, 3, 6, 7}`.
+* And then, we `merge` `S3` and `S2` to get `S4: {1, 3, 6, 7, 8, 10}`.
+* If `7` was already in the set, we would have received `S1` as `S1: {1, 3, 6}`, and `S2` as `S2: {7, 8, 10}`.
+* In that case, we would `merge` `S1`, and `S2`.
+* Similarly, for `delete`, suppose that we have a set as: `S: {1, 3, 6, 7, 8, 10}`, and we want to `delete` `7`.
+* So, we `split` `S` into `S1` and `S2` such that `S1 < 7` and `S2 >= 7`.
+* So, `S1` becomes `S1: {1, 3, 6}`, and `S2` becomes `S2: {7, 8, 10}`.
+* Then, we further `split` `S2` into `S3` and `S4` such that `S3 = {7}`, and `S4 = {8, 10}`.
+* Finally, we `merge` `S1`, and `S4` to get `S5: {1, 3, 6, 8, 10}`.
