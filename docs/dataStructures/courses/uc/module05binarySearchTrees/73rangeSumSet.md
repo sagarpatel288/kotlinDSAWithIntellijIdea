@@ -42,6 +42,7 @@
 * After understanding why we need to use a Splay tree, and designing the `Node` class, we can understand the operations.
 * We know the public APIs: `add`, `delete`, `find`, and `rangeSum`.
 * We understood that `rangeSum` uses `split` and `merge`.
+* Similarly, `add` also uses `split` and `merge`.
 * In the `merge` operation, we call `findMax` on the left tree. 
 * Except `split` and `merge`, each operation uses `splay` in the end to make the recently (last) accessed node the root node.
 * The `splay` operation brings the node to the root of the tree by performing rotations.
