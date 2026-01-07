@@ -71,3 +71,29 @@
 * So, `S1` becomes `S1: {1, 3, 6}`, and `S2` becomes `S2: {7, 8, 10}`.
 * Then, we further `split` `S2` into `S3` and `S4` such that `S3 = {7}`, and `S4 = {8, 10}`.
 * Finally, we `merge` `S1`, and `S4` to get `S5: {1, 3, 6, 8, 10}`.
+
+# The `Update` function
+
+> What do we do in the `update` function?
+* We update the `sum` property of the node.
+
+> How do we update the `sum` property of the node? What is the formula for the `sum` property of the node?
+* `node.sum = key + node.left.sum + node.right.sum`
+
+> When do we call the `update` function?
+* Every time we change the structure (shape) of the tree.
+
+> When do we change the structure (shape) of the tree? What operations change the structure of the tree?
+* `find`, `add`, and `delete` uses `splay` and changes the structure of the tree.
+* `splay` uses the various `rotate` functions, which changes the structure of the tree.
+* `split` and `merge` also changes the structure of the tree.
+* So, after every `rotate`, `split`, and `merge`, we call the `update` function.
+
+# The `Rotate` functions
+
+> What do the `rotate` functions do?
+* They are the helper functions for `splay`.
+* They move the target node upwards in the tree.
+* The `splay` function keeps calling the `rotate` functions until the target node reaches the root of the tree.
+
+// ToDo: There is a better way to perform the `rotate` functions than what we have done previously in the `splayTrees.md` file. Both works, but this new way is better. Here, we always pass the target node as the argument. If it is a `zig-zig` rotation, then we first pass the parent of the target node as the argument, and then the target node as the argument. If it is a `zig-zag` rotation, then both the times we pass the target node as the argument.
