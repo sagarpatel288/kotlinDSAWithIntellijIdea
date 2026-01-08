@@ -5,6 +5,12 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * * [Local File](docs/dataStructures/courses/uc/module05binarySearchTrees/70splayTrees.md)
  * * [GitHub File](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5a2e8434fe79b140afedf34d5fd6542b3152451e/docs/dataStructures/courses/uc/module05binarySearchTrees/70splayTrees.md)
  *
+ * # Problem Statement
+ * * Implement a splay tree.
+ *
+ * # Next
+ * * Range Sum Queries On A Set Using A Splay Tree
+ *
  */
 data class Node<T : Comparable<T>>(
     val key: T,
@@ -37,6 +43,9 @@ class SplayTree<T : Comparable<T>> {
         private set
 
     /**
+     * ToDo: We have to different functions for the rotation, with almost the same logic.
+     * We can combine them into a single function.
+     * ToDo: Combine the logic of [rotateRight] and [rotateLeft] into a single function.
      *
      */
     private fun rotateRight(node: Node<T>?) {
@@ -49,10 +58,12 @@ class SplayTree<T : Comparable<T>> {
         target.right?.parent = node
 
         // Target replaces the parent
+        //region This entire part is identical to the [rotateLeft] function
         target.parent = node.parent
         if (target.parent == null) root = target
         else if (node.isLeftChild()) node.parent?.left = target
         else node.parent?.right = target
+        //endregion
 
         // Current parent node become the right child of the target node
         target.right = node
@@ -60,7 +71,9 @@ class SplayTree<T : Comparable<T>> {
     }
 
     /**
-     *
+     * ToDo: We have to different functions for the rotation, with almost the same logic.
+     * We can combine them into a single function.
+     * ToDo: Combine the logic of [rotateRight] and [rotateLeft] into a single function.
      */
     private fun rotateLeft(node: Node<T>?) {
         if (node == null) return
@@ -72,10 +85,12 @@ class SplayTree<T : Comparable<T>> {
         target.left?.parent = node
 
         // Target replaces the current parent node
+        //region This entire part is identical to the [rotateRight] function
         target.parent = node.parent
         if (target.parent == null) root = target
         else if (node.isLeftChild()) node.parent?.left = target
         else node.parent?.right = target
+        //endregion
 
         // The current parent node becomes the target child
         target.left = node

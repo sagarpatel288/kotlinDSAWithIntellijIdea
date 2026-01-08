@@ -8,6 +8,7 @@
     * [Zig Rotations (Terminal Step)](#zig-rotations-terminal-step)
       * [Zig Rotation (Zig-Right)](#zig-rotation-zig-right)
       * [Zag Rotation (Zig-Left)](#zag-rotation-zig-left)
+      * [Pseudocode Of A Common `Rotate` function](#pseudocode-of-a-common-rotate-function)
     * [Zig-Zig Rotations (Homogeneous Rotations)](#zig-zig-rotations-homogeneous-rotations)
       * [Zig-Zig Rotation (Zig-Zig Right)](#zig-zig-rotation-zig-zig-right)
       * [Zag-Zag Rotation (Zig-Zig Left)](#zag-zag-rotation-zig-zig-left)
@@ -112,6 +113,8 @@
 
 ![605splayTreeZigRightWithChildren.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/605splayTreeZigRightWithChildren02.png)
 
+![1010splayTreesZigRightWithChildCommonFun.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1010splayTreesZigRightWithChildCommonFun.png)
+
 **General Overview: Understanding The Right Rotation**
 
 * It is also known as **Zig-Right Rotation**.
@@ -128,6 +131,14 @@
     1. Right child of the target node.
     2. The target node.
     3. Current node (Current parent node of the target).
+
+**Another way to remember it, is:**
+1. First, we change the child pointer of the target's current parent.
+   1. Consequently, we change the parent pointer of the target's child.
+2. Then, we change the child pointer of the target.
+   1. Consequently, we change the parent pointer of the target's current parent.
+3. Finally, we change the parent pointer of the target.
+   1. Consequently, we change the child pointer of the target's new parent.
 
 **Pseudocode: Right Rotation**
 
@@ -169,6 +180,8 @@ fun rotateRight(parent: Node<T>) {
 
 ![610splayTreesZagLeftWithChildren02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/610splayTreesZagLeftWithChildren02.png)
 
+![1020splayTreesZagLeftWithChildCommonFun.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1020splayTreesZagLeftWithChildCommonFun.png)
+
 **General Overview: Understanding The Left Rotation**
 
 * It is also known as **Zig-Left Rotation**.
@@ -183,6 +196,14 @@ fun rotateRight(parent: Node<T>) {
     1. Left child of the target node.
     2. The target node.
     3. Current node (Current parent of the target node).
+
+**Another way to remember it, is:**
+1. First, we change the child pointer of the target's current parent.
+   1. Consequently, we change the parent pointer of the target's child.
+2. Then, we change the child pointer of the target.
+   1. Consequently, we change the parent pointer of the target's current parent.
+3. Finally, we change the parent pointer of the target.
+   1. Consequently, we change the child pointer of the target's new parent.
 
 **Pseudocode: Left Rotation**
 
@@ -216,6 +237,56 @@ fun rotateLeft(parent: Node<T>) {
     // The target node becomes the parent of the current node.
     target.left = parent
     parent.parent = target
+}
+
+```
+
+#### Pseudocode Of A Common `Rotate` function
+
+```kotlin
+
+// Notice that this time we pass the `target` node itself.
+fun rotate(target: Node<T>) {
+    // If there is no parent of the target node, return.
+    val parent = target.parent ?: return
+    val grandParent = parent.parent
+    
+    // Update the parent pointer of the target's child
+    if (parent.left == target) {
+        // The target node is a left child.
+        // So, we perform the right rotation.
+        // The right child of the target becomes the left child of the parent.
+        // 1. Update the child of the target's current parent.
+        parent.left = target.right
+        // 2. Update the parent of the target's right child.
+        target.right?.parent = parent
+      
+        // 3. Update the child of the target.
+        target.right = parent
+    } else {
+        // The target is a right child.
+        // So, we perform the left rotation.
+        // The left child of the target becomes the right child of the parent.
+        // 1. Update the child of the target's current parent.        
+        parent.right = target.left
+        // 2. Update the parent of the target's left child.
+        target.left?.parent = parent
+      
+        // 3. Update the child of the target.
+        target.left = parent
+    }
+
+    // 4. Update the parent of the target's old parent.
+    parent.parent = target
+  
+    // 5. Update the parent of the target.
+    target.parent = grandParent
+  
+    // 6. Update the child of the target's new parent.
+    if (grandParent != null) {
+        if (grandParent.left == parent) grandParent.left = target
+        else grandParent.right = target
+    }
 }
 
 ```
