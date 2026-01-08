@@ -75,15 +75,19 @@
 # The `Update` function
 
 > What do we do in the `update` function?
+
 * We update the `sum` property of the node.
 
 > How do we update the `sum` property of the node? What is the formula for the `sum` property of the node?
+
 * `node.sum = key + node.left.sum + node.right.sum`
 
 > When do we call the `update` function?
+
 * Every time we change the structure (shape) of the tree.
 
 > When do we change the structure (shape) of the tree? What operations change the structure of the tree?
+
 * `find`, `add`, and `delete` uses `splay` and changes the structure of the tree.
 * `splay` uses the various `rotate` functions, which changes the structure of the tree.
 * `split` and `merge` also changes the structure of the tree.
@@ -92,8 +96,18 @@
 # The `Rotate` functions
 
 > What do the `rotate` functions do?
+
 * They are the helper functions for `splay`.
 * They move the target node upwards in the tree.
 * The `splay` function keeps calling the `rotate` functions until the target node reaches the root of the tree.
 
-// ToDo: There is a better way to perform the `rotate` functions than what we have done previously in the `splayTrees.md` file. Both works, but this new way is better. Here, we always pass the target node as the argument. If it is a `zig-zig` rotation, then we first pass the parent of the target node as the argument, and then the target node as the argument. If it is a `zig-zag` rotation, then both the times we pass the target node as the argument.
+> How does the `rotate` function work? 
+
+**Depending upon the type of rotation:**
+1. First, we change the child pointer of the target's current parent.
+   1. Consequently, we change the parent pointer of the target's child.
+2. Then, we change the child pointer of the target.
+   1. Consequently, we change the parent pointer of the target's current parent.
+3. Then, we change the parent pointer of the target.
+   1. Consequently, we change the child pointer of the target's new parent.
+4. Finally, we `update` the old parent of the target (now child of the target), and the target.
