@@ -19,6 +19,7 @@
   * [The `Splay` function](#the-splay-function)
   * [The `Add` function](#the-add-function)
   * [The `Delete` function](#the-delete-function)
+  * [The `Find` function](#the-find-function)
 <!-- TOC -->
 
 ## Pre-requisites/References
@@ -180,3 +181,9 @@
 * Then, we `split` the tree for this `split key`.
 * Then, we discard (disconnect) this `split key`.
 * And we `merge` the remaining subtrees.
+
+## The `Find` function
+
+* Perform the typical binary search on the tree.
+* Perform the `splay` operation on the last accessed node.
+
