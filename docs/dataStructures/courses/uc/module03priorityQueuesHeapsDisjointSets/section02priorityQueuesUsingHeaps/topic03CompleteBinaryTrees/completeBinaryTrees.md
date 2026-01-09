@@ -29,6 +29,9 @@
     * [What problem does a complete binary tree solve?](#what-problem-does-a-complete-binary-tree-solve)
     * [What are the pros and cons of a complete binary tree?](#what-are-the-pros-and-cons-of-a-complete-binary-tree)
     * [How does a complete binary tree work?](#how-does-a-complete-binary-tree-work)
+    * [What is the difference between a complete binary tree and a binary heap tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-complete-binary-tree-and-a-binary-heap-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What is the difference between a complete binary tree and a binary tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-complete-binary-tree-and-a-binary-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What are the few cases where we would use a binary tree instead of a complete binary tree? Why?](#what-are-the-few-cases-where-we-would-use-a-binary-tree-instead-of-a-complete-binary-tree-why)
 <!-- TOC -->
 
 ## References / Resources
@@ -323,3 +326,13 @@ $h = \lfloor\log_2(n)\rfloor$
 * How do we perform various operations on a complete binary tree?
 * What is the time complexity of various operations on a complete binary tree? How?
 * What is the space complexity of various operations on a complete binary tree? How?
+
+
+### What is the difference between a complete binary tree and a binary heap tree? Explain the overall difference and the difference for each operation.
+
+
+### What is the difference between a complete binary tree and a binary tree? Explain the overall difference and the difference for each operation.
+
+
+### What are the few cases where we would use a binary tree instead of a complete binary tree? Why?
+

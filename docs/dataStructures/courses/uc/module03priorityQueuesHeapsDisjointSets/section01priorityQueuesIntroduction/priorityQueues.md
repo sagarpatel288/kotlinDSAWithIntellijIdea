@@ -32,6 +32,8 @@
     * [What problem does a priority queue solve?](#what-problem-does-a-priority-queue-solve)
     * [What are the pros and cons of a priority queue?](#what-are-the-pros-and-cons-of-a-priority-queue)
     * [How does a priority queue work?](#how-does-a-priority-queue-work)
+    * [What is the difference between a priority queue and a regular queue? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-priority-queue-and-a-regular-queue-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What are the few cases where we might prefer a regular queue over a priority queue? Why?](#what-are-the-few-cases-where-we-might-prefer-a-regular-queue-over-a-priority-queue-why)
 <!-- TOC -->
 
 ## Resources / References
@@ -317,3 +319,10 @@ Indices       0     1     2     3     4     5     6
 * How do we perform various operations on a priority queue?
 * What is the time complexity of various operations on a priority queue? How?
 * What is the space complexity of various operations on a priority queue? How?
+
+### What is the difference between a priority queue and a regular queue? Explain the overall difference and the difference for each operation.
+
+
+
+### What are the few cases where we might prefer a regular queue over a priority queue? Why?
+

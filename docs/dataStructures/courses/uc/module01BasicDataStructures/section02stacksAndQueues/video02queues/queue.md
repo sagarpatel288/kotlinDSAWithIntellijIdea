@@ -30,6 +30,8 @@ Elements are added at the rear (end) and removed from the front (beginning).
     * [What problem does a `Queue` solve?](#what-problem-does-a-queue-solve)
     * [What are the pros and cons of a `Queue`?](#what-are-the-pros-and-cons-of-a-queue)
     * [How does a `Queue` work?](#how-does-a-queue-work)
+    * [What is the difference between a `Queue` and a `Stack`? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-queue-and-a-stack-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What are the few cases where we would prefer a `Stack` over a `Queue`? Why?](#what-are-the-few-cases-where-we-would-prefer-a-stack-over-a-queue-why)
 <!-- TOC -->
 
 ---
@@ -201,3 +203,9 @@ head == null
 * How do we perform various operations on a `Queue`?
 * What is the time complexity of various operations on a `Queue`?
 * What is the space complexity of various operations on a `Queue`?
+
+### What is the difference between a `Queue` and a `Stack`? Explain the overall difference and the difference for each operation.
+
+
+
+### What are the few cases where we would prefer a `Stack` over a `Queue`? Why?
