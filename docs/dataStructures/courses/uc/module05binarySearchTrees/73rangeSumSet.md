@@ -5,6 +5,22 @@
 * Find
 * Range Sum Query (Based on values, not indices): `l <= val <= r`.
 
+<!-- TOC -->
+* [Which data structure should we use for the following requirements?](#which-data-structure-should-we-use-for-the-following-requirements)
+  * [Pre-requisites/References](#pre-requisitesreferences)
+  * [Thought Process](#thought-process)
+  * [The `Node` class based on the requirements and responsibilities](#the-node-class-based-on-the-requirements-and-responsibilities)
+  * [Operations](#operations)
+  * [Using `Split` and `Merge` for `Add` and `Delete` Operations](#using-split-and-merge-for-add-and-delete-operations)
+  * [The `Update` function](#the-update-function)
+  * [The `Rotate` functions](#the-rotate-functions)
+  * [The `Split` function](#the-split-function)
+  * [The `Merge` function](#the-merge-function)
+  * [The `Splay` function](#the-splay-function)
+  * [The `Add` function](#the-add-function)
+  * [The `Delete` function](#the-delete-function)
+<!-- TOC -->
+
 ## Pre-requisites/References
 
 * [Doc: Splay Tree](70splayTrees.md)
@@ -125,7 +141,7 @@
 
 * We call the `find` function on the `split key`.
 * It will make the `split key` the root of the tree.
-* And then we cut the tree into two parts.
+* Then, we cut the tree into two parts.
 * The `split key` (now the root) becomes the part of either the left or the right tree.
 
 > When do we call (use) the `split` function?
@@ -144,3 +160,23 @@
 * After we `split` the tree, we `merge` the left and the right subtrees.
 * We `split` the tree when we want to `add` or `delete` an element or find elements in a range.
 
+## The `Splay` function
+
+> What does the `splay` function do? How does it work?
+
+* The `splay` function makes the last accessed node the root of the tree.
+* Depending upon the current structure of the tree, it keeps calling the `rotate` function until the last accessed node becomes the root of the tree.
+* The `rotate` function performs various rotations on the various nodes (the target node, the parent of the target node, and the grandparent of the target node) to move the target node upwards in the tree.
+
+## The `Add` function
+
+* We treat the key that we want to add as a `split key`.
+* Then, we `split` the tree for this `split key`.
+* Then, the `split key` becomes the root, the left subtree becomes the left child, and the right subtree becomes the right child.
+
+## The `Delete` function
+
+* We treat the key that we want to delete as a `split key`.
+* Then, we `split` the tree for this `split key`.
+* Then, we discard (disconnect) this `split key`.
+* And we `merge` the remaining subtrees.
