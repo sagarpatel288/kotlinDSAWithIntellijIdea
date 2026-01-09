@@ -25,6 +25,8 @@
     * [What problem does a binary heap tree solve?](#what-problem-does-a-binary-heap-tree-solve)
     * [What are the pros and cons of a binary heap tree?](#what-are-the-pros-and-cons-of-a-binary-heap-tree)
     * [How does a binary heap tree work?](#how-does-a-binary-heap-tree-work)
+    * [What is the difference between a binary heap tree and a binary tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [Whare are the few cases where we would use a binary tree instead of a binary heap tree? Why?](#whare-are-the-few-cases-where-we-would-use-a-binary-tree-instead-of-a-binary-heap-tree-why)
 <!-- TOC -->
 
 ## Resources / References 
@@ -223,3 +225,9 @@
 * How do we perform various operations on a binary heap tree?
 * What is the time complexity of various operations on a binary heap tree? How?
 * What is the space complexity of various operations on a binary heap tree? How?
+
+### What is the difference between a binary heap tree and a binary tree? Explain the overall difference and the difference for each operation.
+
+
+
+### Whare are the few cases where we would use a binary tree instead of a binary heap tree? Why?

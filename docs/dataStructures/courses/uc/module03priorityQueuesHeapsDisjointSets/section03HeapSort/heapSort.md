@@ -17,6 +17,7 @@
     * [What problem does a heap sort solve?](#what-problem-does-a-heap-sort-solve)
     * [What are the pros and cons of a heap sort?](#what-are-the-pros-and-cons-of-a-heap-sort)
     * [How does a heap sort work?](#how-does-a-heap-sort-work)
+    * [What is the difference between a heap sort and a merge sort?](#what-is-the-difference-between-a-heap-sort-and-a-merge-sort)
 <!-- TOC -->
 
 ## References / Resources
@@ -268,3 +269,5 @@ $$
 * How do we perform various operations on a heap sort?
 * What is the time complexity of various operations on a heap sort? How?
 * What is the space complexity of various operations on a heap sort? How?
+
+### What is the difference between a heap sort and a merge sort?

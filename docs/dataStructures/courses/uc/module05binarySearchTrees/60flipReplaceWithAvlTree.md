@@ -10,6 +10,8 @@
     * [What problem does an AVL Tree solve?](#what-problem-does-an-avl-tree-solve)
     * [What are the pros and cons of using an AVL Tree?](#what-are-the-pros-and-cons-of-using-an-avl-tree)
     * [How does an AVL Tree work?](#how-does-an-avl-tree-work)
+    * [What is the difference between an AVL Tree and a Binary Search Tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-an-avl-tree-and-a-binary-search-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What are the few cases where we would use a Binary Search Tree instead of an AVL Tree? Why?](#what-are-the-few-cases-where-we-would-use-a-binary-search-tree-instead-of-an-avl-tree-why)
   * [Next](#next)
 <!-- TOC -->
 
@@ -82,6 +84,14 @@
 * How do we perform various operations on an AVL Tree?
 * What is the time complexity of various operations on an AVL Tree?
 * What is the space complexity of various operations on an AVL Tree?
+
+### What is the difference between an AVL Tree and a Binary Search Tree? Explain the overall difference and the difference for each operation.
+
+
+
+### What are the few cases where we would use a Binary Search Tree instead of an AVL Tree? Why?
+
+
 
 ## Next
 

@@ -17,6 +17,11 @@
   * [Questions](#questions)
     * [What problem does a binary search tree solve?](#what-problem-does-a-binary-search-tree-solve)
     * [What are the pros and cons of a binary search tree?](#what-are-the-pros-and-cons-of-a-binary-search-tree)
+    * [How does a binary search tree work?](#how-does-a-binary-search-tree-work)
+    * [What is the difference between a binary search tree and a binary tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-binary-search-tree-and-a-binary-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What is the difference between a binary search tree and a complete binary tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-binary-search-tree-and-a-complete-binary-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What are the few cases where we would use a binary tree instead of a binary search tree? Why?](#what-are-the-few-cases-where-we-would-use-a-binary-tree-instead-of-a-binary-search-tree-why)
+    * [What are the few cases where we would use a complete binary tree instead of a binary search tree? Why?](#what-are-the-few-cases-where-we-would-use-a-complete-binary-tree-instead-of-a-binary-search-tree-why)
   * [Next](#next)
 <!-- TOC -->
 
@@ -706,6 +711,22 @@ fun delete(nodeToDelete: Node?) {
 * How do we perform various operations on a binary search tree?
 * What is the time complexity of various operations on a binary search tree?
 * What is the space complexity of various operations on a binary search tree?
+
+### What is the difference between a binary search tree and a binary tree? Explain the overall difference and the difference for each operation.
+
+
+
+### What is the difference between a binary search tree and a complete binary tree? Explain the overall difference and the difference for each operation.
+
+
+
+### What are the few cases where we would use a binary tree instead of a binary search tree? Why?
+
+
+
+### What are the few cases where we would use a complete binary tree instead of a binary search tree? Why?
+
+
 
 ## Next
 

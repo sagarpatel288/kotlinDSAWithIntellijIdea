@@ -30,9 +30,10 @@
       * [Summary](#summary)
       * [Quick Revision](#quick-revision)
   * [Questions](#questions)
-    * [What problem does a red-black tree solve?](#what-problem-does-a-red-black-tree-solve)
-    * [What are the pros and cons of a red-black tree?](#what-are-the-pros-and-cons-of-a-red-black-tree)
-    * [How does a red-black tree work?](#how-does-a-red-black-tree-work)
+    * [What problem does a set data structure solve?](#what-problem-does-a-set-data-structure-solve)
+    * [What are the pros and cons of a set data structure?](#what-are-the-pros-and-cons-of-a-set-data-structure)
+    * [How does a set data structure work?](#how-does-a-set-data-structure-work)
+    * [What is the difference between a set data structure and an array data structure?](#what-is-the-difference-between-a-set-data-structure-and-an-array-data-structure)
 <!-- TOC -->
 
 ## References / Resources
@@ -647,3 +648,6 @@ $$
 * How do we perform various operations on a set data structure?
 * What is the time complexity of various operations on a set data structure?
 * What is the space complexity of various operations on a set data structure?
+
+### What is the difference between a set data structure and an array data structure?
+

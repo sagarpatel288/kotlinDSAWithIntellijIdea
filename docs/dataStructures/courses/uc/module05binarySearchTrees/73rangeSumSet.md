@@ -111,3 +111,28 @@
 3. Then, we change the parent pointer of the target.
    1. Consequently, we change the child pointer of the target's new parent.
 4. Finally, we `update` the old parent of the target (now child of the target), and the target.
+
+# The `Split` function
+
+> How does the `split` function work?
+
+* We call the `find` function on the `split key`.
+* It will make the `split key` the root of the tree.
+* And then we cut the tree into two parts.
+* The `split key` (now the root) becomes the part of either the left or the right tree.
+
+> When do we call (use) the `split` function?
+
+* We call(use) the `split` function when we want to `add` or `delete` an element or find elements in a range.
+
+# The `Merge` function
+
+> How does the `merge` function work?
+
+* We call the `findMax` on the left subtree and make it the root of the left subtree.
+* Then, we make the right subtree the right child of that root.
+
+> When do we call (use) the `merge` function?
+
+* After we `split` the tree, we `merge` the left and the right subtrees.
+* We `split` the tree when we want to `add` or `delete` an element or find elements in a range.

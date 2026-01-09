@@ -62,6 +62,8 @@
     * [When should we use `SplayTrees`?](#when-should-we-use-splaytrees)
     * [When should we not use `SplayTrees`?](#when-should-we-not-use-splaytrees)
     * [Why can't we use `SplayTrees` for a highly concurrent read-heavy cache?](#why-cant-we-use-splaytrees-for-a-highly-concurrent-read-heavy-cache)
+    * [What is the difference between a `Splay` tree and an `AVL` tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-splay-tree-and-an-avl-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What are the few cases where we would use an `AVL` tree instead of a `Splay` tree? Why?](#what-are-the-few-cases-where-we-would-use-an-avl-tree-instead-of-a-splay-tree-why)
   * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
@@ -662,16 +664,28 @@ fun split(key: T): SplitResult {
 }
 
 private fun cutLeft(root: Node<T>): SplitResult {
+    // Take out the `left` subtree
     val left = root.left
+    // Disconnect the `left` subtree from the parent
+    // Update the `parent` pointer of the `left` subtree
     left.parent = null
+    // Disconnect the parent of the `left` subtree from its left child
+    // Update the `left` pointer of the parent
     root.left = null
+    // Return the `left` subtree and the parent as separate trees
     return SplitResult(left, root)
 }
 
 private fun cutRight(root: Node<T>): SplitResult {
+    // Take out the `right` subtree
     val right = root.right
-    root.right = null
+    // Disconnect the `right` subtree from the parent
+    // Update the `parent` pointer of the `right` subtree
     right.parent = null
+    // Disconnect the parent of the `right` subtree from its right child
+    // Update the `right` pointer of the parent
+    root.right = null
+    // Return the `right` subtree and the parent as separate trees
     return SplitResult(root, right)
 }
 
@@ -916,6 +930,13 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 * We perform the `splay` operation during the `find` operation.
 * And a `splay` operation changes the structure of the tree.
 * So, if multiple threads are trying to read values, we have to use several `write-locks`, and it creates bottlenecks.
+
+### What is the difference between a `Splay` tree and an `AVL` tree? Explain the overall difference and the difference for each operation.
+
+
+### What are the few cases where we would use an `AVL` tree instead of a `Splay` tree? Why?
+
+
 
 ## ToDos
 
