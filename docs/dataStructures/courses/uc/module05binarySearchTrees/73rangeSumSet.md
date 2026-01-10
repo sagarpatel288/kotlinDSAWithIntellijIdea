@@ -19,7 +19,8 @@
   * [The `Splay` function](#the-splay-function)
   * [The `Add` function](#the-add-function)
   * [The `Delete` function](#the-delete-function)
-  * [The `Find` function](#the-find-function)
+  * [The `FindAndSplay` function](#the-findandsplay-function)
+    * [Pseudocode for the `FindAndSplay` function](#pseudocode-for-the-findandsplay-function)
 <!-- TOC -->
 
 ## Pre-requisites/References
@@ -117,6 +118,16 @@
 * `split` and `merge` also changes the structure of the tree.
 * So, after every `rotate`, `split`, and `merge`, we call the `update` function.
 
+### Pseudocode for `update` function
+
+```kotlin
+
+fun update(node: Node) {
+    node.sum = node.key + (node.left?.sum ?: 0) + (node.right?.sum ?: 0)
+}
+
+```
+
 ## The `Rotate` functions
 
 > What do the `rotate` functions do?
@@ -135,6 +146,42 @@
 3. Then, we change the parent pointer of the target.
    1. Consequently, we change the child pointer of the target's new parent.
 4. Finally, we `update` the old parent of the target (now child of the target), and the target.
+
+### Pseudocode for `rotate` function
+
+```kotlin
+
+fun rotate(target: Node) {
+    val parent = target.parent ?: return
+    val grandParent = parent.parent
+    if (parent.left == target) {
+        // Right rotation
+        // Update the parent pointer of the target's child
+        parent.left = target.right
+        target.right?.parent = parent
+      
+        // Update the child pointer of the target
+        target.right = parent
+    } else if (parent.right == target) {
+        // Left rotation
+        // Update the parent pointer of the target's child
+        parent.right = target.left
+        target.left?.parent = parent
+        // Update the child pointer of the target
+        target.left = parent
+    }
+    parent.parent = target
+    target.parent = grandParent
+    if (grandParent == null) root = target
+    if (grandParent != null) {
+        if (grandParent.left == parent) grandParent.left = target
+        else if (grandParent.right == parent) grandParent.right = target
+    }
+    update(parent)
+    update(target)
+}
+
+```
 
 ## The `Split` function
 
@@ -182,8 +229,33 @@
 * Then, we discard (disconnect) this `split key`.
 * And we `merge` the remaining subtrees.
 
-## The `Find` function
+## The `FindAndSplay` function
 
 * Perform the typical binary search on the tree.
 * Perform the `splay` operation on the last accessed node.
 
+### Pseudocode for the `FindAndSplay` function
+
+```kotlin
+
+fun findAndSplay(root: Node, key: Long): Node {
+    var current = root
+    var lastAccessedNode = current
+    while (current != null) {
+        lastAccessedNode = current
+        when {
+            current.key < key -> {
+                current = current.right
+            }
+            current.key > key -> {
+                current = current.left
+            }
+            else -> break // found the key
+        }
+    }
+    // splay calls rotate and rotate calls update 
+    splay(lastAccessed)  
+    return lastAccessed
+}
+
+```
