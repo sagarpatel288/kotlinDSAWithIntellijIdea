@@ -13,9 +13,13 @@
   * [Operations](#operations)
   * [Using `Split` and `Merge` for `Add` and `Delete` Operations](#using-split-and-merge-for-add-and-delete-operations)
   * [The `Update` function](#the-update-function)
+    * [Pseudocode for `update` function](#pseudocode-for-update-function)
   * [The `Rotate` functions](#the-rotate-functions)
+    * [Pseudocode for `rotate` function](#pseudocode-for-rotate-function)
   * [The `Split` function](#the-split-function)
+      * [Pseudocode for `split` function](#pseudocode-for-split-function)
   * [The `Merge` function](#the-merge-function)
+      * [Pseudocode for `merge` function](#pseudocode-for-merge-function)
   * [The `Splay` function](#the-splay-function)
   * [The `Add` function](#the-add-function)
   * [The `Delete` function](#the-delete-function)
@@ -196,6 +200,31 @@ fun rotate(target: Node) {
 
 * We call(use) the `split` function when we want to `add` or `delete` an element or find elements in a range.
 
+#### Pseudocode for `split` function
+
+```kotlin
+
+fun split(key: Long): SplitResult {
+    root = find(key)
+    if (root.key >= key) {
+        val left = root.left
+        left?.parent = null
+        root.left = null
+        // The root has lost its left subtree, so we need to update the root.
+        update(root)
+        return SplitResult(left, root)
+    } else {
+        val right = root.right
+        right?.parent = null
+        root.right = null
+      // The root has lost its right subtree, so we need to update the root.
+        update(root)
+        return SplitResult(root, right)
+    }
+}
+
+```
+
 ## The `Merge` function
 
 > How does the `merge` function work?
@@ -207,6 +236,33 @@ fun rotate(target: Node) {
 
 * After we `split` the tree, we `merge` the left and the right subtrees.
 * We `split` the tree when we want to `add` or `delete` an element or find elements in a range.
+
+#### Pseudocode for `merge` function
+
+```kotlin
+
+fun merge(left: Node?, right: Node?): Node? {
+    if (left == null) return right
+    if (right == null) return left
+    val maxLeft = findMax(left)
+    maxLeft.right = right
+    right?.parent = maxLeft
+    root = maxLeft
+    update(maxLeft)
+    return maxLeft
+}
+
+```
+
+* Notice that in the `merge` function, when the right subtree is null, we return the left subtree as it is.
+* This is because we use the `merge` function for `delete` operation, too.
+* The `merge` function is not an access operation here.
+* In the standard splay tree merge, we would still perform the `findMax` and `splay` functions on the left subtree.
+* Because, the standard splay tree is optimized for access operations.
+* Whereas, this problem is optimized for `rangeSumQuery`.
+* We want to minimize the operations.
+* So, we avoid unnecessary `findMax`, `splay`, `rotate`, `update`, etc. whenever we can.
+* Notice that we still maintain the binary search tree invariants (structural correctness).
 
 ## The `Splay` function
 
