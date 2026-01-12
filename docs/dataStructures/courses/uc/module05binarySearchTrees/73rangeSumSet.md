@@ -301,11 +301,18 @@ fun splay(target: Node): Node {
 
 ```
 
+* If (grandparent == null) {rotate(target)}
+* If ((parent.left == target) == (grandparent.left == parent)) { rotate(parent), rotate(target)}
+  * Both parent and target are in the same direction (left or right).
+  * Parent pulls the target upwards.
+* Else (zigZag, zagZig) {rotate(target), rotate(target)}
+  * Rotate the target two times.
+
 ## The `Add` function
 
 * We treat the key that we want to add as a `split key`.
 * Then, we `split` the tree for this `split key`.
-* Then, the `split key` becomes the root, the left subtree becomes the left child, and the right subtree becomes the right child.
+* The `split key` becomes the root, the left subtree becomes the left child, and the right subtree becomes the right child.
 
 ### Pseudocode for the `Add` function
 
@@ -376,6 +383,11 @@ fun delete(key: Long) {
 }
 
 ```
+
+* Find and splay the key that we want to delete.
+* If the root key is not equal to the key that we want to delete, then return early.
+* Otherwise, disconnect the left and right subtrees from the root.
+* And merge the left and right subtrees.
 
 ## The `FindAndSplay` function
 
