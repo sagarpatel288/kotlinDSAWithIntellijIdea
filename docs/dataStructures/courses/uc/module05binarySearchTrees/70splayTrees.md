@@ -18,6 +18,7 @@
   * [Introduction](#introduction)
   * [Splay](#splay)
     * [Pseudocode Of Splay](#pseudocode-of-splay)
+    * [Pseudocode Of "Splay" For Common "Rotate"](#pseudocode-of-splay-for-common-rotate)
   * [Insert](#insert)
     * [Steps](#steps)
     * [Pseudocode Of Insert](#pseudocode-of-insert)
@@ -309,6 +310,15 @@ fun rotate(target: Node<T>) {
 * First, we pull the grandparent in the right direction.
 * And then we pull the parent in the right direction.
 
+---
+* We can remember it in this way:
+* The target has a parent and a grandparent.
+* Both the parent and the target are left children.
+* Both the target and the parent are on the same side of the grandparent.
+* So, first we move(push) the parent upward.
+* And then, the parent moves(pulls) the target child upward.
+---
+
 #### Zag-Zag Rotation (Zig-Zig Left)
 
 ![640splayTreesZagZagLeftTwice.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/640splayTreesZagZagLeftTwice.svg)
@@ -322,6 +332,15 @@ fun rotate(target: Node<T>) {
 * Both the rotations are in the left direction (anti-clockwise).
 * First, we pull the grandparent in the left direction.
 * And then we pull the parent in the left direction.
+
+---
+* We can remember it in this way:
+* The target has a parent and a grandparent.
+* Both the parent and the target are right children.
+* Both the target and the parent are on the same side of the grandparent.
+* So, first we move(push) the parent upward.
+* And then, the parent moves(pulls) the target child upward.
+---
 
 ### Zig-Zag Rotations (First-Parent-Then-Grandparent): Heterogeneous Rotations
 
@@ -342,6 +361,14 @@ fun rotate(target: Node<T>) {
 * It means that the parent node is in the right direction of the grandparent node.
 * So, we rotate the grandparent in the left direction.
 
+---
+* We can remember it in this way:
+* The target has a parent and a grandparent.
+* The parent is a right child and the target is a left child.
+* Both the target and the parent are on the different sides of the grandparent.
+* So, we move(push) the target upward two times.
+---
+
 #### Zag-Zig Rotation
 
 ![680splayTreesZagZigLeftRight.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/680splayTreesZagZigLeftRight.svg)
@@ -358,6 +385,14 @@ fun rotate(target: Node<T>) {
 * And the second rotation is in the right direction (clockwise).
 * It means that the parent node is to the left of the grandparent node.
 * So, we rotate the grandparent in the right direction.
+
+---
+* We can remember it in this way:
+* The target has a parent and a grandparent.
+* The parent is a left child and the target is a right child.
+* Both the target and the parent are on the different sides of the grandparent.
+* So, we move(push) the target upward two times.
+---
 
 ## Introduction
 
@@ -435,6 +470,30 @@ fun splay(node: Node<T>) {
             }
         }
     }
+}
+
+```
+
+### Pseudocode Of "Splay" For Common "Rotate"
+
+```kotlin
+
+fun splay(target: Node): Node {
+    while (target.parent != null) {
+      var parent = target.parent
+      var grandParent = parent?.parent
+        if (grandParent == null) {
+            rotate(target)
+        } else if ((parent.left == target) == (grandParent.left == parent)) {
+            rotate(parent)
+            rotate(target)
+        } else {
+            rotate(target)
+            rotate(target)
+        }
+    }
+    root = target
+    return target
 }
 
 ```
@@ -711,6 +770,11 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 }
 
 ```
+
+* When we call `findMax` on the `left` tree, it internally performs the `splay` operation on the `max` node.
+* The `max` node becomes the root of the `left` tree. 
+* This process vacant the right seat where we can attach the right subtree.
+* So, this process is to have a free spot on the right side to attach the `right` tree.
 
 ## Implementation
 

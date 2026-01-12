@@ -21,8 +21,12 @@
   * [The `Merge` function](#the-merge-function)
       * [Pseudocode for `merge` function](#pseudocode-for-merge-function)
   * [The `Splay` function](#the-splay-function)
+    * [Pseudocode for the `splay` function](#pseudocode-for-the-splay-function)
   * [The `Add` function](#the-add-function)
+    * [Pseudocode for the `Add` function](#pseudocode-for-the-add-function)
   * [The `Delete` function](#the-delete-function)
+    * [Pseudocode for the `Delete` function](#pseudocode-for-the-delete-function)
+    * [Pseudocode for the `Delete` function (improved)](#pseudocode-for-the-delete-function-improved)
   * [The `FindAndSplay` function](#the-findandsplay-function)
     * [Pseudocode for the `FindAndSplay` function](#pseudocode-for-the-findandsplay-function)
 <!-- TOC -->
@@ -206,6 +210,7 @@ fun rotate(target: Node) {
 
 fun split(key: Long): SplitResult {
     root = find(key)
+    // Decide which parts will be the left and right subtrees and where each will go.
     if (root.key >= key) {
         val left = root.left
         left?.parent = null
@@ -272,11 +277,60 @@ fun merge(left: Node?, right: Node?): Node? {
 * Depending upon the current structure of the tree, it keeps calling the `rotate` function until the last accessed node becomes the root of the tree.
 * The `rotate` function performs various rotations on the various nodes (the target node, the parent of the target node, and the grandparent of the target node) to move the target node upwards in the tree.
 
+### Pseudocode for the `splay` function
+
+```kotlin
+
+fun splay(target: Node): Node {
+    while (target.parent != null) {
+        var parent = target.parent
+        var grandparent = parent?.parent
+        if (grandparent == null) {
+            // Whether to rotate right or left is decided by and within the `rotate` function
+            rotate(target)
+        } else if ((parent.left == target) == (grandparent.left == parent)) {
+            // Again, whether to rotate right or left is decided by and within the `rotate` function
+            rotate(parent)
+            rotate(target)
+        }
+    }
+    root = target
+    update(target)
+    return target
+}
+
+```
+
 ## The `Add` function
 
 * We treat the key that we want to add as a `split key`.
 * Then, we `split` the tree for this `split key`.
 * Then, the `split key` becomes the root, the left subtree becomes the left child, and the right subtree becomes the right child.
+
+### Pseudocode for the `Add` function
+
+```kotlin
+
+fun add(key: Long) {
+    // We treat the key that we want to add as a `split key`.
+    // "left" is the left subtree and "right" is the right subtree.
+    // `left < key` and `right >= key`
+    val (left, right) = split(root, key)
+    if (right == null || right.key != key) {
+        val newNode = Node(key)
+        newNode.left = left
+        left.parent = newNode
+        newNode.right = right
+        right?.parent = newNode
+        root = newNode
+        update(root)
+    } else {
+        // The key already exists
+        root = merge(left, right)
+    }
+}
+
+```
 
 ## The `Delete` function
 
@@ -284,6 +338,44 @@ fun merge(left: Node?, right: Node?): Node? {
 * Then, we `split` the tree for this `split key`.
 * Then, we discard (disconnect) this `split key`.
 * And we `merge` the remaining subtrees.
+
+### Pseudocode for the `Delete` function
+
+```kotlin
+
+fun delete(key: Long) {
+    // We treat the key that we want to delete as a `split key`.
+    val (left, rightWithDeleteKey) = split(root, key)
+    val (delete, rightWithoutDeleteKey) = split(rightWithDeleteKey, key + 1)
+    root = merge(left, rightWithoutDeleteKey)
+    update(root)
+}
+```
+
+* Notice how the current implementation of the `delete` function works.
+* What happens if the key that we want to delete does not exist?
+* It will still perform the two `split` operations and one `merge` operation for nothing!
+* We can improve this by the "fail fast" (early exit, short circuit) principle.
+* We `findAndSplay` the key that we want to delete.
+* If the key does not exist, then we can return early.
+
+### Pseudocode for the `Delete` function (improved)
+
+```kotlin
+
+fun delete(key: Long) {
+    val root = findAndSplay(key)
+    if (root.key != key) return // key does not exist, return early
+    val left = root.left
+    val right = root.right
+    left?.parent = null
+    right?.parent = null
+    root.left = null
+    root.right = null
+    root = merge(left, right)
+}
+
+```
 
 ## The `FindAndSplay` function
 
