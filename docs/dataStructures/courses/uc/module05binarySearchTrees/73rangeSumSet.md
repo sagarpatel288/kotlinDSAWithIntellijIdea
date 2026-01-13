@@ -419,3 +419,42 @@ fun findAndSplay(root: Node, key: Long): Node {
 }
 
 ```
+
+## The `RangeSum` function
+
+```kotlin
+
+fun rangeSum(startInclusive: Long, endInclusive: Long): Long {
+  // left < startInclusive, and right >= startInclusive
+  // The "right" subtree contains all the keys that are greater than or equal to `startInclusive`.
+  val (left, right) = split(root, startInclusive)
+  // right(startInclusive) <= withinRange < endInclusive + 1, and greaterThanRange >= endInclusive + 1
+  // For each key of the "withinRange" subtree, `startInclusive <= key <= endInclusive`.
+  val (withinRange, greaterThanRange) = split(right, endInclusive + 1)
+  val rangeSum = withinRange?.sum ?: 0L
+  // merge the subtrees back together
+  root = merge(left, merge(withinRange, greaterThanRange))
+  return rangeSum
+}
+
+```
+
+* Suppose that we want to find the sum of all the keys that are in the range `[l, r]` inclusive.
+* So, first we use the start of the range as the `split key` to split the tree into two subtrees.
+* `val (left, right) = split(root, l)`.
+* The `left` subtree contains all the keys that are less than `l`.
+* The `right` subtree contains all the keys that are greater than or equal to `l`.
+* It means that the `right` subtree contains the keys that are in the range `[l, r]` inclusive.
+* But, the `right` subtree also contains the keys that are greater than `r`.
+* So, we need to split the `right` subtree into two subtrees again.
+* `val (withinRange, greaterThanRange) = split(right, r + 1)`.
+* These two subtrees are the subtrees of the `right` subtree.
+* Out of these two subtrees, the `withinRange` subtree contains all the keys that are less than `r + 1`.
+* And remember that the `right` subtree contains all the keys that are greater than or equal to `l`.
+* So, the `withinRange` subtree contains all the keys that are `>= l`, but `< r + 1`.
+* In other words, the `withinRange` subtree contains all the keys that are in the range `[l, r]` inclusive.
+* The `withinRange` represents a root node of the subtree.
+* So, `withinRange.sum` is the sum of all the keys that are in the range `[l, r]` inclusive.
+* That is the answer that we are looking for.
+* But, we need to merge the subtrees back together.
+* `root = merge(left, merge(withinRange, greaterThanRange))`.
