@@ -443,12 +443,27 @@ fun rangeSum(startInclusive: Long, endInclusive: Long): Long {
 * So, first we use the start of the range as the `split key` to split the tree into two subtrees.
 * `val (left, right) = split(root, l)`.
 * The `left` subtree contains all the keys that are less than `l`.
-* The `right` subtree contains all the keys that are greater than or equal to `l`.
+* We can think of it as the extra (unnecessary) weight.
+* Or maybe, imagine that a school has sent many students to a competition.
+* The selection process for the competition is based on the age and weight.
+* The minimum age or weight is `l` and the maximum age or weight is `r`.
+* All the students are in a line (queue) and they are sorted by their age and weight.
+* The left most student is the youngest and the lightest student.
+* The right most student is the oldest and the heaviest student.
+* The `left` subtree represents the students who are younger or lighter than `l`. 
+* So, we drop (ignore) it.
+* The `right` subtree contains all the keys that are `>= l`.
 * It means that the `right` subtree contains the keys that are in the range `[l, r]` inclusive.
 * But, the `right` subtree also contains the keys that are greater than `r`.
 * So, we need to split the `right` subtree into two subtrees again.
 * `val (withinRange, greaterThanRange) = split(right, r + 1)`.
-* These two subtrees are the subtrees of the `right` subtree.
+* The `withinRange` subtree is a `rightLeft` subtree, the `left` subtree (part) of the `right` subtree.
+* The `greaterThanRange` subtree is a `rightRight` subtree, the `right` subtree (part) of the `right` subtree.
+* The `greaterThanRange` subtree contains all the keys that are `>= r + 1`.
+* It means that the `greaterThanRange` part contains all the students who are older or heavier than `r`.
+* So, we have the `left` subtree, that is `< l`, and the `greaterThanRange` subtree, that is `> r`.
+* Hence, the middle part is the `withinRange` subtree, that is `>= l` and `<= r`.
+* The two subtrees, `withinRange`, and `greaterThanRange`, are the subtrees of the `right` subtree.
 * Out of these two subtrees, the `withinRange` subtree contains all the keys that are less than `r + 1`.
 * And remember that the `right` subtree contains all the keys that are greater than or equal to `l`.
 * So, the `withinRange` subtree contains all the keys that are `>= l`, but `< r + 1`.
@@ -457,4 +472,5 @@ fun rangeSum(startInclusive: Long, endInclusive: Long): Long {
 * So, `withinRange.sum` is the sum of all the keys that are in the range `[l, r]` inclusive.
 * That is the answer that we are looking for.
 * But, we need to merge the subtrees back together.
+* Think of it as the need to send all the students back to the school.
 * `root = merge(left, merge(withinRange, greaterThanRange))`.
