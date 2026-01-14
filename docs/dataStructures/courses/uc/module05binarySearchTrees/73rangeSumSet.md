@@ -20,6 +20,8 @@
       * [Pseudocode for `split` function](#pseudocode-for-split-function)
   * [The `Merge` function](#the-merge-function)
       * [Pseudocode for `merge` function](#pseudocode-for-merge-function)
+  * [The `findMax` function](#the-findmax-function)
+    * [Pseudocode for `findMax` function](#pseudocode-for-findmax-function)
   * [The `Splay` function](#the-splay-function)
     * [Pseudocode for the `splay` function](#pseudocode-for-the-splay-function)
   * [The `Add` function](#the-add-function)
@@ -29,6 +31,7 @@
     * [Pseudocode for the `Delete` function (improved)](#pseudocode-for-the-delete-function-improved)
   * [The `FindAndSplay` function](#the-findandsplay-function)
     * [Pseudocode for the `FindAndSplay` function](#pseudocode-for-the-findandsplay-function)
+  * [The `RangeSum` function](#the-rangesum-function)
 <!-- TOC -->
 
 ## Pre-requisites/References
@@ -268,6 +271,27 @@ fun merge(left: Node?, right: Node?): Node? {
 * We want to minimize the operations.
 * So, we avoid unnecessary `findMax`, `splay`, `rotate`, `update`, etc. whenever we can.
 * Notice that we still maintain the binary search tree invariants (structural correctness).
+
+## The `findMax` function
+
+* We call `findMax` function from the `merge` function to `find` and `splay` the maximum element in the left subtree.
+* By doing that, we make the maximum element in the left subtree the root of the left subtree.
+
+### Pseudocode for `findMax` function
+
+```kotlin
+
+fun findMax(root: Node): Node {
+    var current = root
+    while (current.right != null) {
+        current = current.right
+    }
+    return current
+}
+
+```
+
+* By the definition of a binary search tree, the maximum element is the rightmost element in the tree.
 
 ## The `Splay` function
 
