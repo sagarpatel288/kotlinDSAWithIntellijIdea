@@ -15,6 +15,7 @@
       * [Input Format](#input-format-)
       * [Constraints](#constraints-)
       * [Output Format](#output-format-)
+      * [Time Limit](#time-limit)
       * [Memory Limit](#memory-limit-)
       * [Sample 1](#sample-1)
         * [Input](#input)
@@ -103,6 +104,12 @@ $0 ≤ 𝑖 ≤ 10^9$
 
 * For each find request, just output “**Found**" or “**Not found**" (without quotes; note that the first letter is capital) depending on whether `(𝑖 + 𝑥) mod 𝑀` is in `𝑆` or not. 
 * For each sum query, output the sum of all the values `𝑣` in `𝑆` such that `((𝑙 + 𝑥) mod 𝑀) ≤ 𝑣 ≤ ((𝑟 + 𝑥) mod 𝑀)` (it is guaranteed that in all the tests `((𝑙 + 𝑥) mod 𝑀) ≤ ((𝑟 + 𝑥) mod 𝑀))`, where `𝑥` is the result of the last sum operation or `0` if there was no previous sum operation.
+
+#### Time Limit
+
+| Language   	 | C 	 | C++ 	 | Java 	 | Python 	 | C# 	 | Haskell 	 | JavaScript 	 | Ruby 	 | Scala 	 |
+|--------------|-----|-------|--------|----------|------|-----------|--------------|--------|---------|
+| Time (sec) 	 | 2 	 | 2   	 | 3    	 | 10     	 | 3  	 | 4       	 | 10         	 | 10   	 | 6     	 |
 
 #### Memory Limit 
 
@@ -439,6 +446,7 @@ fun merge(left: Node?, right: Node?): Node? {
     if (left == null) return right
     if (right == null) return left
     val maxLeft = findMax(left)
+    splay(maxLeft)
     maxLeft.right = right
     right?.parent = maxLeft
     root = maxLeft
