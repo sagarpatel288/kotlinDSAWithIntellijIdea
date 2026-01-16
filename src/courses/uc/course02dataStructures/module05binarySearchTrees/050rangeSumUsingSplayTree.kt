@@ -177,6 +177,10 @@ import java.util.StringTokenizer
  * 491572259
  * ```
  *
+ * ## Caution
+ *
+ * * Take care of when to use the global [root] and when to not use it!
+ *
  * ## Time Complexity
  *
  * * Amortized: `O(log n)` per operation
@@ -188,7 +192,7 @@ import java.util.StringTokenizer
  * ## Grader Output
  *
  * ```
- *
+ * Good job! (Max time used: 0.71/1.50, max memory used: 85323776/2147483648.)
  * ```
  *
  *
@@ -216,9 +220,11 @@ class RangeSumUsingSplayTree {
      * * They are interested in the service, the end result.
      * * How we provide the end result, the internal system and process, the engine is not the business of consumers.
      * ---
+     * **Do you understand why do we treat [key] as a class property instead of a class constructor parameter?**
+     * * Hint: [add]
+     * ---
      */
-    private class Node {
-        var key: Long = 0L
+    private class Node(val key: Long) {
         var parent: Node? = null
         var leftChild: Node? = null
         var rightChild: Node? = null
@@ -298,14 +304,14 @@ class RangeSumUsingSplayTree {
             }
         }
         root = node
-        update(node)
+        update(root)
         return node
     }
 
     /**
      * Can you explain why did we have to use a label to break the outer-loop (the while loop) from the inner `when`?
      */
-    private fun findAndSplay(key: Long): Node? {
+    private fun findAndSplay(root: Node?, key: Long): Node? {
         if (root == null) return null
         var curr = root
         var last = curr
@@ -327,14 +333,12 @@ class RangeSumUsingSplayTree {
         }
         val target = curr ?: last
         splay(target)
-        root = target
-        update(root)
         return target
     }
 
     fun find(key: Long): Boolean {
         if (root == null) return false
-        root = findAndSplay(key) // "splay" calls "rotate", and "rotate" calls "update".
+        root = findAndSplay(root, key) // "splay" calls "rotate", and "rotate" calls "update".
         return root?.key == key
     }
 
@@ -345,19 +349,19 @@ class RangeSumUsingSplayTree {
      */
     private fun split(root: Node?, splitKey: Long): SplitResult {
         if (root == null) return SplitResult(null, null)
-        findAndSplay(splitKey)
-        if (root.key < splitKey) {
-            val right = root.rightChild
+        val partition = findAndSplay(root, splitKey) ?: return SplitResult(null, null)
+        if (partition.key < splitKey) {
+            val right = partition.rightChild
             right?.parent = null
-            root.rightChild = null
-            update(root)
-            return SplitResult(root, right)
+            partition.rightChild = null
+            update(partition)
+            return SplitResult(partition, right)
         } else {
-            val left = root.leftChild
+            val left = partition.leftChild
             left?.parent = null
-            root.leftChild = null
-            update(root)
-            return SplitResult(left, root)
+            partition.leftChild = null
+            update(partition)
+            return SplitResult(left, partition)
         }
     }
 
@@ -369,9 +373,7 @@ class RangeSumUsingSplayTree {
             merge(left, right)
             return
         }
-        val newNode = Node().apply {
-            this.key = key
-        }
+        val newNode = Node(key)
         newNode.leftChild = left
         left?.parent = newNode
         newNode.rightChild = right
@@ -396,14 +398,13 @@ class RangeSumUsingSplayTree {
         val leftRoot = splay(maxOfLeft)
         leftRoot?.rightChild = right
         right.parent = leftRoot
-        root = leftRoot
-        update(root)
-        return root
+        update(leftRoot)
+        return leftRoot
     }
 
     fun delete(key: Long): Boolean {
         if (root == null) return false
-        val target = findAndSplay(key)
+        val target = findAndSplay(root, key)
         if (target?.key != key) return false
         val left = target.leftChild
         val right = target.rightChild
