@@ -184,13 +184,35 @@ class RangeSumUsingSplayTree {
      * Can you explain why did we use a "class" instead of a "data class" for the "Node"?
      * When should we use a "data class" over a "class" and vice versa?
      * Also explain why the "class Node" is a "private" class.
+     * ---
+     * * We use a "data class" for an immutable object, such as data holders like DTO, API response, etc.
+     * * If we use a "data class" here with all the "mutable variables", then it is a "normal class" with hidden costs.
+     * * The hidden cost is circular dependency.
+     * * For example, the `toString` function would create a circular dependency for "child -> parent -> child".
+     * * It can cause "StackOverflow" error.
+     * * The "data class" can also create the "identify Vs. equality" issue here.
+     * * Two nodes having the same "key" or "subtreeSum" are not equal.
+     * * The "data class" compares values for the equality, whereas a normal class compares the "memory reference".
+     * ---
+     * * The "Node" class is a "private class" because public APIs like [add], [delete], [find], [rangeSum], etc. do not
+     * need to access and accidentally modify the internal implementation of this [Node] class.
+     * * The public APIs are like customers.
+     * * They are interested in the service, the end result.
+     * * How we provide the end result, the internal system and process, the engine is not the business of consumers.
+     * ---
      */
     private class Node {
         var key: Long = 0L
         var parent: Node? = null
         var leftChild: Node? = null
         var rightChild: Node? = null
-        var subtreeSum: Long = key + (leftChild?.subtreeSum ?: 0L) + (rightChild?.subtreeSum ?: 0L)
+        // Do you understand why don't we apply the "update" formula here?
+        // Because that can create a false impression that the "subtreeSum" will always give us the correct value.
+        // However, the truth is, we need to update it manually, every time we change the pointers of the node.
+        // Having initial value without formula implies that we need to manually "update" it when required.
+        // Also, a single, isolated `node` is a `subtree` itself.
+        // Hence, the initial value of the `subtreeSum` is equal to the `key`.
+        var subtreeSum: Long = key
     }
 
     private var root: Node? = null
@@ -226,8 +248,26 @@ class RangeSumUsingSplayTree {
         update(target)
     }
 
+    /**
+     * Should [update] be a responsibility of this [splay] function to avoid manual calls?
+     * On one hand, it seems like an "error-proof" design where we get rid of the case where a developer might forget
+     * to call the [update] function manually after every a particular operation.
+     * On the other hand, it seems like breaking the single responsibility principle.
+     * So, what should be the better decision and why?
+     * ---
+     * * The [update] function is the integrated part of the [splay] and [rotate] functions.
+     * * Because, the process of the [splay] and [rotate] functions should maintain the invariant (rules) and metadata.
+     * * For example, the binary search tree invariant and the metadata like [subtreeSum], and various pointers.
+     * * [splay] and [rotate] operations change the metadata.
+     * * So, it is also their responsibility to maintain the same.
+     * ---
+     * **Why do we return `Node`?**
+     * ---
+     * * We return the `Node` that was `splayed`.
+     * ---
+     */
     private fun splay(node: Node?): Node? {
-        if (node == null || node.parent == null) return null
+        if (node == null) return null
         while (node.parent != null) {
             val parent = node.parent
             val grandParent = parent?.parent
@@ -268,13 +308,20 @@ class RangeSumUsingSplayTree {
         }
         splay(last)
         root = last
+        update(root)
         return last
+    }
+
+    fun find(key: Long): Boolean {
+        if (root == null) return false
+        root = findAndSplay(key) // "splay" calls "rotate", and "rotate" calls "update".
+        return root?.key == key
     }
 
     /**
      * Do you understand why do we pass [root]?
-     * Hint: [add] operation
-     * We
+     * Hint: [add] and [delete] operations
+     *
      */
     private fun split(root: Node?, splitKey: Long): SplitResult {
         if (root == null) return SplitResult(null, null)
@@ -296,7 +343,12 @@ class RangeSumUsingSplayTree {
 
     fun add(key: Long) {
         val (left, right) = split(root, key)
-        if (right?.key == key) return
+        // Do you understand why are we sure that if the "key" exist, it must be the root of the "right" subtree?
+        if (right?.key == key) {
+            // The key already exists in the tree.
+            merge(left, right)
+            return
+        }
         val newNode = Node().apply {
             this.key = key
         }
@@ -348,6 +400,7 @@ class RangeSumUsingSplayTree {
         val (rightLeft, rightRight) = split(right, end + 1)
         val rangeSum = rightLeft?.subtreeSum ?: 0L
         root = merge(left, merge(rightLeft, rightRight))
+        update(root)
         return rangeSum
     }
 
@@ -364,6 +417,8 @@ fun main() {
     if (firstLine == null) return
     val total = firstLine.toInt()
     var rangeSum = 0L
+    val mod = 1000000001L
+    val solver = RangeSumUsingSplayTree()
 
     repeat(total) {
         val line = reader.readLine()
@@ -371,15 +426,32 @@ fun main() {
         val char = token.nextToken()
         when (char) {
             "+" -> {
-
+                val key = token.nextToken().toLong()
+                solver.add((key + rangeSum) % mod)
             }
 
             "-" -> {
-
+                val key = token.nextToken()?.toLong()
+                key?.let {
+                    solver.delete((it + rangeSum) % mod)
+                }
             }
 
             "?" -> {
+                val key = token.nextToken()?.toLong()
+                key?.let {
+                    val found = solver.find((key + rangeSum) % mod)
+                    println(if (found) "Found" else "Not found")
+                }
+            }
 
+            "s" -> {
+                val start = token.nextToken()?.toLong()
+                val end = token.nextToken()?.toLong()
+                if (start != null && end != null) {
+                    rangeSum = solver.rangeSum((start + rangeSum) % mod, (end + rangeSum) % mod)
+                    println(rangeSum)
+                }
             }
         }
     }
