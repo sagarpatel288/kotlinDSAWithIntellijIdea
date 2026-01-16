@@ -52,12 +52,27 @@
   * [The `FindAndSplay` function](#the-findandsplay-function)
     * [Pseudocode for the `FindAndSplay` function](#pseudocode-for-the-findandsplay-function)
   * [The `RangeSum` function](#the-rangesum-function)
+  * [Questions](#questions)
+    * [Why did we use a `SplayTree`?](#why-did-we-use-a-splaytree)
+    * [Why did we use `Long` even though the input is within the `Integer` range?](#why-did-we-use-long-even-though-the-input-is-within-the-integer-range)
+    * [Why do we `Splay` before we `Split`?](#why-do-we-splay-before-we-split)
+    * [Why do we perform rotations?](#why-do-we-perform-rotations)
+    * [Why `merge` calls `splay` on the `max` of the `left`?](#why-merge-calls-splay-on-the-max-of-the-left)
+    * [Why does this work?](#why-does-this-work)
+    * [What happens if we forget to `update`?](#what-happens-if-we-forget-to-update)
+    * [Why do we return the non-null subtree immediately as it is when one of the subtrees is `null` during `merge`?](#why-do-we-return-the-non-null-subtree-immediately-as-it-is-when-one-of-the-subtrees-is-null-during-merge)
+      * [Then, why do we `splay` even when the `find key` is missing?](#then-why-do-we-splay-even-when-the-find-key-is-missing)
+    * [Why do we have this strange `(+ x) % Mod` condition?](#why-do-we-have-this-strange--x--mod-condition)
+    * [What will be the time complexity?](#what-will-be-the-time-complexity)
+    * [Can a particular operation take `O(n)` time?](#can-a-particular-operation-take-on-time)
+  * [Relevant DSA Variants](#relevant-dsa-variants)
 <!-- TOC -->
 
 ## Pre-requisites/References
 
 * [Doc: Splay Tree](70splayTrees.md)
 * [Implementation: Splay Tree](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/040splayTreeImplementation.kt)
+* [Range sum using a splay tree](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/050rangeSumUsingSplayTree.kt)
 
 ## Problem
 
@@ -692,3 +707,100 @@ fun rangeSum(startInclusive: Long, endInclusive: Long): Long {
 * But, we need to merge the subtrees back together.
 * Think of it as the need to send all the students back to the school.
 * `root = merge(left, merge(withinRange, greaterThanRange))`.
+
+## Questions
+
+### Why did we use a `SplayTree`?
+
+* The `range` query works efficiently with a value-based order structure than the index based data structure.
+* Binary tree is a value based ordered data structure.
+* It is difficult in a simple binary tree to find a particular node, as it can be either left or the right side.
+* A binary search tree can be skewed if all the "add" operations are strictly ascending order.
+* AVL-Tree and Red-Black trees are strictly self-balanced binary search trees.
+* It means that it might perform more rotations than a splay tree.
+* Also, the "split", and the "merge" operations are complex in an AVL-Tree and for a Red-Black-Tree than in a Splay-Tree.
+* Hence, we used a "Splay Tree".
+
+### Why did we use `Long` even though the input is within the `Integer` range?
+
+* Because the `update` can easily cause `IntegerOverflow`.
+* To avoid that, we use `Long` instead of `Integer`.
+
+### Why do we `Splay` before we `Split`?
+
+* For the partition.
+* When we `splay` the `splitKey`, we make the `splitKey` or the closest `key` the root node.
+* And then depending upon the root value, we `split` the tree into two subtrees: Left and right. 
+
+### Why do we perform rotations?
+
+* To maintain the amortized cost to `O(log n)` by making the recently accessed node the root node.
+* Each `splay` operation re-balances the tree to maintain the `O(log n)` amortized cost.
+
+### Why `merge` calls `splay` on the `max` of the `left`?
+
+* To make a room (vacancy) for the `right` child.
+* When we `splay` the `max` of the `left`, the `right` child-position becomes empty, waiting to get the `right` child.
+* So, we attach the `right` subtree there.
+* And this is how we perform the `merge` operation.
+
+### Why does this work?
+
+* Although the `Splay Tree` is a flexible self-balanced binary search tree, we maintain the invariants.
+* We maintain the `in-order` structure throughout all the operations.
+
+### What happens if we forget to `update`?
+
+* We lose the BST-invariants.
+* It can break the `BST` structure.
+* It can lead to higher amortized cost than the expected `O(log n)`.
+* We can get unexpected results.
+
+### Why do we return the non-null subtree immediately as it is when one of the subtrees is `null` during `merge`?
+
+* Because each subtree follows the BST-invariants.
+* We don't need to do anything else on an existing BST-invariant structure.
+* Also, we are not treating the `merge` operation as an `access` operation here.
+* The existing setup is to efficiently perform higher number of operations.
+* So, we avoid unnecessary `splay` and consequent `rotate` operations when one of the subtrees is null.
+
+#### Then, why do we `splay` even when the `find key` is missing?
+
+* We use `splay` for the `split` operation.
+* For the proper partition, we perform `splay` even when the `find key` is missing.
+
+### Why do we have this strange `(+ x) % Mod` condition?
+
+* It prevents precomputed offline solutions such as the usage of a segment tree with offline sorting.
+* It forces an online, on-demand, dynamic solution.
+
+### What will be the time complexity?
+
+* The amortized cost is `O(log n)`.
+* A single operation can take `O(n)`, but `M` operations would take `O(M log n)`.
+* Because each costly operation re-balances the tree.
+* As a result, the overall cost across the `M` operations on an average, is `O(log n)` per operation.
+
+### Can a particular operation take `O(n)` time?
+
+* Yes, an individual operation can take `O(n)` time.
+* However, each costly operation re-balances the tree.
+* Hence, the overall amortized cost is `O(log n)` per operation.
+
+## Relevant DSA Variants
+
+* Find K-th smallest/largest element.
+  * Hint: Add `size` field to `Node` and use it to navigate left/right in `find`.
+* Support `min` and `max` queries.
+* Count nodes for the range `[l, r]`.
+* Add `x` to all the elements within range `[l, r]`.
+  * Hint: Use `Lazy Propagation` just like `Segment Trees`. 
+  * Store `lazeAdd` value to the `Node` and push it down during rotations.
+* Predecessor/Successor: Implement `next(key)` that returns the smallest node, strictly greater than `key`.
+  * Hint: `findAndSplay`, and check the `root`.
+* Support duplicate keys (multiset).
+* How can we replace this `splay tree` implementation with a `treap`?
+* Why a segment tree fails here without offline preprocessing?
+* Compare splay Vs. AVL-Tree implementation for this problem.
+* Compare splay Vs. red-black tree implementation for this problem.
+* 
