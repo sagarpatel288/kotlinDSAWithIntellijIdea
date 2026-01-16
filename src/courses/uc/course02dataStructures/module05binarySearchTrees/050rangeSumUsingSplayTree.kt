@@ -176,6 +176,22 @@ import java.util.StringTokenizer
  * Not found
  * 491572259
  * ```
+ *
+ * ## Time Complexity
+ *
+ * * Amortized: `O(log n)` per operation
+ *
+ * ## Space Complexity
+ *
+ * * The tree contains `O(n)` nodes
+ *
+ * ## Grader Output
+ *
+ * ```
+ *
+ * ```
+ *
+ *
  */
 class RangeSumUsingSplayTree {
 
@@ -286,11 +302,14 @@ class RangeSumUsingSplayTree {
         return node
     }
 
+    /**
+     * Can you explain why did we have to use a label to break the outer-loop (the while loop) from the inner `when`?
+     */
     private fun findAndSplay(key: Long): Node? {
         if (root == null) return null
         var curr = root
         var last = curr
-        while (curr != null) {
+        outerLoop@ while (curr != null) {
             last = curr
             curr = when {
                 curr.key < key -> {
@@ -302,14 +321,15 @@ class RangeSumUsingSplayTree {
                 }
 
                 else -> {
-                    break
+                    break@outerLoop
                 }
             }
         }
-        splay(last)
-        root = last
+        val target = curr ?: last
+        splay(target)
+        root = target
         update(root)
-        return last
+        return target
     }
 
     fun find(key: Long): Boolean {
@@ -373,24 +393,25 @@ class RangeSumUsingSplayTree {
         if (left == null) return right
         if (right == null) return left
         val maxOfLeft = findMax(left)
-        val root = splay(maxOfLeft)
-        root?.rightChild = right
-        right.parent = root
+        val leftRoot = splay(maxOfLeft)
+        leftRoot?.rightChild = right
+        right.parent = leftRoot
+        root = leftRoot
         update(root)
         return root
     }
 
     fun delete(key: Long): Boolean {
         if (root == null) return false
-        val root = findAndSplay(key)
-        if (root?.key != key) return false
-        val left = root.leftChild
-        val right = root.rightChild
+        val target = findAndSplay(key)
+        if (target?.key != key) return false
+        val left = target.leftChild
+        val right = target.rightChild
         left?.parent = null
         right?.parent = null
-        root.leftChild = null
-        root.rightChild = null
-        merge(left, right)
+        target.leftChild = null
+        target.rightChild = null
+        root = merge(left, right)
         return true
     }
 
