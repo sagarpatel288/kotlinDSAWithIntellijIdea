@@ -58,10 +58,59 @@
 * It means that it requires fewer rotations to balance itself.
 * So, we use a Splay-Tree.  
 * 
-**But, how do we use a character as a key?**
+**But, how do we use a character as a key?**   
+**How do we use the character key to navigate and traverse the tree?**
 
-* 
+* In a binary search tree, we find a particular node by comparing the value of the node with the value of the root or current node.
+* If `currentNode.key > target.key`, we go to the left side of the current node.
+* If `currentNode.key < target.key`, we go to the right side of the current node.
+* If `currentNode.key == target.key`, we have found the target node.
+* So, we compare the `key` value and traverse the tree.
+* The comparison based traversal works because we know that if it is a valid binary search tree, then `node.left.key < node.key < node.right.key`.
+* And we also know that if it is a valid binary search tree, then the `in-order` traversal of the tree will give us the sorted order (ascending) of the keys.
 
+```markdown
+
++----+---+---+---+---+---+----+
+|  1 | 2 | 3 | 4 | 5 | 6 | 7  |
++----+---+---+---+---+---+----+
+
+```
+
+* Now, let us simply replace these numbers with characters.
+
+```markdown
+
+┌────│───│───│───│───│───│────┐
+│    │   │   │   │   │   │    │
+│  a │ b │ c │ d │ e │ f │ g  │
+│    │   │   │   │   │   │    │
+└────│───│───│───│───│───│────┘
+
+```
+
+* We compare the `key` value to find the target node.
+* But we can do it in a different way as well using an additional property called `size`.
+* The formula for the `size` property is `size = 1 + leftSize + rightSize`.
+
+![1060ropeStringCutPasteSplayTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1060ropeStringCutPasteSplayTree.png)
+
+* This is something we have learned in the previous module:
+  * [Reference: Kth Smallest Element in a BST](50avlTreeFindKthSmallKey.md)
+* Now, if we want to find the `14th` key, and if we start from the root node, we know that the `14 > 8`, so we go to the right side of the root node.
+* `8.right` is the `12` and `14 > 12`, so we go to the right side of `12`.
+* `12.right` is the `14` and that is our target node.
+* We still need to convert this idea into code.
+
+**Perspective**
+
+* We treat the given original string structure as a valid binary search tree.
+* Once we set up the binary search tree, the cut-and-paste operations become "split" and "merge" operations of a splay tree.
+* In this way, we take less time to find a node, or multiple nodes in the given range.
+
+**How does the cut-and-paste operations become split-and-merge?**
+
+* Step-8, reflective question#5.
 
 ## Real-World Application
 
