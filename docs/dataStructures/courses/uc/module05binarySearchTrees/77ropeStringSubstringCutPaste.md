@@ -13,7 +13,16 @@
  
 * A `String`, `StringBuilder`, `Substring`, and `append` stores characters in a contiguous array.
 * To cut a substring, and to paste a substring, it travels through the array.
-* It is `O(n)` operation.
+* To cut a substring, it travels from the start index to the end index.
+
+![1050ropeStringCutPasteNaive.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1050ropeStringCutPasteNaive.png)
+
+* So, it is `O(length of the substring)` operation.
+* To cut the substring, we need to perform the `remove` operation that removes the substring from the original string.
+* When we remove the substring, all the characters after the substring are shifted to the left.
+* It takes `O(string length n - substring end index + 1)`, that is a linear time operation.
+* And when we paste the substring, it can again cause shifting.
+* That is another linear time operation.
 * If the string length is `300000` and there are `100000` queries, it will take `300000 * 100000 = TLE` time!
 * **What else can we use?**
 * We want fast delete, and fast insert.
@@ -30,3 +39,5 @@
 * A Splay-Tree is a flexible self-balancing binary search tree.
 * It means that it requires fewer rotations to balance itself.
 * So, we use a Splay-Tree.
+* **How do we use a character as a key?**
+* 
