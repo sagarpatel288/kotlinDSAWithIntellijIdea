@@ -93,6 +93,8 @@
 * But we can do it in a different way as well using an additional property called `size`.
 * The formula for the `size` property is `size = 1 + leftSize + rightSize`.
 
+![1055bstKthSmallestKey.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1055bstKthSmallestKey.png)
+
 ![1060ropeStringCutPasteSplayTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1060ropeStringCutPasteSplayTree.png)
 
 * This is something we have learned in the previous module:
@@ -100,6 +102,7 @@
 * Now, if we want to find the `14th` key, and if we start from the root node, we know that the `14 > 8`, so we go to the right side of the root node.
 * `8.right` is the `12` and `14 > 12`, so we go to the right side of `12`.
 * `12.right` is the `14` and that is our target node.
+* Notice that we compare the position for the traversal and not the `key` value.
 * We still need to convert this idea into code.
 
 **Perspective**
