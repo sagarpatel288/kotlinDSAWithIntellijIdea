@@ -35,15 +35,25 @@
 * Cut and paste. 
 * How are we supposed to do it? What process can do it?
 * A `String` contains characters.
+* These characters are arranged in a particular order (sequence).
 * To cut (remove) a substring, we have the start and end indices of the substring.
 * The characters that we want to remove are between these start and end indices (range).
 * In that sense, a substring is a set of characters within a particular range.
-* We remove this substring from the original string.
+* We remove (delete) this substring from the original string.
 * And then, we paste (insert) the substring at the given position.
+* The delete and insert operations change the order of the characters.
 * We can say that we are keep changing the order of the characters.
 * We keep manipulating the order of the characters.
 * So, it is a sequence or order manipulation problem.
 * We keep re-ordering the characters.
+* This re-ordering is not an automatic consequence, like shifting in an array.
+* This re-ordering is a controlled re-ordering, where we need to establish and maintain a particular order.
+
+**Which data structure keeps things in order?**  
+**Which data structure do we use to perform deletion, insertion, and controlled re-ordering efficiently?**
+
+* When the `data` has a particular order, and we want to perform deletion, insertion, and re-ordering efficiently, we use an ordered data structure.
+* Trees are ordered data structures.
 * An ordered data structure uses a `key` (as a `value`) to compare and arrange the data.
 * What if we consider a `character` as a `key` of a `node`?
 * It becomes a value based ordered data structure.
@@ -108,6 +118,9 @@
 **Perspective**
 
 * We treat the given original string structure as a valid binary search tree.
+
+![1080ropeStringCutPasteSplayTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1080ropeStringCutPasteSplayTree.png)
+
 * Once we set up the binary search tree, the cut-and-paste operations become "split" and "merge" operations of a splay tree.
 * In this way, we take less time to find a node, or multiple nodes in the given range.
 
