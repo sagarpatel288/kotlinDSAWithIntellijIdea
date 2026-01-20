@@ -101,25 +101,85 @@
 
 * We compare the `key` value to find the target node.
 * But we can do it in a different way as well using an additional property called `size`.
-* The formula for the `size` property is `size = 1 + leftSize + rightSize`.
+* For example, let us give each character the `size` property. 
+
+```markdown
+
+             ┌────│───│───│───│───│───│────┐
+             │    │   │   │   │   │   │    │
+             │  a │ b │ c │ d │ e │ f │ g  │
+             │    │   │   │   │   │   │    │
+             ┌────│───│───│───│───│───│────┐
+             │    │   │   │   │   │   │    │
+Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
+             │    │   │   │   │   │   │    │
+             └────│───│───│───│───│───│────┘
+
+```
+
+* Now, each character knows how many characters are on its left side.
+* For example, `a` knows that there are `0` characters on its left side.
+* `b` knows that there are `1` characters on its left side.
+* `c` knows that there are `2` characters on its left side, and so on.
+* Now, suppose that the root node is `d`, and we want to find the `4th` character.
+* We know that `d` has `3` characters on its left side.
+* So, `d` is the `4th` character.
+* So, if `left size + 1` is equal to the target position, then the current node is the target node.
+* Now, suppose that we want to find the `2nd` character.
+* We are at `d`.
+* `d` has `3` characters on its left side.
+* So, if `left.size + 1` is greater than the target position, then we go to the left side of the current node.
+* Now, suppose that we want to find the `6th` character.
+* We are at `d`.
+* `d` has `3` characters on its left side.
+* So, if `left.size + 1` is less than the target position, then we go to the right side of the current node.
+* So, the conclusion is that if we know the `size` property of each node, then we can find the `kth` character using the `left.size` formula.
 
 ![1055bstKthSmallestKey.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1055bstKthSmallestKey.png)
 
-![1060ropeStringCutPasteSplayTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1060ropeStringCutPasteSplayTree.png)
 
+![1065ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1065ropeStringCutPasteSplayTree.webp)
+
+
+* The formula for the `size` property is `size = 1 + leftSize + rightSize`.
 * This is something we have learned in the previous module:
   * [Reference: Kth Smallest Element in a BST](50avlTreeFindKthSmallKey.md)
+---
 * Now, if we want to find the `14th` key, and if we start from the root node, we know that the `14 > 8`, so we go to the right side of the root node.
-* `8.right` is the `12` and `14 > 12`, so we go to the right side of `12`.
-* `12.right` is the `14` and that is our target node.
+* `8.right` is `12` and `14 > 12`, so we go to the right side of `12`.
+* `12.right` is `14` and that is our target node.
 * Notice that we compare the position for the traversal and not the `key` value.
 * We still need to convert this idea into code.
+---
+* We can find a node using the `size` property also.
+* We want to find the `14th` key.
+* We start from the root.
+* So, `node = root`.
+* The `node.left.size + 1` = `7 + 1` = `8`.
+* So, it is clear that the `14th` key cannot be in the left subtree of the root node.
+* Because the total number of keys in the left subtree of the root node is `7` only, and `14 > 7`.
+* So, we go to the right side of the root node.
+* We follow the same procedure.
+* The total number of keys (nodes) we have checked are: `node.left.size + 1 = 8`.
+* The `current node` becomes: `node = node.right = h.right = l`.
+* The new `k` becomes: `k - 8 = 14 - 8 = 6`.
+* For the current node, `l.left.size + 1` = `3 + 1` = `4`.
+* So, it is clear that the key we are looking for cannot be in the left subtree of `i`.
+* Because the total number of keys in the left subtree of `l` is `3` only, and `6 > 3`.
+* So, we go to the right side of `l`.
+* We follow the same procedure.
+* The total number of keys (nodes) we have checked are: `node.lef.size + 1 = 3 + 1 = 4`.
+* The `current node` becomes: `node = node.right = l.right = n`.
+* The new `k` becomes: `k - 4 = 6 - 4 = 2`.
+* For the current node, `n.left.size + 1 = 1 + 1 = 2`.
+* It means that the key we are looking for is the current node `n`.
+---
 
 **Perspective**
 
 * We treat the given original string structure as a valid binary search tree.
 
-![1080ropeStringCutPasteSplayTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1080ropeStringCutPasteSplayTree.png)
+![1090ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1090ropeStringCutPasteSplayTree.webp)
 
 * Once we set up the binary search tree, the cut-and-paste operations become "split" and "merge" operations of a splay tree.
 * In this way, we take less time to find a node, or multiple nodes in the given range.
@@ -127,6 +187,49 @@
 **How does the cut-and-paste operations become split-and-merge?**
 
 * Step-8, reflective question#5.
+
+## Questions
+
+### Why didn't we use Array/String/Linked-List for the rope substring cut-paste problem?
+
+* Finding a character, finding a set of characters in a given range, shifting of characters after removing a set of characters, and shifting of characters after inserting a set of characters are all `O(n)` operations in an Array/String/Linked-List.
+
+### Why didn't we use the segment tree for the rope substring cut-paste problem?
+
+* Hard to rewire the segments.
+* Not pointer-friendly.
+
+### Why didn't we use the AVL-Tree or the Red-Black Tree for the rope substring cut-paste problem?
+
+* It is a balanced binary search tree, which is a good thing to find, insert, and delete a node efficiently.
+* However, it is a strictly balanced binary search tree.
+* It means that it performs more rotations.
+* So, it increases the complexity.
+* On top of that, split and merge operations are also complex.
+
+### Why didn't we use a Treap for the rope substring cut-paste problem?
+
+* Split and merge operations are easy in a Treap.
+* It also provides implicit indices.
+* However, it needs randomization.
+* ToDo: How does it need randomization? Why is it a problem?
+
+### Why did we use a Splay Tree for the rope substring cut-paste problem?
+
+* The cut-and-paste operations are re-ordering operations.
+* We can simulate the cut-and-paste operations using the split and merge operations of a Splay Tree.
+* Maintains the order.
+* It is a flexible-balanced binary search tree.
+* So, it performs fewer rotations.
+* Split and merge operations are easy in a Splay Tree.
+* Amortized complexity is `O(log n)`.
+
+#### But what do we compare and how do we compare to traverse the Splay Tree?
+
+* We compare the position for the traversal and not the `key` value.
+
+
+## Step-11: Mental Model
 
 ## Real-World Application
 
