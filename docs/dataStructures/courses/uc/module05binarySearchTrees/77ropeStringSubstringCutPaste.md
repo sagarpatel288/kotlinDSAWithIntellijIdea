@@ -178,9 +178,9 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 **Perspective**
 
 * Characters in a string are in a particular order.
-* We use the `in-order` traversal of a binary search tree to simulate the order of characters in the string, and to form the given string.
+* We can represent the string using the `in-order` traversal of a binary search tree.
 * The binary search tree is not an index based data structure.
-* But, we know how many characters are in left side of a particular character.
+* But, we can know how many characters are in left side of a particular character using the `size` property.
 * This gives us implicit index behavior that we can use to find a character.
 
 **Perspective**
@@ -196,6 +196,7 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 
 * Next:
 * Step-1: What does `implicit index` mean?
+* How do we form the initial binary search tree? Do we have to perform many insertions?
 
 ## Questions
 
