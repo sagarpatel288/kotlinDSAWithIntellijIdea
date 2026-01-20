@@ -177,6 +177,14 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 
 **Perspective**
 
+* Characters in a string are in a particular order.
+* We use the `in-order` traversal of a binary search tree to simulate the order of characters in the string, and to form the given string.
+* The binary search tree is not an index based data structure.
+* But, we know how many characters are in left side of a particular character.
+* This gives us implicit index behavior that we can use to find a character.
+
+**Perspective**
+
 * We treat the given original string structure as a valid binary search tree.
 
 ![1090ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1090ropeStringCutPasteSplayTree.webp)
@@ -186,7 +194,8 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 
 **How does the cut-and-paste operations become split-and-merge?**
 
-* Step-8, reflective question#5.
+* Next:
+* Step-1: What does `implicit index` mean?
 
 ## Questions
 
