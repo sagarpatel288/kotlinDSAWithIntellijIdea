@@ -25,7 +25,7 @@
 * That is another linear time operation.
 * If the string length is `300000` and there are `100000` queries, it will take `300000 * 100000 = TLE` time!
 
-### Perspective based on the requirements of the problem
+### Perspective
 
 * In the previous lecture, we saw that we cannot use a contiguous data structure.  
 * 
@@ -121,7 +121,10 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 * For example, `a` knows that there are `0` characters on its left side.
 * `b` knows that there are `1` characters on its left side.
 * `c` knows that there are `2` characters on its left side, and so on.
-* Now, suppose that the root node is `d`, and we want to find the `4th` character.
+* Now, whether we say "Character at 4th index," or we say the "5th Character," or we say "The character before which there are 4 characters," it is the same thing.
+* When we say "Character at 4th index," we focus on the current index of the node and traverse accordingly.
+* And when we say "The node before which there are 4 characters," we focus on the `node.left.size` property of the current node and traverse accordingly.
+* Suppose that the root node is `d`, and we want to find the `4th` character.
 * We know that `d` has `3` characters on its left side.
 * So, `d` is the `4th` character.
 * So, if `left size + 1` is equal to the target position, then the current node is the target node.
@@ -182,6 +185,12 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 * The binary search tree is not an index based data structure.
 * But, we can know how many characters are in left side of a particular character using the `size` property.
 * This gives us implicit index behavior that we can use to find a character.
+* The number of characters before a particular character in a string is equal to the `node.left.size` (the number of nodes in its left subtree) in the `in-order` traversal of the binary search tree.
+* If it is a leaf node or a right node, then we consider and include ancestors.
+* For example, `c` is the leaf node, and it is the right node of `b`.
+* It does not have any left subtree.
+* But, the size of the `parent.left.size = 1 + parent (1) = 2`.
+* So, the number of characters before `c` is `2`.
 
 **Perspective**
 
@@ -192,11 +201,33 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 * Once we set up the binary search tree, the cut-and-paste operations become "split" and "merge" operations of a splay tree.
 * In this way, we take less time to find a node, or multiple nodes in the given range.
 
-**How does the cut-and-paste operations become split-and-merge?**
+## How do we form the initial binary search tree? Do we have to perform many insertions?
 
-* Next:
-* Step-1: What does `implicit index` mean?
-* How do we form the initial binary search tree? Do we have to perform many insertions?
+* Each insertion is `O(log n)` time in a splay tree.
+* So, if the length of the string is `n`, then the time complexity is `O(n log n)`.
+* Now, we get the original input string in one shot.
+* We are not getting the original input string character by character.
+* So, we don't have to perform insertion per character.
+* We already know the order of the characters in the original input string.
+* We already know the middle character of the original input string.
+* So, we get the middle character of the original input string, and make it the root node.
+* All the characters before the middle character go to the left subtree.
+* All the characters after the middle character go to the right subtree.
+* We update the size of the root node.
+* We do the same for the left and right subtrees.
+* The input keeps changing, but the process remains the same.
+* So, this is a recursive process.
+* We access each character in `O(1)`.
+* And then, we update the pointers and properties like `size`, which is `O(1)`.
+* So, if the length of the string is `n`, then the time complexity of building the BST is `O(n)`.
+
+
+## How does the cut-and-paste operations become split-and-merge?
+
+
+
+
+## Summary of representation, reconciliation, conversion, and transformation of the "rope string, substring cut-paste" problem into a splay tree problem
 
 ## Questions
 
@@ -238,6 +269,11 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 
 * We compare the position for the traversal and not the `key` value.
 
+#### Why did we store `size` instead of `index` in the Splay Tree?
+
+* If we store `index`, then we need to update the `index` of many nodes after we change the structure due to shifting.
+* If we store `size`, then we need to update the `size` of 3-4 nodes only after we change the structure by performing rotations as we mainly change grandparent, parent, and the child node.
+* This difference in the number of nodes to be updated is huge, and it makes the difference in the complexity.
 
 ## Step-11: Mental Model
 
