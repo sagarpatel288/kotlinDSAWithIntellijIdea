@@ -332,6 +332,25 @@ fun buildBst(input: String, start: Int, end: Int): Node {
 
 ```
 
+## Designing the "Node" class
+
+**What information do we need and use?**
+
+* Pointers: left, right, and parent
+* Key value to store the character
+* Size for navigating the splay tree
+
+```kotlin
+
+private class Node(val key: Char) {
+    var left: Node? = null
+    var right: Node? = null
+    var parent: Node? = null
+    var size: Long = 1 // The initial size of a node is 1
+}
+
+```
+
 ## How does the cut-and-paste operations become split-and-merge?
 
 
