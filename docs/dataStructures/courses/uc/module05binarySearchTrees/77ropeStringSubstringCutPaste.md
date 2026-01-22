@@ -178,6 +178,7 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 * It means that the key we are looking for is the current node `n`.
 ---
 
+---
 **Perspective**
 
 * Characters in a string are in a particular order.
@@ -191,6 +192,172 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 * It does not have any left subtree.
 * But, the size of the `parent.left.size = 1 + parent (1) = 2`.
 * So, the number of characters before `c` is `2`.
+---
+
+---
+
+**Perspective**
+
+**How cut-and-paste of a string is split-and-merge in a splay tree?**
+
+* Suppose, we have the following string:
+
+```
+
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Indices      |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+             |  a | b | c | d | e | f | g  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Left size    |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+
+```
+
+* Now, we want to cut "[i, j] = [2, 4]  = c  d  e" from the string.
+* Then, we can represent (split) the given string into three segments (substrings):
+
+```markdown
+
+// 1. The substring before the cut
+[A] = [a, b]
+
+// 2. The substring that we want to cut
+[B] = [c, d, e]
+
+// 3. The substring after the cut
+[C] = [f, g]
+
+```
+
+* So, the cut operation splits the given string into three segments (substrings).
+* Now, we remove the cut substring.
+* Once we remove the cut substring, we are left with the remaining two segments (substrings).
+* [A] and [C].
+* And if we notice, once we remove the cut substring, it is the merge operation of the remaining two segments (substrings).
+* So, it becomes: [A, C].
+
+```
+
+            +-----|-----|-----|-----+
+            |     |     |     |     |
+Indices     |  0  |  1  |  2  |  3  |
+            |     |     |     |     |
+            +-----|-----|-----|-----+
+            |     |     |     |     |
+            |  a  |  b  |  f  |  g  |
+            |     |     |     |     |
+            +-----|-----|-----|-----+
+            |     |     |     |     |
+Left size   |  0  |  1  |  2  |  3  |
+            |     |     |     |     |
+            +-----|-----|-----|-----+
+
+```
+
+* Now, we paste the cut string at k = 3.
+* We can represent it into three segments (substrings):
+
+```markdown
+
+// 1. The substring part that ends before `k`
+[A] = [a, b, f]
+
+// 2. The substring part that starts from `k`, where we would paste the cut substring
+[B] = [g]
+```
+
+* Now, we have a total of three segments (substrings). 
+
+```markdown
+
+// 1. The substring part that ends before `k`
+[A] = [a, b, f]
+
+// 2. The cut substring that we would paste at `k
+[B] = [c, d, e]
+
+// 3. The substring part that starts from `k`, where we would paste the cut substring
+[C] = [g]
+```
+
+* Now, we merge two segments (substrings).
+* The substring part that ends before `k` and the cut substring that we would paste at `k`.
+
+```markdown
+
+[A, B] = [a, b, f, c, d, e]
+
+```
+
+* Finally, we merge the last remaining segment (substring), which is the substring part that starts from `k`.
+
+```markdown
+
+[A, B, C] = [a, b, f, c, d, e, g]
+
+```
+
+* So, it becomes:
+
+```
+
+            +-----|-----|-----|-----|-----|-----|-----+
+            |     |     |     |     |     |     |     |
+Indices     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
+            |     |     |     |     |     |     |     |
+            +-----|-----|-----|-----|-----|-----|-----+
+            |     |     |     |     |     |     |     |
+            |  a  |  b  |  f  |  c  |  d  |  e  |  g  |
+            |     |     |     |     |     |     |     |
+            +-----|-----|-----|-----|-----|-----|-----+
+            |     |     |     |     |     |     |     |
+Left size   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
+            |     |     |     |     |     |     |     |
+            +-----|-----|-----|-----|-----|-----|-----+
+
+
+```
+
+**Conclusion on cut-and-paste representation (translation) as split-and-merge**
+
+> Cut the substring
+
+**Split**
+
+* [A] The part before the cut point
+* [B] The part that we want to cut
+* [C] The part after the cut
+
+**Merge**
+
+* [A] and [C] => [A, C]
+
+> Paste the cut substring at `k`
+
+**Split**
+
+* [A] The part before `k`
+* [C] The part from `k`
+
+**Merge**
+ 
+* [A] The part before `k`
+* [B] The part that we want to insert (paste)
+* [A, B] => [A, B]
+
+**Merge**
+
+* [C] The part from `k`
+* [A, B] + [C] = [A, B, C]
+
+---
 
 **Perspective**
 
@@ -356,7 +523,7 @@ private class Node(val key: Char) {
 
 
 
-## Summary of representation, reconciliation, conversion, and transformation of the "rope string, substring cut-paste" problem into a splay tree problem
+## Summary of representation (reconciliation, translation, conversion, transformation) of the "rope string, substring cut-paste" problem as a splay tree problem
 
 ## Questions
 
