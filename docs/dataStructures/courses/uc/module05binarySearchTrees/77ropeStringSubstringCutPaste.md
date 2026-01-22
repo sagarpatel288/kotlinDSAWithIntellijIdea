@@ -9,6 +9,11 @@
 * `1 <= |S| <= 300000`
 * `1 <= q <= 100000`
 
+## Prerequisites/References
+
+* [Doc: Splay Tree](70splayTrees.md)
+* [Implementation: Splay Tree](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/040splayTreeImplementation.kt)
+
 ## Thought Process
  
 * A `String`, `StringBuilder`, `Substring`, and `append` stores characters in a contiguous array.
@@ -327,11 +332,14 @@ Left size   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 
 **Conclusion on cut-and-paste representation (translation) as split-and-merge**
 
-> Cut the substring
+> Cut the substring: Two Splits + One Merge
 
 **Split**
 
+* Split [A, B, C] into two parts.
+* [A] and [B, C]
 * [A] The part before the cut point
+* Split [B, C] into two parts.
 * [B] The part that we want to cut
 * [C] The part after the cut
 
@@ -339,10 +347,11 @@ Left size   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 
 * [A] and [C] => [A, C]
 
-> Paste the cut substring at `k`
+> Paste the cut substring at `k`: One Split + Two Merges
 
 **Split**
 
+* Split [A, C] into two parts.
 * [A] The part before `k`
 * [C] The part from `k`
 
@@ -518,12 +527,84 @@ private class Node(val key: Char) {
 
 ```
 
-## How does the cut-and-paste operations become split-and-merge?
+## Pseudocode: The "update" function
 
+* What do we want to update? The size of the node.
+* What is the formula?
 
+```kotlin
 
+size = 1 + left.size + right.size
 
-## Summary of representation (reconciliation, translation, conversion, transformation) of the "rope string, substring cut-paste" problem as a splay tree problem
+```
+
+```kotlin
+
+fun update(node: Node?) {
+    if (node == null) return
+    node.size = 1 + (node.left?.size ?: 0) + (node.right?.size ?: 0)
+}
+
+```
+
+## Pseudocode: The `rotate` function
+
+```kotlin
+
+fun rotate(target: Node?) {
+    if (target == null) return
+    val parent = target.parent ?: return
+    val grandParent = parent.parent
+    if (parent.left == target) {
+        // Right rotation
+        parent.left = target.right
+        target.right?.parent = parent
+        target.right = parent
+    } else {
+        // Left rotation
+        parent.right = target.left
+        target.left?.parent = parent
+        target.left = parent
+    }
+    parent.parent = target
+    target.parent = grandParent
+    if (grandParent != null) {
+        if (grandParent.left == parent) grandParent.left = target
+        else grandParent.right = target
+    }
+    update(parent)
+    update(target)
+}
+
+```
+
+## Pseudocode: The `splay` function
+
+```kotlin
+
+fun splay(target: Node?): Node? {
+    if (target == null) return null
+    while (target.parent != null) {
+        val parent = target.parent
+        val grand = parent?.parent
+        if (grand == null) {
+            rotate(target)
+        } else if ((grand.left == parent) == (parent.left == target)) {
+            // Zig-Zig or Zag-Zag rotation
+            rotate(parent)
+            rotate(target)
+        } else {
+            rotate(target)
+            rotate(target)
+        }
+    }
+    // The `rotate` function calls `update(target)` internally to maintain the invariants.
+    return target
+}
+
+```
+
+## Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem
 
 ## Questions
 

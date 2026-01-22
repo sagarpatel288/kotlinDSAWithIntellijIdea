@@ -65,6 +65,7 @@
     * [Why can't we use `SplayTrees` for a highly concurrent read-heavy cache?](#why-cant-we-use-splaytrees-for-a-highly-concurrent-read-heavy-cache)
     * [What is the difference between a `Splay` tree and an `AVL` tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-splay-tree-and-an-avl-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
     * [What are the few cases where we would use an `AVL` tree instead of a `Splay` tree? Why?](#what-are-the-few-cases-where-we-would-use-an-avl-tree-instead-of-a-splay-tree-why)
+  * [Pearl Beads](#pearl-beads)
   * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
@@ -1001,6 +1002,12 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 ### What are the few cases where we would use an `AVL` tree instead of a `Splay` tree? Why?
 
 
+
+## Pearl Beads
+
+* In the `splay` function, we decide whether to `rotate` a parent or a child first, depending upon whether we have a `grandparent` or not.
+* In the `rotate` function, we decide whether to `rotate` left-side or right-side.
+  * If the `grandparent` is `not-null`, we also update the `grandparent`'s `left` or `right` pointer.
 
 ## ToDos
 
