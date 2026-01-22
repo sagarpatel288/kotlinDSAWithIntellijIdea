@@ -221,6 +221,116 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 * And then, we update the pointers and properties like `size`, which is `O(1)`.
 * So, if the length of the string is `n`, then the time complexity of building the BST is `O(n)`.
 
+### Perspective: Building the BST
+
+* This is like building a binary search tree from a sorted array.
+
+### Pseudocode for building the BST
+
+**Prerequisite/Reference**
+  * [Merge Sort's Recursion](../../../../../src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/020mergeSortExample.kt)
+
+**Function Header**
+
+* We need to find the middle character of the original input string.
+* So, we need have the original input string from which we can find the middle character.
+* To find the middle character, we need to have the "range" from which we can find the middle character.
+* A range is a pair of start and end indices.
+* The function returns a root node, that represents the replica of the original input string in the form of a BST.
+
+```kotlin
+
+fun buildBST(input: String, start: Int, end: Int): Node {
+    
+}
+
+```
+
+**Function Body**
+
+* We find the middle character of the original input string from the given range.
+
+```kotlin
+
+val middle = (start) + (end - start) / 2
+
+```
+
+* After finding the middle character, we create a node, and assign the middle character to the node.
+
+```kotlin
+
+val node = Node(input[middle]) // Node(char) 
+
+```
+
+* Now, the left part of the original input string becomes the left subtree of the node.
+
+```kotlin
+
+node.left = buildBST(input, start, middle - 1)
+
+```
+
+* Similarly, the right part of the original input string becomes the right subtree of the node.
+
+```kotlin
+
+node.right = buildBST(input, middle + 1, end)
+
+```
+
+* After assigning the left and right subtrees to the node, we assign the node as their parent.
+
+```kotlin
+
+node.left?.parent = node
+node.right?.parent = node
+```
+
+* Once the bidirectional relationship is established, we need to update the size of the node (as the node has got new family members, the subtrees).
+
+```kotlin
+
+update(node)
+
+```
+
+* And finally, we return the node.
+
+```kotlin
+
+return node
+
+```
+
+* Now, a recursion function must have a base case.
+* In this case, we want to continue the recursion as long as the start and end indices are valid.
+* If the start index is greater than the end index, it means that it is an invalid range, and we return `null`.
+
+```kotlin
+
+if (start > end) return null
+
+```
+
+**buildBst: The complete pseudocode**
+
+```kotlin
+
+fun buildBst(input: String, start: Int, end: Int): Node {
+    if (start > end) return null
+    val mid = start + (end - start) / 2
+    val node = Node(input[mid])
+    node.left = buildBst(input, start, mid - 1)
+    node.right = buildBst(input, mid + 1, end)
+    node.left?.parent = node
+    node.right?.parent = node
+    update(node)
+    return node 
+}
+
+```
 
 ## How does the cut-and-paste operations become split-and-merge?
 
