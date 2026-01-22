@@ -108,17 +108,25 @@
 * But we can do it in a different way as well using an additional property called `size`.
 * For example, let us give each character the `size` property. 
 
-```markdown
+```
 
-             ┌────│───│───│───│───│───│────┐
-             │    │   │   │   │   │   │    │
-             │  a │ b │ c │ d │ e │ f │ g  │
-             │    │   │   │   │   │   │    │
-             ┌────│───│───│───│───│───│────┐
-             │    │   │   │   │   │   │    │
-Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
-             │    │   │   │   │   │   │    │
-             └────│───│───│───│───│───│────┘
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Indices      |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+             |  a | b | c | d | e | f | g  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Left size    |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+Left size    |    |   |   |   |   |   |    |
+    +        |  1 | 2 | 3 | 4 | 5 | 6 | 7  |
+1 (My size)  |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
 
 ```
 
@@ -130,10 +138,25 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 * When we say "Character at 4th index," we focus on the current index of the node and traverse accordingly.
 * And when we say "The node before which there are 4 characters," we focus on the `node.left.size` property of the current node and traverse accordingly.
 * Suppose that the root node is `d`, and we want to find the `4th` character.
+* Note that `4th` is a `1-based-index` here.
+* For the `0-based-index`, it would be the `3rd` character.
 * We know that `d` has `3` characters on its left side.
-* So, `d` is the `4th` character.
-* So, if `left size + 1` is equal to the target position, then the current node is the target node.
+* So, `d` is the `4th` character for the `1-based-index` and `3rd` character for the `0-based-index`.
+* So, `d` is the character we are looking for.
+* So, for a `1-based-index-system`, if `left size + 1` is equal to the target position, then the current node is the target node.
+* And for a `0-based-index-system`, if `left size` is equal to the target position, then the current node is the target node.
+
+> [!IMPORTANT]
+> 1. If it is a `0-based-index-system,` then finding the `kth` character is equal to finding a node who has `k` characters before it on its left side.  
+> 2. So, if `left.size == k`, then the current node is the target node that we are looking for.  
+> 3. If it is a `1-based-index-system,` then it is `index + 1`.
+> 4. Which means, `characters before me on my left side + 1`.
+> 5. Which means, `left.size + 1`.
+> 6. So, if `left.size + 1 == k`, then the current node is the target node that we are looking for.
+
 * Now, suppose that we want to find the `2nd` character.
+* Note that `2nd` is a `1-based-index` here.
+* For the `0-based` index, it would be the `1st` character.
 * We are at `d`.
 * `d` has `3` characters on its left side.
 * So, if `left.size + 1` is greater than the target position, then we go to the left side of the current node.
@@ -149,6 +172,8 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 ![1065ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1065ropeStringCutPasteSplayTree.webp)
 
 
+![1067ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1067ropeStringCutPasteSplayTree.webp)
+
 * The formula for the `size` property is `size = 1 + leftSize + rightSize`.
 * This is something we have learned in the previous module:
   * [Reference: Kth Smallest Element in a BST](50avlTreeFindKthSmallKey.md)
@@ -160,7 +185,7 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 * We still need to convert this idea into code.
 ---
 * We can find a node using the `size` property also.
-* We want to find the `14th` key.
+* We want to find the `14th` key (`1-based-index`).
 * We start from the root.
 * So, `node = root`.
 * The `node.left.size + 1` = `7 + 1` = `8`.
@@ -195,7 +220,7 @@ Left size    │  0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
 * If it is a leaf node or a right node, then we consider and include ancestors.
 * For example, `c` is the leaf node, and it is the right node of `b`.
 * It does not have any left subtree.
-* But, the size of the `parent.left.size = 1 + parent (1) = 2`.
+* But, the size of the `parent (itself)` is `1` + `parent.left.size` is `1`.
 * So, the number of characters before `c` is `2`.
 ---
 
@@ -600,6 +625,60 @@ fun splay(target: Node?): Node? {
     }
     // The `rotate` function calls `update(target)` internally to maintain the invariants.
     return target
+}
+
+```
+
+## Pseudocode: Find the `K-th` Node (Element, Item)
+
+```
+
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Indices      |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+             |  a | b | c | d | e | f | g  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Left size    |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+Left size    |    |   |   |   |   |   |    |
+    +        |  1 | 2 | 3 | 4 | 5 | 6 | 7  |
+1 (My size)  |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+
+```
+
+
+
+* Here, `k` is 0-indexed.
+* So, if `lef.size == k`, then the current node is the `k-th` node.
+
+```kotlin
+
+fun findKthNode(root: Node?, kth: Int): Node? {
+    var curr = root
+    var index = kth
+    while (curr != null) {
+        val leftSize = curr.left?.size ?: 0
+        when {
+            leftSize == index -> {
+                break
+            }
+            leftSize < index -> {
+                curr = curr.left
+            }
+            else -> {
+                curr = curr.right
+                index -= (leftSize + 1) 
+            }
+        }
+    }
+    return splay(curr)
 }
 
 ```
