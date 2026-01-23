@@ -683,6 +683,8 @@ fun findKthNode(root: Node?, kth: Int): Node? {
 
 ```
 
+## Pseudocode: The `split` function
+
 ## Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem
 
 ## Questions
