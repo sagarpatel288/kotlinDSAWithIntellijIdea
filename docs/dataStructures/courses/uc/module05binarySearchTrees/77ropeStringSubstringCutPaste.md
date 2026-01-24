@@ -603,6 +603,9 @@ fun rotate(target: Node?) {
 
 ```
 
+* Note that the `rotate` function does not need the `root (Node)` as a parameter.
+* Because all we need and use is the `target`, `parent`, and `grandParent`. 
+
 ## Pseudocode: The `splay` function
 
 ```kotlin
@@ -628,6 +631,9 @@ fun splay(target: Node?): Node? {
 }
 
 ```
+
+* Note that the `splay` function does not need the `root (Node)` as a parameter.
+* Because all we need and use is the `target`, `parent`, and `grandParent`.
 
 ## Pseudocode: Find the `K-th` Node (Element, Item)
 
@@ -656,7 +662,7 @@ Left size    |    |   |   |   |   |   |    |
 
 
 * Here, `k` is 0-indexed.
-* So, if `lef.size == k`, then the current node is the `k-th` node.
+* So, if `node.left.size == k`, then the current node is the `k-th` node.
 
 ```kotlin
 
@@ -683,7 +689,66 @@ fun findKthNode(root: Node?, kth: Int): Node? {
 
 ```
 
+* Note that the `findKthNode` function needs and uses the `root` parameter in addition to the `kth` parameter.
+* We need and use the `root` parameter because to find the `k-th` node, we need to traverse the splay tree.
+* And to traverse the splay tree, we need some starting point.
+
 ## Pseudocode: The `split` function
+
+* To split the splay tree, we need a `splitKey`.
+* We `find` the `splitKey` in the splay tree.
+* To `find` the `splitKey`, we need to traverse the splay tree.
+* To traverse the splay tree, we need some starting point.
+* It means that we expect `root: Node?`, and `splitkey: Int` parameters.
+
+```kotlin
+
+fun split(root:Node?, splitKey: Int): SplitResult {
+    
+}
+
+```
+
+**The meaning of the `splitKey`**
+
+* The `splitKey` is `k`.
+* The problem says:
+
+> Each query is described by three integers 𝑖, 𝑗, 𝑘 and means to cut substring 𝑆[𝑖..𝑗] (𝑖 and 𝑗 are 0-based) from the string and then insert it after the 𝑘-th symbol of the remaining string (if the symbols are numbered from 1). If 𝑘 = 0, 𝑆[𝑖..𝑗] is inserted in the beginning.
+
+* It clearly says that if it is `1-based-indexed-system,` we insert **after the `k-th` symbol**.
+* The input treats `k` as `1-based-indexed-system`.
+* It means that the input treats `k` as `count` that starts from `1`.
+
+![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
+
+**Whose part is the node before which there are `k` characters?**
+
+![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
+
+* If a node has `k` characters before it, then the node itself has the `k + 1` character.
+* So, the node itself becomes the part of the right subtree.
+* We can look at this in a different way, too.
+* First `k` characters will be the part of the `left subtree`, and the remaining characters will be the part of the `right subtree`.
+* So, the node that has the `k + 1` character becomes the part of the `right subtree`.
+
+**Base Conditions**
+
+* If the root is null, we return `SplitResult(null, null)` 
+
+```kotlin
+
+if (root == null) return SplitResult(null, null)
+
+```
+
+* If the `splitKey` is `0`, it means that we are trying to find the first node.
+* Because only first node has `0` characters (node) before it.
+* And, if the `splitKey` is a part of the `right subtree`, then the `left subtree` is null, and we return the `root`.
+
+* We may or may not find the exact node that matches with the `splitKey`.
+* We might get the exact node, or the closest (nearest) possible node.
+* Once we find the `splitKey`, we `splay` it, and make it the `root`. 
 
 ## Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem
 
