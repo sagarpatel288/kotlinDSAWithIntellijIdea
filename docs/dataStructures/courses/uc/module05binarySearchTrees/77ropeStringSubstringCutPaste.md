@@ -719,8 +719,26 @@ fun split(root:Node?, splitKey: Int): SplitResult {
 * It clearly says that if it is `1-based-indexed-system,` we insert **after the `k-th` symbol**.
 * The input treats `k` as `1-based-indexed-system`.
 * It means that the input treats `k` as `count` that starts from `1`.
+* Consequently, we treat `k` as `count` for the `split` function.
+* So, `splitKey` parameter of the `split` function is `k`, and we treat it as `count`.
 
 ![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
+
+**Why do we treat `k` as `count` for the `split` function, but as `index` for the `findAndSplay` function?**
+
+* Because, the `split` function deals with the input.
+* And the input considers `k` as `1-based-indexed-system`.
+* `1-based-indexed-system` refers to `count`.
+* So, we treat `k` as `count` for the `split` function.
+* Whereas, the navigation (tree traversal) is based on the definition of the `size` property.
+* The `node.left.size` indicates the number of nodes in the `left subtree`.
+* It represents the number of nodes before the current node.
+* And it aligns with the `0-based-indexed-system`.
+* For example, for the very first node (the leaf node), `node.left.size = 0`.
+* The second node has `node.left.size = 1`.
+* The third node has `node.left.size = 2`.
+* And so on.
+* Clearly, it aligns with the `0-based-indexed-system`.
 
 **Whose part is the node before which there are `k` characters?**
 
@@ -742,13 +760,69 @@ if (root == null) return SplitResult(null, null)
 
 ```
 
-* If the `splitKey` is `0`, it means that we are trying to find the first node.
-* Because only first node has `0` characters (node) before it.
-* And, if the `splitKey` is a part of the `right subtree`, then the `left subtree` is null, and we return the `root`.
+**What if `k` is `0`?**
 
-* We may or may not find the exact node that matches with the `splitKey`.
-* We might get the exact node, or the closest (nearest) possible node.
-* Once we find the `splitKey`, we `splay` it, and make it the `root`. 
+* If `k == 0`, it means that we are saying that the left subtree should have `0` characters.
+* It means that the left subtree should be empty.
+* So, we return the `SplitResult(null, root)`.
+* So, it becomes:
+
+```kotlin
+
+if (k == 0) return SplitResult(null, root)
+
+```
+
+**What if `k == root.size`?**
+
+* The first `k` characters will be the part of the `left subtree`.
+* `k == root.size`
+* So, all the characters will be the part of the `left subtree`.
+* It means that the `right subtree` will be empty.
+* So, we return the `SplitResult(root, null)`.
+* So, it becomes:
+
+```kotlin
+
+if (k == root.size) return SplitResult(root, null)
+
+```
+
+* After applying the base conditions on the `root` and the `k`, we call `findAndSplay`.
+* The `findAndSplay` function finds, splays a node, and makes it the root.
+* The root becomes the part of the `right subtree,` and the `left child` becomes the part of the `left subtree`.
+* The root loses its `left child`.
+* So, we need to update the `root` before we return the result.
+
+```kotlin
+
+val root = findAndSplay(root, k)
+val leftChild = root.left
+leftChild?.parent = null
+root.left = null
+update(root)
+return SplitResult(leftChild, root) 
+```
+
+* So, the complete code becomes:
+
+```kotlin
+
+fun split(root: Node?, k: Int): SplitResult {
+    if (root == null) return SplitResult(null, null)
+    if (k == 0) return SplitResult(null, root)
+    if (k == root.size) return SplitResult(root, null)
+  
+    val root = findAndSplay(root, k)
+    val leftChild = root.left
+    leftChild?.parent = null
+    root.left = null
+    update(root)
+    return SplitResult(leftChild, root)
+}
+
+```
+
 
 ## Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem
 
