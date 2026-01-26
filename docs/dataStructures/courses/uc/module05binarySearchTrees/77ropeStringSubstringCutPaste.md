@@ -58,7 +58,7 @@
 **Which data structure do we use to perform deletion, insertion, and controlled re-ordering efficiently?**
 
 * When the `data` has a particular order, and we want to perform deletion, insertion, and re-ordering efficiently, we use an ordered data structure.
-* Trees are ordered data structures.
+* Trees are pointer-based ordered data structures.
 * An ordered data structure uses a `key` (as a `value`) to compare and arrange the data.
 * What if we consider a `character` as a `key` of a `node`?
 * It becomes a value based ordered data structure.
@@ -136,6 +136,7 @@ Left size    |    |   |   |   |   |   |    |
 * `c` knows that there are `2` characters on its left side, and so on.
 * Now, whether we say "Character at 4th index," or we say the "5th Character," or we say "The character before which there are 4 characters," it is the same thing.
 * When we say "Character at 4th index," we focus on the current index of the node and traverse accordingly.
+* When we say "The 5th Character", we focus on the "count" (or "1-based-indexed-syste) that starts from `1`.
 * And when we say "The node before which there are 4 characters," we focus on the `node.left.size` property of the current node and traverse accordingly.
 * Suppose that the root node is `d`, and we want to find the `4th` character.
 * Note that `4th` is a `1-based-index` here.
@@ -197,7 +198,7 @@ Left size    |    |   |   |   |   |   |    |
 * The `current node` becomes: `node = node.right = h.right = l`.
 * The new `k` becomes: `k - 8 = 14 - 8 = 6`.
 * For the current node, `l.left.size + 1` = `3 + 1` = `4`.
-* So, it is clear that the key we are looking for cannot be in the left subtree of `i`.
+* So, it is clear that the key we are looking for cannot be in the left subtree of `l`.
 * Because the total number of keys in the left subtree of `l` is `3` only, and `6 > 3`.
 * So, we go to the right side of `l`.
 * We follow the same procedure.
@@ -215,7 +216,10 @@ Left size    |    |   |   |   |   |   |    |
 * We can represent the string using the `in-order` traversal of a binary search tree.
 * The binary search tree is not an index based data structure.
 * But, we can know how many characters are in left side of a particular character using the `size` property.
-* This gives us implicit index behavior that we can use to find a character.
+* This gives us implicit index behavior (as a by-product) that we can use to find a character.
+
+![1067ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1067ropeStringCutPasteSplayTree.webp)
+
 * The number of characters before a particular character in a string is equal to the `node.left.size` (the number of nodes in its left subtree) in the `in-order` traversal of the binary search tree.
 * If it is a leaf node or a right node, then we consider and include ancestors.
 * For example, `c` is the leaf node, and it is the right node of `b`.
@@ -362,11 +366,11 @@ Left size   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 **Split**
 
 * Split [A, B, C] into two parts.
-* [A] and [B, C]
-* [A] The part before the cut point
+* [A] and [B, C].
+* [A] The part before the cut point.
 * Split [B, C] into two parts.
-* [B] The part that we want to cut
-* [C] The part after the cut
+* [B] The part that we want to cut.
+* [C] The part after the cut.
 
 **Merge**
 
@@ -377,19 +381,19 @@ Left size   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 **Split**
 
 * Split [A, C] into two parts.
-* [A] The part before `k`
-* [C] The part from `k`
+* [A] The part before `k`.
+* [C] The part from `k`.
 
 **Merge**
  
-* [A] The part before `k`
-* [B] The part that we want to insert (paste)
-* [A, B] => [A, B]
+* [A] The part before `k`.
+* [B] The part that we want to insert (paste).
+* [A, B] => [A, B].
 
 **Merge**
 
-* [C] The part from `k`
-* [A, B] + [C] = [A, B, C]
+* [C] The part from `k`.
+* [A, B] + [C] = [A, B, C].
 
 ---
 
@@ -434,10 +438,14 @@ Left size   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 **Function Header**
 
 * We need to find the middle character of the original input string.
-* So, we need have the original input string from which we can find the middle character.
+* So, we need to have the original input string from which we can find the middle character.
 * To find the middle character, we need to have the "range" from which we can find the middle character.
 * A range is a pair of start and end indices.
 * The function returns a root node, that represents the replica of the original input string in the form of a BST.
+* It means that the function expects the following parameters:
+  * The original input string.
+  * The start index of the range.
+  * The end index of the range.
 
 ```kotlin
 
@@ -604,7 +612,9 @@ fun rotate(target: Node?) {
 ```
 
 * Note that the `rotate` function does not need the `root (Node)` as a parameter.
-* Because all we need and use is the `target`, `parent`, and `grandParent`. 
+* Because all we need and use is the `target`, `parent`, and `grandParent`.
+* The `rotate` function proceeds based on whether the `target` is a left or right child of the `parent`, and whether the `parent` is a left or right child of the `grandParent`.
+* So that it can perform the appropriate rotation and update the pointers accordingly.
 
 ## Pseudocode: The `splay` function
 
@@ -634,6 +644,8 @@ fun splay(target: Node?): Node? {
 
 * Note that the `splay` function does not need the `root (Node)` as a parameter.
 * Because all we need and use is the `target`, `parent`, and `grandParent`.
+* The `splay` function proceeds based on whether the `target` has a `grandParent`, and based on whether it is the `zig-zig,` `zag-zag`, or `zig-zag` structure.
+* So that it can pass the appropriate `node` in an appropriate order to the `rotate` function.
 
 ## Pseudocode: Find the `K-th` Node (Element, Item)
 
@@ -645,7 +657,7 @@ Indices      |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
              |    |   |   |   |   |   |    |
              +----+---+---+---+---+---+----+
              |    |   |   |   |   |   |    |
-             |  a | b | c | d | e | f | g  |
+String       |  a | b | c | d | e | f | g  |
              |    |   |   |   |   |   |    |
              +----+---+---+---+---+---+----+
              |    |   |   |   |   |   |    |
@@ -662,6 +674,7 @@ Left size    |    |   |   |   |   |   |    |
 
 
 * Here, `k` is 0-indexed.
+* For example, if `k == 3`, it means we are looking for the node at index 3.
 * So, if `node.left.size == k`, then the current node is the `k-th` node.
 
 ```kotlin
@@ -680,6 +693,7 @@ fun findKthNode(root: Node?, kth: Int): Node? {
             }
             else -> {
                 curr = curr.right
+                // Do you understand why is it (leftSize + 1)?
                 index -= (leftSize + 1) 
             }
         }
@@ -692,6 +706,12 @@ fun findKthNode(root: Node?, kth: Int): Node? {
 * Note that the `findKthNode` function needs and uses the `root` parameter in addition to the `kth` parameter.
 * We need and use the `root` parameter because to find the `k-th` node, we need to traverse the splay tree.
 * And to traverse the splay tree, we need some starting point.
+* Notice that when we go to the right side, we reduce `k` from `k` to `k - (leftSize + 1)`.
+* It indicates that we have already checked `leftSize + 1` nodes.
+* So, we subtract `leftSize + 1` from `k`.
+* Another way to look at it is that we discard `leftSize + 1` nodes, because we are sure that the original `k-th` node is not in that range.
+* We don't need to traverse through these `leftSize + 1` nodes.
+* It saves us a lot of time.
 
 ## Pseudocode: The `split` function
 
@@ -730,6 +750,9 @@ fun split(root:Node?, splitKey: Int): SplitResult {
 * And the input considers `k` as `1-based-indexed-system`.
 * `1-based-indexed-system` refers to `count`.
 * So, we treat `k` as `count` for the `split` function.
+* The `split` function splits the tree into two subtrees.
+* The first `k` characters are in the left subtree.
+* The remaining characters, from the `k + 1` to `root.size`, are in the right subtree.
 * Whereas, the navigation (tree traversal) is based on the definition of the `size` property.
 * The `node.left.size` indicates the number of nodes in the `left subtree`.
 * It represents the number of nodes before the current node.
@@ -739,6 +762,7 @@ fun split(root:Node?, splitKey: Int): SplitResult {
 * The third node has `node.left.size = 2`.
 * And so on.
 * Clearly, it aligns with the `0-based-indexed-system`.
+* So, we treat `k` as `index` for the `findAndSplay` function.
 
 **Whose part is the node before which there are `k` characters?**
 
@@ -762,7 +786,8 @@ if (root == null) return SplitResult(null, null)
 
 **What if `k` is `0`?**
 
-* If `k == 0`, it means that we are saying that the left subtree should have `0` characters.
+* If `k == 0`, it means first `0` characters will be the part of the `left subtree`.
+* It means that the left subtree should have `0` characters.
 * It means that the left subtree should be empty.
 * So, we return the `SplitResult(null, root)`.
 * So, it becomes:
@@ -789,7 +814,7 @@ if (k == root.size) return SplitResult(root, null)
 ```
 
 * After applying the base conditions on the `root` and the `k`, we call `findAndSplay`.
-* The `findAndSplay` function finds, splays a node, and makes it the root.
+* The `findAndSplay` function finds and splays a node, and makes it the root.
 * The root becomes the part of the `right subtree,` and the `left child` becomes the part of the `left subtree`.
 * The root loses its `left child`.
 * So, we need to update the `root` before we return the result.
