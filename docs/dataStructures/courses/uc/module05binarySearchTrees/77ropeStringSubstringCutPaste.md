@@ -764,6 +764,22 @@ fun split(root:Node?, splitKey: Int): SplitResult {
 * Clearly, it aligns with the `0-based-indexed-system`.
 * So, we treat `k` as `index` for the `findAndSplay` function.
 
+**How does treating `k` as `count` for the `split` function and as `index` for the `findAndSplay` function work?**
+
+![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
+
+* The `split` function treats `k` as `count`.
+* If the split key, `k`, is `2`, it means that the first `2` characters will be the part of the `left subtree`, and the remaining characters will be the part of the `right subtree`.
+* Root becomes the part of the `right subtree`.
+* Root becomes the starting point of the `right subtree`.
+* So, `k + 1`-th node becomes the root.
+* The `k + 1`-th node becomes the part of the `right subtree`.
+* The `right subtree` starts from the `k + 1`-th node.
+* To make the `k + 1`-th node the root node, we need to `splay` the `k + 1`-th node.
+* The `k + 1`-th node of the `1-based-indexed-system` is the `k`-th node in the `0-based-indexed-system`.
+* That's why we pass `k`-th node to the `findAndSplay` function.
+* This is how it works.
+
 **Whose part is the node before which there are `k` characters?**
 
 ![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
@@ -848,6 +864,52 @@ fun split(root: Node?, k: Int): SplitResult {
 
 ```
 
+## Pseudocode: The `merge` function
+
+**Function Header**
+
+* The `merge` function merges two splay trees.
+* And it returns the root of the merged splay tree.
+
+```kotlin
+
+fun merge(left: Node?, right: Node?): Node?
+
+```
+
+**Base Conditions**
+
+* If the `left` tree is `null`, then we return the `right` tree.
+* If the `right` tree is `null`, then we return the `left` tree.
+* When the `right` tree is `null`, we don't splay the maximum node of the `left` tree.
+
+**Why don't we splay the maximum node of the `left` tree when the `right` tree is `null`?**
+
+* We splay the maximum node of the `left` tree to create a dock (the space, the parking place) where we can park the `right` tree.
+* If there is no `right` tree, then we don't need to create a dock.
+* It avoids unnecessary rotations.
+* We still maintain (hold) the splay tree properties (the binary search tree invariants).
+
+```kotlin
+
+if (left == null) return right
+if (right == null) return left
+
+```
+
+* If both the `left` and `right` trees are not `null`, then we splay the maximum node of the `left` tree to create a dock where we can park the `right` tree.
+
+```kotlin
+
+val leftMax = findMax(left)
+val leftRoot = splay(leftMax)
+leftRoot.right = right
+right?.parent = leftRoot
+update(leftRoot)
+root = leftRoot
+return leftRoot
+
+```
 
 ## Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem
 
