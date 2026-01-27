@@ -911,6 +911,24 @@ return leftRoot
 
 ```
 
+* So, the complete pseudocode for the `merge` function is:
+
+```kotlin
+
+fun merge(left: Node?, right: Node?): Node? {
+    if (left == null) return right
+    if (right == null) return left
+    val leftMax = findMax(left)
+    val leftRoot = splay(leftMax)
+    leftRoot.right = right
+    right?.parent = leftRoot
+    update(leftRoot)
+    root = leftRoot
+    return leftRoot
+}
+
+```
+
 ## Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem
 
 ## Questions
