@@ -472,7 +472,14 @@ fun merge(left: Node?, right: Node?): Node? {
 ```
 
 * Notice that in the `merge` function, when the right subtree is null, we return the left subtree as it is.
-* This is because we use the `merge` function for `delete` operation, too.
+* Before we understand why we don't splay the maximum node in the left subtree when the right subtree is null, let us first understand why we do that when the right subtree is not null.
+* We splay the maximum node in the left subtree and make it the root so that it can create a dock (a space, a place) to park the right subtree.
+* If there is no right subtree, then we don't need to create the dock!
+* So, when the right subtree is null, we don't need to splay the maximum node in the left subtree and make it the root.
+* When the right subtree is null, we just return the left subtree as it is.
+* The important thing is that it still maintains (holds) the binary search tree invariants (`in-order` is ascending order).
+* The purpose of the `merge` function is to merge the left and the right subtrees, and give us the merged tree that maintains (holds) the binary search tree invariants (the `in-order` traversal of the merged tree is ascending order).
+* Also, we use the `merge` function for `delete` operation, too.
 * The `merge` function is not an access operation here.
 * In the standard splay tree merge, we would still perform the `findMax` and `splay` functions on the left subtree.
 * Because, the standard splay tree is optimized for access operations.
