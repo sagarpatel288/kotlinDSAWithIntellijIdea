@@ -929,6 +929,369 @@ fun merge(left: Node?, right: Node?): Node? {
 
 ```
 
+## Pseudocode: The `cutAndPaste` function
+
+**What does the `cutAndPasete` function require?**
+
+* The starting index of the substring.
+* The ending index of the substring.
+* The K-th symbol (count) where we want to paste the substring.
+* We have learned that the `split` function treats `k` as the `count`, whereas the `findAndSplay` function treats `k` as the `index`.
+
+**Function Header**
+
+```kotlin
+
+fun cutAndPaste(start: Int, end: Int, kCount: Int): ?
+
+```
+
+**What does it return?**
+
+* It returns a new sequence of characters in the form of a splay tree.
+
+```kotlin
+
+fun cutAndPaste(start: Int, end: Int, kCount: Int): Node? {
+    
+}
+
+```
+
+**How do we perform the cut and paste?**
+
+> The initial string (sequence of characters):
+
+```
+
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Indices      |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+String       |  a | b | c | d | e | f | g  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Left size    |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+Left size    |    |   |   |   |   |   |    |
+    +        |  1 | 2 | 3 | 4 | 5 | 6 | 7  | (Count)
+1 (My size)  |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+                                            
+                                            
+              i = 2, j = 4, k = 1           
+
+```
+
+**First split**
+
+```
+
+                            |                           
+                            |                           
+             +----+---+     |     +---+---+---+---+----+
+             |    |   |     |     |   |   |   |   |    |
+Indices      |  0 | 1 |     |     | 2 | 3 | 4 | 5 | 6  |
+             |    |   |     |     |   |   |   |   |    |
+             +----+---+     |     +---+---+---+---+----+
+             |    |   |     |     |   |   |   |   |    |
+String       |  a | b |     |     | c | d | e | f | g  |
+             |    |   |     |     |   |   |   |   |    |
+             +----+---+     |     +---+---+---+---+----+
+             |    |   |     |     |   |   |   |   |    |
+Left size    |  0 | 1 |     |     | 2 | 3 | 4 | 5 | 6  |
+             |    |   |     |     |   |   |   |   |    |
+             +----+---+     |     +---+---+---+---+----+
+Left size    |    |   |     |     |   |   |   |   |    |
+    +        |  1 | 2 |     |     | 3 | 4 | 5 | 6 | 7  | (Count)
+1 (My size)  |    |   |     |     |   |   |   |   |    |
+             +----+---+     |     +---+---+---+---+----+
+                            |                           
+                            |                           
+                            |                           
+
+```
+
+* We can see that the first split creates two subtrees.
+* The right subtree starts at index 2, which is `i`.
+* It means that for the first split, we can call the `split` function as:
+
+```kotlin
+
+// First split
+val (a, bc) = split(root, i)
+
+```
+
+* Before we perform the second split, we can represent the two subtrees as follows:
+
+```
+
+                +----+---+                
+                |    |   |                
+   Indices      |  0 | 1 |                
+                |    |   |                
+                +----+---+                
+                |    |   |                
+   String       |  a | b |                
+                |    |   |                
+                +----+---+                
+                |    |   |                
+   Left size    |  0 | 1 |                
+                |    |   |                
+                +----+---+                
+   Left size    |    |   |                
+       +        |  1 | 2 |   (Count)             
+   1 (My size)  |    |   |                
+                +----+---+                
+                                          
+------------------------------------------
+                                          
+                +---+---+---+---+----+    
+                |   |   |   |   |    |    
+   Indices      | 0 | 1 | 2 | 3 | 4  |    
+                |   |   |   |   |    |    
+                +---+---+---+---+----+    
+                |   |   |   |   |    |    
+   String       | c | d | e | f | g  |    
+                |   |   |   |   |    |    
+                +---+---+---+---+----+    
+                |   |   |   |   |    |    
+   Left size    | 0 | 1 | 2 | 3 | 4  |    
+                |   |   |   |   |    |    
+                +---+---+---+---+----+    
+   Left size    |   |   |   |   |    |    
+       +        | 1 | 2 | 3 | 4 | 5  |  (Count)
+   1 (My size)  |   |   |   |   |    |    
+                +---+---+---+---+----+    
+
+```
+
+**The second split**
+
+```
+
+                              |              
+                              |              
+                              |              
+             +---+---+---+    |    +---+----+
+             |   |   |   |    |    |   |    |
+Indices      | 0 | 1 | 2 |    |    | 3 | 4  |
+             |   |   |   |    |    |   |    |
+             +---+---+---+    |    +---+----+
+             |   |   |   |    |    |   |    |
+String       | c | d | e |    |    | f | g  |
+             |   |   |   |    |    |   |    |
+             +---+---+---+    |    +---+----+
+             |   |   |   |    |    |   |    |
+Left size    | 0 | 1 | 2 |    |    | 3 | 4  |
+             |   |   |   |    |    |   |    |
+             +---+---+---+    |    +---+----+
+Left size    |   |   |   |    |    |   |    |
+    +        | 1 | 2 | 3 |    |    | 4 | 5  | (Count)
+1 (My size)  |   |   |   |    |    |   |    |
+             +---+---+---+    |    +---+----+
+                              |              
+                              |              
+                              |              
+                              |              
+
+```
+
+* We can see that the second split also creates two subtrees.
+* The right subtree starts at index 3, which is `j - i + 1 = 4 - 2 + 1 = 2 + 1 = 3`.
+* It means that we can call the `split` function again on the right subtree as:
+
+```kotlin
+
+val (b, c) = split(bc, j - i + 1)
+
+```
+
+* Now, we `merge` the `a` and `c` subtrees to get the final result that represents the original string after the cut. 
+
+```kotlin
+
+val ac = merge(a, c)
+
+```
+* So, the string after the cut is:
+
+```
+
+             +---+---+---+---+
+             |   |   |   |   |
+Indices      | 0 | 1 | 2 | 3 |
+             |   |   |   |   |
+             +---+---+---+---+
+             |   |   |   |   |
+String       | a | b | f | g |
+             |   |   |   |   |
+             +---+---+---+---+
+             |   |   |   |   |
+Left size    | 0 | 1 | 2 | 3 |
+             |   |   |   |   |
+             +---+---+---+---+
+Left size    |   |   |   |   |
+    +        | 1 | 2 | 3 | 4 | (Count)
+1 (My size)  |   |   |   |   |
+             +---+---+---+---+
+
+```
+
+* Now, we need to paste the `b` after the `k`th symbol.
+* So, we need to `split` the `ac` subtree such that we get the right subtree that starts at the `k`th symbol. 
+* `k = 1`. 
+* So, we split the `ac` subtree as follows: 
+
+```kotlin
+
+val (before, after) = split(ac, k)
+
+```
+
+* Recall that `k` means `first k characters` will be in the `left subtree`.
+* So, the `split` operation will split the `ac` subtree into two subtrees as follows:
+
+```
+
+                     |                
+                     |                
+             +---+   |   +---+---+---+
+             |   |   |   |   |   |   |
+Indices      | 0 |   |   | 1 | 2 | 3 |
+             |   |   |   |   |   |   |
+             +---+   |   +---+---+---+
+             |   |   |   |   |   |   |
+String       | a |   |   | b | f | g |
+             |   |   |   |   |   |   |
+             +---+   |   +---+---+---+
+             |   |   |   |   |   |   |
+Left size    | 0 |   |   | 1 | 2 | 3 |
+             |   |   |   |   |   |   |
+             +---+   |   +---+---+---+
+Left size    |   |   |   |   |   |   |
+    +        | 1 |   |   | 2 | 3 | 4 | (Count)
+1 (My size)  |   |   |   |   |   |   |
+             +---+   |   +---+---+---+
+                     |                
+                     |                
+                     |                
+
+```
+
+* We can represent these two subtrees as follows:
+
+```
+
+                     |                
+             +---+   |   +---+---+---+
+             |   |   |   |   |   |   |
+Indices      | 0 |   |   | 0 | 1 | 2 |
+             |   |   |   |   |   |   |
+             +---+   |   +---+---+---+
+             |   |   |   |   |   |   |
+String       | a |   |   | b | f | g |
+             |   |   |   |   |   |   |
+             +---+   |   +---+---+---+
+             |   |   |   |   |   |   |
+Left size    | 0 |   |   | 0 | 1 | 2 |
+             |   |   |   |   |   |   |
+             +---+   |   +---+---+---+
+Left size    |   |   |   |   |   |   |
+    +        | 1 |   |   | 1 | 2 | 3 | (Count)
+1 (My size)  |   |   |   |   |   |   |
+             +---+   |   +---+---+---+
+                     |                
+                     |                
+
+```
+
+* Now, we can `paste` the `cut` substring `b` to the right of `before`.
+* It means that we can `merge` the two subtrees: `before` and `b`.
+
+```kotlin
+
+val ab = merge(before, b)
+
+```
+
+* So, it becomes:
+
+```
+
+             +---+---+---+---+
+             |   |   |   |   |
+Indices      | 0 | 1 | 2 | 3 |
+             |   |   |   |   |
+             +---+---+---+---+
+             |   |   |   |   |
+String       | a | c | d | e |
+             |   |   |   |   |
+             +---+---+---+---+
+             |   |   |   |   |
+Left size    | 0 | 1 | 2 | 3 |
+             |   |   |   |   |
+             +---+---+---+---+
+Left size    |   |   |   |   |
+    +        | 1 | 2 | 3 | 4 | (Count)
+1 (My size)  |   |   |   |   |
+             +---+---+---+---+
+
+```
+
+* And finally, we can `reconnect` the missing subtree `after` to the right of `ab` (at the end of `ab`) as follows:
+
+```kotlin
+
+val abc = merge(ab, after)
+
+```
+
+* So, it becomes:
+
+```
+
+             +---+---+---+---+---+---+---+        
+             |   |   |   |   |   |   |   |        
+Indices      | 0 | 1 | 2 | 3 | 4 | 5 | 6 |        
+             |   |   |   |   |   |   |   |        
+             +---+---+---+---+---+---+---+        
+             |   |   |   |   |   |   |   |        
+String       | a | c | d | e | b | f | g |        
+             |   |   |   |   |   |   |   |        
+             +---+---+---+---+---+---+---+        
+             |   |   |   |   |   |   |   |        
+Left size    | 0 | 1 | 2 | 3 | 4 | 5 | 6 |        
+             |   |   |   |   |   |   |   |        
+             +---+---+---+---+---+---+---+        
+Left size    |   |   |   |   |   |   |   |        
+    +        | 1 | 2 | 3 | 4 | 5 | 6 | 7 | (Count)
+1 (My size)  |   |   |   |   |   |   |   |        
+             +---+---+---+---+---+---+---+        
+
+```
+
+* So, the final pseudocode is:
+
+```kotlin
+
+fun cutAndPaste(start: Int, end: Int, kCount: Int): Node? {
+    val (a, bc) = split(root, start)
+    val (b, c) = split(bc, end - start + 1)
+    val ac = merge(a, c)
+    val (before, after) = split(ac, kCount)
+    val ab = merge(before, b)
+    val abc = merge(ab, after)
+    return abc
+}
+
+```
+
 ## Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem
 
 ## Questions
