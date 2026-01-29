@@ -130,14 +130,15 @@ import java.util.ArrayDeque
  * * It can cause overflow.
  *
  * ## Why recursion cause overflow, but not the manual stack?
- * *---
+ *
+ * >---
  * * The call stack is handled by JVM/OS and it has a limited size.
  * * It can handle around 10,000 stacks.
  * * It has to store many more things like call(return) addresses, function metadata, etc.
  * * And the most important point is, it resides (lives, stays) on the stack memory.
  * * The stack memory is small and fixed.
  * * So, it gets filled up very quickly for a deep recursion and we get the `stackOverflow` error.
- * *---
+ * >---
  * * The manual stack resides (lives, stays) on the heap memory.
  * * The heap memory is large and flexible.
  * * We decide and control the size of our manual stack.
