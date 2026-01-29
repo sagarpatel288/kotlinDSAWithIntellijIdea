@@ -1333,6 +1333,9 @@ fun inOrderTraversal(root: Node?): String {
 
 ```
 
+* To find the answers of the questions like "Why do we use a stack instead of the recursion function," or "In which case the `currentNode` might be null, but the stack is not empty," or "In which case the `stack` might be empty, but the `currentNode` is not null," etc., please refer to:
+  * [BinarySearchTreeAndStack.md](07binarySearchTreeAndStack.md)
+
 ## Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem
 
 ## Questions
