@@ -11,6 +11,7 @@
       * [Depth-First-Search: In-Order: Left-Parent(Root)-Right](#depth-first-search-in-order-left-parentroot-right)
       * [Can a particular order of push and pop operations of a stack create BST `In-Order` traversal?](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-create-bst-in-order-traversal)
         * [Pseudocode Of BST-In-Order Using A Stack](#pseudocode-of-bst-in-order-using-a-stack)
+        * [How is it possible that the stack is empty, but we still have a valid `currentNode` to proceed, or the `currentNode` is invalid, but the stack is not empty?](#how-is-it-possible-that-the-stack-is-empty-but-we-still-have-a-valid-currentnode-to-proceed-or-the-currentnode-is-invalid-but-the-stack-is-not-empty)
       * [Depth-First-Search: Post-Order: Left-Right-Parent(Root)](#depth-first-search-post-order-left-right-parentroot)
       * [Can we produce the BST-Post-Order Traversal using a Stack?](#can-we-produce-the-bst-post-order-traversal-using-a-stack)
         * [The Trick](#the-trick)
@@ -33,6 +34,8 @@
   * [Complexity Analysis](#complexity-analysis)
     * [Time Complexity](#time-complexity)
     * [Space Complexity](#space-complexity)
+  * [Questions And Answers](#questions-and-answers)
+    * [Why using a stack to traverse or validate a binary search tree is better?](#why-using-a-stack-to-traverse-or-validate-a-binary-search-tree-is-better)
   * [ToDos](#todos)
   * [Next](#next)
 <!-- TOC -->
@@ -645,6 +648,10 @@ while (currentNode != null || stack.isNotEmpty()) {
 
 ```
 
+##### How is it possible that the stack is empty, but we still have a valid `currentNode` to proceed, or the `currentNode` is invalid, but the stack is not empty?
+
+* 
+
 #### Depth-First-Search: Post-Order: Left-Right-Parent(Root)
 
 > 25, 35, 30, 43, 47, 45, 40, 53, 57, 55, 65, 80, 70, 60, 50
@@ -866,9 +873,16 @@ return result.reverse()
 * In the worst case, the tree is skewed and `O(h)` = `O(n)`.
 * In the best case, the tree is balanced and `O(h)` = `O(log n)`.
 
+## Questions And Answers
+
+### Why using a stack to traverse or validate a binary search tree is better?
+
 ## ToDos
 
-* 
+* Translate the explanation into code for each step.
+  * Possible Reference: [RopeStringSubstringCutPaste.md](77ropeStringSubstringCutPaste.md)
+* Bring-in more questions from here:
+  * [Print BinarySearchTree.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
 
 ## Next
 

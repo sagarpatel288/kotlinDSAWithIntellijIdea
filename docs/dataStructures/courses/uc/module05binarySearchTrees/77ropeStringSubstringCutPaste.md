@@ -1287,7 +1287,48 @@ fun cutAndPaste(start: Int, end: Int, kCount: Int): Node? {
     val (before, after) = split(ac, kCount)
     val ab = merge(before, b)
     val abc = merge(ab, after)
+    root = abc
     return abc
+}
+
+```
+
+* In the above pseudocode, we have used the global variable `root`.
+* But, we can also pass the `root` as a parameter to the `cutAndPaste` function.
+* I prefer to pass the `root` as a parameter to the `cutAndPaste` function.
+
+## Pseudocode: The `in-order` traversal to print the resultant string
+
+* Reference: [BinarySearchTreeAndStack.md](07binarySearchTreeAndStack.md)
+
+**Recap:**
+
+* To print the resultant string, we traverse the splay tree with `in-order` approach.
+* The `in-order` traversal prints the resultant string in the ascending order.
+* We use a stack to avoid the "StackOverflow" error.
+* We start with the `root`.
+* Initially, the current node points to the `root`.
+1. If the current node is valid, we push the left child.  
+2. If the current node is invalid, we pop the stack, and print the value of the current node.  
+3. After the pop operation, the current node points to the right child.
+4. We repeat the above steps 1 to 3 until the stack is empty, and the current node is invalid.
+
+```kotlin
+
+fun inOrderTraversal(root: Node?): String {
+    if (root == null) return ""
+    val stringBuilder = StringBuilder()
+    var currentNode = root
+    val stack = ArrayDeque<Node>()
+    while (currentNode != null || stack.isNotEmpty()) {
+        while (currentNode != null) {
+            stack.push(currentNode)
+            currentNode = currentNode.left
+        }
+        val node = stack.pop()
+        stringBuilder.append(node.key)
+        currentNode = node.right
+    }
 }
 
 ```
