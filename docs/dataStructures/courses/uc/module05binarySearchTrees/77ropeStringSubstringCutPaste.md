@@ -1506,7 +1506,7 @@ val reader = BufferedReader(InputStreamReader(System.`in`))
 val input = reader.readLine()
 val solver = StringCutAndPaste()
 // Build a splay tree using the given input string
-var root = solver.buildTree(input)
+var root = solver.buildTree(input, 0, input.length - 1)
 if (input != null) {
     
 }
