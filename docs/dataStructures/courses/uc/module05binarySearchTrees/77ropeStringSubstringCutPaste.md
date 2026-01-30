@@ -1551,6 +1551,36 @@ println(output)
 
 ```
 
+## Pseudocode: Reading the input
+
+```kotlin
+
+fun main() {
+    val reader = BufferedReader(InputStreamReader(System.`in`))
+    val input = reader.readLine()
+    if (input == null || input.isEmpty()) {
+        return ""
+    }
+    val solver = StringCutAndPaste()
+    var root = solver.buildTree(input, 0, input.length - 1)
+    val totalQueries = reader.readLine()?.toInt() ?: 0
+    if (totalQueries <= 0) return input
+    repeat(totalQueries) {
+        val line = reader.readLine()
+        if (line != null) {
+            val token = StringTokenizer(line)
+            val startIndexI = token.nextToken().toInt()
+            val endIndexJ = token.nextToken().toInt()
+            val kCount = token.nextToken().toInt()
+            root = solver.cutAndPaste(startIndexI, endIndexJ, kCount)
+        }
+    }
+    val output = solver.inOrderTraversal(root)
+    println(output)
+}
+
+```
+
 ### Sample 1.
 
 #### Input
