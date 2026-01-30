@@ -1,5 +1,161 @@
 # Problem
 
+<!-- TOC -->
+* [Problem](#problem)
+  * [Rope](#rope)
+  * [Problem Introduction](#problem-introduction)
+  * [Problem Description](#problem-description)
+    * [Task](#task-)
+    * [Input Format](#input-format-)
+    * [Constraints](#constraints-)
+    * [Output Format](#output-format-)
+    * [Time Limits](#time-limits)
+    * [Memory Limit](#memory-limit-)
+    * [Sample 1.](#sample-1)
+      * [Input](#input)
+      * [Output](#output)
+      * [Explanation](#explanation)
+    * [Sample 2.](#sample-2)
+      * [Input](#input-1)
+      * [Output:](#output-1)
+      * [Explanation](#explanation-1)
+  * [TL;DR](#tldr)
+  * [Prerequisites/References](#prerequisitesreferences)
+  * [Thought Process](#thought-process)
+    * [Perspective](#perspective)
+  * [How do we form the initial binary search tree? Do we have to perform many insertions?](#how-do-we-form-the-initial-binary-search-tree-do-we-have-to-perform-many-insertions)
+    * [Perspective: Building the BST](#perspective-building-the-bst)
+    * [Pseudocode for building the BST](#pseudocode-for-building-the-bst)
+  * [Designing the "Node" class](#designing-the-node-class)
+  * [Pseudocode: The "update" function](#pseudocode-the-update-function)
+  * [Pseudocode: The `rotate` function](#pseudocode-the-rotate-function)
+  * [Pseudocode: The `splay` function](#pseudocode-the-splay-function)
+  * [Pseudocode: Find the `K-th` Node (Element, Item)](#pseudocode-find-the-k-th-node-element-item)
+  * [Pseudocode: The `split` function](#pseudocode-the-split-function)
+  * [Pseudocode: The `merge` function](#pseudocode-the-merge-function)
+  * [Pseudocode: The `cutAndPaste` function](#pseudocode-the-cutandpaste-function)
+  * [Pseudocode: The `in-order` traversal to print the resultant string](#pseudocode-the-in-order-traversal-to-print-the-resultant-string)
+  * [Reading the input](#reading-the-input)
+    * [Input Format](#input-format--1)
+    * [Output Format](#output-format--1)
+    * [Sample 1.](#sample-1-1)
+      * [Input](#input-2)
+      * [Output](#output-2)
+      * [Explanation](#explanation-2)
+  * [Time Complexity](#time-complexity)
+  * [Space Complexity](#space-complexity)
+  * [Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem](#summary-of-representation-re-expression-reconciliation-translation-conversion-transformation-mapping-of-the-rope-string-substring-cut-paste-problem-as-a-splay-tree-problem)
+  * [Questions](#questions)
+    * [Why didn't we use Array/String/Linked-List for the rope substring cut-paste problem?](#why-didnt-we-use-arraystringlinked-list-for-the-rope-substring-cut-paste-problem)
+    * [Why didn't we use the segment tree for the rope substring cut-paste problem?](#why-didnt-we-use-the-segment-tree-for-the-rope-substring-cut-paste-problem)
+    * [Why didn't we use the AVL-Tree or the Red-Black Tree for the rope substring cut-paste problem?](#why-didnt-we-use-the-avl-tree-or-the-red-black-tree-for-the-rope-substring-cut-paste-problem)
+    * [Why didn't we use a Treap for the rope substring cut-paste problem?](#why-didnt-we-use-a-treap-for-the-rope-substring-cut-paste-problem)
+    * [Why did we use a Splay Tree for the rope substring cut-paste problem?](#why-did-we-use-a-splay-tree-for-the-rope-substring-cut-paste-problem)
+      * [But what do we compare and how do we compare to traverse the Splay Tree?](#but-what-do-we-compare-and-how-do-we-compare-to-traverse-the-splay-tree)
+      * [Why did we store `size` instead of `index` in the Splay Tree?](#why-did-we-store-size-instead-of-index-in-the-splay-tree)
+  * [Step-11: Mental Model](#step-11-mental-model)
+  * [Real-World Application](#real-world-application)
+<!-- TOC -->
+
+## Rope
+
+## Problem Introduction
+
+* In this problem you will implement Rope — data structure that can store a string and efficiently cut a part (a substring) of this string and insert it in a different position. 
+* This data structure can be enhanced to become persistent — that is, to allow access to the previous versions of the string. 
+* These properties make it a suitable choice for storing the text in text editors. 
+* This is a very advanced problem, harder than all the previous advanced problems in this course. 
+* Don’t be upset if it doesn’t crack. 
+* Congratulations to all the learners who are able to successfully pass this problem!
+
+## Problem Description
+
+### Task 
+
+* You are given a string `𝑆` and you have to process `𝑛` queries. 
+* Each query is described by three integers `𝑖, 𝑗, 𝑘` and means to cut substring `𝑆[𝑖..𝑗]` (`𝑖` and `𝑗` are `0-based`) from the string and then insert it after the `𝑘-th` symbol of the remaining string (**if the symbols are numbered from 1**). 
+* If `𝑘 = 0`, `𝑆[𝑖..𝑗]` is inserted in the beginning. 
+* See the examples for further clarification.
+
+### Input Format 
+
+* The first line contains the initial string `𝑆`. 
+* The second line contains the number of queries `𝑞`. 
+* Next `𝑞` lines contain triples of integers `𝑖, 𝑗, 𝑘`. 
+
+### Constraints 
+
+* `𝑆` contains only lowercase English letters. 
+* 1 ≤ |𝑆| ≤ 300000; 
+* 1 ≤ 𝑞 ≤ 100000; 
+* 0 ≤ 𝑖 ≤ 𝑗 ≤ 𝑛 − 1; 
+* 0 ≤ 𝑘 ≤ 𝑛 − (𝑗 − 𝑖 + 1).
+
+### Output Format 
+
+* Output the string after all `𝑞` queries.
+
+### Time Limits
+
+| Language   | C | C++ | Java | Python | C#  | Haskell | JavaScript | Ruby | Scala |
+|------------|---|-----|------|--------|-----|---------|------------|------|-------|
+| Time (Sec) | 3 | 3   | 6    | 120    | 4.5 | 6       | 120        | 120  | 12    |
+
+
+### Memory Limit 
+
+* 512MB
+
+### Sample 1.
+
+#### Input
+
+```
+hlelowrold
+2
+1 1 2
+6 6 7
+```
+
+#### Output
+
+```
+helloworld
+```
+
+#### Explanation
+
+```
+ℎ𝑙𝑒𝑙𝑜𝑤𝑟𝑜𝑙𝑑 → ℎ𝑒𝑙𝑙𝑜𝑤𝑟𝑜𝑙𝑑 → ℎ𝑒𝑙𝑙𝑜𝑤𝑜𝑟𝑙𝑑
+```
+
+* When `𝑖 = 𝑗 = 1, 𝑆[𝑖..𝑗] = 𝑙`, and it is inserted **after the** `2-nd symbol` of the **remaining string** `ℎ𝑒𝑙𝑜𝑤𝑟𝑜𝑙𝑑`, which gives `ℎ𝑒𝑙𝑙𝑜𝑤𝑟𝑜𝑙𝑑`. Then `𝑖 = 𝑗 = 6`, so `𝑆[𝑖..𝑗] = 𝑟`, and it is inserted **after** the `7-th symbol` of the remaining string `ℎ𝑒𝑙𝑙𝑜𝑤𝑜𝑙𝑑`, which gives `ℎ𝑒𝑙𝑙𝑜𝑤𝑜𝑟𝑙𝑑`.
+
+### Sample 2.
+
+#### Input
+
+```
+abcdef
+2
+0 1 1
+4 5 0
+```
+
+#### Output:
+
+```
+efcabd
+```
+
+#### Explanation
+
+```
+𝑎𝑏𝑐𝑑𝑒𝑓 → 𝑐𝑎𝑏𝑑𝑒𝑓 → 𝑒𝑓 𝑐𝑎𝑏d
+```
+
+## TL;DR
+
 * A string `S` of length `n` is given.
 * There are `q` queries.
 * Each query has three integers: `i`, `j`, and `k`.
@@ -8,6 +164,8 @@
 * Paste the substring at the `k-th` position.
 * `1 <= |S| <= 300000`
 * `1 <= q <= 100000`
+* `0 ≤ 𝑖 ≤ 𝑗 ≤ 𝑛 − 1`
+* `0 ≤ 𝑘 ≤ 𝑛 − (𝑗 − 𝑖 + 1)`
 
 ## Prerequisites/References
 
@@ -1335,6 +1493,126 @@ fun inOrderTraversal(root: Node?): String {
 
 * To find the answers of the questions like "Why do we use a stack instead of the recursion function," or "In which case the `currentNode` might be null, but the stack is not empty," or "In which case the `stack` might be empty, but the `currentNode` is not null," etc., please refer to:
   * [BinarySearchTreeAndStack.md](07binarySearchTreeAndStack.md)
+
+## Reading the input
+
+### Input Format 
+
+* The first line contains the initial string `𝑆`.
+
+```kotlin
+
+val reader = BufferedReader(InputStreamReader(System.`in`))
+val input = reader.readLine()
+val solver = StringCutAndPaste()
+// Build a splay tree using the given input string
+var root = solver.buildTree(input)
+if (input != null) {
+    
+}
+
+```
+
+* The second line contains the number of queries `𝑞`.
+
+```kotlin
+
+val totalQueries = reader.readLine()?.toInt() ?: 0
+if (totalQueries > 0) {
+    
+}
+```
+
+* Next `𝑞` lines contain triples of integers `𝑖, 𝑗, 𝑘`.
+
+```kotlin
+
+repeat(totalQueries) {
+    val line = reader.readLine()
+    if (line != null) {
+        val token = StringTokenizer(line)
+        val startIndexI = token.nextToken().toInt()
+        val endIndexJ = token.nextToken().toInt()
+        val kCount = token.nextToken().toInt()
+        root = solver.cutAndPaste(startIndexI, endIndexJ, kCount)
+    }
+}
+
+```
+
+### Output Format 
+
+* Output the string after all 𝑞 queries.
+
+```kotlin
+
+val output = solver.inOrderTraversal(root)
+println(output)
+
+```
+
+### Sample 1.
+
+#### Input
+
+```
+hlelowrold
+2
+1 1 2
+6 6 7
+```
+
+#### Output
+
+```
+helloworld
+```
+
+#### Explanation
+
+```
+ℎ𝑙𝑒𝑙𝑜𝑤𝑟𝑜𝑙𝑑 → ℎ𝑒𝑙𝑙𝑜𝑤𝑟𝑜𝑙𝑑 → ℎ𝑒𝑙𝑙𝑜𝑤𝑜𝑟𝑙𝑑
+```
+
+* When `𝑖 = 𝑗 = 1, 𝑆[𝑖..𝑗] = 𝑙`, and it is inserted **after the 2-nd symbol** of the remaining string `ℎ𝑒𝑙𝑜𝑤𝑟𝑜𝑙𝑑`, which gives `ℎ𝑒𝑙𝑙𝑜𝑤𝑟𝑜𝑙𝑑`. 
+* Then `𝑖 = 𝑗 = 6`, so `𝑆[𝑖..𝑗] = 𝑟`, and it is inserted **after the 7-th symbol** of the remaining string `ℎ𝑒𝑙𝑙𝑜𝑤𝑜𝑙𝑑`, which gives `ℎ𝑒𝑙𝑙𝑜𝑤𝑜𝑟𝑙𝑑`.
+
+## Time Complexity
+
+**Time to build the splay tree** 
+
+* We visit each node once.
+* So, it is `O(n)`.
+
+**Amortized cost for each operation**
+
+* O(log n)
+
+**Total queries**
+
+* q
+
+**Total Time Complexity**
+
+```
+O(n) + O(q log n)
+```
+
+* We can adjust the upper bound of `O(n)` to `O(n log n)` since `O(n) < O(n log n)`.
+
+```
+O(n log n) + O(q log n)
+```
+
+* We can simplify it as:
+
+```
+O((n + q) log n)
+```
+
+## Space Complexity
+
+* `O(n)` to store the nodes (which is the stack size in the worst cast when the splay tree is skewed temporarily).
 
 ## Summary of representation (re-expression, reconciliation, translation, conversion, transformation, mapping) of the "rope string, substring cut-paste" problem as a splay tree problem
 
