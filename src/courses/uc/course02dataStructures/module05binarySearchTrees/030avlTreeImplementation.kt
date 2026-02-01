@@ -145,8 +145,8 @@ class AvlTree {
         // The `maxOf` function does not accept a nullable value.
         // But, our helper function [height] handles it.
         // So, this is the reason (purpose) of that helper function [height].
-        avlNode?.height = 1 + maxOf(height(avlNode.left), height(avlNode.right))
-        avlNode?.size = 1 + (avlNode.left?.size ?: 0) + (avlNode.right?.size ?: 0)
+        avlNode?.height = 1 + maxOf(height(avlNode?.left), height(avlNode?.right))
+        avlNode?.size = 1 + (avlNode?.left?.size ?: 0) + (avlNode?.right?.size ?: 0)
     }
 
     /**
@@ -751,7 +751,7 @@ class AvlTree {
                 // It is technically true that an [AvlNode] can have a null right child, but not in this case.
                 // So, we have to use the non-null assertion.
                 // I don't know if we can do it in a better way (tight signature, and no code-smell).
-                leftTreeNode?.right = mergeTwoAvlTrees(leftTreeNode.right!!, rightTreeNode, pivot)
+                leftTreeNode?.right = mergeTwoAvlTrees(leftTreeNode?.right!!, rightTreeNode, pivot)
                 // Clearly, the children and hence, the height of the `leftTreeNode` might have been changed.
                 // So, before we return the `leftTreeNode`, we need to rebalance it.
                 rebalance(leftTreeNode!!)
@@ -767,7 +767,7 @@ class AvlTree {
                 // It returns us the root (pivot) of that merged tree.
                 // We get it here and re-attach via the assignment:
                 // `rightTreeNode.left = ...`
-                rightTreeNode?.left = mergeTwoAvlTrees(leftTreeNode, rightTreeNode.left!!, pivot)
+                rightTreeNode?.left = mergeTwoAvlTrees(leftTreeNode, rightTreeNode?.left!!, pivot)
                 // The children and hence the height of the `rightTreeNode` might have been changed.
                 // We must rebalance it.
                 rebalance(rightTreeNode!!)

@@ -38,6 +38,7 @@
   * [Reading the input](#reading-the-input)
     * [Input Format](#input-format--1)
     * [Output Format](#output-format--1)
+  * [Pseudocode: Reading the input](#pseudocode-reading-the-input)
     * [Sample 1.](#sample-1-1)
       * [Input](#input-2)
       * [Output](#output-2)
