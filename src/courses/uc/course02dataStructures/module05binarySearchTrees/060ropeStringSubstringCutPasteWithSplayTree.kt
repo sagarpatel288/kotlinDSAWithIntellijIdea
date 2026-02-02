@@ -13,6 +13,7 @@ import java.util.StringTokenizer
  *
  * ## Grader Output
  * ```
+ * Good job! (Max time used: 0.77/4.50, max memory used: 90300416/2147483648.)
  * ```
  */
 class RopeStringSubstringCutPaste {
@@ -28,16 +29,6 @@ class RopeStringSubstringCutPaste {
 
     private data class SplitResult(val left: Node?, val right: Node?)
 
-    /**
-     * Why is [root] a global property?
-     * Because the purpose of this data structure [RopeStringSubstringCutPaste] is to stimulate rope (string)
-     * cut(remove, delete)-and-paste(insert) a substring and provide the final (new, resultant) string.
-     * So, it is not the responsibility of the caller to manage the [root] property.
-     * The caller is interested in only calling the [buildBst], [cutAndPaste], [inorderTraversal] functions.
-     * The caller does not need to manage the [root] property.
-     */
-    private var root: Node? = null
-
     private fun update(node: Node?) {
         if (node == null) return
         node.size = 1 + (node.left?.size ?: 0) + (node.right?.size ?: 0)
@@ -49,14 +40,16 @@ class RopeStringSubstringCutPaste {
         val mid = start + (end - start) / 2
         val node = Node(input[mid])
         node.left = buildBst(input, start, mid - 1)
+        node.left?.parent = node
         node.right = buildBst(input, mid + 1, end)
+        node.right?.parent = node
         update(node)
         return node
     }
 
-    private fun rotate(target: Node?): Node? {
-        if (target == null) return null
-        val parent = target.parent ?: return target
+    private fun rotate(target: Node?) {
+        if (target == null) return
+        val parent = target.parent ?: return
         val grandParent = parent.parent
         if (parent.left == target) {
             // Right rotation
@@ -83,14 +76,12 @@ class RopeStringSubstringCutPaste {
         // Update the current child (old parent) node first before the current parent (target) node
         update(parent)
         update(target)
-        return target
     }
 
     private fun splay(target: Node?): Node? {
         // If the node that we want to splay and make the new root is null, then the existing root stays as it is.
         // So, we return the existing root, because the caller expects the "root" node.
-        if (target == null) return null
-        while (target.parent != null) {
+        while (target?.parent != null) {
             val parent = target.parent
             val grandParent = parent?.parent
             if (grandParent == null) {
@@ -108,7 +99,6 @@ class RopeStringSubstringCutPaste {
     }
 
     private fun findByIndex(root: Node?, kIndex: Int): Node? {
-        println("findByIndex: ${root?.key} size: ${root?.size} :kIndex: ${kIndex}")
         // If there is no root, there is no other node. The tree is empty or null.
         if (root == null) return null
         var curr = root
@@ -131,12 +121,10 @@ class RopeStringSubstringCutPaste {
                 }
             }
         }
-        println("findByIndex: curr: ${curr?.key}")
         return curr
     }
 
     private fun split(root: Node?, splitKeyAsCount: Int): SplitResult {
-        println("split: root: ${root?.key} size: ${root?.size} splitKeyAsCount: $splitKeyAsCount")
         if (root == null) return SplitResult(null, null)
         if (splitKeyAsCount == 0) return SplitResult(null, root)
         if (splitKeyAsCount.toLong() == root.size) return SplitResult(root, null)
@@ -147,7 +135,6 @@ class RopeStringSubstringCutPaste {
         newRoot?.left = null
         // Update because the "newRoot" has just lost the left subtree!
         update(newRoot)
-        println("split: left: ${left?.key} :right: ${newRoot?.key}")
         return SplitResult(left, newRoot)
     }
 
@@ -161,7 +148,6 @@ class RopeStringSubstringCutPaste {
     }
 
     private fun merge(left: Node?, right: Node?): Node? {
-        println("merge: left: ${left?.key} :right: ${right?.key}")
         if (left == null) return right
         if (right == null) return left
         val leftMax = findMax(left)
@@ -170,27 +156,17 @@ class RopeStringSubstringCutPaste {
         right.parent = root
         // Update "root" because the "root" has got a new subtree!
         update(root)
-        println("RopeStringSubstringCutPaste: :merge: ${inorderTraversal(root)}")
         return root
     }
 
     fun cutAndPaste(root: Node?, start: Int, end: Int, kCount: Int): Node? {
-        println("root: ${root?.key}")
         if (root == null) return null
         val (a, bc) = split(root,start)
-        println("RopeStringSubstringCutPaste: :cutAndPaste: split: a: ${a?.key} ${a?.size} bc: ${bc?.key} ${bc?.size}")
         val (b, c) = split(bc, end - start + 1)
-        println("RopeStringSubstringCutPaste: :cutAndPaste: split: b: ${b?.key} ${b?.size} c: ${c?.key} ${c?.size}")
         val ac = merge(a, c)
-        println("RopeStringSubstringCutPaste: :cutAndPaste: merge: ac: ${ac?.key} ${ac?.size}")
         val (before, after) = split(ac, kCount)
-        println("RopeStringSubstringCutPaste: :cutAndPaste: split: before: ${before?.key} ${before?.size} after: " +
-                "${after?.key} ${after?.size}")
         val ab = merge(before, b)
-        println("RopeStringSubstringCutPaste: :cutAndPaste: merge: ab: ${ab?.key} ${ab?.size}")
         val abc = merge(ab, after)
-        println("RopeStringSubstringCutPaste: :cutAndPaste: merge: abc: ${abc?.key} ${abc?.size}")
-        println("cutAndPaste: " + inorderTraversal(abc))
         return abc
     }
 
@@ -209,7 +185,6 @@ class RopeStringSubstringCutPaste {
             stringBuilder.append(pop.key)
             curr = pop.right
         }
-        println("RopeStringSubstringCutPaste: :inorderTraversal: ${stringBuilder}")
         return stringBuilder.toString()
     }
 }
@@ -229,8 +204,8 @@ fun main() {
         val j = token.nextToken().toInt()
         val k = token.nextToken().toInt()
         root = solver.cutAndPaste(root,i, j, k)
-        println("query: $it" + solver.inorderTraversal(root))
+        
     }
     val result = solver.inorderTraversal(root)
-    println("result: $result")
+    println(result)
 }
