@@ -38,3 +38,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 /src/practice/
+
+### Other ###
+/assets/images/dataStructures/uc/module06programmingAssignments/.last_processed_timestamp
