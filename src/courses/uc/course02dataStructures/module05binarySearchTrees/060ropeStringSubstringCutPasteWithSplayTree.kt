@@ -7,9 +7,125 @@ import java.util.StringTokenizer
 
 
 /**
- * ## References:
- * [Local 77ropeStringSubstringCutPaste.md]()
- * [GitHub 77ropeStringSubstringCutPaste.md]()
+ * # References:
+ * [Local 77ropeStringSubstringCutPaste.md](docs/dataStructures/courses/uc/module05binarySearchTrees/77ropeStringSubstringCutPaste.md)
+ *
+ * [GitHub 77ropeStringSubstringCutPaste.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/7d7068b771370be9b44c6a135ce1ce6257b9c25f/docs/dataStructures/courses/uc/module05binarySearchTrees/77ropeStringSubstringCutPaste.md)
+ *
+ * ## Problem Introduction
+ *
+ * * In this problem you will implement Rope — data structure that can store a string and efficiently cut a part
+ * (a substring) of this string and insert it in a different position.
+ * * This data structure can be enhanced to become persistent — that is, to allow access to the previous versions
+ * of the string.
+ * * These properties make it a suitable choice for storing the text in text editors.
+ * * This is a very advanced problem, harder than all the previous advanced problems in this course.
+ * * Don’t be upset if it doesn’t crack.
+ * * Congratulations to all the learners who are able to successfully pass this problem!
+ *
+ * ## Problem Description
+ *
+ * ### Task
+ *
+ * * You are given a string `𝑆` and you have to process `𝑛` queries.
+ * * Each query is described by three integers `𝑖, 𝑗, 𝑘` and means to cut substring `𝑆[𝑖 ..𝑗]` (`𝑖` and `𝑗` are `0-based`)
+ * from the string and then insert it after the `𝑘-th` symbol of the remaining string
+ * (**if the symbols are numbered from 1**).
+ * * If `𝑘 = 0`, `𝑆[𝑖 ..𝑗]` is inserted in the beginning.
+ * * See the examples for further clarification.
+ *
+ * ### Input Format
+ *
+ * * The first line contains the initial string `𝑆`.
+ * * The second line contains the number of queries `𝑞`.
+ * * Next `𝑞` lines contain triples of integers `𝑖, 𝑗, 𝑘`.
+ *
+ * ### Constraints
+ *
+ * * `𝑆` contains only lowercase English letters.
+ * * 1 ≤ |𝑆| ≤ 300000;
+ * * 1 ≤ 𝑞 ≤ 100000;
+ * * 0 ≤ 𝑖 ≤ 𝑗 ≤ 𝑛 − 1;
+ * * 0 ≤ 𝑘 ≤ 𝑛 − (𝑗 − 𝑖 + 1).
+ *
+ * ### Output Format
+ *
+ * * Output the string after all `𝑞` queries.
+ *
+ * ### Time Limits
+ *
+ * | Language   | C | C++ | Java | Python | C#  | Haskell | JavaScript | Ruby | Scala |
+ * |------------|---|-----|------|--------|-----|---------|------------|------|-------|
+ * | Time (Sec) | 3 | 3   | 6    | 120    | 4.5 | 6       | 120        | 120  | 12    |
+ *
+ *
+ * ### Memory Limit
+ *
+ * * 512MB
+ *
+ * ### Sample 1.
+ *
+ * #### Input
+ *
+ * ```
+ * hlelowrold
+ * 2
+ * 1 1 2
+ * 6 6 7
+ * ```
+ *
+ * #### Output
+ *
+ * ```
+ * helloworld
+ * ```
+ *
+ * #### Explanation
+ *
+ * ```
+ * ℎ𝑙𝑒𝑙𝑜𝑤𝑟𝑜𝑙𝑑 → ℎ𝑒𝑙𝑙𝑜𝑤𝑟𝑜𝑙𝑑 → ℎ𝑒𝑙𝑙𝑜𝑤𝑜𝑟𝑙𝑑
+ * ```
+ *
+ * * When `𝑖 = 𝑗 = 1, 𝑆[𝑖 ..𝑗] = 𝑙`, and it is inserted **after the** `2-nd symbol` of the **remaining string** `ℎ𝑒𝑙𝑜𝑤𝑟𝑜𝑙𝑑`,
+ * which gives `ℎ𝑒𝑙𝑙𝑜𝑤𝑟𝑜𝑙𝑑`.
+ * * Then, `𝑖 = 𝑗 = 6`, so `𝑆[𝑖 ..𝑗] = 𝑟`, and it is inserted **after** the `7-th symbol` of the remaining string `ℎ𝑒𝑙𝑙𝑜𝑤𝑜𝑙𝑑`,
+ * which gives `ℎ𝑒𝑙𝑙𝑜𝑤𝑜𝑟𝑙𝑑`.
+ *
+ * ### Sample 2.
+ *
+ * #### Input
+ *
+ * ```
+ * abcdef
+ * 2
+ * 0 1 1
+ * 4 5 0
+ * ```
+ *
+ * #### Output:
+ *
+ * ```
+ * efcabd
+ * ```
+ *
+ * #### Explanation
+ *
+ * ```
+ * 𝑎𝑏𝑐𝑑𝑒𝑓 → 𝑐𝑎𝑏𝑑𝑒𝑓 → 𝑒𝑓 𝑐𝑎𝑏d
+ * ```
+ *
+ * ## TL;DR
+ *
+ * * A string `S` of length `n` is given.
+ * * There are `q` queries.
+ * * Each query has three integers: `i`, `j`, and `k`.
+ * * `i` and `j` represent the start and end indices of a substring of `S` respectively.
+ * * Cut the substring.
+ * * Paste the substring at the `k-th` position.
+ * * `1 <= |S| <= 300000`
+ * * `1 <= q <= 100000`
+ * * `0 ≤ 𝑖 ≤ 𝑗 ≤ 𝑛 − 1`
+ * * `0 ≤ 𝑘 ≤ 𝑛 − (𝑗 − 𝑖 + 1)`
  *
  * ## Grader Output
  * ```
@@ -110,9 +226,11 @@ class RopeStringSubstringCutPaste {
                 k == leftSize -> {
                     return curr
                 }
+
                 k < leftSize -> {
                     curr = curr.left
                 }
+
                 else -> {
                     // k > leftSize
                     curr = curr.right
@@ -128,7 +246,7 @@ class RopeStringSubstringCutPaste {
         if (root == null) return SplitResult(null, null)
         if (splitKeyAsCount == 0) return SplitResult(null, root)
         if (splitKeyAsCount.toLong() == root.size) return SplitResult(root, null)
-        val target = findByIndex(root,splitKeyAsCount)
+        val target = findByIndex(root, splitKeyAsCount)
         val newRoot = splay(target)
         val left = newRoot?.left
         left?.parent = null
@@ -161,7 +279,7 @@ class RopeStringSubstringCutPaste {
 
     fun cutAndPaste(root: Node?, start: Int, end: Int, kCount: Int): Node? {
         if (root == null) return null
-        val (a, bc) = split(root,start)
+        val (a, bc) = split(root, start)
         val (b, c) = split(bc, end - start + 1)
         val ac = merge(a, c)
         val (before, after) = split(ac, kCount)
@@ -203,8 +321,8 @@ fun main() {
         val i = token.nextToken().toInt()
         val j = token.nextToken().toInt()
         val k = token.nextToken().toInt()
-        root = solver.cutAndPaste(root,i, j, k)
-        
+        root = solver.cutAndPaste(root, i, j, k)
+
     }
     val result = solver.inorderTraversal(root)
     println(result)
