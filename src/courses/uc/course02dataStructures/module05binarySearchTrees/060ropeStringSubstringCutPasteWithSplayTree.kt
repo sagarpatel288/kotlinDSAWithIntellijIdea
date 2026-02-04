@@ -155,10 +155,14 @@ class RopeStringSubstringCutPaste {
         if (start > end) return null
         val mid = start + (end - start) / 2
         val node = Node(input[mid])
+        // Common mistake: Don't forget to assign the result as: "node.left"
         node.left = buildBst(input, start, mid - 1)
+        // Common mistake: Don't forget to update the "parent" pointer of the "left child."
         node.left?.parent = node
         node.right = buildBst(input, mid + 1, end)
+        // Common mistake: Don't forget to update the "parent" pointer of the "right child."
         node.right?.parent = node
+        // Common mistake: Don't forget to "update" the "node" as it has got two children (left and right).
         update(node)
         return node
     }
@@ -167,6 +171,8 @@ class RopeStringSubstringCutPaste {
         if (target == null) return
         val parent = target.parent ?: return
         val grandParent = parent.parent
+        // Visualize the right and left rotations.
+        // Refer: https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/7d7068b771370be9b44c6a135ce1ce6257b9c25f/docs/dataStructures/courses/uc/module05binarySearchTrees/77ropeStringSubstringCutPaste.md
         if (parent.left == target) {
             // Right rotation
             val rightChild = target.right
@@ -189,6 +195,7 @@ class RopeStringSubstringCutPaste {
                 grandParent.right = target
             }
         }
+        // Remember the order: Parent (Now a child of the target) --> Target (Now the parent of its old parent!).
         // Update the current child (old parent) node first before the current parent (target) node
         update(parent)
         update(target)
@@ -201,11 +208,15 @@ class RopeStringSubstringCutPaste {
             val parent = target.parent
             val grandParent = parent?.parent
             if (grandParent == null) {
+                // Remember: When grandparent is null, rotate target once.
                 rotate(target)
             } else if ((grandParent.left == parent) == (parent.left == target)) {
+                // Remember: When both parent and the target are in the same side: Rotate parent, and then the target.
                 rotate(parent)
                 rotate(target)
             } else {
+                // Remember: Otherwise (when both parent and target are on the different sides):
+                // Rotate the target two times.
                 rotate(target)
                 rotate(target)
             }
@@ -220,6 +231,8 @@ class RopeStringSubstringCutPaste {
         var curr = root
         var k = kIndex.toLong()
         whileLoop@ while (curr != null) {
+            // 1. Remember this formula (relationship).
+            // 2. Common mistake: Using "root" instead of "curr"!
             val leftSize = curr.left?.size ?: 0
             when {
                 // Do you understand this? This is the heart formula of the problem.
@@ -235,6 +248,7 @@ class RopeStringSubstringCutPaste {
                     // k > leftSize
                     curr = curr.right
                     // Do you understand this?
+                    // Remember this formula (relationship, equation, step).
                     k -= (leftSize + 1)
                 }
             }
@@ -242,16 +256,31 @@ class RopeStringSubstringCutPaste {
         return curr
     }
 
+    /**
+     * # Do you understand what does the [splitKeyAsCount] convey here?
+     * ---
+     * * It represents the number of nodes on the left side (left subtree).
+     */
     private fun split(root: Node?, splitKeyAsCount: Int): SplitResult {
         if (root == null) return SplitResult(null, null)
+        // Do you understand this?
+        // If the `splitKeyAsCount` is `0`, it means we want `0` node on the left side (left subtree).
+        // Having `0` node on the left side (left subtree) means that the left subtree does not have any node.
+        // So, the left subtree is `null`.
         if (splitKeyAsCount == 0) return SplitResult(null, root)
+        // If the `splitKeyAsCount` is `root.size`, it means we want all the nodes on the left side (left subtree).
+        // It means there is no node on the right side (right subtree).
+        // It means that the right subtree is empty.
+        // It means that the right subtree does not have any node.
+        // It means that the right subtree is `null`.
         if (splitKeyAsCount.toLong() == root.size) return SplitResult(root, null)
+        // Common mistake: Don't forget to first "findByIndex" and "splay" before we "split".
         val target = findByIndex(root, splitKeyAsCount)
         val newRoot = splay(target)
         val left = newRoot?.left
         left?.parent = null
         newRoot?.left = null
-        // Update because the "newRoot" has just lost the left subtree!
+        // Common mistake: Don't forget to update the "newRoot," because the "newRoot" has just lost the left subtree!
         update(newRoot)
         return SplitResult(left, newRoot)
     }
@@ -259,6 +288,7 @@ class RopeStringSubstringCutPaste {
     private fun findMax(root: Node?): Node? {
         if (root == null) return null
         var curr = root
+        // Common mistake: It is "curr?.right != null," and not "curr != null"
         while (curr?.right != null) {
             curr = curr.right
         }
@@ -279,6 +309,9 @@ class RopeStringSubstringCutPaste {
 
     fun cutAndPaste(root: Node?, start: Int, end: Int, kCount: Int): Node? {
         if (root == null) return null
+        // Something to understand and visualize:
+        // Refer: https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/7d7068b771370be9b44c6a135ce1ce6257b9c25f/docs/dataStructures/courses/uc/module05binarySearchTrees/77ropeStringSubstringCutPaste.md
+        // Do you understand this sequence of multiple "split" and "merge" operations?
         val (a, bc) = split(root, start)
         val (b, c) = split(bc, end - start + 1)
         val ac = merge(a, c)
@@ -293,7 +326,8 @@ class RopeStringSubstringCutPaste {
         val stringBuilder = StringBuilder()
         val stack = ArrayDeque<Node>()
         var curr = root
-        // Do you understand these conditions?
+        // Common mistake: Remember: There are two conditions!
+        // Remember: Do you understand these conditions?
         while (curr != null || stack.isNotEmpty()) {
             while (curr != null) {
                 stack.push(curr)
@@ -316,6 +350,7 @@ fun main() {
     val solver = RopeStringSubstringCutPaste()
     var root = solver.buildBst(input, 0, input.length - 1)
     repeat(totalQueries) {
+        // Common mistake: We read the line and take the token inside the "repeat" loop.
         val line = reader.readLine()
         val token = StringTokenizer(line)
         val i = token.nextToken().toInt()

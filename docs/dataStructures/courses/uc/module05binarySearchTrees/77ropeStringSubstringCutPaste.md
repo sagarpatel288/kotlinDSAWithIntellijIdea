@@ -56,6 +56,7 @@
       * [Why did we store `size` instead of `index` in the Splay Tree?](#why-did-we-store-size-instead-of-index-in-the-splay-tree)
   * [Step-11: Mental Model](#step-11-mental-model)
   * [Real-World Application](#real-world-application)
+  * [ToDos:](#todos)
 <!-- TOC -->
 
 ## Rope
@@ -1698,3 +1699,7 @@ O((n + q) log n)
 ## Real-World Application
 
 * Text editor.
+
+## ToDos:
+
+* How to remember? The story.
