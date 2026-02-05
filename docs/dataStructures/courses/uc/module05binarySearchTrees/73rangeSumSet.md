@@ -532,6 +532,9 @@ fun splay(target: Node): Node {
             // Again, whether to rotate right or left is decided by and within the `rotate` function
             rotate(parent)
             rotate(target)
+        } else {
+            rotate(target)
+            rotate(target)
         }
     }
     root = target
