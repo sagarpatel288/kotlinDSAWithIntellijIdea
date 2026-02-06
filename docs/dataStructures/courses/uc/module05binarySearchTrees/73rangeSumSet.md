@@ -797,6 +797,16 @@ fun rangeSum(startInclusive: Long, endInclusive: Long): Long {
 * However, each costly operation re-balances the tree.
 * Hence, the overall amortized cost is `O(log n)` per operation.
 
+### What if the range was based on the indices instead of the values?
+**Will we solve it using a `prefixed sum` array?**
+
+* Even if the range was based on the indices, we will still solve it using a splay tree.
+* Because an array takes `O(n)` time per insert/delete operation due to shifting of elements.
+* Whereas a splay tree maintains the `O(log n)` time complexity.
+* To understand how we manage and process "**index and count based queries**", please refer to the following file:
+  * [implicitIndicesWithSplayTree.md](75implicitIndicesWithSplayTree.md)
+  * [ropeStringSubstringCutPaste.md](77ropeStringSubstringCutPaste.md)
+
 ## Relevant DSA Variants
 
 * Find K-th smallest/largest element.
