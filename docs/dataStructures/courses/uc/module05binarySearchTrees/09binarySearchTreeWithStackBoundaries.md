@@ -252,8 +252,9 @@ flowchart TB
 * We use the given rule to create boundaries for each node.
 * We push a node along with its boundaries.
 * When we pop, we compare the node key with its boundaries.
-* We can follow any traversal order to cover the entire tree.
-* Here, we will follow the `Pre-Order` traversal.
+* Notice that we decide the boundaries of children based on the parent value.
+* It means that we read and process the parent node, and then children nodes.
+* It is aligned with the `Pre-Order` traversal.
 * For example, suppose we have the below tree to validate.
 
 ![09bstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
