@@ -23,6 +23,7 @@
     * [What would `min < key <= max` mean?](#what-would-min--key--max-mean)
     * [What would `min < key < max` mean?](#what-would-min--key--max-mean-1)
     * [Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?](#why-didnt-we-use-the-simple-in-order-traversal-where-we-can-simply-compare-a-parent-and-a-child-doesnt-it-work)
+  * [Validation using the `in-order` traversal](#validation-using-the-in-order-traversal)
   * [Relevant DSA Questions](#relevant-dsa-questions)
   * [ToDos](#todos)
   * [Next](#next)
@@ -782,6 +783,97 @@ flowchart TB
 * In this case, the deep leaf node, `50` will have `min = 45`, and `max = 50`.
 * So, the valid condition `min <= key < max` fails here.
 * And we correctly conclude it as an invalid binary search tree.
+
+## Validation using the `in-order` traversal
+
+* Step:01: Based on the typical `in-order` traversal
+
+```kotlin
+fun isValidBstWithDuplicateKeys(arr: Array<Node>): Boolean {
+        if (arr.isEmpty()) return true
+        val stack = ArrayDeque<NodeBoundaries>()
+        var curr = 0
+        while (curr != -1 || stack.isNotEmpty()) {
+            while (curr != -1) {
+                val node = arr[curr]
+                // We need to push the node along with the boundaries.
+                // For the left child, the parent key becomes the max, and the node inherits the min from the parent.
+                // For the right child, the parent key becomes the min, and the node inherits the max from the parent.
+                // However, this is the only place where we perform the `push` operation.
+                // How can we know whether the `node` is a left or a right child?
+                // The answer is, we can't until and unless we have the parent reference.
+                // The solution is, the variable "curr" must carry the "node index" and relative boundaries.
+                stack.push(//ToDo)
+                curr = node.leftIndex
+            }
+            val pop = stack.pop()
+            val node = arr[pop.nodeIndex]
+            if (node.key < pop.min || node.key >= pop.max) {
+                return false
+            }
+            curr = node.rightIndex
+        }
+    }
+```
+
+* Step:02: Improvements
+
+```kotlin
+
+fun isValidBstWithDuplicateKeys(arr: Array<Node>): Boolean {
+  if (arr.isEmpty()) return true
+  val stack = ArrayDeque<NodeBoundaries>()
+  var curr: NodeBoundaries? = NodeBoundaries(0, Long.MIN_VALUE, Long.MAX_VALUE)
+  // "curr" is not an "index" now. 
+  // "curr" now represents a real node with its boundaries.
+  // To represent that there is an invalid state, we use "curr != null".
+  // We can use "curr.nodeIndex != -1", but then it might be confusing and contradicting with the presence of "real boundaries."
+  // Because, if "curr.nodeIndex" is "-1", then it is an invalid node, and it also carries "boundaries," but an "invalid node" cannot have "boundaries".
+  // So, it is confusing and contradicting.
+  // So, we simplify it.
+  // If "curr" is "null," then it is an invalid state.
+  while (curr != null || stack.isNotEmpty()) {
+    while (curr != null) {
+      val node = arr[curr]
+      // We need to push the node along with the boundaries.
+      // For the left child, the parent key becomes the max, and the node inherits the min from the parent.
+      // For the right child, the parent key becomes the min, and the node inherits the max from the parent.
+      // However, this is the only place where we perform the `push` operation.
+      // How can we know whether the `node` is a left or a right child?
+      // The answer is, we can't until and unless we have the parent reference.
+      // The solution is, the variable "curr" must carry the "node index" and relative boundaries.
+      stack.push(curr)
+      // Now, when we travel towards "node.leftIndex," we know that we are covering the left child.
+      // Also, "node.leftIndex" indicates that "node" is the parent here.
+      // So, we can set the relevant boundaries.
+      // Parent key ("node.key") becomes the "max."
+      // And the left child inherits parent's min ("curr.min").
+      curr = if (node.leftIndex != -1) {
+        NodeBoundaries(node.leftIndex, curr.min, node.key)
+      } else {
+          // If the "node.leftIndex == -1", then it is an invalid node.
+        null
+      }
+    }
+    val pop = stack.pop()
+    val node = arr[pop.nodeIndex]
+    if (node.key < pop.min || node.key >= pop.max) {
+      return false
+    }
+    // At this point, we know that we are going to cover the right child.
+    // So, we can set the relevant boundaries.
+    // For the right child, the parent key (node.key) becomes the "min".
+    // And the right child inherits the "max" from the parent.
+    curr = if (node.rightIndex != -1) {
+      NodeBoundaries(node.rightIndex, node.key, curr.max)
+    } else {
+      // If the "node.rightIndex == -1", then it is an invalid node.
+        null
+    }
+  }
+}
+
+```
 
 ## Relevant DSA Questions
 
