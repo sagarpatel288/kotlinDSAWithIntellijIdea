@@ -23,7 +23,10 @@
     * [What would `min < key <= max` mean?](#what-would-min--key--max-mean)
     * [What would `min < key < max` mean?](#what-would-min--key--max-mean-1)
     * [Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?](#why-didnt-we-use-the-simple-in-order-traversal-where-we-can-simply-compare-a-parent-and-a-child-doesnt-it-work)
+  * [Implementation using the `pre-order` traversal](#implementation-using-the-pre-order-traversal)
   * [Validation using the `in-order` traversal](#validation-using-the-in-order-traversal)
+    * [Implementation using `in-order` traversal](#implementation-using-in-order-traversal)
+  * [Which traversal should we use to validate a BST? Why?](#which-traversal-should-we-use-to-validate-a-bst-why)
   * [Relevant DSA Questions](#relevant-dsa-questions)
   * [ToDos](#todos)
   * [Next](#next)
@@ -784,6 +787,10 @@ flowchart TB
 * So, the valid condition `min <= key < max` fails here.
 * And we correctly conclude it as an invalid binary search tree.
 
+## Implementation using the `pre-order` traversal
+
+[020validateBstBinarySearchTree.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020validateBstBinarySearchTree.kt)
+
 ## Validation using the `in-order` traversal
 
 * Step:01: Based on the typical `in-order` traversal
@@ -852,6 +859,7 @@ fun isValidBstWithDuplicateKeys(arr: Array<Node>): Boolean {
         NodeBoundaries(node.leftIndex, curr.min, node.key)
       } else {
           // If the "node.leftIndex == -1", then it is an invalid node.
+          // This is the signal that there is no more left child, and it helps exit the loop.
         null
       }
     }
@@ -868,12 +876,27 @@ fun isValidBstWithDuplicateKeys(arr: Array<Node>): Boolean {
       NodeBoundaries(node.rightIndex, node.key, curr.max)
     } else {
       // If the "node.rightIndex == -1", then it is an invalid node.
+        // This is the signal that there is no more right child, and it helps pop the next element from the stack.
         null
     }
   }
+  return true
 }
 
 ```
+
+### Implementation using `in-order` traversal
+
+[022validateBstUsingInOrder.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/022validateBstUsingInOrder.kt)
+
+## Which traversal should we use to validate a BST? Why?
+
+* `pre-order` traversal is "fail-fast" compared to `in-order` traversal.
+* `pre-order` traversal does not have any waiting period for a node that we visit.
+* We visit the parent node first, and then we validate it immediately.
+* Whereas, the `in-order` traversal visits the parent node first, but validates it only after visiting the left child.
+* It means that the parent node has to wait.
+* So, we prefer `pre-order` traversal to validate a BST.
 
 ## Relevant DSA Questions
 
