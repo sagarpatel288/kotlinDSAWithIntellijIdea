@@ -78,9 +78,12 @@ import java.util.StringTokenizer
  */
 class ValidateBinarySearchTreeHavingDuplicateKeys {
 
+    /**
+     * A public data class because we use it while reading, and transforming the input.
+     */
     data class Node(val key: Long, val leftChildIndex: Int, val rightChildIndex: Int)
 
-    data class NodeWithBoundaries(val nodeIndex: Int, val min: Long, val max: Long)
+    private data class NodeWithBoundaries(val nodeIndex: Int, val min: Long, val max: Long)
 
     fun isValidBst(nodes: Array<Node>): Boolean {
         if (nodes.isEmpty()) return true
