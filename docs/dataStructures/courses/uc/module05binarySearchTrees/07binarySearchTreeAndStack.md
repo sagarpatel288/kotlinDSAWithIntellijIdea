@@ -8,14 +8,17 @@
       * [Depth-First-Search: Pre-Order: Parent(Root)-Left-Right](#depth-first-search-pre-order-parentroot-left-right)
       * [Can a particular order of push and pop operations of a stack produce DFS-Pre-Order traversal of a BST?](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-produce-dfs-pre-order-traversal-of-a-bst)
         * [Pseudocode Of BST-Pre-Order Using A Stack](#pseudocode-of-bst-pre-order-using-a-stack)
+        * [How to remember?](#how-to-remember)
       * [Depth-First-Search: In-Order: Left-Parent(Root)-Right](#depth-first-search-in-order-left-parentroot-right)
       * [Can a particular order of push and pop operations of a stack create BST `In-Order` traversal?](#can-a-particular-order-of-push-and-pop-operations-of-a-stack-create-bst-in-order-traversal)
         * [Pseudocode Of BST-In-Order Using A Stack](#pseudocode-of-bst-in-order-using-a-stack)
+        * [How to remember?](#how-to-remember-1)
         * [How is it possible that the stack is empty, but we still have a valid `currentNode` to proceed, or the `currentNode` is invalid, but the stack is not empty?](#how-is-it-possible-that-the-stack-is-empty-but-we-still-have-a-valid-currentnode-to-proceed-or-the-currentnode-is-invalid-but-the-stack-is-not-empty)
       * [Depth-First-Search: Post-Order: Left-Right-Parent(Root)](#depth-first-search-post-order-left-right-parentroot)
       * [Can we produce the BST-Post-Order Traversal using a Stack?](#can-we-produce-the-bst-post-order-traversal-using-a-stack)
         * [The Trick](#the-trick)
         * [Pseudocode Of Post-Order Traversal Using A Stack](#pseudocode-of-post-order-traversal-using-a-stack)
+        * [How to remember?](#how-to-remember-2)
     * [Breadth-First-Search (Level-By-Level-Top-To-Bottom-Left-To-Right)](#breadth-first-search-level-by-level-top-to-bottom-left-to-right)
   * [Problem Description](#problem-description)
     * [Problem Introduction](#problem-introduction)
@@ -520,6 +523,15 @@ while (stack.isNotEmpty()) {
 }
 ```
 
+##### How to remember?
+
+* `pre-order` means eagerly push the root.
+* Then, inside the while loop:
+  * pop
+  * push right child first
+  * And then push left child
+  * We push the left child after the right child so that we can pop the left child first, before the right child to simulate/replicate `Left-Right` part of `Parent(Root)-Left-Right`.
+
 #### Depth-First-Search: In-Order: Left-Parent(Root)-Right
 
 > 25, 30, 35, 40, 43, 45, 47, 50, 53, 55, 57, 60, 65, 70, 80
@@ -625,9 +637,10 @@ while (stack.isNotEmpty()) {
 * We start with the root node.
 * The current node points to the root node.
 
-1. If the node is valid, push it to the stack.
-2. After the push, the current node points to the left child.
-3. If the node is invalid, perform the pop operation.
+1. As long as the node is valid, keep pushing it to the stack.
+2. After each push, the current node points to the left child.  
+(We keep going to the left side as long as we can go, and we push each node we visit to the stack along the way.)
+3. If the node is invalid (when there is no more left child), perform the pop operation.
 4. After the pop, the current node points to the right child.
 5. Repeat steps 1 to 4 until the stack is empty.
 
@@ -648,9 +661,48 @@ while (currentNode != null || stack.isNotEmpty()) {
 
 ```
 
+##### How to remember?
+
+* Keep pushing the left children as log as it is possible.
+* When there is no more left child, pop and add the right child.
+* Repeat.
+
 ##### How is it possible that the stack is empty, but we still have a valid `currentNode` to proceed, or the `currentNode` is invalid, but the stack is not empty?
 
-* 
+* For example:
+
+![430bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/430bstInOrderUsingStack.png)
+
+* After we pop the node `57`, the `currentNode` points to `null`, but the stack is not empty.
+* It means that the `currentNode` is invalid, but the stack is not empty.
+* We can see the same pattern for all the leaf nodes as below:
+
+![250bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/250bstInOrderUsingStack.png)
+
+![280bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/280bstInOrderUsingStack.png)
+
+![320bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/320bstInOrderUsingStack.png)
+
+![350bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/350bstInOrderUsingStack.png)
+
+![400bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/400bstInOrderUsingStack.png)
+
+![430bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/430bstInOrderUsingStack.png)
+
+![470bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/470bstInOrderUsingStack.png)
+
+* On the other hand, we can also see the pattern where the stack is empty, but we still have the `currentNode` to proceed.
+* For example:
+
+![360bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/360bstInOrderUsingStack.png)
+
+* After we pop the node `50`, the stack is empty, but the `currentNode` points to the right child of `50`, which is `60`.
+* So, the stack is empty, but we still have a valid `currentNode` to proceed.
+* We can see the same pattern again as shown below:
+
+![440bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/440bstInOrderUsingStack.png)
+
+![480bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/480bstInOrderUsingStack.png)
 
 #### Depth-First-Search: Post-Order: Left-Right-Parent(Root)
 
@@ -749,6 +801,25 @@ while (stack.isNotEmpty()) {
 return result.reverse()
 
 ```
+
+##### How to remember?
+
+* `p` of `post-order` starts with `p` of `pre-order`.
+* `pre-order` is `parent (root) -> left -> right`.
+* Modified `pre-order` is `parent (root) -> right -> left`.
+* Reverse of `modified pre-order` is `left -> right -> parent (root)`.
+* So, we follow the modified `pre-order` and then reverse the result.
+* First, we traverse the tree according to the modified `pre-order`.
+* So, similar to `pre-order`, we eagerly push the root node into the stack.
+* Then, as long as the stack is not empty, we do the following:
+* Pop a node from the stack.
+* First, Push the left child.
+* Then, push the right child.
+* We push the right child after the left child so that we can pop the right child first and simulate the `right-left` part of the modified `pre-order`, which is `parent (root) -> right -> left`.
+* This is exactly the opposite of the `pre-order` sequence.
+* In `pre-order`, we want to simulate `left -> right` part.
+* So, we push the right child first, and then the left child.
+* Here, we push the left child first, and then the right child to simulate `right -> left` part.
 
 ### Breadth-First-Search (Level-By-Level-Top-To-Bottom-Left-To-Right)
 

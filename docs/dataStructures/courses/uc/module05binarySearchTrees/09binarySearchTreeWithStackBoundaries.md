@@ -26,6 +26,7 @@
   * [Implementation using the `pre-order` traversal](#implementation-using-the-pre-order-traversal)
   * [Validation using the `in-order` traversal](#validation-using-the-in-order-traversal)
     * [Implementation using `in-order` traversal](#implementation-using-in-order-traversal)
+  * [Implementation using `post-order` traversal](#implementation-using-post-order-traversal)
   * [Which traversal should we use to validate a BST? Why?](#which-traversal-should-we-use-to-validate-a-bst-why)
   * [Relevant DSA Questions](#relevant-dsa-questions)
   * [ToDos](#todos)
@@ -890,6 +891,10 @@ fun isValidBstWithDuplicateKeys(arr: Array<Node>): Boolean {
 ### Implementation using `in-order` traversal
 
 [022validateBstUsingInOrder.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/022validateBstUsingInOrder.kt)
+
+## Implementation using `post-order` traversal
+
+[024validateBstUsingPostOrder.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/024validateBstUsingPostOrder.kt)
 
 ## Which traversal should we use to validate a BST? Why?
 
