@@ -83,8 +83,21 @@ class ValidateBinarySearchTreeHavingDuplicateKeys {
      */
     data class Node(val key: Long, val leftChildIndex: Int, val rightChildIndex: Int)
 
+    /**
+     * Using the [nodeIndex], we retrieve the [Node] from the input array in the [isValidBst] function.
+     * Why a different data class?
+     * Because the input gives us [Node] data only.
+     * It is our approach to assign the boundaries for each [Node].
+     */
     private data class NodeWithBoundaries(val nodeIndex: Int, val min: Long, val max: Long)
 
+    /**
+     * Why didn't we use a nullable [nodes] array?
+     * Because we are getting this [nodes] array directly from the input.
+     * If it was a nullable array, we would not have called this function.
+     * If the array is null, it means that we have received either `0` as the total vertices (nodes), or less than `0`.
+     * And in both cases, we would have returned `true` or `false`, before even calling this function.
+     */
     fun isValidBst(nodes: Array<Node>): Boolean {
         if (nodes.isEmpty()) return true
         val stack = ArrayDeque<NodeWithBoundaries>()
@@ -116,6 +129,10 @@ fun main() {
         return
     }
     val total = firstLine.toInt()
+    if (total < 0) {
+        println("INCORRECT")
+        return
+    }
     if (total == 0) {
         println("CORRECT")
         return
