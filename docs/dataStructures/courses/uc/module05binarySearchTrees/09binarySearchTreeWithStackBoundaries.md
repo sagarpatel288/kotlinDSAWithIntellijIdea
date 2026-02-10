@@ -20,6 +20,8 @@
   * [Space Complexity](#space-complexity)
   * [Questions](#questions)
     * [Can we follow any other way to cover the entire tree than the `Pre-Order` traversal? Will it make any difference? Does it work?](#can-we-follow-any-other-way-to-cover-the-entire-tree-than-the-pre-order-traversal-will-it-make-any-difference-does-it-work)
+    * [Explain the validation logic](#explain-the-validation-logic)
+    * [Explain the `min` and `max` values (boundaries)](#explain-the-min-and-max-values-boundaries)
     * [What would `min < key <= max` mean?](#what-would-min--key--max-mean)
     * [What would `min < key < max` mean?](#what-would-min--key--max-mean-1)
     * [Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?](#why-didnt-we-use-the-simple-in-order-traversal-where-we-can-simply-compare-a-parent-and-a-child-doesnt-it-work)
@@ -738,10 +740,70 @@ fun isValidBst(nodes: Array<Node>): Boolean {
 ![09bstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
 
 * For the given image, we have to validate `25` first before `40`.
-* This process forces us to delay the validation of all the other nodes we visited (came across) while reaching the last left leaf child, `25`.
-* Because the first `pop` operation happens only after we cover the last left leaf child in the `in-order` traversal.
+* This process forces us to delay the validation of all the other (previous) nodes (ancestors) we visited (came across) while reaching the last left leaf, `25`.
+* Because the first `pop` operation happens only after we cover the last left leaf in the `in-order` traversal.
 * Other nodes like `50`, `40`, `30`, etc. have to wait for the validation.
 * So, a particular approach might make a `constant` difference in the time complexity, but it works as long as the validation logic is correct (right).
+
+### Explain the validation logic
+
+```kotlin
+
+if (node.key < pop.min || node.key >= pop.max) {
+    return false
+}
+
+```
+
+* Every time we visit a node, we push the corresponding `min` and `max` values to the stack.
+
+```kotlin
+
+val pop = stack.pop()
+val node = arr[pop.nodeIndex]
+if (node.key < pop.min || node.key >= pop.max) {
+    return false
+}
+if (node.right != -1) {
+    // Here, `node.right` means we are pushing the `right child`.
+    // When we push the `child`, we also attach the `min` and `max` values.
+    stack.push(node.right, node.key, pop.max)
+}
+if (node.left != -1) {
+    // Here, `node.left` means we are pushing the `left child`.
+    // When we push the `child`, we also attach the `min` and `max` values.
+    stack.push(node.left, pop.min, node.key)
+}
+```
+
+* Here, `pop` contains the `min` and `max` values for the `node`.
+* When we pop and validate the `node`, we don't know whether the `node` is a `left child` or a `right child`, but we have the boundaries.
+* So, we validate the `node` using the associated `min` and `max` values.
+
+### Explain the `min` and `max` values (boundaries)
+
+```kotlin
+
+val pop = stack.pop()
+val node = arr[pop.nodeIndex]
+if (node.key < pop.min || node.key >= pop.max) {
+    return false
+}
+if (node.right != -1) {
+    // Here, we are pushing the `right child`.
+    stack.push(NodeBoundaries(node.right, node.key, pop.max))
+}
+if (node.left != -1) {
+    // Here, we are pushing the `left child`.
+    stack.push(NodeBoundaries(node.left, pop.min, node.key))
+}
+
+```
+
+* When we push a right child, we ensure that the right child's key must be at least (minimum) the parent's key (`node.key`).
+* And it inherits the `max` limit from the parent (`pop.max`). 
+* Similarly, when we push a left child, we ensure that the left child's key must be at most (maximum) the parent's key (`node.key`).
+* And it inherits the `min` limit from the parent (`pop.min`).
 
 ### What would `min < key <= max` mean?
 
@@ -753,7 +815,9 @@ fun isValidBst(nodes: Array<Node>): Boolean {
 * It is the ideal binary search tree condition, where a duplicate key is not allowed.
 * The `min < key` part says that the right child must be strictly greater than the parent node.
 * The `key < max` part says that the left child must be strictly smaller (less) than the parent node.
-* Again, no duplicate keys are allowed.
+* There is no `equal` values allowed.
+* It means that no duplicate keys are allowed.
+* If the key exist, we don't do anything or do whatever we have been asked explicitly.
 
 ### Why didn't we use the simple `in-order` traversal, where we can simply compare a parent and a child? Doesn't it work?
 
@@ -791,7 +855,7 @@ flowchart TB
 
 ## Implementation using the `pre-order` traversal
 
-[020validateBstBinarySearchTree.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020validateBstBinarySearchTree.kt)
+[020validateBstBinarySearchTree.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/020validateBstUsingPreOrder.kt)
 
 ## Validation using the `in-order` traversal
 
