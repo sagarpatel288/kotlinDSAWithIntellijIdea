@@ -35,6 +35,7 @@
       * [contains(key)](#containskey)
       * [add(key)](#addkey)
       * [remove(key)](#removekey)
+  * [Applications: Where do we use hashing in real life? Explain in short (one to five sentences) how we use hashing for each application.](#applications-where-do-we-use-hashing-in-real-life-explain-in-short-one-to-five-sentences-how-we-use-hashing-for-each-application)
   * [Interview Questions](#interview-questions)
     * [If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?](#if-we-have-integer-keys-up-to-8-digits-what-will-be-the-size-of-an-array-in-the-direct-addressing-method)
     * [What problem does a hash table (map) solve?](#what-problem-does-a-hash-table-map-solve)
@@ -432,6 +433,17 @@ fun <T> remove(key: T): Boolean {
 }
 
 ```
+
+## Applications: Where do we use hashing in real life? Explain in short (one to five sentences) how we use hashing for each application.
+
+* Blockchain.
+* In programming languages. For example, `dict` in Python, `Map` (Interface) or `HashMap` (Implementation) in Java, `Set` (Interface) or `HashSet` (Implementation) in Java.
+* Sparser, compiler, or interpreter of programming languages. For example, a programming language's symbol table. A programming language needs to quickly retrieve reserved keywords like `if`, `else`, `for`, `while`, etc.
+* A programming language needs to quickly determine whether a variable name is a reserved keyword.
+* File systems. For example, mapping of a human-readable path to a file or directory.
+* Digital signatures. For example, in cheque verification.
+* 
+* 
 
 ## Interview Questions
 
