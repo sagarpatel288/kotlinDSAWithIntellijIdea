@@ -130,9 +130,9 @@ import java.io.InputStreamReader
  */
 private data class LongestCommonStrings(val startIndex1: Int, val startIndex2: Int, val length: Int)
 
-private fun checkForLength(string1: String, string2: String, length: Int): LongestCommonStrings? {
+private fun checkForLength(string1: String, string2: String, length: Int): LongestCommonSubStrings? {
     // Edge Cases
-    if (length == 0) return LongestCommonStrings(0, 0, 0)
+    if (length == 0) return LongestCommonSubStrings(0, 0, 0)
     if (length > string1.length || length > string2.length) return null
 
     fun getAllHashes(string: String, length: Int): Map<Pair<Long, Long>, Int> {
@@ -201,7 +201,7 @@ private fun checkForLength(string1: String, string2: String, length: Int): Longe
         if (hashes2.containsKey(hashCodePair)) {
             val startIndex2 = hashes2[hashCodePair]!!
             if (string1.substring(startIndex, startIndex + length) == string2.substring(startIndex2, startIndex2 + length)) {
-                return LongestCommonStrings(startIndex, startIndex2, length)
+                return LongestCommonSubStrings(startIndex, startIndex2, length)
             }
         }
     }
@@ -215,7 +215,7 @@ fun main() {
     val output = StringBuilder()
     while (line != null && line.isNotBlank()) {
         val (string1, string2) = line.split(" ")
-        var bestAnswer = LongestCommonStrings(0, 0, 0)
+        var bestAnswer = LongestCommonSubStrings(0, 0, 0)
         if (string1.isNotEmpty() && string2.isNotEmpty()) {
             var start = 0
             var end = minOf(string1.length, string2.length)

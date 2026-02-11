@@ -1,7 +1,10 @@
+package courses.uc.course02dataStructures.module04hashTables
+
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import kotlin.collections.iterator
 
-data class LongestCommonStrings(val startIndex1: Int, val startIndex2: Int, val length: Int)
+data class LongestCommonSubStrings(val startIndex1: Int, val startIndex2: Int, val length: Int)
 
 fun getAllHashes(string: String, length: Int): Map<Pair<Long, Long>, MutableList<Int>> {
     if (length == 0 || length > string.length) return emptyMap()
@@ -51,9 +54,9 @@ fun getAllHashes(string: String, length: Int): Map<Pair<Long, Long>, MutableList
     return hashes
 }
 
-fun checkForLength(string1: String, string2: String, length: Int): LongestCommonStrings? {
+fun checkForLength(string1: String, string2: String, length: Int): LongestCommonSubStrings? {
     // Edge Cases
-    if (length == 0) return LongestCommonStrings(0, 0, 0)
+    if (length == 0) return LongestCommonSubStrings(0, 0, 0)
     if (length > string1.length || length > string2.length) return null
 
     val hashes1 = getAllHashes(string1, length)
@@ -69,7 +72,7 @@ fun checkForLength(string1: String, string2: String, length: Int): LongestCommon
                 for (startIndex2 in indices2) {
                     val sub2 = string2.substring(startIndex2, startIndex2 + length)
                     if (sub1 == sub2) {
-                        return LongestCommonStrings(startIndex1, startIndex2, length)
+                        return LongestCommonSubStrings(startIndex1, startIndex2, length)
                     }
                 }
             }
@@ -79,12 +82,12 @@ fun checkForLength(string1: String, string2: String, length: Int): LongestCommon
     return null
 }
 
-fun findLongestCommonSubstring(string1: String, string2: String): LongestCommonStrings {
+fun findLongestCommonSubstring(string1: String, string2: String): LongestCommonSubStrings {
     if (string1.isEmpty() || string2.isEmpty()) {
-        return LongestCommonStrings(0, 0, 0)
+        return LongestCommonSubStrings(0, 0, 0)
     }
     
-    var bestAnswer = LongestCommonStrings(0, 0, 0)
+    var bestAnswer = LongestCommonSubStrings(0, 0, 0)
     var start = 0
     var end = minOf(string1.length, string2.length)
     
