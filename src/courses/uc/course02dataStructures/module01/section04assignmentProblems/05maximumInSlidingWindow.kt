@@ -1100,6 +1100,26 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * Good job! (Max time used: 0.48/2.00, max memory used: 74780672/536870912.)
  * ```
  *
+ * ## Relevant association:
+ *
+ * * This is a classical pattern:
+ * * Two pointers over a time-sorted array to maintain a fixed-size time window.
+ *
+ * **It is called:**
+ * * Sliding Window
+ * * Two-pointer technique
+ * * Moving window counter
+ *
+ * **We see this pattern in:**
+ * * Network rate limiting systems
+ * * Streaming analytics systems
+ * * Real-time fraud detection systems
+ * * API request monitoring
+ * * LeetCode sliding window problems
+ * * TCP congestion window logic
+ * * Real-time dashboards
+ * * Log analytics engines
+ * * Time-based caches
  *
  */
 fun findMaxInSlidingWindow(windowSize: Int, itemList: List<Int>): String {

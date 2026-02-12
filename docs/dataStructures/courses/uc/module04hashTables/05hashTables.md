@@ -44,6 +44,7 @@
     * [What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-hash-table-map-and-a-disjoint-set-data-structure-explain-the-overall-difference-and-the-difference-for-each-operation)
     * [What are the few cases where we would use a set instead of a map? Why?](#what-are-the-few-cases-where-we-would-use-a-set-instead-of-a-map-why)
   * [Next](#next)
+  * [Relevant DSA Questions](#relevant-dsa-questions)
 <!-- TOC -->
 
 ## Resources / References
@@ -95,6 +96,26 @@
 * ToDo: Explain the problem with an example.
 * Add approximate size to store $2^{32}$ values!
 * Explain the memory waste problem. 
+---
+* Suppose we have $2^{32}$ possible values.
+* It can be unique ID or something like that.
+* Now, we want to find value of a particular ID in $O(1)$ time.
+* We can use an array, and treat each ID as an index.
+* So, to find the value of a particular ID, we would pass the ID as an index to the array.
+* It works, but it requires an array of size $2^{32}$.
+* And suppose we only have $100$ values.
+* Then, we waste a lot of memory.
+* On the other hand, if we use a dynamic array, we cannot find the value in $O(1)$ time.
+* Because in a dynamic array, unique ID is not the index.
+* A hash table solves this problem.
+* We don't waste huge memory, and we can still find the value in $O(1)$ on average.
+* Under the hood, it uses a dynamic array.
+* Mostly, unique ID gets unique index via a hash function.
+* However, while trying to balance time and space, some IDs might get the same index.
+* We call it a collision, and there are various ways to handle it.
+* When we resize the array to store more values, we relocate all the values, and this process is known as rehashing.
+* Old values might get different indices, but the implementation ensures that we do not lose any values, and we can still find the value in $O(1)$ time on average.
+---
 
 ## Hash Function
 
@@ -452,9 +473,12 @@ fun <T> remove(key: T): Boolean {
 * $10^8$, because in the direct addressing, we treat the integer key as the index of the array.
 
 ### What problem does a hash table (map) solve?
-* When do we use a hash table (map)?
+* When do we use a hash table (map) compared to other data structures? Why?
+
+
 
 ### What are the pros and cons of a hash table?
+
 
 
 ### How does a hash table work?
@@ -468,7 +492,9 @@ fun <T> remove(key: T): Boolean {
 ### What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.
 
 
+
 ### What are the few cases where we would use a set instead of a map? Why?
+
 
 
 ## Next
@@ -481,4 +507,4 @@ fun <T> remove(key: T): Boolean {
 * [Hash Questions](35hashQuestions.md)
 * [Hashing In Blockchain](40hashingInBlockchain.md)
  
-
+## Relevant DSA Questions
