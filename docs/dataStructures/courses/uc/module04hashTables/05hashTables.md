@@ -121,7 +121,11 @@
 
 ### Introduction
 
-* A `hash function` takes a `key` as an argument, and generates a unique `hash code` for the given key.
+* A `hash function` takes a `key` as an argument, and generates a unique `hash code` to store the given key at a particular index.
+```
+Key → Hash Function → Hash Code → Index.
+```
+* This process is known as `hashing`.
 * The `hash function` is a deterministic function. 
 * It means that it always generates the same `hash code` for the same key.
 * Also, the type and size of the input key can be anything.
@@ -232,7 +236,7 @@ $$
 
 ### Examples
 
-* A name is a key, and a phone number is a value.
+* A phone number is a key, and a name is a value.
 * A roll number is a key, and a student name is a value.
 * An account number is a key, and the account balance is a value.
 * A word in a dictionary is a key, and the definition is a value.
@@ -286,6 +290,13 @@ $$
 * Each index stores a list of pairs.
 * To avoid the `shifting` problem, we use a `linked list` instead of a simple `list`.
 * And to avoid the worst-case search time of the `linked list`, that is `O(n)`, we switch to a `balanced binary tree` (For example, a Red-Black Tree) when we hit a threshold.
+* Before we perform `treeification,` we consider two things:
+  * The collision size.
+  * The hash table size.
+* We compare which one is a better option.
+* Sometimes, we resize the hash table instead of `treeification`.
+* And we also perform `untreefication`.
+* This `treeification` and `untreefication` are there in `HashMap` of Java 8+.
 
 ## Methods And Asymptotic Analysis with Pseudocode
 
