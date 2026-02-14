@@ -68,3 +68,6 @@
 ## Next
 
 * [Hashing In Blockchain](40hashingInBlockchain.md)
+* [Precomputed Prefixed Hashes](45precomputedPrefixHashes.md)
+* [String Hashing Revision](50stringHashingRevision.md)
+* [Relevant DSA Problems](60relevantDsaProblems.md)

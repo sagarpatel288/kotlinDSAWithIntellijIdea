@@ -40,9 +40,22 @@
     * [If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?](#if-we-have-integer-keys-up-to-8-digits-what-will-be-the-size-of-an-array-in-the-direct-addressing-method)
     * [What problem does a hash table (map) solve?](#what-problem-does-a-hash-table-map-solve)
     * [What are the pros and cons of a hash table?](#what-are-the-pros-and-cons-of-a-hash-table)
+      * [Pros](#pros)
+      * [Cons](#cons)
     * [How does a hash table work?](#how-does-a-hash-table-work)
+    * [Why is $α = n/m$ important?](#why-is-α--nm-important)
+    * [Why is expected chain length equal to α?](#why-is-expected-chain-length-equal-to-α)
+    * [Why does doubling table size give amortized O(1)?](#why-does-doubling-table-size-give-amortized-o1)
+    * [Why is collision unavoidable mathematically?](#why-is-collision-unavoidable-mathematically)
+    * [Why is good distribution more important than irreversibility?](#why-is-good-distribution-more-important-than-irreversibility)
+    * [Why does resizing change indices?](#why-does-resizing-change-indices)
+    * [Why does treeification improve worst-case?](#why-does-treeification-improve-worst-case)
+    * [What happens if hash function always returns 1?](#what-happens-if-hash-function-always-returns-1)
+    * [Why does open addressing degrade when α → 1?](#why-does-open-addressing-degrade-when-α--1)
+    * [Why is separate chaining called closed addressing?](#why-is-separate-chaining-called-closed-addressing)
     * [What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-hash-table-map-and-a-disjoint-set-data-structure-explain-the-overall-difference-and-the-difference-for-each-operation)
     * [What are the few cases where we would use a set instead of a map? Why?](#what-are-the-few-cases-where-we-would-use-a-set-instead-of-a-map-why)
+    * [Comparison of different data structures](#comparison-of-different-data-structures)
   * [Next](#next)
   * [Relevant DSA Questions](#relevant-dsa-questions)
 <!-- TOC -->
@@ -103,9 +116,14 @@
 * We can use an array, and treat each ID as an index.
 * So, to find the value of a particular ID, we would pass the ID as an index to the array.
 * It works, but it requires an array of size $2^{32}$.
+
+
+* $2^{32} \text{ integers} * 4 \text{ bytes} \approx 16GB$
+
+
 * And suppose we only have $100$ values.
 * Then, we waste a lot of memory.
-* On the other hand, if we use a dynamic array, we cannot find the value in $O(1)$ time.
+* On the other hand, if we use a dynamic array, we cannot find the value (key lookup) in $O(1)$ time
 * Because in a dynamic array, unique ID is not the index.
 * A hash table solves this problem.
 * We don't waste huge memory, and we can still find the value in $O(1)$ on average.
@@ -115,25 +133,26 @@
 * We call it a collision, and there are various ways to handle it.
 * When we resize the array to store more values, we relocate all the values, and this process is known as rehashing.
 * Old values might get different indices, but the implementation ensures that we do not lose any values, and we can still find the value in $O(1)$ time on average.
+* Each element is rehashed $log (n)$ times maximum.
 ---
 
 ## Hash Function
 
 ### Introduction
 
-* A `hash function` takes a `key` as an argument, and generates a unique `hash code` to store the given key at a particular index.
+* A `hash function` takes a `key` as an argument, and generates a **deterministic** `hash code` to store the given key at a particular index.
 ```
 Key → Hash Function → Hash Code → Index.
 ```
 * This process is known as `hashing`.
-* The `hash function` is a deterministic function. 
+* The `hash function` is a **deterministic function**. 
 * It means that it always generates the same `hash code` for the same key.
 * Also, the type and size of the input key can be anything.
 * So, the domain and size of the input key can be anything.
 * This is the reason we often call the domain of the key a `universe`.
-* But the domain and size of the `hash code` remain the same.
+* But the domain and size (i.e., type, e.g., a 32-bit `Int`) of the `hash code` remain the same.
 * A `hash code` is always a `whole number`.
-* And the size of the `hash code` remains the same for all the different keys.
+* And the size (i.e., type, e.g., a 32-bit `Int`) of the `hash code` remains the same for all the different keys.
 * We then compress this `hash code` to produce an index from `[0,..,m-1]`, where `m` is the size of the `hash table`.  
 * To compress the `hash code`, we use `hashCode % size of the hash table`.
 * So, `index = hashCode % m,` where `m` is the size of the hash table.
@@ -170,7 +189,7 @@ $$
 
 #### Definition
 
-* A hash function `h` is a deterministic function that maps an input key `k` of arbitrary size from a large domain `U` (the universe of keys) to a fixed-size output `h(k)` (also known as a `hash code`), which is then compressed to a smaller index within the range `R = [0,..,m - 1]`, where `m` is the size of the `hash table`. 
+* A hash function `h` is a **deterministic function** that maps an input key `k` of arbitrary size from a large domain `U` (the universe of keys) to a fixed-size (i.e., type, e.g., 32-bit `Int`) output `h(k)` (also known as a `hash code`), which is then compressed to a smaller index within the range `R = [0,..,m - 1]`, where `m` is the size of the `hash table`. 
 
 ### Load Factor
 
@@ -185,13 +204,15 @@ $$
 $$
 
 * We try to maintain this ratio at around `0.75`.
+* Here, the expected chain length is $\alpha$.
+* And the expected time per operation is $O(1 + \alpha)$.
 * We will also learn more about it.
 
 ### Properties
 
 * A hash function should be deterministic.
 * It means that the same input should produce the same output.
-* The output must be of fixed size.
+* The output must be of fixed size (i.e., type, e.g., a 32-bit `Int`).
 * The hash function must be irreversible for cryptography.
 * For general-purpose hash tables, it is good to have an irreversible hash function.
 * It means that it should be impossible to get the input key from the output.
@@ -295,8 +316,15 @@ $$
   * The hash table size.
 * We compare which one is a better option.
 * Sometimes, we resize the hash table instead of `treeification`.
+* And sometimes, we perform `treeification`.
+* After `treeification`, the worst-case search time becomes `O(log n)`.
 * And we also perform `untreefication`.
 * This `treeification` and `untreefication` are there in `HashMap` of Java 8+.
+  * There, `TREEIFY_THRESOLD` is `8`.
+  * And `UNTREEIFY_THRESHOLD` is `6`.
+  * And `MIN_TREEIFY_CAPACITY` is `64`.
+* Why does the `TREEIFY_THRESHOLD` is `8`? Because the probability of more than `8` collisions is 1 in 10 million if we are using a good hash function. 
+* And when we touch this threshold, it means that either the hash function is failing, or we are under the **Hash DoS attack**.  
 
 ## Methods And Asymptotic Analysis with Pseudocode
 
@@ -490,7 +518,25 @@ fun <T> remove(key: T): Boolean {
 
 ### What are the pros and cons of a hash table?
 
+#### Pros
 
+* A hash table uses a hash function, and it is a deterministic function. It means that the same key will always map to the same index. 
+  * It means that if we have a key, we can quickly and easily find its value in $O(1)$ time when there is no collision. 
+  * Even if there is a collision, finding a value takes $O(1 + \alpha)$ time, where $\alpha$ is the load factor, which is the ratio of the number of elements (`n`) in the hash table to the size of the hash table (`m`).
+  * Normally, we maintain a load factor of `0.75`.
+
+
+#### Cons
+
+* No value-based order.
+  * For example, binary search trees are value-based ordered data structures.
+* It means that it is hard or almost impossible to perform value-based operations like range queries, sorting, etc.
+  * For example, we can perform binary search on a binary search tree to find a key in $O(log n)$ time.
+* It is almost impossible to maintain recency due to cache locality differences. 
+  * For example, suppose we access a key whose value is `2`. We don't get any benefit of this last operation if the next operation is to access a key whose value is `1` or `3`.
+  * On the other hand, a splay tree (a self-balancing binary search tree) maintains recency. We can quickly and easily access the most recently accessed key and their neighbors. Because it brings the most recently accessed key to the root of the tree via rotations. So, it takes only $O(1)$ time the next time we access the same key.
+  * Reference: [splayTrees.md](../module05binarySearchTrees/70splayTrees.md).
+* We might still waste a small amount of memory to reduce the number of collisions. So, we might use a different data structure if memory is a strict concern over time complexity to find a value.
 
 ### How does a hash table work?
 
@@ -500,13 +546,62 @@ fun <T> remove(key: T): Boolean {
 * What is the time complexity of various operations on a hash table? How?
 * What is the space complexity of various operations on a hash table? How?
 
+### Why is $α = n/m$ important?
+
+* 
+
+### Why is expected chain length equal to α?
+
+* 
+
+### Why does doubling table size give amortized O(1)?
+
+* 
+
+### Why is collision unavoidable mathematically?
+
+* 
+
+### Why is good distribution more important than irreversibility?
+
+* 
+
+### Why does resizing change indices?
+
+* 
+
+### Why does treeification improve worst-case?
+
+* 
+
+### What happens if hash function always returns 1?
+
+* 
+
+### Why does open addressing degrade when α → 1?
+
+* 
+
+### Why is separate chaining called closed addressing?
+
+* 
+
 ### What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.
 
-
+* 
 
 ### What are the few cases where we would use a set instead of a map? Why?
 
+* 
 
+### Comparison of different data structures
+
+|  Structure 	  |  Search 	  |   Insert 	    |     Ordered? 	      | Memory 	 |
+|:-------------:|:----------:|:-------------:|:-------------------:|:--------:|
+|    Array 	    |   O(n) 	   | O(1) append 	 | Yes (index order) 	 |  O(n) 	  |
+| Linked List 	 |   O(n) 	   |    O(1) 	     |        Yes 	        |  O(n) 	  |
+|     BST 	     | O(log n) 	 |  O(log n) 	   |   Yes (sorted) 	    |  O(n) 	  |
+| Hash Table 	  | O(1) avg 	 |  O(1) avg 	   |        No 	         |  O(n) 	  |
 
 ## Next
 
@@ -517,5 +612,9 @@ fun <T> remove(key: T): Boolean {
 * [Find A Substring](30findSubstring.md)
 * [Hash Questions](35hashQuestions.md)
 * [Hashing In Blockchain](40hashingInBlockchain.md)
- 
+* [Precomputed Prefixed Hashes](45precomputedPrefixHashes.md)
+* [String Hashing Revision](50stringHashingRevision.md)
+* [Relevant DSA Problems](60relevantDsaProblems.md)
+
 ## Relevant DSA Questions
+

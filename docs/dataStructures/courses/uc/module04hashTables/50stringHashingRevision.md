@@ -6,6 +6,8 @@
   * [Calculating The Highest Degree Base](#calculating-the-highest-degree-base)
   * [Substring Hashing From The Previous Substring Hash (Rabin-Karp, Rolling Hash, Sliding Window)](#substring-hashing-from-the-previous-substring-hash-rabin-karp-rolling-hash-sliding-window)
   * [Precomputed Prefix Hashing](#precomputed-prefix-hashing)
+  * [ToDos](#todos)
+  * [Next](#next)
 <!-- TOC -->
 
 ## Horner's Method Of Polynomial String Hashing
@@ -152,3 +154,11 @@ private fun areEqual(startingIndex1: Int, startingIndex2: Int, length: Int): Boo
     return hash1a == hash1b && hash2a == hash2b
 }
 ```
+
+## ToDos
+
+*
+
+## Next
+
+* [Relevant DSA Problems](60relevantDsaProblems.md) 
