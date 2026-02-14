@@ -10,6 +10,7 @@
   * [Interview Questions](#interview-questions)
     * [If we have integer keys up to 10 digits, what will be a good prime number `p` for a hash function?](#if-we-have-integer-keys-up-to-10-digits-what-will-be-a-good-prime-number-p-for-a-hash-function)
     * [If we have integer keys from `-100` to `100`, then what will be a good prime number `p` for a hash function?](#if-we-have-integer-keys-from--100-to-100-then-what-will-be-a-good-prime-number-p-for-a-hash-function)
+  * [ToDo](#todo)
   * [Next](#next)
 <!-- TOC -->
 
@@ -96,9 +97,23 @@ $$
 * And we take the prime number that is greater than the input key.
 * So, we take `p = 211`.
 
+## ToDo
+
+* Open Vs. closed addressing
+* Linear Probing
+* Quadratic Probing
+* Division Method
+* Multiplication Method
+* Then, Universal Method
+* Double Hashing
+* Answer: Why primes are used in hash functions?
+
 ## Next
 
 * [String Hashing](25stringHashing.md)
 * [Find A Substring](30findSubstring.md)
 * [Hash Questions](35hashQuestions.md)
 * [Hashing In Blockchain](40hashingInBlockchain.md)
+* [Precomputed Prefixed Hashes](45precomputedPrefixHashes.md)
+* [String Hashing Revision](50stringHashingRevision.md)
+* [Relevant DSA Problems](60relevantDsaProblems.md)

@@ -40,3 +40,7 @@
 * [02stringHashingWithChain.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/02stringHashingWithChain.kt)
 
 ## Next
+
+* [Precomputed Prefixed Hashes](45precomputedPrefixHashes.md)
+* [String Hashing Revision](50stringHashingRevision.md)
+* [Relevant DSA Problems](60relevantDsaProblems.md)
