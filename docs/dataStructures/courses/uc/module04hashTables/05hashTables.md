@@ -19,7 +19,9 @@
     * [Technical Definition](#technical-definition-1)
     * [Examples](#examples)
   * [Collision](#collision)
-  * [Chaining](#chaining)
+  * [Closed Hashing (Open Addressing)](#closed-hashing-open-addressing)
+  * [Closed Addressing (Open Hashing)](#closed-addressing-open-hashing)
+  * [Separate Chaining](#separate-chaining)
   * [Methods And Asymptotic Analysis with Pseudocode](#methods-and-asymptotic-analysis-with-pseudocode)
     * [containsKey(key)](#containskeykey)
     * [get(key)](#getkey)
@@ -280,11 +282,21 @@ $$
 * We don't want to lose any value during such an incident.
 * We want to adjust and fit multiple values during such an incident.
 * So, how do we do that?
-* [Chaining](#chaining) is one of the many ways to do that.
-* So, let us start with [chaining](#chaining).
+* We categorize the collision resolution techniques into two categories:
+  * Open Addressing (Closed Hashing)
+  * Closed Addressing (Open Hashing)
 
-## Chaining
+## Closed Hashing (Open Addressing)
 
+![074openAddressingClosedHashing.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/074openAddressingClosedHashing.webp)
+
+## Closed Addressing (Open Hashing)
+
+![078closedAddressingOpenHashing.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/078closedAddressingOpenHashing.webp)
+
+## Separate Chaining
+
+* It falls under the category of [Closed Addressing](#closed-addressing-open-hashing).
 * We have already learned in the [hash function](#hash-function) how a `key` becomes an `index`.
 * In this section, we will be storing the `value`, and handling the `collision`.
 
@@ -531,9 +543,9 @@ fun <T> remove(key: T): Boolean {
 * No value-based order.
   * For example, binary search trees are value-based ordered data structures.
 * It means that it is hard or almost impossible to perform value-based operations like range queries, sorting, etc.
-  * For example, we can perform binary search on a binary search tree to find a key in $O(log n)$ time.
+  * For example, we can perform binary search on a binary search tree to find a key in $O(log (n))$ time.
 * It is almost impossible to maintain recency due to cache locality differences. 
-  * For example, suppose we access a key whose value is `2`. We don't get any benefit of this last operation if the next operation is to access a key whose value is `1` or `3`.
+  * For example, suppose we access a key whose value is `2`. We don't get any benefit of this last operation if the next operation is to access a key whose value is `1,` `2,` or `3`.
   * On the other hand, a splay tree (a self-balancing binary search tree) maintains recency. We can quickly and easily access the most recently accessed key and their neighbors. Because it brings the most recently accessed key to the root of the tree via rotations. So, it takes only $O(1)$ time the next time we access the same key.
   * Reference: [splayTrees.md](../module05binarySearchTrees/70splayTrees.md).
 * We might still waste a small amount of memory to reduce the number of collisions. So, we might use a different data structure if memory is a strict concern over time complexity to find a value.
