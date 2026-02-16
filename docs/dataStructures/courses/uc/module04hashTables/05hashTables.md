@@ -21,7 +21,7 @@
   * [Collision](#collision)
   * [Closed Hashing (Open Addressing)](#closed-hashing-open-addressing)
   * [Closed Addressing (Open Hashing)](#closed-addressing-open-hashing)
-  * [Separate Chaining](#separate-chaining)
+  * [Separate Chaining (Closed Addressing, Open Hashing)](#separate-chaining-closed-addressing-open-hashing)
   * [Methods And Asymptotic Analysis with Pseudocode](#methods-and-asymptotic-analysis-with-pseudocode)
     * [containsKey(key)](#containskeykey)
     * [get(key)](#getkey)
@@ -294,7 +294,7 @@ $$
 
 ![078closedAddressingOpenHashing.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/078closedAddressingOpenHashing.webp)
 
-## Separate Chaining
+## Separate Chaining (Closed Addressing, Open Hashing)
 
 * It falls under the category of [Closed Addressing](#closed-addressing-open-hashing).
 * We have already learned in the [hash function](#hash-function) how a `key` becomes an `index`.
@@ -518,6 +518,21 @@ fun <T> remove(key: T): Boolean {
 * 
 
 ## Interview Questions
+
+### Why don't we get $O(n)$ time complexity when we delete a key due to shifting?
+
+* When we delete a key in a hash table, we don't resize the underlying array.
+* So, there is zero shifting.
+* All the indices maintain their original positions.
+* Separate Chaining:
+  * When we delete a key, we delete a node from the linked list.
+  * If the key we are deleting is the only node in the linked list, then deleting the key makes the head of the linked list `null`.
+  * So, there is no shifting.
+* Open Addressing:
+  * When we delete a key, we use the `Tombstones marker` to mark the deleted key.
+  * The `Tombstones marker` helps continue the search operation for some keys.
+  * We can also use the `Tombstones marker` to insert a new key.
+  * So, there is no shifting.
 
 ### If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?
 
