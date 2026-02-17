@@ -39,21 +39,24 @@
       * [remove(key)](#removekey)
   * [Applications: Where do we use hashing in real life? Explain in short (one to five sentences) how we use hashing for each application.](#applications-where-do-we-use-hashing-in-real-life-explain-in-short-one-to-five-sentences-how-we-use-hashing-for-each-application)
   * [Interview Questions](#interview-questions)
+    * [Why don't we get $O(n)$ time complexity when we delete a key due to shifting?](#why-dont-we-get-on-time-complexity-when-we-delete-a-key-due-to-shifting)
     * [If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?](#if-we-have-integer-keys-up-to-8-digits-what-will-be-the-size-of-an-array-in-the-direct-addressing-method)
     * [What problem does a hash table (map) solve?](#what-problem-does-a-hash-table-map-solve)
     * [What are the pros and cons of a hash table?](#what-are-the-pros-and-cons-of-a-hash-table)
       * [Pros](#pros)
       * [Cons](#cons)
+    * [Why do we call it a hash table when the underlying data structure is a dynamic array?](#why-do-we-call-it-a-hash-table-when-the-underlying-data-structure-is-a-dynamic-array)
     * [How does a hash table work?](#how-does-a-hash-table-work)
+    * [Are the keys in a hash table mutable? Why?](#are-the-keys-in-a-hash-table-mutable-why)
     * [Why is $α = n/m$ important?](#why-is-α--nm-important)
     * [Why is expected chain length equal to α?](#why-is-expected-chain-length-equal-to-α)
     * [Why does doubling table size give amortized O(1)?](#why-does-doubling-table-size-give-amortized-o1)
     * [Why is collision unavoidable mathematically?](#why-is-collision-unavoidable-mathematically)
-    * [Why is good distribution more important than irreversibility?](#why-is-good-distribution-more-important-than-irreversibility)
+    * [What is irreversibility?](#what-is-irreversibility)
     * [Why does resizing change indices?](#why-does-resizing-change-indices)
     * [Why does treeification improve worst-case?](#why-does-treeification-improve-worst-case)
     * [What happens if hash function always returns 1?](#what-happens-if-hash-function-always-returns-1)
-    * [Why does open addressing degrade when α → 1?](#why-does-open-addressing-degrade-when-α--1)
+    * [Why does open addressing and separate chaining degrade when α → 1?](#why-does-open-addressing-and-separate-chaining-degrade-when-α--1)
     * [Why is separate chaining called closed addressing?](#why-is-separate-chaining-called-closed-addressing)
     * [What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-hash-table-map-and-a-disjoint-set-data-structure-explain-the-overall-difference-and-the-difference-for-each-operation)
     * [What are the few cases where we would use a set instead of a map? Why?](#what-are-the-few-cases-where-we-would-use-a-set-instead-of-a-map-why)
@@ -120,7 +123,16 @@
 * It works, but it requires an array of size $2^{32}$.
 
 
-* $2^{32} \text{ integers} * 4 \text{ bytes} \approx 16GB$
+* $2^{32} \text{ integers} * 4 \text{ bytes} \approx 16GB$  
+
+
+* If we use `Long`:  
+
+
+* $2^{32} \text{ long} * 8 \text{ bytes} \approx 32GB$
+
+
+* And if we have unique IP addresses of IPV6, we need to store $2^{128}$ keys, which is physically impossible.  
 
 
 * And suppose we only have $100$ values.
@@ -216,7 +228,7 @@ $$
 * It means that the same input should produce the same output.
 * The output must be of fixed size (i.e., type, e.g., a 32-bit `Int`).
 * The hash function must be irreversible for cryptography.
-* For general-purpose hash tables, it is good to have an irreversible hash function.
+* For general-purpose hash tables, uniform distribution is critical.
 * It means that it should be impossible to get the input key from the output.
 * The hash function should be fast enough. 
 * So that we can perform various operations, such as find, insert, update, delete, etc., fast enough.
@@ -332,7 +344,7 @@ $$
 * After `treeification`, the worst-case search time becomes `O(log n)`.
 * And we also perform `untreefication`.
 * This `treeification` and `untreefication` are there in `HashMap` of Java 8+.
-  * There, `TREEIFY_THRESOLD` is `8`.
+  * There, `TREEIFY_THRESHOLD` is `8`.
   * And `UNTREEIFY_THRESHOLD` is `6`.
   * And `MIN_TREEIFY_CAPACITY` is `64`.
 * Why does the `TREEIFY_THRESHOLD` is `8`? Because the probability of more than `8` collisions is 1 in 10 million if we are using a good hash function. 
@@ -539,9 +551,12 @@ fun <T> remove(key: T): Boolean {
 * $10^8$, because in the direct addressing, we treat the integer key as the index of the array.
 
 ### What problem does a hash table (map) solve?
-* When do we use a hash table (map) compared to other data structures? Why?
+**When do we use a hash table (map) compared to other data structures? Why?**
 
-
+* A hash table solves dictionary problems.
+* A hash table provides $O(1 + \alpha)$ time complexity for insertion, deletion, and lookup operations.
+* Here, $\alpha$ is the load factor, which is the ratio of the number of elements (`n`) in the hash table to the size of the hash table (`m`).
+* The maximum chain length in a hash table is $\alpha$.
 
 ### What are the pros and cons of a hash table?
 
@@ -565,57 +580,142 @@ fun <T> remove(key: T): Boolean {
   * Reference: [splayTrees.md](../module05binarySearchTrees/70splayTrees.md).
 * We might still waste a small amount of memory to reduce the number of collisions. So, we might use a different data structure if memory is a strict concern over time complexity to find a value.
 
+### Why do we call it a hash table when the underlying data structure is a dynamic array?
+
+* **Table:** Because it maps a key to a value.
+* **Hash:** Because it uses hashing to map a key to an index.
+
 ### How does a hash table work?
 
-* How do we implement a hash table?
-* What underlying data structure do we use to implement a hash table?
-* How do we perform various operations on a hash table?
-* What is the time complexity of various operations on a hash table? How?
-* What is the space complexity of various operations on a hash table? How?
+**How do we implement a hash table?**  
+**What underlying data structure do we use to implement a hash table?**  
+**What is the internal system of a hash table?**  
+
+* We use a dynamic array to implement a hash table.
+* A hash table treats the object that we want to store in the hash table as a key.
+* It gives the key to a hash function.
+* A hash function is a deterministic function that maps a key to an index.  
+* A hash function converts a key to a hash code, and then we compress the hash code to an index.
+* The domain size of the key is universe $U$, and the domain size of the table is $m$.
+* $U >> m$. The universe is much larger than the table.
+* It means that if we keep adding keys to the hash table, we will face collisions.
+* A collision occurs when two or more keys map to the same index.
+* We have two main approaches to handle collisions: Open addressing and Separate chaining.
+* Open addressing does not use any additional data structure.
+* When a collision occurs, we look for the next available slot in the hash table.
+* The system to look for the next available slot is called probing, and it has to be deterministic.
+* There are three types of probing: Linear probing, Quadratic probing, and Double hashing.
+* Separate chaining uses a linked list to handle collisions.
+* Each bucket in the hash table contains a linked list.
+* When a collision occurs, we add the key to the linked list.
+* To maintain time and space complexity, we use load factor.
+* If the hash table size is $m$, and the number of keys is $n$, then the load factor is $α = n/m$.
+* We resize the hash table when the load factor exceeds a certain threshold (e.g. $0.75$).
+* We don't resize the hash table frequently.
+* So, the amortized time complexity of resizing is $O(1)$.
+---
+**How do we perform various operations on a hash table?**  
+**What is the time complexity of various operations on a hash table? How?**  
+**What is the space complexity of various operations on a hash table? How?**  
+
+* The main operations on a hash table are: Insertion (put), Deletion (delete), and Search (find, get).
+* If the load factor is $α = n/m$, then the average chain length is $α$.
+* So, the time complexity of insertion, deletion, and search is $O(1 + α)$.
+* The space complexity of a hash table is $O(n + m)$, where $n$ is the number of keys, and $m$ is the size of the hash table.
+
+### Are the keys in a hash table mutable? Why?
+
+* The keys in a hash table are immutable.
+* Because we use a hash function to map the keys to indices in the hash table.
+* The hash function is a deterministic function.
+* It means that the same key always maps to the same index.
+* If we change the key after storing it in the hash table, then the next time we try to access it, we will get a different index.
 
 ### Why is $α = n/m$ important?
 
-* 
+* $α$ is the load factor.
+* If $α$ is too high, it means that the hash table size is too small.
+* It means that we get more collisions.
+* More collisions means that we spend more time.
+* If $α$ is too low, it means that the hash table size is too large.
+* It means that we waste space.
+* That's why a balanced $α$ is important.
 
 ### Why is expected chain length equal to α?
 
-* 
+* If the number of keys is $n$, and the size of the hash table is $m$, then each bucket has $n/m$ keys on average.
+* That is why the expected chain length is $α = n/m$.
 
 ### Why does doubling table size give amortized O(1)?
 
-* 
+* Before resizing, the time complexity of various operations is $O(1)$.
+* The resizing operation takes $O(n)$ time.
+* But, we don't resize the hash table (the underlying dynamic array) frequently.
+* So, if we spread the cost of resizing over all the operations, then the amortized time complexity of resizing is $O(1)$.
 
 ### Why is collision unavoidable mathematically?
 
-* 
+* Because the number of possible keys is infinite.
+* But, the number of possible indices is finite.
+* So, according to the pigeonhole principle, if we have more pigeons than holes, then at least one hole must contain more than one pigeon.
+* That is why collisions are unavoidable.
 
-### Why is good distribution more important than irreversibility?
+### What is irreversibility?
 
-* 
+* Irreversibility means that we can't get the original key (input) from the hash value (output).
 
 ### Why does resizing change indices?
 
-* 
+* When we resize the hash table, we change the size of the underlying dynamic array, $m$.
+* A hash function depends on $m$.
+* So, when we change $m$, we get a different index for the same key.
 
 ### Why does treeification improve worst-case?
 
-* 
+* Treeification means that we convert a linked list into a self-balanced binary search tree.
+* A self-balanced binary search tree has a height of $O(\log n)$.
+* So, the worst-case time complexity of search, insert, and delete operations is $O(\log n)$.
+* Without treeification, if we continue using the linked list, the worst-case time complexity is $O(n)$.
+* That is why and how treeification improves the worst-case time complexity.
 
 ### What happens if hash function always returns 1?
 
-* 
+* If the hash function always returns 1, then all the keys will be mapped to the same index.
+* It means that we get a worst-case scenario.
+* So, we get $O(n)$ time complexity.
 
-### Why does open addressing degrade when α → 1?
+### Why does open addressing and separate chaining degrade when α → 1?
 
-* 
+* When α → 1, it means that the hash table is almost full.
+* It means that whenever we try to insert a new key, we have to probe a lot of indices before we find an empty slot.
+* The number of attempts to find an empty slot depends on α.
+* If $α \approx 0.99$, then we have to scan almost the entire table to find an empty slot.
+* It means we have to do more traversals.
+* It means we have to spend more time.
+* This applies to separate chaining as well.
+* When α → 1, it means that the hash table size is very small compared to the number of keys.
+* So, we get more collisions.
+* It means that the chain length becomes longer.
+* It means that we have to traverse more nodes in the linked list.
+* It means that we spend more time.
+* However, the performance of open addressing becomes worse than that of separate chaining when α → 1.
+* When α → 1, open addressing degrades hyperbolically, while separate chaining degrades linearly.
 
 ### Why is separate chaining called closed addressing?
 
-* 
+* Because in a separate chaining, we don't find the next available empty slot.
+* Each slot in the hash table is a linked list.
+* The index that we get from the hash function for a particular key is final, fixed, and remains open for that key.
+* Other slots (indices) get closed for that key.
+* We store the associated key-value pair at the same index only.
+* If a particular slot has a key, it means that we add another key to the linked list on the same slot.
+* That is why it is called closed addressing.
 
 ### What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.
 
-* 
+* **HashMap:** It is an associative lookup data structure.
+* **Disjoint Set:** It focuses on union (merge) and find operations.
+* **Intersection:** We use a hash table to implement a disjoint set data structure.
 
 ### What are the few cases where we would use a set instead of a map? Why?
 
