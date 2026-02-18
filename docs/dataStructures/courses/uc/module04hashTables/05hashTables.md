@@ -58,6 +58,7 @@
     * [What happens if hash function always returns 1?](#what-happens-if-hash-function-always-returns-1)
     * [Why does open addressing and separate chaining degrade when α → 1?](#why-does-open-addressing-and-separate-chaining-degrade-when-α--1)
     * [Why is separate chaining called closed addressing?](#why-is-separate-chaining-called-closed-addressing)
+    * [Which one is cache-friendly: Open addressing or separate chaining? How?](#which-one-is-cache-friendly-open-addressing-or-separate-chaining-how)
     * [What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-hash-table-map-and-a-disjoint-set-data-structure-explain-the-overall-difference-and-the-difference-for-each-operation)
     * [What are the few cases where we would use a set instead of a map? Why?](#what-are-the-few-cases-where-we-would-use-a-set-instead-of-a-map-why)
     * [Comparison of different data structures](#comparison-of-different-data-structures)
@@ -699,7 +700,9 @@ fun <T> remove(key: T): Boolean {
 * It means that we have to traverse more nodes in the linked list.
 * It means that we spend more time.
 * However, the performance of open addressing becomes worse than that of separate chaining when α → 1.
-* When α → 1, open addressing degrades hyperbolically, while separate chaining degrades linearly.
+* When α → 1, open addressing degrades hyperbolically.
+* For the separate chaining, $\alpha$ is an expected (average) chain length.
+* So, when α → 1, separate chaining degrades linearly.
 
 ### Why is separate chaining called closed addressing?
 
@@ -710,6 +713,10 @@ fun <T> remove(key: T): Boolean {
 * We store the associated key-value pair at the same index only.
 * If a particular slot has a key, it means that we add another key to the linked list on the same slot.
 * That is why it is called closed addressing.
+
+### Which one is cache-friendly: Open addressing or separate chaining? How?
+
+* //ToDO: Contiguous memory, cache lines, 64 bytes, neighbors, etc.
 
 ### What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.
 

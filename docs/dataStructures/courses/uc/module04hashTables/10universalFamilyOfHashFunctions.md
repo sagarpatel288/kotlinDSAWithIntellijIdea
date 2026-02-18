@@ -65,7 +65,7 @@
 
 ![110hashFunctionImplications.png](../../../../../assets/images/dataStructures/uc/module04HashTables/110hashFunctionImplications.png)
 
-* On the other hand, if the hash function uniformly distributes the input objects (keys), we get less collisions.
+* On the other hand, if the hash function uniformly distributes the input objects (keys), we get a fewer collisions.
 * It means that we don't have to travel through a long chain to perform various operations such as find(contains), insert(put), delete, etc.
 * It means that we can perform various operations faster.
 * Due to uniform distribution, we spread all the input objects (keys) evenly across the `m` slots (indices).
@@ -98,7 +98,7 @@ $$
 * For example as shown in the image, the hash function uniformly distributes the keys `[k1, k2,...,k6]`, where the longest chain, `c = 3` for `n = 6`.
 * However, we know that certain bad input always collides, for example `k3, k4, and k6`.
 * It means that if we have these fixed pairs of keys from the set of bad input, which is `k3, k4, and k6`, we know that it will always collide for our hash function.
-* Because the hash function is fixed and we know the bad input for it.
+* Because the hash function is fixed, and we know the bad input for it.
 * Let us assume that the input `n = 3` and the keys are `[k3, k4, k6]`. 
 * Now, the same hash function that used to distribute the keys uniformly, now produces the worst-case chain, where `c = 3 = n`.
 * That is to say, worst-case input is inevitable when we have a single, fixed hash function.
@@ -117,7 +117,7 @@ $$
 * Basically, we reduce our chances of defeat if our pattern is not predictable.
 * So, the randomness helps here.
 * Similarly, we have seen that a single and fixed hash function will always have a "bad input" as per [pigeonhole principle](#pigeonhole-principle) and our [observation](#observation).
-* But what if we have multiple hash functions and then we randomly choose a hash function?
+* But what if we have multiple hash functions, and then we randomly choose a hash function?
 * Then the probability of any fixed pairs of keys to introduce collision is reduced.
 * Because a "bad input" for a particular hash function might not be bad for another randomly and secretly selected hash function.
 * And if we choose our hash function randomly and secretly, then the chances of creating collisions for any fixed pairs of keys are reduced. 
