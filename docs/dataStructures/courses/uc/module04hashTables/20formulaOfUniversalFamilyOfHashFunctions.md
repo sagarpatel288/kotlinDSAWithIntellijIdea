@@ -10,6 +10,7 @@
   * [Interview Questions](#interview-questions)
     * [If we have integer keys up to 10 digits, what will be a good prime number `p` for a hash function?](#if-we-have-integer-keys-up-to-10-digits-what-will-be-a-good-prime-number-p-for-a-hash-function)
     * [If we have integer keys from `-100` to `100`, then what will be a good prime number `p` for a hash function?](#if-we-have-integer-keys-from--100-to-100-then-what-will-be-a-good-prime-number-p-for-a-hash-function)
+    * [Why do we have these variables `a` and `b` with a specific range, and the prime number `p` greater than the input key `x`?](#why-do-we-have-these-variables-a-and-b-with-a-specific-range-and-the-prime-number-p-greater-than-the-input-key-x)
   * [ToDo](#todo)
   * [Next](#next)
 <!-- TOC -->
@@ -96,6 +97,53 @@ $$
 * So, the key with the highest value is `200`.
 * And we take the prime number that is greater than the input key.
 * So, we take `p = 211`.
+
+### Why do we have these variables `a` and `b` with a specific range, and the prime number `p` greater than the input key `x`?
+
+**Why do we keep `p > x`?** 
+
+* Because if `p <= x`, then we get more collisions.
+* For example, suppose the maximum possible `x` is `100`.
+* Now, if `p <= 100`, suppose `p = 10`.
+* Then:
+
+```markdown
+
+x = 10, x % p = 10 % 10 = 0
+x = 20, x % p = 20 % 10 = 0
+x = 30, x % p = 30 % 10 = 0
+... and so on...
+```
+
+* We can see many collisions.
+* Now, suppose `p > 100`, suppose `p = 101`.
+* Then:
+
+```markdown
+
+x = 10, x % p = 10 % 101 = 10
+x = 20, x % p = 20 % 101 = 20
+x = 30, x % p = 30 % 101 = 30
+... and so on...
+```
+
+* So, if `p > x`, and when `p` is a prime number, then we can preserve the original value of `x`.
+
+**Why does `1 <= a <= p - 1`, and `0 <= b <= p - 1`?**
+
+* If we only use `p`, then it becomes `x mod p`, which is predictable.
+---
+* If `a = 0`, then `h(x) = (0 * x + b ) % p = b % p`.
+* It means irrespective of the value of `x`, the value of `h(x)` will be the same for all values of `x`.
+* Every value of `x` will map to the same index in the hash table.
+* It is a very bad hash function.
+---
+* Having `1 <= a <= p - 1` ensures a permutation, where each value of `x` maps to a unique output.
+* This helps in uniform distribution.
+---
+* Having `0 <= b <= p - 1` acts as an offset (shift).
+* So, the total number of possible combinations of `a` and `b` is `p * (p - 1)`.
+* It reduces the collision probability of two different values of `x`.
 
 ## ToDo
 
