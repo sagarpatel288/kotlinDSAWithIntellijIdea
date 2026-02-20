@@ -100,6 +100,49 @@ $$
 
 ### Why do we have these variables `a` and `b` with a specific range, and the prime number `p` greater than the input key `x`?
 
+**Why do we have these variables `a`, `b`, and `p`? How do they help?**
+
+* It gives a finite prime field, multiplicative inverse, randomized permutations, random shifts, pairwise independence, linear transformation, uniform distribution, and minimum collisions.
+* //ToDo: Explain each term with examples.
+* 
+
+**How does it give minimum collisions?**
+
+* Collision means:
+
+$$
+(ax + b) \equiv (ay + b) \mod p 
+$$
+
+* Cancel out `b`
+
+$$
+a(x - y) \equiv 0 \mod p
+$$
+
+* Since, $x \neq y$, we can say that $x - y \neq 0$.  
+* Because, $p$ is a prime, $(x - y)$ has inverse $\mod p$. (\\ToDo: I believe that to understand this line, we first need to understand the term "Multiplicative inverse in the finite field of prime $p$.")   
+* So, when we multiply both sides by inverse:
+
+$$
+a \equiv 0 \mod p
+$$
+
+* But it is possible only when $a = 0$.
+* That's why, we exclude $a = 0$.
+* So, we can say that at most one choice of `a` can cause a collision. (\\ToDo: I did not understand this line!)
+* Now, we know that the total possible values of `a` are `p - 1`.
+* So, the probability of collision is: $<= {1 \over p}$.
+* After $\mod m$, the probability of collision is: $<= { 1 \over m }$.
+
+**Why do we take `p` as a prime number?**
+
+* If `p` was a composite number, then we could have more collisions. (\\ToDo: How? Examples?).
+* Zero divisors exist. (\\ToDo: What is that? Examples?)
+* $a(x - y) \equiv 0 \mod p$ will have multiple solutions. (\\ToDo: How? Examples?)
+* It increases the probability of collision.
+* Prime number ensures uniqueness. (\\ToDo: How? Examples?).
+
 **Why do we keep `p > x`?** 
 
 * Because if `p <= x`, then we get more collisions.
@@ -128,6 +171,28 @@ x = 30, x % p = 30 % 101 = 30
 ```
 
 * So, if `p > x`, and when `p` is a prime number, then we can preserve the original value of `x`.
+
+**Why do we have the variables `a` and `b`?**
+
+* Because without `a` and `b`, the equation becomes `x mod p`.
+* It means that all the values of `x` that are divisible by `p` will map to the same index in the hash table.
+* In other words, all the values of `x` that are some multiple of `p` will map to the same index in the hash table.
+* For example: Suppose, `p = 11`.
+
+```markdown
+
+x = 1, x % p = 1 % 11 = 1.
+x = 12, x % p = 11 % 11 = 1.
+x = 23, x % p = 23 % 11 = 1.
+x = 34, x % p = 34 % 11 = 1.
+... and so on...
+```
+
+* To avoid such a situation, we take the multiplier `a` and the offset `b`.
+
+**Why does `ax mod p` where `p` is a prime number which is greater than the maximum possible `x` not work?**
+
+* //TODO: Answer with examples.
 
 **Why does `1 <= a <= p - 1`, and `0 <= b <= p - 1`?**
 
