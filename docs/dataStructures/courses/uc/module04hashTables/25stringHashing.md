@@ -73,6 +73,8 @@ $$
 \text{hash of cat} = (c.code * x^2) + (a.code * x^1) + (t.code * x^0)
 $$
 
+* This is something that we need to remember.
+
 ```kotlin
 
 /**

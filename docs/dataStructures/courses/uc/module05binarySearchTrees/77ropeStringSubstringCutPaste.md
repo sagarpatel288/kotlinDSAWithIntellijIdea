@@ -56,6 +56,7 @@
       * [Why did we store `size` instead of `index` in the Splay Tree?](#why-did-we-store-size-instead-of-index-in-the-splay-tree)
   * [Step-11: Mental Model](#step-11-mental-model)
   * [Real-World Application](#real-world-application)
+  * [Notes](#notes)
   * [ToDos:](#todos)
 <!-- TOC -->
 
@@ -1699,6 +1700,14 @@ O((n + q) log n)
 ## Real-World Application
 
 * Text editor.
+
+## Notes
+
+* We saw the "cut-and-paste" operation of a string.
+* Recall that we have seen the "search-and-match" operation of a string using hashing.
+  * [String Hashing](../module04hashTables/25stringHashing.md)
+  * [Find Substring](../module04hashTables/30findSubstring.md)
+  * 
 
 ## ToDos:
 

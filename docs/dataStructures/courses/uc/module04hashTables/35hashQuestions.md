@@ -63,7 +63,7 @@
 * The universal family of hash functions provides more security via randomness.
 * Even though the family is known, the two random variables `a` and `b` remain a secret.
 * Hence, we cannot predict the exact hash function in use.
-* Therefore, we cannot create a "bad input."
+* Therefore, we prevent a "bad input" (Hash DoS attack).
 
 ## Next
 

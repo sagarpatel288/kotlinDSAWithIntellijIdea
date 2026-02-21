@@ -79,7 +79,7 @@ private fun areEqual(sub: String, p: String): Boolean {
 * We get many false alarms (also known as spurious hits).
 * For example, suppose `S` is `aaaa.....a`, where the length of `S` is 1000. 
 * And the pattern `P` is `aaaa....b`, where the length of `P` is 10.
-* Now, in this case, we would compare many substrings of `S` only to find that it is different than the pattern `P` when we reach the last character.
+* Now, in this case, we would compare many substrings of `S` only to find that it is different from the pattern `P` when we reach the last character.
 * We can do better than this.
 
 ## Rabin-Karp Algorithm 
