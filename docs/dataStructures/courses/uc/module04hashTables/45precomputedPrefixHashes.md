@@ -144,6 +144,7 @@ $$
 
 * Each substring gets two different hash codes.
 * Now, it is extremely rare (almost impossible) to have a "false alarm" where two different hash codes of the two different substrings match, but the substrings are still different - this can almost never happen.
+* The probability of having a "false alarm" is $1 \over {p1 * p2}$, which is extremely low.
 * In other words, if two different hash codes of a substring $S_1$ match with the corresponding hash codes of a substring $S_2$, we can safely say that these substrings are equal. 
 * So, if $h_1(S_1) == h_1(S_2) \;\text{ && }\; h_2(S_1) == h_2(S_2)$, we can safely say that these two substrings (or strings) $S_1$ and $S_2$ are indeed equal.
 * This technique is known as double-hashing.
@@ -154,9 +155,10 @@ $$
 
 ## TL;DR Summary
 
-* `a` = Starting index of a string or a substring
-* `l` = Length of a string or a substring
-* `prefixedHash[i]` = Polynomial string hash of length `i` (We treat an index of the `prefixedHash` as a length of a string or a substring)
+* `a` = Starting index of a string or a substring.
+* `l` = Length of a string or a substring.
+* `prefixedHash[i]` = Polynomial string hash of length `i` (We treat an index of the `prefixedHash` as a length of a string or a substring).
+  * For example, the value of `prefixedHash[3]` is the hash code of the first 3 characters of the given string.
 * `powersOfBase[i]` = Power (degree) of the base `x` (A random prime number. E.g., `263` or `31`).
 * Get the polynomial string hash of any substring `(a, l)` as below:
 
