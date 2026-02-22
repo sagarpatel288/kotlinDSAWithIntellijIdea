@@ -9,6 +9,8 @@
       * [Example](#example)
   * [Double Hashing](#double-hashing)
   * [TL;DR Summary](#tldr-summary)
+  * [Comparison with the Rabin-Karp's fixed-window rolling hashing Technique](#comparison-with-the-rabin-karps-fixed-window-rolling-hashing-technique)
+  * [Applications](#applications)
   * [Next](#next)
 <!-- TOC -->
 
@@ -58,7 +60,7 @@
 * Similar to the [Range-Sum Query](#range-sum-query-example) idea, we store incremental string hashing.
 * However, we know that a `string hashing` uses a `polynomial hashing`.
 * So, the formula is different.
-* Also, the purpose of `precomputed prefixed hashes` is to provide `string hashing` of any substring in `O(1)`.
+* Also, the purpose of `precomputed prefixed hashes` is to provide `string hashing` of any substring query in `O(1)`.
 * We get a `Text` string (similar to `array` in the [Range-sum query](#range-sum-query-example)).
 * Then, we get `n` queries.
 * Each query contains: `(a, b, l)`. 
@@ -161,6 +163,36 @@ $$
 $$
 H(a, l) = \left(\;prefixedHash[a + l] - (prefixedHash[a] * x^l)\;\right) \pmod p
 $$
+
+## Comparison with the Rabin-Karp's fixed-window rolling hashing Technique
+
+* We might think that the Rabin-karp's fixed-window rolling hashing technique also gives us the hash code of any substring of length `l` in $O(1)$ time.
+* Then, why should we use the `prefixedHash` array?
+* Well, the answer is that the Rabin-Karp's fixed-window rolling hashing technique relies on the fact that the length of the substring (`l`) is fixed.
+* Whereas, the `prefixedHash` array allows us to retrieve any substring of any length in $O(1)$ time.
+* If we only use the Rabin-Karp's fixed-window rolling hashing technique in such a case, we will have to re-roll for each substring that has a different length.
+* The Rabin-karp's fixed-window rolling hashing technique is useful when we have a string (text) that we need to compare with a fixed-length substring or pattern.
+  * In such a case, we calculate the hash code of the substring or pattern.
+  * Let us assume that the length of the substring or pattern is `l`.
+  * And then we start with the index `0` of the string (text), and then keep rolling the substring window of length `l`.
+* The `prefixedHash` array is useful when we need to compare different substrings of different lengths.
+  * For example, we might compare two substrings of length, say, `l`.
+  * Then, we might compare two substrings of length, say, `m`.
+  * Then, we might compare two substrings of length, say, `n`.
+  * And so on...
+* It should be noted that under the hood, the `prefixedHash` array also uses the Rabin-Karp's fixed-window rolling hashing technique only.
+* It should also be noted that we can use the `prefixedHash` array instead of the Rabin-Karp's fixed-window rolling hashing technique.
+  * It means that the problem that uses the Rabin-Karp's fixed-window rolling hashing technique as a solution, can also be solved using the `prefixedHash` array.
+  * But, the problem that uses the `prefixedHash` array as a solution, cannot be solved using the Rabin-Karp's fixed-window rolling hashing technique only.
+
+## Applications
+
+* Compare substrings quickly.
+* Check palindrome substrings.
+* Detect duplicates.
+* Longest common substring.
+* Rabin–Karp improvements.
+* Binary search on answer + substring comparison.
 
 ## Next
 
