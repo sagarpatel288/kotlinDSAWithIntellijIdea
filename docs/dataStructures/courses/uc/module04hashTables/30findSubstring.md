@@ -278,8 +278,8 @@ $$
 O(1)
 $$
 
-* It means that we pay $O(|P|)$ only once, for the first window.
-* We spread (distribute) this cost over all the windows.
+* Because we pay $O(|P|)$ only once, for the first window.
+* And then we spread (distribute) this cost over all the remaining windows.
 * All the subsequent windows take $O(1)$.
 * The realistic analysis proves that the average running time of calculating each substring is $O(1)$, not $O(|P|)$.
 * This is due to the property of the polynomial hash function. 

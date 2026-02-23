@@ -78,10 +78,12 @@
 * Here, we treat each index as a power of the base.
 * So, `powersOfBase[0] = x^0`, `powersOfBase[1] = x^1`, `powersOfBase[2] = x^2`, and so on...
 * Now, any substring has a starting index and an end index.
-* And the formula for getting the hashcode of any substring is:
+* And the formula for getting the hashcode of any substring is:  
+
 $$
 hash = (prefixHash[a + l] - prefixHash[a] * powersOfBase[l]) \pmod p
-$$
+$$  
+
 * In this way, we get the hashcode of each substring in `O(1)` time!
 * For a total of `n` queries, it takes `O(n)` time!
 
@@ -97,13 +99,13 @@ $$
 * So, the polynomial hashing of "`abacaba`" looks like below:
 
 $$
-H(abacaba) = (a * x^6) + (b * x^5) + (a * x^4) + (c * x^3) + (a * x^2) + (b * x^1) + (a * x^0)
+H(a + l) = H(3 + 4) = H(7) = H(abacaba) = (a * x^6) + (b * x^5) + (a * x^4) + (c * x^3) + (a * x^2) + (b * x^1) + (a * x^0)
 $$
 
 * Similarly, as per the [formula](#precomputed-prefixed-hashes), we also need `prefixHash[a] = prefixHash[3] = aba`.
 
 $$
-H(aba) = (a * x^2) + (b * x^1) + (a * x^0)
+H(a) = H(3) = H(aba) = (a * x^2) + (b * x^1) + (a * x^0)
 $$
 
 * And as per the [formula](#precomputed-prefixed-hashes), we also need `powersOfBase[l] = powersOfBase[4] = x^4`
@@ -146,11 +148,17 @@ $$
 * Now, it is extremely rare (almost impossible) to have a "false alarm" where two different hash codes of the two different substrings match, but the substrings are still different - this can almost never happen.
 * The probability of having a "false alarm" is $1 \over {p1 * p2}$, which is extremely low.
 * In other words, if two different hash codes of a substring $S_1$ match with the corresponding hash codes of a substring $S_2$, we can safely say that these substrings are equal. 
-* So, if $h_1(S_1) == h_1(S_2) \;\text{ && }\; h_2(S_1) == h_2(S_2)$, we can safely say that these two substrings (or strings) $S_1$ and $S_2$ are indeed equal.
+* So, if: 
+
+$$
+h_1(S_1) == h_1(S_2) \;\text{ && }\; h_2(S_1) == h_2(S_2)
+$$ 
+
+* Then, we can safely say that these two substrings (or strings) $S_1$ and $S_2$ are indeed equal.
 * This technique is known as double-hashing.
 * The trade-off is that we avoid the manual `areEqual` method, where we have to iterate and cover each character up to the length of the given substring (or string).
 * If the length of these substrings or strings is very large, it consumes a lot of time.
-* To avoid that, we use extra space.
+* To avoid that, we use extra space in the form of this extra array that stores the second hash codes of each substring.
 * ToDo: Maybe we need to explain more, give some examples, maybe visuals. Maybe we need to improve this section.
 
 ## TL;DR Summary
@@ -160,6 +168,7 @@ $$
 * `prefixedHash[i]` = Polynomial string hash of length `i` (We treat an index of the `prefixedHash` as a length of a string or a substring).
   * For example, the value of `prefixedHash[3]` is the hash code of the first 3 characters of the given string.
 * `powersOfBase[i]` = Power (degree) of the base `x` (A random prime number. E.g., `263` or `31`).
+  * For example, the value of `powersOfBase[3]` is $x^3$.
 * Get the polynomial string hash of any substring `(a, l)` as below:
 
 $$
@@ -171,7 +180,7 @@ $$
 * We might think that the Rabin-karp's fixed-window rolling hashing technique also gives us the hash code of any substring of length `l` in $O(1)$ time.
 * Then, why should we use the `prefixedHash` array?
 * Well, the answer is that the Rabin-Karp's fixed-window rolling hashing technique relies on the fact that the length of the substring (`l`) is fixed.
-* Whereas, the `prefixedHash` array allows us to retrieve any substring of any length in $O(1)$ time.
+* Whereas, the `prefixedHash` array allows us to retrieve the hash code of any substring of any length in $O(1)$ time.
 * If we only use the Rabin-Karp's fixed-window rolling hashing technique in such a case, we will have to re-roll for each substring that has a different length.
 * The Rabin-karp's fixed-window rolling hashing technique is useful when we have a string (text) that we need to compare with a fixed-length substring or pattern.
   * In such a case, we calculate the hash code of the substring or pattern.
@@ -185,7 +194,7 @@ $$
 * It should be noted that under the hood, the `prefixedHash` array also uses the Rabin-Karp's fixed-window rolling hashing technique only.
 * It should also be noted that we can use the `prefixedHash` array instead of the Rabin-Karp's fixed-window rolling hashing technique.
   * It means that the problem that uses the Rabin-Karp's fixed-window rolling hashing technique as a solution, can also be solved using the `prefixedHash` array.
-  * But, the problem that uses the `prefixedHash` array as a solution, cannot be solved using the Rabin-Karp's fixed-window rolling hashing technique only.
+  * But, the problem that uses the `prefixedHash` array as a solution, may not be solved using the Rabin-Karp's fixed-window rolling hashing technique only.
 
 ## Applications
 
