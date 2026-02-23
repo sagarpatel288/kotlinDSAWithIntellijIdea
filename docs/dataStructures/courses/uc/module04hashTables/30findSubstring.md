@@ -226,9 +226,61 @@ $$
 * $82 * 10 = 820$
 * **Add new (next) character**
 * $820 + 7 = 827$
-* We calculated the hash code of the first window only.
+* We calculated the hash code from the scratch for the first window only.
 * And then, we just do three constant-time operations: Subtraction, Multiplication, and Addition.
-* We do not calculate the hash code of each window.
+* We calculate the hash code from the scratch only for the first window.
+* We calculate the hash code of each subsequent window in a constant time.
+* The first window takes:
+
+$$
+O(|P|)
+$$
+
+* The total remaining windows are: 
+
+$$
+|T| - |P|
+$$
+
+* Each subsequent window takes $O(1)$.
+
+$$
+O(|T| - |P|) * O(1) = O(|T| - |P|)
+$$
+
+* So, the total time is:
+
+$$
+O(|P|) + O(|T| - |P|) \approx O(|P| + |T|)
+$$
+
+* But: 
+
+$$
+|T| >> |P|
+$$
+
+* So, it becomes:
+
+$$
+O(|T|)
+$$
+
+* The total cost of calculating the hash code of all the substrings of T is:
+
+$$
+O(|T|)
+$$
+
+* It means that the average cost of calculating the hash code of each substring is:
+
+$$
+O(1)
+$$
+
+* It means that we pay $O(|P|)$ only once, for the first window.
+* We spread (distribute) this cost over all the windows.
+* All the subsequent windows take $O(1)$.
 * The realistic analysis proves that the average running time of calculating each substring is $O(1)$, not $O(|P|)$.
 * This is due to the property of the polynomial hash function. 
 * It allows us to calculate a hash code of the next substring in $O(1)$ using the hash code of the previous substring.
