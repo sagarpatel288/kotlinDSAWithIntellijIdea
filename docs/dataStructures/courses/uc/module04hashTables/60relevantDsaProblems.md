@@ -54,6 +54,8 @@
 
 * [PhoneBook.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/01phoneBook.kt)
   * LeetCode Version
+* [ImplementHashTableWithChaining.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/02stringHashingWithChain.kt)
+  * LeetCode Version
 
 ## Two Sum
 
