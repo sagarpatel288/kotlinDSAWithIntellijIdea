@@ -15,7 +15,9 @@
     * [Best and average case:](#best-and-average-case-)
     * [Worst-case:](#worst-case-)
   * [Space Complexity:](#space-complexity)
+  * [Questions:](#questions)
   * [Points to remember](#points-to-remember)
+  * [Relevant DSA concepts](#relevant-dsa-concepts)
 <!-- TOC -->
 
 ## Prerequisites
@@ -217,6 +219,7 @@ private class HashTableWithChain {
         var hashCode = 0L
         // Why from last index to 0? We can do it from 0 to last index also.
         for (i in input.lastIndex downTo 0) {
+            // TODO: Prevent overflow.  
             hashCode = ((hashCode * base) + input[i].code.toLong()) % prime
         }
         // To ensure that the "hashCode" remains positive and within "mCardinality".
@@ -250,7 +253,11 @@ private class HashTableWithChain {
         val chain = table[index]
         return chain.joinToString(" ")
     }
-  
+
+  /**
+   * // TODO: A HashTable should not contain the I/O operations.
+   * * Separate it.
+   */
     fun processQueries() {
         val reader = BufferedReader(InputStreamReader(System.`in`))
         // Cardinality
@@ -313,6 +320,11 @@ fun main() {
 * And the maximum size of a linked list is `n`.
 * So, the maximum space complexity is $O(n + m)$.
 
+## Questions:
+
+* What is a `LinkedHashMap`?
+* 
+
 ## Points to remember
 
 * The hash function (The formula, prime number, base, cardinality, and the formula to keep the value positive).
@@ -323,3 +335,10 @@ fun main() {
   * The main function calls the public method of the class that processes the input query.
   * The method uses the private methods and private properties. 
 * Time and space complexity for all the three cases.
+
+## Relevant DSA concepts
+
+* Implement an LRU Cache. Explain how you would make this thread-safe without locking the whole map.
+* Subdomain Visit Count. How would you optimize for memory if you had billions of subdomains?
+* Longest Substring without repeating characters. Why use a HashMap (storing indices) over a HashSet?
+* Clone Graph. How do you handle cycles using a Hash Table during a DFS?
