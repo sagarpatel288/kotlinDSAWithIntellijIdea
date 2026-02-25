@@ -283,6 +283,10 @@ import java.util.LinkedList
  * Good job! (Max time used: 0.57/2.00, max memory used: 88514560/536870912.)
  * ```
  *
+ * ##TODO:
+ *
+ * *
+ *
  */
 class HashTable {
     private val prime = 1_000_000_007L
@@ -385,6 +389,7 @@ class HashTable {
 
         for (i in input.lastIndex downTo 0) {
             val charCode = input[i].code.toLong()
+            // TODO: Prevent overflow
             hashCode = (hashCode * xRandom + charCode) % prime
         }
         // Ensure a positive hashCode
@@ -394,6 +399,9 @@ class HashTable {
         return index.toInt()
     }
 
+    /**
+     * // TODO: A hash table should not contain I/O logic. Separate it.
+     */
     fun processQueries() {
         val mHashTableSize = readln().toInt()
         val nQueries = readln().toInt()
