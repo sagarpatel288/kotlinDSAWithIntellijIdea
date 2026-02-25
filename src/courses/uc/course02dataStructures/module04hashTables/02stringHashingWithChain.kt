@@ -205,6 +205,7 @@ import java.util.LinkedList
  *
  * * We have two major parts to consider for the time complexity.
  * * Operations and [hash].
+ *
  * **Operation**
  * * It is given in the constraint that:
  * ```
@@ -231,7 +232,7 @@ import java.util.LinkedList
  *
  *
  * ```
- * * Each operation take at most `O(1 + ⍺)` time, where `⍺ = Maximum Load Factor`.
+ * * Each operation takes at most `O(1 + ⍺)` time, where `⍺ = Maximum Load Factor`.
  * * Now, the maximum load factor is `5`, which is a constant time.
  * * It means that each operation takes `O(1)` time on average.
  * * Total queries are `N`.
