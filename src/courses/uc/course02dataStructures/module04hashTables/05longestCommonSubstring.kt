@@ -128,91 +128,95 @@ import java.io.InputStreamReader
  * * And we also have the length that we give through the binary search.
  *
  */
-private data class LongestCommonStrings(val startIndex1: Int, val startIndex2: Int, val length: Int)
+data class LongestCommonStrings(val startIndex1: Int, val startIndex2: Int, val length: Int)
 
-private fun checkForLength(string1: String, string2: String, length: Int): LongestCommonSubStrings? {
-    // Edge Cases
-    if (length == 0) return LongestCommonSubStrings(0, 0, 0)
-    if (length > string1.length || length > string2.length) return null
+private class CommonSubStrings {
 
-    fun getAllHashes(string: String, length: Int): Map<Pair<Long, Long>, Int> {
-        val prime1 = 1_000_000_007L
-        val prime2 = 1_000_000_061L
-        val xBase1 = 31L
-        val xBase2 = 263L
-        val hashes = mutableMapOf<Pair<Long, Long>, Int>()
-        var hash1 = 0L
-        var hash2 = 0L
-        var xPower1 = 1L
-        var xPower2 = 1L
+    fun checkForLength(string1: String, string2: String, length: Int): LongestCommonSubStrings? {
+        // Edge Cases
+        if (length == 0) return LongestCommonSubStrings(0, 0, 0)
+        if (length > string1.length || length > string2.length) return null
 
-        // First window
-        for (i in 0 until length) {
-            hash1 = (hash1 * xBase1) % prime1
-            hash1 = (hash1 + string[i].code.toLong()) % prime1
-            hash2 = (hash2 * xBase2) % prime2
-            hash2 = (hash2 + string[i].code.toLong()) % prime2
-        }
+        fun getAllHashes(string: String, length: Int): Map<Pair<Long, Long>, Int> {
+            val prime1 = 1_000_000_007L
+            val prime2 = 1_000_000_061L
+            val xBase1 = 31L
+            val xBase2 = 263L
+            val hashes = mutableMapOf<Pair<Long, Long>, Int>()
+            var hash1 = 0L
+            var hash2 = 0L
+            var xPower1 = 1L
+            var xPower2 = 1L
 
-        hash1 = (hash1 % prime1 + prime1) % prime1
-        hash2 = (hash2 % prime2 + prime2) % prime2
+            // First window
+            for (i in 0 until length) {
+                hash1 = (hash1 * xBase1) % prime1
+                hash1 = (hash1 + string[i].code.toLong()) % prime1
+                hash2 = (hash2 * xBase2) % prime2
+                hash2 = (hash2 + string[i].code.toLong()) % prime2
+            }
 
-        hashes[hash1 to hash2] = 0
-
-        // Maximum degree (power) to use in the rolling hash
-        for (i in 1 until length) {
-            xPower1 = (xPower1 * xBase1) % prime1
-            xPower2 = (xPower2 * xBase2) % prime2
-        }
-
-        // Rolling Hash
-        for (i in 1..string.length - length) {
-            val sub1 = (string[i - 1].code.toLong() * xPower1) % prime1
-            val add1 = string[i + length - 1].code.toLong()
-            hash1 = (hash1 - sub1 + prime1) % prime1
-            hash1 = (hash1 * xBase1) % prime1
-            hash1 = (hash1 + add1) % prime1
             hash1 = (hash1 % prime1 + prime1) % prime1
-
-            val sub2 = (string[i - 1].code.toLong() * xPower2) % prime2
-            val add2 = string[i + length - 1].code.toLong()
-            hash2 = (hash2 - sub2 + prime2) % prime2
-            hash2 = (hash2 * xBase2) % prime2
-            hash2 = (hash2 + add2) % prime2
             hash2 = (hash2 % prime2 + prime2) % prime2
 
-            if (hashes.containsKey(hash1 to hash2)) {
-                val startIndex = hashes[hash1 to hash2]!!
-                if (string.substring(startIndex, startIndex + length) != string.substring(i, i + length)) {
+            hashes[hash1 to hash2] = 0
+
+            // Maximum degree (power) to use in the rolling hash
+            for (i in 1 until length) {
+                xPower1 = (xPower1 * xBase1) % prime1
+                xPower2 = (xPower2 * xBase2) % prime2
+            }
+
+            // Rolling Hash
+            for (i in 1..string.length - length) {
+                val sub1 = (string[i - 1].code.toLong() * xPower1) % prime1
+                val add1 = string[i + length - 1].code.toLong()
+                hash1 = (hash1 - sub1 + prime1) % prime1
+                hash1 = (hash1 * xBase1) % prime1
+                hash1 = (hash1 + add1) % prime1
+                hash1 = (hash1 % prime1 + prime1) % prime1
+
+                val sub2 = (string[i - 1].code.toLong() * xPower2) % prime2
+                val add2 = string[i + length - 1].code.toLong()
+                hash2 = (hash2 - sub2 + prime2) % prime2
+                hash2 = (hash2 * xBase2) % prime2
+                hash2 = (hash2 + add2) % prime2
+                hash2 = (hash2 % prime2 + prime2) % prime2
+
+                if (hashes.containsKey(hash1 to hash2)) {
+                    val startIndex = hashes[hash1 to hash2]!!
+                    if (string.substring(startIndex, startIndex + length) != string.substring(i, i + length)) {
+                        hashes[hash1 to hash2] = i
+                    }
+                } else {
                     hashes[hash1 to hash2] = i
                 }
-            } else {
-                hashes[hash1 to hash2] = i
+            }
+
+            return hashes
+        }
+
+        val hashes1 = getAllHashes(string1, length)
+        val hashes2 = getAllHashes(string2, length)
+
+        for ((hashCodePair, startIndex) in hashes1) {
+            if (hashes2.containsKey(hashCodePair)) {
+                val startIndex2 = hashes2[hashCodePair]!!
+                if (string1.substring(startIndex, startIndex + length) == string2.substring(startIndex2, startIndex2 + length)) {
+                    return LongestCommonSubStrings(startIndex, startIndex2, length)
+                }
             }
         }
 
-        return hashes
+        return null
     }
-
-    val hashes1 = getAllHashes(string1, length)
-    val hashes2 = getAllHashes(string2, length)
-
-    for ((hashCodePair, startIndex) in hashes1) {
-        if (hashes2.containsKey(hashCodePair)) {
-            val startIndex2 = hashes2[hashCodePair]!!
-            if (string1.substring(startIndex, startIndex + length) == string2.substring(startIndex2, startIndex2 + length)) {
-                return LongestCommonSubStrings(startIndex, startIndex2, length)
-            }
-        }
-    }
-
-    return null
 }
 
 fun main() {
     val reader = BufferedReader(InputStreamReader(System.`in`))
     var line = reader.readLine()
     val output = StringBuilder()
+    val solver = CommonSubStrings()
     while (line != null && line.isNotBlank()) {
         val (string1, string2) = line.split(" ")
         var bestAnswer = LongestCommonSubStrings(0, 0, 0)
@@ -224,7 +228,7 @@ fun main() {
                 if (mid == 0) {
                     start = 1
                 }
-                val result = checkForLength(string1, string2, mid)
+                val result = solver.checkForLength(string1, string2, mid)
                 if (result != null) {
                     bestAnswer = result
                     // Check for a longer length
