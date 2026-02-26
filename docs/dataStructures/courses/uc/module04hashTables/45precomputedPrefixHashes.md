@@ -147,6 +147,8 @@ $$
 * Each substring gets two different hash codes.
 * Now, it is extremely rare (almost impossible) to have a "false alarm" where two different hash codes of the two different substrings match, but the substrings are still different - this can almost never happen.
 * The probability of having a "false alarm" is $1 \over {p1 * p2}$, which is extremely low.
+* For example, suppose we have 10 apples and 100 buckets.
+* Then, the probability of each (a single) apple falling into a single bucket is $1 \over {100}$.
 * In other words, if two different hash codes of a substring $S_1$ match with the corresponding hash codes of a substring $S_2$, we can safely say that these substrings are equal. 
 * So, if: 
 

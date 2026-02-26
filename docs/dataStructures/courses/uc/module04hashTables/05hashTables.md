@@ -221,6 +221,10 @@ $$
 * We try to maintain this ratio at around `0.75`.
 * Here, the expected chain length is $\alpha$.
 * And the expected time per operation is $O(1 + \alpha)$.
+* Let us understand this with an example.
+* Suppose, we have 10 apples, and we want to store them across 100 buckets.
+* If we place all 10 apples across 100 buckets, then the expected items per bucket is 10/100 = 0.1.
+* That means, on average, each bucket will have 0.1 apple/s.
 * We will also learn more about it.
 
 ### Properties
@@ -611,9 +615,17 @@ fun <T> remove(key: T): Boolean {
 * When a collision occurs, we add the key to the linked list.
 * To maintain time and space complexity, we use load factor.
 * If the hash table size is $m$, and the number of keys is $n$, then the load factor is $α = n/m$.
+* That is the expected chain length per bucket.
+* For example, suppose that we have `10 apples (n)` and `100 buckets (m)`.
+* If we place all the 100 apples across all the 100 buckets, then the expected number of apples per bucket is `10(n)/100(m) = 0.1`.
 * We resize the hash table when the load factor exceeds a certain threshold (e.g. $0.75$).
-* We don't resize the hash table frequently.
+* Because it indicates that the hash table is getting congested due to collisions.
+* In other words, expected apples (items) per bucket is getting high.
+* But we don't resize the hash table frequently.
+* The resize process is similar to the dynamic array's resize process.
 * So, the amortized time complexity of resizing is $O(1)$.
+* The cost of resizing is spread across all the other operations.
+* So, the amortized cost of resizing becomes constant.
 ---
 **How do we perform various operations on a hash table?**  
 **What is the time complexity of various operations on a hash table? How?**  
@@ -623,6 +635,10 @@ fun <T> remove(key: T): Boolean {
 * If the load factor is $α = n/m$, then the average chain length is $α$.
 * So, the time complexity of insertion, deletion, and search is $O(1 + α)$.
 * The space complexity of a hash table is $O(n + m)$, where $n$ is the number of keys, and $m$ is the size of the hash table.
+* We can understand this with an example.
+* Suppose that we have 10 apples (n), and 100 large buckets (m).
+* Each large bucket contains a small bucket per apple.
+* So, the total number of buckets (space) is 100 large buckets (m) + 10 small buckets (n) = 110 buckets (m + n).
 
 ### Are the keys in a hash table mutable? Why?
 
@@ -635,10 +651,10 @@ fun <T> remove(key: T): Boolean {
 ### Why is $α = n/m$ important?
 
 * $α$ is the load factor.
-* If $α$ is too high, it means that the hash table size is too small.
-* It means that we get more collisions.
-* More collisions means that we spend more time.
-* If $α$ is too low, it means that the hash table size is too large.
+* If $α$ is too high, it means that the hash table is congested.
+* It means that we are getting more collisions.
+* More collisions means that we spend more time to perform various operations.
+* If $α$ is too low, it means that the hash table is mostly empty.
 * It means that we waste space.
 * That's why a balanced $α$ is important.
 
@@ -646,6 +662,9 @@ fun <T> remove(key: T): Boolean {
 
 * If the number of keys is $n$, and the size of the hash table is $m$, then each bucket has $n/m$ keys on average.
 * That is why the expected chain length is $α = n/m$.
+* We can understand this with an example.
+* Suppose that we have `10 apples (n)`, and `100 buckets (m)`.
+* If we place all the 10 apples across all the 100 buckets, then the expected number of apples in each bucket is `10(n)/100(m) = 0.1`.
 
 ### Why does doubling table size give amortized O(1)?
 
