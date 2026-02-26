@@ -213,13 +213,19 @@ private class HashTableWithChain {
     private val base = 263L
     private var mCardinality = 0
     private lateinit var table: Array<LinkedList<String>>
-    
+
+  /**
+   * The time complexity of this function is `O(length of [input])`.
+   * So, if the length of the [input] is `L`, then it is `O(L)`.
+   * However, we generally restrict the length of the [input].
+   * So, we mostly consider it as a constant time operation.
+   */
     private fun hash(input: String): Int {
         // Why Long? Because we use it along with other Long properties such as [prime] and [base].
         var hashCode = 0L
         // Why from last index to 0? We can do it from 0 to last index also.
         for (i in input.lastIndex downTo 0) {
-            // TODO: Prevent overflow.  
+            // TODO: How can we prevent overflow?  
             hashCode = ((hashCode * base) + input[i].code.toLong()) % prime
         }
         // To ensure that the "hashCode" remains positive and within "mCardinality".
@@ -256,7 +262,9 @@ private class HashTableWithChain {
 
   /**
    * // TODO: A HashTable should not contain the I/O operations.
-   * * Separate it.
+   * * Separate it. 
+   * * Maybe, we can pass these I/O arguments to a constructor.
+   * * So, the main function can call the `HashTableWithChain(mCardinality)`.
    */
     fun processQueries() {
         val reader = BufferedReader(InputStreamReader(System.`in`))
@@ -304,12 +312,29 @@ fun main() {
 
 ### Best and average case: 
 
-* Total `n` queries take $O(n)$. 
-* It means that each operation is a constant operation that takes $O(1)$ time. 
+* All the operations are constant operations except the `hash` function, and probably the internal operations of the `LinkedList`.
+* However, in general, we restrict the length of the `input` that we pass to the `hash` function.
+* So, we consider it as a constant operation.
+* So, it is $O(1)$.
+* And we maintain the load factor to restrict the length of the linked list.
+* The length of the linked list depends on the uniform distribution.
+* And the uniform distribution depends on the hash function.
+* A good hash function distributes the keys uniformly.
+* Mostly, we maintain a constant load factor.
+* It means that we maintain the length of the linked list to be constant.
+* So, the internal operations of the `LinkedLists` are also constant operations.
+* So, it is $O(1)$.
+* So, total time complexity is hash + linked list operations = $O(1) + O(1) = O(1)$.
+* So, total `n` queries take $O(n)$. 
 
 ### Worst-case: 
 
-* Each `add` operation adds a key to the same index. 
+* Now, suppose that we do not have a good hash function.
+* In the worst case, all the keys hash to the same index.
+* So, for `n` queries, the length of the linked list becomes `n`.
+* It means that each internal operation of the `LinkedList` will take $O(n)$.
+* So, total `n` operations take $O(n * n) = O(n^2)$. 
+* For example, each `add` operation adds a key to the same index. 
 * Each subsequent operation that needs to find the key will take `+1` time as each `add` operation keeps adding the key to the same index.
 * It forms a series like `1 + 2 + 3 + .. (N-1)` which simplifies to $N^2$.
 * So, the worst-case time is $O(N^2)$.
@@ -317,7 +342,12 @@ fun main() {
 ## Space Complexity:
 
 * The size of the hash table is `m`.
-* And the maximum size of a linked list is `n`.
+* And we might have `n` queries to store `n` data.
+* Each bucket of the hash table uses a secondary (auxiliary) data structure to store the data.
+* Each bucket uses a `LinkedList` to store the data.
+* Total data that we store is `n`.
+* So, the total space all the `LinkedLists` take is $O(n)$.
+* So, the total size of all the linked lists together is `n`.
 * So, the maximum space complexity is $O(n + m)$.
 
 ## Questions:
