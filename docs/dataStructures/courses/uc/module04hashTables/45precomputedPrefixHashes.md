@@ -144,6 +144,23 @@ $$
 \text{Hash code } h_2 \text{ of substring } S_1 = h_2(S_1) \text{ Using prime2}
 $$
 
+```kotlin
+
+fun hash(input: String): Pair<Int, Int> {
+    var hash1 = 0L
+    var hash2 = 0L
+    for (i in input.lastIndex downTo 0) {
+        hash1 = ((hash1 * base1) + input[i].code.toLong()) % prime1
+        hash2 = ((hash2 * base2) + input[i].code.toLong()) % prime2
+    }
+    // Ensure positive values within the cardinality range
+    hash1 = (hash1 % mCardinality + mCardinality) % mCardinality
+    hash2 = (hash2 % mCardinality + mCardinality) % mCardinality
+    return hash1.toInt() to hash2.toInt()
+}
+
+```
+
 * Each substring gets two different hash codes.
 * Now, it is extremely rare (almost impossible) to have a "false alarm" where two different hash codes of the two different substrings match, but the substrings are still different - this can almost never happen.
 * The probability of having a "false alarm" is $1 \over {p1 * p2}$, which is extremely low.
