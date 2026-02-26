@@ -23,6 +23,10 @@
 * We have also seen the [universal family of hash functions](10universalFamilyOfHashFunctions.md).
 * Now, we are going to discuss another important property of a hash table.
 * This is the property we use to measure and maintain the performance of a hash table.
+* Let us understand it with an example.
+* Suppose we have 10 apples and 100 buckets.
+* If we place all the 10 apples across all the 100 buckets, then we can say that expected number of apples in each bucket is `10/100 = 0.1`.
+* That is the load factor.
  
 ### Notation
 
