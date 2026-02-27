@@ -55,7 +55,10 @@ $$
 \text{hash} = (c.code * x^2) + (a.code * x^1) + (t.code * x^0)
 $$
 
-* To limit the output of this formula (to prevent overflow), we use `modulo p`.
+* Notice that the length of the string "cat" is `3`.
+* And the highest power of the base `x` is `3 - 1 = 2`.
+* It means that if the length of the string is `l`, then the highest power of the base `x` is `l - 1`.
+* And to limit the output of this formula (to prevent overflow), we use `modulo p`.
 
 $$
 \text{hash} \mod p
