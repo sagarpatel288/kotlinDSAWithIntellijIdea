@@ -13,6 +13,7 @@
     * [Explanation](#explanation)
     * [Realistic Analysis](#realistic-analysis)
       * [Recurrence Of A Polynomial Hash Function Of A String](#recurrence-of-a-polynomial-hash-function-of-a-string)
+  * [Thought Process](#thought-process)
   * [Next](#next)
 <!-- TOC -->
 
@@ -307,6 +308,71 @@ $$
 $$
 
 * Now, this is a great improvisation compared to the naive algorithm that gives the running time of $O( |T| * |P| )$.
+
+## Thought Process
+
+**What do we get?**
+
+* We get a text string and a pattern.
+* First, we find the hash code of the pattern, and the first window of the text.
+
+```kotlin
+
+fun hash(pattern: String): Long {
+  var patternHash = 0L
+  var textHash = 0L
+  for (i in pattern.lastIndex downTo 0) {
+      patternHash = ((patternHash * base) + pattern[i].code) % prime
+      textHash = ((textHash * base) + text[i].code) % prime 
+  }
+  patternHash = (patternHash % prime + prime) % prime
+  textHash = (textHash % prime + prime) % prime
+}
+```
+
+* Then, we need to find the hash of all the substrings of the text.
+* Now, to find the hash codes of multiple substrings of the same length of the text, we use the Rabin-Karp algorithm (Rolling Hash).
+* So that we can quickly find the hash codes of all the substrings in $O(|T|)$ time. 
+
+**How do we perform the rolling hash?**
+**What do we need for the rolling hash?**
+
+* The formula of the rolling hash uses the highest power of the base.
+* The highest power of the base is `l - 1`, where `l` is the length of the pattern/window.
+
+**How do we calculate the highest power of the base?**
+
+```kotlin
+
+var base = 263L
+var baseWithHighestPower = 1L 
+for (i in 1 until pattern.length) {
+    baseWithHighestPower = (baseWithHighestPower * base) % prime
+}
+
+```
+
+**How do we use the highest power of the base?**
+
+* Once we have the highest power of the base, we can use it to calculate the hash code of the next substring using the rolling hash technique.
+
+```kotlin
+
+for (i in 0 .. text.length - pattern.length) {
+    if (textHash == patternHash) {
+        // Double check with double hashing or using the manual character comparison
+    }
+    if (i < text.length - pattern.length) {
+        var subtract = (text[i] * baseWithHighestPower) % prime
+        textHash = (textHash - subtract) % prime
+        textHash = (textHash * baseWithHighestPower) % prime
+        textHash = (textHash + text[i + pattern.length].code) % prime
+        textHash = (textHash % prime + prime) % prime
+    }
+}
+```
+
+* Every time we find that the hash code of the substring matches the hash code of the pattern, we need to double-check with double hashing or using the manual character comparison.
 
 ## Next
 

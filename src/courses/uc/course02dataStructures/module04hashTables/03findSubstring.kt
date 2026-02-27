@@ -148,7 +148,7 @@ package courses.uc.course02dataStructures.module04hashTables
  * **Why do we choose the base, `x = 263L` and not a different one?**
  *
  * * The base should be a prime number and greater than the character alphabet.
- * * The input is case sensitive.
+ * * The input is case-sensitive.
  * * Hence, the total characters are 26*2 = 52.
  * * `x = 263` is a prime number and is well above this `52`.
  *
@@ -199,20 +199,6 @@ fun main() {
         // Set-up
         val prime = 1_000_000_007L
         val xBase = 263L
-        var baseWithHighestPower = 1L
-
-        // Calculate the highest power (degree): x^{|P| - 1}
-        // We start the iteration with 1, because the initial power is already 1.
-        // So, it goes as below (notice the interesting pattern):
-        // 1 * x = x^1
-        // x^1 * x = x^2
-        // x^2 * x = x^3
-        // Observe that with each iteration, the power (degree) increases by 1.
-        // So, if there are 5 iterations, we get x^5.
-        // If there are "l" iterations, we get x^l.
-        for (i in 1 until pattern.length) {
-            baseWithHighestPower = (baseWithHighestPower * xBase) % prime
-        }
 
         // Calculate the polynomial hash for the first window and the pattern
         var textWindowHash = 0L
@@ -226,18 +212,50 @@ fun main() {
         patternWindowHash = (patternWindowHash % prime + prime) % prime
         textWindowHash = (textWindowHash % prime + prime) % prime
 
+        var baseWithHighestPower = 1L
+
+        // Calculate the highest power (degree): x^{|P| - 1}
+        // We start the iteration with 1, because the initial power is already 1.
+        // So, it goes as below (notice the interesting pattern):
+        // 1 * x = x^1
+        // x^1 * x = x^2
+        // x^2 * x = x^3
+        // Observe that with each iteration, the power (degree) increases by 1.
+        // So, if there are 5 iterations, we get x^5.
+        // If there are "l" iterations, we get x^l.
+        // Also notice that if the length of the string is `l`, the highest power of the base will be x^{l - 1}.
+        // For example, if the length of the string is 5, the highest power of the base will be x^{4}.
+        for (i in 1 until pattern.length) {
+            baseWithHighestPower = (baseWithHighestPower * xBase) % prime
+        }
+
         // Comparison and rolling hash (sliding window)
         for (i in 0..text.length - pattern.length) {
             // Check if the hash matches
             if (textWindowHash == patternWindowHash) {
                 // Double check after hash matches (end index is exclusive)
+                // This is the manual and character-by-character comparison.
+                // We can do better by using the double hashing technique.
                 if (text.substring(i, i + pattern.length) == pattern) {
                     result.add(i)
                 }
             }
             // Rolling hash
+            // This is the formula that we may need to remember.
+            // At this point, we need to visualize the sliding window on some numbers like 5827.
+            // For example, the window length is 3, we start from `i = 0`, it is at `5`, and the first window is `582`.
+            // At this moment, `i = 0`, and it is at `5`.
+            // The next window is `827`.
+            // To get `827` from `582`, we subtract `5 * 10^{2}`, and get `82`.
+            // Here, `10^{2}` is the highest power of the base `10` for the window length `3`.
+            // Then, we multiply `82` by 10^{2}, and get `820`.
+            // And finally, we add the `i + window length` character, which is `0 + 3`rd character, which is `7`.
+            // So, the current window is `820 + 7 = 827`.
             if (i < text.length - pattern.length) {
+                // We are rolling the window from left to right.
+                // So, the outgoing character is at the left end of the window.
                 val subtract = text[i].code.toLong() * baseWithHighestPower
+                // The incoming character is [i + pattern.length] away from the `i`th character.
                 val add = text[i + pattern.length].code.toLong()
                 // Subtract the old (outgoing) character
                 textWindowHash = (textWindowHash - subtract) % prime
