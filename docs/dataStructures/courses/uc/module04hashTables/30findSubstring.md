@@ -365,14 +365,17 @@ for (i in 0 .. text.length - pattern.length) {
     if (i < text.length - pattern.length) {
         var subtract = (text[i] * baseWithHighestPower) % prime
         textHash = (textHash - subtract) % prime
-        textHash = (textHash * baseWithHighestPower) % prime
+        textHash = (textHash * base) % prime
         textHash = (textHash + text[i + pattern.length].code) % prime
         textHash = (textHash % prime + prime) % prime
     }
 }
 ```
 
-* Every time we find that the hash code of the substring matches the hash code of the pattern, we need to double-check with double hashing or using the manual character comparison.
+* Notice that when it comes to subtract, we use the highest power of the base.
+* But when it comes to multiplication, we use the normal (original) base.
+* Every time we find that the hash code of the substring matches the hash code of the pattern, we need to double-check.
+* We confirm whether they actually match using either the double-hashing or manual character-by-character.
 
 ## Next
 
