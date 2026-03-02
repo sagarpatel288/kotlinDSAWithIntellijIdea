@@ -3,6 +3,12 @@ package courses.uc.course02dataStructures.module04hashTables
 /**
  * # Problem: Substring Equality
  *
+ * ## Prerequisites
+ *
+ * * [Local: Prefix Hashing](docs/dataStructures/courses/uc/module04hashTables/45precomputedPrefixHashes.md)
+ *
+ * * [GitHub: Prefix Hashing](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/afc6e5e49049b2bb69e22ae5656278cf630c226e/docs/dataStructures/courses/uc/module04hashTables/45precomputedPrefixHashes.md)
+ *
  * ## Problem Introduction
  *
  * * In this problem, you will use hashing to design an algorithm that is able to preprocess a given string `s`
@@ -114,6 +120,7 @@ private class SubstringEqualitySolver(private val string: String) {
 
     init {
         val stringLength = string.length
+        // Common Mistake: Don't forget that the size of the prefixed array is "length + 1".
         prefixHashes1 = LongArray(stringLength + 1)
         prefixHashes2 = LongArray(stringLength + 1)
         powersOfBase1 = LongArray(stringLength + 1)
@@ -124,8 +131,18 @@ private class SubstringEqualitySolver(private val string: String) {
         powersOfBase2[0] = 1L
 
         // Precompute all prefix hashes and power of xBase
+        // Don't get confused with the range.
+        // It is from "1" to "length" inclusive, because we have already stored the "0"th prefix value.
+        // That is why when it comes to reading the string, we do "s[i - 1]" instead of "s[i]" inside the method block.
+        // So, remember it like this:
+        // The iteration is to fill the prefix array with the hash values.
+        // We start it from "1" because we have already stored the default value of "0" to the prefix array.
         for (i in 1..stringLength) {
-            // Calculate substring hashes using the Horner's Method
+            // Calculate substring hashes using the Horner's Method.
+            // We need to remember this formula.
+            // Don't get confused with this formula.
+            // It is the same old Horner's method that we have used earlier to find matching pattern.
+            // The only thing that we need to remember is that we take the previous hash value from the prefix array.
             prefixHashes1[i] = (prefixHashes1[i - 1] * xBase + string[i - 1].code.toLong()) % prime1
             prefixHashes2[i] = (prefixHashes2[i - 1] * xBase + string[i - 1].code.toLong()) % prime2
             powersOfBase1[i] = (powersOfBase1[i - 1] * xBase) % prime1
@@ -134,6 +151,9 @@ private class SubstringEqualitySolver(private val string: String) {
     }
 
     private fun getSubstringHashes(startingIndex: Int, length: Int): Pair<Long, Long> {
+        // We need to remember this formula.
+        // The formula is:
+        // H(a, l) = (H(a + l) - (H(a) * base)) % p
         val hashOfLongPrefix1 = prefixHashes1[startingIndex + length]
         val hashOfShortPrefix1 = prefixHashes1[startingIndex]
         val powerOfBase1 = powersOfBase1[length]
@@ -152,9 +172,9 @@ private class SubstringEqualitySolver(private val string: String) {
     }
 
     fun areEqual(startingIndex1: Int, startingIndex2: Int, length: Int): Boolean {
-        val (substringHash1a, substringHash2a) = getSubstringHashes(startingIndex1, length)
-        val (substringHash1b, substringHash2b) = getSubstringHashes(startingIndex2, length)
-        return substringHash1a == substringHash1b && substringHash2a == substringHash2b
+        val (substringHashA1, substringHashA2) = getSubstringHashes(startingIndex1, length)
+        val (substringHashB1, substringHashB2) = getSubstringHashes(startingIndex2, length)
+        return substringHashA1 == substringHashB1 && substringHashA2 == substringHashB2
     }
 }
 

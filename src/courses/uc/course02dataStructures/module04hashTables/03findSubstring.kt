@@ -3,6 +3,12 @@ package courses.uc.course02dataStructures.module04hashTables
 /**
  * # Problem: Find pattern (substring) in Text
  *
+ * ## Prerequisites
+ *
+ * * [Local: Find substring](docs/dataStructures/courses/uc/module04hashTables/30findSubstring.md)
+ *
+ * * [GitHub: Find substring](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/df05b865d6564aed6f196f0c5eeeb076d793bb2f/docs/dataStructures/courses/uc/module04hashTables/30findSubstring.md)
+ *
  * ## Problem Introduction
  *
  * * In this problem, your goal is to implement the Rabin–Karp’s algorithm.
@@ -207,6 +213,7 @@ fun main() {
         }
 
         // Set-up
+        // We need to remember these values.
         val prime = 1_000_000_007L
         val xBase = 263L
 
@@ -216,6 +223,7 @@ fun main() {
 
         // Common Mistake: Understand and remember the range. It is from 0 to less than pattern length.
         for (i in 0 until pattern.length) {
+            // We need to remember this formula.
             // Common Mistake: Don't forget to prevent the overflow after multiplication, addition, or even subtraction.
             patternWindowHash = ((patternWindowHash * xBase) + pattern[i].code.toLong()) % prime
             textWindowHash = ((textWindowHash * xBase) + text[i].code.toLong()) % prime
@@ -240,6 +248,7 @@ fun main() {
         // For example, if the length of the string is 5, the highest power of the base will be x^{4}.
         // Common Mistake: Understand and remember the range. It is from 1 to less than pattern length.
         for (i in 1 until pattern.length) {
+            // We need to remember this formula.
             // Common Mistake: Don't forget to prevent the overflow after multiplication, addition, or even subtraction.
             baseWithHighestPower = (baseWithHighestPower * xBase) % prime
         }

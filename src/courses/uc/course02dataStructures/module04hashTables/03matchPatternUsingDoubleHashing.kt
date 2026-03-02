@@ -23,6 +23,7 @@ import java.io.InputStreamReader
  */
 class MatchPatternUsingDoubleHashing {
 
+    // We need to remember these values.
     private val p1 = 1_000_000_007L
     private val p2 = 1_000_000_263L
     private val b1 = 31L
@@ -41,6 +42,7 @@ class MatchPatternUsingDoubleHashing {
         // Hash value of the pattern and the first window
         // Common Mistake: Understand the remember the range. It is from 0 to less than pattern length.
         for (i in 0 until pattern.length) {
+            // We need to remember this formula.
             // Common Mistake: Don't forget to prevent the overflow using the modulo.
             hashP1 = ((hashP1 * b1) + pattern[i].code.toLong()) % p1
             hashP2 = ((hashP2 * b2) + pattern[i].code.toLong()) % p2
@@ -56,6 +58,7 @@ class MatchPatternUsingDoubleHashing {
         // Finding the highest power of the base for the rolling hashing
         // Common Mistake: Understand and remember the range. It is from 1 to less than pattern length.
         for (i in 1 until pattern.length) {
+            // We need to remember this formula.
             // Common Mistake: Don't forget to prevent the overflow using the modulo.
             b1HighestPower = (b1HighestPower * b1) % p1
             b2HighestPower = (b2HighestPower * b2) % p2
@@ -73,6 +76,7 @@ class MatchPatternUsingDoubleHashing {
             // Common Mistake: Understand and remember the check.
             // The "i" must be less than (text length - pattern length).
             if (i < (text.length - pattern.length)) {
+                // We need to remember this formula.
                 // Common Mistake: Don't forget to prevent the overflow using the modulo.
                 val sub1 = (text[i].code.toLong() * b1HighestPower) % p1
                 hashT1 = (hashT1 - sub1) % p1
