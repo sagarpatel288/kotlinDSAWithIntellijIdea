@@ -185,6 +185,10 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * * The `Math.pow` function can cause overflow.
  *
+ * ## We can solve this problem using the "Double Hashing" technique also, as below:
+ *
+ *
+ *
  */
 fun main() {
 
