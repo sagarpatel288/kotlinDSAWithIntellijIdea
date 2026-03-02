@@ -213,7 +213,10 @@ fun main() {
         // Calculate the polynomial hash for the first window and the pattern
         var textWindowHash = 0L
         var patternWindowHash = 0L
+
+        // Common Mistake: Understand and remember the range. It is from 0 to less than pattern length.
         for (i in 0 until pattern.length) {
+            // Common Mistake: Don't forget to prevent the overflow after multiplication, addition, or even subtraction.
             patternWindowHash = ((patternWindowHash * xBase) + pattern[i].code.toLong()) % prime
             textWindowHash = ((textWindowHash * xBase) + text[i].code.toLong()) % prime
         }
@@ -235,11 +238,14 @@ fun main() {
         // If there are "l" iterations, we get x^l.
         // Also notice that if the length of the string is `l`, the highest power of the base will be x^{l - 1}.
         // For example, if the length of the string is 5, the highest power of the base will be x^{4}.
+        // Common Mistake: Understand and remember the range. It is from 1 to less than pattern length.
         for (i in 1 until pattern.length) {
+            // Common Mistake: Don't forget to prevent the overflow after multiplication, addition, or even subtraction.
             baseWithHighestPower = (baseWithHighestPower * xBase) % prime
         }
 
         // Comparison and rolling hash (sliding window)
+        // Common Mistake: Understand and remember the range. It is from 0 to (text length - pattern length) inclusive.
         for (i in 0..text.length - pattern.length) {
             // Check if the hash matches
             if (textWindowHash == patternWindowHash) {
@@ -261,17 +267,24 @@ fun main() {
             // Then, we multiply `82` by 10^{2}, and get `820`.
             // And finally, we add the `i + window length` character, which is `0 + 3`rd character, which is `7`.
             // So, the current window is `820 + 7 = 827`.
+            // Common Mistake: Understand and remember the check.
+            // The "i" must be less than (text length - pattern length).
             if (i < text.length - pattern.length) {
                 // We are rolling the window from left to right.
                 // So, the outgoing character is at the left end of the window.
                 val subtract = text[i].code.toLong() * baseWithHighestPower
                 // The incoming character is [i + pattern.length] away from the `i`th character.
+                // Common Mistake: It is "i + pattern.length" that rolls (shifts) the window.
+                // So, don't forget to add the "pattern.length" to "i" as "i + pattern.length".
                 val add = text[i + pattern.length].code.toLong()
                 // Subtract the old (outgoing) character
+                // Common Mistake: Don't forget to prevent the overflow using the modulo.
                 textWindowHash = (textWindowHash - subtract) % prime
                 // Multiply by the base and prevent overflow
+                // Common Mistake: Don't forget to prevent the overflow using the modulo.
                 textWindowHash = (textWindowHash * xBase) % prime
                 // Add the new (next, incoming, upcoming) character and prevent overflow
+                // Common Mistake: Don't forget to prevent the overflow using the modulo.
                 textWindowHash = (textWindowHash + add) % prime
                 // Ensure positive value, as the subtraction could have caused a negative value
                 textWindowHash = (textWindowHash % prime + prime) % prime

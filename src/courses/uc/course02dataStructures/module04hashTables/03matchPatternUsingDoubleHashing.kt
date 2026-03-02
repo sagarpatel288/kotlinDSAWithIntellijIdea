@@ -39,7 +39,9 @@ class MatchPatternUsingDoubleHashing {
         var hashT2 = 0L
 
         // Hash value of the pattern and the first window
+        // Common Mistake: Understand the remember the range. It is from 0 to less than pattern length.
         for (i in 0 until pattern.length) {
+            // Common Mistake: Don't forget to prevent the overflow using the modulo.
             hashP1 = ((hashP1 * b1) + pattern[i].code.toLong()) % p1
             hashP2 = ((hashP2 * b2) + pattern[i].code.toLong()) % p2
             hashT1 = ((hashT1 * b1) + text[i].code.toLong()) % p1
@@ -52,8 +54,9 @@ class MatchPatternUsingDoubleHashing {
         hashT2 = (hashT2 % p2 + p2) % p2
 
         // Finding the highest power of the base for the rolling hashing
+        // Common Mistake: Understand and remember the range. It is from 1 to less than pattern length.
         for (i in 1 until pattern.length) {
-            // Mistake: Don't forget to modulo the multiplication product. It matters.
+            // Common Mistake: Don't forget to prevent the overflow using the modulo.
             b1HighestPower = (b1HighestPower * b1) % p1
             b2HighestPower = (b2HighestPower * b2) % p2
         }
@@ -61,12 +64,16 @@ class MatchPatternUsingDoubleHashing {
         val result = mutableListOf<Int>()
 
         // Rolling hashing
+        // Common Mistake: Understand and remember the range. It is from 0 to (text length - pattern length) inclusive.
         for (i in 0 .. (text.length - pattern.length)) {
             if (hashP1 == hashT1 && hashP2 == hashT2) {
                 result.add(i)
             }
 
+            // Common Mistake: Understand and remember the check.
+            // The "i" must be less than (text length - pattern length).
             if (i < (text.length - pattern.length)) {
+                // Common Mistake: Don't forget to prevent the overflow using the modulo.
                 val sub1 = (text[i].code.toLong() * b1HighestPower) % p1
                 hashT1 = (hashT1 - sub1) % p1
                 hashT1 = (hashT1 * b1) % p1
