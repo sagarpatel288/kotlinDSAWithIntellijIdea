@@ -14,6 +14,7 @@ import java.io.InputStreamReader
  *
  * * Here, we solve the same problem using the "Double Hashing" technique instead of manual (character-by-character)
  * double-check.
+ * * The double hashing technique is better as it avoids the manual iteration over the possible long substring.
  *
  * ## Grader Output:
  * ```
