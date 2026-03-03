@@ -121,6 +121,7 @@ private class SubstringEqualitySolver(private val string: String) {
     init {
         val stringLength = string.length
         // Common Mistake: Don't forget that the size of the prefixed array is "length + 1".
+        // Do you know what is the difference between "LongArray" and "Array<Long>"?
         prefixHashes1 = LongArray(stringLength + 1)
         prefixHashes2 = LongArray(stringLength + 1)
         powersOfBase1 = LongArray(stringLength + 1)
@@ -153,12 +154,15 @@ private class SubstringEqualitySolver(private val string: String) {
     private fun getSubstringHashes(startingIndex: Int, length: Int): Pair<Long, Long> {
         // We need to remember this formula.
         // The formula is:
-        // H(a, l) = (H(a + l) - (H(a) * base)) % p
+        // H(a, l) = (H(a + l) - (H(a) * base^{l})) % p
+        // Common mistake: The base value depends on the length value.
         val hashOfLongPrefix1 = prefixHashes1[startingIndex + length]
         val hashOfShortPrefix1 = prefixHashes1[startingIndex]
         val powerOfBase1 = powersOfBase1[length]
 
         var substringHash1 = hashOfLongPrefix1 - (hashOfShortPrefix1 * powerOfBase1) % prime1
+        // Don't underestimate or ignore this normalization.
+        // Without this normalization, the program did not pass a few test cases!
         substringHash1 = (substringHash1 % prime1 + prime1) % prime1
 
         val hashOfLongPrefix2 = prefixHashes2[startingIndex + length]
@@ -166,6 +170,8 @@ private class SubstringEqualitySolver(private val string: String) {
         val powerOfBase2 = powersOfBase2[length]
 
         var substringHash2 = hashOfLongPrefix2 - (hashOfShortPrefix2 * powerOfBase2) % prime2
+        // Don't underestimate or ignore this normalization.
+        // Without this normalization, the program did not pass a few test cases!
         substringHash2 = (substringHash2 % prime2 + prime2) % prime2
 
         return substringHash1 to substringHash2
