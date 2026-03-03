@@ -1,102 +1,99 @@
 package courses.uc.course02dataStructures.module04hashTables
 
-import java.io.BufferedReader
-import java.io.InputStreamReader
-
 class LongestCommonSubstring03(private val string1: String, private val string2: String) {
 
     private val prime1 = 1_000_000_007L
-    private val prime2 = 1_000_000_061L
-    private val xBase = 31L
-    private val hashes1a = LongArray(string1.length + 1)
-    private val hashes2a = LongArray(string1.length + 1)
-    private val hashes1b = LongArray(string2.length + 1)
-    private val hashes2b = LongArray(string2.length + 1)
-    private val xPower1a = LongArray(string1.length + 1)
-    private val xPower2a = LongArray(string1.length + 1)
-    private val xPower1b = LongArray(string2.length + 1)
-    private val xPower2b = LongArray(string2.length + 1)
+    private val prime2 = 1_000_000_263L
+    private val base1 = 31L
+    private val base2 = 263L
+    private val hashesA1 = LongArray(string1.length + 1)
+    private val hashesA2 = LongArray(string1.length + 1)
+    private val hashesB1 = LongArray(string2.length + 1)
+    private val hashesB2 = LongArray(string2.length + 1)
+    private val xPowerA1 = LongArray(string1.length + 1)
+    private val xPowerA2 = LongArray(string1.length + 1)
+    private val xPowerB1 = LongArray(string2.length + 1)
+    private val xPowerB2 = LongArray(string2.length + 1)
 
     init {
-        hashes1a[0] = 0L
-        hashes2a[0] = 0L
-        hashes1b[0] = 0L
-        hashes2b[0] = 0L
-        xPower1a[0] = 1L
-        xPower2a[0] = 1L
-        xPower1b[0] = 1L
-        xPower2b[0] = 1L
+        hashesA1[0] = 0L
+        hashesA2[0] = 0L
+        hashesB1[0] = 0L
+        hashesB2[0] = 0L
+        xPowerA1[0] = 1L
+        xPowerA2[0] = 1L
+        xPowerB1[0] = 1L
+        xPowerB2[0] = 1L
 
         // Calculate the hash codes of each string, starting from length 1 up to the entire length.
         for (i in 0 until string1.length) {
-            hashes1a[i + 1] = (hashes1a[i] * xBase) % prime1
-            hashes1a[i + 1] = ((hashes1a[i + 1]) + string1[i].code.toLong()) % prime1
-            hashes2a[i + 1] = (hashes2a[i] * xBase) % prime2
-            hashes2a[i + 1] = (hashes2a[i + 1] + string1[i].code.toLong()) % prime2
+            hashesA1[i + 1] = (hashesA1[i] * base1) % prime1
+            hashesA1[i + 1] = ((hashesA1[i + 1]) + string1[i].code.toLong()) % prime1
+
+            hashesA2[i + 1] = (hashesA2[i] * base2) % prime2
+            hashesA2[i + 1] = (hashesA2[i + 1] + string1[i].code.toLong()) % prime2
+
+            xPowerA1[i + 1] = (xPowerA1[i] * base1) % prime1
+            xPowerA2[i + 1] = (xPowerA2[i] * base2) % prime2
         }
 
         // Calculate the hash codes of each string, starting from length 1 up to the entire length.
         for (i in 0 until string2.length) {
-            hashes1b[i + 1] = (hashes1b[i] * xBase) % prime1
-            hashes1b[i + 1] = ((hashes1b[i + 1]) + string2[i].code.toLong()) % prime1
-            hashes2b[i + 1] = (hashes2b[i] * xBase) % prime2
-            hashes2b[i + 1] = (hashes2b[i + 1] + string2[i].code.toLong()) % prime2
-        }
+            hashesB1[i + 1] = (hashesB1[i] * base1) % prime1
+            hashesB1[i + 1] = ((hashesB1[i + 1]) + string2[i].code.toLong()) % prime1
 
-        // Calculate the power (degree) of the base
-        for (i in 1 until string1.length) {
-            xPower1a[i] = (xPower1a[i - 1] * xBase) % prime1
-            xPower2a[i] = (xPower2a[i - 1] * xBase) % prime2
-        }
+            hashesB2[i + 1] = (hashesB2[i] * base2) % prime2
+            hashesB2[i + 1] = (hashesB2[i + 1] + string2[i].code.toLong()) % prime2
 
-        // Calculate the power (degree) of the base
-        for (i in 1 until string2.length) {
-            xPower1b[i] = (xPower1b[i - 1] * xBase) % prime1
-            xPower2b[i] = (xPower2b[i - 1] * xBase) % prime2
+            xPowerB1[i + 1] = (xPowerB1[i] * base1) % prime1
+            xPowerB2[i + 1] = (xPowerB2[i] * base2) % prime2
         }
     }
 
     fun checkForLength(length: Int): Triple<Int, Int, Int>? {
         if (length > string1.length || length > string2.length) return null
-        val hashes1 = mutableMapOf<Pair<Long, Long>, Int>()
+        val hashes1 = mutableMapOf<Long, Int>()
         for (i in 0..string1.length - length) {
-            val long1 = hashes1a[i + length]
-            val short1 = hashes1a[i]
-            val base1 = xPower1a[length]
+            val long1 = hashesA1[i + length]
+            val short1 = hashesA1[i]
+            val base1 = xPowerA1[length]
             val sub1 = (short1 * base1) % prime1
             var hash1 = (long1 - sub1) % prime1
             hash1 = (hash1 % prime1 + prime1) % prime1
 
-            val long2 = hashes2a[i + length]
-            val short2 = hashes2a[i]
-            val base2 = xPower2a[length]
+            val long2 = hashesA2[i + length]
+            val short2 = hashesA2[i]
+            val base2 = xPowerA2[length]
             val sub2 = (short2 * base2) % prime2
             var hash2 = (long2 - sub2) % prime2
             hash2 = (hash2 % prime2 + prime2) % prime2
 
-            hashes1[hash1 to hash2] = i
+            // Packing two 31-bit hashes into one 64-bit Long
+            val combined = (hash1 shl 32) or hash2
+            hashes1[combined] = i
         }
 
         for (i in 0..string2.length - length) {
-            val long1 = hashes1b[i + length]
-            val short1 = hashes1b[i]
-            val base1 = xPower1b[length]
+            val long1 = hashesB1[i + length]
+            val short1 = hashesB1[i]
+            val base1 = xPowerB1[length]
             val sub1 = (short1 * base1) % prime1
             var hash1 = (long1 - sub1) % prime1
             hash1 = (hash1 % prime1 + prime1) % prime1
 
-            val long2 = hashes2b[i + length]
-            val short2 = hashes2b[i]
-            val base2 = xPower2b[length]
+            val long2 = hashesB2[i + length]
+            val short2 = hashesB2[i]
+            val base2 = xPowerB2[length]
             val sub2 = (short2 * base2) % prime2
             var hash2 = (long2 - sub2) % prime2
             hash2 = (hash2 % prime2 + prime2) % prime2
 
-            if (hashes1.contains(hash1 to hash2)) {
-                val startIndex1 = hashes1[hash1 to hash2]!!
-                if (string1.substring(startIndex1, startIndex1 + length) == string2.substring(i, i + length)) {
-                    return Triple(startIndex1, i, length)
-                }
+            // Packing two 31-bit hashes into one 64-bit Long
+            val combined = (hash1 shl 32) or hash2
+
+            if (hashes1.contains(combined)) {
+                val startIndex1 = hashes1[combined]!!
+                return Triple(startIndex1, i, length)
             }
         }
         return null

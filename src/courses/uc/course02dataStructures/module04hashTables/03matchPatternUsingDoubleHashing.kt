@@ -34,6 +34,9 @@ class MatchPatternUsingDoubleHashing {
     fun matchPattern(pattern: String, text: String): List<Int> {
         if (pattern.length > text.length) return emptyList()
 
+        // Does it work if we take the initial hash value as 1 instead of 0?
+        // It does not work if we take the initial hash value as 1 instead of 0!
+        // Can you explain why?
         var hashP1 = 0L
         var hashP2 = 0L
         var hashT1 = 0L

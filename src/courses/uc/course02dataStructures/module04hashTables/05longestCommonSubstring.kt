@@ -142,7 +142,7 @@ private class CommonSubStrings {
             val prime2 = 1_000_000_061L
             val xBase1 = 31L
             val xBase2 = 263L
-            val hashes = mutableMapOf<Pair<Long, Long>, Int>()
+            val hashes = mutableMapOf<Long, Int>()
             var hash1 = 0L
             var hash2 = 0L
             var xPower1 = 1L
@@ -159,7 +159,9 @@ private class CommonSubStrings {
             hash1 = (hash1 % prime1 + prime1) % prime1
             hash2 = (hash2 % prime2 + prime2) % prime2
 
-            hashes[hash1 to hash2] = 0
+            // Packing two 31-bit hashes into one 64-bit Long
+            val combined = (hash1 shl 32) or hash2
+            hashes[combined] = 0
 
             // Maximum degree (power) to use in the rolling hash
             for (i in 1 until length) {
@@ -183,8 +185,9 @@ private class CommonSubStrings {
                 hash2 = (hash2 + add2) % prime2
                 hash2 = (hash2 % prime2 + prime2) % prime2
 
-                if (hashes.containsKey(hash1 to hash2)) {
-                    val startIndex = hashes[hash1 to hash2]!!
+                val combined = (hash1 shl 32) or hash2
+                if (hashes.containsKey(combined)) {
+                    val startIndex = hashes[combined]!!
                     if (string.substring(startIndex, startIndex + length) != string.substring(i, i + length)) {
                         hashes[hash1 to hash2] = i
                     }
