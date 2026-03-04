@@ -199,6 +199,8 @@ class LongestCommonSubstring03(private val string1: String, private val string2:
         // We start from the index 0 and perform the sliding window technique (rolling hash).
         // But instead of calculating the hash using the Rabin-Karp algorithm, we use the prefix hashes.
         // We can also use the Rabin-Karp algorithm, and avoid using the prefix hashes.
+        // But in that case, we will have to recalculate the first window for every new length.
+        // That's why, prefix hashing is recommended.
         for (i in 0..string1.length - length) {
             val long1 = hashesA1[i + length]
             val short1 = hashesA1[i]
