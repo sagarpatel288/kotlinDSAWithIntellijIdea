@@ -137,7 +137,7 @@ private class CommonSubStrings {
         if (length == 0) return LongestCommonSubStrings(0, 0, 0)
         if (length > string1.length || length > string2.length) return null
 
-        fun getAllHashes(string: String, length: Int): Map<Pair<Long, Long>, Int> {
+        fun getAllHashes(string: String, length: Int): Map<Long, Int> {
             val prime1 = 1_000_000_007L
             val prime2 = 1_000_000_061L
             val xBase1 = 31L
@@ -189,10 +189,10 @@ private class CommonSubStrings {
                 if (hashes.containsKey(combined)) {
                     val startIndex = hashes[combined]!!
                     if (string.substring(startIndex, startIndex + length) != string.substring(i, i + length)) {
-                        hashes[hash1 to hash2] = i
+                        hashes[combined] = i
                     }
                 } else {
-                    hashes[hash1 to hash2] = i
+                    hashes[combined] = i
                 }
             }
 

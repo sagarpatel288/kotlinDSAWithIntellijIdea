@@ -43,7 +43,7 @@ class MatchPatternUsingDoubleHashing {
         var hashT2 = 0L
 
         // Hash value of the pattern and the first window
-        // Common Mistake: Understand the remember the range. It is from 0 to less than pattern length.
+        // Common Mistake: Understand and remember the range. It is from 0 to less than pattern length.
         for (i in 0 until pattern.length) {
             // We need to remember this formula.
             // Common Mistake: Don't forget to prevent the overflow using the modulo.
