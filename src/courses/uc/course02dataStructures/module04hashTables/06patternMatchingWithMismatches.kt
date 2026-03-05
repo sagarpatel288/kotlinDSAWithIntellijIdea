@@ -111,6 +111,9 @@ package courses.uc.course02dataStructures.module04hashTables
  * **String comparison using binary search**
  *
  * * Now, in the `longest common substring` problem, we have learned that the `binary search` helps string comparison.
+ *
+ * * Reference: [05longestCommonSubstring03.kt](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/486d9c13da5ad1afbce3b65a636389d7b1c838a9/src/courses/uc/course02dataStructures/module04hashTables/05longestCommonSubstring03.kt)
+ *
  * * The idea is, instead of comparing character by character, we check characters in bulk.
  * * And `Characters in bulk` means substrings.
  * * And when we want to compare substrings, we use hash codes.
@@ -155,8 +158,8 @@ package courses.uc.course02dataStructures.module04hashTables
  *     xPatternPowers2[i] = (xPatternPowers2[i - 1] * xBase) % prime2
  * }
  *
- * // Precomputed prefix double hashing of the text string (Given that pattern.length <= text.length)
- * for (i in 0..text.length - pattern.length) {
+ * // Precomputed prefix double hashing of the text string
+ * for (i in 0 until text.length) {
  *     textHashes1[i + 1] = ( ( textHashes1[i] * xBase ) + text[i].code.toLong() ) % prime1
  *     textHashes2[i + 1] = ( ( textHashes2[i] * xBase ) + text[i].code.toLong() ) % prime2
  * }
@@ -232,12 +235,45 @@ package courses.uc.course02dataStructures.module04hashTables
  * }
  * ```
  *
- * **And what about those two starting indices: t and p? How do we get them?**
+ * **How can we get to know that allowing k-mismatches would make two different substrings equal?**
+ *
+ * * For example, suppose that at some point, we compared two substrings: `abc` and `abx`.
+ * * Now, the hash codes of these two substrings will not match.
+ * * However, we are allowed to consider it a "match" with "k-allowed mismatches = 1".
+ * * So, how do we incorporate this dimension?
+ *
+ * >---
+ *
+ * * Well, that's a good point.
+ * * Between "abc" and "abx", the exact matching (common) substrings would be "ab".
+ * * So, the length of the matching (common) substrings would become the value of the `matchLen`.
+ * * In this example, it will be `matchLen = 2`.
+ * * Now, if we are yet to cover the entire string, after the `matchLen`, we will land on the `mismatch` character.
+ *
+ * **And what about those two starting indices: `t` and `p`? How do we get them?**
+ *
+ * * Input requires the total number of substrings we found, followed by their starting indices in the text.
+ * * How do we find the starting indices of matched substrings?
  *
  * ```
  * // Did you understand the purpose of this outer for loop?
  * // This is the sliding window of the text string that moves from left to right, character by character.
  * // And for the window length, it uses the inner binary search.
+ * // We will find hashes of different substrings of different lengths.
+ * // For example, for length 1, 2, 3, ... < text.length
+ * // Here, `t` represents the starting index of the window.
+ * // It means that for each `t`, we will have different substrings of different lengths.
+ * // For example, suppose `text = abcdefg`.
+ * // So, when `t = 0`, we get different substrings like a, ab, abc, abcd, abcde, abcdef, abcdefg, etc.
+ * // Similarly, when `t = 1`, we get different substrings like b, bc, bcd, bcde, bcdef, bcdefg, etc.
+ * // And so on...
+ * // We compare these windows with the pattern.
+ * // Note that we are going to use binary search.
+ * // It means that we optimize this process by discarding certain windows and substrings.
+ * // For example, we may not start from length = 1.
+ * // We may start from length = 3.
+ * // And if we find that certain window matches with the pattern, we skip all the windows having length less than 3.
+ * // Similarly, if we find that there is no match with length 3, we discard all the windows having length more than 3.
  * for (t in 0 until text.length) {
  *     // Did you understand why we take the variable `p` outside the `while` loops?
  *     // For each new text window, we start pattern comparison from the beginning.
@@ -275,11 +311,12 @@ package courses.uc.course02dataStructures.module04hashTables
  * ```
  *
  * * Now, we need to add a couple of more things here.
- * * matchLen counter
- * * mismatches counter
+ * * `matchLen` counter
+ * * `mismatches` counter
  * * Starting index of the pattern matching with mismatches
  *
- * **Did you understand why we need to add them?**
+ * **Did you understand why do we need to add them?**
+ *
  * **Starting index of the pattern matching (with allowed mismatches) in the text string**
  *
  * * We have been asked to provide the starting index of the pattern matching with mismatches.
@@ -1225,6 +1262,7 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
     fun findPatternMatchingWithMismatches(kAllowedMismatches: Int): Pair<Int, List<Int>> {
         val startingIndices = mutableListOf<Int>()
         // Sliding Window
+        // The starting index of the last window cannot go beyond: (text.length - pattern.length)
         for (i in 0..(text.length - pattern.length)) {
             // Text pointer (index)
             var t = i
@@ -1240,6 +1278,7 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                 while (start <= end) {
                     println("i: $i, t: $t, p: $p")
                     val mid = start + (end - start) / 2
+                    // ToDo: Why do we proceed a window length that is less than the pattern length?
                     // ToDo: We might exit early based on the `mid` value and `k-AllowedMismatches`.
                     // For example, if `mid + kAllowedMismatches != pattern.length`, then what is the point of processing it?
                     // TODO: Print i, t, p, mid, and substrings (text and pattern) to understand how this works
