@@ -84,7 +84,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * * Suppose the length of `s` is `sl` and the length of `t` is `tl`.
  * * Now, the maximum length of the common substring cannot be more than `minOf(sl, tl)`.
- * * So, any substring of length between `0 to minOf(sl, tl)` can be a longest common substring.
+ * * So, any substring of length between `0 to minOf(sl, tl)` can be the longest common substring.
  * * But we don't need to process all the substrings of length from `0 to minOf(sl, tl)`.
  * * Because, if a substring of length `k` is common, then there must exist a common substring of length <= `k`.
  * * So, we don't need to check for any substrings whose length is less than or equal to `k`.
@@ -97,7 +97,8 @@ package courses.uc.course02dataStructures.module04hashTables
  * * `cde`, `def`, `efg`, and `fgh`.
  * * Now, we can clearly see that there are common substrings of length <= 3.
  * * `cd`, `de`, `ef`, `fg`, and `gh`.
- * * But we want to find the "Longest Common Substring".
+ * * We didn't have to check for these common substrings of length 2, and that's where and how we save the time.
+ * * Now, we want to find the "Longest Common Substring".
  * * When we find that there exists a common substring of length `3`, we increase the bar.
  * * We ask: Can we have a common substring of length higher than 3?
  * * Can we have a common substring of length 4?
@@ -105,11 +106,15 @@ package courses.uc.course02dataStructures.module04hashTables
  * * We get a new range.
  * * The new range becomes `4 to 6`.
  * * Here, the lower-end is `4` and the higher-end is `6`.
- * * Any substring of length between `k to minOf(sl, tl) = 4 to 6` can be a longest common substring.
+ * * Any substring of length between `k to minOf(sl, tl) = 4 to 6` can be the longest common substring.
  * * Similarly, if there was no common substring of length `3`, we would decrease the `higher-end` of the range.
  * * Because if there is no common substring of length `3`, then there cannot be a common substring of length > 3.
  * * In that case, the higher-end would decrease to `mid-1 = 3 - 1 = 2` and the lower bound `0` remains the same.
  * * So, in that case, the range would have become `0 to 2`.
+ * * And, we will not have to check for any substrings of length above 3, and that's where and how we save the time.
+ * * This is how we find the longest common substring using the prefix hashes and binary search for length.
+ * * So that we don't have to check for all the possible lengths of substrings.
+ * * We find the right "length" for which we can get the possible "longest common substring" in `logarithmic` time.
  *
  * #### Hash Code
  *
