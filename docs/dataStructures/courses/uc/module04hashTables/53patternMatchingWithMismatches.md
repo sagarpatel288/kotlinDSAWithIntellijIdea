@@ -140,7 +140,7 @@ for (t in 0 until text.length) {
 
 #### Overview Of Idea: Overall Approach / Thought Process
 
-* //ToDo: 
+*  
 
 #### Binary Search And Prefix Hashes With Double Hashing
 
@@ -301,16 +301,64 @@ for (i in 0 until (text.length - pattern.length)) {
 
 **How do we compare the windows of the text with the windows of the pattern?**
 
-* //ToDo
+* Binary search gives us a length to try.
+* Using this length, we can find and compare the hash codes of different substrings of this given length.
+* However, the formula needs the starting point, too.
 
-**Why don't we just take only those windows which has a length of $pattern.length$ ?**
+$H(a, l) = (H(a + l) - (H(a) * base^{l})) \mod  prime$
 
-* //ToDo
+**How do we get these starting points?**
+
+* The outer `for-loop` gives us the starting point for the **text window**.
+
+```kotlin
+
+// The `i` represents the starting point for each window
+for (i in 0 .. (text.length - pattern.length))
+
+```
+
+* Similarly, another `for-loop` can give us the starting points for the **pattern windows**.
+
+```kotlin
+
+for (j in 0 .. (pattern.length - someLength)) {
+    
+}
+
+```
+
+**How do we arrange these two `for-loops`?**
+
+* According to the problem statement, we are finding the patterns (with allowed mismatches) in the text.
+* And the problem conveys that $text.length >= pattern.length$.  
+* So, the **text-for-loop** becomes the outer-for-loop, and the **pattern-for-loop** becomes the inner-for-loop.
+* So, it goes as follows:
+
+```kotlin
+
+for (i in 0 .. (text.length - pattern.length)) {
+    
+    // We get this `length` from the binary search.
+    for (j in 0 .. (pattern.length - length)) {
+        
+    }
+}
+
+```
+
+**Binary search: How do we get `start` and `end` to get the `mid` length?**
+
+* Now, in order to get the `length`, the binary search needs two things: **Start** and **End**.
+* So, how do we get that?
+* We take two pointers.
+
+
+**Why don't we just take only those windows which has a length of $pattern.length$ ?**  
 
 **Why don't we compare the entire pattern with the text windows?** 
 
-* //ToDo: Improve:
-* 
+* Because if we only take the entire length, we will not be able to know about the number of mismatches if there are any.
 
 **How can we get to know that allowing k-mismatches would make two different substrings equal?**
 
