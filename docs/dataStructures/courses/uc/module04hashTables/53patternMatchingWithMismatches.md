@@ -138,6 +138,81 @@ for (t in 0 until text.length) {
 }
 ```
 
+* Now, the very first thing we need to improve here is applying the boundary to the maximum possible window size (length).
+* For example, if the text window is `abcdefgh`, and the pattern window is `abc`, we know that there is no point of taking any text window longer than the size (length) of the pattern window.
+* Because a longer text substring than the pattern itself can never be a match.
+* So, we avoid such cases.
+
+**How do we ensure that we don't compare a text window longer than the pattern window?**
+
+* By applying the boundary on the text window.
+
+```kotlin
+
+for (i in 0 until (text.length - pattern.length)) {
+    
+}
+
+```
+
+* It means that the starting index of the text window can go only up to `text.length - pattern.length`.
+* For example, if the text is `abcdefgh`, and the pattern is `xgh`, the starting index of the last text window will be `text.length - pattern.length = 8 - 3 = 5`.
+* So, the starting index of the last text window is `i = 5` and the last text window that we can get is `fgh`.
+* The next big thing we need to improve here is correcting (eliminating) the process that compares two substrings of different lengths.
+* For example:
+
+```kotlin
+
+for (i in 0 .. (text.length - pattern.length)) {
+    
+    for (j in 0 until pattern.length) {
+        
+    }
+}
+
+```
+
+* The problem with this lexical for-loops is that we compare two substrings of different lengths.
+* And we know that they will never match.
+* For example, suppose that the text is `abcdefgh`, and the pattern is `xyabcdef`.
+* Now, suppose that the starting index of the text window is `i = 0`.
+* So, we will get multiple text windows like below:
+
+```
+a, ab, abc, abcd, abcde, abcdef, abcdefg, abcdefgh
+```
+
+* Similarly, when `j = 0`, we will get multiple pattern windows like below:
+
+```
+x, xy, xya, xyab, xyabc, xyabcd, xyabcde, xyabcdef
+```
+
+* Now, what is the point of comparing the text window `a` with the pattern window `xy`, `xya`, or any other pattern window whose length is greater than (or smaller than) the text window?
+* They will never match.
+* It means that we want to keep the pattern window length similar to the text window length.
+* We may change the starting index of the pattern window to cover each substrings of the pattern window having the same length as the text window.
+
+**And how far this starting index of the pattern can go(move)?**
+
+* We cannot move the starting index of the pattern beyond the `pattern.length`.
+* So, it will be like:
+
+```kotlin
+
+for (i in 0 .. (text.length - pattern.length)) {
+    var p = 0 // Starting index of the pattern
+    while (p < pattern.length) {
+        
+    }
+}
+
+```
+
+**How do we find the length?**
+
+**How do we ensure that we compare two substrings (windows) of equal lengths only and avoid redundant comparisons?**
+
 #### Overview Of Idea: Overall Approach / Thought Process
 
 *  
@@ -276,7 +351,7 @@ while (start <= end) {
 
 ```kotlin
 
-for (i in 0 until (text.length - pattern.length)) {
+for (i in 0 .. (text.length - pattern.length)) {
     
 }
 ```
@@ -318,30 +393,30 @@ for (i in 0 .. (text.length - pattern.length))
 
 ```
 
-* Similarly, another `for-loop` can give us the starting points for the **pattern windows**.
+* Similarly, the `while-loop` gives us the starting points for the **pattern windows**.
 
 ```kotlin
 
-for (j in 0 .. (pattern.length - someLength)) {
+var p = 0 // The starting index of the pattern window. 
+while (p < pattern.length) {
     
 }
 
 ```
 
-**How do we arrange these two `for-loops`?**
+**How do we arrange these two `loops`?**
 
 * According to the problem statement, we are finding the patterns (with allowed mismatches) in the text.
 * And the problem conveys that $text.length >= pattern.length$.  
-* So, the **text-for-loop** becomes the outer-for-loop, and the **pattern-for-loop** becomes the inner-for-loop.
+* So, the **text-for-loop** becomes the outer-for-loop, and the **pattern-while-loop** becomes the inner-while-loop.
 * So, it goes as follows:
 
 ```kotlin
 
 for (i in 0 .. (text.length - pattern.length)) {
-    
-    // We get this `length` from the binary search.
-    for (j in 0 .. (pattern.length - length)) {
-        
+    var p = 0
+    while (p < pattern.length) {
+        // We get `length` from the binary search.
     }
 }
 
@@ -351,8 +426,115 @@ for (i in 0 .. (text.length - pattern.length)) {
 
 * Now, in order to get the `length`, the binary search needs two things: **Start** and **End**.
 * So, how do we get that?
-* We take two pointers.
+* We might think about the `i` of the `outer-for-loop`, and `j` of the `inner-for-loop`.
+* But are they mutable variables or fixed values?
+* Because we have seen that we take these `start` and `end` variables as mutable variables in the binary search process.
+* So that we can change their values during our binary search.
+* They act as boundaries or a range that we increase or decrease (i.e., change, mutate) during the binary search process. 
+* Let us recall the objective.
+* The `i` of the `outer-for-loop` represents the starting index of a text window.
+* The `j` of the `inner-for-loop` represents the starting index of a pattern window.
+* Let us say, the text is `abcdefgh`, and the pattern is `xyabcdef`.
+* And for a particular value of `i`, for example, suppose `i = 0`, we will get the following windows (substrings) of different lengths for the text:
+```
+a, ab, abc, abcd, abcde, abcdef, abcdefg, abcdefgh
+```
+* Suppose that at some point, we are at window `abc`.
+* At this moment, the starting index of the text window is `i = 0`.
+* And the length of the window is `3`.
+* Now, we will be comparing this window with each pattern window having the same length.
+* So, we will be comparing the text window `abc` with the following pattern windows:
+```
+xya, yab, abc
+```
+* At some point, we find that the text window `abc` matches with the pattern window when the starting index of the pattern window is `p = 2`.
+* And the moment we find a matching window, we want to increase the bar.
+* We want to stretch the length to see the longest common substring at this point.
+* We want to check how far they can go (how far they match).
+* Now, the purpose of the binary search is to reduce these efforts to a logarithmic time.
+* So, instead of increasing the length of the window by 1 each time, we want to take certain `length`.
+* And based on the result of this `length`, either we increase the bar or decrease the bar.
+* For example, suppose the starting index of the text window is `i = 0`, and length of the window is `l = 4`.
+* So, it is the `abcd` substring (window) of the text.
+* Now, we find that it matches with the starting index of the pattern window `p = 2` and `l = 4`.
+* Now, we don't need to compare any other windows (substrings) of the text where `i = 0` and `l <= 4` with any other windows (substrings) of the pattern where `p = 2` and `l <= 4`.
+* Because we know that all such windows will match with each other.
+* So, we want to increase the bar.
+* Now, we are interested in `l > 4`.
+* The length `l` is based upon the values of `start` and `end`.
+* And if we take (treat) `i` as the `start` value, we cannot change it.
+* Because `i` is a fixed, immutable value of the relevant `for-loop`.
+* So, we take some extra variables.
+* We store the value of `i` into a mutable variable.
+* So, it becomes: 
 
+```kotlin
+
+for (i in 0..(text.length - pattern.length)) {
+    var t = i
+    var p = 0
+    while (p < pattern.length) {
+        
+    }
+}
+
+```
+* Let us understand what each variable represents here.
+
+> `i` represents the starting index of the text window. But it is a fixed (immutable) value that we cannot change.  
+> In a binary search, we change the `start` and the `end` boundary or range.  
+> It means that we need these `start` and `end` variables as mutable variables.  
+> So, we take a mutable variable `t` that represents the starting index of the text window, but it is mutable.  
+> Then, we change the starting index of the pattern to get different pattern windows that we can compare with the text window.  
+> Again, this starting index has to be mutable.  
+> So, we take `p` that represents the starting index of the pattern window.    
+
+* Now, we know that `p` represents the starting index of the pattern.
+* And we move `p` to get different windows of the pattern.
+* For example, if the pattern is `xyabcde`, and `p = 2`, then the longest possible length and the last pattern window is:
+
+```
+abcde
+```
+
+* Notice that if pattern is `xyabcde`, and when `p = 2`, the longest length and the last pattern window is `pattern.length - p = 7 - 2 = 5`.
+* That's the `end` boundary.
+* Beautiful math!
+* So, it is like:
+
+```kotlin
+
+start = 0
+end = pattern.length - p
+
+```
+
+**Where does this `start` and `end` boundary go?**
+
+* According to the problem, `text.length >= pattern.length`.
+* So, we compare each `text window` with all the `pattern windows`.
+* So, it goes like below:
+
+```kotlin
+
+for (i in 0..(text.length - pattern.length)) {
+    var t = i
+    var p = 0
+    while (p < pattern.length) {
+        start = 0
+        end = pattern.length - p
+        while (start <= end) {
+            mid = start + (end - start) / 2
+            // Find and compare the substrings of length `mid`
+        }
+    }
+}
+
+```
+
+**Do you understand what each line convey and do in the above code?**
+
+**Why do we take the smallest possible length, `start = 0` instead of `start = 1`?**
 
 **Why don't we just take only those windows which has a length of $pattern.length$ ?**  
 

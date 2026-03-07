@@ -1273,6 +1273,10 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
             while (p < pattern.length) {
                 // Matching length for this window
                 var matchLen = 0
+                // I believe `start` represents the minimum length.
+                // It is not an index.
+                // So, it should be renamed as `min` instead of `start`.
+                // ToDo: What is the point of taking minimum length as 0?
                 var start = 0
                 var end = pattern.length - p
                 while (start <= end) {
