@@ -108,6 +108,17 @@ C: 2 sec, C++: 2 sec, Java: 5 sec, Python: 40 sec. C#: 3 sec, Haskell: 4 sec, Ja
 **Pseudocode (core part) of naive implementation**  
 
 * We compare two strings character by character.
+* For example, suppose that the text is `abefg`, and the pattern is `efgh`.
+* It is given that the text length is greater than or equal to the pattern.
+* So, we might think that the comparison would go as follows.
+* We might compare `a` of the text window with several pattern windows such as `e`, `ef`, `efg`, `efgh`, `f`, `fg`, `fgh`, `g`, `gh`, and finally `h`.
+* Notice that there are two variables for the pattern window.
+* We change the starting index and the window length.
+* Then, we might compare `ab` of the text window with the same pattern windows.
+* Similarly, we might get several text windows such as `abe`, `abef`, `abefg`, `b`, `be`, `bef`, `befg`, `e`, `ef`, `efg`, `f`, `fg`, and finally, `g`.
+* That suggests a `for-loop` inside a `for-loop`.
+* Notice that there are two variables for the text window, too.
+* We change the starting index and the window length.
 * So, it looks like below:
 
 ```
@@ -158,6 +169,11 @@ for (i in 0 until (text.length - pattern.length)) {
 * It means that the starting index of the text window can go only up to `text.length - pattern.length`.
 * For example, if the text is `abcdefgh`, and the pattern is `xgh`, the starting index of the last text window will be `text.length - pattern.length = 8 - 3 = 5`.
 * So, the starting index of the last text window is `i = 5` and the last text window that we can get is `fgh`.
+
+**How does that limit the window length?**
+
+* //ToDo: Explain.
+
 * The next big thing we need to improve here is correcting (eliminating) the process that compares two substrings of different lengths.
 * For example:
 
@@ -191,7 +207,7 @@ x, xy, xya, xyab, xyabc, xyabcd, xyabcde, xyabcdef
 * Now, what is the point of comparing the text window `a` with the pattern window `xy`, `xya`, or any other pattern window whose length is greater than (or smaller than) the text window?
 * They will never match.
 * It means that we want to keep the pattern window length similar to the text window length.
-* We may change the starting index of the pattern window to cover each substrings of the pattern window having the same length as the text window.
+* We may change the starting index of the pattern window to cover each substring (window) of the pattern having the same length as the text window (substring).
 
 **And how far this starting index of the pattern can go(move)?**
 
@@ -532,11 +548,31 @@ for (i in 0..(text.length - pattern.length)) {
 
 ```
 
+* We compare each text window with all the pattern windows.
+* To get the different pattern windows, we change (move) the starting index in the pattern.
+* Based on the starting index value, we get the maximum (longest) possible length of the window.
+* And that's how we get the `end` value for our binary search.
+* Using these `start` and `end` values, we find the `mid` length.
+* And now we have the starting index of the text window (`t`), the starting index of the pattern window (`p`), and the common length for both of them (`mid`).
+* We use these `t`, `p`, and `mid` values to get the hash codes of a substring using the below formula:
+
+$$
+H(a, l) = (H(a + l) - (H(a) * base^{l})) \mod prime
+$$
+
+* Where, `a` is the starting index, and `l` is the length.
+
 **Do you understand what each line convey and do in the above code?**
+
+* 
 
 **Why do we take the smallest possible length, `start = 0` instead of `start = 1`?**
 
+* 
+
 **Why don't we just take only those windows which has a length of $pattern.length$ ?**  
+
+* 
 
 **Why don't we compare the entire pattern with the text windows?** 
 
