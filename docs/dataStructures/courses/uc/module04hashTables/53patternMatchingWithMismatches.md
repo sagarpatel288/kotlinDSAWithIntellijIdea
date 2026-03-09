@@ -231,7 +231,84 @@ for (i in 0 .. (text.length - pattern.length)) {
 
 #### Overview Of Idea: Overall Approach / Thought Process
 
-*  
+* Imagine that our left index finger `i` is on the starting index of the text window.
+* And imagine that the variable `t` is our right index finger on the same text window.
+* The variable `t` represents the index of a particular character which is being checked or going to be checked next.
+* In other words, once we finish checking a particular character, the variable `t` moves forward, past the character.
+* So, the past values of the variable `t` represents the number of characters we have already checked so far.
+* Initially, `t = i`.
+* Now, if `t` moves character-by-character, then it becomes too slow.
+* So, we provide the support of the binary search power to the variable `t`.
+* The binary search provides the `matchLen` using which the variable `t` can skip (fly over) all the matched characters, and land on the `mismatch` character.
+* In other words, instead of checking character by character, we check characters in bulk (substring/s).
+* To check characters in bulk (substring/s), we use binary search power.
+* The binary search represents the `length` generation machine.
+* We get a particular `length = l` from the binary search to compare and check.
+* Now, if we find that it matches, it means that all the substrings having length less than `l` also match.
+* For example, if we find that `abcd` is the common substring, then `a`, `ab`, `abc` are also common substrings that we don't have to check.
+* We can say that the substring that starts from `a` and has a length of `4` is the common substring.
+* So, we get the `matchLen = 4`.
+* Similarly, if we find that `abcd` does not match, then it means that there is no point in checking a substring that starts from `a` and has a length of `> 4`. 
+* Because if `abcd` does not match, then it is obvious that `abcde`, `abcdef`, `abcdefg`, etc. will also not match.
+* So, the idea is to get the `matchLen` using the binary search power.
+* The benefit of using the binary search power is to quickly find the `matchLen` and the next `mismatch`.
+* For example, if the text window is `abcdefg` and the pattern window is `abcxefg`, we quickly find that `abc` is the `matchLen`.
+* And the immediate character past the `matchLen` represents the `mismatch`.
+* So, once we jump over the `matchLen`, we land on the `mismatch`.
+* So ultimately, the binary search power helps us find the `mismatch` quickly.
+* Now, the binary search requires `start` and `end` boundaries/ranges.
+* Here, the binary search power gives a particular `length` to check.
+* So, the variables `start` and `end` represent the `length` boundaries/ranges.
+* In other words, `start` represents the `minimum length` and the `end` represents the `maximum length`.
+* Based on these values, we find the `mid` length, that we give to the prefix hash formula.
+* Now, we know that we are comparing the text window with the pattern window.
+* And it is given that the $text.length >= pattern.length$.
+* So, we are sure that the `end` value cannot be greater than the `pattern.length`.
+* However, we are not comparing each text window with the entire pattern length.
+* For example, what is the point of checking the text window `ab` with the pattern window `abcxefg` as it will never match.
+* In other words, we should not compare the text window whose length is different from the pattern window or the other way around.
+* In the same way, we cannot always compare the entire pattern with each text window.
+* Because if the substrings do not match with each other, we cannot know the number of mismatches.
+* It means that we have to compare each text window with the fragments of the pattern window using the binary search power.
+* If we find that the substrings match with each other, we increase the length bar.
+* Otherwise, we decrease the length bar.
+* Now, to monitor (track) the number of characters we have checked on the text window, we use the variable `t`.
+* Similarly, to monitor (track) the number of characters we have checked on the pattern window, we use the variable `p`.
+* For example, suppose the text is `abcde`, and the pattern is `xybcx`.
+* So, when `i = 0`, we get different text windows as below:
+
+```
+a, ab, abc, abcd, abcde
+```
+
+* Suppose, the current text window is `abc`.
+* So, we compare this text window with all the pattern windows.
+* So, we get the following pattern windows of the same length:
+
+```
+xyb -> Starting index p = 0   
+ybc -> Starting index p = 1   
+bcx -> Starting index p = 2  
+```
+
+* It means that we need some variable to monitor (track) the number of characters we have processed so far on the pattern for a particular window.
+* So, we take the variable `p`.
+* Now, using this variable `p`, we decide the `end` value.
+* For example, if `p = 0`, then we can compare the entire `pattern.length`.
+* If `p = 1`, then the maximum pattern length we can compare is `pattern.length - 1`.
+* For example, if the pattern is `xybcx`, which is of length `5`.
+* And if `p = 1`, then the maximum pattern that we can compare is `ybcx` whose length is `4` which is `pattern.length - p = 5 - 1 = 4`.
+* So, we get `end = maximum length` value using `p`.
+* We use this value for the binary search process to find the `mid length`.
+* Then, we give this `length` to the prefix hash formula. 
+* The prefix hash formula needs two things: The starting index of the substring, and the `length`.
+* The variable `t` provides the starting index for the text window, and the variable `p` provides the starting index for the pattern.
+* We compare each text window with all the pattern windows.
+* For each new text window, the pattern window starts from `p = 0`.
+
+**When and how do we change the text and the pattern window?**
+
+* //ToDo:
 
 #### Binary Search And Prefix Hashes With Double Hashing
 
