@@ -1228,6 +1228,7 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
     }
 
     private fun textHashes(startingIndex: Int, length: Int): Pair<Long, Long> {
+        if (length <= 0) return 0L to 0L
         val long1 = textHashes1[startingIndex + length]
         val short1 = textHashes1[startingIndex]
         val sub1 = (short1 * xPowersText1[length]) % prime1
@@ -1244,6 +1245,7 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
     }
 
     private fun patternHashes(startingIndex: Int, length: Int): Pair<Long, Long> {
+        if (length <= 0) return 0L to 0L
         val long1 = patternHashes1[startingIndex + length]
         val short1 = patternHashes1[startingIndex]
         val sub1 = (short1 * xPowersPattern1[length]) % prime1
@@ -1282,13 +1284,13 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                 while (start <= end) {
                     println("i: $i, t: $t, p: $p")
                     val mid = start + (end - start) / 2
+                    println("before: start: $start, end: $end, mid: $mid")
                     // ToDo: Why do we proceed a window length that is less than the pattern length?
                     // ToDo: We might exit early based on the `mid` value and `k-AllowedMismatches`.
                     // For example, if `mid + kAllowedMismatches != pattern.length`, then what is the point of processing it?
                     // TODO: Print i, t, p, mid, and substrings (text and pattern) to understand how this works
                     // Use the given sample inputs to understand the dry run
                     // Understand how it compares (the pattern) and how it moves ahead (proceeds)
-                    println("before: start: $start, end: $end, mid: $mid")
                     println("text substring: ${text.substring(t, t + mid)} pattern: ${pattern.substring(p, p + mid)}")
                     val (textHash1, textHash2) = textHashes(t, mid)
                     val (patternHash1, patternHash2) = patternHashes(p, mid)
@@ -1307,14 +1309,13 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                 // Jump over `matchLen`
                 t += matchLen
                 p += matchLen
-                if (p < pattern.length) {
+                if (mismatches <= kAllowedMismatches && p < pattern.length) {
                     mismatches++
-                    if (mismatches > kAllowedMismatches) {
-                        break
-                    }
                     // Move past the mismatched character
                     t++
                     p++
+                } else {
+                    break
                 }
             }
             // Result of this text window that starts from the `i` index
