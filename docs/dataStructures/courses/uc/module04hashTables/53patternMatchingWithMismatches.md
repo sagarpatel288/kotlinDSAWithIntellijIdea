@@ -310,6 +310,38 @@ bcx -> Starting index p = 2
 
 * //ToDo:
 
+**//ToDo: We may need to correct a few things above.**
+
+**Overview**
+
+//ToDo: We may need to correct a few things here.
+
+* A text window starts from `i`.
+* `t` starts from `i` and keeps increasing as long as `t < text.length`.
+* `p` starts from `0` and keeps increasing as long as `p < pattern.length`. 
+* `p` provides `end`.
+* `end` helps us find `mid` within the binary search.
+* We compare the substrings: `text[t, t + mid]` and `pattern[p, p + mid]`.
+* If they match:
+  * `t += matchLen` and `p += matchLen`.
+  * `t` and `p` land on the `mismatch`.
+  * So, `mismatch++`
+  * We continue comparing the next characters.
+  * So, `t++` and `p++`.
+* If they didn't match:
+  * `mismatch++`
+  * We continue comparing the next characters.
+  * So, `t++`, and `p++`.
+* But before we continue with the new `t` and `p`, we need to ensure:
+  * `mismatches <= allowed`
+  * `p < pattern.length`
+  * `t < text.length`
+* Otherwise, we repeat the game with `i++`.
+* But before we repeat the game with the new `i`:
+  * If `mismatches <= allowed` by the time we finished the pattern, we add `i` to the result.
+  * Because the text window that starts from this `i` has a pattern with allowed mismatches.
+* We continue this game as long as `i < text.length`.
+
 #### Binary Search And Prefix Hashes With Double Hashing
 
 **String comparison using binary search**
