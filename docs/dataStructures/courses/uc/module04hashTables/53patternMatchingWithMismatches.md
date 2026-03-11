@@ -25,6 +25,9 @@
       * [Text: Sliding Window](#text-sliding-window)
       * [Pattern](#pattern)
     * [TL;DR](#tldr)
+  * [Dry Run](#dry-run)
+  * [while (start <= end)](#while-start--end-)
+  * [Quick Example](#quick-example)
   * [Time Complexity](#time-complexity)
   * [Space Complexity](#space-complexity)
   * [Grader output](#grader-output)
@@ -230,6 +233,53 @@ for (i in 0 .. (text.length - pattern.length)) {
 **How do we ensure that we compare two substrings (windows) of equal lengths only and avoid redundant comparisons?**
 
 #### Overview Of Idea: Overall Approach / Thought Process
+
+
+```
+
+ // Sliding window on the text                      
+                                                    
+ for (i in 0 .. (text.length - pattern.length))     
+                                                    
+|    t = i; p = 0                                   
+|                                                   
+|                                                   
++-------  while (p < pattern.length)                
+                                                    
+         // Comparing every character of the pattern
+                                                    
+          |                                         
+          |                                         
+          |                                         
+          |                                         
+          |                                         
+          +--------  while (start < = end)          
+                                                    
+          |          // Using the binary search     
+          |                                         
+          |                    |                    
+          |                    |                    
+          |                    |                    
+          |                    v                    
+          |                                         
+          |                   t += matchLen         
+          |                                         
+          |                   p += matchLen         
+          |                                         
+          |                   mismatches++          
+          |                                         
+          |                   t++                   
+          |                                         
+          |                   p++                   
+          |                                         
+          |                                         
+                                                    
+          mismatches <= k?                          
+                                                    
+          Add `i` to the result.                    
+
+```
+
 
 * Imagine that our left index finger `i` is on the starting index of the text window.
 * And imagine that the variable `t` is our right index finger on the same text window.
