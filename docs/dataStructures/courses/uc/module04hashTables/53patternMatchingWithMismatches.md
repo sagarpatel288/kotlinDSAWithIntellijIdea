@@ -1604,6 +1604,242 @@ for (i in 0..(text.length - pattern.length)) {
 > It quickly finds the `matchLen` (using allowed mismatches), where the matched substring starts from the position `t` in the text and `p` in the pattern.
 
 
+## Dry Run
+
+**Text: `abcde`**  
+**Pattern: `bcx`**      
+
+> i = 0; t = 0; p = 0; mismatches = 0;    
+> start = 0; // The minimum length   
+> end = pattern.length - p = 3 - 0 = 3; // The maximum length        
+> mid = start + (end - start) / 2 = 0 + (3 - 0) / 2 = 0 + 1 = 1;      
+> Text[t, t + mid] = Text[from 0th index, length = 1] = a;  
+> Pattern[p, p + mid] = Pattern[from 0th index, length = 1] = b;   
+
+* `a` does not match with `b`.
+* So, we decrease the length bar.
+* `end = mid - 1 = 1 - 1 = 0`.
+* `start` was also `0`.
+* So, `mid = start + (end -start)/2` = 0 + (0 - 0)/2 = 0 + 0 = `0`.
+* It means that, we are going to compare empty strings, no character!
+* So, they will match!
+* So, `matchLen = mid = 0`.
+* After a match, we increase the length bar.
+* So, we increase the `minimum length`.
+* So, we increase the `start`.
+* So, `start = mid + 1 = 0 + 1 = 1`
+* But `end` is `0`.
+* So, `start > end`.
+* It means that we are done with finding the `matchLen`.
+* We have found that how far the text window that starts from `i = 0` match with the pattern.
+* It means that a `mismatch` (a `pothole`) has interrupted (stopped) the process.
+* It means that we have found the `mismatch` (the `pothole`). 
+* Now, `t` and `p` jump over the `matchLen`.
+* But there was no match.
+* So, `matchLen = 0`.
+
+```kotlin
+
+t += matchLen // t = t + matchLen = 0 + 0 = 0
+p += matchLen // p = p + matchLen = 0 + 0 = 0
+```
+
+* Now, after the binary search process, `t` and `p` land on the `mismatch`.
+* So, we increase the `mismatches`. 
+* But, increasing the `mismatches` is worth only if `mismatches <= k`, `p < pattern.length`, and `t < text.length`.
+* So, `mismatches++`.
+* And if increasing the `mismatches` makes `mismatches > k`, we break out of the loop.
+
+```kotlin
+
+if (mismatches <= k && p < pattern.length) {
+    mismatches++ // Total mismatches = 0 + 1 = 1
+    if (mismatches > k) {
+        break
+    }
+}
+```
+
+* Now, we continue the hope that a text window starting from `i = 0` might match with the pattern as long as `mismatches <= k` and `p < pattern.length`.
+* It means that as long as `mismatches <= k` and `p < pattern.length`, we continue checking and comparing the next characters.
+* So, after acknowledging the fact that the current positions of `t` and `p` indicate a `mismatch` by increasing the `mismatches` counter, we move `t` and `p` past this `mismatch` character to check the next character.
+* But if `mismatches > k` or `p > pattern.length` or `t > text.length`, it would mean that the text window that starts with `i` has more mismatches than allowed.
+* So, in that case, we would move on to the next `i`.
+
+```kotlin
+
+if (mismatches <= k && p < pattern.length) {
+    mismatches++ // Total mismatches = 0 + 1 = 1
+    if (mismatches > k) {
+        break
+    }
+    t++
+    p++
+} else {
+    break
+}
+```
+
+* Note that before moving `t` and `p`, we confirm that `t < text.length` and `p < pattern.length`.
+* We ensure that trying to retrieve the character at `t` from the `Text` or at `p` from the `Pattern` does not cause `IndexOutOfBoundsException`.
+
+* At this point:
+
+> mismatches = 1  
+> i = 0; t = 1; p = 1;    
+> start = 0;  
+> end = pattern.length - p = 3 - 1 = 2;    
+> mid = start + (end - start)/2 = 0 + (2 - 0)/2 = 0 + 1 = 1;    
+> Text[t, t + mid] = Text[from 1st index, length = 1] = b;    
+> Pattern[p, p + mid] = Pattern[from 1st index, length = 1] = c;    
+
+* Note that for the text window that starts from `i = 0`, this is the second iteration where we are checking the second character.
+* `b` of the text window does not match with the `c` of the pattern window.  
+* So, we decrease the length bar.
+* It means, we decrease the maximum length.
+* So, `end = mid - 1` = 1 - 1 = `0`.  
+* So now, `mid = start + (end - start)/2` = 0 + (0 - 0)/2 = 0 + 0 = `0`.  
+* It means that we are going to compare the empty substrings.  
+* So, they will match!
+* So, `matchLen = mid = 0`.
+* So, we increase the minimum length bar.
+* So, `start = mid + 1` = 0 + 1 = `1`.
+* But `end = 0`.
+* So, `start > end`.
+* It means the range is exhausted.
+* By now, we have found the `matchLen`.
+* The `matchLen` is the length of the longest substring that matches.
+* It starts from `t` in the text and `p` in the pattern.
+* The current value of `matchLen` is `0`.
+* It means that the character at position `t` in the text window and the character at position `p` in the pattern window does not match.
+* After the binary search, the current position of the variables `t` and `p` jump over the `matchLen` and land on the `mismatch`.
+* So:
+
+```kotlin
+
+t += matchLen // t = t + matchLen = 1 + 0 = 1
+p += matchLen // p = p + matchLen = 1 + 0 = 1
+```
+
+* And if the `mismaches <= kAllowedMismatches`, `p < pattern.length`, and `t < text.length`, then we can increase the `mismatches` counter and move `t` and `p` past the `mismatch`.
+
+```kotlin
+
+if (mismatches <= kAllowedMismatches && p < pattern.length) {
+    mismatches++ // Total mismatches = 1 + 1 = 2
+    // But if after increasing the `mismatches` counter, if it exceeds `kAllowedMismatches`, we can `break` early
+    if (mismatches > kAllowedMismatches) {
+        break
+    }
+    // Move `t` and `p` past the `mismatch`
+    t++
+    p++
+}
+
+```
+
+* We find that total `mismatches = 2`, which is greater than `kAllowedMismatches = 1`.
+* It means that a text substring that starts from `i = 0` has at least `2` mismatches, which is greater than `kAllowedMismatches = 1`.
+* So, there is no point in checking further.
+* So, we break the loop.
+* Note that the loop we are breaking at this point is the `while (p < pattern.length)`.
+
+//ToDo: Complete the dry run!
+
+## while (start <= end) 
+
+* `start` is the minimum length.
+* `end` is the maximum length.
+* We have a range between `start` and `end` to check.
+* We compare a substring whose length is between this range.
+* When we start, `t = i`, and `p = 0`.
+* `p = 0` indicates the first character of the pattern.
+* Now, we are checking character by character only, but we are taking a chance using the binary search power.
+* For example, in a naive way, we might compare the first character of the text with the first character of the pattern, and then the second character, and then the third character, and so on.
+* But when we use the binary search power, we might compare the first 10 characters (a substring whose length is 10).
+* If they match, we increase the length bar.
+* So, if they match, we might compare a substring whose length is more than 10.
+* The benefit is we did not have to compare first 9 characters one by one.
+* When we find that a substring of length 10 matches, it means the substring whose length is less than 10 also matches.
+* So, we could quickly jump over 10 characters at once.
+* Similarly, if they did not match, we decrease the length bar.
+* So, if they did not match, we might compare a substring whose length is less than 10.
+* The benefit is we could quickly get the fact that any substring whose length is equal to or greater than 10 does not match.
+* We can discard all the substrings whose length is equal to or greater than 10.
+* And try to find a substring whose length is less than 10.
+* Hence, the purpose of the binary search is to quickly find the `matchLen`.
+* When we get the `matchLen`, we jump over it, and land on the `mismatch`.
+* This way, we quickly find the `mismatch`.
+* To find the `matchLen`, we use the binary search power that uses `start` and `end` to calculate the `mid` length.
+* This is just a chance, and we take it because it reduces the time to the logarithmic.
+* If we find that `mid` is the `matchLen`, we might jump over more than one character at once.
+* Otherwise, in the worst case, we might compare character by character anyway.
+* But even in that case where we compare character by character, we exit (change `i`) as soon as we find the `mismatches > kAllowed`.
+
+
+## Quick Example
+
+**Text = "abcde"**    
+**Pattern = "bcx"**  
+**k = 1**  
+
+> i = 0  
+
+**`t = 0`**  
+
+* Compare `abc` with `bcx`. (Indicates that the binary search gave us `mid = 3`)  
+  * Did not match!
+  * `matchLen = 0`.
+  * Try a shorter length!
+* Compare `a` with `b`. (Indicates that the binary search gave us `mid = 1`)
+  * Did not match!
+  * `matchLen = 0`.
+  * That was the smallest possible length we could try and compare!
+  * Increase the mismatch counter: `mismatches = 1`.
+* The loop exhausts (start > end) as we tried all the possible lengths within the range (start <= end).
+  
+> i = 1
+
+**`t = 1`**  
+
+* Compare `bc` of `bcde` with `bc` of `bcx`. (Indicates that the binary search gave us `mid = 2`)
+  * Matched!
+  * `matchLen = 2`
+  * Let us try a longer length!
+* Compare `bcd` with `bcx`. (Indicates that the binary search gave us `mid = 3`)
+  * Did not match!
+  * `matchLen = 2`.
+  * `mismatches = 1`.
+  * t++
+  * p++
+* The loop exhausts (p > pattern.length).
+* `mismatches <= k`
+* So, add `i` to the result.
+
+> i = 2
+
+**`t = 2`**
+
+* Compare `c` of `cde` with `b` of `bcx`. (Indicates that the binary search gave us `mid = 1`)
+  * Did not match!
+  * `mismatches = 1`
+  * t++ // t = 2 + 1 = 3
+  * p++ // p = 0 + 1 = 1
+  * That was the smallest possible length we could try and compare!
+  * Let us try to compare the next characters.
+* Compare `d` of `de` with `c` of `bcx`. (Indicates that `t = 3` and `p = 1`)
+  * Did not match!
+  * `mismatches = 2`
+  * `mismatches > k`
+  * Break
+
+**No need to check for any `i` that is greater than `(text.length - pattern.length)`**.
+
+> The answer is: `1`.    
+> That means, Text[from 1st index] = `bcd` matches with the pattern `bcx` with `kAllowedMismatches = 1`.    
+
+
+
 ## Time Complexity
 
 * Precomputed prefix hashes for the text and the pattern: |T| + |P|
