@@ -1304,16 +1304,22 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                         end = mid - 1
                     }
                     // Also print "start" and "end" to understand how it goes and when it stops
-                    println("after: start: $start, end: $end")
+                    println("next: start: $start, end: $end")
                 }
                 // Jump over `matchLen`
                 t += matchLen
                 p += matchLen
+//                println("After matchLen: $matchLen t: $t and p: $p")
                 if (mismatches <= kAllowedMismatches && p < pattern.length) {
                     mismatches++
+                    println("After: mismatches: $mismatches")
+                    if (mismatches > kAllowedMismatches) {
+                        break
+                    }
                     // Move past the mismatched character
                     t++
                     p++
+                    println("After mismatches: $mismatches t: $t and p: $p")
                 } else {
                     break
                 }
