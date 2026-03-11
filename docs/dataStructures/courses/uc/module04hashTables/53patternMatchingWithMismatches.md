@@ -280,6 +280,21 @@ for (i in 0 .. (text.length - pattern.length)) {
 
 ```
 
+---
+
+* We compare every text window that starts from `i` with the pattern.
+* We take `t` to track (monitor) how many characters we have processed for the text window.
+* The variable `t` starts from `i`.
+* We take `p` to track (monitor) how many characters we have processed for the pattern.
+* The variable `p` starts from `0`.
+* Without binary search, we would have to compare every character of the pattern with the text window.
+* So, inside the pattern iteration, we take binary search.
+* Using the binary search, we get the best `matchLen` and total `mismatches` quickly.
+* After the binary search, we make `t` and `p` jump over the `matchLen`, and land on the `mismatch`.
+* If `mismatches > k`, `p > pattern.length`, or `t > text.length`, we break the loop for the current `i`, and repeat for the next `i`.
+* After the pattern iteration, if `mismatches <= k`, we add `i` to the result.
+
+---
 
 * Imagine that our left index finger `i` is on the starting index of the text window.
 * And imagine that the variable `t` is our right index finger on the same text window.
