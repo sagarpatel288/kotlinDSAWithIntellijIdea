@@ -110,47 +110,168 @@ C: 2 sec, C++: 2 sec, Java: 5 sec, Python: 40 sec. C#: 3 sec, Haskell: 4 sec, Ja
 **How do we naively compare two strings?**  
 **Pseudocode (core part) of naive implementation**  
 
+* We want to check if the pattern exists (one or multiple times) in the text with `k` allowed mismatches.
 * We compare two strings character by character.
-* For example, suppose that the text is `abefg`, and the pattern is `efgh`.
-* It is given that the text length is greater than or equal to the pattern.
-* So, we might think that the comparison would go as follows.
-* We might compare `a` of the text window with several pattern windows such as `e`, `ef`, `efg`, `efgh`, `f`, `fg`, `fgh`, `g`, `gh`, and finally `h`.
-* Notice that there are two variables for the pattern window.
-* We change the starting index and the window length.
-* Then, we might compare `ab` of the text window with the same pattern windows.
-* Similarly, we might get several text windows such as `abe`, `abef`, `abefg`, `b`, `be`, `bef`, `befg`, `e`, `ef`, `efg`, `f`, `fg`, and finally, `g`.
-* That suggests a `for-loop` inside a `for-loop`.
-* Notice that there are two variables for the text window, too.
-* We change the starting index and the window length.
-* So, it looks like below:
+* For example, suppose we have the following text and pattern:
 
 ```
-// This outer loop increments the pointer of the text string
-for (t in 0 until text.length) {
-    // matchLen for each text window
-    var matchLen = 0
+
+Text:     a   a   b   b   a   b   a   a   b
+
+Pattern:  a   a   a   b   
+
+k (Allowed mismatches) = 1
+
+
+                |   |   |   |   |   |   |   |   |   |    
+---------------------------------------------------------
+                |   |   |   |   |   |   |   |   |   |    
+ Indices (i)    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |    
+                |   |   |   |   |   |   |   |   |   |    
+----------------|---|---|---|---|---|---|---|---|---|----
+                |   |   |   |   |   |   |   |   |   |    
+ Text           | a | a | b | b | a | b | a | a | b |    
+                |   |   |   |   |   |   |   |   |   |    
+----------------|---|---|---|---|---|---|---|---|---|----
+                |   |   |   |   |   |   |   |   |   |    
+ Pattern        | a | a | a | b |   |   |   |   |   |    
+                |   |   |   |   |   |   |   |   |   |    
+---------------------------------------------------------
+                |   |   |   |   |   |   |   |   |   |    
+
+```
+
+* Now, it is given that the text length is greater than or equal to the pattern.
+* In other words, pattern length is less than or equal to the text.
+* To determine if the text contains the given pattern, we need to check each index `i` starting from `i = 0`. 
+* For each index, we form a text window of the pattern's length and compare each character of this window with the corresponding characters of the pattern.
+* For example, suppose that the text is `aabbabaab`, the pattern is `aaab`, and the `k(Allowed Mismatches)` is `1`.
+* Now, when `i = 0`, we get the text window `aabb` of pattern's length.
+* Note that `i` indicates the starting index of a text window.
+* We compare each character of this window with each character of the pattern.
+* So, to cover each character of this text window, we take a variable `t`.
+* The variable `t` starts from `i`, and moves character by character to cover all the characters of the text window.
+* Similarly, to cover each character of the pattern window, we take a variable `p`.
+* The variable `p` always starts from `0`, because `0` is the starting index of the pattern.
+* So, it looks like below:
+
+> i = 0; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.   
+> t = 0; p = 0; Text[0] Vs. Pattern[0] = a Vs. a = Match!  
+> t = 1; p = 1; Text[1] Vs. Pattern[1] = a Vs. a = Match!  
+> t = 2; p = 2; Text[2] Vs. Pattern[2] = b Vs. a = Mismatch!  
+> t = 3; p = 3; Text[3] Vs. Pattern[3] = b Vs. b = Match!  
+
+* While iterating over the pattern, if we find that number of mismatches exceeds than the k-allowed mismatches, we conclude that the text window that starts from `i` has more mismatches than allowed.
+* So, we exit the pattern loop and repeat the comparison for the next `i`.
+* Once we finish iterating over the pattern, if the total number of mismatches we found is less than or equal to the k-allowed mismatches, we conclude that the text window that starts from `i` matches with the pattern.
+* In this case, we found that the text window that starts from `i = 0` matches with the pattern with at most `k` mismatches.
+* So, we add `i = 0` to the result.
+* We checked all the characters of the pattern.
+* We finished the iteration over the pattern.
+* So, let us see the next text window that starts from `i = 1`.
+
+> i = 1; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.      
+> t = 1; Text[1] Vs. Pattern[0] = a Vs. a = Match!    
+> t = 2; Text[2] Vs. Pattern[1] = b Vs. a = Mismatch!  
+> t = 3; Text[3] Vs. Pattern[2] = b Vs. a = Mismatch!  
+> The number of mismatches exceeded than the allowed mismatches.    
+> So, there is no point in continuing the comparison with other characters of the pattern.    
+> So, we exit the pattern iteration and repeat the comparison for the next `i`.    
+
+* Now, `i = 2`:
+
+> i = 2; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.    
+> t = 2; Text[2] Vs. Pattern[0] = b Vs. a = Mismatch!  
+> t = 3; Text[3] Vs. Pattern[1] = b Vs. a = Mismatch!  
+> The number of mismatches exceeded than the allowed mismatches.  
+> So, there is no point in continuing the comparison with other characters of the pattern.  
+> So, we exit the pattern iteration and repeat the comparison for the next `i`.  
+
+* Now, `i = 3`:
+
+> i = 3; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.    
+> t = 3; Text[3] Vs. Pattern[0] = b Vs. a = Mismatch!  
+> t = 4; Text[4] Vs. Pattern[1] = a Vs. a = Match!  
+> t = 5; Text[5] Vs. Pattern[2] = b Vs. a = Mismatch!  
+> The number of mismatches exceeded than the allowed mismatches.  
+> So, there is no point in continuing the comparison with other characters of the pattern.  
+> So, we exit the pattern iteration and repeat the comparison for the next `i`.  
+
+* Now, `i = 4`:
+
+> i = 4; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.    
+> t = 4; Text[4] Vs. Pattern[0] = a Vs. a = Match!  
+> t = 5; Text[5] Vs. Pattern[1] = b Vs. a = Mismatch!  
+> t = 6; Text[6] Vs. Pattern[2] = a Vs. a = Match!  
+> t = 7; Text[7] Vs. Pattern[3] = a Vs. b = Mismatch!  
+> The number of mismatches exceeded than the allowed mismatches.    
+> And we also finished the iteration over the pattern.    
+> So, we repeat the comparison for the next `i`.    
+
+* Now, `i = 5`:
+
+> i = 5; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.      
+> t = 5; Text[5] Vs. Pattern[0] = b Vs. a = Mismatch!    
+> t = 6; Text[6] Vs. Pattern[1] = a Vs. a = Match!    
+> t = 7; Text[7] Vs. Pattern[2] = a Vs. a = Match!    
+> t = 8; Text[8] Vs. Pattern[3] = b Vs. b = Match!    
+> We finished the iteration over the pattern.
+> After finishing the iteration over the pattern, the total number of mismatches we found is less than or equal to the k-allowed mismatches.
+> It means that the text window that starts from `i = 5` matches with the pattern with at most `k` allowed mismatches.
+> So, we add `i = 5` to the result.
+
+* Now, we cannot take `i = 6`, because that will give us the text window `aab` whose length is less than the pattern.
+* Similarly, we cannot take `i = 7`, because that will give us the text window `ab` whose length is less than the pattern.
+* Similarly, we cannot take `i = 8`, because that will give us the text window `b` whose length is less than the pattern.
+* It means that the last point `i` can go for a text window is `5` for the text whose length is `9` when the pattern length is `4`.
+* If we do the math, it is `text.length - pattern.length = 9 - 4 = 5`.
+* So, `i` can only go from `0` to `text.length - pattern.length`.
+
+```
+// This outer loop increments the starting index of the text window
+for (i in 0 .. (text.length - pattern.length)) {
+    // A variable that increments the pointer within each text window 
+    var t = i 
     // This inner loop increments the pointer of the pattern string
     for (p in 0 until pattern.length) {
         // Comparing characters
         if (text[t++] != pattern[p]) {
             // With each mismatch, we increase the "mismatch" counter
             mismatches++
-        } else {
-            // If it is a match, we increment the "matchLen" counter
-            matchLen++
-        }
-        if (mismatch > k) {
-            // We crossed the maximum allowed mismatches
-            matchLen = 0
-            break
+            if (mismatches > k) {
+                // We crossed the maximum allowed mismatches
+                // Exit the pattern loop and try next `i` if possible
+                break
+            }
         }
     }
+    // We finished iterating over the pattern
+    // Let us see how many mismatches we encoutered along the way
     // Result based on the mismatch counter
     if (mismatch <= k) {
-        result.add(t) // The text index from where the pattern matching with allowed mismatches starts
+        // The text window that starts from `i` matches with the pattern with at most `k` mismatches
+        result.add(i)
     }
 }
 ```
+
+* The problem with this approach is that if the text length is `2_00_000` and pattern length is `1_00_000`, then we are going to take `T * P = 2_00_000 * 1_00_000 = 2_00_000_00_000 = TLE!` time!
+* So, we need to come up with a better solution.
+* The main problem in the naive algorithm is that we are checking character by character.
+
+---
+
+* What if we can check characters in bulk (substrings)?
+* But how do we decide the length?
+* We don't know what is the best length to take for the comparison.
+* So, we take the help of the binary search.
+* The binary search quickly finds the length that matches (common substring) in the logarithmic time.
+* And when the `match` ends, the `mismatch` starts!
+* So, if we fly over the `match`, we land on the `mismatch`.
+* The benefit here is that we quickly cover the `matching` part.
+* We cover the `matching` part in a logarithmic time instead of taking `|T| * |P|` time.
+
+//ToDo: 
 
 * Now, the very first thing we need to improve here is applying the boundary to the maximum possible window size (length).
 * For example, if the text window is `abcdefgh`, and the pattern window is `abc`, we know that there is no point of taking any text window longer than the size (length) of the pattern window.
