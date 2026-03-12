@@ -1309,7 +1309,7 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                 // Jump over `matchLen`
                 t += matchLen
                 p += matchLen
-//                println("After matchLen: $matchLen t: $t and p: $p")
+                println("After matchLen: $matchLen t: $t and p: $p")
                 if (mismatches <= kAllowedMismatches && p < pattern.length) {
                     mismatches++
                     println("After: mismatches: $mismatches")
