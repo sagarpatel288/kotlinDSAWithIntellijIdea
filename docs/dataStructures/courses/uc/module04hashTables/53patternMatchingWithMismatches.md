@@ -45,7 +45,7 @@
 
 * For an integer parameter `k` and two strings $t = t_0t_1···t_{m-1}$ and $p = p_{0}p_{1} ··· p{n-1}$,
 * we say that `p` occurs in `t` at position `i` with at most `k` mismatches if the strings
-* `p` and $t[i : i + p) = t_{i}t_{i+1} ···t_{i+n-1}$ differ in at most k positions.
+* `p` and $t[i : i + p) = t_{i}t_{i+1} ···t_{i+n-1}$ differ in at most `k` positions.
 
 ### Input Format
 
@@ -108,7 +108,7 @@ C: 2 sec, C++: 2 sec, Java: 5 sec, Python: 40 sec. C#: 3 sec, Haskell: 4 sec, Ja
 #### Naive approach: Brute Force
 
 **How do we naively compare two strings?**  
-**Pseudocode (core part) of naive implementation**  
+**Pseudocode (core part) of naive implementation:**  
 
 * We want to check if the pattern exists (one or multiple times) in the text with `k` allowed mismatches.
 * We compare two strings character by character.
@@ -255,7 +255,8 @@ for (i in 0 .. (text.length - pattern.length)) {
 }
 ```
 
-* The problem with this approach is that if the text length is `2_00_000` and pattern length is `1_00_000`, then we are going to take `T * P = 2_00_000 * 1_00_000 = 2_00_000_00_000 = TLE!` time!
+* Now, suppose that the text length is `2_00_000` and the pattern length is `1_00_000`. 
+* Then, with this naive approach, we are going to take `T * P = 2_00_000 * 1_00_000 = 2_00_000_00_000 = TLE!` time!
 * So, we need to come up with a better solution.
 * The main problem in the naive algorithm is that we are checking character by character.
 
@@ -270,6 +271,87 @@ for (i in 0 .. (text.length - pattern.length)) {
 * So, if we fly over the `match`, we land on the `mismatch`.
 * The benefit here is that we quickly cover the `matching` part.
 * We cover the `matching` part in a logarithmic time instead of taking `|T| * |P|` time.
+
+---
+
+* Now, our objective is to get a `length` from the binary search.
+* Then, we will compare the substrings of this `length`.
+* If they match, we will try the longer `length`.
+* If they don't match, we will try the shorter `length`.
+* When we exhaust (after trying the possible lengths, by concluding something, or anyhow), we will have a `matchLen`.
+* The `matchLen` means a common substring between the text and the pattern of some `length`.
+* It means that, after this `matchLen`, we have a `mismatch`.
+
+---
+
+* For example, suppose the text has 10,000 characters, the pattern has 1000 characters, and `k = 0`.
+* Also, each text window has first 999 characters identical with the pattern.
+* Only the last character of each text window is different from the last character of the pattern.
+* Only the last character causes each text window mismatch with the pattern window.
+* The naive approach will find this after 999 steps, on the 1000th step for each text window.
+* On the other hand, the binary search finds this `matchLen = 999` and the `mismatch` significantly faster. 
+* We have some idea about how the binary search works.
+
+---
+
+* It might check the longest common substring for the `length = 500`.
+* It will find that, it is a match.
+* So, it will increase the bar (the range).
+* Next time, maybe it will check for the `length = 750`.
+* Again, it will find that, it is a match.
+* So, it increases the bar again.
+* Now, it might check for `length = 1000`.
+* It will not match.
+* So, it decreases the bar.
+* Now, it might check for `length = 875`.
+* It will be a match.
+* So, it increases the bar.
+* Now, it might check for `length = 940`.
+* It will be a match.
+* So, it increases the bar.
+* Now, it might check for `length = 970`.
+* It will be a match.
+* So, it increases the bar.
+* Now, it might check for `length = 985`.
+* It will be a match.
+* So, it increases the bar.
+* Now, it might check for `length = 992`.
+* It will be a match.
+* So, it increases the bar.
+* Now, it might check for `length = 996`.
+* It will be a match.
+* So, it increases the bar.
+* Now, it might check for `length = 998`.
+* It will be a match.
+* So, it increases the bar.
+* Now, it might check for `legnth = 999`.
+* It will be a match.
+* So, it increases the bar.
+* But now the range becomes invalid.
+* So, we can see how quickly we could find the `matchLen` that follows the possible `mismatch`.
+* We didn't try `999` times.
+* So, let us implement the binary search.
+
+---
+
+**How do we implement the binary search?**  
+**Where do we implement the binary search?**  
+**What does it need?**  
+**How does it get it?**  
+
+---
+
+* A binary search needs a range or boundaries: `start` and `end`.
+* We are expecting to get a `length`.
+* So, these `start` and `end` boundaries/ranges represent the `minimum length` and the `maximum length` respectively.
+
+---
+
+**What is the `maximum length`?**
+
+---
+
+* 
 
 //ToDo: 
 
