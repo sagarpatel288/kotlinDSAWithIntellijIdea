@@ -330,6 +330,17 @@ for (i in 0 .. (text.length - pattern.length)) {
 * But now the range becomes invalid.
 * So, we can see how quickly we could find the `matchLen` that follows the possible `mismatch`.
 * We didn't try `999` times.
+
+---
+
+* The naive algorithm that compares character by character, takes longer time to find the `mismatches`.
+* It takes `|T| * |P|` time.
+* If `|T| = 2_00_000` and `|P| = 1_00_000`, then it takes `|T| * |P| = TLE!`.
+* So, we need a way to find the `mismatches` faster.
+* If we find the `matches = match length = matchLen` faster, then the next stop is the `mismatch`.
+* Because after the `matchLen`, we land on the `mismatch`.
+* The binary search helps us find the `matchLen` faster than the naive approach.
+* Consecutively, we find the `mismatches` faster.
 * So, let us implement the binary search.
 
 ---
@@ -351,7 +362,7 @@ for (i in 0 .. (text.length - pattern.length)) {
 
 ---
 
-* 
+* //ToDo: Explain how `p` determines (helps us find) the `end = maximum length`.
 
 //ToDo: 
 
