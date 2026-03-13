@@ -30,6 +30,7 @@
   * [Time Complexity](#time-complexity)
   * [Space Complexity](#space-complexity)
   * [Grader output](#grader-output)
+  * [ToDo](#todo)
 <!-- TOC -->
 
 ## Problem Introduction
@@ -1697,6 +1698,9 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 ```
 
 ## ToDo
+
+* Idea to code translation, step by step, one step at a time, with oversimplification and detailed explanation.
+* Various reflective questions and their answers with examples and analogies.
 
 **The outermost for loop**
 
