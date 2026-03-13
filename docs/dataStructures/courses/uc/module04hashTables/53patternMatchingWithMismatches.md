@@ -17,7 +17,6 @@
   * [Solution](#solution)
     * [Intuition](#intuition)
       * [Naive approach: Brute Force](#naive-approach-brute-force)
-      * [Overview Of Idea: Overall Approach / Thought Process](#overview-of-idea-overall-approach--thought-process)
       * [Binary Search And Prefix Hashes With Double Hashing](#binary-search-and-prefix-hashes-with-double-hashing)
       * [Outer `for-loop`](#outer-for-loop-)
     * [Observation and Insights: ToDo// Confirm this understanding.](#observation-and-insights-todo-confirm-this-understanding)
@@ -108,7 +107,7 @@ C: 2 sec, C++: 2 sec, Java: 5 sec, Python: 40 sec. C#: 3 sec, Haskell: 4 sec, Ja
 #### Naive approach: Brute Force
 
 **How do we naively compare two strings?**  
-**Pseudocode (core part) of naive implementation:**  
+**Pseudocode (core part) of the naive implementation:**  
 
 * We want to check if the pattern exists (one or multiple times) in the text with `k` allowed mismatches.
 * We compare two strings character by character.
@@ -224,6 +223,9 @@ k (Allowed mismatches) = 1
 * Similarly, we cannot take `i = 7`, because that will give us the text window `ab` whose length is less than the pattern.
 * Similarly, we cannot take `i = 8`, because that will give us the text window `b` whose length is less than the pattern.
 * It means that the last point `i` can go for a text window is `5` for the text whose length is `9` when the pattern length is `4`.
+
+![185patternMatchingWithMismatchesLastWindowPosition.png](../../../../../assets/images/dataStructures/uc/module04HashTables/185patternMatchingWithMismatchesLastWindowPosition.png)
+
 * If we do the math, it is `text.length - pattern.length = 9 - 4 = 5`.
 * So, `i` can only go from `0` to `text.length - pattern.length`.
 
@@ -276,10 +278,10 @@ for (i in 0 .. (text.length - pattern.length)) {
 
 * Now, our objective is to get a `length` from the binary search.
 * Then, we will compare the substrings of this `length`.
-* If they match, we will try the longer `length`.
-* If they don't match, we will try the shorter `length`.
+* If they match, we will try a longer `length`.
+* If they don't match, we will try a shorter `length`.
 * When we exhaust (after trying the possible lengths, by concluding something, or anyhow), we will have a `matchLen`.
-* The `matchLen` means a common substring between the text and the pattern of some `length`.
+* The `matchLen` means length of a common substring between the text and the pattern.
 * It means that, after this `matchLen`, we have a `mismatch`.
 
 ---
@@ -363,91 +365,12 @@ for (i in 0 .. (text.length - pattern.length)) {
 ---
 
 * //ToDo: Explain how `p` determines (helps us find) the `end = maximum length`.
+* The maximum length we can compare is the length of the pattern!
+* So, `end = maximum length = pattern.length`.
 
 //ToDo: 
 
-* Now, the very first thing we need to improve here is applying the boundary to the maximum possible window size (length).
-* For example, if the text window is `abcdefgh`, and the pattern window is `abc`, we know that there is no point of taking any text window longer than the size (length) of the pattern window.
-* Because a longer text substring than the pattern itself can never be a match.
-* So, we avoid such cases.
-
-**How do we ensure that we don't compare a text window longer than the pattern window?**
-
-* By applying the boundary on the text window.
-
-```kotlin
-
-for (i in 0 until (text.length - pattern.length)) {
-    
-}
-
-```
-
-* It means that the starting index of the text window can go only up to `text.length - pattern.length`.
-* For example, if the text is `abcdefgh`, and the pattern is `xgh`, the starting index of the last text window will be `text.length - pattern.length = 8 - 3 = 5`.
-* So, the starting index of the last text window is `i = 5` and the last text window that we can get is `fgh`.
-
-**How does that limit the window length?**
-
-* //ToDo: Explain.
-
-* The next big thing we need to improve here is correcting (eliminating) the process that compares two substrings of different lengths.
-* For example:
-
-```kotlin
-
-for (i in 0 .. (text.length - pattern.length)) {
-    
-    for (j in 0 until pattern.length) {
-        
-    }
-}
-
-```
-
-* The problem with this lexical for-loops is that we compare two substrings of different lengths.
-* And we know that they will never match.
-* For example, suppose that the text is `abcdefgh`, and the pattern is `xyabcdef`.
-* Now, suppose that the starting index of the text window is `i = 0`.
-* So, we will get multiple text windows like below:
-
-```
-a, ab, abc, abcd, abcde, abcdef, abcdefg, abcdefgh
-```
-
-* Similarly, when `j = 0`, we will get multiple pattern windows like below:
-
-```
-x, xy, xya, xyab, xyabc, xyabcd, xyabcde, xyabcdef
-```
-
-* Now, what is the point of comparing the text window `a` with the pattern window `xy`, `xya`, or any other pattern window whose length is greater than (or smaller than) the text window?
-* They will never match.
-* It means that we want to keep the pattern window length similar to the text window length.
-* We may change the starting index of the pattern window to cover each substring (window) of the pattern having the same length as the text window (substring).
-
-**And how far this starting index of the pattern can go(move)?**
-
-* We cannot move the starting index of the pattern beyond the `pattern.length`.
-* So, it will be like:
-
-```kotlin
-
-for (i in 0 .. (text.length - pattern.length)) {
-    var p = 0 // Starting index of the pattern
-    while (p < pattern.length) {
-        
-    }
-}
-
-```
-
-**How do we find the length?**
-
-**How do we ensure that we compare two substrings (windows) of equal lengths only and avoid redundant comparisons?**
-
-#### Overview Of Idea: Overall Approach / Thought Process
-
+---
 
 ```
 
@@ -503,7 +426,7 @@ for (i in 0 .. (text.length - pattern.length)) {
 * The variable `p` starts from `0`.
 * Without binary search, we would have to compare every character of the pattern with the text window.
 * So, inside the pattern iteration, we take binary search.
-* Using the binary search, we get the best `matchLen` and total `mismatches` quickly.
+* Using the binary search, we get the longest `matchLen` and total `mismatches` quickly.
 * After the binary search, we make `t` and `p` jump over the `matchLen`, and land on the `mismatch`.
 * If `mismatches > k`, `p > pattern.length`, or `t > text.length`, we break the loop for the current `i`, and repeat for the next `i`.
 * After the pattern iteration, if `mismatches <= k`, we add `i` to the result.
@@ -529,9 +452,9 @@ for (i in 0 .. (text.length - pattern.length)) {
 * So, we get the `matchLen = 4`.
 * Similarly, if we find that `abcd` does not match, then it means that there is no point in checking a substring that starts from `a` and has a length of `> 4`. 
 * Because if `abcd` does not match, then it is obvious that `abcde`, `abcdef`, `abcdefg`, etc. will also not match.
-* So, the idea is to get the `matchLen` using the binary search power.
+* So, the idea is to get the longest common `matchLen` using the binary search power.
 * The benefit of using the binary search power is to quickly find the `matchLen` and the next `mismatch`.
-* For example, if the text window is `abcdefg` and the pattern window is `abcxefg`, we quickly find that `abc` is the `matchLen`.
+* For example, if the text window is `abcdefg` and the pattern is `abcxefg`, we find it quickly that `abc` is the `matchLen`.
 * And the immediate character past the `matchLen` represents the `mismatch`.
 * So, once we jump over the `matchLen`, we land on the `mismatch`.
 * So ultimately, the binary search power helps us find the `mismatch` quickly.
@@ -542,48 +465,45 @@ for (i in 0 .. (text.length - pattern.length)) {
 * Based on these values, we find the `mid` length, that we give to the prefix hash formula.
 * Now, we know that we are comparing the text window with the pattern window.
 * And it is given that the $text.length >= pattern.length$.
-* So, we are sure that the `end` value cannot be greater than the `pattern.length`.
-* However, we are not comparing each text window with the entire pattern length.
-* For example, what is the point of checking the text window `ab` with the pattern window `abcxefg` as it will never match.
-* In other words, we should not compare the text window whose length is different from the pattern window or the other way around.
-* In the same way, we cannot always compare the entire pattern with each text window.
-* Because if the substrings do not match with each other, we cannot know the number of mismatches.
-* It means that we have to compare each text window with the fragments of the pattern window using the binary search power.
+* So, we are sure that the value of `end (maximum length to compare with)` cannot be greater than the `pattern.length`.
+
+---
+
+**Why don't we just compare each text window with the entire pattern length?**
+
+**Review**
+
+* Because if we only compare the entire pattern with a text window and if they don't match, we cannot know about mismatches.
+* For example, we cannot say where is/are the mismatch/es, how many mismatches are there, etc.
+* It means that we have to compare each text window with the segments of the pattern using the binary search power.
 * If we find that the substrings match with each other, we increase the length bar.
 * Otherwise, we decrease the length bar.
 * Now, to monitor (track) the number of characters we have checked on the text window, we use the variable `t`.
-* Similarly, to monitor (track) the number of characters we have checked on the pattern window, we use the variable `p`.
-* For example, suppose the text is `abcde`, and the pattern is `xybcx`.
-* So, when `i = 0`, we get different text windows as below:
+* Similarly, to monitor (track) the number of characters we have checked on the pattern, we use the variable `p`.
 
-```
-a, ab, abc, abcd, abcde
-```
+---
 
-* Suppose, the current text window is `abc`.
-* So, we compare this text window with all the pattern windows.
-* So, we get the following pattern windows of the same length:
+**Why do we need the variable `p`? What does it represent/indicate/convey?**
 
-```
-xyb -> Starting index p = 0   
-ybc -> Starting index p = 1   
-bcx -> Starting index p = 2  
-```
+//ToDo: Connect the below explanation (rationale) of the variable `p` somewhere.
 
-* It means that we need some variable to monitor (track) the number of characters we have processed so far on the pattern for a particular window.
+* It means that we need a variable to monitor (track) the number of characters we have processed so far on the pattern.
 * So, we take the variable `p`.
 * Now, using this variable `p`, we decide the `end` value.
 * For example, if `p = 0`, then we can compare the entire `pattern.length`.
 * If `p = 1`, then the maximum pattern length we can compare is `pattern.length - 1`.
 * For example, if the pattern is `xybcx`, which is of length `5`.
-* And if `p = 1`, then the maximum pattern that we can compare is `ybcx` whose length is `4` which is `pattern.length - p = 5 - 1 = 4`.
-* So, we get `end = maximum length` value using `p`.
+* And if `p = 1`, then the maximum pattern that we can compare is `ybcx` whose length is `4`. 
+* So, `end = maximum length` is `pattern.length - p = 5 - 1 = 4`.
+* It means that we can get `end = maximum length` value using `p`.
 * We use this value for the binary search process to find the `mid length`.
 * Then, we give this `length` to the prefix hash formula. 
 * The prefix hash formula needs two things: The starting index of the substring, and the `length`.
-* The variable `t` provides the starting index for the text window, and the variable `p` provides the starting index for the pattern.
-* We compare each text window with all the pattern windows.
-* For each new text window, the pattern window starts from `p = 0`.
+* The variable `t` is the current index (pointer) of the text window, and the variable `p` is the current index (pointer) of the pattern.
+* We want to compare `Text[t, t + mid]` with `Pattern[p, p + mid]`.
+* For each new text window, the pattern comparison starts from `p = 0`.
+
+---
 
 **When and how do we change the text and the pattern window?**
 
@@ -594,6 +514,8 @@ bcx -> Starting index p = 2
 **Overview**
 
 //ToDo: We may need to correct a few things here.
+
+---
 
 * A text window starts from `i`.
 * `t` starts from `i` and keeps increasing as long as `t < text.length`.
@@ -620,6 +542,8 @@ bcx -> Starting index p = 2
   * If `mismatches <= allowed` by the time we finished the pattern, we add `i` to the result.
   * Because the text window that starts from this `i` has a pattern with allowed mismatches.
 * We continue this game as long as `i < text.length`.
+
+---
 
 #### Binary Search And Prefix Hashes With Double Hashing
 
@@ -763,22 +687,13 @@ for (i in 0 .. (text.length - pattern.length)) {
 * This is the sliding window of the text string that moves from left to right, character by character.
 * And for the window length, it uses the inner binary search.
 * We will find hashes of different substrings of different lengths.
-* For example, for length 1, 2, 3, ... < text.length
-* Here, `t` represents the starting index of the window.
-* It means that for each `t`, we will have different substrings of different lengths.
-* For example, suppose `text = abcdefg`.
-* So, when `t = 0`, we get different substrings like `a`, `ab`, `abc`, `abcd`, `abcde`, `abcdef`, `abcdefg`, etc.
-* Similarly, when `t = 1`, we get different substrings like `b`, `bc`, `bcd`, `bcde`, `bcdef`, `bcdefg`, etc.
-* And so on...
-* We compare these windows with the pattern.
-* Note that we are going to use binary search.
-* It means that we optimize this process by discarding certain windows and substrings.
-* For example, we may not start from length = 1.
-* We may start from length = 3.
-* And if we find that certain window matches with the pattern, we skip all the windows having length less than 3.
-* And, if we find that there is no match with length 3, we discard all the windows having length more than 3.
+* For example, for length 1, 2, 3, ... < `pattern.length`.
+* The variable `i` represents the starting index of a text window.
+* The variable `t` represents the current index of the text window.
 
-**How do we compare the windows of the text with the windows of the pattern?**
+---
+
+**How do we compare the windows of the text with the pattern?**
 
 * Binary search gives us a length to try.
 * Using this length, we can find and compare the hash codes of different substrings of this given length.
@@ -788,25 +703,7 @@ $H(a, l) = (H(a + l) - (H(a) * base^{l})) \mod  prime$
 
 **How do we get these starting points?**
 
-* The outer `for-loop` gives us the starting point for the **text window**.
-
-```kotlin
-
-// The `i` represents the starting point for each window
-for (i in 0 .. (text.length - pattern.length))
-
-```
-
-* Similarly, the `while-loop` gives us the starting points for the **pattern windows**.
-
-```kotlin
-
-var p = 0 // The starting index of the pattern window. 
-while (p < pattern.length) {
-    
-}
-
-```
+//ToDo:
 
 **How do we arrange these two `loops`?**
 
@@ -830,94 +727,20 @@ for (i in 0 .. (text.length - pattern.length)) {
 
 * Now, in order to get the `length`, the binary search needs two things: **Start** and **End**.
 * So, how do we get that?
-* We might think about the `i` of the `outer-for-loop`, and `j` of the `inner-for-loop`.
-* But are they mutable variables or fixed values?
-* Because we have seen that we take these `start` and `end` variables as mutable variables in the binary search process.
-* So that we can change their values during our binary search.
-* They act as boundaries or a range that we increase or decrease (i.e., change, mutate) during the binary search process. 
-* Let us recall the objective.
-* The `i` of the `outer-for-loop` represents the starting index of a text window.
-* The `j` of the `inner-for-loop` represents the starting index of a pattern window.
-* Let us say, the text is `abcdefgh`, and the pattern is `xyabcdef`.
-* And for a particular value of `i`, for example, suppose `i = 0`, we will get the following windows (substrings) of different lengths for the text:
-```
-a, ab, abc, abcd, abcde, abcdef, abcdefg, abcdefgh
-```
-* Suppose that at some point, we are at window `abc`.
-* At this moment, the starting index of the text window is `i = 0`.
-* And the length of the window is `3`.
-* Now, we will be comparing this window with each pattern window having the same length.
-* So, we will be comparing the text window `abc` with the following pattern windows:
-```
-xya, yab, abc
-```
-* At some point, we find that the text window `abc` matches with the pattern window when the starting index of the pattern window is `p = 2`.
-* And the moment we find a matching window, we want to increase the bar.
-* We want to stretch the length to see the longest common substring at this point.
-* We want to check how far they can go (how far they match).
-* Now, the purpose of the binary search is to reduce these efforts to a logarithmic time.
-* So, instead of increasing the length of the window by 1 each time, we want to take certain `length`.
-* And based on the result of this `length`, either we increase the bar or decrease the bar.
-* For example, suppose the starting index of the text window is `i = 0`, and length of the window is `l = 4`.
-* So, it is the `abcd` substring (window) of the text.
-* Now, we find that it matches with the starting index of the pattern window `p = 2` and `l = 4`.
-* Now, we don't need to compare any other windows (substrings) of the text where `i = 0` and `l <= 4` with any other windows (substrings) of the pattern where `p = 2` and `l <= 4`.
-* Because we know that all such windows will match with each other.
-* So, we want to increase the bar.
-* Now, we are interested in `l > 4`.
-* The length `l` is based upon the values of `start` and `end`.
-* And if we take (treat) `i` as the `start` value, we cannot change it.
-* Because `i` is a fixed, immutable value of the relevant `for-loop`.
-* So, we take some extra variables.
-* We store the value of `i` into a mutable variable.
-* So, it becomes: 
 
-```kotlin
+//ToDo:
 
-for (i in 0..(text.length - pattern.length)) {
-    var t = i
-    var p = 0
-    while (p < pattern.length) {
-        
-    }
-}
-
-```
 * Let us understand what each variable represents here.
 
-> `i` represents the starting index of the text window. But it is a fixed (immutable) value that we cannot change.  
-> In a binary search, we change the `start` and the `end` boundary or range.  
-> It means that we need these `start` and `end` variables as mutable variables.  
-> So, we take a mutable variable `t` that represents the starting index of the text window, but it is mutable.  
-> Then, we change the starting index of the pattern to get different pattern windows that we can compare with the text window.  
-> Again, this starting index has to be mutable.  
-> So, we take `p` that represents the starting index of the pattern window.    
-
-* Now, we know that `p` represents the starting index of the pattern.
-* And we move `p` to get different windows of the pattern.
-* For example, if the pattern is `xyabcde`, and `p = 2`, then the longest possible length and the last pattern window is:
-
-```
-abcde
-```
-
-* Notice that if pattern is `xyabcde`, and when `p = 2`, the longest length and the last pattern window is `pattern.length - p = 7 - 2 = 5`.
-* That's the `end` boundary.
-* Beautiful math!
-* So, it is like:
-
-```kotlin
-
-start = 0
-end = pattern.length - p
-
-```
+//ToDo:
 
 **Where does this `start` and `end` boundary go?**
 
 * According to the problem, `text.length >= pattern.length`.
-* So, we compare each `text window` with all the `pattern windows`.
+* So, we compare each `text window` with the `pattern`.
 * So, it goes like below:
+
+**Implementation of the binary search**
 
 ```kotlin
 
@@ -936,35 +759,19 @@ for (i in 0..(text.length - pattern.length)) {
 
 ```
 
-* We compare each text window with all the pattern windows.
-* To get the different pattern windows, we change (move) the starting index in the pattern.
-* Based on the starting index value, we get the maximum (longest) possible length of the window.
-* And that's how we get the `end` value for our binary search.
-* Using these `start` and `end` values, we find the `mid` length.
-* And now we have the starting index of the text window (`t`), the starting index of the pattern window (`p`), and the common length for both of them (`mid`).
-* We use these `t`, `p`, and `mid` values to get the hash codes of a substring using the below formula:
+**What happens in the binary search? What does it do? How does it do that? What does it need to do that? How does it get it to do whatever it does?**
 
-$$
-H(a, l) = (H(a + l) - (H(a) * base^{l})) \mod prime
-$$
-
-* Where, `a` is the starting index, and `l` is the length.
-
-**Do you understand what each line convey and do in the above code?**
-
-* 
+//ToDo:
 
 **Why do we take the smallest possible length, `start = 0` instead of `start = 1`?**
 
 * 
 
-**Why don't we just take only those windows which has a length of $pattern.length$ ?**  
-
-* 
-
+**Why don't we just take only those windows which has a length of $pattern.length$ ?**
 **Why don't we compare the entire pattern with the text windows?** 
 
 * Because if we only take the entire length, we will not be able to know about the number of mismatches if there are any.
+* We will not know where is/are these mismatches if there are any.
 
 **How can we get to know that allowing k-mismatches would make two different substrings equal?**
 
@@ -984,29 +791,14 @@ $$
 
 **And what about those two starting indices: `t` and `p`? How do we get them?**
 
-* Input requires the total number of substrings we found, followed by their starting indices in the text.
+* Output requires the total number of substrings we found, followed by their starting indices in the text.
 * How do we find the starting indices of matched substrings?
 
 ```
 for (t in 0 until (text.length - pattern.length)) {
-    // Did you understand why we take the variable `p` outside the `while` loops?
-    // For each new text window, we start pattern comparison from the beginning.
-    // This is to check if the `pattern` starts from `t`.
     var p = 0
-    // Did you understand the purpose of this outer while loop?
     while (p < pattern.length) {
-        // binary search
         var start = p
-        // Did you understand this?
-        // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
-        // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
-        // That is: `pattern.length - p = 6 - 3 = 3`.
-        // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
-        // The `start` represents the smallest possible substring length.
-        // And `end` represents the highest possible substring length.
-        // We keep changing the `start`, `end`, and `p` values based on the `match length`.
-        // Hence, we need to adjust the value of the highest possible substring length.
-        // And this is the formula to ensure we consider and calculate it properly.
         var end = pattern.length - p
         while (start <= end) {
             val mid = start + (end - start) / 2
@@ -1025,9 +817,9 @@ for (t in 0 until (text.length - pattern.length)) {
 ```
 
 * Now, we need to add a couple of more things here.
-* `matchLen` counter
-* `mismatches` counter
-* Starting index of the pattern matching with mismatches
+* `matchLen` counter.
+* `mismatches` counter.
+* Starting index of the pattern matching with k-allowed mismatches.
 
 **Did you understand why do we need to add them?**
 
@@ -1044,38 +836,17 @@ for (t in 0 until (text.length - pattern.length)) {
 * It is our `jump`.
 * This is where we leverage the binary search implementation.
 * For example, suppose the text is `abcdef` and the pattern is `abcxyz` and the allowed mismatch is `k = 1`.
-* Now, as long as we learn it through the binary search that `abc` matches, we can skip the character-by-character
-* matching for `b` and `c`, and we can jump over `d` in the text and `x` in the pattern.
+* Now, as long as we learn it through the binary search that `abc` matches, we can skip the character-by-character matching for `b` and `c`, and we can jump over `d` in the text and `x` in the pattern.
 * So, we can directly assign that pointer (index) `t = 3` and `p = 3`.
 * Let us implement this part.
 
 ```
-// Did you understand the purpose of this outer for loop?
-// This is the sliding window of the text string that moves from left to right, character by character.
-// And for the window length, it uses the inner binary search.
 for (i in 0 until (text.length - pattern.length)) {
-    // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
     var t = i
-    // Did you understand why we take the variable `p` outside the `while` loops?
-    // For each new text window, we start pattern comparison from the beginning.
-    // This is to check if the `pattern` starts from `t`.
     var p = 0
-    // Did you understand the purpose of this outer while loop?
     while (p < pattern.length) {
-        // binary search
         var start = p
-        // Did you understand this?
-        // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
-        // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
-        // That is: `pattern.length - p = 6 - 3 = 3`.
-        // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
-        // The `start` represents the smallest possible substring length.
-        // And `end` represents the highest possible substring length.
-        // We keep changing the `start`, `end`, and `p` values based on the `match length`.
-        // Hence, we need to adjust the value of the highest possible substring length.
-        // And this is the formula to ensure we consider and calculate it properly.
         var end = pattern.length - p
-        // Did you understand why do we take `matchLen` here between these two `while` loops?
         var matchLen = 0
         while (start <= end) {
             val mid = start + (end - start) / 2
@@ -1098,7 +869,7 @@ for (i in 0 until (text.length - pattern.length)) {
 
 * And notice the interesting pattern here.
 * The point where the binary search exits is the `mismatch` character `d` in the text Vs `x` in the pattern.
-* But this is valid only `if index p is less than pattern.length`.
+* But this is valid only `if index `p` is less than pattern.length`.
 * For example, `p += matchLen` could make the `p` jump to `pattern.length`.
 * For example, if the text was `abcdef` and the pattern was `abc`, the `jump` would make `p = 3`.
 
@@ -1112,32 +883,12 @@ p = 3
 * Let us implement this.
 
 ```
-// Did you understand the purpose of this outer for loop?
-// This is the sliding window of the text string that moves from left to right, character by character.
-// And for the window length, it uses the inner binary search.
 for (i in 0 until (text.length - pattern.length)) {
-    // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
     var t = i
-    // Did you understand why we take the variable `p` outside the `while` loops?
-    // For each new text window, we start pattern comparison from the beginning.
-    // This is to check if the `pattern` starts from `t`.
     var p = 0
-    // Did you understand the purpose of this outer while loop?
     while (p < pattern.length) {
-        // binary search
         var start = p
-        // Did you understand this?
-        // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
-        // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
-        // That is: `pattern.length - p = 6 - 3 = 3`.
-        // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
-        // The `start` represents the smallest possible substring length.
-        // And `end` represents the highest possible substring length.
-        // We keep changing the `start`, `end`, and `p` values based on the `match length`.
-        // Hence, we need to adjust the value of the highest possible substring length.
-        // And this is the formula to ensure we consider and calculate it properly.
         var end = pattern.length - p
-        // Did you understand why we take the `matchLen` here between these two `while` loops?
         var matchLen = 0
         while (start <= end) {
             val mid = start + (end - start) / 2
@@ -1199,49 +950,12 @@ p++
 * So, it becomes safer as:
 
 ```
-// Did you understand the purpose of this outer for loop?
-// This is the sliding window of the text string that moves from left to right, character by character.
-// And for the window length, it uses the inner binary search.
 for (i in 0 until (text.length - pattern.length)) {
-    // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
     var t = i
-    // Did you understand why we take the variable `p` outside the `while` loops?
-    // For each new text window, we start pattern comparison from the beginning.
-    // This is to check if the `pattern` starts from `t`.
     var p = 0
-    // Did you understand the purpose of this outer while loop?
     while (p < pattern.length) {
-        // binary search
         var start = p
-        // Did you understand this?
-        // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
-        // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
-        // That is: `pattern.length - p = 6 - 3 = 3`.
-        // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
-        // The `start` represents the smallest possible substring length.
-        // And `end` represents the highest possible substring length.
-        // We keep changing the `start`, `end`, and `p` values based on the `match length`.
-        // Hence, we need to adjust the value of the highest possible substring length.
-        // And this is the formula to ensure we consider and calculate it properly.
         var end = pattern.length - p
-        // Did you understand why we take `matchLen` here between these two `while` loops?
-        // It is the binary search that gives us the `matchLen` result.
-        // So, the `matchLen` must be re-initialized before every binary search.
-        // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
-        // But we are also changing `p`.
-        // Each `p` represents a unique comparison.
-        // For example, text = `abcdef`, and pattern = `xycdef`.
-        // Now, for `t = 2`, it might go as below:
-        // For every `t`, `p` starts with `0`.
-        // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
-        // Now, `p` moves to the next position.
-        // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
-        // Again, `p` moves to the next position.
-        // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
-        // The `matchLen` result is for specific starting positions `t` and `p`.
-        // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
-        // Changing `p` must reset the `matchLen`.
-        // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
         var matchLen = 0
         while (start <= end) {
             val mid = start + (end - start) / 2
@@ -1330,10 +1044,10 @@ p = 4 // at character `y` of the pattern string `abcxyz`.
 
 * The binary search gives us the `matchLen`.
 * And by jumping over the `matchLen`, we land upon the `mismatch`.
-* Imagine the `matchLen` as a highway, and `mismatch` as a local, rough road.
-* The moment we cross the `matchLen`, we land upon the local-rough road.
+* Imagine the `matchLen` as a highway, and `mismatch` as a local, rough road or a pothole.
+* The moment we cross the `matchLen`, we land upon the local-rough road or the pothole.
 * We not only know the `matchLen`, but we also know the `mismatch`.
-* So, we not only jump over the `matchLen`, but we also jump over the `mismatch`.
+* So, we not only jump over the `matchLen`, but we also cross the `mismatch`.
 * That's why:
 
 ```
@@ -1373,53 +1087,16 @@ p = 4 // at character `y` of the pattern string `abcxyz`.
 * Once we make a jump, and if we are still under `p < pattern.length`, we land upon a `mismatch`.
 * When and where the `matchLen` ends, the `mismatch` starts.
 * Otherwise, if the `mismatch` was not a mismatch, it would have become part of the `matchLen`!
-* Hence, after the `matchLen`, it is always a `mismatch` (- as long as `p < pattern.length`).
+* Hence, after the `matchLen`, it is always a `mismatch` (as long as `p < pattern.length`).
 * So, it becomes:
 
 ```
-// Did you understand the purpose of this outer for loop?
-// This is the sliding window of the text string that moves from left to right, character by character.
-// And for the window length, it uses the inner binary search.
 for (i in 0 until (text.length - pattern.length)) {
-    // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
     var t = i
-    // Did you understand why we take the variable `p` outside the `while` loops?
-    // For each new text window, we start pattern comparison from the beginning.
-    // This is to check if the `pattern` starts from `t`.
     var p = 0
-    // Did you understand the purpose of this outer while loop?
     while (p < pattern.length) {
-        // binary search
         var start = p
-        // Did you understand this?
-        // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
-        // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
-        // That is: `pattern.length - p = 6 - 3 = 3`.
-        // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
-        // The `start` represents the smallest possible substring length.
-        // And `end` represents the highest possible substring length.
-        // We keep changing the `start`, `end`, and `p` values based on the `match length`.
-        // Hence, we need to adjust the value of the highest possible substring length.
-        // And this is the formula to ensure we consider and calculate it properly.
         var end = pattern.length - p
-        // Did you understand why we take `matchLen` here between these two `while` loops?
-        // It is the binary search that gives us the `matchLen` result.
-        // So, the `matchLen` must be re-initialized before every binary search.
-        // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
-        // But we are also changing `p`.
-        // Each `p` represents a unique comparison.
-        // For example, text = `abcdef`, and pattern = `xycdef`.
-        // Now, for `t = 2`, it might go as below:
-        // For every `t`, `p` starts with `0`.
-        // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
-        // Now, `p` moves to the next position.
-        // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
-        // Again, `p` moves to the next position.
-        // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
-        // The `matchLen` result is for specific starting positions `t` and `p`.
-        // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
-        // Changing `p` must reset the `matchLen`.
-        // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
         var matchLen = 0
         while (start <= end) {
             val mid = start + (end - start) / 2
@@ -1469,49 +1146,12 @@ for (i in 0 until (text.length - pattern.length)) {
 * So, it becomes:
 
 ```
-// Did you understand the purpose of this outer for loop?
-// This is the sliding window of the text string that moves from left to right, character by character.
-// And for the window length, it uses the inner binary search.
 for (i in 0 until (text.length - pattern.length)) {
-    // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
     var t = i
-    // Did you understand why we take the variable `p` outside the `while` loops?
-    // For each new text window, we start pattern comparison from the beginning.
-    // This is to check if the `pattern` starts from `t`.
     var p = 0
-    // Did you understand the purpose of this outer while loop?
     while (p < pattern.length) {
-        // binary search
         var start = p
-        // Did you understand this?
-        // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
-        // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
-        // That is: `pattern.length - p = 6 - 3 = 3`.
-        // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
-        // The `start` represents the smallest possible substring length.
-        // And `end` represents the highest possible substring length.
-        // We keep changing the `start`, `end`, and `p` values based on the `match length`.
-        // Hence, we need to adjust the value of the highest possible substring length.
-        // And this is the formula to ensure we consider and calculate it properly.
         var end = pattern.length - p
-        // Did you understand why we take `matchLen` here between these two `while` loops?
-        // It is the binary search that gives us the `matchLen` result.
-        // So, the `matchLen` must be re-initialized before every binary search.
-        // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
-        // But we are also changing `p`.
-        // Each `p` represents a unique comparison.
-        // For example, text = `abcdef`, and pattern = `xycdef`.
-        // Now, for `t = 2`, it might go as below:
-        // For every `t`, `p` starts with `0`.
-        // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
-        // Now, `p` moves to the next position.
-        // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
-        // Again, `p` moves to the next position.
-        // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
-        // The `matchLen` result is for specific starting positions `t` and `p`.
-        // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
-        // Changing `p` must reset the `matchLen`.
-        // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
         var matchLen = 0
         while (start <= end) {
             val mid = start + (end - start) / 2
@@ -1553,49 +1193,12 @@ for (i in 0 until (text.length - pattern.length)) {
 
 ```
 val result = mutableListOf<Int>()
-// Did you understand the purpose of this outer for loop?
-// This is the sliding window of the text string that moves from left to right, character by character.
-// And for the window length, it uses the inner binary search.
 for (i in 0 until (text.length - pattern.length)) {
-    // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
     var t = i
-    // Did you understand why we take the variable `p` outside the `while` loops?
-    // For each new text window, we start pattern comparison from the beginning.
-    // This is to check if the `pattern` starts from `t`.
     var p = 0
-    // Did you understand the purpose of this outer while loop?
     while (p < pattern.length) {
-        // binary search
         var start = p
-        // Did you understand this?
-        // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
-        // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
-        // That is: `pattern.length - p = 6 - 3 = 3`.
-        // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
-        // The `start` represents the smallest possible substring length.
-        // And `end` represents the highest possible substring length.
-        // We keep changing the `start`, `end`, and `p` values based on the `match length`.
-        // Hence, we need to adjust the value of the highest possible substring length.
-        // And this is the formula to ensure we consider and calculate it properly.
         var end = pattern.length - p
-        // Did you understand why we take the `matchLen` here between these two `while` loops?
-        // It is the binary search that gives us the `matchLen` result.
-        // So, the `matchLen` must be re-initialized before every binary search.
-        // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
-        // But we are also changing `p`.
-        // Each `p` represents a unique comparison.
-        // For example, text = `abcdef`, and pattern = `xycdef`.
-        // Now, for `t = 2`, it might go as below:
-        // For every `t`, `p` starts with `0`.
-        // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
-        // Now, `p` moves to the next position.
-        // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
-        // Again, `p` moves to the next position.
-        // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
-        // The `matchLen` result is for specific starting positions `t` and `p`.
-        // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
-        // Changing `p` must reset the `matchLen`.
-        // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
         var matchLen = 0
         while (start <= end) {
             val mid = start + (end - start) / 2
@@ -1632,7 +1235,7 @@ for (i in 0 until (text.length - pattern.length)) {
 
 * The outermost `while` loop, `while (p < pattern.length)`, starts with `p = 0` and covers the pattern length.
 * Every time we find a `mismatch`, we increase the `mismatches` counter.
-* If the `mismatches` counter is `<= k`, it inherently means that we have found a match.
+* After we finish iterating over the pattern, if the `mismatches` counter is `<= k`, it inherently means that we have found a match.
 * However, just in case where `pattern.length > text.length`, we can put this extra condition:
 
 ```
@@ -1648,51 +1251,13 @@ matchLen + mismatches == pattern.length
 
 ```
 val result = mutableListOf<Int>()
-// Did you understand the purpose of this outer for loop?
-// This is the sliding window of the text string that moves from left to right, character by character.
-// And for the window length, it uses the inner binary search.
 for (i in 0 until (text.length - pattern.length)) {
-    // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
     var t = i
-    // Did you understand why we take the variable `p` outside the `while` loops?
-    // For each new text window, we start pattern comparison from the beginning.
-    // This is to check if the `pattern` starts from `t`.
     var p = 0
-    // Start the `mismatches` counter as soon as we start the new text window.
     var mismatches = 0
-    // Did you understand the purpose of this outer while loop?
     while (p < pattern.length) {
-        // binary search
         var start = p
-        // Did you understand this?
-        // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
-        // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
-        // That is: `pattern.length - p = 6 - 3 = 3`.
-        // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
-        // The `start` represents the smallest possible substring length.
-        // And `end` represents the highest possible substring length.
-        // We keep changing the `start`, `end`, and `p` values based on the `match length`.
-        // Hence, we need to adjust the value of the highest possible substring length.
-        // And this is the formula to ensure we consider and calculate it properly.
         var end = pattern.length - p
-        // Did you understand why we take the `matchLen` here between these two `while` loops?
-        // It is the binary search that gives us the `matchLen` result.
-        // So, the `matchLen` must be re-initialized before every binary search.
-        // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
-        // But we are also changing `p`.
-        // Each `p` represents a unique comparison.
-        // For example, text = `abcdef`, and pattern = `xycdef`.
-        // Now, for `t = 2`, it might go as below:
-        // For every `t`, `p` starts with `0`.
-        // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
-        // Now, `p` moves to the next position.
-        // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
-        // Again, `p` moves to the next position.
-        // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
-        // The `matchLen` result is for specific starting positions `t` and `p`.
-        // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
-        // Changing `p` must reset the `matchLen`.
-        // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
         var matchLen = 0
         while (start <= end) {
             val mid = start + (end - start) / 2
@@ -1737,19 +1302,9 @@ for (i in 0 until (text.length - pattern.length)) {
 * The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
 * But we are also changing `p`.
 * Each `p` represents a unique comparison.
-* For example, text = `abcdef`, and pattern = `xycdef`.
-* Now, for `t = 2`, it might go as below:
-* For every `t`, `p` starts with `0`.
-* It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
-* Now, `p` moves to the next position.
-* So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
-* Again, `p` moves to the next position.
-* So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
-* The `matchLen` result is for specific starting positions `t` and `p`.
-* We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
-* Changing `p` must reset the `matchLen`.
-* Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
-* That's why the right place to initialize (or reset) the `matchLen` is between `while (p < patten.length)` and before we start the binary search.
+* For example, 
+
+//ToDo:
 
 **What should be the `end-index limit` for the sliding window?**
 
@@ -1768,51 +1323,13 @@ for (i in 0..(text.length - pattern.length)) {
 
 ```
 val result = mutableListOf<Int>()
-// Did you understand the purpose of this outer for loop?
-// This is the sliding window of the text string that moves from left to right, character by character.
-// And for the window length, it uses the inner binary search.
 for (i in 0..(text.length - pattern.length)) {
-    // The text pointer starts with `i`, but we may `jump` based on `matchLen` provided by the binary search.
     var t = i
-    // Did you understand why we take the variable `p` outside the `while` loops?
-    // For each new text window, we start pattern comparison from the beginning.
-    // This is to check if the `pattern` starts from `t`.
     var p = 0
-    // Start the `mismatches` counter as soon as we start the new text window.
     var mismatches = 0
-    // Did you understand the purpose of this outer while loop?
     while (p < pattern.length) {
-        // binary search
         var start = p
-        // Did you understand this?
-        // Suppose, the pattern is `xycdef`, where |P| = 6, and `p = 3` representing the character `d`.
-        // Now, the longest possible substring length from this `p` position is: `pattern.length - p`.
-        // That is: `pattern.length - p = 6 - 3 = 3`.
-        // We use `start` and `end` to calculate `mid`, and `mid` represents a substring length.
-        // The `start` represents the smallest possible substring length.
-        // And `end` represents the highest possible substring length.
-        // We keep changing the `start`, `end`, and `p` values based on the `match length`.
-        // Hence, we need to adjust the value of the highest possible substring length.
-        // And this is the formula to ensure we consider and calculate it properly.
         var end = pattern.length - p
-        // Did you understand why we take the `matchLen` here between these two `while` loops?
-        // It is the binary search that gives us the `matchLen` result.
-        // So, the `matchLen` must be re-initialized before every binary search.
-        // The binary search tells us the maximum `matchLen` starting from `t` in text, and `p` in pattern.
-        // But we are also changing `p`.
-        // Each `p` represents a unique comparison.
-        // For example, text = `abcdef`, and pattern = `xycdef`.
-        // Now, for `t = 2`, it might go as below:
-        // For every `t`, `p` starts with `0`.
-        // It might compare `cde` with `xyc`, then `cd` with `xy`, then `c` with `x`.
-        // Now, `p` moves to the next position.
-        // So, it might compare `cde` with `ycd`, then `cd` with `yc`, then `c` with `y`.
-        // Again, `p` moves to the next position.
-        // So, it might compare `cde` with `cde`, then `cdef` with `cdef`.
-        // The `matchLen` result is for specific starting positions `t` and `p`.
-        // We should not apply, accumulate, or mix this `matchLen` with a different starting position, `p`.
-        // Changing `p` must reset the `matchLen`.
-        // Hence, every time we change `p`, and before we start the binary search, we reset the `matchLen`.
         var matchLen = 0
         while (start <= end) {
             val mid = start + (end - start) / 2
@@ -2167,3 +1684,4 @@ O(|T| * log(|P|))
 ```
 Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 ```
+
