@@ -154,6 +154,8 @@ k (Allowed mismatches) = 1
 * The variable `p` always starts from `0`, because `0` is the starting index of the pattern.
 * So, it looks like below:
 
+![190patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/190patternMatchingWithMismatchesWindow00.webp)
+
 > i = 0; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.   
 > t = 0; p = 0; Text[0] Vs. Pattern[0] = a Vs. a = Match!  
 > t = 1; p = 1; Text[1] Vs. Pattern[1] = a Vs. a = Match!  
@@ -169,6 +171,8 @@ k (Allowed mismatches) = 1
 * We finished the iteration over the pattern.
 * So, let us see the next text window that starts from `i = 1`.
 
+![192patternMatchingWithMismatchesWindowPointer01.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/192patternMatchingWithMismatchesWindowPointer01.webp)
+
 > i = 1; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.      
 > t = 1; Text[1] Vs. Pattern[0] = a Vs. a = Match!    
 > t = 2; Text[2] Vs. Pattern[1] = b Vs. a = Mismatch!  
@@ -179,6 +183,8 @@ k (Allowed mismatches) = 1
 
 * Now, `i = 2`:
 
+![194patternMatchingWithMismatchesWindowPointer02.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/194patternMatchingWithMismatchesWindowPointer02.webp)
+
 > i = 2; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.    
 > t = 2; Text[2] Vs. Pattern[0] = b Vs. a = Mismatch!  
 > t = 3; Text[3] Vs. Pattern[1] = b Vs. a = Mismatch!  
@@ -187,6 +193,8 @@ k (Allowed mismatches) = 1
 > So, we exit the pattern iteration and repeat the comparison for the next `i`.  
 
 * Now, `i = 3`:
+
+![196patternMatchingWithMismatchesWindowPointer03.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/196patternMatchingWithMismatchesWindowPointer03.webp)
 
 > i = 3; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.    
 > t = 3; Text[3] Vs. Pattern[0] = b Vs. a = Mismatch!  
@@ -198,6 +206,8 @@ k (Allowed mismatches) = 1
 
 * Now, `i = 4`:
 
+![198patternMatchingWithMismatchesWindowPointer04.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/198patternMatchingWithMismatchesWindowPointer04.webp)
+
 > i = 4; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.    
 > t = 4; Text[4] Vs. Pattern[0] = a Vs. a = Match!  
 > t = 5; Text[5] Vs. Pattern[1] = b Vs. a = Mismatch!  
@@ -208,6 +218,8 @@ k (Allowed mismatches) = 1
 > So, we repeat the comparison for the next `i`.    
 
 * Now, `i = 5`:
+
+![200patternMatchingWithMismatchesWindowPointer05.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/200patternMatchingWithMismatchesWindowPointer05.webp)
 
 > i = 5; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.      
 > t = 5; Text[5] Vs. Pattern[0] = b Vs. a = Mismatch!    
@@ -228,6 +240,8 @@ k (Allowed mismatches) = 1
 
 * If we do the math, it is `text.length - pattern.length = 9 - 4 = 5`.
 * So, `i` can only go from `0` to `text.length - pattern.length`.
+
+![187patternMatchingWithMismatchesAllWindows.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/187patternMatchingWithMismatchesAllWindows.webp)
 
 ```
 // This outer loop increments the starting index of the text window
@@ -273,16 +287,6 @@ for (i in 0 .. (text.length - pattern.length)) {
 * So, if we fly over the `match`, we land on the `mismatch`.
 * The benefit here is that we quickly cover the `matching` part.
 * We cover the `matching` part in a logarithmic time instead of taking `|T| * |P|` time.
-
----
-
-* Now, our objective is to get a `length` from the binary search.
-* Then, we will compare the substrings of this `length`.
-* If they match, we will try a longer `length`.
-* If they don't match, we will try a shorter `length`.
-* When we exhaust (after trying the possible lengths, by concluding something, or anyhow), we will have a `matchLen`.
-* The `matchLen` means length of a common substring between the text and the pattern.
-* It means that, after this `matchLen`, we have a `mismatch`.
 
 ---
 
@@ -344,6 +348,16 @@ for (i in 0 .. (text.length - pattern.length)) {
 * The binary search helps us find the `matchLen` faster than the naive approach.
 * Consecutively, we find the `mismatches` faster.
 * So, let us implement the binary search.
+
+---
+
+* Now, our objective is to get a `length` from the binary search.
+* Then, we will compare the substrings of this `length`.
+* If they match, we will try a longer `length`.
+* If they don't match, we will try a shorter `length`.
+* When we exhaust (after trying the possible lengths, by concluding something, or anyhow), we will have a `matchLen`.
+* The `matchLen` means length of a common substring between the text and the pattern.
+* It means that, after this `matchLen`, we have a `mismatch`.
 
 ---
 
@@ -417,6 +431,8 @@ for (i in 0 .. (text.length - pattern.length)) {
 
 ```
 
+![187patternMatchingWithMismatchesAllWindows.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/187patternMatchingWithMismatchesAllWindows.webp)
+
 ---
 
 * We compare every text window that starts from `i` with the pattern.
@@ -424,8 +440,8 @@ for (i in 0 .. (text.length - pattern.length)) {
 * The variable `t` starts from `i`.
 * We take `p` to track (monitor) how many characters we have processed for the pattern.
 * The variable `p` starts from `0`.
-* Without binary search, we would have to compare every character of the pattern with the text window.
-* So, inside the pattern iteration, we take binary search.
+* Without binary search, we have to compare each character of the pattern with each character of a text window, character-by-character.
+* To make it better, we take the binary search inside the pattern iteration.
 * Using the binary search, we get the longest `matchLen` and total `mismatches` quickly.
 * After the binary search, we make `t` and `p` jump over the `matchLen`, and land on the `mismatch`.
 * If `mismatches > k`, `p > pattern.length`, or `t > text.length`, we break the loop for the current `i`, and repeat for the next `i`.
@@ -463,7 +479,7 @@ for (i in 0 .. (text.length - pattern.length)) {
 * So, the variables `start` and `end` represent the `length` boundaries/ranges.
 * In other words, `start` represents the `minimum length` and the `end` represents the `maximum length`.
 * Based on these values, we find the `mid` length, that we give to the prefix hash formula.
-* Now, we know that we are comparing the text window with the pattern window.
+* Now, we know that we are comparing the text window with the pattern.
 * And it is given that the $text.length >= pattern.length$.
 * So, we are sure that the value of `end (maximum length to compare with)` cannot be greater than the `pattern.length`.
 
@@ -471,36 +487,31 @@ for (i in 0 .. (text.length - pattern.length)) {
 
 **Why don't we just compare each text window with the entire pattern length?**
 
-**Review**
-
 * Because if we only compare the entire pattern with a text window and if they don't match, we cannot know about mismatches.
 * For example, we cannot say where is/are the mismatch/es, how many mismatches are there, etc.
-* It means that we have to compare each text window with the segments of the pattern using the binary search power.
+
+---
+
+* First, we compare a smaller length of each text window with the equivalent length of the pattern using the binary search power.
 * If we find that the substrings match with each other, we increase the length bar.
 * Otherwise, we decrease the length bar.
 * Now, to monitor (track) the number of characters we have checked on the text window, we use the variable `t`.
 * Similarly, to monitor (track) the number of characters we have checked on the pattern, we use the variable `p`.
-
----
-
-**Why do we need the variable `p`? What does it represent/indicate/convey?**
-
-//ToDo: Connect the below explanation (rationale) of the variable `p` somewhere.
-
-* It means that we need a variable to monitor (track) the number of characters we have processed so far on the pattern.
-* So, we take the variable `p`.
 * Now, using this variable `p`, we decide the `end` value.
 * For example, if `p = 0`, then we can compare the entire `pattern.length`.
 * If `p = 1`, then the maximum pattern length we can compare is `pattern.length - 1`.
-* For example, if the pattern is `xybcx`, which is of length `5`.
-* And if `p = 1`, then the maximum pattern that we can compare is `ybcx` whose length is `4`. 
+* For example, suppose that the pattern is `xybcx`, which is of length `5`.
+* And if `p = 1`, then the maximum length that we can compare is `ybcx` whose length is `4`.
 * So, `end = maximum length` is `pattern.length - p = 5 - 1 = 4`.
+* Similarly, if `p = 2`, the maximum length that we can compare is `bcx` whose length is `3`.
+* If we do the math, then `maximum length that we can compare is = pattern.length - p`.
 * It means that we can get `end = maximum length` value using `p`.
 * We use this value for the binary search process to find the `mid length`.
 * Then, we give this `length` to the prefix hash formula. 
 * The prefix hash formula needs two things: The starting index of the substring, and the `length`.
 * The variable `t` is the current index (pointer) of the text window, and the variable `p` is the current index (pointer) of the pattern.
-* We want to compare `Text[t, t + mid]` with `Pattern[p, p + mid]`.
+* We compare the substring of the text window that starts from `t` and has a length of `mid`, with the substring of the pattern that starts from `p` and has a length of `mid`.
+* We compare `Text[from index t, to index = t + mid]` with `Pattern[from index p, to index = p + mid]`.
 * For each new text window, the pattern comparison starts from `p = 0`.
 
 ---
@@ -1685,3 +1696,51 @@ O(|T| * log(|P|))
 Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 ```
 
+## ToDo
+
+**The outermost for loop**
+
+* Why do we take `for (i in 0 .. (text.length - pattern.length))`?
+* What does the condition represent?
+* What does the loop represent?
+* How does it help?
+* What does it do?
+* How does it work?
+* When do we exit the loop?
+* What does it mean when we finish the loop?
+
+**The pattern loop**
+
+* Why do we take `while(p < pattern.length)`?
+* What does the condition represent?
+* What does the loop represent?
+* How does it help?
+* What does it do?
+* How does it work?
+* Why there is no `pattern window` similar to the `text window`?
+* When do we exit the loop?
+* What does it mean when we finish the loop?
+
+**The variables `t`, `p`, `matchLen`, and `mismatches`**
+
+* Why do we take them? 
+* What do they represent? 
+* How do they help? 
+* What do they do? 
+* How do they work?
+* What is the relation between them? How do they affect each other? How do they work (dance) together?
+* Does `t` and `p` move together?
+* When and how do they get changed? 
+* When and how do they get reset? 
+
+**The binary search**
+
+* Why do we take `while(start <= end)`?
+* What does the condition represent?
+* What does the loop represent?
+* How does it help?
+* What does it do?
+* How does it work?
+* Is it true that after every mismatch, the range is decreased?
+* When do we exit the loop?
+* What does it mean when we finish the loop?
