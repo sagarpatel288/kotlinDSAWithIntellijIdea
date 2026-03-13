@@ -31,6 +31,8 @@
   * [Space Complexity](#space-complexity)
   * [Grader output](#grader-output)
   * [ToDo](#todo)
+  * [Rough work](#rough-work-)
+    * [TL;DR](#tldr-)
 <!-- TOC -->
 
 ## Problem Introduction
@@ -1748,3 +1750,24 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * Is it true that after every mismatch, the range is decreased?
 * When do we exit the loop?
 * What does it mean when we finish the loop?
+
+## Rough work 
+
+### TL;DR 
+
+* `for (i in 0..(text.length - pattern.length))` to cover each text window of length `pattern`.
+* We compare each character of each text window with the pattern.
+* The variables `t` and `p` to cover each character of the text window and pattern respectively.
+* `while (p < pattern.length)` to cover each character of the pattern that we compare with each character of the text window.
+* `while (start <= end)` is our binary search to compare characters in bulk (substrings) instead of comparing them character-by-character.
+* `start` is the minimum length, `end` is the maximum length.
+* `p` helps us find the maximum length we can compare: `end = pattern.length - p`.
+* Using `start` and `end` values, we get the `mid` length to compare.
+* It gives us a `matchLen`.
+* If `matachLen = 0`, it means we are on the `mismatch`.
+* Otherwise, after the `matchLen`, we land on the `mismatch`.
+* `t += matchLen` and `p += matchLen`.
+* `mismatches++`.
+* If `mismatches > k`, we break the pattern loop, and try the next `i` (the next text window).
+* `t++` and `p++`.
+* Once we finish iterating over the pattern, if `mismatches <= k`, add `i` to the result.
