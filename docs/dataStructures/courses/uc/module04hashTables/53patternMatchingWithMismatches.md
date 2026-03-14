@@ -1703,53 +1703,135 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 
 * Idea to code translation, step by step, one step at a time, with oversimplification and detailed explanation.
 * Various reflective questions and their answers with examples and analogies.
+* If we are saying the same thing at different places, then maybe we need to put them together.
+* TL;DR Outline.
 
-**The outermost for loop**
+### The outermost for loop
 
-* Why do we take `for (i in 0 .. (text.length - pattern.length))`?
-* What does the condition represent?
-* What does the loop represent?
-* How does it help?
-* What does it do?
-* How does it work?
-* When do we exit the loop?
-* What does it mean when we finish the loop?
+**Why do we take `for (i in 0 .. (text.length - pattern.length))`?**
 
-**The pattern loop**
+**What does the condition represent?**
 
-* Why do we take `while(p < pattern.length)`?
-* What does the condition represent?
-* What does the loop represent?
-* How does it help?
-* What does it do?
-* How does it work?
-* Why there is no `pattern window` similar to the `text window`?
-* When do we exit the loop?
-* What does it mean when we finish the loop?
+**What does the loop represent?**
 
-**The variables `t`, `p`, `matchLen`, and `mismatches`**
+**How does it help?** 
 
-* Why do we take them? 
-* What do they represent? 
-* How do they help? 
-* What do they do? 
-* How do they work?
-* What is the relation between them? How do they affect each other? How do they work (dance) together?
-* Does `t` and `p` move together?
-* When and how do they get changed? 
-* When and how do they get reset? 
+**What does it do?**
 
-**The binary search**
+**How does it work?** 
 
-* Why do we take `while(start <= end)`?
-* What does the condition represent?
-* What does the loop represent?
-* How does it help?
-* What does it do?
-* How does it work?
-* Is it true that after every mismatch, the range is decreased?
-* When do we exit the loop?
-* What does it mean when we finish the loop?
+**When do we exit the loop?**
+
+**What does it mean when we finish the loop?**
+
+### The pattern loop
+
+**Why do we take `while(p < pattern.length)`?**
+
+**What does the condition represent?**
+
+**What does the loop represent?**
+
+**How does it help?**
+
+**What does it do?**
+
+**How does it work?**
+
+**Why there is no `pattern window` similar to the `text window`?**
+
+**When do we exit the loop?**
+
+**What does it mean when we finish the loop?**
+
+### The variables `t`, `p`, `start`, `end`, `mid`, `matchLen`, and `mismatches`
+
+**Why do we take them?**
+
+**What do they represent?**
+
+**How do they help?**
+
+**What do they do?**
+
+**How do they work?**
+
+**When, where, and how do we initialize and change them?**
+
+**What is the relation between them? How do they affect each other? How do they work (dance) together?**
+
+**Does `t` and `p` move together?**
+
+**What is the relation between `i`, `t`, and `p`?**
+
+* Visualization:
+
+![210patternMatchingWithMismatchesAllInOne.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/210patternMatchingWithMismatchesAllInOne.webp)
+
+* We have two substrings to compare.
+* Each substring of the text is known as a text window that we compare with the given pattern.
+* So, a text window is a substring that we compare with the given pattern.
+* These substrings, the text window and the pattern, might have multiple characters in it.
+* To compare these characters with each other, we take two variables: `t` and `p`.
+* The text can form multiple text windows starting from index `0`.
+* The variable `i` is the starting index of a text window.
+* A text window might have multiple characters.
+* To cover each character of such a text window, we take the variable `t`.
+* The variable `t` represents an index or a pointer of the text window that starts from `i`.
+* In other words, `t` starts from `i`.
+* The past values of `t` represents the number of characters we have processed for a text window that starts from `i`.
+* The current value of `t` represents a character of the current text window at index `t`.
+* Each character of this text window is compared with each character of the pattern.
+* To cover each character of the pattern, we take the variable `p`.
+* The variable `p` represents an index or a pointer for the pattern that starts from `0`.
+* The past values of `p` represents the number of characters we have processed for the pattern.
+* The current value of `p` represents a character of the pattern at index `p`.
+* For each text window, `t` and `p` moves together.
+* Imagine that the pointers `t` and `p` are clamped and stapled.
+* So, they move together.
+* $t_0$ is compared with $p_0$, $t_1$ is compared with $p_1$, and so on.
+* Now, suppose we don't know the distance (position) of `t`.
+* The distance of `t` from `i` is equal to `p` because `t` and `p` move together.
+* So, if we don't know `t`, but if we know `p`, then `t = i + p`.
+* It indicates that `t` starts from `i` and has taken `p` steps after `i`. 
+* So, at any point of time, `t = i + p`, because `t` starts from `i` and the progress of `t` is in sync with `p`. 
+
+**When and how do they get changed?**
+
+* The variable `i` changes when we want to compare the next text window.
+* We start the next text window and change the `i` after we finish comparing the current text window with the pattern.
+* In other words, we change `i` when we finish iterating over the pattern: `while (p < pattern.length)`
+* That is to say, we change `i` after we finish the `while (p < pattern.length)`.
+* After we finish `while (p < pattern.length)` and before we start the next `i`, we check the `mismatches`.
+* Suppose that after the `while (p < pattern.length)`, we found that `mismatches <= k` for the current `i`. 
+* Then it means that the current text window that starts from `i` has the `pattern` with at most `k` mismatches. 
+* So, we add current `i` to the result before we start the next `i`. 
+
+//ToDo: When and how do they get changed? 
+* For other variables like `t`, `p`, `start`, `end`, `mid`, `matchLen`, `mismatches`, etc.
+
+**When and how do they get reset?**
+
+
+### The binary search
+
+**Why do we take `while(start <= end)`?**
+
+**What does the condition represent?**
+
+**What does the loop represent?**
+
+**How does it help?**
+
+**What does it do?**
+
+**How does it work?**
+
+**Is it true that after every mismatch, the range is decreased?**
+
+**When do we exit the loop?**
+
+**What does it mean when we finish the loop?**
 
 ## Rough work 
 
