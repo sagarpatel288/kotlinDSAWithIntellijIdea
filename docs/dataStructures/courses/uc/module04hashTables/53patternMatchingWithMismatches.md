@@ -31,6 +31,10 @@
   * [Space Complexity](#space-complexity)
   * [Grader output](#grader-output)
   * [ToDo](#todo)
+    * [The outermost for loop](#the-outermost-for-loop)
+    * [The pattern loop](#the-pattern-loop)
+    * [The variables `t`, `p`, `start`, `end`, `mid`, `matchLen`, and `mismatches`](#the-variables-t-p-start-end-mid-matchlen-and-mismatches)
+    * [The binary search](#the-binary-search)
   * [Rough work](#rough-work-)
     * [TL;DR](#tldr-)
 <!-- TOC -->
@@ -143,6 +147,8 @@ k (Allowed mismatches) = 1
 
 ```
 
+![189patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/189patternMatchingWithMismatchesWindow00.webp)
+
 * Now, it is given that the text length is greater than or equal to the pattern.
 * In other words, pattern length is less than or equal to the text.
 * To determine if the text contains the given pattern, we need to check each index `i` starting from `i = 0`. 
@@ -157,6 +163,9 @@ k (Allowed mismatches) = 1
 * The variable `p` always starts from `0`, because `0` is the starting index of the pattern.
 * So, it looks like below:
 
+![189patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/189patternMatchingWithMismatchesWindow00.webp)
+
+
 ![190patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/190patternMatchingWithMismatchesWindow00.webp)
 
 > i = 0; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.   
@@ -165,7 +174,8 @@ k (Allowed mismatches) = 1
 > t = 2; p = 2; Text[2] Vs. Pattern[2] = b Vs. a = Mismatch!  
 > t = 3; p = 3; Text[3] Vs. Pattern[3] = b Vs. b = Match!  
 
-* While iterating over the pattern, if we find that number of mismatches exceeds than the k-allowed mismatches, we conclude that the text window that starts from `i` has more mismatches than allowed.
+* While iterating over the pattern, we may find that number of mismatches exceeds `k-allowed mismatches`. 
+* In that case, we conclude that the text window that starts from `i` has more mismatches than allowed.
 * So, we exit the pattern loop and repeat the comparison for the next `i`.
 * Once we finish iterating over the pattern, if the total number of mismatches we found is less than or equal to the k-allowed mismatches, we conclude that the text window that starts from `i` matches with the pattern.
 * In this case, we found that the text window that starts from `i = 0` matches with the pattern with at most `k` mismatches.
@@ -1792,6 +1802,7 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * $t_0$ is compared with $p_0$, $t_1$ is compared with $p_1$, and so on.
 * Now, suppose we don't know the distance (position) of `t`.
 * The distance of `t` from `i` is equal to `p` because `t` and `p` move together.
+* We cannot say that `t == p` because `t` starts from `i`, whereas `p` starts from `0`.
 * So, if we don't know `t`, but if we know `p`, then `t = i + p`.
 * It indicates that `t` starts from `i` and has taken `p` steps after `i`. 
 * So, at any point of time, `t = i + p`, because `t` starts from `i` and the progress of `t` is in sync with `p`. 
