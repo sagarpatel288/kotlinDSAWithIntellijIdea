@@ -35,6 +35,7 @@
     * [The pattern loop](#the-pattern-loop)
     * [The variables `t`, `p`, `start`, `end`, `mid`, `matchLen`, and `mismatches`](#the-variables-t-p-start-end-mid-matchlen-and-mismatches)
     * [The binary search](#the-binary-search)
+    * [The invariant: `k + 1`](#the-invariant-k--1)
   * [Rough work](#rough-work-)
     * [TL;DR](#tldr-)
 <!-- TOC -->
@@ -1843,6 +1844,38 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 **When do we exit the loop?**
 
 **What does it mean when we finish the loop?**
+
+
+### The invariant: `k + 1`
+
+* It is about how much work we do (binary searches) for any text window.
+* It uses the `mismatch buget = k Allowed mismatches`.
+* If we find that a text window has more mismatches than the allowed, we stop checking the current text window.
+* We discard the current text window and move on to the next text window if we can.
+* Imagine a video game where we have `k` lives. 
+* We can run at full speed as long as the ground is flat.
+* The ground is flat if `matchLen != 0`.
+* The moment we face a pothole (`mismatch`), we lose the life.
+* We can play the game as long as we have lives.
+* We have a total of `k` lives.
+* Once we use all the `k` lives, we can run (+ 1) only if the ground is flat.
+* After we use all the `k` lives, we can still run (+ 1) as long as we don't face any pothole (`mismatch`).
+* After using all the `k` lives, either we hit the finish line (`pattern` finishes) or we hit the pothole (`mismatch`).
+* It means we perform `k` attempts + 1 last attempt to win.
+* That's why, it is `k + 1`.
+* Now, to get the flat ground and to run on the flat ground, we use the `binary search`.
+* The `binary search` finds and gives us the flat ground.
+* Each `binary search` costs `O (log N)` where `N` is the length of the substring (text window).
+* It means that we do a total of `k + 1` work (attempts), and each attempt costs us `O(log N)`.
+* Since `1` is a constant, the total cost becomes `O(k log N)`.
+* We can understand it in this way also.
+* The outer loop `while (p < pattern.length)` runs `k + 1` times for each text window.
+* Inside it, we have the `binary search` that takes `O(log N)` time.
+* And since `1` is a constant, the total cost becomes `O(k log N)`.
+* If we zoom out this further, we do this process inside the `for (i in 0 .. (text.length - pattern.length))`.
+* It runs for `|T| - |P|` times.
+* But since `|T| > |T| - |P|`, we can consider that it runs for `|T|` times.
+* So, the total work becomes `O (|T| * k log N)`.
 
 ## Rough work 
 
