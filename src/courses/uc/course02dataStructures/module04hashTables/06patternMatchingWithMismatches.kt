@@ -1275,20 +1275,13 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
             while (p < pattern.length) {
                 // Matching length for this window
                 var matchLen = 0
-                // I believe `start` represents the minimum length.
-                // It is not an index.
-                // So, it should be renamed as `min` instead of `start`.
-                // ToDo: What is the point of taking minimum length as 0?
-                var start = 0
-                var end = pattern.length - p
-                while (start <= end) {
+                // We can take `minLength = 0` or `minLength = 1`, both works as long as `matchLen` is `0` before binary search
+                var minLength = 1
+                var maxLength = pattern.length - p
+                while (minLength <= maxLength) {
                     println("i: $i, t: $t, p: $p")
-                    val mid = start + (end - start) / 2
-                    println("before: start: $start, end: $end, mid: $mid")
-                    // ToDo: Why do we proceed a window length that is less than the pattern length?
-                    // ToDo: We might exit early based on the `mid` value and `k-AllowedMismatches`.
-                    // For example, if `mid + kAllowedMismatches != pattern.length`, then what is the point of processing it?
-                    // TODO: Print i, t, p, mid, and substrings (text and pattern) to understand how this works
+                    val mid = minLength + (maxLength - minLength) / 2
+                    println("before: start: $minLength, end: $maxLength, mid: $mid")
                     // Use the given sample inputs to understand the dry run
                     // Understand how it compares (the pattern) and how it moves ahead (proceeds)
                     println("text substring: ${text.substring(t, t + mid)} pattern: ${pattern.substring(p, p + mid)}")
@@ -1298,32 +1291,36 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                         // Update matched length
                         matchLen = mid
                         // Try a longer length
-                        start = mid + 1
+                        minLength = mid + 1
                     } else {
                         // Try a shorter length
-                        end = mid - 1
+                        maxLength = mid - 1
                     }
                     // Also print "start" and "end" to understand how it goes and when it stops
-                    println("next: start: $start, end: $end")
+//                    println("next: start: $start, end: $end")
                 }
-                // Jump over `matchLen`
+                // End of the binary search
+                // We know the longest common substring `matchLen`
+                // Jump over the `matchLen`
                 t += matchLen
                 p += matchLen
-                println("After matchLen: $matchLen t: $t and p: $p")
+//                println("After matchLen: $matchLen t: $t and p: $p")
                 if (mismatches <= kAllowedMismatches && p < pattern.length) {
                     mismatches++
-                    println("After: mismatches: $mismatches")
+//                    println("After: mismatches: $mismatches")
                     if (mismatches > kAllowedMismatches) {
                         break
                     }
                     // Move past the mismatched character
                     t++
                     p++
-                    println("After mismatches: $mismatches t: $t and p: $p")
+//                    println("After mismatches: $mismatches t: $t and p: $p")
                 } else {
                     break
                 }
             }
+            // End of while (p < pattern.length)
+            // We finished iterating over the pattern
             // Result of this text window that starts from the `i` index
             if (mismatches <= kAllowedMismatches) {
                 startingIndices.add(i)
