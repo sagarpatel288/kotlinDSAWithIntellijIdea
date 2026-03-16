@@ -1828,25 +1828,116 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 
 ### The variables `t`, `p`, `start`, `end`, `mid`, `matchLen`, and `mismatches`
 
-**Why do we take them?**
+**Why do we take them?**  
+**What do they represent?**    
+**How do they help?**  
+**What do they do?**  
+**How do they work?**  
 
-**What do they represent?**
+* The problem asks us to find the number of times the pattern appears in the text. 
+* We need to print the number of times the pattern appears in the text, followed by their starting indices in the text.
+* It is also given that `text >= pattern`.
+* So, we need to take substrings of the text of length `pattern.length` and compare it with the pattern.
+* We start comparing these substrings from index `i = 0`.
+* Each substring of the text is known as a text window.
+* Each text window might have multiple characters in it.
+* To compare these characters with the characters of the pattern, we take a pointer `t`.
+* So, the pointer `t` moves within a particular text window.
+* The pointer `t` starts from `i`.
+* Similarly, to move within the pattern, we take a pointer `p`.
+* The pointer `p` starts from `0`.
+* Now, if we move `t` and `p` character by character to compare character by character, it becomes too slow.
+* It will be `|T| * |P|`.
+* So, we take the help of binary search.
+* Using the binary search, we want to get the longest common substring (`matchLen`) quickly.
+* The binary search gives us a `mid` length, and we use the `prefix hashes` to compare two substrings of `mid` length.
+* To find and give the `mid` length, the binary search needs `start` and `end`.
+* Here, `mid` is a length.
+* So, `start` means minimum length and `end` means maximum length.
+* The minimum length `minLength` or `start` can be `0` or `1`.
+* The maximum length `maxLength` or `end` can be `pattern.length` if `p = 0`.
+* For example, suppose that the pattern is `abcdefg`, whose length is `pattern.length = 7`. 
+* Now, suppose that we have already processed (compared) the first 3 characters.
+* So, the current position of `p` is `p = 3`.
+* Now, at this point, the maximum length we can compare is not `7`, but it is the remaining length.
+* So, it is `pattern.length - p = 7 - 3 = 4`.
+* That means, the `end = maxLength = pattern.length - p`.
+* Using `start = minLength` and `end = maxLength = pattern.length - p`, the binary search gives us the `mid` length.
+* Once we get this `mid` length, we pass it to `prefix hashes`.
+* The `prefix hashes` gives us the hash code of a substring whose length is `mid`.
+* But the `prefix hashes` also requires the current index of the substring.
+* For the text window, it is `t`.
+* For the pattern, it is `p`.
+* Once we have the hash codes of these two substrings of length `mid`, we compare them.
+* If we find that they match, we increase the length bar using `start or minLength = mid + 1`.
+* If we find that they don't match, we decrease the length bar using `end or maxLength = mid - 1`.
+* Eventually, the ranges (`start` or `minLength` and `end` or `maxLength`) become invalid and the binary search finishes.
+* The final value of `mid` indicates the longest common substring (`matchLen`).
+* It means that we are ready with the longest common substring `matchLen`.
+* The `matchLen` value indicates that we have processed the number of characters equal to the value of `matchLen`.
+* So, we move `t += matchLen` and `p += matchLen`.
+* After moving the pointers `t` and `p`, we check the position of `p`.
+* If `p < pattern.length`, it means after jumping over the `matchLen`, we have landed upon the `mismatch`.
+* So, `mismatches++`.
+* After increasing the `mismatches` counter, we compare the `mismatches` with the `kAllowedMismatches`.
+* If `mismatches <= kAllowedMismatches`, we repeat the process.
+* After `p >= pattern.length`, the `while (p < pattern.length)` stops.
+* Ending of the `while (p < pattern.length)` means we have covered the entire pattern.
+* After `while (p < pattern.length)`, if `mismatches <= kAllowedMismatches`, we add `i` to the result.
+* It would mean that the text window that starts from `i` has the pattern with at most `kAllowedMismatches`.
+* And then we repeat the same process for the next `i` as long as `i <= (text.length - pattern.length)`.
+* After the last `i`, the outermost `for (i in 0 .. (text.length - pattern.length))` gets finished.
+* After the outermost `for (i in 0 .. (text.length - pattern.length)` is finished, we return the result.
 
-**How do they help?**
+**When, where, and how do we initialize and change them?**  
 
-**What do they do?**
+* The outermost `for (i in 0 .. (text.length - pattern.length)` initializes and changes the variable `i`.
+* The pointer `i` indicates the starting index of each text window.
+* To cover and compare each character of a text window, we take the pointer `t`.
+* For each `i`, the initial value of `t` is equal to `i`. 
+* So, initially, `t = i`.
+* To cover and compare each character of the pattern window, we take the pointer `p`.
+* For each `i`, the pointer `p` and the initial value of `mismatches` always start from `0`.
+* So, we initialize the pointer `p` and the variable `mismatches` before the `while (p < pattern.length)`.
+* It means that for each new `i`, we reset the values of `t`, `p`, and `mismatches`.
+* Inside the `while (p < pattern.length)`, we have the binary search `while (start <= end)`.
+* To start the binary search, we need initial values of `start = minLength` and `end = maxLength`.
+* So, we initialize `start = minLength = 0` and `end = maxLength = pattern.length - p` before binary search.
+* Then, the binary search finds the `mid` length and gives us the `matchLen` using the `prefix hashes`.
+* The `prefix hashes` uses `t` as a current index for the text window and `p` as the current index for the pattern.
+* The variable `matchLen` is a product of the binary search.
+* So, we initialize/reset it before we start the binary search.
+* The initial value of `matchLen` is `0`, before we start the binary search.
+* It means that we reset the values of `start = minLength`, `end = maxLength`, and `matchLen` before binary search.
+* Once the binary search is finished, we get the final value of the `matchLen`.
+* We move the pointers `p += matchLen` and `t += matchLen`.
+* After the `matchLen`, we land on the `mismatch`.
+* So, we increase the mismatch counter: `mismatches++`.
+* At this point, if `mismatches > kAllowedMismatches`, we abort the `while (p < pattern.length)` and try the next `i`.
+* If `mismatches <= kAllowedMismatches` and `p < pattern.length`, the `while (p < pattern.length)` continues.
+* At some point, `p >= pattern.length`, and the `while (p < pattern.length)` stops.
+* At this point, if `mismatches <= kAllowedMismatches`, we add `i` to the result.
+* And then, we repeat the process with the next `i` as long as `i <= (text.length - pattern.length)`.
+* After the last `i`, the outermost `for (i in 0 .. (text.length - pattern.length))` gets finished.
+* Once the outermost `for (i in 0.. (text.length - pattern.length))` is finished, we return the result.
 
-**How do they work?**
+**What is the point of taking `start = 0`?**  
 
-**When, where, and how do we initialize and change them?**
+* It is a known base case for which we have the answer.
+* It is to acknowledge that empty strings or substrings match with each other.
+* In other words, it is a safe floor (base) from which the binary search can start its journey.
+* However, we can also take `start = 1` and it works.
 
-**What is the relation between them? How do they affect each other? How do they work (dance) together?**
-
-**Does `t` and `p` move together?**
-
-**What is the relation between `i`, `t`, and `p`?**
+**What is the relation between them? How do they affect each other? How do they work (dance) together?**  
+**Does `t` and `p` move together?**   
 
 * Visualization:
+
+![187patternMatchingWithMismatchesAllWindows.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/187patternMatchingWithMismatchesAllWindows.webp)
+
+
+![189patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/189patternMatchingWithMismatchesWindow00.webp)
+
 
 ![210patternMatchingWithMismatchesAllInOne.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/210patternMatchingWithMismatchesAllInOne.webp)
 
