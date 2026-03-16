@@ -1719,21 +1719,53 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 
 ### The outermost for loop
 
-**Why do we take `for (i in 0 .. (text.length - pattern.length))`?**
+**Why do we take `for (i in 0 .. (text.length - pattern.length))`?**      
+**What does the loop represent?**    
+**What does the variable `i` represent?**         
+**What does the condition represent?**     
+**How does it help?**     
+**What does it do?**      
+**How does it work?**      
 
-**What does the condition represent?**
+* Our task is to find if the pattern exist in the given text.
+* There might be no pattern in the text, or the pattern might appear one or more times in the text.
+* We need to print the number of times the pattern appears in the text, followed by their starting indices in the text.
+* For example, suppose that the text is `abcdbx`, the pattern is `abx`, and `k = Allowed mismatches = 1`.
+* Now, the pattern appears in the text multiple times: `abc == abx with at most k = 1 mismatches`.
+* The starting index of the pattern in the text is `0`.
+* Again, the pattern appears in the text as: `dbx == abx with at most k = 1 mismatches`.
+* The starting index of the pattern in the text is `3`.
+* So, we need to print: `2 0 3`, where `2 = Total number of times the pattern appears in the text`.
+* And `0` and `3` are the starting indices of the pattern in the text.
+* So, to check whether the pattern exist in the text, we start from `index i = 0` of the text.
+* And we take a substring whose length is similar to the pattern.
+* So, we take `abc` to compare with the pattern.
+* After that, we take `i = 1` and the text window `bcd` to compare with the pattern.
+* Now, up to which point we can move the index `i` and form a text window that we can compare with the pattern?
+* The index `i` represents the starting index of the text window.
+* The last index `i` will make the tail of the text window and the tail of the pattern aligned.
+* Mathematically, it happens when the index `i` is equal to the `text.length - pattern.length`.
+* So, the last text window is `dbx` that we can compare with the pattern `abx`.
+* So, the starting index `i` of the last text window `dbx` is `3`, after which we don't take any other text window.
+* Because we don't compare a text window whose length is smaller than the pattern.
+* So, we don't compare `bx` or `x` with the pattern `abx` because we know they will not match!
+* So, the `end` boundary of `i` is `text.length - pattern.length`.
+* And what do we do inside this `for` loop?
+* We compare each text window with the pattern.
+* And how do we compare each text window with the pattern?
+* Using the binary search. 
 
-**What does the loop represent?**
+**When do we exit the loop?**  
+**What does it mean when we finish the loop?**    
 
-**How does it help?** 
-
-**What does it do?**
-
-**How does it work?** 
-
-**When do we exit the loop?**
-
-**What does it mean when we finish the loop?**
+* The variable `i` represents the starting index of each text window that we compare with the pattern.
+* It starts from `0`.
+* The last `i` is `text.length - pattern.length` that forms the last text window that we compare with the pattern.
+* We compare each text window with the pattern.
+* If we find that a text window matches with the pattern, we add the starting index `i` of the text window to the result.
+* Processing the last `i` means comparing the last text window with the pattern.
+* Once we process the last `i`, it means we have compared all the valid text windows with the pattern.
+* After we finish processing the last `i`, we exit the loop, and return the answer.
 
 ### The pattern loop
 
@@ -1865,6 +1897,7 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * That's why, it is `k + 1`.
 * Now, to get the flat ground and to run on the flat ground, we use the `binary search`.
 * The `binary search` finds and gives us the flat ground.
+* In other words, we move `t` and `p` based on the `matchLen` that the `binary search` gives.
 * Each `binary search` costs `O (log N)` where `N` is the length of the substring (text window).
 * It means that we do a total of `k + 1` work (attempts), and each attempt costs us `O(log N)`.
 * Since `1` is a constant, the total cost becomes `O(k log N)`.
