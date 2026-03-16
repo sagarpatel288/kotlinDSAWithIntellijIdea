@@ -1756,7 +1756,7 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * Using the binary search. 
 
 **When do we exit the loop?**  
-**What does it mean when we finish the loop?**    
+**What does it mean when we finish the loop?**      
 
 * The variable `i` represents the starting index of each text window that we compare with the pattern.
 * It starts from `0`.
@@ -1803,7 +1803,7 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * If `p < pattern.length`, it means that only the first 10 characters matched, and we are on the mismatched character. 
 
 **When do we exit the loop?**    
-**What does it mean when we finish the loop?**  
+**What does it mean when we finish the loop?**    
 
 * Once we finish comparing the entire text window with the entire pattern, `p >= pattern.length`.
 * So, the condition `while (p < pattern.length)` becomes false, and we exit the loop.
@@ -1812,7 +1812,7 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * So, we add `i` to the result.
 * Whether it was a match or not, we start comparing the next text window if `i <= (text.length - pattern.length)`. 
 
-**Why there is no `pattern window` similar to the `text window`?**
+**Why there is no `pattern window` similar to the `text window`?**  
 
 * It is given that `text >= pattern`.
 * To find whether the text has the pattern, we ensure that we compare a substring (window) of `pattern.length`.
@@ -1829,10 +1829,10 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 ### The variables `t`, `p`, `start`, `end`, `mid`, `matchLen`, and `mismatches`
 
 **Why do we take them?**  
-**What do they represent?**    
-**How do they help?**  
-**What do they do?**  
-**How do they work?**  
+**What do they represent?**      
+**How do they help?**   
+**What do they do?**    
+**How do they work?**    
 
 * The problem asks us to find the number of times the pattern appears in the text. 
 * We need to print the number of times the pattern appears in the text, followed by their starting indices in the text.
@@ -1930,6 +1930,8 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 
 **What is the relation between them? How do they affect each other? How do they work (dance) together?**  
 **Does `t` and `p` move together?**   
+**Explain the invariant: `t = i + p`**  
+**Can we avoid taking the variable `t`?**  
 
 * Visualization:
 
@@ -1969,28 +1971,28 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * So, if we don't know `t`, but if we know `p`, then `t = i + p`.
 * It indicates that `t` starts from `i` and has taken `p` steps after `i`. 
 * So, at any point of time, `t = i + p`, because `t` starts from `i` and the progress of `t` is in sync with `p`. 
+* So, if we don't want to take the variable `t`, we can use `i + p` instead of `t`.
+* For example, we can pass `i + p` instead of `t` to the `prefix hashes`.
 
-**When and how do they get changed?**
+**Is it true that for each new `p`, the binary search range is decreased? Explain.**    
+**Is it true that after every `mismatch`, the range is decreased? Explain.**  
 
-* The variable `i` changes when we want to compare the next text window.
-* We start the next text window and change the `i` after we finish comparing the current text window with the pattern.
-* In other words, we change `i` when we finish iterating over the pattern: `while (p < pattern.length)`
-* That is to say, we change `i` after we finish the `while (p < pattern.length)`.
-* After we finish `while (p < pattern.length)` and before we start the next `i`, we check the `mismatches`.
-* Suppose that after the `while (p < pattern.length)`, we found that `mismatches <= k` for the current `i`. 
-* Then it means that the current text window that starts from `i` has the `pattern` with at most `k` mismatches. 
-* So, we add current `i` to the result before we start the next `i`. 
-
-//ToDo: When and how do they get changed? 
-* For other variables like `t`, `p`, `start`, `end`, `mid`, `matchLen`, `mismatches`, etc.
-
-**When and how do they get reset?**
-* The variables `t`, `p`, and `mismatches` are reset for each new text window (for each new `i`).
-
-**Can we avoid taking the variable `t`?**    
-**The invariant: `t = i + p`**  
-**Is it true that as we move the pointers `t` and `p` forward, the `mid` length we get to compare is reduced? Why?**      
-**How do we reduce the `mid` length as we move the pointers `t` and `p` forward?** 
+* The variable or pointer `p` starts from `0` before `while (p < pattern.length)`.
+* Inside the `while (p < pattern.length)`, we have the binary search.
+* The binary search requires `start = minLength` and `end = maxLength = pattern.length - p`.
+* So, we initialize `start = minLength = 0` and `end = maxLength = pattern.length - p` before binary search.
+* Then, the binary search finds the `mid` length and gives us the `matchLen` using the `prefix hashes`.
+* To jump over the `matchLen`, we move the pointer `p` as `p += matchLen`.
+* After the `matchLen`, we get the `mismatch`.
+* To cross the `mismatch`, we move the `p` as `p++`.
+* If `p < pattern.length`, we start another round of the binary search. 
+* But this time, the increased value of `p`, decreases the ultimate value of `end = maxLength`.
+* It means that the search range has been decreased.
+* In other words, the maximum possible length has been decreased.
+* So yes, it is true that once the binary search is finished, the search range is decreased for the next binary search.
+* Because once the binary search gets finished, we move the pointer `p` forward.
+* And as the pointer `p` moves forward, the distance to the remaining length (`end`) is also reduced.
+* As the remaining length gets reduced, the maximum possible length (`end`) is also reduced.
 
 ### The binary search
 
@@ -2005,8 +2007,6 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 **What does it do?**
 
 **How does it work?**
-
-**Is it true that after every mismatch, the range is decreased?**
 
 **When do we exit the loop?**
 
