@@ -1769,23 +1769,62 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 
 ### The pattern loop
 
-**Why do we take `while(p < pattern.length)`?**
+**Why do we take `while(p < pattern.length)`?**        
+**What does the loop represent?**    
+**What does the variable `p` represent?**    
+**What does the condition represent?**    
+**How does it help?**    
+**What does it do?**     
+**How does it work?**    
 
-**What does the condition represent?**
+* The outermost [for loop](#the-outermost-for-loop) forms different text windows that we compare with the pattern.
+* To compare each text window with the pattern, we take this `while (p < pattern.length)` loop inside the `for loop`.
+* Here, we can compare each character of the text window with each character of the pattern.
+* To compare each character of the text window with each character of the pattern, we take two variables: `t` and `p`.
+* The variable (pointer) `t` moves on the text window, and the variable (pointer) `p` moves on the pattern.
+* The pointer `t` represents the current index of a text window, and it starts from `i`.
+* The past values of `t` represents the number of characters we have processed (compared) for the text window.
+* Similarly, the pointer `p` represents the current index of the pattern, and it starts from `0`.
+* The past values of `p` represents the number of characters we have processed (compared) for the pattern.
+* But if we compare the text window with the pattern character by character, it will be too slow.
+* It will be `|T| * |P|` time.
+* So, inside this `while (p < pattern.length)` loop, we take another `while (start <= end)` loop for binary search.
+* The binary search gives us a `mid` length.
+* Then, instead of comparing character by character, we compare a substring of length `mid`.
+* In this way, we can find the length of the longest common substring (`matchLen`) between them quickly.
+* If the `matchLen = 10`, it means that one binary search helped us skip or jump over the 10 characters.
+* We didn't have to compare all these 10 characters one by one.
+* One binary search confirmed that a substring of length 10 is a match.
+* So, we skip or jump over this `matchLen`.
+* We move the pointers `t` and `p` 10 characters forward at once, instead of one by one character.
+* So, `t += matchLen` and `p += matchLen`.
+* After moving the pointers `t` and `p`, we check if we still have some characters left to compare.
+* If `p >= pattern.length`, it means the entire pattern matched, and we just crossed the entire pattern.
+* If `p < pattern.length`, it means that only the first 10 characters matched, and we are on the mismatched character. 
 
-**What does the loop represent?**
+**When do we exit the loop?**    
+**What does it mean when we finish the loop?**  
 
-**How does it help?**
-
-**What does it do?**
-
-**How does it work?**
+* Once we finish comparing the entire text window with the entire pattern, `p >= pattern.length`.
+* So, the condition `while (p < pattern.length)` becomes false, and we exit the loop.
+* Once we exit the loop, we are ready with the result for the text window that starts from `i`.
+* If `mismatches <= kAllowedMismatches`, then this text window matched with the pattern with at most `k mismatches`.
+* So, we add `i` to the result.
+* Whether it was a match or not, we start comparing the next text window if `i <= (text.length - pattern.length)`. 
 
 **Why there is no `pattern window` similar to the `text window`?**
 
-**When do we exit the loop?**
-
-**What does it mean when we finish the loop?**
+* It is given that `text >= pattern`.
+* To find whether the text has the pattern, we ensure that we compare a substring (window) of `pattern.length`.
+* That's why we have the text windows.
+* But we compare the entire text window with the entire pattern.
+* In this way, there is no pattern window.
+* But we are not comparing the entire pattern with the entire text window all at once, in one go.
+* We compare them in fragments (chunks) using the binary search.
+* The binary search gives us the `mid` length.
+* So, we compare their substrings of `mid` length.
+* This continues until we cover the entire pattern.
+* So, we might want to consider these chunks (substrings) of length `mid` as `windows`. 
 
 ### The variables `t`, `p`, `start`, `end`, `mid`, `matchLen`, and `mismatches`
 
@@ -1820,7 +1859,7 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * The variable `i` is the starting index of a text window.
 * A text window might have multiple characters.
 * To cover each character of such a text window, we take the variable `t`.
-* The variable `t` represents an index or a pointer of the text window that starts from `i`.
+* The variable `t` represents an index or a pointer of the text window (text substring) that starts from `i`.
 * In other words, `t` starts from `i`.
 * The past values of `t` represents the number of characters we have processed for a text window that starts from `i`.
 * The current value of `t` represents a character of the current text window at index `t`.
@@ -1855,7 +1894,12 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * For other variables like `t`, `p`, `start`, `end`, `mid`, `matchLen`, `mismatches`, etc.
 
 **When and how do they get reset?**
+* The variables `t`, `p`, and `mismatches` are reset for each new text window (for each new `i`).
 
+**Can we avoid taking the variable `t`?**    
+**The invariant: `t = i + p`**  
+**Is it true that as we move the pointers `t` and `p` forward, the `mid` length we get to compare is reduced? Why?**      
+**How do we reduce the `mid` length as we move the pointers `t` and `p` forward?** 
 
 ### The binary search
 
