@@ -2087,6 +2087,20 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * Overall, the binary search's `O(k log N)` time for each text window is way faster than the naive algorithm's `O(N^2)` time.
 * When we use the binary search, the total cost `O(|T| * k log N)` is also faster than the naive algorithm's `O(N^2)` cost.
 
+**Is it true that when all the characters are mismatches, the naive algorithm works faster than the binary search?**
+
+* To find the mismatch, the naive algorithm takes `O(k)` time, whereas the binary search takes `O(k log N)` time.
+* Clearly, binary search costs `log N` times more than the naive algorithm.
+* So in this specific case, the naive algorithm figures it out quickly that the text window does not match the pattern. 
+* And in this specific case, the naive algorithm finds it faster than the binary search.
+* However, this is not the only case, and the actual worst-case is different when we zoom out.
+* The actual worst-case is when all the characters match except the last one!
+* In that case, the naive algorithm takes almost `O(N)` time, whereas the binary search finds it in `O(k log N)` time.
+* Moreover, we don't have a single text window to compare with the pattern.
+* So, the total cost for the naive algorithm is `O(|T| * |P|)`. 
+* Whereas the total cost with the binary search approach is `O(|T| * k log |P|)`.
+* That's why we prefer the binary search approach over the naive algorithm.
+
 ### The invariant: `k + 1`
 
 * It is about how much work we do (binary searches) for any text window.
