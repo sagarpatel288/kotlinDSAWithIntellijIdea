@@ -1996,22 +1996,96 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 
 ### The binary search
 
-**Why do we take `while(start <= end)`?**
+**Why do we take `while(start <= end)`?**     
+**What does the loop represent?**   
+**What do the variables `start = minLength` and `end = maxLength` represent?**        
+**What does the condition represent?**    
+**How does it help?**   
+**What does it do?**   
+**How does it work?**   
 
-**What does the condition represent?**
+* Our task is to find if the pattern exist in the given text.
+* The pattern may exist multiple times in the text.
+* It is also given that `text.length >= pattern.length`.
+* So, we start with index `i = 0` and take a text substring whose length is equal to the pattern length.
+* And then, we compare these two substrings.
+* The text substring is also known as the text window.
+* A naive approach compares two substrings character by character.
+* But then it takes `|T| * |P|` time.
+* We can reduce this time using the binary search.
+* The idea is, instead of checking character by character, we check a substring of length `mid`.
+* So, we compare a substring of length `mid` of the text window with the substring of length `mid` of the pattern.
+* We get this `mid` length from the binary search.
+* Now, to get the `mid` length, the binary search requires `start = minLength` and `end = maxLength` range.
+* The `start = minLength` can be `0` or `1`.
+* And the `end = maxLength` depends upon how many characters of the pattern we have already compared.
+* For example, suppose that the text is `aabbabaab` and the pattern is `aaab`.
+* Now, suppose that we start with the first text window that starts with `i = 0`.
+* So, we are comparing `aabb` with `aaab`.
+* Now, we are going to apply the binary search on the pattern.
+* Initially, we have the entire pattern length.
+* So, `start = minLength = 0 or 1` and `end = maxLength = pattern.length`.
+* Here, the variable `start = minLength` represents the minimum possible length we can compare.
+* Similarly, the variable `end = maxLength` represents the maximum possible length we can compare.
+* Now, to track the number of characters we have compared and covered on the text window, we take the pointer `t`.
+* Similarly, to track the number of characters we have compared and covered on the pattern, we take the pointer `p`.
+* The starting position of `t = i`, and `i = 0`. 
+* So, `t = 0`.
+* Similarly, the starting position of `p = 0`.
+* The pointer `p` always starts from `0`.
+* Now, the binary search tells us that `aa` is the longest common substring when `t = i = 0` and `p = 0`.
+* So, the pointers `t` and `p` jump over this `matchLen` and land on the `mismatch`.
+* Now, the pointer `t` is on the `b` (the third character) of the text window.
+* Similarly, the pointer `p` is on the `a` (the third character) of the pattern.
+* After the mismatch, if `p < pattern.length`, we again try to find the longest common substring between them.
+* But this time, it is obvious that the search range has been reduced.
+* Now, the search range is from the third character to the `pattern.length`.
+* In other words, it is `end = maxLength = pattern.length - p = 4 - 2 = 2`.
+* So, after every `mismatch`, the search range for the next binary search gets smaller for the same text window.
+* In other words, as the pointer `p` moves forward, the next binary search for the same text window gets smaller.
+* The condition `start <= end` represents a valid range.
+* Based on this range, we compare a substring of `mid` length.
+* So, we compare a substring of length `mid` of the text window with the substring of length `mid` of the pattern.
+* If they match, we try to find a longer `mid` length by doing `start = mid + 1`.
+* Increasing the `start` or `minLength` as `mid + 1` indicates that we are increasing the length bar.
+* If they don't match, we try a shorter `mid` length by doing `end = mid - 1`.
+* Decreasing the `end` or `maxLength` as `mid - 1` indicates that we are decreasing the length bar.
+* The ultimate goal is to find the longest common substring between the text window and the pattern.
+* We get `mid` based on `start (minLength)` and `end (maxLength)` values.
+* If we find the match, we increase the length bar.
+* If it doesn't match, we decrease the length bar.
+* At some point, this game of increasing and decreasing the length bar makes the range invalid.
+* When the range becomes invalid, we exit the binary search.
+* When the range becomes invalid, it means that we have tried all the possible lengths, and we have found the `matchLen`.
+* Now, the binary search is a chance we take to skip character by character checking.
+* We may find the longest common substring of length `mid = matchLen`.
+* So that we can jump over this `matchLen`, and land on the `mismatch`.
+* The binary search gives us the `matchLen` using which we can move the pointers `t` and `p`.
+* Using the binary search, we are moving the pointer `p` on the `pattern` by `mid = matchLen`.
+* Similarly, we are moving the pointer `t` on the `text window` by `mid = matchLen`.
+* It is like "we know the longest common substring for which we don't have to compare character by character."
+* And only a `mismatch` stops the binary search.
+* So, after the `matchLen`, we move `t += matchLen`, and `p += matchLen`.
+* After the `matchLen`, we count the `mismatches++`, move past the mismatch `t++`, `p++`, and repeat the binary search.
+* We repeat the binary search after every `mismatch` as long as `p < pattern.length`.
+* Once the pointer `p >= pattern.length`, we repeat the process for the next `i`.
+* It means that we compare the `pattern` with the next `text window` using the binary search.
 
-**What does the loop represent?**
+**When do we exit the loop?**  
+**What does it mean when we finish the loop?**  
+**What if all the characters are mismatch? Do we waste more time than the naive algorithm due to binary search?**      
 
-**How does it help?**
-
-**What does it do?**
-
-**How does it work?**
-
-**When do we exit the loop?**
-
-**What does it mean when we finish the loop?**
-
+* We exit the binary search when the range condition `start <= end` fails.
+* Finishing the binary search loop means we know the longest common substring `mid = matchLen`.
+* The final value of `matchLen` is the longest common substring between the text window and the pattern.
+* So, we jump over this `matchLen` and land on the `mismatch`.
+* It is true that the naive algorithm figures it out faster than the binary search when each character is a mismatch.
+* In this specific case, the naive algorithm would take `k + 1` time to figure it out.
+* And in this specific case, the binary search would take `O(k log N)` time to figure it out.
+* So, in this specific case, the binary search is `log N` times slower.
+* However, we would still use the binary search because we don't have this single use case.
+* Overall, the binary search's `O(k log N)` time for each text window is way faster than the naive algorithm's `O(N^2)` time.
+* When we use the binary search, the total cost `O(|T| * k log N)` is also faster than the naive algorithm's `O(N^2)` cost.
 
 ### The invariant: `k + 1`
 
