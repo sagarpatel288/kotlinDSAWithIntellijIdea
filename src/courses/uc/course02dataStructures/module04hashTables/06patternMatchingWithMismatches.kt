@@ -1192,8 +1192,12 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
     private val patternHashes1 = LongArray(pattern.length + 1)
     private val patternHashes2 = LongArray(pattern.length + 1)
     private val xPowersText1 = LongArray(text.length + 1)
+    // We don't need an extra power table for the text or pattern
+    // One power table for the text, and one power table for the pattern is enough
     private val xPowersText2 = LongArray(text.length + 1)
     private val xPowersPattern1 = LongArray(pattern.length + 1)
+    // We don't need an extra power table for the text or pattern
+    // One power table for the text, and one power table for the pattern is enough
     private val xPowersPattern2 = LongArray(pattern.length + 1)
 
     init {
@@ -1297,24 +1301,26 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                         maxLength = mid - 1
                     }
                     // Also print "start" and "end" to understand how it goes and when it stops
-//                    println("next: start: $start, end: $end")
+                    println("next: start: $minLength, end: $maxLength")
                 }
                 // End of the binary search
                 // We know the longest common substring `matchLen`
                 // Jump over the `matchLen`
                 t += matchLen
                 p += matchLen
-//                println("After matchLen: $matchLen t: $t and p: $p")
+                println("After matchLen: $matchLen t: $t and p: $p")
                 if (mismatches <= kAllowedMismatches && p < pattern.length) {
+                    // It is critical to check the position of `p` before we increase the `mismatches`
+                    // Because if we increase `mismatches` when `p == pattern.length`, we get an extra mismatch.
                     mismatches++
-//                    println("After: mismatches: $mismatches")
+                    println("After: mismatches: $mismatches")
                     if (mismatches > kAllowedMismatches) {
                         break
                     }
                     // Move past the mismatched character
                     t++
                     p++
-//                    println("After mismatches: $mismatches t: $t and p: $p")
+                    println("After mismatches: $mismatches t: $t and p: $p")
                 } else {
                     break
                 }
