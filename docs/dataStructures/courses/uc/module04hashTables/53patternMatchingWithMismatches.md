@@ -36,6 +36,7 @@
     * [The variables `t`, `p`, `start`, `end`, `mid`, `matchLen`, and `mismatches`](#the-variables-t-p-start-end-mid-matchlen-and-mismatches)
     * [The binary search](#the-binary-search)
     * [The invariant: `k + 1`](#the-invariant-k--1)
+    * [Reflective Questions](#reflective-questions)
   * [Rough work](#rough-work-)
     * [TL;DR](#tldr-)
 <!-- TOC -->
@@ -2071,9 +2072,10 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * Once the pointer `p >= pattern.length`, we repeat the process for the next `i`.
 * It means that we compare the `pattern` with the next `text window` using the binary search.
 
+**When and how do we stop the binary search?**  
 **When do we exit the loop?**  
 **What does it mean when we finish the loop?**  
-**What if all the characters are mismatch? Do we waste more time than the naive algorithm due to binary search?**      
+**What if all the characters are mismatch? Do we waste more time than the naive algorithm due to binary search?**        
 
 * We exit the binary search when the range condition `start <= end` fails.
 * Finishing the binary search loop means we know the longest common substring `mid = matchLen`.
@@ -2133,6 +2135,21 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * But since `|T| > |T| - |P|`, we can consider that it runs for `|T|` times.
 * So, the total work becomes `O (|T| * k log N)`.
 
+### Reflective Questions
+
+**How can we get to know that allowing k-mismatches would make two different substrings equal?**
+
+* For example, suppose that at some point, we compared two substrings: `abc` and `abx`.
+* Now, the hash codes of these two substrings will not match.
+* However, we are allowed to consider it a "match" with "k-allowed mismatches = 1".
+* So, how do we incorporate this dimension?
+
+**How do we find the starting indices of matched substrings?**  
+**How come is it possible that after the `matchLen`, we land on the `mismatch`?**    
+**How do we manage the `mismatches` counter? When, where, and how do we use the `mismatches` counter?**    
+**How do we discard the comparison as soon as we find too many `mismatches`? When, where, and how does that work?**    
+**What happens if we reset/initialize the `matchLen` variable every time we start a new text window?**
+
 ## Rough work 
 
 ### TL;DR 
@@ -2153,3 +2170,6 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 * If `mismatches > k`, we break the pattern loop, and try the next `i` (the next text window).
 * `t++` and `p++`.
 * Once we finish iterating over the pattern, if `mismatches <= k`, add `i` to the result.
+
+
+
