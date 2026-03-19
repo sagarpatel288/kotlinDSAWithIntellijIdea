@@ -4,6 +4,7 @@
 * [Priority Queues](#priority-queues)
   * [Resources / References](#resources--references)
   * [Learning Objectives](#learning-objectives)
+  * [Problem](#problem)
   * [Definition](#definition)
   * [How is it different from a queue or a stack?](#how-is-it-different-from-a-queue-or-a-stack)
   * [Common Operations](#common-operations)
@@ -28,10 +29,13 @@
   * [Summary: Priority Queue](#summary-priority-queue)
   * [Next](#next)
   * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
+  * [Data Structures: Problems And Solutions](#data-structures-problems-and-solutions)
   * [Questions:](#questions)
     * [What problem does a priority queue solve?](#what-problem-does-a-priority-queue-solve)
     * [What are the pros and cons of a priority queue?](#what-are-the-pros-and-cons-of-a-priority-queue)
     * [How does a priority queue work?](#how-does-a-priority-queue-work)
+    * [Can we use any other data structure than `Heaps` to build the priority queue?](#can-we-use-any-other-data-structure-than-heaps-to-build-the-priority-queue)
+    * [What are the invariants (rules) of the priority queue?](#what-are-the-invariants-rules-of-the-priority-queue-)
     * [What is the difference between a priority queue and a regular queue? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-priority-queue-and-a-regular-queue-explain-the-overall-difference-and-the-difference-for-each-operation)
     * [What are the few cases where we might prefer a regular queue over a priority queue? Why?](#what-are-the-few-cases-where-we-might-prefer-a-regular-queue-over-a-priority-queue-why)
 <!-- TOC -->
@@ -49,7 +53,19 @@
 * To understand what is going on in a built-in priority queue.
 * To be aware of the priority queue applications (usages).
   * To be aware of the famous algorithms that use priority queues.
-  * To be aware of problems where we should use priority queues.
+  * To be aware of the problems where we should use priority queues.
+
+## Problem
+
+* //ToDo: A table showing the purpose of an array, a linked list, a stack, and a queue.
+* What problem they solve in one sentence.
+* After the table: The problem we still have.
+
+---
+
+**What problem does a priority queue solve better than the other data structures?**
+
+* 
 
 ## Definition
 
@@ -86,14 +102,14 @@
 * A queue strictly follows `FIFO - First-In-First-Out` order.
 * A stack strictly follows `LIFO - Last-In-First-Out` order.
 * However, a priority queue follows a `priority` order.
-* For example, when we call `remove`, the element with the highest priority is
-  removed first.
+* For example, when we call `remove`, the element with the highest or the lowest priority is
+  removed first. 
 * Only if the priorities of two elements are the same, the priority queue
   follows the `FIFO - First-In-First-Out` order.
 
 ## Common Operations
 
-* Add, peek, poll (or remove), isEmpty, max (or findMax, getMax),
+* Add (or offer), peek, poll (or remove), isEmpty, max (or findMax, getMax) or min (or findMin, getMin),
   changePriority, etc.
 
 ## When to use?
@@ -251,7 +267,7 @@ Indices       0     1     2     3     4     5     6
 
 * We cannot use binary search for a linked list, because a linked list does not give us random access in `O(1)`.
 * A linked list does not give us random access in `O(1)`, because it is not a contiguous data structure.
-* It means that the previous and the next elements are not neighbours in the memory.
+* It means that the previous and the next elements are not neighbors in the memory.
 * The previous and next elements are scattered in the memory.
 * It means that we cannot use `index` to find any element in `O(1)`.
 * In a binary search, we use `indices` to get any element in `O(1)` time, and adjust our boundaries accordingly.
@@ -276,7 +292,7 @@ Indices       0     1     2     3     4     5     6
 * Core:
   * A priority queue is an Abstract Data Type where each element is associated with a priority.
 * Operations:
-  * It mainly performs `insert`, `peek`, `remove`, and `changePriority` operations.
+  * It mainly performs `insert (add, offer)`, `peek`, `remove (poll)`, and `changePriority` operations.
 * Operation specific:
   * The elements are removed based on their priorities instead of their arrival orders.
 * Implementation:
@@ -303,14 +319,24 @@ Indices       0     1     2     3     4     5     6
     * `extractMax,` or `extractMin` in `O(log n)` time.
     * `changePriority` in `O(log n)` time.
     * `sort` the data in `O(n log n)` time.
+
+## Data Structures: Problems And Solutions
+
+* //ToDo: A table to show which problem a particular data structure solves.
+* Problem, Data Structure, But... (A problem that the next data structure solves)
+* Array, linked list, stack, queue, priority queue
+* Fill the problem column only for the next data structure that solves it.
   
 ## Questions:
 
 ### What problem does a priority queue solve?
 * When do we use a priority queue?
 
+* 
+
 ### What are the pros and cons of a priority queue?
 
+* 
 
 ### How does a priority queue work?
 
@@ -320,9 +346,21 @@ Indices       0     1     2     3     4     5     6
 * What is the time complexity of various operations on a priority queue? How?
 * What is the space complexity of various operations on a priority queue? How?
 
+* 
+
+### Can we use any other data structure than `Heaps` to build the priority queue?
+
+* Yes. A priority queue is an ADT (Abstract Data Type).
+* It means that we can build it using any other data structure as long as it maintains the invariants.
+
+### What are the invariants (rules) of the priority queue? 
+
+* 
+
 ### What is the difference between a priority queue and a regular queue? Explain the overall difference and the difference for each operation.
 
-
+* 
 
 ### What are the few cases where we might prefer a regular queue over a priority queue? Why?
 
+* 
