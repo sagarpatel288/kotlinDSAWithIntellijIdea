@@ -84,12 +84,12 @@ data class TreeNode(
 
 ##### Arrays
 
-* An unsorted array would take `O(n)` time to find a range or neighbours.
+* An unsorted array would take `O(n)` time to find a range or neighbors.
 * A sorted array would take `O(n)` time for `insert`, and `delete` operations.
 
 ##### Linked Lists
 
-* An unsorted linked list would take `O(n)` time to find a range or neighbours.
+* An unsorted linked list would take `O(n)` time to find a range or neighbors.
 * A sorted linked list would take `O(n)` time for the `insert` operation.
 * We cannot perform the `Binary Search` on a linked list.
 * Because a linked list is not a contiguous data structure.
@@ -97,11 +97,13 @@ data class TreeNode(
 ##### Hash Table
 
 * Look up is fine in a hash table. We can do it in `O(1)`.
-* But comparing and searching for a particular range, or neighbour, is almost impractical. We have to compare each element with all the other elements.
+* But comparing and searching for a particular range, or neighbor, is almost impractical. 
+* We have to compare each element with all the other elements.
 
 #### Search
 
-* A normal binary tree can take `O(n)` (linear time) for searching a node, because we have to check each node. Reference: [Trees](../module01BasicDataStructures/section03trees/010trees.md).
+* A normal binary tree can take `O(n)` (linear time) for searching a node, because we have to check each node. 
+* Reference: [Trees](../module01BasicDataStructures/section03trees/010trees.md).
 * Whereas, a BST takes `O(Tree Height) = O(log n)` for searching.
 
 ![10bstFindIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/12bstFindIntro.png)
@@ -110,13 +112,13 @@ data class TreeNode(
 * We may start with the root node: `3`.
 * We compare `3` and `6`. 
 * We find that `6 > 3`. 
-* It means that `6` must be at the right side.
+* It means that `6` must be on the right side.
 * So, we completely discard the left side of `3`.
 * We check the right child of `3`.
 * We find the right child of `3` is `5`.
 * We compare `5` and `6`.
 * We find that `6 > 5`.
-* It means that `6` must be at the right side.
+* It means that `6` must be on the right side.
 * So again, we completely discard the left side of `5`.
 * We check the right child of `5`.
 * We find the right child of `5` is `6`.
