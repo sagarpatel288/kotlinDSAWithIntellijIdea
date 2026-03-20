@@ -60,6 +60,11 @@
 * //ToDo: A table showing the purpose of an array, a linked list, a stack, and a queue.
 * What problem they solve in one sentence.
 * After the table: The problem we still have.
+* A system that uses priority, importance, urgency, extremum (highest, lowest, greatest, least, largest, smallest, earliest, etc.).
+* Dynamic structure: Items are not static. The system or process adds and removes items.
+* Some kind of order that is not strictly LIFO or FIFO.
+* Logarithmic Complexity.
+* 
 
 ---
 
