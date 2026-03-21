@@ -70,7 +70,12 @@
 
 **What problem does a priority queue solve better than the other data structures?**
 
-* 
+* A priority queue finds the extremum in `O(1)` with efficient cost of adding or removing the data.
+* The max heap finds the item having the maximum value (weight, priority) in `O(1)`.
+* The min heap finds the item having the minimum value (weight, priority) in `O(1)`.
+* Adding an item takes `O(log n)` due to heapify-up process.
+* Removing an item takes `O(log n)` due to heapify-down process.
+* We can build a heap out of unsorted data in `O(n)`.
 
 ## Definition
 
