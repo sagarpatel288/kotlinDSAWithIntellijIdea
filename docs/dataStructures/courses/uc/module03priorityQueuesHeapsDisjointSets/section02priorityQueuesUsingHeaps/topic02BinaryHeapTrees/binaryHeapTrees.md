@@ -48,10 +48,10 @@
 
 ![020nonBinaryMaxHeapTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/020nonBinaryMaxHeapTree.png)
 
-* A binary max heap tree must satisfy the following two properties.
+* A **binary max heap tree** must satisfy the following two properties.
   * Heap Property
   * Structure Property
-* **Heap Property:** It is a binary tree where the parent node (the top node of an edge) is always greater than or equal to the child node (the bottom node of the edge).
+* **Max Heap Property:** It is a binary tree where the parent node (the top node of an edge) is always greater than or equal to the child node (the bottom node of the edge).
   * Technically speaking, for every node `n`, it must be greater than or equal to its children.
   * It ensures that the largest value is always at the root node.
 * **Structure Property:** It must be a [complete binary tree](../topic03CompleteBinaryTrees/completeBinaryTrees.md). 
@@ -62,7 +62,7 @@
 
 ### Common Operations
 
-* getMax(or max, peek), insert(or add), extractMax(or poll), changePriority, remove, etc.
+* getMax(or max, peek), insert(or add, or offer), extractMax(or poll, or remove), changePriority, etc.
 
 ### Time Complexity Of Each Operation
 
@@ -81,6 +81,7 @@
 * We insert a new element as a leaf.
 * It may violate the binary max heap [structure (rules)](#definition).
 * So, to ensure that the structure remains valid, we perform the **SiftUp** procedure.
+* The **SiftUp** process is also known as **Heapify-Up** or **Bubble-Up** process.
 * In the **SiftUp** procedure, we compare the new element with the parent.
 * If the parent is smaller than the new element, we swap the elements (or, in other words, their positions or 
   relationships in the tree).
@@ -99,6 +100,8 @@
   * We use the lever to push the jack arms (lifting arms) **upward** to lift the car. 
 
 #### ExtractMax (or poll) = `SiftDown` 
+
+**Removing the `max` element from the binary max heap.**
 
 ![060extractMaxOfBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/060extractMaxOfBinaryMaxHeap.png)
 
@@ -161,6 +164,12 @@
 #### Remove
 
 ![080removeBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/080removeBinaryMaxHeap.png)
+
+**Don't get confused with the [ExtractMax](#extractmax-or-poll--siftdown-).**
+
+* The [ExtractMax](#extractmax-or-poll--siftdown-) is about removing the `max` element in the binary max heap.
+* Whereas the `remove` operation is about removing any other element than the `max` element in the binary max heap. 
+
 
 ##### The Story Time
 
