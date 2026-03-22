@@ -27,6 +27,7 @@
   * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
   * [Questions:](#questions)
     * [What problem does a complete binary tree solve?](#what-problem-does-a-complete-binary-tree-solve)
+    * [How does the rule of filling the levels from left-to-right help in a complete binary tree?](#how-does-the-rule-of-filling-the-levels-from-left-to-right-help-in-a-complete-binary-tree)
     * [What are the pros and cons of a complete binary tree?](#what-are-the-pros-and-cons-of-a-complete-binary-tree)
     * [How does a complete binary tree work?](#how-does-a-complete-binary-tree-work)
     * [What is the difference between a complete binary tree and a binary heap tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-complete-binary-tree-and-a-binary-heap-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
@@ -315,6 +316,15 @@ $h = \lfloor\log_2(n)\rfloor$
 
 ### What problem does a complete binary tree solve?
 * When do we use a complete binary tree?
+
+
+### How does the rule of filling the levels from left-to-right help in a complete binary tree?
+
+* Tree becomes compact because we don't get any gaps between two nodes.
+  * A compact tree keeps the tree height `O(log n)`, enabling efficient operations.
+* Enables the array representation.
+  * The array representation makes it cache efficient as it becomes a contiguous data structure.
+  * It becomes easy to map parent-children relationship.
 
 ### What are the pros and cons of a complete binary tree?
 
