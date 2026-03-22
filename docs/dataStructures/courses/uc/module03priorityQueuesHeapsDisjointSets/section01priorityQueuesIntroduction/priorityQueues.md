@@ -301,6 +301,13 @@ Indices       0     1     2     3     4     5     6
 
 * Core:
   * A priority queue is an Abstract Data Type where each element is associated with a priority.
+  * It uses a binary heap tree.
+  * A binary heap tree uses a complete binary tree.
+  * The complete binary tree keeps the tree height compact `O(log n)`.
+  * Because in a complete binary tree, the nodes are filled from left-to-right without any gaps.
+  * It allows us to represent the data structure using an array.
+  * So, we get all the benefits of an array with the reduced shifting cost of `O(log n)` instead of `O(n)`.
+  * Also, the heap property allows us to access the extremum in `O(1)`.
 * Operations:
   * It mainly performs `insert (add, offer)`, `peek`, `remove (poll)`, and `changePriority` operations.
 * Operation specific:
@@ -321,7 +328,7 @@ Indices       0     1     2     3     4     5     6
 
 ## Application Summary: Purpose And Reason
 
-* Once we understand the [entire priority queue material](#next), the purpose and reasoning of the priority queue becomes clearer.
+* Once we understand the [entire priority queue material](#next), the purpose of the priority queue becomes clearer.
 * We use the priority queue to perform:
   * If we get unorganized data, we can `build a heap` in `O(n)` time. And then:
     * `insert` in `O(log n)` time.
