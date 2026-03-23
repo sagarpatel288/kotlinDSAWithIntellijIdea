@@ -18,6 +18,7 @@
       * [siftDown or `heapifyDown`](#siftdown-or-heapifydown)
       * [changePriority](#changepriority)
   * [Critical Points](#critical-points)
+  * [ToDO](#todo)
 <!-- TOC -->
 
 # Implement a binary max heap tree data structure
@@ -55,6 +56,25 @@
 * [GitHub heapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b4deae7cce5798fd22bdc82b3b81222cc4c18527/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
 
 ## Thought Process
+
+* We have learned that a priority queue uses a binary heap tree.
+* And a binary heap tree uses a complete binary tree (the heap structure) and the heap properties.
+  * A complete binary tree ensures that the tree height remains compact: `O(log n)`.
+  * The max heap property ensures that we get the element with the highest priority in: `O(1)`.
+  * We have parent-children formulas to check and confirm the heap properties.
+* Now, we expect the following operations from a priority queue:
+  * insert (or add, or offer)
+  * peek
+  * extractMax (or poll)
+  * remove
+  * changePriority
+* But an operation can change the properties of the heap tree.
+  * For example, the `insert`, `extractMax`, `changePriority`, and the `remove` operations.
+* So, to sustain the heap properties against these operations, we have certain additional operations.
+* For example, the `insert` operation is followed by the `siftUp` operation.
+* The `extractMax` operation is followed by the `siftDown` operation.
+* If the `changePriority` operation increases the priority, then it is followed by the `siftUp` operation.
+* If the `changePriority` operation decreases the priority, then it is followed by the `siftDown` operation.
 
 ### What is a binary max heap tree?
 
@@ -150,7 +170,7 @@ fun hasRightChildIndexOf(index: Int) = getRightChildIndexOf(index) <= heap.size 
 * changePriorityOf (or update),
 * remove (or delete, or poll),
 * peekMax (or max, getMax, or peek),
-* extractMax, 
+* extractMax (or removeMax), 
 * etc.
 
 ### How do we maintain (keep, sustain, preserve) the complete binary tree for all the operations?
@@ -206,8 +226,8 @@ fun extractMax(): T? {
     if (heap.isNotEmpty()) {
         // Take the root element
         val max = heap[0]
-        // Set the last element at the root
-        heap[0] = heap.last
+        // Set the last element at the root and the root element to the last
+        swap(0, heap.lastIndex)
         // Remove the last element
         heap.removeAt(heap.lastIndex) //or heap.remove(heap.last)
         // Maintain the max heap properties
@@ -223,7 +243,7 @@ fun extractMax(): T? {
 
 #### siftDown or `heapifyDown`
 
-* Here, we compare the element with the child node.
+* Here, we compare the element with the child node (That's why, we need a `comparable` data).
 * If the element is smaller than the child node, we swap the elements/positions.
 * If both the children are greater than the element, we select the highest child.
 * We continue this process until we reach the last index of the underlying `mutableList`.
@@ -297,3 +317,7 @@ fun changePriority(atIndex: Int, newValue: T) {
 * **Correct `index` usages in**
 * [hasParent], [getParentIndexOf], [hasLeftChild], [getLeftChildIndexOf], [hasRightChild], [getRightChildIndexOf],
 * [siftUp], [siftDown], etc.
+
+## ToDO
+
+* 
