@@ -45,6 +45,10 @@
 
 ## Definition
 
+* A [priority queue](../../section01priorityQueuesIntroduction/priorityQueues.md) uses a binary heap tree.
+* And a [binary heap tree](../topic02BinaryHeapTrees/binaryHeapTrees.md) uses a complete binary tree.
+* So, let us understand the complete binary tree.
+
 ![01definitionCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/01definitionCompleteBinaryTree.png)
 
 * A complete binary tree is a binary tree where all the levels are completely filled, except maybe the last level.
