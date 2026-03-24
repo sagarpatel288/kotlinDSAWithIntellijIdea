@@ -130,9 +130,9 @@ val heap = mutableListOf<T>()
 ![010parentChildrenRelationFormula.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/010parentChildrenRelationFormula.webp)
 
 * For 0-based index, the formulas are:
-* Parent of index `i` is `⌊(i - 1)/2⌋` // 1 index behind than the 1-based index.
-* Left child of index `i` is `(2 * i) + 1`. // 1 index ahead of the 1-based index.
-* Right child of index `i` is `(2 * i) + 2`. // 1 index ahead of the 1-based index.
+* Parent of index `i` is `⌊(i - 1)/2⌋` 
+* Left child of index `i` is `(2 * i) + 1`.
+* Right child of index `i` is `(2 * i) + 2`.
 * It means that we might have the following helper functions:
 
 ```kotlin
@@ -194,6 +194,8 @@ fun insert(newElement: Int) {
 ```
 
 ##### And what about the `siftUp` or the `heapifyUp` process? How do we do that?
+
+![020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp)
 
 * In `SiftUp`, we compare (that's why the `data type` must be `comparable`) the newly inserted element with the parent.
 * We get the parent index, and use it to get the element at that parent index.
