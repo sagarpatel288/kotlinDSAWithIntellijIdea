@@ -81,6 +81,8 @@
 
 ![040insertOfBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/040insertOfBinaryMaxHeap.png)
 
+![020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp)
+
 * We insert a new element as a leaf.
 * It may violate the binary max heap [structure (rules)](#definition).
 * So, to ensure that the structure remains valid, we perform the **SiftUp** procedure.
@@ -107,6 +109,8 @@
 **Removing the `max` element from the binary max heap.**
 
 ![060extractMaxOfBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/060extractMaxOfBinaryMaxHeap.png)
+
+![030peekExtractMaxInABinaryMaxHeap.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/030peekExtractMaxInABinaryMaxHeap.webp)
 
 ##### How to remember? The story: Story Time
 
@@ -170,8 +174,8 @@
 
 **Don't get confused with the [ExtractMax](#extractmax-or-poll--siftdown-).**
 
-* The [ExtractMax](#extractmax-or-poll--siftdown-) is about removing the `max` element in the binary max heap.
-* Whereas the `remove` operation is about removing any other element than the `max` element in the binary max heap. 
+* The [ExtractMax](#extractmax-or-poll--siftdown-) is about removing the `max` element from the binary max heap.
+* Whereas the `remove` operation is about removing any element from the binary max heap. 
 
 
 ##### The Story Time
