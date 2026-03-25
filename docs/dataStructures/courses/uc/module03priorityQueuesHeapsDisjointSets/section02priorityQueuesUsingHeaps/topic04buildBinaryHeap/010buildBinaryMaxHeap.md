@@ -219,6 +219,8 @@ private fun siftUp(childIndex: Int) {
 
 #### extractMax
 
+![030peekExtractMaxInABinaryMaxHeap.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/030peekExtractMaxInABinaryMaxHeap.webp)
+
 * We replace the root node with the last node.
 * And then, we follow the `SiftDown` procedure.
 * So, it looks like:
@@ -313,6 +315,23 @@ fun changePriority(atIndex: Int, newValue: T) {
     }
 }
 ```
+
+## TL;DR
+
+* To maintain the heap properties, we will be comparing parents and children.
+* So, the data must be comparable.
+* To compare data, we need fast random access.
+* So, we will be using an array to store the data.
+* We store the data in the array in a particular way using the below formulas:
+* Parent of index `i` is: `(i - 1)/2`
+* Left child of index `i` is: `2i + 1`
+* Right child of index `i` is: `2i + 2`
+* The `insert` operation is followed by the `siftUp` operation to maintain the heap properties.
+* The `extractMax` operation is followed by the `siftDown` operation.
+* To remove an item, we make its value `infinite`, and make it the root. 
+* Then, we swap it with the last element, extract it, and restore the heap property using the `siftDown` operation.
+* If the `changePriority` increases the priority, then it is followed by the `siftUp` operation.
+* If the `changePriority` decreases the priority, then it is followed by the `siftDown` operation.
 
 ## Critical Points
 
