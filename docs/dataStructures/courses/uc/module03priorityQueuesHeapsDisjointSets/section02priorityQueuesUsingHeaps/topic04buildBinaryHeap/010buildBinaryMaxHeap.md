@@ -17,6 +17,8 @@
       * [extractMax](#extractmax)
       * [siftDown or `heapifyDown`](#siftdown-or-heapifydown)
       * [changePriority](#changepriority)
+      * [remove](#remove)
+  * [TL;DR](#tldr)
   * [Critical Points](#critical-points)
   * [ToDO](#todo)
 <!-- TOC -->
@@ -314,6 +316,27 @@ fun changePriority(atIndex: Int, newValue: T) {
         siftDown(atIndex)
     }
 }
+```
+
+#### remove
+
+```kotlin
+
+fun remove(index: Int): T? {
+    if (index !in heap.indices) return null
+    if (index == heap.lastIndex) {
+        return heap.removeLast()
+    }
+    swap(index, heap.lastIndex)
+    val removedItem = heap.removeLast()
+    if (hasParentIndex(index) && heap[(getParentIndexOf(index))] < heap[index]) {
+        siftUp(index)
+    } else {
+        siftDown(index)
+    }
+    return removedItem
+}
+
 ```
 
 ## TL;DR
