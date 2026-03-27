@@ -42,7 +42,7 @@
   * Call `extractMax`, and 
   * Add the result of `extractMax` to the end of the new array (we fill the array from end to start), 
   * Repeat this process until there are no more elements left to perform the `extractMax` function, 
-  * The resultant array, where we store the result of each `extractMax` call, becomes a sorted array (ascending).
+  * The resultant array, where we store the result of each `extractMax` call, becomes a sorted array (ascending) 😯.
 * However, in that case, we take the additional array, which increases the space complexity.
 * What if we can do this process as an `in-place` sorting?
 * To make it an `in-place` sorting process, we don't take the new array to store the results.
@@ -62,6 +62,8 @@
 * Because $\frac{n}{2}$ is the last parent node.
 
 ![01heapSortLastParentPosition.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/01heapSortLastParentPosition.png)
+
+![050heapSort.webp](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/050heapSort.webp)
 
 * All the other nodes will be at the last level without any children!
 * So, this is the advantage of this algorithm. We reduce (cut, ignore) many nodes at once in this process.
@@ -89,7 +91,7 @@
 
 * So, we know that each `siftDown` call gets `log n` time complexity.
 * And for $\frac{n}{2}$ elements, it becomes $\frac{n}{2} * \log n$.
-* Which is, $n\:\log n$ time, because we drop the constant $\frac{1}{2}$.
+* Which is, $n\:\log (n)$ time, because we drop the constant $\frac{1}{2}$.
 
 ## Realistic Analysis Of Building A Heap
 
@@ -188,6 +190,10 @@ $$
 * So, we solve the problem in `O(n)` time, which is linear.
 
 ## Recap: Heap Sort Algorithm
+
+![01heapSortLastParentPosition.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/01heapSortLastParentPosition.png)
+
+![050heapSort.webp](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/050heapSort.webp)
 
 * We get an unsorted array.
 * We build a heap out of it.
