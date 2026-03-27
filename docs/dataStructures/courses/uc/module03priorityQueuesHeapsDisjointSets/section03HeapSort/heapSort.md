@@ -11,6 +11,7 @@
     * [Mathematical Calculation](#mathematical-calculation)
     * [Benefits of realistic `buildHeap` analysis](#benefits-of-realistic-buildheap-analysis)
   * [Recap: Heap Sort Algorithm](#recap-heap-sort-algorithm)
+  * [TL;DR](#tldr)
   * [Practical Implementation](#practical-implementation)
   * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
   * [Questions:](#questions)
@@ -223,7 +224,7 @@ $$
   * However, the `swap` function has placed the old and original last leaf node at the root position.
   * It might violate the binary max heap tree.
     * As per the definition of the binary max heap tree, it will always violate the max heap unless all the elements are the same!
-  * So, to ensure the binary max heap properties, we call `siftDown`. 
+  * So, to restore the binary max heap properties, we call `siftDown`. 
   * We pass the index `0` to indicate that we need to inspect the tree from top to bottom.
   * Once we have a valid, proper binary max heap tree, we again call the `extractMax` function.
   * We repeat the entire process.
@@ -236,6 +237,19 @@ $$
   * So, for `n` times, it becomes `n log n`.
 * We can see that the `buildHeap` function takes `O(n)` time, and the `extractMax` function takes `n log n` time.
 * So, the dominant term, `n log n` is the overall time complexity of this `heapSort` algorithm.
+
+## TL;DR
+
+* Get the unsorted array.
+* Build heap:
+  * Loop from $n \over 2$ to $0$: `siftDown`
+  * Time complexity: $O(n)$
+  * Space complexity: $O(1)$ (in-place)
+* Extract max loop:
+  * Loop from $n-1$ to $1$:
+  * `extractMax` --> `swap` --> Reduce the end-index boundary --> Repeat.
+  * Time complexity: $n \ log(n)$
+  * Space complexity: $O(1)$ (in-place)
 
 ## Practical Implementation
 
