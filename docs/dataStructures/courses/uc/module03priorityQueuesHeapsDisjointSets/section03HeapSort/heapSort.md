@@ -268,6 +268,8 @@ $$
 * It is not a stable sorting algorithm.
 * It means that it does not preserve the relative order of equal elements.
 * It is cache-unfriendly.
+* Because the parent is at index $(i - 1) \over 2$, the left child is at index $2i + 1$ and the right child is at index $2i + 2$.
+* So, they are not contiguous in memory.
 * The time complexity is $O(n \ log (n))$.
 * 
 
