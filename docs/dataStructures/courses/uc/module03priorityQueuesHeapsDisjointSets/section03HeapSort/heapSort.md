@@ -18,7 +18,15 @@
     * [What problem does a heap sort solve?](#what-problem-does-a-heap-sort-solve)
     * [What are the pros and cons of a heap sort?](#what-are-the-pros-and-cons-of-a-heap-sort)
     * [How does a heap sort work?](#how-does-a-heap-sort-work)
-    * [What is the difference between a heap sort and a merge sort?](#what-is-the-difference-between-a-heap-sort-and-a-merge-sort)
+    * [Coordinate Systems](#coordinate-systems)
+    * [Time Complexity](#time-complexity)
+    * [Stability](#stability)
+    * [siftUp vs siftDown](#siftup-vs-siftdown)
+    * [Heap Sort vs. Selection Sort](#heap-sort-vs-selection-sort)
+    * [Heap Sort vs. Quick Sort](#heap-sort-vs-quick-sort)
+    * [Heap Sort vs. Merge Sort](#heap-sort-vs-merge-sort)
+    * [Heap vs. BST](#heap-vs-bst-)
+  * [Relevant DSA Questions:](#relevant-dsa-questions)
 <!-- TOC -->
 
 ## References / Resources
@@ -251,6 +259,18 @@ $$
   * Time complexity: $n \ log(n)$
   * Space complexity: $O(1)$ (in-place)
 
+---
+
+* Heap sort is mostly a selection sort optimization using a heap.
+* It is an in-place sorting algorithm.
+* It means that it does not require any extra space.
+* So, the space complexity is $O(1)$.
+* It is not a stable sorting algorithm.
+* It means that it does not preserve the relative order of equal elements.
+* It is cache-unfriendly.
+* The time complexity is $O(n \ log (n))$.
+* 
+
 ## Practical Implementation
 
 * Binary Max Heap
@@ -290,4 +310,49 @@ $$
 * What is the time complexity of various operations on a heap sort? How?
 * What is the space complexity of various operations on a heap sort? How?
 
-### What is the difference between a heap sort and a merge sort?
+### Coordinate Systems
+
+* Why does the formula for the left child change from 2i (1-based index) to 2i + 1 (0-based index)?
+
+### Time Complexity
+
+* What is the time complexity of finding the maximum element in a Min-Heap? (Trick question).
+
+### Stability
+
+* Is a Priority Queue a stable data structure? (If I insert two tasks with priority '5', are they guaranteed to come out in the exact order I inserted them?)
+
+### siftUp vs siftDown
+
+* If I decrease the priority of a node in a Max-Heap, which operation must I perform to restore the heap property, and why?
+
+### Heap Sort vs. Selection Sort
+
+*
+
+### Heap Sort vs. Quick Sort
+
+*
+
+### Heap Sort vs. Merge Sort
+
+*
+
+### Heap vs. BST 
+
+* A Binary Search Tree can also find the max element and insert elements in $O(\log N)$ time. Why would we ever use a Heap instead of a balanced BST (like an AVL tree or Red-Black tree) for a priority queue? (Hint: Think about memory overhead, constant factors, and building time).
+
+## Relevant DSA Questions:
+
+* Sort descending using min heap    
+* Find the kth largest/smallest element    
+* Merge k sorted arrays/lists    
+* Top k frequent elements  
+
+---
+
+* Median from data stream ("Keep track of the median in a stream of numbers...")      
+* Sliding window maximum     
+* Dijkstra’s algorithm    
+* Task scheduler   
+* Merge intervals using heap
