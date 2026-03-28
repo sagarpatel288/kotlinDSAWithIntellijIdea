@@ -267,6 +267,7 @@ $$
 * So, the space complexity is $O(1)$.
 * It is not a stable sorting algorithm.
 * It means that it does not preserve the relative order of equal elements.
+* For example, two elements with the same value may not preserve their relative insert order after sorting.
 * It is cache-unfriendly.
 * Because the parent is at index $(i - 1) \over 2$, the left child is at index $2i + 1$ and the right child is at index $2i + 2$.
 * So, they are not contiguous in memory.
