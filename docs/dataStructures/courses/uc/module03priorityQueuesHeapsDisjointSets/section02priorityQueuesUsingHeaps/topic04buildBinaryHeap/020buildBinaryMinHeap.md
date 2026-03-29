@@ -9,11 +9,11 @@
   * [Input Format](#input-format)
   * [Constraints](#constraints)
   * [Output Format](#output-format)
-  * [Time Limits.](#time-limits)
-  * [Memory Limit. 512MB.](#memory-limit-512mb)
-  * [Sample 1.](#sample-1)
-    * [Input:](#input)
-    * [Output:](#output)
+  * [Time Limits](#time-limits)
+  * [Memory Limit](#memory-limit-)
+  * [Sample 1](#sample-1)
+    * [Input](#input)
+    * [Output](#output)
   * [Sample 2.](#sample-2)
     * [Input](#input-1)
     * [Output](#output-1)
@@ -127,6 +127,77 @@ $𝑎_0 = 1 < 2 = 𝑎_1, 𝑎_0 = 1 < 3 = 𝑎_2, 𝑎_1 = 2 < 5 = 𝑎_3, 𝑎
 
 * The input array is already a heap, because it is sorted in increasing order.
 
+# Thought Process
+
+* [Local: buildMaxHeap.md](010buildBinaryMaxHeap.md)
+
+* [GitHub: buildMaxHeap.md](010buildBinaryMaxHeap.md)
+
+* Similar to building a max-heap, we can build a min-heap.
+* The only difference is that, we ensure that the parent node is smaller than the smallest child node.
+* Also, there is no sorting.
+* So, we can avoid sorting the given input.
+* We just need to build the min heap.
+
+## buildHeap
+
+```kotlin
+
+fun buildHeap(array: IntArray) {
+    for (i in ((array.size/2) - 1) downTo 0) {
+        siftDown(array, i)
+    }
+}
+
+```
+
+## siftDown
+
+```kotlin
+
+private fun siftDown(array: IntArray, index: Int) {
+    var parent = index
+    while (hasLeftChild(parent, array)) {
+        var min = getLeftChildIndex(parent)
+        if (hasRightChild(parent, array) && array[getRightChild(parent)] < array[min]) {
+            min = getRightChild(parent)
+        }
+        if (array[parent] <= array[min]) {
+            break
+        } else {
+            swap(array, parent, min)
+            parent = min
+        }
+    }
+}
+
+```
+
+## Helper Functions
+
+```kotlin
+
+private fun getLeftChildIndex(index: Int) = (2 * index) + 1
+
+private fun getRightChildIndex(index: Int) = (2 * index) + 2
+
+private fun hasLeftChild(index: Int, array: IntArray): Boolean {
+    return getLeftChildIndex(index) in 0 .. array.lastIndex
+}
+
+private fun hasRightChild(index: Int, array: IntArray): Boolean {
+    return getRightChildIndex(index) in 0 .. array.lastIndex
+}
+
+private fun swap(array: IntArray, positionOne: Int, positionTwo: Int) {
+    if (positionOne !in array.indices || positionTwo !in array.indices) return
+    
+    val temp = array[positionOne]
+    array[positionOne] = array[positionTwo]
+    array[positionTwo] = temp
+}
+
+```
 
 # Time Complexity
 
@@ -138,6 +209,10 @@ $𝑎_0 = 1 < 2 = 𝑎_1, 𝑎_0 = 1 < 3 = 𝑎_2, 𝑎_1 = 2 < 5 = 𝑎_3, 𝑎
 * [Local: heapSort.md](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
 
 * [GitHub: heapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a244469d45534a60ac027a4925e07ac3f1d256e3/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+
+* [Local: buildMaxHeap.md](010buildBinaryMaxHeap.md)
+
+* [GitHub: buildMaxHeap.md](010buildBinaryMaxHeap.md)
 
 # Space Complexity
 
