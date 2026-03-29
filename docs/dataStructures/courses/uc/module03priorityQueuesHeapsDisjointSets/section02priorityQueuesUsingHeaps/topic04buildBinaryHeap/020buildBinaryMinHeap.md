@@ -21,6 +21,7 @@
   * [buildHeap](#buildheap)
   * [siftDown](#siftdown)
   * [Helper Functions](#helper-functions)
+  * [Remember](#remember)
 * [Time Complexity](#time-complexity)
 * [Space Complexity](#space-complexity)
 <!-- TOC -->
@@ -202,6 +203,16 @@ private fun swap(array: IntArray, positionOne: Int, positionTwo: Int) {
 }
 
 ```
+
+## Remember
+
+**Max Heap**
+
+* The parent must be greater than the greatest child.
+
+**Min Heap**
+
+* The parent must be smaller than the smallest child.
 
 # Time Complexity
 
