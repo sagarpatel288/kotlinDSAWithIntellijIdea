@@ -17,6 +17,10 @@
   * [Sample 2.](#sample-2)
     * [Input](#input-1)
     * [Output](#output-1)
+* [Thought Process](#thought-process)
+  * [buildHeap](#buildheap)
+  * [siftDown](#siftdown)
+  * [Helper Functions](#helper-functions)
 * [Time Complexity](#time-complexity)
 * [Space Complexity](#space-complexity)
 <!-- TOC -->
