@@ -186,11 +186,11 @@ private fun getLeftChildIndex(index: Int) = (2 * index) + 1
 private fun getRightChildIndex(index: Int) = (2 * index) + 2
 
 private fun hasLeftChild(index: Int, array: IntArray): Boolean {
-    return getLeftChildIndex(index) in 0 .. array.lastIndex
+    return getLeftChildIndex(index) in array.indices
 }
 
 private fun hasRightChild(index: Int, array: IntArray): Boolean {
-    return getRightChildIndex(index) in 0 .. array.lastIndex
+    return getRightChildIndex(index) in array.indices
 }
 
 private fun swap(array: IntArray, positionOne: Int, positionTwo: Int) {
