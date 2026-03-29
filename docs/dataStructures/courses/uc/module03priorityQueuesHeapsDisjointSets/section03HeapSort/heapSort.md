@@ -294,6 +294,7 @@ $$
         * `insert` in `O(log n)` time.
         * `peekMax,` or `peekMin` in `O(1)` time.
         * `extractMax,` or `extractMin` in `O(log n)` time.
+        * `remove` in `O(log n)` time.
         * `changePriority` in `O(log n)` time.
         * `sort` the data in `O(n log n)` time.
 
@@ -321,6 +322,12 @@ $$
 
 * What is the time complexity of finding the maximum element in a Min-Heap? (Trick question).
 
+---
+
+* According to the min heap property, the maximum element must be in the second half part.
+* So, we would scan from the starting point of the second half to the last leaf node.
+* So, it would take `O(n)`.
+
 ### Stability
 
 * Is a Priority Queue a stable data structure? (If I insert two tasks with priority '5', are they guaranteed to come out in the exact order I inserted them?)
@@ -343,7 +350,8 @@ $$
 
 ### Heap vs. BST 
 
-* A Binary Search Tree can also find the max element and insert elements in $O(\log N)$ time. Why would we ever use a Heap instead of a balanced BST (like an AVL tree or Red-Black tree) for a priority queue? (Hint: Think about memory overhead, constant factors, and building time).
+* A Binary Search Tree can also find the max element and insert elements in $O(\log N)$ time. 
+* Why would we ever use a Heap instead of a balanced BST (like an AVL tree or Red-Black tree) for a priority queue? (Hint: Think about memory overhead, constant factors, and building time).
 
 ## Relevant DSA Questions:
 
