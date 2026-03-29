@@ -121,7 +121,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
 class MinHeapBuilder(private val input: IntArray) {
 
     /**
-     * This is a global mutable property, but we don't expose it.
+     * This is a global property, but we don't expose it.
      */
     private val swaps = mutableListOf<Pair<Int, Int>>()
 
