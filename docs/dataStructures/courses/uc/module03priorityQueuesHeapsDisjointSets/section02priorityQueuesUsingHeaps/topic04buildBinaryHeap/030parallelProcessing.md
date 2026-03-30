@@ -169,6 +169,53 @@ $0 ≤ 𝑡_𝑖 ≤ 10^9$
 * 1 0 --> Line `1` indicates that the job `1` will be taken by the thread `1` and will be started at time `0`.
 * 0 5 --> Line `2` indicates that the job `2` will be taken by the thread `0` and will be started at time `5`.
 
+---
+
+* `m` threads
+* `n` jobs: Each job with the time it takes
+
+**Thread Index**
+
+* Print by thread index (hidden), the job index (indicating the job it took), and the starting (processing) time of the job in that thread, by that thread.
+* We need a data class that holds the thread index, the job index it took, and the starting (processing) time of the job in that thread, by that thread.
+
+**Which job does a thread take?**
+
+* It depends on the time.
+* If a thread is free, and has the smallest index compared to other free threads, then this thread gets the job.
+* It means that we implement the `comparable` interface that compares two different threads based on their `free` availability and `thread index`.
+
+**What does it mean by a `Free Thread`? How do we convert it into the code? How to represent it in a code?**
+
+* The phrase `Free` is associated with `Time`.
+
+**From where do we get this `Time`?**
+
+* The only data we have that gives the `Time` is from a `Job`.
+* Each `job` has a duration that indicates how much time it takes.
+
+**How do we associate this `Job Time` data with the `Free Thread` phrase?**
+
+* Suppose that a job takes `30` seconds or whatever the time unit is.
+* It means that the thread that processes this job, once the job process begins, the thread will be free after `30` seconds.
+
+**When does the job process begin? How do we get the job start time?**
+
+* The `start time` depends on the `finish time` of the previous job!
+* It looks like a circle (marry-go-round).
+* But, we can use the base case.
+* When there is no previous job, the time starts from `0`, and we have provided with the `finish time` in the form of the `duration - the time each job takes`.
+* After that, after the base case, each new job starts after the **previous job finishes** and runs for the **duration**.
+* We can convert this into a mathematical formula:
+
+> Start time = previousJob.finishTime
+
+* And it will finish at:
+
+> Finish time = start time + job.duration
+
+* //ToDo: To be continued...
+
 ### Hints
 
 #### Data Structure

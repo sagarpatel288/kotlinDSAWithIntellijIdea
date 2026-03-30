@@ -260,6 +260,7 @@ class ParallelProcessing {
      */
     data class ThreadState(val threadIndex: Int, val finishTime: Long): Comparable<ThreadState> {
         override fun compareTo(other: ThreadState): Int {
+            // Compare threads by finish time first, then by index to break ties.
             // If there is a free thread, it immediately takes the next job from the list.
             // It means that the thread that finishes the previous job first is the thread that takes the new job first.
             if (this.finishTime != other.finishTime) {
@@ -276,8 +277,10 @@ class ParallelProcessing {
 }
 
 fun main() {
+    // Read input parameters and job durations.
     val (totalThreads, totalJobs) = readln().split(" ").map { it.toInt() }
     val jobProcessTimeList = readln().split(" ").map { it.toLong() }
+    // Initialize the priority queue with all threads starting at time O.
     val priorityQueue = PriorityQueue<ThreadState>()
     // Add all the threads to the `PriorityQueue` so that we can pick up a `thread` based on the `priority`.
     // By default, the built-in `PriorityQueue` maintains a `min heap`.
@@ -285,7 +288,9 @@ fun main() {
         priorityQueue.add(ThreadState(index, 0L))
     }
     val stringBuilder = StringBuilder()
+    // Process each job by assigning it to the next available thread.
     for (jobProcessTime in jobProcessTimeList) {
+        // Update the thread's finish time and put it back into the queue.
         // A `PriorityQueue` maintains a `min heap`.
         // So, a `thread` with the lowest `finishTime` is at the root.
         // Hence, `poll` removes a `thread` from the `priorityQueue` whose `finishTime` is the lowest one.
@@ -295,6 +300,7 @@ fun main() {
         // If there is a free thread, it immediately takes the next job from the list.
         // So, the `process finish time` of the last job becomes the `process start time` of the new job.
         val processStartTime = availableThread.finishTime
+        // To print the recorded start times for all jobs.
         stringBuilder.append("${availableThread.threadIndex} $processStartTime\n")
         // `process finish time = process start time + process time`.
         val processFinishTime = processStartTime + jobProcessTime
