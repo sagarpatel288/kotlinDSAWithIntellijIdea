@@ -158,8 +158,10 @@ $0 ≤ 𝑡_𝑖 ≤ 10^9$
 ### Output Data
 
 * Which thread will take which job, and when will it finish the job?
+* The answer needs to show the thread index that has taken the job, and the starting (processing) time of the job in that thread, by that thread.
+* And we need to answer this for each job.
 * So, basically, a total of `m` lines where each line contains two values (space-separated).
-* Each line shows the information for each job sequentially, as per the given order of jobs.
+* Each line shows the information for each job sequentially, as per the given order of the jobs.
 * The first value indicates the thread index that takes and processes a particular job.
 * The second value indicates the start time of the job.
 
@@ -171,18 +173,18 @@ $0 ≤ 𝑡_𝑖 ≤ 10^9$
 
 ---
 
-* `m` threads
-* `n` jobs: Each job with the time it takes
+* `n` threads
+* `m` jobs: Each job with the time it takes
 
 **Thread Index**
 
-* Print by thread index (hidden), the job index (indicating the job it took), and the starting (processing) time of the job in that thread, by that thread.
+* Print by thread index (hidden), the job index (indicating the job taken by the thread), and the starting (processing) time of the job in that thread, by that thread.
 * We need a data class that holds the thread index, the job index it took, and the starting (processing) time of the job in that thread, by that thread.
 
-**Which job does a thread take?**
+**Which job does a thread take? Which thread does take the job? Which job does go (belong) to which thread?**  
 
 * It depends on the time.
-* If a thread is free, and has the smallest index compared to other free threads, then this thread gets the job.
+* If a thread is **free**, and has the **smallest index** compared to other free threads, then this thread gets the job.
 * It means that we implement the `comparable` interface that compares two different threads based on their `free` availability and `thread index`.
 
 **What does it mean by a `Free Thread`? How do we convert it into the code? How to represent it in a code?**
@@ -194,7 +196,7 @@ $0 ≤ 𝑡_𝑖 ≤ 10^9$
 * The only data we have that gives the `Time` is from a `Job`.
 * Each `job` has a duration that indicates how much time it takes.
 
-**How do we associate this `Job Time` data with the `Free Thread` phrase?**
+**How do we associate this `Job Duration (Process) Time` data with the `Free Thread` phrase?**
 
 * Suppose that a job takes `30` seconds or whatever the time unit is.
 * It means that the thread that processes this job, once the job process begins, the thread will be free after `30` seconds.
@@ -215,7 +217,7 @@ $0 ≤ 𝑡_𝑖 ≤ 10^9$
 * It looks like a circle (marry-go-round).
 * But, we can use the base case.
 * When there is no previous job, the time starts from `0`, and we have provided with the `finish time` in the form of the `duration - the time each job takes`.
-* After that, after the base case, each new job starts after the **previous job finishes** and runs for the **duration**.
+* After that, after the base case, each new job starts after the **previous job finishes** and runs for the **current job duration**.
 * We can convert this into a mathematical formula:
 
 > Start time = previousJob.finishTime
@@ -278,13 +280,15 @@ repeat(n) { index ->
 
 ```
 
+* Now, when we poll from the priority queue, we get the thread with the associated `thread index` and the `finish time`.
+
 **How do we provide job to these threads?**  
 **From where do we get the jobs? How do we get the jobs?**  
 **From where do we get the job that we can provide to these threads?**  
 
 * We get the jobs from the input.
 * These jobs are 0-indexed, and they are given in the same order in the input.
-* So, we can collect all the jobs from the input, and then we can provide them to the threads using a `for` loop.
+* So, we can collect all the jobs from the input, and then we can provide them to the threads one by one.
 
 **How do we collect the jobs from the input?**
 
@@ -300,20 +304,52 @@ while (token.hashNextToken()) {
 
 **How do we provide these collected jobs to the threads?**
 
+* We have collected all the jobs from the input.
+* Priority queue has all the threads.
+* We get the eligible/available thread from the priority queue.
+* So, we get the job from the job collection, and we get the thread from the priority queue.
+
 ```kotlin
 
 val stringBuilder = StringBuilder()
 for (job in jobs) {
     // This is how we get the eligible/available thread
     // poll gives us the thread with the earliest finish time and the smallest index
-    val availableThread = priorityQueue.poll()
-    // The finish time of the previous job is the start time of the current job
-    val startTime = availableThread.finishTime
-    val finishTime = startTime + job
-    stringBuilder.append("${availableThread.threadIndex} $startTime")
-    // This is a critical line:
-    // This is how the thread gets the job
-    priorityQueue.add(Thread(availableThread.threadIndex, finishTime))
+    val availableThread = priorityQueue.poll()   
+}
+
+```
+
+**We got the job. We got the thread. Now what? What next? How do we connect these two?**
+
+* The thread and the job are connected by the common property between them, which is the `Finish Time`.
+* A thread requires the `finish time`, and we have seen it earlier that we can get it from the `job`.
+
+> Finish Time = Start Time + Job.Duration
+
+**And how do we get the start time?** 
+
+> Start Time = Finish Time of the previous job = thread.finishTime
+
+* When there is no previous job, the finish time is `0`.
+* Which indicates that the thread is `free` to take the job.
+* By default, the finish time is `0` for all the threads.
+* So, the thread with the smallest index takes the job.
+* This is how `poll` gives us the most eligible thread.
+
+**Connecting the job and the thread**
+
+```kotlin
+
+val stringBuilder = StringBuilder()
+for (job in jobs) {
+  // This is how we get the eligible/available thread
+  val availableThread = priorityQueue.poll()
+  // The finish time of the previous job is the start time of the current job
+  val startTime = availableThread.finishTime
+  val finishTime = startTime + job
+  stringBuilder.append("${availableThread.threadIndex} $startTime")
+  priorityQueue.add(Thread(availableThread.threadIndex, finishTime))
 }
 
 ```
