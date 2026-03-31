@@ -6,6 +6,10 @@ import java.util.PriorityQueue
 /**
  * # References / Resources / Prerequisites
  *
+ * [GitHub: Parallel Processing](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5a0dd8577e1ee2940d6060067a95e460163ec8af/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic04buildBinaryHeap/030parallelProcessing.md)
+ *
+ * [Local: Parallel Processing](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic04buildBinaryHeap/030parallelProcessing.md)
+ *
  * [GitHub: Network Packet Processing](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8a9ba3fa778f0787cd6d51bb3761c26a198215a0/src/coursera/ucSanDiego/course02dataStructures/module01/section04assignmentProblems/03networkPacketProcessingSimulation.kt)
  *
  * [Local: Network Packet Processing](src/courses/uc/course02dataStructures/module01/section04assignmentProblems/03networkPacketProcessingSimulation.kt)
