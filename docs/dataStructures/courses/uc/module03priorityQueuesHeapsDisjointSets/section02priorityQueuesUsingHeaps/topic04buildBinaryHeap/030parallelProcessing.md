@@ -201,6 +201,16 @@ $0 ≤ 𝑡_𝑖 ≤ 10^9$
 
 **When does the job process begin? How do we get the job start time?**
 
+* As soon as the thread is free.
+
+**And when is a thread free?**
+
+* As soon as it finishes processing a job.
+
+**When does a thread finish processing a job?**
+
+* After the duration of the job.
+
 * The `start time` depends on the `finish time` of the previous job!
 * It looks like a circle (marry-go-round).
 * But, we can use the base case.
@@ -210,11 +220,103 @@ $0 ≤ 𝑡_𝑖 ≤ 10^9$
 
 > Start time = previousJob.finishTime
 
-* And it will finish at:
+* When there is no previous job, the start time is `0`.
+* And it will finish at (The job gets finished at):
 
 > Finish time = start time + job.duration
 
-* //ToDo: To be continued...
+**What do we do with the `Start Time` and `Finish Time`? Why did we find it? How do we connect it with the phrase `Free Thread`?**
+
+* We calculated the `start time` and the `finish time` so that we can know which thread will be **free** the **first**.
+* The thread whose `finish time` is the **smallest**, the **earliest**, is the thread that gets **free** the **first**.
+* And the thread that gets **free** the **first** and has the **smallest** index, gets the job to process.
+* In other words, the thread that finishes the job/s the **earliest** and has the **smallest** index, gets the next job to process.
+* The words **earliest**, **first**, and **smallest** represent the **extremum**.
+* And when we are continuously looking for the **extremum**, we use a priority queue.
+
+---
+
+* We need a heap that gives us the thread whose `finish time` is the **smallest**, the **earliest**.
+* We can have a `min heap` that gives us the thread whose `finish time` is the **smallest**, the **earliest**.
+* The default priority queue in Kotlin (via Java) is a `min heap` only.
+* It means that we can use the default priority queue.
+
+**What if there are multiple threads with the same `finish time`?**  
+
+* It is clearly given that the thread that gets free the first, is the thread that gets the job first.  
+* And if there are multiple free threads, then the thread with the smallest index gets the job first.  
+* So, we need to implement a custom `comparable` interface to follow the given instructions.  
+* The first comparison is based on the smallest, the earliest `finish time`.   
+* And the second comparison is based on the thread index.    
+
+**The Thread Class**
+
+```kotlin
+
+data class Thread(val threadIndex: Int, val finishTime: Int) : Comparable<Thread> {
+  override fun compareTo(other: Thread): Int {
+      if (this.finishTime != other.finishTime) {
+          return this.finishTime.compareTo(other.finishTime)
+      }
+      return this.threadIndex.compareTo(other.threadIndex)
+  }
+}
+
+```
+
+**How do we add these threads to the priority queue?**
+
+* The input gives us the total threads, `n`.
+* We add these `n` threads to the priority queue:
+
+```kotlin
+
+val priorityQueue = PriorityQueue<Thread>()
+repeat(n) { index ->
+    priorityQueue.add(Thread(index, 0))
+}
+
+```
+
+**How do we provide job to these threads?**  
+**From where do we get the jobs? How do we get the jobs?**  
+**From where do we get the job that we can provide to these threads?**  
+
+* We get the jobs from the input.
+* These jobs are 0-indexed, and they are given in the same order in the input.
+* So, we can collect all the jobs from the input, and then we can provide them to the threads using a `for` loop.
+
+**How do we collect the jobs from the input?**
+
+```kotlin
+
+val jobs = mutableListOf<Int>()
+while (token.hashNextToken()) {
+    val job = token.readInteger() // The time it takes to complete
+    jobs.add(job)
+}
+
+```
+
+**How do we provide these collected jobs to the threads?**
+
+```kotlin
+
+val stringBuilder = StringBuilder()
+for (job in jobs) {
+    // This is how we get the eligible/available thread
+    // poll gives us the thread with the earliest finish time and the smallest index
+    val availableThread = priorityQueue.poll()
+    // The finish time of the previous job is the start time of the current job
+    val startTime = availableThread.finishTime
+    val finishTime = startTime + job
+    stringBuilder.append("${availableThread.threadIndex} $startTime")
+    // This is a critical line:
+    // This is how the thread gets the job
+    priorityQueue.add(Thread(availableThread.threadIndex, finishTime))
+}
+
+```
 
 ### Hints
 
