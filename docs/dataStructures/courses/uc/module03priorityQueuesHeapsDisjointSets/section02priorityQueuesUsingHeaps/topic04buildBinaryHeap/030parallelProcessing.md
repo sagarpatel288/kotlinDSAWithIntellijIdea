@@ -23,6 +23,7 @@
     * [Hints](#hints)
       * [Data Structure](#data-structure)
       * [Process](#process)
+* [Implementation](#implementation)
 * [Time Complexity](#time-complexity)
 * [Space Complexity](#space-complexity)
 * [Grader Output](#grader-output)
@@ -436,6 +437,10 @@ process finish time = 8 // which is the `process start time = 5` + `process time
 ```
 
 * And so on...
+
+# Implementation
+
+[02parallelProcessing.kt](../../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/02parallelProcessing.kt)
 
 # Time Complexity
 
