@@ -29,11 +29,13 @@
       * [Total Running Time](#total-running-time)
       * [Summary](#summary)
       * [Quick Revision](#quick-revision)
+  * [Revision](#revision)
   * [Questions](#questions)
-    * [What problem does a set data structure solve?](#what-problem-does-a-set-data-structure-solve)
-    * [What are the pros and cons of a set data structure?](#what-are-the-pros-and-cons-of-a-set-data-structure)
-    * [How does a set data structure work?](#how-does-a-set-data-structure-work)
-    * [What is the difference between a set data structure and an array data structure?](#what-is-the-difference-between-a-set-data-structure-and-an-array-data-structure)
+    * [What is the disjoint set data structure?](#what-is-the-disjoint-set-data-structure)
+    * [What problem does a disjoint set data structure solve?](#what-problem-does-a-disjoint-set-data-structure-solve)
+    * [What are the pros and cons of a disjoint set data structure?](#what-are-the-pros-and-cons-of-a-disjoint-set-data-structure)
+    * [How does a disjoint set data structure work?](#how-does-a-disjoint-set-data-structure-work)
+    * [What is the difference between a disjoint set data structure and an array data structure?](#what-is-the-difference-between-a-disjoint-set-data-structure-and-an-array-data-structure)
 <!-- TOC -->
 
 ## References / Resources
@@ -172,7 +174,7 @@
 * At the root node.
 * So, it is more than the nodes.
 * We consider the root of each node.
-* The root of one node becomes the direct child of the root of another node.
+* The root of one set (tree) becomes the direct child of the root of another set (tree).
 * For example:
 
 ![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/340disjointSetTreeUnionByRankAnalysis.png)
@@ -412,7 +414,7 @@ And
 * A parent can be a child of another parent due to the `union` operation.
   * Once a node becomes a non-root internal node, it will remain a non-root internal node forever.
   * Because the `find` operation may change the `parent`, but not the `root`.
-  * And the `union` operation makes one root a child of another root. So, once the `parent` might become `child` now.
+  * And the `union` operation makes one root, a child of another root. So, once the `parent` might become `child` now.
   * And once a `parent` becomes a `child`, it will be a `child` forever.
   * So, once a vertex (node) becomes an internal vertex (node), it remains an internal vertex (node) forever.
 * We can confirm the same by observing the same images again.
@@ -444,8 +446,8 @@ And
   * So, we classify (assort, split, group) `edges` into 3 categories based on the ranks of the nodes they connect.
   * Then, we find the `upper bound` of each group.
   * And finally, we give the realistic (amortized) running time of DSU.
-* Now, we have already learned about the [$log^{*}(n)$](#logn).
-* We will divide our travelling into 3 categories using this [$log^{*}(n)$](#logn).
+* Now, we have already learned about the [$log^{*}(n)$](#logn)(`log star n`).
+* We will divide our traveling into 3 categories using this [$log^{*}(n)$](#logn)(`log star n`).
 
 ![520disjointSetsEdgeClassificationInRealisticAnalysis.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/520disjointSetsEdgeClassificationInRealisticAnalysis.png)
 
@@ -633,15 +635,42 @@ $$
 * So, it becomes:
 * $O(m * log^{*}(n))$.
 
+## Revision
+
+* A disjoint set data structure is a forest of isolated trees.
+* A DSU does two things very efficiently: Finding the membership and merging two disjoint sets.
+* It answers the question **Are these two data in the same set?** in $O(\alpha(n))$ time (Almost Constant Amortized Cost).
+* $O(\alpha(n))$ is known as the inverse Ackermann function, and it grows extremely slowly that we can call it almost constant.
+* In other words, a single `find` operation might take $O(log(n))$ time, but the amortized time (cost) of `m` `find` operations is almost $O(1)$ due to the **union by rank** and the **path compression** heuristics.
+* Similarly, it merges two disjoint sets (isolated trees) in $O(\alpha(n))$ time (Almost Constant Amortized Cost).
+* The `merge` operation is known as the `union` operation.
+* Again, a `union` operation uses the `find` operation(s) and if it finds that the data that we want to merge are indeed in two different sets, then it merges them. 
+* It merges two disjoint sets by making the root of one set, a direct child of another set's root by changing the pointer(s).
+* Changing the pointer(s) takes $O(1)$ time.
+* So, the dominant cost in a union operation is the `find` operation.
+* And similar to the `find` operation, a single `union` operation might take $O(log (n))$ time, but the amortized cost of `m` `union` operations is almost $O(1)$ due to the **union by rank** and the **path compression** heuristics.
+
 ## Questions
 
-### What problem does a set data structure solve?
-* When do we use a set data structure?
+### What is the disjoint set data structure?
 
-### What are the pros and cons of a set data structure?
+* A forest of isolated trees.
+
+### What problem does a disjoint set data structure solve?
+* When do we use a disjoint set data structure?
+* Why do we have a disjoint set data structure?
+* What is the need for a disjoint set data structure?
+* What does it do better than other data structures?
+
+---
+
+* It answers the question **Are these two data in the same set?** in $O(1)$ time.
+* It merges two disjoint sets (isolated trees) in $O(1)$ time.
+
+### What are the pros and cons of a disjoint set data structure?
 
 
-### How does a set data structure work?
+### How does a disjoint set data structure work?
 
 * How do we implement a set data structure?
 * What underlying data structure do we use to implement a set data structure?
@@ -649,5 +678,5 @@ $$
 * What is the time complexity of various operations on a set data structure?
 * What is the space complexity of various operations on a set data structure?
 
-### What is the difference between a set data structure and an array data structure?
+### What is the difference between a disjoint set data structure and an array data structure?
 

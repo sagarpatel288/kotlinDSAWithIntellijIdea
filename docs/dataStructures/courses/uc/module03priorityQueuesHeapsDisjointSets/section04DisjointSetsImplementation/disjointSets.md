@@ -61,7 +61,7 @@
 * When we get two elements to perform the union operation on them.
   * First, we find their sets. Only if they belong to two different sets can we perform the union operation on them.
   * Second, when we perform a union operation on two elements, we get a different set.
-  * Due to that, a particular set might get a different leader (representative, parent).
+  * Due to that, a particular set might eventually get a different leader (representative, parent).
   * For example, performing the union operation on `(4, 8)` forced all the elements of the old set-02, which are the elements 5, 6, 7, and 8, to replace their old representative `5` with the new representative `1`.
   * Hence, when we perform the `union` operation between two sets, one of the sets needs to update the representative for all the elements.
 
@@ -166,9 +166,9 @@
   * So, `parent[2]` gives `0`.
 * We will then ask `0` about its parent.
   * So, `parent[0]` gives `0`.
-  * So, both the index (= node) value and the element value are the same.
-  * It means that node `0` is the parent of itself.
-  * It means that node `0` is the root node.
+  * Here, both the index (= node) value and the element value are the same.
+  * It means that the node `0` is the parent of itself.
+  * It means that the node `0` is the root node.
   * So, we stop here because we found the root node that cannot have a parent.
 * In the end, we find that `0` is the parent.
   * So, ultimately, the root parent node of `node 2` and `node 3` is `0`.
