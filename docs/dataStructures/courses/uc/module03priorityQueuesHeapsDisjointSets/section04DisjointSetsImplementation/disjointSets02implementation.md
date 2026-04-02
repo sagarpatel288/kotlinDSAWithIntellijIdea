@@ -33,6 +33,7 @@
   * [Questions](#questions)
     * [What is the disjoint set data structure?](#what-is-the-disjoint-set-data-structure)
     * [What problem does a disjoint set data structure solve?](#what-problem-does-a-disjoint-set-data-structure-solve)
+    * [A disjoint set does not have a particular order rule like a binary search tree. Then, how does the worst-case time complexity of a `find` operation in a disjoint set is `O(log n)` instead of `O(n)`?](#a-disjoint-set-does-not-have-a-particular-order-rule-like-a-binary-search-tree-then-how-does-the-worst-case-time-complexity-of-a-find-operation-in-a-disjoint-set-is-olog-n-instead-of-on)
     * [What are the pros and cons of a disjoint set data structure?](#what-are-the-pros-and-cons-of-a-disjoint-set-data-structure)
     * [How does a disjoint set data structure work?](#how-does-a-disjoint-set-data-structure-work)
     * [What is the difference between a disjoint set data structure and an array data structure?](#what-is-the-difference-between-a-disjoint-set-data-structure-and-an-array-data-structure)
@@ -666,6 +667,26 @@ $$
 
 * It answers the question **Are these two data in the same set?** in $O(1)$ time.
 * It merges two disjoint sets (isolated trees) in $O(1)$ time.
+
+### A disjoint set does not have a particular order rule like a binary search tree. Then, how does the worst-case time complexity of a `find` operation in a disjoint set is `O(log n)` instead of `O(n)`?
+
+* It happens due to the **Union by Rank** heuristic.
+* It ensures that the tree height remains logarithmic.
+* And when we find a particular node, we don't have to visit every single node.
+* In fact, the `find` operation is not about finding the target node, but it is about finding the root boss of the target node.
+* For example, the `find(8)` operation will start from the `dsu[8]`.
+* Here, `dsu` is an array, `8` is an index, and we check the value at `dsu[8]`.
+* The value gives the parent.
+* For example, if `dsu[8]` is `4`, then we check the parent of `dsu[4]`.
+* If `dsu[4]` is `2`, then we check the parent of `dsu[2]`.
+* If `dsu[2]` is `0`, then we check the parent of `dsu[0]`.
+* If `dsu[0]` is `0`, it means that `find(8) = 0`.
+* It means that `8` is a member of a disjoint set whose root is `0`.
+* So basically, we travel from node to parent, and then parent to parent until we reach the root.
+* So, it is like from one level to another level in one step.
+* We visit only one node at most per level.
+* And there are a total of $log(n)$ levels.
+* Hence, the worst-case time complexity of a `find` operation in a disjoint set is $O(log (n))$.
 
 ### What are the pros and cons of a disjoint set data structure?
 
