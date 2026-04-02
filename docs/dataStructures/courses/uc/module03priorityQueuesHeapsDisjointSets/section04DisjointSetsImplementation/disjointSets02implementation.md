@@ -30,6 +30,8 @@
       * [Summary](#summary)
       * [Quick Revision](#quick-revision)
   * [Revision](#revision)
+    * [Find Operation](#find-operation)
+    * [Union Operation](#union-operation)
   * [Questions](#questions)
     * [What is the disjoint set data structure?](#what-is-the-disjoint-set-data-structure)
     * [What problem does a disjoint set data structure solve?](#what-problem-does-a-disjoint-set-data-structure-solve)
@@ -651,6 +653,27 @@ $$
 * Changing the pointer(s) takes $O(1)$ time.
 * So, the dominant cost in a union operation is the `find` operation.
 * And similar to the `find` operation, a single `union` operation might take $O(log (n))$ time, but the amortized cost of `m` `union` operations is almost $O(1)$ due to the **union by rank** and the **path compression** heuristics.
+
+### Find Operation
+
+![580dsuFind.webp](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/580dsuFind.webp)
+
+![450disjointSetsRealisticAnalysis.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/450disjointSetsRealisticAnalysis.png)
+
+* A `find` operation of DSU is not about finding the target node.
+* It is about finding the root of the target node.
+
+### Union Operation
+
+![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/340disjointSetTreeUnionByRankAnalysis.png)
+
+* We can perform the `union` operation on two nodes only if the two nodes are in different sets.
+* So, first, we perform the `find` operation on both the nodes.
+* We proceed further only if their roots are different.
+* Then, we compare the ranks of the two roots.
+* Then, we hang the root that has the smaller rank (or size) as a direct child of the root with the larger rank (or size).
+* This is known as the **union by rank** heuristic.
+* It ensures that the tree height remains logarithmic.
 
 ## Questions
 
