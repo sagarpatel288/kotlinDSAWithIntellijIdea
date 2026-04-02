@@ -651,7 +651,7 @@ $$
 * Again, a `union` operation uses the `find` operation(s) and if it finds that the data that we want to merge are indeed in two different sets, then it merges them. 
 * It merges two disjoint sets by making the root of one set, a direct child of another set's root by changing the pointer(s).
 * Changing the pointer(s) takes $O(1)$ time.
-* So, the dominant cost in a union operation is the `find` operation.
+* So, the dominant cost in a union operation is due to the `find` operation(s).
 * And similar to the `find` operation, a single `union` operation might take $O(log (n))$ time, but the amortized cost of `m` `union` operations is almost $O(1)$ due to the **union by rank** and the **path compression** heuristics.
 
 ### Find Operation
@@ -689,8 +689,8 @@ $$
 
 ---
 
-* It answers the question **Are these two data in the same set?** in $O(1)$ time.
-* It merges two disjoint sets (isolated trees) in $O(1)$ time.
+* It answers the question **Are these two data in the same set?** in $O(\alpha (n))$ amortized time, which is the **Inverse Ackermann** function, and it grows so slowly that it is almost constant.
+* Similarly, it merges two disjoint sets (isolated trees) in $O(\alpha(n))$ amortized time, which is almost constant.
 
 ### A disjoint set does not have a particular order rule like a binary search tree. Then, how does the worst-case time complexity of a `find` operation in a disjoint set is `O(log n)` instead of `O(n)`?
 
