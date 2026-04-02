@@ -670,18 +670,25 @@ $$
 
 ### A disjoint set does not have a particular order rule like a binary search tree. Then, how does the worst-case time complexity of a `find` operation in a disjoint set is `O(log n)` instead of `O(n)`?
 
+![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/340disjointSetTreeUnionByRankAnalysis.png)
+
 * It happens due to the **Union by Rank** heuristic.
 * It ensures that the tree height remains logarithmic.
 * And when we find a particular node, we don't have to visit every single node.
 * In fact, the `find` operation is not about finding the target node, but it is about finding the root boss of the target node.
-* For example, the `find(8)` operation will start from the `dsu[8]`.
-* Here, `dsu` is an array, `8` is an index, and we check the value at `dsu[8]`.
+
+![580dsuFind.webp](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/580dsuFind.webp)
+
+* For example, the `find(1)` operation will start from the `dsu[1]`.
+* Here, `dsu` is an array, `1` is an index, and we check the value at `dsu[1]`.
 * The value gives the parent.
-* For example, if `dsu[8]` is `4`, then we check the parent of `dsu[4]`.
-* If `dsu[4]` is `2`, then we check the parent of `dsu[2]`.
-* If `dsu[2]` is `0`, then we check the parent of `dsu[0]`.
-* If `dsu[0]` is `0`, it means that `find(8) = 0`.
-* It means that `8` is a member of a disjoint set whose root is `0`.
+* For example, if `dsu[1]` is `3`, then we check the parent of `dsu[3]`.
+* If `dsu[3]` is `0`, then we check the parent of `dsu[0]`.
+* Now, `dsu[0]` is `0`.
+* Here, the index and the value are the same.
+* And when the index and the value are the same, it means that we have reached the root.
+* So, `find(1) = 0`.
+* It means that `1` is a member of a disjoint set whose root is `0`.
 * So basically, we travel from node to parent, and then parent to parent until we reach the root.
 * So, it is like from one level to another level in one step.
 * We visit only one node at most per level.
