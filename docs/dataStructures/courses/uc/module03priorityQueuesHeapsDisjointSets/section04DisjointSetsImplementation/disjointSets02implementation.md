@@ -34,6 +34,7 @@
     * [What is the disjoint set data structure?](#what-is-the-disjoint-set-data-structure)
     * [What problem does a disjoint set data structure solve?](#what-problem-does-a-disjoint-set-data-structure-solve)
     * [A disjoint set does not have a particular order rule like a binary search tree. Then, how does the worst-case time complexity of a `find` operation in a disjoint set is `O(log n)` instead of `O(n)`?](#a-disjoint-set-does-not-have-a-particular-order-rule-like-a-binary-search-tree-then-how-does-the-worst-case-time-complexity-of-a-find-operation-in-a-disjoint-set-is-olog-n-instead-of-on)
+    * [We treat a node value as an index in DSU which is a direct addressing strategy. It might waste a lot of space. Why do we still use DSU?](#we-treat-a-node-value-as-an-index-in-dsu-which-is-a-direct-addressing-strategy-it-might-waste-a-lot-of-space-why-do-we-still-use-dsu)
     * [What are the pros and cons of a disjoint set data structure?](#what-are-the-pros-and-cons-of-a-disjoint-set-data-structure)
     * [How does a disjoint set data structure work?](#how-does-a-disjoint-set-data-structure-work)
     * [What is the difference between a disjoint set data structure and an array data structure?](#what-is-the-difference-between-a-disjoint-set-data-structure-and-an-array-data-structure)
@@ -694,6 +695,17 @@ $$
 * We visit only one node at most per level.
 * And there are a total of $log(n)$ levels.
 * Hence, the worst-case time complexity of a `find` operation in a disjoint set is $O(log (n))$.
+
+### We treat a node value as an index in DSU which is a direct addressing strategy. It might waste a lot of space. Why do we still use DSU?
+
+* Yes, if the node values are large and sparse, then it might waste a lot of space.
+* For example, suppose we have two node values `1` and `10^9`.
+* If we use direct addressing, then we waste a lot of space.
+* However, to solve this problem, we can use compression.
+* We can use a hash table (a hash map) or coordinate compression.
+* However, if the values are continuous (contiguous), using a simple array as the underlying data structure for the DSU is efficient.
+* And if the values are continuous (contiguous), but does not start from `0`, we can still use a simple array with the offset for the DSU.
+* For example, `id - minID`.
 
 ### What are the pros and cons of a disjoint set data structure?
 
