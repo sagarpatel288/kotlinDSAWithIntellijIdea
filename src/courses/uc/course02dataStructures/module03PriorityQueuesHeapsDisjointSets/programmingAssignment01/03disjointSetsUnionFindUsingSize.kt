@@ -82,7 +82,8 @@ class DisjointSetBySize(private val size: Int) {
     }
 
     /**
-     * Provides the [treeSize] of the tree that includes the given [node].
+     * This is not the size of the tree or the subtree whose root node is the given [node].
+     * This is about the [treeSize] of the tree that includes the given [node].
      * So, we find the root of the given [node].
      * And then we find the size of that root node using [treeSize].
      */
