@@ -22,7 +22,7 @@
 * [codestorywithMIK: DSU: Part-01: Concept](https://youtu.be/AsAdKHkITBQ?si=jKFfP4miBOLYIgTZ)
 * [codestorywithMIK: DSU: Part-02: Rank & Path Compression](https://youtu.be/iH3XVIVzl7M?si=azdvs1H431SH8LNk)
 * [Coursera UC San Diego Data Structures](https://www.coursera.org/learn/data-structures)
-* [Next: DisjointSet Implementation](disjointSets02implementation.md)
+* [Next: DisjointSet Implementation](disjointSets02dissection.md)
 
 
 ## Disjoint Sets
@@ -237,4 +237,4 @@ fun find(x: Int): Int {
 
 ## Next
 
-* [Disjoint Sets (Union-Find) Implementation](disjointSets02implementation.md)
+* [Disjoint Sets (Union-Find) Implementation](disjointSets02dissection.md)

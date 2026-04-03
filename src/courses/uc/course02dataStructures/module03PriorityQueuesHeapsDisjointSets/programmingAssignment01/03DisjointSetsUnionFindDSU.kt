@@ -3,7 +3,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
 /**
  * # References / Resources
  *
- * [Local: DSU](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsNaiveImplementation/disjointSets02implementation.md)
+ * [Local: DSU](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsNaiveImplementation/disjointSets02dissection.md)
  *
  * [GitHub: DSU](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/e6201bad2968159c293b35f003f3a18228cd8248/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsNaiveImplementation/disjointSets02implementation.md)
  *
