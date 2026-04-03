@@ -129,6 +129,31 @@ fun unionByRank(x: Int, y: Int) {
 
 ## Union By Size (Children)
 
+* The only difference is that when we use `size` instead of `rank (height)`, we always increase the `size` of the parent node.
+
+```kotlin
+
+// By default, the size of each node is 1.
+private val size = IntArray(size) { 1 }
+
+fun unionBySize(x: Int, y: Int) {
+    if (x !in parent.indices || y !in parent.indices) return
+    val rootX = find(x)
+    val rootY = find(y)
+    if (rootX == rootY) return
+    
+    // Union By Size: Hang a smaller tree on the larger tree.
+    if (size[rootX] < size[rootY]) {
+        parent[rootX] = rootY
+        size[rootY] += size[rootX]
+    } else if (size[rootY] < size[rootX]) {
+        parent[rootY] = rootX
+        size[rootX] += size[rootY]
+    }
+}
+
+```
+
 
 
 # Time Complexity
