@@ -8,6 +8,7 @@
   * [Find](#find)
   * [Union By Rank (Height)](#union-by-rank-height)
   * [Union By Size (Children)](#union-by-size-children)
+  * [Dynamic DSU](#dynamic-dsu)
 * [Time Complexity](#time-complexity)
 * [Space Complexity](#space-complexity)
 * [Note](#note)
@@ -154,7 +155,13 @@ fun unionBySize(x: Int, y: Int) {
 
 ```
 
+## Dynamic DSU
 
+* [Dynamic Dsu.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsu.kt)
+
+* If we don't know how many nodes are there or when we have a stream of dynamic nodes, we can use maps instead of a fixed sized array.
+* Everything remains same except the `makeSet` case.
+* We make set dynamically.
 
 # Time Complexity
 
