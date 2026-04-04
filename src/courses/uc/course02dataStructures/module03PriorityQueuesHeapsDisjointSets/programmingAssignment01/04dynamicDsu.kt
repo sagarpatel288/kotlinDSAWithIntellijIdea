@@ -7,7 +7,7 @@ class DynamicDsu<T> {
     private val parent = mutableMapOf<T, T>()
     private val rank = mutableMapOf<T, Int>()
 
-    private fun makeSet(x: T) {
+    fun makeSet(x: T) {
         if (x !in parent) {
             parent[x] = x
             rank[x] = 0
