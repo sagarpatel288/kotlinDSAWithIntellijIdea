@@ -8,6 +8,8 @@
 
 ## Topics
 
+* Ensure that each problem has the associated documentation's link.
+  * Ensure that we have a proper and dedicated documentation (a Markdown file) for each problem that explains many things and answers to many questions and doubts. 
 * Understand and explain: `compareTo`.
 * Isn't it fascinating to realize and experience how the same simple data structure serves differently with different approaches?
   * For example, a simple array when it comes to different sorting methods like selection sort, merge sort, etc.
@@ -17,6 +19,8 @@
   * Small changes and big impact.
   * Document these small tweaks.
   * Start from the original and progressively, step-by-step move forward.
+* Connecting a row problem like [Merge Table.kt](../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/03mergeTable.kt) with [Disjoint Sets Dissection.md](dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsImplementation/disjointSets02dissection.md) is fascinating.
+  * This kind of imagination, connection, simulation, relation, conversion, and immersion of pattern and behavior matching is fascinating.
 
 ## Format
 
