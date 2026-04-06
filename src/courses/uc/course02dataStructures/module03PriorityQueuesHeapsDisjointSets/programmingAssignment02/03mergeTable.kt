@@ -7,6 +7,10 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  *
  * [GitHub: DisjointSet-DSU](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5bd0b2df0048dc1daa6c7fe95300494fc12e74f6/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsImplementation/disjointSets02implementation.md)
  *
+ * [Local: Merge Table.md](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsImplementation/disjointSetsMergeTables.md)
+ *
+ * [GitHub: Merge Table.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5740c22f4bb04310c258f048d6e9edddcb67020c/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsImplementation/disjointSetsMergeTables.md)
+ *
  * # Problem Introduction
  *
  * * In this problem, your goal is to simulate a sequence of merge operations with tables in a database.
