@@ -315,6 +315,10 @@ fun main() {
     val stringBuilder = StringBuilder()
     repeat(totalQueries) {
         val (destination, source) = readln().split(" ").map { it.toInt() }
+        // Caution! Possible point of mistake!
+        // The problem uses 1-based-index.
+        // Our solution uses 0-based-index.
+        // So, we must pass and handle the proper value.
         dsu.union(destination - 1, source - 1)
         stringBuilder.append("${dsu.maxSize}\n")
     }
