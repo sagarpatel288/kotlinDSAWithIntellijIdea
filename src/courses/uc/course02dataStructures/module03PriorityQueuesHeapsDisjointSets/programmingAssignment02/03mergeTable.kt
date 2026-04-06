@@ -244,6 +244,12 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
 class DisjointSetUnion(private val listOfEachTableSize: List<Int>) {
 
     private val parentArray = IntArray(listOfEachTableSize.size) { it }
+    // Caution! Possible point of mistake:
+    // We don't just make a new collection of size "listOfEachTableSize".
+    // We initialize the "sizeOfTables" with the values provided in the "listOfEachTableSize".
+    // So, don't just create a new empty collection with default size 0!
+    // Also, during the "merge(union)" operation, we add size.
+    // So, to prevent overflow, we use "Long" instead of "Int".
     private val sizeOfTables = listOfEachTableSize.map { it.toLong() }.toMutableList()
     var maxSize = 0L
         private set
