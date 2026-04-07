@@ -39,9 +39,27 @@
 
 ## Arrays
 
+![Array Definition.png](../../../../../../assets/images/dataStructures/uc/module01basicDataStructures/010arrays/025arrayDefinition.png)
 
+![Array Structure.png](../../../../../../assets/images/dataStructures/uc/module01basicDataStructures/010arrays/030arrayStructure.png)
+
+![2DArrays Finding An Element.png](../../../../../../assets/images/dataStructures/uc/module01basicDataStructures/010arrays/050arraysFindingAnElement.png)
+
+![Arrays2d RowMajor.png](../../../../../../assets/images/dataStructures/uc/module01basicDataStructures/010arrays/060arrays2dRowMajor.png)
+
+![Arrays2d ColumnMajor.png](../../../../../../assets/images/dataStructures/uc/module01basicDataStructures/010arrays/070arrays2dColumnMajor.png)
+
+![Arrays2d RowsVsColumns.png](../../../../../../assets/images/dataStructures/uc/module01basicDataStructures/010arrays/080arrays2dRowsVsColumns.png)
+
+* In a 2D-Array, the first index represents the row, and the second index represents the column.
+* In a row-major 2D-Arrays, the column index changes rapidly.
+* In a column-major 2D-Arrays, the row index changes rapidly.
+
+![150arraysCommonOperationTimeComplexity.png](../../../../../../assets/images/dataStructures/uc/module01basicDataStructures/010arrays/150arraysCommonOperationTimeComplexity.png)
 
 ## Dynamic Arrays
+
+* 
 
 ## Linked Lists
 
