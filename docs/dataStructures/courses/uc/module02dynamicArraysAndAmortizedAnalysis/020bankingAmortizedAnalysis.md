@@ -20,7 +20,7 @@
 
 ## The banker method of Amortized Analysis
 
-![Banker Method Gif](../../../../../res/courses/uc/course02dataStructures/module02/video03bankersMethodForAmortizedAnalysis/030bankerMethodAnimation.gif)
+![Banker Method Gif](../../../../../assets/gifs/dataStructures/uc/module02dynamicArrays/030bankingAmortizedAnalysis/030bankerMethodAnimation.gif)
 
 * The banker's method of Amortized Analysis contains the following major points:
 
