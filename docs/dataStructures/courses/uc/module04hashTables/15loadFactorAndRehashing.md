@@ -63,7 +63,7 @@
 * But what if `n` keeps changing?
 * How do we maintain a good load factor?
 * How do we maintain the hash table size?
-* We use the same idea that we use for the [Dynamic Arrays](../module02dynamicArraysAndAmortizedAnalysis/dynamicArrays.md).
+* We use the same idea that we use for the [Dynamic Arrays](../module02dynamicArraysAndAmortizedAnalysis/010dynamicArrays.md).
 * We constantly monitor the load factor after each operation.
 * If we find that the load factor is about to cross the limit, we change the hash table size.
 * Changing the hash table size is a linear operation.
