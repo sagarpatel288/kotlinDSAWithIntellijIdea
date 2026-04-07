@@ -392,18 +392,104 @@ parent node size = parent node size + child node size
 
 [MergeTable.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/03mergeTable.kt)
 
+* We learned that the problem pattern is aligned with the DSU.
+* The problem pattern suggests and includes the merge operation of a DSU.
+
+**What is next?**
+
+* Modeling and mapping.
+* Implementation.
+
+---
+
+* We already have **size of each table**.
+* Let us call it, the **size table**.
+* Based on this data, we know the total number of tables.
+* When we already have the total number of nodes, we go with the fixed size array implementation of DSU. 
+
+**How do we implement a DSU with the known fixed size array?**
+
+```kotlin
+
+/**
+ * The [sizeTable] is given.
+ * It means that we know the total number of tables (nodes).
+ * It suggests a DSU with fixed size array.
+ */
+class MergeTable(val sizeTable: List<Int>) {
+    // Initially, each table (node) is its own parent
+    private val parent = IntArray(sizeTable.size) { it }
+  
+    // During the merge operation, we increase the table size.
+    // To prevent the overflow, we use "Long" instead of "Int."
+    // Also, we need the initial size data.
+    // So, we ensure that we have that.
+    // And the merge operation changes the size data.
+    // So, we ensure to make it mutable.
+    private val size = sizeTable.map { it.toLong() }.toMutableList()
+  
+    // A merge operation might change the size data.
+    // So, we take the mutable property, var.
+    // Also, the external world needs to read it.
+    // But, we don't want to expose the write access of it to the external world.
+    // So, we make it "private set".
+    var maxSize = size.max()
+        private set
+  
+    private fun find(x: Int): Int {
+        if (x !in parent.indices) return -1
+        if (parent[x] != x) {
+            // Path compression
+            parent[x] = find(parent[x])
+        }
+        return parent[x]
+    }
+  
+    fun merge(destination: Int, source: Int) {
+        if (destination !in parent.indices || source !in parent.indices) return
+        val rootOfDestination = find(destination)
+        val rootOfSource = find(source)
+        if (rootOfDestination == rootOfSource) return
+        parent[rootOfSource] = rootOfDestination
+        size[rootOfDestination] += size[rootOfSource]
+        maxSize = maxOf(maxSize, size[rootOfDestination])
+    }
+}
+
+fun main() {
+    val nm = readln().split(" ").map { it.toInt() }
+    val totalTables = nm[0]
+    val totalQueries = nm[1]
+    val sizeData = readln().split(" ").map { it.toInt() }
+    val solver = MergeTable(sizeData)
+    val stringBuilder = StringBuilder()
+    repeat(totalQueries) {
+        val ds = readln().split(" ").map { it.toInt() }
+        // The merge query is 1-based-index.
+        // And our solution structure is 0-based-index.
+        // So, we subtract 1 from the given merge queries.
+        solver.merge(ds[0] - 1, ds[1] - 1)
+        stringBuilder.append("${solver.maxSize}").append("\n")
+    }
+    println(stringBuilder.toString())
+}
+
+```
+
 ## Time Complexity
 
-* Initially, we iterate through the given [listOfEachTableSize] to find the `maxSize` across the tables.
-* So, if the [listOfEachTableSize] is `n`, where `n` is the number of tables, then it is `O(n)`.
+* Initially, we iterate through the given [sizeData] to find the `maxSize` across the tables.
+  * In the pseudocode, it is `size.max()`. 
+* So, if the [sizeData] is `n`, where `n` is the number of tables, then it is `O(n)`.
 * Then, we have two operations: `find` and `union`, out of which, the `union` operation dominates.
+* Because the `union` operation ultimately uses the `find` operations only.
 * According to Robert Tarjan's Analysis, `m` operations in DSU takes `O(m * log^{*} n)` time, where `n` is the number of tables in our case, and `m` is the number of `merge` queries.
 * So, the overall time complexity becomes `O(n + (m * log^{*}(n)))`.
 * Note that, we often use `alpha(n)` instead of `log^{*}(n)`.
 
 ## Space Complexity
 
-* We take an `IntArray` of size [listOfEachTableSize] and a `sizeOfTables` list of size [listOfEachTableSize].
+* We take `parent` of size [sizeData] and a `size` list of size [sizeData].
 * So, it makes the total auxiliary space of `O(2n)` where `n` is the number of tables.
 * Hence, the space complexity is `O(n)`.
 
