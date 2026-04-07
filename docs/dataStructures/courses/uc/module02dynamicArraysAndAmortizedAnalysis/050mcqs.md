@@ -842,7 +842,7 @@ $\frac{\text{ Total Copies }}{\text{ Total Resize Operations}} = \frac{7}{4} = 1
 
 ### Solution image
 
-![MCQ:01 Solution Image](../../../../../res/courses/uc/course02dataStructures/module02/assignmentMcqs/mcq020.png)
+![MCQ:01 Solution Image](../../../../../assets/images/dataStructures/uc/module02dynamicArrays/060mcqs/mcq020.png)
 
 ## MCQ: 02
 
@@ -1555,4 +1555,4 @@ $= \frac{capacity_{i - 1}}{4}$
 
 ### Solution image
 
-![MCQ:02 Solution Image](../../../../../res/courses/uc/course02dataStructures/module02/assignmentMcqs/mcq030.png)
+![MCQ:02 Solution Image](../../../../../assets/images/dataStructures/uc/module02dynamicArrays/060mcqs/mcq030.png)
