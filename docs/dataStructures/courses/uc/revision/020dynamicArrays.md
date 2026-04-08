@@ -29,20 +29,18 @@
 
 ## Prerequisites / Previously
 
-*
+* 
 
 ## References / Resources
 
-*
+* 
 
 ## What
-
-
 
 * Here, we can resize the array.
 * Initially, we declare the array of certain size similar to the fixed-sized static array.
 * But once it is full, we increase its size.
-* Similarly, if it is too empty, we shrink it.
+* Similarly, if it is too empty after removing the elements, we shrink it.
 * We don't resize (increase or decrease the size) arbitrary.
 * There is an optimal way of doing it.
 * When it is full, we double the size.
@@ -57,15 +55,21 @@
 
 ## How
 
-* When the array is full, we create a new array twice the size of the old array.
+* When the array is full (hits the maximum capacity), we create a new array twice the size of the old array.
 * We copy the elements from the old array, and add it to the new array.
-* We don't have to do this frequently.
-* The amortized cost of resize operation is $O(1)$.
+* Similarly, when the number of elements are less than half the size, we shrink (reduce) the array size.
+* We don't have to resize frequently.
+* The aggregated method, the banker's method, and the physicist potential method - all of them proves that the amortized cost is $O(1)$.
+* Also, any constant factor for resize forms a geometric series $C \over {C - 1}$.
+* Here, "2" is the optimal factor by which we should resize the array.
+* It gives the best balance between the frequency of resize operations and unused allocated memory.
 
 ## Problem/s
 
 * The shifting problem.
+* Every time we insert or remove an element in the beginning or middle, we have to shift all the other elements to make room (space) for the new element.
+* This shifting cost is $O(n)$.
 
 ## Next
 
-* 
+* Linked List

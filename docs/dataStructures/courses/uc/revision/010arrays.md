@@ -68,6 +68,8 @@
 
 * It is a fixed-sized static array.
 * So, once we declare it with certain size, we cannot resize it.
+* If we get more elements than what we were supposed to get, we can't add these additional elements, and we might lose the data.
+* If we get fewer elements than what we were supposed to get, we waste too much memory - allocated but unused memory.
 * To solve this, we use [Dynamic Arrays](#dynamic-arrays).
 
 ## Next
