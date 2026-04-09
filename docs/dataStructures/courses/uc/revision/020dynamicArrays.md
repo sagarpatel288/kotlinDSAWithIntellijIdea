@@ -29,11 +29,16 @@
 
 ## Prerequisites / Previously
 
-* 
+* [Arrays.md](010arrays.md)
 
 ## References / Resources
 
-* 
+* [Dynamic Arrays Detailed.md](../module02dynamicArraysAndAmortizedAnalysis/010dynamicArrays.md)
+* [Banking Amortized Analysis.md](../module02dynamicArraysAndAmortizedAnalysis/020bankingAmortizedAnalysis.md)
+* [Physicist Potential Amortized Analysis.md](../module02dynamicArraysAndAmortizedAnalysis/030physicistPotentialAmortizedAnalysis.md)
+* [Other Factors For Resize.md](../module02dynamicArraysAndAmortizedAnalysis/040otherFactorsForResize.md)
+* [Mcqs.md](../module02dynamicArraysAndAmortizedAnalysis/050mcqs.md)
+* [Dynamic Arrays Questions.md](../module02dynamicArraysAndAmortizedAnalysis/060dynamicArraysQuestions.md)
 
 ## What
 
@@ -72,4 +77,8 @@
 
 ## Next
 
-* Linked List
+* [Linked Lists.md](030linkedLists.md)
+* [Singly Linked List Without Tail.md](035singlyLinkedListWithoutTail.md)
+* [Singly Linked List With Tail.md](037singlyLinkedListWithTail.md)
+* [Doubly Linked List Without Tail.md](040doublyLinkedListWithoutTail.md)
+* [Doubly Linked List With Tail.md](045doublyLinkedListWithTail.md)
