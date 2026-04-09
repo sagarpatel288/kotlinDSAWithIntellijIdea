@@ -72,8 +72,13 @@
 ## Problem/s
 
 * The shifting problem.
-* Every time we insert or remove an element in the beginning or middle, we have to shift all the other elements to make room (space) for the new element.
+* Every time we insert a new element anywhere except in the end (last), we have to shift all the other (right side) elements to make room for the new element.
+* We have to do this shifting because it is a contagious data structure.
+* So, they must maintain a specific order (sequence) in the memory.
+* Otherwise, the math that makes random access in $O(1)$ would fail.
+* Similarly, every time we remove an element from anywhere except from the end (last), we have to shift all the other (right side) elements to fill the gap. 
 * This shifting cost is $O(n)$.
+* 
 
 ## Next
 
