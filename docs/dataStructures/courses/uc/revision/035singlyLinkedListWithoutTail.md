@@ -29,27 +29,36 @@
 
 ## Prerequisites / Previously
 
-*
+* [Linked Lists.md](030linkedLists.md)
 
 ## References / Resources
 
-*
+* 
 
 ## What
 
-*
+* A non-contagious and pointer based data structure.
+* Each node holds the address of the next node through a pointer.
 
 ## Solves
 
-*
+* No shifting cost for inserting or removing an element.
 
 ## How
 
-*
+![010timeComplexityOfCommonOperations.png](../../../../../assets/images/dataStructures/uc/module01basicDataStructures/030linkedList/010singlyLinkedListTimeComplexity.png)
+
+* Whenever we insert or remove an element, we change the pointers of a couple of nodes.
+* And changing the pointers is $O(1)$ time operation only.
 
 ## Problem/s
 
-*
+* Inserting an element in the end requires the full traversal from the head to the last node, which is $O(n)$.
+* Similarly, getting the last element requires the full traversal from the head down to the last node, which is $O(n)$.
+* Removing the last element is also $O(n)$, because it requires getting the last element, which is $O(n)$.
+* Inserting an element before a particular node is also $O(n)$, because we have to change the pointer of the future previous node to make it point to this future new node that we are going to insert after it.
+* Finding an arbitrary element is $O(n)$ because this is not a contiguous (index based) data structure.
+* Similarly, removing an arbitrary element is also $O(n)$, because to remove an element, we first need to find it, which is $O(n)$.
 
 ## Next
 

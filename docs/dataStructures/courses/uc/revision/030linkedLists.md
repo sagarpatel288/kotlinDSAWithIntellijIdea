@@ -62,6 +62,8 @@
 
 * Using a non-contagious and pointer based structure.
 * Each node holds the memory address of the next node.
+* Now, whenever we insert or remove an element, we just need to change the pointers of a couple of nodes.
+* And changing the pointer takes $O(1)$ time only.
 
 ## Next (Types)
 
