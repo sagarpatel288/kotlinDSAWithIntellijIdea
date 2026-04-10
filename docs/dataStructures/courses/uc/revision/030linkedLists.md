@@ -67,7 +67,7 @@
 
 ## Next (Types)
 
-*  [Singly Linked List Without Tail.md](035singlyLinkedListWithoutTail.md)  
+* [Singly Linked List Without Tail.md](035singlyLinkedListWithoutTail.md)  
 * [Singly Linked List With Tail.md](037singlyLinkedListWithTail.md)  
 * [Doubly Linked List Without Tail.md](040doublyLinkedListWithoutTail.md)  
 * [Doubly Linked List With Tail.md](045doublyLinkedListWithTail.md)

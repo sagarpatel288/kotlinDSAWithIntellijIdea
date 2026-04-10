@@ -1,3 +1,5 @@
-# Resources/References
+# Dynamic Array
 
-* [Dynamic Arrays.md](../../../module02dynamicArraysAndAmortizedAnalysis/010dynamicArrays.md)
+## Resources/References
+
+* [Dynamic Arrays In Detail.md](../../../module02dynamicArraysAndAmortizedAnalysis/010dynamicArrays.md)
