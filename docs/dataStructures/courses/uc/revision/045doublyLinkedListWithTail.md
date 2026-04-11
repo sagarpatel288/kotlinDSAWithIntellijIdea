@@ -11,6 +11,7 @@
       * [How](#how)
     * [addBefore in $O(1)$](#addbefore-in-o1)
       * [How](#how-1)
+  * [Implementation](#implementation)
   * [Problem/s](#problems)
     * [Finding an arbitrary node is $O(n)$](#finding-an-arbitrary-node-is-on)
     * [Removing an arbitrary node is $O(n)$](#removing-an-arbitrary-node-is-on)
@@ -88,6 +89,10 @@ fun addBefore(node: Node, value: T) {
 }
 
 ```
+
+## Implementation
+
+* [Doubly Linked List With Tail.kt](../../../../../src/courses/uc/course02dataStructures/module01/section01arraysAndLinkedLists/video02LinkedLists/07DoublyLinkedListWithTail.kt)
 
 ## Problem/s
 

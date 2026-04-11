@@ -10,6 +10,7 @@
   * [How](#how)
     * [Adding a new node to the last](#adding-a-new-node-to-the-last)
     * [Reading the last node](#reading-the-last-node)
+  * [Implementation](#implementation)
   * [Problem/s](#problems)
     * [Add a node before an arbitrary node](#add-a-node-before-an-arbitrary-node)
     * [Find an arbitrary node](#find-an-arbitrary-node)
@@ -82,6 +83,10 @@
 * The "Tail" itself represents the last element!
 * So, `lastNode = tail`.
 * That is $O(1)$ time operation.
+
+## Implementation
+
+* [Singly Linked List With Tail.kt](../../../../../src/courses/uc/course02dataStructures/module01/section01arraysAndLinkedLists/video02LinkedLists/05SinglyLinkedListWithTail.kt)
 
 ## Problem/s
 
