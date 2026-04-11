@@ -109,6 +109,7 @@ class SinglyLinkedListWithoutTail<T>() {
         // If the list has only one item, then head?.next = null. So, head = head?.next = null.
         // If the list has more than one item, then head = head?.next, the head points to the previously second (now first) item.
         val item = head?.data
+        // New head
         head = head?.next
         size--
         return item

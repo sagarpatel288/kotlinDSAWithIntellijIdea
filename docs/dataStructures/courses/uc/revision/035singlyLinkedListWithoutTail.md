@@ -8,6 +8,7 @@
   * [What](#what)
   * [Solves](#solves)
   * [How](#how)
+  * [Implementation](#implementation)
   * [Problem/s](#problems)
   * [Next](#next)
 <!-- TOC -->
@@ -50,6 +51,10 @@
 
 * Whenever we insert or remove an element, we change the pointers of a couple of nodes.
 * And changing the pointers is $O(1)$ time operation only.
+
+## Implementation
+
+* [Singly Linked List Without Tail.kt](../../../../../src/courses/uc/course02dataStructures/module01/section01arraysAndLinkedLists/video02LinkedLists/03SinglyLinkedList.kt)
 
 ## Problem/s
 
