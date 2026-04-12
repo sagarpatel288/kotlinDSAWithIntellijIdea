@@ -27,6 +27,16 @@ class LearnSinglyLinkedListWithTail() {
      * [pushBack], [topBack], [popBack],
      * [addInsertAtIndex], [getItemDataAtIndex], [setReplaceItemDataAtIndex], [removeItemAtIndex], etc.
      *
+     * * We have 3 cases on an average for each operation.
+     *
+     * - When the list is empty
+     * - When there is only one node in the list
+     * - When there are more than one node in the list
+     *
+     * * So, we remember these 3 points for each operation.
+     *
+     * * Also, whenever we remove a node, it is the best practice to nullify its next and previous pointers.
+     *
      */
     class SinglyLinkedListWithTail<T>() {
         private var head: Node<T>? = null
@@ -39,6 +49,9 @@ class LearnSinglyLinkedListWithTail() {
 
         fun pushFront(data: T?) {
             head = Node(data, head)
+            // This is about the case where we have only one node (the new node) in the list.
+            // The new node we have pushed to the front.
+            // In that case, tail and head point to the same node.
             if (head?.next == null) {
                 tail = head
             }
@@ -50,14 +63,18 @@ class LearnSinglyLinkedListWithTail() {
         }
 
         fun popFront(): T? {
+            // If the list is empty
             if (isEmpty()) return null
             val popFront = head
+            // If there is only one node in the list
             if (head?.next == null) {
                 head = null
+                tail = null
                 size--
                 return popFront?.data
             }
             head = head?.next
+            // Explicitly nullify the next pointer of the old head to avoid memory leakage
             popFront?.next = null
             size--
             return popFront?.data
@@ -67,12 +84,6 @@ class LearnSinglyLinkedListWithTail() {
             val newNode = Node(data, null)
             if (isEmpty()) {
                 head = newNode
-                tail = newNode
-                size++
-                return
-            }
-            if (head?.next == null) {
-                head?.next = newNode
                 tail = newNode
                 size++
                 return

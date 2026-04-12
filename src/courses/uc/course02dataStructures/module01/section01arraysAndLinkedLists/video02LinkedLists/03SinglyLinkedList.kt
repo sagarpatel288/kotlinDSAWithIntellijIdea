@@ -67,6 +67,16 @@ class Node<T>(var data: T, var next: Node<T>?) {
  * [pushBack], [topBack], [popBack],
  * [addItemAtIndex], [getItemAtIndex], [setReplace], [removeItemAtIndex], etc.
  *
+ * * We have 3 cases on an average for each operation.
+ *
+ * - When the list is empty
+ * - When there is only one node in the list
+ * - When there are more than one node in the list
+ *
+ * * So, we remember these 3 points for each operation.
+ *
+ * * Also, whenever we remove a node, it is the best practice to nullify its next and previous pointers.
+ *
  */
 class SinglyLinkedListWithoutTail<T>() {
     // Public to access during the merge two linked lists operation
