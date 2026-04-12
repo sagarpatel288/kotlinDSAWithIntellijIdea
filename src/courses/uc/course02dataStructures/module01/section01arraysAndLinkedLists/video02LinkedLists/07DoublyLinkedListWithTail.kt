@@ -16,6 +16,16 @@ import courses.uc.course02dataStructures.module01.section01arraysAndLinkedLists.
  *      3. By tail-to-entry pattern
  * - Suitable for interview preparation and deep understanding of linked list edge cases.
  *
+ * * We have 3 cases on an average for each operation.
+ *
+ * - When the list is empty
+ * - When there is only one node in the list
+ * - When there are more than one node in the list
+ *
+ * * So, we remember these 3 points for each operation.
+ *
+ * * Also, whenever we remove a node, it is the best practice to nullify its next and previous pointers.
+ *
  * Author: [Sagar Patel]
  * Date: [Tuesday, 10/Jun/25]
  */
@@ -64,6 +74,16 @@ class LearnDoublyLinkedListWithTail() {
      *
      * Provides methods for insertion, deletion, cycle creation/detection, and reversal
      * while maintaining cycles in multiple ways.
+     *
+     * * We have 3 cases on an average for each operation.
+     *
+     * - When the list is empty
+     * - When there is only one node in the list
+     * - When there are more than one node in the list
+     *
+     * * So, we remember these 3 points for each operation.
+     *
+     * * Also, whenever we remove a node, it is the best practice to nullify its next and previous pointers.
      */
     class DoublyLinkedListWithTail<T>() {
         private var head: Node<T>? = null
