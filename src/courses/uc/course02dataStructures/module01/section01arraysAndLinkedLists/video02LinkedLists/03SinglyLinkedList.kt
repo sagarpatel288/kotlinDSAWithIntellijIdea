@@ -77,6 +77,8 @@ class Node<T>(var data: T, var next: Node<T>?) {
  *
  * * Also, whenever we remove a node, it is the best practice to nullify its next and previous pointers.
  *
+ * ToDo: There are a few things in this file (implementation) that we can improve.
+ *
  */
 class SinglyLinkedListWithoutTail<T>() {
     // Public to access during the merge two linked lists operation
@@ -202,7 +204,7 @@ class SinglyLinkedListWithoutTail<T>() {
     }
 
     /**
-     * Add an item to the given index.
+     * **Add an item to the given index (position).**
      *
      * * Key lemma (Key point, Key fact):
      * It means that the item at `index - 1` (the item at the previous index) will get the new `next` connection.
@@ -223,6 +225,11 @@ class SinglyLinkedListWithoutTail<T>() {
      *
      * In the end, the list becomes:
      * `A (index 0) --> B (index 1) --> X (index 2) --> C (index 3) --> D (index 4)`.
+     *
+     * **Note:**
+     *
+     * * A linked list does not have the traditional index system.
+     * * So, here, in this function, index means the position.
      */
     fun addItemAtIndex(index: Int, item: T) {
         // > size and not >= size, because we can add an item to the back (end, last, tail).
@@ -252,7 +259,7 @@ class SinglyLinkedListWithoutTail<T>() {
     }
 
     /**
-     * Remove the item from the given index.
+     * Remove the item from the given index (position).
      *
      * * Key lemma (Key facts):
      * We need to travel up to `index - 1` to change the connection of the item at the previous index.
@@ -277,6 +284,11 @@ class SinglyLinkedListWithoutTail<T>() {
      * ```
      * A (index 0) --> B (index 1) --> D (index 2)
      * ```
+     *
+     * **Note:**
+     *
+     * * A linked list does not have the traditional index system.
+     * * So, here, in this function, index means the position.
      */
     fun removeItemAtIndex(index: Int): T? {
         // Index equal to or greater than the size gives the "Index out of bounds exception".
@@ -310,7 +322,7 @@ class SinglyLinkedListWithoutTail<T>() {
     }
 
     /**
-     * Get the item available at the given index.
+     * Get the item available at the given index (position).
      *
      * For example, suppose the list is:
      *
@@ -339,6 +351,10 @@ class SinglyLinkedListWithoutTail<T>() {
      * 2. And we repeat the operation ```curr = curr?.next``` index times.
      * ```
      *
+     * **Note:**
+     *
+     * * A linked list does not have the traditional index system.
+     * * So, here, in this function, index means the position.
      */
     fun getItemAtIndex(index: Int): T? {
         if (index < 0 || index >= size) {
@@ -385,6 +401,11 @@ class SinglyLinkedListWithoutTail<T>() {
      * ```
      * When we get the target item, we perform `item?.data = givenData` to replace (set) the existing data with the
      * given data.
+     *
+     * **Note:**
+     *
+     * * A linked list does not have the traditional index system.
+     * * So, here, in this function, index means the position.
      */
     fun setReplace(index: Int, data: T) {
         if (index < 0 || index >= size) {
@@ -890,11 +911,18 @@ class SinglyLinkedListWithoutTail<T>() {
 
 
     /**
+     * [Shradha Madam](https://youtu.be/-1E8ZMS0gSs?si=X0oz1AQ_Y1P0nuHW)
+     *
      * The key-lemma here is: Robert Floyd's Tortoise and Hare Algorithm.
      * ```
      * 1. Two pointers: Slow and Fast, starting the race from the head.
      * 2. The slow pointer moves 1 step forward, while the fast pointer moves 2 steps forward.
      * 3. We do this while the condition is, at any point, fast != null && fast.next != null.
+     * * If fast == null, we cannot move the fast pointer forward. We might have already covered the entire list.
+     * * If fast.next == null, we cannot move the fast pointer forward.
+     * * Because the fast pointer can move only by 2 steps.
+     * * If the next step is already null, we cannot go to null.next!
+     * * That's why, two conditions: fast != null && fast.next != null
      * 4. If at any point, slow == fast, there is a cycle. We return true.
      * 5. Otherwise, we return false.
      * ```
