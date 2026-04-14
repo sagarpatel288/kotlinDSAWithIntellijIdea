@@ -914,18 +914,35 @@ class SinglyLinkedListWithoutTail<T>() {
      * [Shradha Madam](https://youtu.be/-1E8ZMS0gSs?si=X0oz1AQ_Y1P0nuHW)
      *
      * The key-lemma here is: Robert Floyd's Tortoise and Hare Algorithm.
-     * ```
+     *
      * 1. Two pointers: Slow and Fast, starting the race from the head.
      * 2. The slow pointer moves 1 step forward, while the fast pointer moves 2 steps forward.
      * 3. We do this while the condition is, at any point, fast != null && fast.next != null.
+     *
      * * If fast == null, we cannot move the fast pointer forward. We might have already covered the entire list.
      * * If fast.next == null, we cannot move the fast pointer forward.
      * * Because the fast pointer can move only by 2 steps.
      * * If the next step is already null, we cannot go to null.next!
+     * * And if `fast.next?.next == null`, then `fast` becomes `null`.
+     * * In that case, we fall into the first condition.
      * * That's why, two conditions: fast != null && fast.next != null
+     *
+     * **Why don't we take `fast.next?.next != null` instead of `fast.next != null`?**
+     *
+     * * We can take `fast.next?.next != null` also instead of `fast.next != null`, but we may have to handle the
+     * `nullability` in other languages.
+     * * Because in Kotlin, we have the `null-safe-operator`.
+     * * So, even when `fast.next` is null, `fast.next?.next` will also give us `null` without exception.
+     * * Whereas in other languages, calling `next` on `fast.next` can throw exception if `fast.next` is null.
+     *
+     * **Why do we take `fast != null && fast.next != null`  instead of the single `slow != null` condition?**
+     *
+     * * Because the `fast` pointer moves faster than the `slow` pointer, we find the conclusion faster.
+     * * Otherwise, we can use the single `slow != null`, but that would take more time.
+     *
      * 4. If at any point, slow == fast, there is a cycle. We return true.
      * 5. Otherwise, we return false.
-     * ```
+     *
      * So, the code translation is:
      * ```
      * Two pointers starting from the head.
@@ -933,20 +950,20 @@ class SinglyLinkedListWithoutTail<T>() {
      * var fast = head
      * ```
      * ```
-     * The slow pointer moves 1 step forward, while the fast pointer moves 2 steps forward.
+     * // The slow pointer moves 1 step forward, while the fast pointer moves 2 steps forward.
      * slow = slow?.next // moves 1 step forward
      * fast = fast.next?.next // moves 2 steps forward
      * ```
      * ```
-     * We do this while the condition is: fast != null && fast.next.next != null
+     * // We keep doing this while (as long as) the conditions: `fast != null && fast.next != null` are true.
      * while (fast != null && fast.next != null) {
      *     slow = slow?.next
      *     fast = fast.next?.next
      * }
      * ```
      * ```
-     * If at any point, slow == fast, there is a cycle. So, we return true.
-     * Otherwise, we return false.
+     * // If at any point, slow == fast, there is a cycle. So, we return true.
+     * // Otherwise, we return false.
      * while (fast != null && fast.next != null) {
      *     slow = slow?.next
      *     fast = fast.next?.next
@@ -1146,10 +1163,14 @@ class SinglyLinkedListWithoutTail<T>() {
      * So, on one side (LHS), we start from the "head," and on the other side (RHS), we start from "X."
      * 12. From the head, moving "L" steps forward will land us on the cycle entry point,
      * and from "X" (the meeting point), moving "C-X" steps forward will land us on the cycle entry point.
-     * 13. We take one step at a time, and when they meet, it is the cycle entry point.
-     * When we move one pointer from the head and one from the meeting point, each taking one step at a time,
-     * their meeting point will be the cycle entry, because the number of steps needed from each starting position
-     * to the entry point is the same modulo the cycle length.
+     * 13. So, one pointer starts from the head, and another pointer starts from the meeting point.
+     * 14. We move them one step at a time, and when they meet, it is the cycle entry point.
+     * 15. Because the number of steps needed from each starting position to the entry point is the same modulo the
+     * cycle length.
+     * 16. It means when two pointers meet, we send one of them back to the head.
+     * 17. Now, one pointer is at head, and another pointer is at the meeting point.
+     * 18. And then both the pointers will take one step at a time.
+     * 19. And the point where they meet again, is the cycle starting point!
      * ```
      * Code Translation:
      * ```
