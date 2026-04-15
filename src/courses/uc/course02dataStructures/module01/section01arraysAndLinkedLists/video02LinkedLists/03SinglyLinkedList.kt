@@ -1236,6 +1236,8 @@ class SinglyLinkedListWithoutTail<T>() {
         }
         val startOfCycle = findStartCycle()
         var curr = startOfCycle
+        // We need to reset the node whose next pointer points to the cycle entry point.
+        // We need to change it to point to null.
         while (curr?.next != startOfCycle) {
             curr = curr?.next
         }
