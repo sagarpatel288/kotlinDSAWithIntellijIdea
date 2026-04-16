@@ -519,11 +519,48 @@ class SinglyLinkedListWithoutTail<T>() {
      * So, if we take `3` as the `current` (target) node. Then, it becomes:
      *
      * ```
-     * var prev: Node<T>? = null (Destination).
-     * val next = curr.next (so, it is 3.next = 5. Hence, the next is 5.)
-     * curr.next = prev (Instead of pointing towards 5, the node 3 points to null now. So, it is null <-- 3)
-     * prev = curr (Now, the variable "prev" is shifted from the initial "null" value to node "3". "3" is "prev" now.)
-     * curr = next ("5" is the new "curr" now.)
+     * val prev: Node<T>? = null // The current head's next pointer will point to this null
+     * var curr = head // The current head
+     * curr.next = prev // We have successfully reveresed the `curr` node, which is `3`.
+     * ```
+     *
+     * * Now, we need to do this for each node.
+     * * So, with each successful node reversal, we move `prev,` `curr,` and `next` one step until `curr` is not null.
+     *
+     * **How do we move them one step forward?**
+     *
+     * * `prev` takes the place of the `curr`.
+     * * `curr` takes the place of the `next`.
+     *
+     * * So, it goes like below:
+     *
+     * ```
+     * val next = curr.next // We need to take this reference before we change `curr.next = prev` to reverse the `curr`.
+     * prev = curr
+     * curr = next
+     * ```
+     *
+     * * So, overall, it becomes:
+     *
+     * ```
+     * var prev: Node<T>? = null // Destination.
+     *
+     * // Once we reverse the `curr` node, we need to reverse the next node.
+     * // But we need to take the reference of it before we reverse the `curr` node.
+     * // Because reversing the `curr` node will change the `curr.next` value.
+     * val next = curr.next // So, it is 3.next = 5. Hence, the next node we want to reverse is 5.
+     *
+     * // Reversing the `curr` node, which is `3`.
+     * // Instead of pointing towards 5, the node 3 points to null now. So, it is null <-- 3
+     * curr.next = prev // We have successfully reversed the `curr` node, which is `3`.
+     *
+     * // Moving the `prev` variable one step forward.
+     * // So, `prev` takes the place of the `curr`.
+     * prev = curr // Now, the variable "prev" is shifted from the initial "null" value to node "3". "3" is "prev" now.
+     *
+     * // Moving the `curr` variable one step forward.
+     * // So, `curr` takes the place of the `next`.
+     * curr = next // "5" is the new "curr" now that we want to reverse.
      * ```
      *
      * So, we have successfully changed the next pointer of the first node, 3.
@@ -587,6 +624,12 @@ class SinglyLinkedListWithoutTail<T>() {
         }
     }
 
+    /**
+     * Again, we take two pointers: slow and fast.
+     * Fast runs at twice the speed of slow.
+     * When fast is null or `fast.next` is null, we have covered the entire linked list.
+     * And because the slow pointer runs at the half the speed of the fast, it is on the middle point.
+     */
     fun findMiddleNode(): Node<T>? {
         if (isEmpty()) return null
         if (hasCycle()) {
@@ -1001,7 +1044,7 @@ class SinglyLinkedListWithoutTail<T>() {
      * A cycle in the Singly Linked List is not a good idea as it can lead to an infinite loop.
      * Hence, this is absolutely for testing purposes only.
      *
-     * For example, we can [createCycle] and then [findStartCycle].
+     * For example, we can [createCycle], [findStartCycle], and [breakCycle].
      */
     fun createCycle(targetIndex: Int) {
         if (targetIndex < 0 || targetIndex >= size) {
