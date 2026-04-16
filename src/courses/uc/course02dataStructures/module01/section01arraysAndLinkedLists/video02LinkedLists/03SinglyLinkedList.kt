@@ -618,6 +618,10 @@ class SinglyLinkedListWithoutTail<T>() {
             prev = curr
             curr = next
         }
+        // Caution! Possible point of mistake!
+        // Don't forget to update the head.
+        // After reversing the linked list, we get a new head!
+        // Because the old head becomes the tail after we reverse the linked list.
         head = prev
         if (!breakCycle && startCycle != null) {
             last?.next = startCycle
