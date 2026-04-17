@@ -961,6 +961,17 @@ class SinglyLinkedListWithoutTail<T>() {
      * * `temp1`: Progress on the list one.
      * * `temp2`: Progress on the list two.
      * * The merged list starts from `preHead.next`.
+     *
+     * ---
+     * * The winner node becomes the `temp.next`.
+     * * So, `temp.next = winnerNode`.
+     * ---
+     * * The unexhausted list becomes the winner.
+     * * And the winner list becomes the `temp.next`.
+     * * So, `temp.next = unexhausted winner list`.
+     * ---
+     * * The tail of the winner list (unexhausted list) becomes the tail of the resultant list.
+     * * So, `mergedList.tail = winnerList.tail`
      */
     fun mergeTwoLinkedLists(
         listOne: SinglyLinkedListWithoutTail<Int>,
@@ -977,16 +988,22 @@ class SinglyLinkedListWithoutTail<T>() {
         // Iterating through to compare the items of the listOne and listTwo.
         while (temp1 != null && temp2 != null) {
             if (temp1.data <= temp2.data) {
+                // The winner becomes the next node.
+                // temp.next = winner
                 temp.next = temp1 // Establishes the next node.
                 temp = temp1 // Moves to the established node.
                 temp1 = temp1.next // Moves to the next item.
             } else {
+                // The winner becomes the next node.
+                // temp.next = winner
                 temp.next = temp2 // Establish the next node.
                 temp = temp2 // Moves to the established node.
                 temp2 = temp2.next // Moves to the next item.
             }
         }
         // Establishes the remaining non-null chain as it is because the remaining part is already sorted.
+        // If one of the two lists gets exhausted, the remaining list becomes the winner.
+        // temp.next = unexhausted winnerList
         // Caution! Possible point of mistake!
         // It is `temp.next = ...` and not the `temp = ...`.
         temp.next = temp1 ?: temp2
@@ -994,6 +1011,7 @@ class SinglyLinkedListWithoutTail<T>() {
         mergedList.head = preHead.next
         // If it were the lists with tail, and we needed to assign the tail, then:
         // The tail of the list that didn't exhaust becomes the tail.
+        // The tail of the winner list becomes the tail of the merged list.
         // mergedList.tail = if (temp1 != null) listOne.tail else listTwo.tail
         // Also, we must update the size.
         // Caution! Possible point of mistake!
