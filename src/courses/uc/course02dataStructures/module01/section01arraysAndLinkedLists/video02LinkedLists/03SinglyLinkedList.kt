@@ -987,9 +987,18 @@ class SinglyLinkedListWithoutTail<T>() {
             }
         }
         // Establishes the remaining non-null chain as it is because the remaining part is already sorted.
+        // Caution! Possible point of mistake!
+        // It is `temp.next = ...` and not the `temp = ...`.
         temp.next = temp1 ?: temp2
         val mergedList = SinglyLinkedListWithoutTail<Int>()
         mergedList.head = preHead.next
+        // If it were the lists with tail, and we needed to assign the tail, then:
+        // The tail of the list that didn't exhaust becomes the tail.
+        // mergedList.tail = if (temp1 != null) listOne.tail else listTwo.tail
+        // Also, we must update the size.
+        // Caution! Possible point of mistake!
+        // Do not forget to update the size of the resultant list!
+        mergedList.size = (listOne.size + listTwo.size)
         return mergedList
     }
 
