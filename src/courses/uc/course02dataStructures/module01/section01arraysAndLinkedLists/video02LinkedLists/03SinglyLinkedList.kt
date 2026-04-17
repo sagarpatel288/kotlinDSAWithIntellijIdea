@@ -657,11 +657,38 @@ class SinglyLinkedListWithoutTail<T>() {
      *
      * # Explanation:
      *
-     * The idea is, we take a fake node, called "preHead."
+     * The idea is, we take a fake node, called `preHead`.
+     * The resultant list (the merged list) starts from this `preHead`.
+     * Initially, this `preHead` value is arbitrary, and its next pointer also points to `null`.
+     * So, it is like:
      * ```
      * val preHead = Node(-1, null)
      * ```
-     * Then, we iterate over the given lists until one of the lists gets exhausted.
+     * Now, to track the progress on this resultant list (the merged list), we take a variable, called `temp`.
+     * So, the variable `temp` moves on the resultant list.
+     * Initially, `temp = preHead`.
+     * So, it is like:
+     * ```
+     * var temp = preHead
+     * ```
+     * Now, to select the minimum item from both the lists, we compare each node, one by one from both the lists.
+     * To compare and cover each node from both the lists, we need to iterate over them.
+     * So, we iterate over the given lists until one of the lists gets exhausted.
+     * And to track the progress of this iteration, we need a dedicated variable for each list.
+     * ---
+     * To track the progress on list one, we take the variable, `temp1`.
+     * The variable `temp1` starts from the `head` of the list one.
+     * It represents the current node of the list one.
+     * In other words, the past values (nodes, items) of `temp1` must have been compared and covered.
+     * Once we cover the current node, the variable `temp1` moves on to the next node.
+     * ---
+     * Similarly, to track the progress on list two, we take the variable, `temp2`.
+     * The variable `temp2` starts from the `head` of the list two.
+     * It represents the current node of the list two.
+     * In other words, the past values (nodes, items) of `temp2` must have been compared and covered.
+     * Once we cover the current node, the variable `temp2` moves on to the next node.
+     * ---
+     * So, it is like:
      * ```
      * var temp1 = listOne.head
      * var temp2 = listTwo.head
@@ -924,6 +951,16 @@ class SinglyLinkedListWithoutTail<T>() {
      * ```
      *
      * 16. Full and final Code (Full and final Story): Complete Code (Complete Story) is given in the function body.
+     *
+     * # How to remember?
+     *
+     * * Four variables: `preHead`, `temp`, `temp1`, and `temp2`.
+     * * `preHead`: Starting of the resultant list.
+     * * `temp`: Progress on the resultant list.
+     * * `temp.next` and then `temp` moves there.
+     * * `temp1`: Progress on the list one.
+     * * `temp2`: Progress on the list two.
+     * * The merged list starts from `preHead.next`.
      */
     fun mergeTwoLinkedLists(
         listOne: SinglyLinkedListWithoutTail<Int>,
