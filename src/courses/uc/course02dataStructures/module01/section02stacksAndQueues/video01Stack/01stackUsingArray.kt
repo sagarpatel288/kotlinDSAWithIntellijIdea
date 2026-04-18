@@ -48,15 +48,15 @@ class StackUsingArray<T>(private val capacity: Int) {
      * (Similar to `Object` in Java.).
      */
     private val array: Array<Any?> = arrayOfNulls(capacity)
-    private var numberOfElements = 0
+    private var size = 0
 
     fun size() = capacity
 
     /**
      * [isEmpty] is a state, not an action.
      * Also, we don't want it to be set externally.
-     * And it uses the internal state [numberOfElements] to decide its own state.
-     * [isEmpty] depends on the [numberOfElements], which clearly suggests that [isEmpty] is a computed property.
+     * And it uses the internal state [size] to decide its own state.
+     * [isEmpty] depends on the [size], which clearly suggests that [isEmpty] is a computed property.
      * All these characteristics suggest an immutable "val" property, and not the "var" property.
      * Hence, [isEmpty] is a "val" property.
      *
@@ -66,25 +66,25 @@ class StackUsingArray<T>(private val capacity: Int) {
      * Hence, [isEmpty] is a "val" property.
      */
     val isEmpty: Boolean
-        get() = numberOfElements == 0 // We can also use array.isEmpty()
+        get() = size == 0 // We can also use array.isEmpty()
 
     /**
      * [isFull] is a state, not an action.
-     * [isFull] depends on the internal state [numberOfElements].
+     * [isFull] depends on the internal state [size].
      * Hence, [isFull] is a computed property.
      * We don't want to set [isFull] from the outside.
      * All these characteristics suggest that [isFull] should be an immutable and computed "val" property.
      */
     val isFull: Boolean
-        get() = numberOfElements == capacity
+        get() = size == capacity
 
     /**
      * Time complexity is O(1), constant time.
      * Space complexity is also O(1), no additional memory.
      */
     fun push(data: T) {
-        if (isFull) throw IllegalStateException("Stack is full. Capacity is $capacity, and number of elements are $numberOfElements")
-        array[numberOfElements++] = data
+        if (isFull) throw IllegalStateException("Stack is full. Capacity is $capacity, and number of elements are $size")
+        array[size++] = data
     }
 
     /**
@@ -94,7 +94,7 @@ class StackUsingArray<T>(private val capacity: Int) {
     fun top(): T {
         if (isEmpty) throw NoSuchElementException("The stack is empty!")
         @Suppress("Unchecked_Cast")
-        return array[numberOfElements - 1] as T
+        return array[size - 1] as T
     }
 
     /**
@@ -104,8 +104,8 @@ class StackUsingArray<T>(private val capacity: Int) {
     fun pop(): T {
         // top() already handles the "isEmpty" case.
         val top = top()
-        array[numberOfElements - 1] = null
-        numberOfElements--
+        array[size - 1] = null
+        size--
         return top
     }
 
@@ -118,7 +118,7 @@ class StackUsingArray<T>(private val capacity: Int) {
      */
     fun asString(): String =
         buildString {
-            for (i in 0..<numberOfElements) {
+            for (i in 0..<size) {
                 append("Index is $i and value is ${array[i]} --> ")
             }
             append(" -- End Of The Stack -- ")
