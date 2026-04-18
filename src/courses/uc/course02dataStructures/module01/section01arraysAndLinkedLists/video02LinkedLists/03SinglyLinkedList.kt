@@ -991,13 +991,13 @@ class SinglyLinkedListWithoutTail<T>() {
                 // The winner becomes the next node.
                 // temp.next = winner
                 temp.next = temp1 // Establishes the next node.
-                temp = temp1 // Moves to the established node.
+                temp = temp1 // Moves to the established node. This can also be: temp = temp.next
                 temp1 = temp1.next // Moves to the next item.
             } else {
                 // The winner becomes the next node.
                 // temp.next = winner
                 temp.next = temp2 // Establish the next node.
-                temp = temp2 // Moves to the established node.
+                temp = temp2 // Moves to the established node. This can also be: temp = temp.next
                 temp2 = temp2.next // Moves to the next item.
             }
         }
