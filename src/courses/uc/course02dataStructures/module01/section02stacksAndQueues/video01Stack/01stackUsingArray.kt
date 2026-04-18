@@ -11,7 +11,7 @@ package courses.uc.course02dataStructures.module01.section02stacksAndQueues.vide
  *                 It implicitly says that this is not the current size of the stack.
  *                 The current size of the stack might be full, empty, half, or somewhere in between of its `capacity.`
  */
-class StackUsingArray<T>(private val capacity: Int) {
+class StackUsingArray<T>(val capacity: Int) {
 
     init {
         require(capacity > 0) { "Stack capacity must be greater than 0." }
@@ -48,9 +48,15 @@ class StackUsingArray<T>(private val capacity: Int) {
      * (Similar to `Object` in Java.).
      */
     private val array: Array<Any?> = arrayOfNulls(capacity)
-    private var size = 0
 
-    fun size() = capacity
+    /**
+     * Caution! Possible point of mistake!
+     * We are not using the `array.size`!
+     * Because `array.size` represents the total capacity of the array.
+     * Here, [size] represents the current size of the array that can be anything between 0 to capacity (inclusive).
+     */
+    var size = 0
+        private set
 
     /**
      * [isEmpty] is a state, not an action.
@@ -66,6 +72,11 @@ class StackUsingArray<T>(private val capacity: Int) {
      * Hence, [isEmpty] is a "val" property.
      */
     val isEmpty: Boolean
+        // Caution! Possible point of mistake!
+        // We are not using the `array.size`.
+        // Because `array.size` represents the final and full capacity of the array.
+        // Here, the `size` property represents the current size of the array.
+        // Current size of the array can be anything between 0 to capacity (inclusive).
         get() = size == 0 // We can also use array.isEmpty()
 
     /**
@@ -76,6 +87,11 @@ class StackUsingArray<T>(private val capacity: Int) {
      * All these characteristics suggest that [isFull] should be an immutable and computed "val" property.
      */
     val isFull: Boolean
+        // Caution! Possible point of mistake!
+        // We are not using the `array.size`!
+        // Because `array.size` represents the full and final capacity of the array.
+        // Here, the `size` property represents the current size of the array.
+        // The current size of the array can be anything between 0 and capacity (inclusive).
         get() = size == capacity
 
     /**
@@ -104,6 +120,8 @@ class StackUsingArray<T>(private val capacity: Int) {
     fun pop(): T {
         // top() already handles the "isEmpty" case.
         val top = top()
+        // Caution! Possible point of mistake!
+        // It is important to nullify the place that we just removed.
         array[size - 1] = null
         size--
         return top
@@ -135,6 +153,7 @@ class StackUsingArray<T>(private val capacity: Int) {
 
 fun main() {
     val stack = StackUsingArray<Int>(3)
+    println("Stack capacity is: ${stack.capacity}")
     println("Stack isEmpty: ${stack.isEmpty}")
     println("Stack push 10: ${stack.push(10)}")
     println("Stack isEmpty: ${stack.isEmpty}")
@@ -156,7 +175,7 @@ fun main() {
     println("Stack pop: ${stack.pop()}")
     println("Print stack: ${stack.printStack()}")
     println("Stack isEmpty: ${stack.isEmpty}")
-    println("Stack size: ${stack.size()}")
+    println("Stack size: ${stack.size}")
     println("Stack isEmpty: ${stack.isEmpty}")
     println("Top on empty stack: ${stack.top()}")
     println("Pop on empty stack: ${stack.pop()}")
