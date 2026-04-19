@@ -3,6 +3,7 @@
 <!-- TOC -->
 * [ToDos](#todos)
   * [Topics](#topics)
+  * [Key-lemmas, Formulas](#key-lemmas-formulas)
   * [Format](#format)
 <!-- TOC -->
 
@@ -22,6 +23,14 @@
 * Connecting a row problem like [Merge Table.kt](../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/03mergeTable.kt) with [Disjoint Sets Dissection.md](dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsImplementation/disjointSets02dissection.md) is fascinating.
   * This kind of imagination, connection, simulation, relation, conversion, translation, transformation, mapping and modeling, reduction, and immersion of pattern and behavior matching is fascinating.
   * This is a fascinating example of pattern recognition, and problem reduction (mapping and modeling) skill.
+
+## Key-lemmas, Formulas
+
+* Finding the minimum value in `O(1)` in a stack using the clever encoding-decoding technique.
+  * Reference: Min stack.
+* The fast and slow pointers, both start from the head, slow moves one step at a time, fast moves two steps at a time, if there is a cycle, they will meet, otherwise at some point, fast or `fast.next` will be `null`.
+  * Reference: In a linked list: To detect a cycle, to find the start of the cycle, to break the cycle, and to find the middle point.
+
 
 ## Format
 
