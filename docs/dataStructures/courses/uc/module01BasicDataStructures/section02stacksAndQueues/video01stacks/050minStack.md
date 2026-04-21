@@ -10,9 +10,12 @@
   * [The Core Idea](#the-core-idea)
     * [Time Complexity](#time-complexity)
     * [Space Complexity](#space-complexity)
+  * [Class](#class)
+  * [Properties](#properties)
+  * [The key-lemma (formula)](#the-key-lemma-formula)
   * [What is going on?](#what-is-going-on)
     * [How do we encode? When do we encode?](#how-do-we-encode-when-do-we-encode)
-    * [Why to encode only if the incoming value is less than the current value?](#why-to-encode-only-if-the-incoming-value-is-less-than-the-current-value)
+    * [Why to encode only if the incoming value is less than the current value? Why not to encode all the values?](#why-to-encode-only-if-the-incoming-value-is-less-than-the-current-value-why-not-to-encode-all-the-values)
     * [What will happen when we top? Do we always decode?](#what-will-happen-when-we-top-do-we-always-decode)
     * [How do we decode?](#how-do-we-decode)
   * [Explanation of the encoding formula](#explanation-of-the-encoding-formula)
@@ -36,6 +39,9 @@
   * [Print the stack](#print-the-stack)
     * [Time Complexity](#time-complexity-)
     * [Space Complexity](#space-complexity-2)
+  * [How to remember the encoding and the decoding formulas?](#how-to-remember-the-encoding-and-the-decoding-formulas)
+    * [Encoding](#encoding)
+    * [Decoding](#decoding)
 <!-- TOC -->
 
 ## References
@@ -66,8 +72,7 @@
 * Prefer [ArrayDeque] over [Array] as the underlying data structure.
 * The reason we use [Array] here is to understand the concept.
 * Once we understand the concept, we can check the file below that uses the [ArrayDeque]:
-* 
-* src/courses/uc/course02dataStructures/module01/video01Stack/04minStackUsingArrayDeque.kt
+* [Min stack using ArrayDeque.kt](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/db90bea6551619a0026dbd89939c13207c1fc158/src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video01Stack/04minStackUsingArrayDeque.kt)
 
 ## Solution Overview
 
@@ -99,24 +104,26 @@
 
 **References**
 
-* [Shraddha K]((https://youtu.be/wHDm-N2m2XY?si=ZGfPBFLljG46UqDw))
+* [Shraddha K](https://youtu.be/wHDm-N2m2XY?si=ZGfPBFLljG46UqDw)
 * [LeetCode Problem 155](https://leetcode.com/problems/min-stack/description/)
 
+## Class
 
 ```kotlin
 class MinStackUsingArray(private val capacity: Int) {
 
     init {
         require(capacity > 0) { "The stack must have capacity greater than 0" }
-     }
+    }
 
     private val array = LongArray(capacity)
+}
 ```
 
 
-* Why [LongArray] instead of [IntArray]?
-* Because, we will be doing encoding for the incoming values as and when required, and we want to ensure that we
-* handle it if it exceeds the integer limit (overflow) during the encoding process.
+**Why [LongArray] instead of [IntArray]?**
+
+* Because, we will be doing encoding for the incoming values as and when required, and it can exceed the integer limit (overflow).
 * For more information about the `encoding` stuff, check [push].
 
 **Space Complexity**
@@ -125,9 +132,14 @@ class MinStackUsingArray(private val capacity: Int) {
 * We use [array] of size [capacity].
 * So, if [capacity] is `n`, then this [array] occupies `O(n)` space.
 
+## Properties
+
 ```kotlin
 /**
+  * [stackSize] is a mutable property.
+  * We change it as we `push` or `pop` the elements. 
   * We don't want to allow setting or changing [stackSize] from the outside.
+  * But we need to allow the external world access (read) the [stackSize]. 
   */
   var stackSize = 0 
       private set
@@ -142,15 +154,15 @@ class MinStackUsingArray(private val capacity: Int) {
 ```
 
   
-* The key-lemma (formula) is:
+## The key-lemma (formula)
 
 >
-> if the incoming value is less than the current minValue:
+> if the incoming value is less than the current minValue:  
 > Store the encoded value to the stack as: `2 * incoming - minValue`
 
 ## What is going on?
 
-* We want to implement the `findMin` function (operation, action) in the `Stack` that gives us the minimum element (of type `int`) stored in our `stack` in the O(1) space complexity.
+* We want to implement the `findMin` function (operation, action) in the `Stack` that gives us the minimum element (of type `int`) stored in our `stack` in the O(1) time and space complexity.
 * Now, if we use a simple global variable, then it is challenging to find the second-last (previous) minimum value.
 * For example, suppose we do the following operations in the given order:
 
@@ -161,7 +173,7 @@ class MinStackUsingArray(private val capacity: Int) {
 * findMin => should give us -3. All good.
 * pop => We delete -3. How do we re-assign min and evaluate (set) it to -2? Who will manage the information of -2?
 * top => should give us 0.
-* findMin => should give us -2. How?
+* findMin => should give us -2. How do we get it? Who will give?   
 ```
 
 * If we take another list that stores all the minimum values, it can easily exceed the space complexity O(1).
@@ -185,12 +197,12 @@ class MinStackUsingArray(private val capacity: Int) {
 > if the incoming value is less than the current minValue:  
 > Store the encoded value to the stack as: `2 * incoming - minValue`
 
-**Why to encode only if the incoming value is less than the current value?** 
+**Why to encode only if the incoming value is less than the current value? Why not to encode all the values?** 
 **What will happen when we top? Do we always decode? How do we decode?**
 
 * Let us address these questions one by one.
 
-### Why to encode only if the incoming value is less than the current value?
+### Why to encode only if the incoming value is less than the current value? Why not to encode all the values?
 
 * To reduce (minimize) the work! 
 * If the incoming value is already greater than the current min value, we are not going to change the current min value. 
@@ -550,3 +562,45 @@ override fun toString() = buildString {
 * We iterate through the [array] up to [stackSize] to represent each element's value.
 * Each string represents an individual element value.
 * So, if `n` is the [stackSize], then the space complexity of this function is O(n).
+
+## How to remember the encoding and the decoding formulas?
+
+### Encoding
+
+* This is just to remember the formula.
+
+**What do we encode?** 
+
+* The incoming value which is going to be the `newMin` as it is smaller than the `currMin`.
+
+**How do we store?**
+
+* We store a value which is smaller than this `newMin` (and `newMin` is smaller than the `currMin`).
+* To make it smaller than itself, we subtract the `currMin` value from it.
+
+> * incoming (newMin) - currMin
+
+* Here, the `newMin` is smaller than the `currMin`.
+* So, we are subtracting: `small - large` which gives us a negative result. 
+* To make it even smaller, we multiply it with 2.
+
+> * val encoded =  2 * incoming - currMin
+
+**Rhymic Mnemonic**
+
+* **Encoding2IC**
+
+### Decoding
+
+* Re-write the encoding formula:
+
+> * val encoded = 2 * incoming - currMin
+
+* The `incoming` value is the `newMin` which becomes the `currMin` and the `currMin` becomes the `oldMin`.
+* So, we can re-write it as:
+
+> * val encoded = 2 * currMin - oldMin
+
+* To restore the `oldMin`, we arrange the formula as:
+
+> * val oldMin = 2 * currMin - encoded
