@@ -1,6 +1,47 @@
 # Min Stack in O(1)
 
+<!-- TOC -->
+* [Min Stack in O(1)](#min-stack-in-o1)
+  * [References](#references)
+  * [Problem Statement](#problem-statement)
+  * [Constraints](#constraints)
+  * [Heads Up!](#heads-up)
+  * [Solution Overview](#solution-overview)
+  * [The Core Idea](#the-core-idea)
+    * [Time Complexity](#time-complexity)
+    * [Space Complexity](#space-complexity)
+  * [What is going on?](#what-is-going-on)
+    * [How do we encode? When do we encode?](#how-do-we-encode-when-do-we-encode)
+    * [Why to encode only if the incoming value is less than the current value?](#why-to-encode-only-if-the-incoming-value-is-less-than-the-current-value)
+    * [What will happen when we top? Do we always decode?](#what-will-happen-when-we-top-do-we-always-decode)
+    * [How do we decode?](#how-do-we-decode)
+  * [Explanation of the encoding formula](#explanation-of-the-encoding-formula)
+    * [How do we identify and distinguish the encoded values from the normal values?](#how-do-we-identify-and-distinguish-the-encoded-values-from-the-normal-values)
+  * [Explanation of the decoding formula (Or connecting the encoding and the decoding formulas)](#explanation-of-the-decoding-formula-or-connecting-the-encoding-and-the-decoding-formulas)
+  * [Why do we multiply the new incoming min value with 2 during encoding? What is the purpose of it?](#why-do-we-multiply-the-new-incoming-min-value-with-2-during-encoding-what-is-the-purpose-of-it)
+  * [Why do we subtract the existing min value during encoding? Why not any other operator?](#why-do-we-subtract-the-existing-min-value-during-encoding-why-not-any-other-operator)
+  * [How to remember the formula?](#how-to-remember-the-formula)
+  * [Pseudocode for the `Push` function](#pseudocode-for-the-push-function)
+    * [Time Complexity of the `Push` function](#time-complexity-of-the-push-function)
+    * [Space Complexity of the `Push` function](#space-complexity-of-the-push-function)
+  * [Pseudocode of the `Top` function](#pseudocode-of-the-top-function)
+    * [Time Complexity of the `Top` function](#time-complexity-of-the-top-function)
+    * [Space Complexity of the `Top` function](#space-complexity-of-the-top-function)
+  * [Pseudocode of the `Pop` function](#pseudocode-of-the-pop-function)
+    * [Time Complexity of the `Pop` function](#time-complexity-of-the-pop-function)
+    * [Space Complexity of the `Pop` function](#space-complexity-of-the-pop-function)
+  * [Getting the `min` value](#getting-the-min-value)
+    * [Time Complexity](#time-complexity-1)
+    * [Space Complexity](#space-complexity-1)
+  * [Print the stack](#print-the-stack)
+    * [Time Complexity](#time-complexity-)
+    * [Space Complexity](#space-complexity-2)
+<!-- TOC -->
 
+## References
+
+* [Shraddha K: Apna College](https://youtu.be/wHDm-N2m2XY?si=ZGfPBFLljG46UqDw)
+* [LeetCode Problem 155](https://leetcode.com/problems/min-stack/description/)
 
 ## Problem Statement
 
@@ -193,7 +234,7 @@ class MinStackUsingArray(private val capacity: Int) {
 val oldMin = 2 * currentMin - encodedValue
 ```
 
-## Explanation of the encoding formula:
+## Explanation of the encoding formula
 
 ```kotlin
 val toStore = 2 * incomingValue - currentMinValue
@@ -258,165 +299,147 @@ val toStore = 2 * incomingValue - currentMinValue
 
 * For both the above expressions (1) and (2), we can write:
 * Note: The values of expression (1) and (2), both are less than 0. But it doesn't mean that their values are equal.
-* But we do so to remember and build the formula from theory.
+* But we do so to remember and build the formula from the theory.
 
-* encoded - incoming = incoming - oldMin
-* encoded = incoming + incoming - oldMin
-* encoded = 2 * incoming - oldMin ---------------------- (3)
+> encoded - incoming = incoming - oldMin  
+> encoded = incoming + incoming - oldMin  
+> encoded = 2 * incoming - oldMin -------------- (3)  
 
 * The expression (3) is our encoding formula.
-*
 * We can understand it in another way, also.
-*
 * We want to prove that:
-* ```
-* The encoded value will always be less than the latest min value.
-* => encoded < latestMin
-* ```
-* Now, we know that when we encode, the incoming value is less than the latest min value.
-* ```
-* => incoming < latestMin
-* => incoming - latestMin < 0
-* => incoming + incoming - latestMin < incoming //Added `incoming` at both ends.
-* => (2 * incoming) - latestMin < incoming
-* => We can represent (replace) the expression "(2 * incoming) - latestMin" with "encoded."
-* So, it becomes:
-* => encoded < incoming
-* => Now, we encode when the incoming value is less than the latest min.
-* => And then the incoming value becomes the new latest min.
-* So, it becomes:
-* => encoded < latestMin
-* Hence, we just explained how the encoded value will always be less than the latest min value!
-* ```
-*
-    ## Explanation of the decoding formula (Or connecting the encoding and the decoding formulas):
-*
+
+> The encoded value will always be less than the latest min value.  
+> Here, the `latestMin` is the last (previous) known min value before the new min value.  
+> => encoded < latestMin  
+
+* Now, we know that when we encode, the incoming (new) value is less than the latest min value.
+
+> * incoming < latestMin  
+> * incoming - latestMin < 0  
+> * incoming + incoming - latestMin < incoming //Added `incoming` at both ends.  
+> * (2 * incoming) - latestMin < incoming  
+> * We can represent (replace) the expression "(2 * incoming) - latestMin" with "encoded."  
+> So, it becomes:  
+> * encoded < incoming  
+> * Now, we encode when the incoming value is less than the latest min.  
+> * And then the incoming value becomes the new latest min.  
+> So, it becomes:  
+> * encoded < latestMin  
+> Hence, we just explained how the encoded value will always be less than the latest min value!  
+
+## Explanation of the decoding formula (Or connecting the encoding and the decoding formulas)
+
 * The encoding formula is:
-*
-* ```
-* val encodedToStore = 2 * incoming - minValue
+
+```
+val encodedToStore = 2 * incoming - minValue
 *                             ^          ^
 *                             |          |
 *                             |          |
-*                             |        1. It will become the old minValue. --------------------------(3)
+*                             |        1. It will become the old minValue. -----(3)
 *                             |
-*                         1. It will become the new minValue. ---------------------------------------(1)
-*                         2. Note that it is the actual (without encoding) incoming value. ----------(2)
-* ```
+*                         1. It will become the new minValue. ------------------(1)
+*                         2. Note that it is the actual (without encoding) incoming value. -----(2)
+```
+
 * Now, about the decoding formula:
 * We want to get the original incoming value and the old min value.
 * The current (new, latest) min value is the original incoming value (Note 1 and 2).
 * And to get the old min value, we can re-arrange the formula as below:
-*
-* ```
-* val encodedToStore = 2 * incoming (it will be the latest current min) - minValue (this is the old min)
-* val minValue (the old min) = 2 * incoming (the latest current min) - encodedToStore (the top value)
-* So:
-* val oldMin = 2 * currentMin - encoded
-* ```
-*
-    ## Why do we multiply the new incoming value with 2 during encoding? What is the purpose of it?
-*
+
+> * val encodedToStore = 2 * incoming (it will be the new current min) - minValue (this is the old min)  
+> * minValue (the old min) = 2 * incoming (the latest current min) - encodedToStore (the top value)  
+> So:  
+> * val oldMin = 2 * currentMin - encoded  
+
+
+## Why do we multiply the new incoming min value with 2 during encoding? What is the purpose of it?
+
 * The purpose is to store an encoded value which is less than the current min value.
 * So that whenever we get a smaller value than the current min value, we can say it is an encoded value.
 * So, it is to distinguish the encoded values from the normal values.
 * Now, why do we multiply the incoming value by 2 during encoding?
 * We can simplify it as below:
-* ```
-* // Note that `new` is less than the `old` value.
-* val encoded = 2 * new - old
-* = (new + new) - old
-* // Here, `new` is less than the `old`. `old` is greater than the `new`.
-* // So, we are subtracting a greater value (`old`) from a smaller value (`new`), which gives a negative result.
-* = new + (new - old)
-* = new + (- negative result)
-* // Here, we can see that `new` was already smaller than the `old` value.
-* // On top of that, we are reducing it further, by subtracting the `negative result` from it.
-* // This reduces the `new` value even further.
-* // Hence, it guarantees that the `encoded` value will always be smaller than the current min.
-* = new - negative result
-* ```
+
+
+> * Note that `new` is less than the `old` value.
+> * val encoded = 2 * new - old  
+> * = (new + new) - old  
+> * Here, `new` is less than the `old`. `old` is greater than the `new`.  
+> * So, we are subtracting a greater value (`old`) from a smaller value (`new`), which gives a negative result.  
+> * = new + (new - old)
+> * = new + (- negative result)
+> * Here, we can see that `new` was already smaller than the `old` value.
+> * On top of that, we are reducing it further, by subtracting the `negative result` from it.
+> * This reduces the `new` value even further.
+> * Hence, it guarantees that the `encoded` value will always be smaller than the current min.
+> *  = new - negative result
+
 * Hence, to ensure that the encoded value is always smaller than the current min value, we apply this formula:
-* ```
-* val encoded = 2 * new - old
-* ```
-*
-    ## Why do we subtract the existing min value during encoding? Why not any other operator?
-*
+
+```kotlin
+val encoded = 2 * new - old
+```
+    
+## Why do we subtract the existing min value during encoding? Why not any other operator?
+
 * If we use addition, it can easily cause overflow.
 * If we use multiplication or division, the values are not always exactly divisible or exact multiples.
 * Subtraction is linear and invertible. That's why, we subtract the existing min value.
-*
-    ## How to remember the formula?
-* ```
-* encoding = 2 * new (incoming) - old = 2 * new - old
-* decoding (old) = 2 * new (current) - encoded (popped) = 2 * new - encoded
-* ```
-*
-    ## ----------------------- Complexity Analysis -----------------------
-*
-    ### ----------------------- Time Complexity -----------------------
-*
+
+## How to remember the formula?
+
+> * encoding = 2 * new (incoming) - old = 2 * new - old  
+> * decoding (old) = 2 * new (current) - encoded (popped) = 2 * new - encoded  
+
+
+## Pseudocode for the `Push` function
+
+```kotlin
+fun push(value: Int) {
+    // If the stack is full, we cannot push the new item.
+    // Throwing an exception is the standard library practice for stack overflow and underflow cases.
+    // StackOverflowError is reserved for JVM function calls (e.g., recursion).
+    if (isFull) throw IllegalStateException("The stack is already full! Capacity is $capacity, numberOfElements are $stackSize")
+    val longValue = value.toLong()
+    // If the stack is empty, the incoming value becomes the new latest min value.
+    if (isEmpty) {
+        array[stackSize++] = longValue
+        minValue = longValue
+    } else if (longValue >= minValue) { 
+        // If the incoming value is greater than or equal to the current min value,
+        // it doesn't change the current min value. So, we don't need any encoding. We store it in the stack.
+        array[stackSize++] = longValue
+    } else {
+        //Only if the incoming value is less than the current latest min value,
+        // it changes and replaces the current min value. So, we store the encoded value in the stack.
+        // Use `2L` instead of `2` to prevent integer overflow!
+        // E.g., if the `value` is `Int.MAX_VALUE,` multiplying it by `2` can easily cause integer overflow!
+        val encodedValue = 2L * value - minValue
+        minValue = longValue
+        array[stackSize++] = encodedValue
+    }
+}
+```
+
+### Time Complexity of the `Push` function
+
 * The function (operations and actions) does not depend on (or grow with) the input size.
 * There is no loop.
 * It is a constant-time operation.
 * It takes O(1) time.
-*
-    ### ----------------------- Space Complexity -----------------------
-*
+
+### Space Complexity of the `Push` function
+ 
 * The function (operations and actions) does not depend on (or grow with) the input size.
 * It does not take any additional memory.
 * It takes constant memory.
 * It is O(1) space.
-*
-    ### ----------------------- References -----------------------
-*
-* [Shraddha K: Apna College](https://youtu.be/wHDm-N2m2XY?si=ZGfPBFLljG46UqDw)
-* [LeetCode Problem 155](https://leetcode.com/problems/min-stack/description/)
-  */
 
-```kotlin
-fun push(value: Int) {
-// If the stack is full, we cannot push the new item.
-// Throwing an exception is the standard library practice for stack overflow and underflow cases.
-// StackOverflowError is reserved for JVM function calls (e.g., recursion).
-if (isFull) throw IllegalStateException("The stack is already full! Capacity is $capacity, numberOfElements are $stackSize")
-val longValue = value.toLong()
-// If the stack is empty, the incoming value becomes the new latest min value.
-if (isEmpty) {
-array[stackSize++] = longValue
-minValue = longValue
-} else if (longValue >= minValue) {
-// If the incoming value is greater than or equal to the current min value,
-// it doesn't change the current min value. So, we don't need any encoding. We store it in the stack.
-array[stackSize++] = longValue
-} else {
-//Only if the incoming value is less than the current latest min value,
-// it changes and replaces the current min value. So, we store the encoded value in the stack.
-// Use `2L` instead of `2` to prevent integer overflow!
-// E.g., if the `value` is `Int.MAX_VALUE,` multiplying it by `2` can easily cause integer overflow!
-val encodedValue = 2L * value - minValue
-minValue = longValue
-array[stackSize++] = encodedValue
-}
-}
-```
-
-  /**
-    ### ----------------------- Time Complexity -----------------------
-*
-* The function (operations and actions) does not depend on (or grow with) the input size.
-* There is no loop.
-* It is a constant-time operation.
-* It is O(1) time.
-*
-    ### ----------------------- Space Complexity -----------------------
-*
-* The function (operations and actions) does not depend on (or grow with) the input size.
-* The variable we create inside the function does not depend on (or grow with) the input size.
-* It is a constant memory operation.
-* It is O(1) space.
-  */
+## Pseudocode of the `Top` function
+ 
+```kotlin 
       fun top(): Int {
       // Throwing an exception is the standard library practice for stack overflow and underflow cases.
       if (isEmpty) throw EmptyStackException()
@@ -430,133 +453,100 @@ array[stackSize++] = encodedValue
       topped.toInt()
       }
       }
+```
 
-  /**
-    ### ----------------------- Time Complexity -----------------------
-*
+### Time Complexity of the `Top` function
+
+* The function (operations and actions) does not depend on (or grow with) the input size.
+* There is no loop.
+* It is a constant-time operation.
+* It is O(1) time.
+
+### Space Complexity of the `Top` function
+
+* The function (operations and actions) does not depend on (or grow with) the input size.
+* The variable we create inside the function does not depend on (or grow with) the input size.
+* It is a constant memory operation.
+* It is O(1) space.
+
+## Pseudocode of the `Pop` function
+
+```kotlin
+fun pop(): Int { 
+    if (isEmpty) throw EmptyStackException()
+    val popped = array[stackSize - 1]
+    stackSize--
+    return if (popped < minValue) { 
+        val original = minValue
+        val oldMin = (2L * minValue) - popped
+        minValue = oldMin
+        original.toInt()
+    } else {
+        popped.toInt()
+    }
+}
+```
+
+### Time Complexity of the `Pop` function
+
 * The function (operations and actions) does not depend on (or grow with) the input size.
 * There is no loop.
 * It takes constant time.
 * It is O(1) time.
-*
-    ### ----------------------- Space Complexity -----------------------
-*
+
+### Space Complexity of the `Pop` function
+
 * The function (operations and actions) does not depend on (or grow with) the input size.
 * We create variables inside the function, but it does not depend on (or grow with) the input size.
 * It takes constant memory.
 * It is O(1) space.
-  */
-      fun pop(): Int {
-      if (isEmpty) throw EmptyStackException()
-      val popped = array[stackSize - 1]
-      stackSize--
-      return if (popped < minValue) {
-      val original = minValue
-      val oldMin = (2L * minValue) - popped
-      minValue = oldMin
-      original.toInt()
-      } else {
-      popped.toInt()
-      }
-      }
 
-  /**
-    ### ----------------------- Time Complexity -----------------------
-*
+## Getting the `min` value
+
+```kotlin
+
+val minStackItem: Int
+    get() = if (isEmpty) throw EmptyStackException() else minValue.toInt()
+```
+
+### Time Complexity
+
 * It is a computed (computational) val property that reads and gives the value using another mutable property,
 * [minValue].
 * It just reads the value. The operation and action do not depend on (or grow with) the input size.
 * Hence, the time complexity of this function (operations and actions) is O(1).
-*
-    ### ----------------------- Space Complexity -----------------------
-*
+
+### Space Complexity
+
 * We use only 1 computational immutable property regardless of the input size.
 * We don't use anything else, and it does not depend on (or grow with) the input size.
 * Hence, the space complexity is `O(1)`.
-*
 * On the other hand, if we had used a separate container (an [Array], [ArrayDeque], or anything else) to manage
 * the `min` item/s, it could have been `O(n)` space complexity in the worst case, where each new push is a new min.
-  */
-      val minStackItem: Int
-      get() = if (isEmpty) throw EmptyStackException() else minValue.toInt()
 
-  /**
+## Print the stack
+
+```kotlin
+override fun toString() = buildString {
+    for (i in 0..<stackSize) { 
+        append("${array[i]} --> ")
+    }
+    append(" -- End Of The Stack! -- ")
+}
+```
+
 * The size [capacity] of the [array] can be far more (oversized, too much unallocated memory).
 * Hence, we print only the filled items - items that have been pushed to the stack.
-*
-    ### ----------------------- Time Complexity -----------------------
-*
+
+### Time Complexity 
+
 * We iterate through the [array] to print the value of each element.
 * Clearly, the iteration depends on the size of the [array].
 * The iteration limit is constrained by [stackSize].
 * If `n` is the [stackSize], then the time-complexity of this function is O(n).
-*
-    ### ----------------------- Space Complexity -----------------------
-*
+
+### Space Complexity
+
 * We iterate through the [array] up to [stackSize] to represent each element's value.
 * Each string represents an individual element value.
 * So, if `n` is the [stackSize], then the space complexity of this function is O(n).
-  */
-      override fun toString() = buildString {
-      for (i in 0..<stackSize) {
-      append("${array[i]} --> ")
-      }
-      append(" -- End Of The Stack! -- ")
-      }
-      }
-
-fun main() {
-val minStack = MinStackUsingArray(5)
-println("isEmpty: ${minStack.isEmpty}")
-println("printStack: $minStack")
-try {
-println("top: ${minStack.top()}")
-} catch (e: Exception) {
-println("Exception: ${e.message}")
-}
-try {
-println("pop: ${minStack.pop()}")
-} catch(e: Exception) {
-println("Exception: ${e.message}")
-}
-println("push 0: ${minStack.push(0)}")
-println("isEmpty: ${minStack.isEmpty}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("push -2: ${minStack.push(-2)}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("push 2: ${minStack.push(2)}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("push -3: ${minStack.push(-3)}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("push -3: ${minStack.push(-3)}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("top: ${minStack.top()}")
-println("pop: ${minStack.pop()}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("top: ${minStack.top()}")
-println("pop: ${minStack.pop()}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("top: ${minStack.top()}")
-println("pop: ${minStack.pop()}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("top: ${minStack.top()}")
-println("pop: ${minStack.pop()}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("top: ${minStack.top()}")
-println("pop: ${minStack.pop()}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-println("top: ${minStack.top()}")
-println("pop: ${minStack.pop()}")
-println("print stack: $minStack")
-println("min: ${minStack.minStackItem}")
-}
