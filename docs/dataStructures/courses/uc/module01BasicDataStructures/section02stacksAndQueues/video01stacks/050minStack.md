@@ -604,3 +604,7 @@ override fun toString() = buildString {
 * To restore the `oldMin`, we arrange the formula as:
 
 > * val oldMin = 2 * currMin - encoded
+
+**Rhymic Mnemonic**
+
+* **Decode2CE**
