@@ -3,7 +3,7 @@
 <!-- TOC -->
 * [ToDos](#todos)
   * [Topics](#topics)
-  * [Key-lemmas, Formulas](#key-lemmas-formulas)
+  * [Ideas, Key-lemmas, Formulas](#ideas-key-lemmas-formulas)
   * [Format](#format)
 <!-- TOC -->
 
@@ -24,10 +24,11 @@
   * This kind of imagination, connection, simulation, relation, conversion, translation, transformation, mapping and modeling, reduction, and immersion of pattern and behavior matching is fascinating.
   * This is a fascinating example of pattern recognition, and problem reduction (mapping and modeling) skill.
 
-## Key-lemmas, Formulas
+## Ideas, Key-lemmas, Formulas
 
 * Finding the minimum value in `O(1)` in a stack using the clever encoding-decoding technique.
   * Reference: Min stack.
+* The circular array instead of a plain array as an underlying data structure for a queue to prevent `O(n)` shifting cost.
 * The fast and slow pointers, both start from the head, slow moves one step at a time, fast moves two steps at a time, if there is a cycle, they will meet, otherwise at some point, fast or `fast.next` will be `null`.
   * Reference: In a linked list: To detect a cycle, to find the start of the cycle, to break the cycle, and to find the middle point.
 
