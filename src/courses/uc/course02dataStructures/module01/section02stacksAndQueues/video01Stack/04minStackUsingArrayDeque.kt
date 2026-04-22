@@ -3,6 +3,9 @@ package courses.uc.course02dataStructures.module01.section02stacksAndQueues.vide
 import java.util.EmptyStackException
 
 /**
+ * Reference:
+ * [Min Stack](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d1c622ecf1dc67a213254da25d74d60851c66c4e/docs/dataStructures/courses/uc/module01BasicDataStructures/section02stacksAndQueues/video01stacks/050minStack.md)
+ *
  * Implements a stack that supports push, pop, top, and retrieving the minimum element in constant time.
  *
  * This implementation uses an [ArrayDeque] as the underlying data structure and a clever
