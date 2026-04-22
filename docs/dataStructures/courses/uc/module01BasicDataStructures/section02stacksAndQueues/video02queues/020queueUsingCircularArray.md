@@ -7,8 +7,8 @@
   * [How do we prevent `IndexOutOfBoundsException` if we keep increasing the [readIndex] and [writeIndex]?](#how-do-we-prevent-indexoutofboundsexception-if-we-keep-increasing-the-readindex-and-writeindex)
   * [Is there any problem we might get when we use [readIndex] and [writeIndex] to optimize the dequeue operation?](#is-there-any-problem-we-might-get-when-we-use-readindex-and-writeindex-to-optimize-the-dequeue-operation)
   * [What is the "One empty slot - unused allocated memory" problem?](#what-is-the-one-empty-slot---unused-allocated-memory-problem)
-  * [Time Complexity:](#time-complexity)
-  * [Space Complexity:](#space-complexity)
+  * [Time Complexity](#time-complexity)
+  * [Space Complexity](#space-complexity)
   * [Class](#class)
   * [Properties](#properties)
   * [The `Size` variable and one empty slot](#the-size-variable-and-one-empty-slot)
@@ -62,12 +62,12 @@
 
 * Please check the [size] property for the details.
 
-## Time Complexity:
+## Time Complexity
 
 * The overall time complexity is O(1) without the [toString] function.
 * The [toString] function uses O(n) to print each value.
 
-## Space Complexity:
+## Space Complexity
 
 * The underlying [array] of size [capacity].
 * So, if [capacity] is `n,` then the space complexity is O(n).
