@@ -317,9 +317,9 @@ fun dequeue(): T? {
 
 #### Key-point:
 
-* We cannot simply increase the [readIndex] by one and finish the job. It can go beyond the [capacity] of the
-* [array].
-* We wrap around the [readIndex]. That is why we call it a circular array.
+* We cannot simply increase the [readIndex] by one and finish the job. It can go beyond the [capacity] of the [array].
+* We wrap around the [readIndex]. 
+* That is why we call it a circular array.
 
 #### Time Complexity:
 
