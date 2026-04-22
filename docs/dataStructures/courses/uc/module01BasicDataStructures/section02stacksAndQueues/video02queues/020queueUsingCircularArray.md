@@ -3,6 +3,7 @@
 <!-- TOC -->
 * [Implement a queue using a circular array](#implement-a-queue-using-a-circular-array)
   * [Why a circular array instead of a plain array?](#why-a-circular-array-instead-of-a-plain-array)
+  * [Why do we take two variables: `readIndex` and `writeIndex`?](#why-do-we-take-two-variables-readindex-and-writeindex)
   * [How does a circular array improve (optimize) the time complexity?](#how-does-a-circular-array-improve-optimize-the-time-complexity)
   * [How do we prevent `IndexOutOfBoundsException` if we keep increasing the [readIndex] and [writeIndex]?](#how-do-we-prevent-indexoutofboundsexception-if-we-keep-increasing-the-readindex-and-writeindex)
   * [Is there any problem we might get when we use [readIndex] and [writeIndex] to optimize the dequeue operation?](#is-there-any-problem-we-might-get-when-we-use-readindex-and-writeindex-to-optimize-the-dequeue-operation)
@@ -39,6 +40,12 @@
 ## Why a circular array instead of a plain array?
 
 * Because a plain array would take `O(n)` time complexity for each [dequeue] operation due to shifting.
+
+## Why do we take two variables: `readIndex` and `writeIndex`?
+
+* Because a queue follows `FIFO- First-In-First-Out` order.
+* The dequeue operation happens from the front, whereas the enqueue operation happens from the back.
+* So, we need two separate pointers (indices) to track the relevant (current or next) location (address) of both the operations.
 
 ## How does a circular array improve (optimize) the time complexity?
 
