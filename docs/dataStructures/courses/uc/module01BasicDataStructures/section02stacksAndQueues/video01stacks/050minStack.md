@@ -435,6 +435,24 @@ fun push(value: Int) {
 }
 ```
 
+**Simplified (preferred) `Push` code**
+
+```kotlin
+
+fun push(data: Int) {
+    if (isFull) throw RuntimeException("The stack is full!")
+    val item = data.toLong()
+    if (item < min) {
+        val encoded = 2 * item - min
+        min = item
+        array[size++] = encoded
+    } else {
+        array[size++] = item
+    }
+}
+
+```
+
 ### Time Complexity of the `Push` function
 
 * The function (operations and actions) does not depend on (or grow with) the input size.
@@ -452,19 +470,21 @@ fun push(value: Int) {
 ## Pseudocode of the `Top` function
  
 ```kotlin 
-      fun top(): Int {
-      // Throwing an exception is the standard library practice for stack overflow and underflow cases.
-      if (isEmpty) throw EmptyStackException()
-      val topped = array[stackSize - 1]
-      // If the `topped` value is less than the current (latest) min value, it means the `topped` value is encoded.
-      // It is the value that has replaced the old min value with the new min value.
-      // And the new (current, latest) min value is the original incoming value.
-      return if (topped < minValue) {
-      minValue.toInt()
-      } else {
-      topped.toInt()
-      }
-      }
+fun top(): Int {
+    // Throwing an exception is the standard library practice for stack overflow and underflow cases.
+    if (isEmpty) throw EmptyStackException()
+    val topped = array[stackSize - 1]
+    // If the `topped` value is less than the current (latest) min value, it means the `topped` value is encoded.
+    // It is the value that has replaced the old min value with the new min value.
+    // And the new (current, latest) min value is the original incoming value.
+    // In other words, if the value is encoded, then the original value is the current min value.
+    // Because that's what we encode.
+    return if (topped < minValue) { 
+        minValue.toInt()
+    } else { 
+        topped.toInt()
+    }
+}
 ```
 
 ### Time Complexity of the `Top` function
@@ -484,9 +504,18 @@ fun push(value: Int) {
 ## Pseudocode of the `Pop` function
 
 ```kotlin
+
+/**
+ * We cannot directly and simply use the `top` function to get the `top` item.
+ * Because, the `top` function might give us the current min value.
+ * And in that case, we need the encoded value.
+ * So that we can decode it and restore the previous min value.
+ */
 fun pop(): Int { 
     if (isEmpty) throw EmptyStackException()
     val popped = array[stackSize - 1]
+    // Caution! Possible point of mistake!
+    // Do not forget to reduce the size!!
     stackSize--
     return if (popped < minValue) { 
         val original = minValue
