@@ -6,6 +6,7 @@
   * [Why do we take two variables: `readIndex` and `writeIndex`?](#why-do-we-take-two-variables-readindex-and-writeindex)
   * [How does a circular array improve (optimize) the time complexity?](#how-does-a-circular-array-improve-optimize-the-time-complexity)
   * [How do we prevent `IndexOutOfBoundsException` if we keep increasing the [readIndex] and [writeIndex]?](#how-do-we-prevent-indexoutofboundsexception-if-we-keep-increasing-the-readindex-and-writeindex)
+  * [Why do we wrap around read and write indices when we use the size variable?](#why-do-we-wrap-around-read-and-write-indices-when-we-use-the-size-variable)
   * [Is there any problem we might get when we use [readIndex] and [writeIndex] to optimize the dequeue operation?](#is-there-any-problem-we-might-get-when-we-use-readindex-and-writeindex-to-optimize-the-dequeue-operation)
   * [What is the "One empty slot - unused allocated memory" problem?](#what-is-the-one-empty-slot---unused-allocated-memory-problem)
   * [Time Complexity](#time-complexity)
@@ -59,6 +60,12 @@
 * For example:
 
 > writeIndex = (writeIndex + 1) % capacity
+
+## Why do we wrap around read and write indices when we use the size variable?
+
+* Because we might have an empty slot at the front side due to one or more `dequeue` operations.
+* So, the `size` property helps us find whether there is an empty slot or not and the `wrap around` helps us find the exact slot.
+* Similarly, wrapping around the `read index` ensures that we follow the `FIFO` order.
 
 ## Is there any problem we might get when we use [readIndex] and [writeIndex] to optimize the dequeue operation?
 
