@@ -16,22 +16,22 @@
     * [How do we decide whether the queue is empty or full without the size variable?](#how-do-we-decide-whether-the-queue-is-empty-or-full-without-the-size-variable)
   * [Pseudocode of the `enqueue` function](#pseudocode-of-the-enqueue-function)
     * [Explanation of the `enqueue` function](#explanation-of-the-enqueue-function)
-      * [Key-point:](#key-point)
-      * [Time Complexity:](#time-complexity-1)
-      * [Space Complexity:](#space-complexity-1)
+      * [Key-point](#key-point)
+      * [Time Complexity of the `enqueue` function](#time-complexity-of-the-enqueue-function)
+      * [Space Complexity of the `enqueue` function](#space-complexity-of-the-enqueue-function)
   * [Pseudocode of the `dequeue` function](#pseudocode-of-the-dequeue-function)
     * [Explanation of the `dequeue` function](#explanation-of-the-dequeue-function)
-      * [Key-point:](#key-point-1)
-      * [Time Complexity:](#time-complexity-2)
-      * [Space Complexity:](#space-complexity-2)
+      * [Key-point](#key-point-1)
+      * [Time Complexity of the `dequeue` function](#time-complexity-of-the-dequeue-function)
+      * [Space Complexity of the `dequeue` function](#space-complexity-of-the-dequeue-function)
   * [Pseudocode of the `front` function](#pseudocode-of-the-front-function)
     * [Explanation of the `front` function](#explanation-of-the-front-function)
-      * [Time Complexity:](#time-complexity-3)
-      * [Space Complexity:](#space-complexity-3)
+      * [Time Complexity of the `front` function](#time-complexity-of-the-front-function)
+      * [Space Complexity of the `front` function](#space-complexity-of-the-front-function)
   * [Pseudocode of the `toString` function](#pseudocode-of-the-tostring-function)
     * [Explanation of the `toString` function](#explanation-of-the-tostring-function)
-      * [Time Complexity:](#time-complexity-4)
-      * [Space Complexity:](#space-complexity-4)
+      * [Time Complexity of the `toString` function](#time-complexity-of-the-tostring-function)
+      * [Space Complexity of the `toString` function](#space-complexity-of-the-tostring-function)
 <!-- TOC -->
 
 * [java.util.Queue] implementation using a circular array.
@@ -279,18 +279,18 @@ fun enqueue(value: T): Boolean {
 * If there is no more room, we cannot track it.
 * In fact, the built-in [java.util.Stack] uses [java.util.Vector]. So, it grows dynamically.
 
-#### Key-point:
+#### Key-point
 
 * We cannot simply increase the [writeIndex] by one and finish the job. 
 * It can go beyond the [capacity] of the [array].
 * We wrap around the [writeIndex]. 
 * That is why we call it a circular array.
 
-#### Time Complexity:
+#### Time Complexity of the `enqueue` function
 
 * It is O(1) as there is no iteration and the logic does not depend on or grow with the input size [capacity].
 
-#### Space Complexity:
+#### Space Complexity of the `enqueue` function
 
 * It is O(1) as we are not taking any additional variable other than the global [array] which uses O(n).
 
@@ -315,18 +315,18 @@ fun dequeue(): T? {
 * [java.util.Queue.poll] returns null in the case of underflow.
 * Whereas, [java.util.Queue.remove] throws [java.util.NoSuchElementException] for the underflow.
 
-#### Key-point:
+#### Key-point
 
 * We cannot simply increase the [readIndex] by one and finish the job. It can go beyond the [capacity] of the [array].
 * We wrap around the [readIndex]. 
 * That is why we call it a circular array.
 
-#### Time Complexity:
+#### Time Complexity of the `dequeue` function
 
 * We are not iterating and the logic does not depend on or grow with the input size [capacity].
 * Hence, it is O(1).
 
-#### Space Complexity:
+#### Space Complexity of the `dequeue` function
 
 * It is O(1) as we are not taking any other variable than using the global [array] which uses O(n) space.
 
@@ -343,14 +343,13 @@ fun front(): T? {
 
 ### Explanation of the `front` function
 
-
 * When we want to read the top (front) item.
 
-#### Time Complexity:
+#### Time Complexity of the `front` function
 
 * It is O(1) as there is no iteration and the logic does not depend on or grow with the input size [capacity].
 
-#### Space Complexity:
+#### Space Complexity of the `front` function
 
 * It is O(1) as there is no additional memory we use here other than the global [array] which uses O(n).
 
@@ -368,12 +367,12 @@ override fun toString() = buildString {
 
 ### Explanation of the `toString` function
 
-#### Time Complexity:
+#### Time Complexity of the `toString` function
 
 * We iterate through the entire queue to print each value.
 * Hence, it is O(n).
 
-#### Space Complexity:
+#### Space Complexity of the `toString` function
 
 * Each string represents a value of each item.
 * Hence, it is O(n).
