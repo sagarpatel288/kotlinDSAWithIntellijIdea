@@ -66,6 +66,85 @@
 * Because we might have an empty slot at the front side due to one or more `dequeue` operations.
 * So, the `size` property helps us find whether there is an empty slot or not and the `wrap around` helps us find the exact slot.
 * Similarly, wrapping around the `read index` ensures that we follow the `FIFO` order.
+---
+* For example, suppose that we have the below queue:
+
+```markdown
+
+       readIndex                      writeIndex
+                                                
+              |                        |        
+              |                        |        
+              |                        |        
+              v                        v        
+            +-----+-----+-----+-----+-----+     
+            |     |     |     |     |     |     
+            |  a  |  b  |  c  |  d  |  e  |     
+            +-----+-----+-----+-----+-----+     
+  Indices =    0     1     2     3     4        
+
+```
+
+* Now, we perform the `dequeue` operation.
+* So, it becomes:
+
+```markdown
+
+               readIndex            writeIndex
+                                              
+                   |                 |        
+                   |                 |        
+                   |                 |        
+                   v                 v        
+          +-----+-----+-----+-----+-----+     
+          |     |     |     |     |     |     
+          |     |  b  |  c  |  d  |  e  |     
+          +-----+-----+-----+-----+-----+     
+Indices =    0     1     2     3     4        
+
+```
+
+* Now, we perform the `enqueue` operation.
+* So, it becomes:
+
+```markdown
+
+          write  read                    
+                                         
+             |     |                     
+             |     |                     
+             |     |                     
+             v     v                     
+          +-----+-----+-----+-----+-----+
+          |     |     |     |     |     |
+          |  f  |  b  |  c  |  d  |  e  |
+          +-----+-----+-----+-----+-----+
+Indices =    0     1     2     3     4   
+
+```
+
+* Now, if we want to perform the `dequeue` operation, we should get `b`.
+* So, it becomes:
+
+```markdown
+
+          write        read              
+                                         
+             |           |               
+             |           |               
+             |           |               
+             v           v               
+          +-----+-----+-----+-----+-----+
+          |     |     |     |     |     |
+          |  f  |     |  c  |  d  |  e  |
+          +-----+-----+-----+-----+-----+
+Indices =    0     1     2     3     4   
+
+```
+
+* If we continue the `dequeue` operations, we should get `c`, `d`, `e`, and in the end (at last), `f`.
+* We inserted `f` last. So, we receive it the last.
+* That's how these `read` and `write` indices help us find the exact spot of the element (right spot, right element) and follow the `FIFO` order.
 
 ## Is there any problem we might get when we use [readIndex] and [writeIndex] to optimize the dequeue operation?
 
