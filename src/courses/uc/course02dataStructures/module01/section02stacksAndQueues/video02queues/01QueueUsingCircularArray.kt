@@ -234,6 +234,10 @@ class QueueUsingCircularArray<T>(private val capacity: Int) {
     fun enqueue(value: T): Boolean {
         if (isFull) return false
         array[writeIndex] = value
+        // Caution! Possible point of mistake!
+        // Do not forget to increase the `writeIndex` using a modulo!
+        // It is not a normal increment!
+        // We might have some empty slot at the front side due to a possible `dequeue` operation/s.
         writeIndex = (writeIndex + 1) % capacity
         size++
         return true
@@ -262,6 +266,10 @@ class QueueUsingCircularArray<T>(private val capacity: Int) {
     fun dequeue(): T? {
         return front()?.let {
             array[readIndex] = null // To prevent memory loitering, we nullify the slot.
+            // Caution! Possible point of mistake!
+            // We also wrap around the read index.
+            // This is not a normal increment.
+            // The wrap around ensures that we follow the FIFO order.
             readIndex = (readIndex + 1) % capacity
             size--
             it
