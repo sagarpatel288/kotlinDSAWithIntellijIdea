@@ -227,7 +227,7 @@ val isEmpty: Boolean
 
 * If it is true, then we cannot enqueue (add) the item.
 * For example: Let us assume that we have the following state:
-* 
+ 
 ```markdown
 *      readIndex                      writeIndex
 *
@@ -240,7 +240,7 @@ val isEmpty: Boolean
 *           |  a  |  b  |  c  |  d  |     |
 *           +-----+-----+-----+-----+-----+
 * Indices =    0     1     2     3     4
-* ```
+```
 
 * Now, we want to add `e`.
 * But, before we add `e`, we check if `(writeIndex + 1) % capacity == readIndex`.
