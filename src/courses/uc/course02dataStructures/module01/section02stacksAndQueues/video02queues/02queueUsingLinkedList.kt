@@ -111,6 +111,9 @@ class QueueUsingLinkedList<T> {
         val topped = front()
         head = head?.next
         size--
+        // Caution! Possible point of mistake!
+        // Check the empty state after removing an item.
+        // Update tail if required after removing an item.
         if (isEmpty) {
             tail = null // This is critical when we remove the only available element.
         }
