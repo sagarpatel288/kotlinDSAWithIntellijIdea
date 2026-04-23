@@ -1,6 +1,12 @@
 package courses.uc.course02dataStructures.module01.section02stacksAndQueues.video02queues
 
 /**
+ * References:
+ *
+ * [Queue][https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/2012629afe40a0a7e8532ecce73cd63780ec42dd/docs/dataStructures/courses/uc/module01BasicDataStructures/section02stacksAndQueues/video02queues/010queue.md]
+ *
+ * [Queue using a circular array](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b27ca0f5e5701c5b6fd7b0fa2e2b77926ea31896/docs/dataStructures/courses/uc/module01BasicDataStructures/section02stacksAndQueues/video02queues/020queueUsingCircularArray.md)
+ *
  * [java.util.Queue] implementation using a circular array.
  *
  * # Why a circular array instead of a plain array?
