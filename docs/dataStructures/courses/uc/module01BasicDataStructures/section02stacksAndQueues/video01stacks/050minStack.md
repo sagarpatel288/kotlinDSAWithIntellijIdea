@@ -42,6 +42,7 @@
   * [How to remember the encoding and the decoding formulas?](#how-to-remember-the-encoding-and-the-decoding-formulas)
     * [Encoding](#encoding)
     * [Decoding](#decoding)
+  * [Things to remember (Revision, Key-Points)](#things-to-remember-revision-key-points)
 <!-- TOC -->
 
 ## References
@@ -617,7 +618,7 @@ override fun toString() = buildString {
 
 **Rhymic Mnemonic**
 
-* **Encoding2IC**
+* **Encode2IC**
 
 ### Decoding
 
@@ -637,3 +638,14 @@ override fun toString() = buildString {
 **Rhymic Mnemonic**
 
 * **Decode2CE**
+
+## Things to remember (Revision, Key-Points)
+
+* Underlying data structure: Array, ArrayDequeue, LinkedList
+* Properties: Capacity, size, isEmpty, isFull, 
+* Operations: push, top, pop
+* If `item < currMin` then `Encode2IC`
+* When `top`, if `item < currMin`, return `currMin`
+* When `pop`, if `item < currMin` return `Decode2CE`
+* Time Complexity: O(1) for push, top, and pop
+* Space Complexity: O(n)
