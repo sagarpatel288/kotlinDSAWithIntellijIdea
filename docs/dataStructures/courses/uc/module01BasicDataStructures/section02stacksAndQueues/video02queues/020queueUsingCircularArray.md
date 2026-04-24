@@ -34,6 +34,7 @@
     * [Explanation of the `toString` function](#explanation-of-the-tostring-function)
       * [Time Complexity of the `toString` function](#time-complexity-of-the-tostring-function)
       * [Space Complexity of the `toString` function](#space-complexity-of-the-tostring-function)
+  * [Things to remember (Revision, Key-points)](#things-to-remember-revision-key-points)
 <!-- TOC -->
 
 * [java.util.Queue] implementation using a circular array.
@@ -469,3 +470,15 @@ override fun toString() = buildString {
 
 * Each string represents a value of each item.
 * Hence, it is O(n).
+
+## Things to remember (Revision, Key-points)
+
+* Key Properties: `readIndex`, `writeIndex`, `capacity`, and `size`
+* `size` to know whether the container is empty or not.
+* `readIndex` and `writeIndex` to spot the right place and item.
+* If we don't use `size`, one empty spot (allocated unused memory).
+* Initially: `readIndex = writeIndex = 0`
+* `readIndex = (readIndex + 1) % capacity`
+* `writeIndex = (writeIndex + 1) % capacity`
+* Edge cases: `isEmpty`, `isFull`
+* 

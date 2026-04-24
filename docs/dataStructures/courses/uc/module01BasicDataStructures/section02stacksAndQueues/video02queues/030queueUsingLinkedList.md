@@ -22,6 +22,7 @@
   * [Pseudocode of the `toString` function](#pseudocode-of-the-tostring-function)
     * [Time complexity of the `toString` function](#time-complexity-of-the-tostring-function)
     * [Space complexity of the `toString` function](#space-complexity-of-the-tostring-function)
+  * [Things To Remember (Revision, Key-points)](#things-to-remember-revision-key-points)
 <!-- TOC -->
 
 ## How can we create a queue data structure using a linked list?
@@ -184,3 +185,10 @@ override fun toString() = buildString {
 
 * Each string uses the value of an item.
 * Hence, the space complexity is O(n).
+
+## Things To Remember (Revision, Key-points)
+
+* Properties: We use both the head and the tail.
+* `Enqueue = pushBack` and `Dequeue = popFront`.
+* Edge case: `isEmpty`
+* Handle: When we remove (`dequeue`) the last (the one and only) node.
