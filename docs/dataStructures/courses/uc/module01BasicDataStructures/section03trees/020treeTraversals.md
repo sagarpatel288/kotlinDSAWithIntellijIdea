@@ -6,6 +6,7 @@
   * [Table Of Contents](#table-of-contents)
     * [Depth-First](#depth-first)
     * [Breadth-First-Search](#breadth-first-search)
+    * [How to remember the traversal types?](#how-to-remember-the-traversal-types)
     * [3 Main Types Of Depth-First Search](#3-main-types-of-depth-first-search)
       * [In-Order (Left-Root-Right)](#in-order-left-root-right)
         * [Resources / References:](#resources--references)
@@ -95,6 +96,15 @@ click L "https://mermaidchart.cello.so/zyYK3hSiX0M" "Online Mermaid Editor" _bla
 3. And then, we gradually move towards the last level.
 4. For example, we may travel in this order: A-B-C-D-E-F-G-H-I.
 5. The time and space complexity of BFS is `O(n)` as we visit each node once, and we use a queue of tree size as an underlying data structure.
+
+### How to remember the traversal types?
+
+**Mnemonic Rhymes** 
+
+* `D3` and `Breathes` are universal (level-by-level)!
+* `D3` means `DFS` has those 3 types.
+* And `Breathes` are universal means `BFS` has no types.
+* `BFS` means `level-by-level`.
 
 ### 3 Main Types Of Depth-First Search
 
