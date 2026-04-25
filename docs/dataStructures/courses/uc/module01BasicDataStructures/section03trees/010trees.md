@@ -454,7 +454,7 @@ Let us also understand a few terminologies.
 
 ### `Descendants`: 
 
-1. For a particular node, its children node, the children's children node, and so on until we reach to the bottom of the tree after which there are no more children, are called `descendants` of the node. 
+1. For a particular node, its children nodes, the children's children nodes, and so on until we reach to the bottom of the tree after which there are no more children, are called `descendants` of the node. 
 2. For example, `Cathy`, `Alex`, `Tony`, (basically, all the nodes) are `descendants` of the root node, `Les`.
 3. `Tony` and `Wendy` are `descendants` of `Sam`.
 4. `Alex` and `Frank` are `descendants` of `Les`.
@@ -518,18 +518,21 @@ Let us also understand a few terminologies.
 1. Imagine that we are at the 5th floor of a building, and we want to see the height between the 5th floor and the ground. 
 2. So, we look at the downside, towards the ground to understand the height.
 3. Number of edges from the target node to the leaf node.
+4. How to remember? `HL -> Height = Leaf (Look at the leaf)`.
 
 ### `Depth`: 
 
 1. Imagine we are at the bottom of a well. 
 2. Now, we look upside to learn how deep we have come.
 3. Number of edges from the root node to the target node.
+4. How to remember? `DR -> Depth = Root (Look at the root)`.
 
 ### `Level`:
 
 1. Either `1 + Depth` or `Depth`.
 2. If we consider root level `1`, then it is `1 + Depth`.
 3. If we consider root level `0`, then it is `0 + Depth` = `Depth`.
+4. How to remember? `LD -> Level has something to do with Depth`: **It is either the Depth or 1 + Depth.**
 
 ## Forest
 
@@ -548,6 +551,8 @@ Sam             Hugh            Jim
 
 * Multiple root nodes form a forest, where each root node represents an individual tree.
 * A forest is a collection of multiple disjoint trees.
+* Here, disjoint means they are not joint.
+* So, these trees are independent sets.
 
 ## Tree Definition
 
@@ -556,10 +561,12 @@ Sam             Hugh            Jim
 3. If a tree has a cycle, it becomes a graph data structure.
 4. Parent and child nodes are **connected** through an edge. That's why, we also call it a connected graph data structure.
 5. **Edges are undirected**. Edges do not have direction.
+6. How to remember? `ACHU - Acyclic, Connected, Hierarchical, Undirected`.
 
 ## A Degenerate or Pathological Tree
 
 1. A degenerate tree is a tree where each parent has only one child, making it a linked list.
+2. How to remember? `DT-PT becomes a linked list!`
 
 ## Can a tree have a cycle?
 
@@ -569,6 +576,9 @@ Sam             Hugh            Jim
 ## What are the maximum number of nodes at level `l` in a binary tree?
 
 1. $2^l$ (2 raised to the power of l, where root level is considered as 0).
+2. How to remember? 
+3. Each level is a power of 2.
+4. So, `l` levels means $2^l$.
 
 ## Next
 

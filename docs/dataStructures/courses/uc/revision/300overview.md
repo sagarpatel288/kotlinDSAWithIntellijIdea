@@ -19,4 +19,5 @@
 * For `First-In-First-Out (FIFO)`, we came up with `Queue`.
 * We can implement `queue` using a circular array or linked list.
 * But then we wanted to have hierarchical data structure.
+* For example, a data structure where we can establish relationship between data such as parents, children, siblings, etc.
 * So, we came up with `Trees`.
