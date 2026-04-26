@@ -323,6 +323,11 @@ fun checkBracketsInCode(input: String): String {
                 // That's why the `index + 1`.
                 return "${index + 1}"
             }
+            // Caution! Possible point of mistake!
+            // Do not miss this condition (early exit) as this saves us some cost.
+            // This is an early exit.
+            // Otherwise, we will have to finish the entire iteration.
+            // And only after that, we will give the answer.
         } else if (isClosingBracket(ch)) {
             // We don't want to return the index of any character that is not a bracket.
             // That's why the `if` condition.

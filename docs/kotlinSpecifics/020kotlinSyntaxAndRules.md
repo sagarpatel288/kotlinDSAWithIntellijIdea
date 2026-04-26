@@ -20,6 +20,7 @@
 * InputStreamReader
 * System.`in`
 * StringBuilder Vs. buildString { }
+* How to compare characters?
 
 ## Exceptions and Errors
 
