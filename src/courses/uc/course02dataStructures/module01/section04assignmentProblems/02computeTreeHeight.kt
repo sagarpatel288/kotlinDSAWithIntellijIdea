@@ -753,6 +753,7 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  *
  */
 fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
+    // Construct an adjacency list representing the tree and identify the root node.
     val parentChildrenList = List(totalNodes) { mutableListOf<Int>() }
     var root = 0
     // Use `until` while submitting to courses to avoid the compiler error!
@@ -764,22 +765,27 @@ fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
             root = child
         }
     }
+    // Perform a level-order traversal (BFS) to calculate the height of the tree.
     val queue = ArrayDeque<Int>()
     var height = 0
     queue.addLast(root)
     while (queue.isNotEmpty()) {
         val size = queue.size
+        // Process all nodes at the current level and add their children to the queue.
         repeat(size) {
             val dequeued = queue.removeFirst()
             queue.addAll(parentChildrenList[dequeued])
         }
+        // Increment height after completing each level.
         height++
     }
     return height
 }
 
 fun main() {
+    // Read the number of nodes and the parent array from standard input.
     val totalNodes = readln().toInt()
     val parents = readln().split(" ").map { it.toInt() }.toList()
+    // Compute and print the height of the tree.
     println(computeTreeHeight(totalNodes, parents))
 }
