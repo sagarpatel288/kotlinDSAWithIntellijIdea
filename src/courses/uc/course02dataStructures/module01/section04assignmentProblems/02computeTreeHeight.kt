@@ -768,11 +768,17 @@ fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
     // Perform a level-order traversal (BFS) to calculate the height of the tree.
     val queue = ArrayDeque<Int>()
     var height = 0
+    // Caution! Possible point of mistake!
+    // We follow FIFO.
+    // So, we add from the back.
     queue.addLast(root)
     while (queue.isNotEmpty()) {
         val size = queue.size
         // Process all nodes at the current level and add their children to the queue.
         repeat(size) {
+            // Caution! Possible point of mistake!
+            // We follow the FIFO order.
+            // So, we remove from the front gate.
             val dequeued = queue.removeFirst()
             queue.addAll(parentChildrenList[dequeued])
         }

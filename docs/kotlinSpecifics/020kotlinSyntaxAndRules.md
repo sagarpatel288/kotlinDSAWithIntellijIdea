@@ -14,6 +14,11 @@
 * Collection.joinToString(" ") Vs. Collection.joinToString { }
 * Collection.take, Collection.joinToString, Collection.takeIf
 
+## Collections
+
+* How to define and declare list of list?
+* Various idiomatic operators and operations on a collection.
+
 ## String, Input, and Readers
 
 * BufferedReader
