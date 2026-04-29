@@ -799,8 +799,21 @@ Parent of ith node: 4 -1 4 1 1
 *
 *
 
-
-
+---
+* We have total nodes.
+* We have parent list.
+* We use BFS to find the height.
+* So, we travel level-by-level.
+* To travel level-by-level, we need parent-children information.
+* We build it using the given parent list.
+* To follow the BFS (level-by-level) traversal, we use FIFO.
+* We start with the root.
+* We check the size of the queue to remove all the nodes.
+* We remove the nodes from the front gate.
+* After removing a node, we add its children from the back.
+* Every time we are done with removing all the nodes, we are ready to repeat the process for the next level.
+* Every time we go to the next level, we increase the height.
+---
 * We can compute the height of a tree using the BFS-level-by-level traversal.
 * What is the BFS (level-by-level) traversal? What do we do in it? How?
 * We start with the first level (root).
