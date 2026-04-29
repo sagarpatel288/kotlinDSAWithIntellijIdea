@@ -277,7 +277,7 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  *
  * * Input:
  * ```
- * // Buffer size is 1, and there will be 2 items (packets).
+ * // Buffer size is 3, and there will be 3 items (packets).
  * 3 3
  * // The first packet arrives at 0 ms, process time takes 5 ms.
  * // Can we remove any item from the buffer queue to make room for this new item?
@@ -515,20 +515,25 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * ```
  */
 fun main() {
+    // Read the buffer size and total number of packets.
     val (bufferSize, totalItems) = readln().split(" ").map { it.toInt() }
     val bufferQueue = ArrayDeque<Long>()
     val stringBuilder = StringBuilder()
+    // Process each incoming packets.
     repeat(totalItems) {
         val (arrival, processTime) = readln().split(" ").map { it.toLong() }
+        // Remove packets from the buffer that have already finished processing by the current arrival time.
         // First, make room for the new item by removing the items that have finished their process
         while (bufferQueue.isNotEmpty() && bufferQueue.first() <= arrival) {
             bufferQueue.removeFirst()
         }
         // If the bufferQueue is full, we have to drop the item.
+        // If the buffer is full, record that the packet was dropped.
         if (bufferQueue.size == bufferSize) {
             stringBuilder.append("-1\n")
         } else {
             // Otherwise, enqueue the item. And print its process start time.
+            // Calculate the start time and add the finish time to the buffer.
             // The items in the bufferQueue are of type Long. That's why we had to convert the input type to Long.
             // So that we can use the maxOf function here. It accepts the same types.
             val processStartTime = if (bufferQueue.isEmpty()) arrival else maxOf(bufferQueue.last(), arrival)
@@ -538,5 +543,6 @@ fun main() {
             bufferQueue.addLast(processFinishTime)
         }
     }
+    // Print the results for all packets.
     println(stringBuilder)
 }
