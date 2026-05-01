@@ -513,6 +513,11 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * ```
  * Good job! (Max time used: 0.59/4.00, max memory used: 96755712/536870912.)
  * ```
+ *
+ * ## Parallel Processing Problem
+ *
+ * [GitHub: Parallel Processing Problem](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/da203fb4ba52d87a04222d58dbab4f36837abe26/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/02parallelProcessing.kt)
+ *
  */
 fun main() {
     // Read the buffer size and total number of packets.

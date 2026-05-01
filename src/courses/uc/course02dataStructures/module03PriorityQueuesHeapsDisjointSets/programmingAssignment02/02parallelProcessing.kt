@@ -255,6 +255,10 @@ import java.util.PriorityQueue
  * Good job! (Max time used: 0.66/4.00, max memory used: 89063424/536870912.)
  * ```
  *
+ * # Network Packet Processing Problem
+ *
+ * [GitHub: Network Packet Processing Problem](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/273e3398bf1c1591ae93fb73cb6d6207bb7eac14/src/courses/uc/course02dataStructures/module01/section04assignmentProblems/03networkPacketProcessingSimulation.kt)
+ *
  */
 class ParallelProcessing {
 
