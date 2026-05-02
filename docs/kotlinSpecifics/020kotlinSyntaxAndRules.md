@@ -10,14 +10,16 @@
 * ArrayDequeue
 * Stack
 * Queue
-* Collection.map
-* Collection.joinToString(" ") Vs. Collection.joinToString { }
-* Collection.take, Collection.joinToString, Collection.takeIf
+* ArrayDeque
+* PriorityQueue
 
 ## Collections
 
 * How to define and declare list of list?
 * Various idiomatic operators and operations on a collection.
+* Collection.map
+* Collection.joinToString(" ") Vs. Collection.joinToString { }
+* Collection.take, Collection.joinToString, Collection.takeIf
 
 ## String, Input, and Readers
 
@@ -26,6 +28,10 @@
 * System.`in`
 * StringBuilder Vs. buildString { }
 * How to compare characters?
+
+## Interfaces and other things
+
+* Comparable Vs. Comparator
 
 ## Exceptions and Errors
 

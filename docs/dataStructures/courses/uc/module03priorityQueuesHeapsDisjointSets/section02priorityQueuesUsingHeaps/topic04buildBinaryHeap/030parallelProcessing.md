@@ -170,7 +170,7 @@ $0 ≤ 𝑡_𝑖 ≤ 10^9$
 
 ### Output Data
 
-* Which thread will take which job, and when will it finish the job?
+* Which thread will take which job, and when will it start the job?
 * The answer needs to show the thread index that has taken the job, and the starting (processing) time of the job in that thread, by that thread.
 * And we need to answer this for each job.
 * So, basically, a total of `m` lines where each line contains two values (space-separated).
@@ -191,8 +191,8 @@ $0 ≤ 𝑡_𝑖 ≤ 10^9$
 
 **Thread Index**
 
-* Print by thread index (hidden), the job index (indicating the job taken by the thread), and the starting (processing) time of the job in that thread, by that thread.
-* We need a data class that holds the thread index, the job index it took, and the starting (processing) time of the job in that thread, by that thread.
+* Print by the job index (hidden, indicating the job taken by the thread), and the starting (processing) time of the job in that thread, by that thread.
+* We need a data class that holds the thread index so that we can say which thread has taken the job, and the starting (processing) time of the job in that thread, by that thread.
 
 **Which job does a thread take? Which thread does take the job? Which job does go (belong) to which thread?**  
 
@@ -385,16 +385,25 @@ for (job in jobs) {
 **But once we add the `job` to the `thread,` don't we need to update our `sorting`?**
 
 * This is somewhat tricky. 
-* We don't actually `update` the `same thread`.
-* We create and add a new `thread` object with the same `index`, but with a new `finish time` to the `queue`.
-* The reason is: The built-in `priority queue` does not support the `change priority` operation.
+* We cannot add more threads than given.
+* We might have a fewer threads than the given jobs.
+* So, we must re-use the threads.
+* Otherwise, one thread would process one job only, which is not something that we want.
+* The problem indicates that as soon as the thread becomes free, it is ready to get the job.
+* And a thread can become free multiple times, as soon as it finishes processing each job.
+* So, as a work-around, we re-queue (=reuse) the polled `thread` object with a new `finish time` to the `queue`.
+* The `thread-index` remains the same.
+* But the built-in `priority queue` does not support the `change priority` operation.
 * So, it becomes the `add` operation of the `priority queue`.
 * But we have a limited number of threads. 
 * We need to maintain that. 
 * We can't keep adding new threads.
 * It means that when we `pick up` the thread from the `priority queue`, it is actually the `poll` operation.
 * When we `pick up` a thread based on the priority, we remove it from the priority queue.
-* So that we maintain the number of threads.
+* It is the thread that becomes free the first.
+* So, it gets the job and goes to the queue again to process the job.
+* So, we keep adding the same threads again and again with the updated `finish time` to the queue without changing their indices.
+* This is how we maintain the number of threads.
 
 **How do we add `threads` to the `priority queue`?**
 
