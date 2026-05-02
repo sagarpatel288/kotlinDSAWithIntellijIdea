@@ -31,13 +31,25 @@
 
 # References / Resources / Prerequisites
 
-* [GitHub: Network Packet Processing](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8a9ba3fa778f0787cd6d51bb3761c26a198215a0/src/coursera/ucSanDiego/course02dataStructures/module01/section04assignmentProblems/03networkPacketProcessingSimulation.kt)
+* [GitHub: Priority Queue Documentation](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/4200a23769ea02e43a97ad5cecf841c0b57e3e73/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
 
-* [Local: Network Packet Processing](src/courses/uc/course02dataStructures/module01/section04assignmentProblems/03networkPacketProcessingSimulation.kt)
+* [Local: Priority Queue Documentation](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
 
-* [GitHub: buildMinHeap](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/aebc9756abce91df3f5ff51efc7c0efde5d0b0de/src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/01buildMinHeap.kt)
+* [GitHub: Binary Heap Trees Documentation](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/c2abb898fdbf3ab6cbff671b3d151f582fff8275/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
 
-* [Local: buildMinHeap](src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/01buildMinHeap.kt)
+* [GitHub: Complete Binary Trees Documentation](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/c208ce48f99a02339fd50195cd63e5f642c59469/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic03CompleteBinaryTrees/completeBinaryTrees.md)
+
+* [GitHub: Build Max Heap Documentation](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/e76eb8a626c39ff339c7909347aedbb7a8c56f87/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic04buildBinaryHeap/010buildBinaryMaxHeap.md)
+
+* [GitHub: Build Min Heap Documentation](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/e4c18412eb09d32b109f074947bd002a9c9bd2fd/docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic04buildBinaryHeap/020buildBinaryMinHeap.md)
+
+* [GitHub: Network Packet Processing Solution](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8a9ba3fa778f0787cd6d51bb3761c26a198215a0/src/coursera/ucSanDiego/course02dataStructures/module01/section04assignmentProblems/03networkPacketProcessingSimulation.kt)
+
+* [Local: Network Packet Processing Solution](src/courses/uc/course02dataStructures/module01/section04assignmentProblems/03networkPacketProcessingSimulation.kt)
+
+* [GitHub: buildMinHeap Implementation](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/aebc9756abce91df3f5ff51efc7c0efde5d0b0de/src/coursera/ucSanDiego/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/01buildMinHeap.kt)
+
+* [Local: buildMinHeap Implementation](src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/01buildMinHeap.kt)
 
 # Problem Introduction
 
