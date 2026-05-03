@@ -6,12 +6,12 @@
 
 * IntArray Vs. arrayOf Vs. ArrayList
 * arrayOfNulls
-* List Vs. listOf Vs. MutableList
-* ArrayDequeue
-* Stack
-* Queue
-* ArrayDeque
-* PriorityQueue
+* List Vs. listOf Vs. MutableList 
+* ArrayDequeue and operations
+* Stack and operations
+* Queue and operations
+* ArrayDeque and operations
+* PriorityQueue and operations
 
 ## Collections
 
