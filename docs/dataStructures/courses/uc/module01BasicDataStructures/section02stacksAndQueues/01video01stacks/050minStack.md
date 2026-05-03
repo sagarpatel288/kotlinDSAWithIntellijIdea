@@ -291,6 +291,49 @@ encoded < current
 
 ---
 
+**Why and how does the encoded value always be the smaller than the current minimum?**  
+
+* When do we encode?
+
+```kotlin
+
+if (incoming < current) {
+    encode
+}
+
+```
+* It means that we are sure that the `incoming` value is less than the `current` value.
+
+* Now, what is the encoding formula?
+
+```kotlin
+
+encoded = 2 * incoming - current
+// Simplification
+encoded = incoming + (incoming - current)
+// Denoting "incoming - current" as "gap" 
+encoded = incoming + gap
+```
+
+* Now, we know that `incoming < current`.
+* And when we subtract a higher value from the lower value, we get the negative result.
+* So, `gap` is the negative result.
+* So, it becomes:
+
+```kotlin
+
+// Restoring the actual value of the "gap" which is negative
+encoded = incoming - someValue
+
+```
+
+* Now, we know that `incoming < current`.
+* The `incoming` value is already smaller than the `current` value.
+* On top of that, we are subtracting `someValue` from it.
+* So, the result of `incoming - someValue` will be obviously smaller than the `incoming` value.
+* That's how and why we are sure that the `encoded` value will always be smaller than the `incoming` value.
+---
+
 * We can think of it as below, too:
 
 > encoded = 2 * incoming - currentMin  
