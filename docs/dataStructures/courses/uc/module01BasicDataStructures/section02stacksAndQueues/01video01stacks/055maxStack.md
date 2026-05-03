@@ -32,5 +32,7 @@ val encoded = incoming + gap
 * So, it is obvious that the `encoded` value is greater than the `incoming` value by some `gap` value.
 * That's how we are sure that the `encoded` value will always be greater than the current max value.
 
+## Implementation
 
+* [GitHub: Max stack in O(1)](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/1ba1347670b83db5cacd0a0e9c600f6504dcbd93/src/courses/uc/course02dataStructures/module01/section04assignmentProblems/04extendingStackInterface.kt)
 
