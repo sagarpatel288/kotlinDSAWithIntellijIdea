@@ -20,6 +20,7 @@
     * [How do we decode?](#how-do-we-decode)
   * [Explanation of the encoding formula](#explanation-of-the-encoding-formula)
     * [How do we identify and distinguish the encoded values from the normal values?](#how-do-we-identify-and-distinguish-the-encoded-values-from-the-normal-values)
+      * [How can we ensure (prove) that the encoded value is always smaller than the current (new) minimum value?](#how-can-we-ensure-prove-that-the-encoded-value-is-always-smaller-than-the-current-new-minimum-value)
   * [Explanation of the decoding formula (Or connecting the encoding and the decoding formulas)](#explanation-of-the-decoding-formula-or-connecting-the-encoding-and-the-decoding-formulas)
   * [Why do we multiply the new incoming min value with 2 during encoding? What is the purpose of it?](#why-do-we-multiply-the-new-incoming-min-value-with-2-during-encoding-what-is-the-purpose-of-it)
   * [Why do we subtract the existing min value during encoding? Why not any other operator?](#why-do-we-subtract-the-existing-min-value-during-encoding-why-not-any-other-operator)
@@ -268,8 +269,29 @@ val toStore = 2 * incomingValue - currentMinValue
 
 > We need to ensure that the encoded value is smaller than the current (new) minimum value.
 
+#### How can we ensure (prove) that the encoded value is always smaller than the current (new) minimum value?
+
 * Now, let us prove that the encoding formula ensures that the encoded value is always less than the current min.
 
+---
+
+* We know that the `incoming (new)` value is less than the `current` value.
+* So:
+
+```kotlin
+
+incoming < current
+2 * incoming < 2 * current // Multiplied by 2 both the sides 
+2 * incoming < (current + current) // Simplified (2 * current)
+2 * incoming - current < current + current - current
+2 * incoming - current < current
+// Denote (2 * incoming - current) as "encoded"
+encoded < current 
+```
+
+---
+
+* We can think of it as below, too:
 
 > encoded = 2 * incoming - currentMin  
 > encoded = incoming + incoming - currentMin  
