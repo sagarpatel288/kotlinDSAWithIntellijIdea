@@ -382,6 +382,7 @@ class MinStackUsingArray(private val capacity: Int) {
         if (isFull) throw IllegalStateException("The stack is already full! Capacity is $capacity, numberOfElements are $stackSize")
         val longValue = value.toLong()
         // If the stack is empty, the incoming value becomes the new latest min value.
+        // ToDo: I doubt this empty condition and the logic that adds the value without encoding.
         if (isEmpty) {
             array[stackSize++] = longValue
             minValue = longValue
