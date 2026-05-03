@@ -69,6 +69,7 @@ class MinStackUsingArrayDeque() {
 
     fun push(value: Int) {
         val longValue = value.toLong()
+        // ToDo: I doubt this empty condition and the logic that adds the value without encoding.
         if (isEmpty) {
             minValue = longValue
             arrayDeque.addFirst(longValue)

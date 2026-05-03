@@ -28,6 +28,7 @@
 * System.`in`
 * StringBuilder Vs. buildString { }
 * How to compare characters?
+* Various operators and operations on a string
 
 ## Interfaces and other things
 

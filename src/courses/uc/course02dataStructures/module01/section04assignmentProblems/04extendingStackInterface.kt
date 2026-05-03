@@ -246,6 +246,7 @@ fun maxStack(queryList: List<String>): String {
                 val incoming = query[1].toLong()
                 if (stack.isEmpty()) {
                     latestMax = incoming
+                    // ToDo: I doubt this "isEmpty" condition, and the logic that adds the value without encoding.
                     stack.addLast(incoming)
                 } else if (incoming > latestMax) {
                     val encoded = 2 * incoming - latestMax
