@@ -190,9 +190,9 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * ```
  * * So, we need a container that supports something like `popFront`.
  * ```
- * * Now, we are at `index 3`. The current index position is `index 3`. It is the `end index` of the window
- * that we want to form.
- * * If we find the starting index of this window, we can remove all the indices that are less than the starting index
+ * * Now, we are at `index 3`. The current index position is `index 3`.
+ * * It is the `end index` of the window that we want to form.
+ * * If we find the starting index of this window, we can remove all the indices that are less than that starting index
  * to form our next valid window.
  * * Now, we can see that when the `index` is `3`, and we go `window size m = 3` steps backward,
  * we find the starting index of this window.
@@ -235,6 +235,11 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * * Because it helps us form and move valid windows.
  * * With the help of the index value, we can get the corresponding element value.
  * * Then, we can compare these values to find and store the maximum value for a particular window.
+ * * But if we store (add) elements (values) to the solution container, we cannot get the corresponding index from the element.
+ * * And as a result, how can we remove front and old items that have been slid out of the current new window?
+ * * How would we know when and what items and how many items to remove?
+ * * How can we know if it is the time to remove old items? When and how do we stop removing old items?
+ * * That's why, we use (store) indices to the solution container.
  * * We `pushBack` (or `addLast`) a new index and `popFront` (or `removeFirst`) the old index to form a new window.
  * * We repeat this process until the index reaches `arraySize - 1` to cover all the indices and all the valid windows.
  *
