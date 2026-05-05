@@ -27,3 +27,16 @@
 * We can get the maximum of the current window at the front only if we remove (drop) the smaller items that block it.
 * So remember, we remove the past items, and not the upcoming items.
 * New resources replaces the old resources.
+
+**We use a deque. So, from where do we remove the items from the solution container? From the front or the back? Why?**
+
+* We remove the past (previous) smaller items from the back.
+* Because it is possible that the first and front item is the maximum, followed by a smaller item, and then the third item is greater than the second item but smaller than the first item.
+* So in this case, we know that the second item is of no use, it is not the maximum.
+* But we can't remove it from the first, otherwise we might lose the possible max of the window.
+* So, we remove the definite small item from the last before we push the upcoming item from the back.
+* That's why we remove the small items from the back.
+
+**How do we get to know that we have already scanned the window, and now it is time to get the maximum from the front?**
+
+* 
