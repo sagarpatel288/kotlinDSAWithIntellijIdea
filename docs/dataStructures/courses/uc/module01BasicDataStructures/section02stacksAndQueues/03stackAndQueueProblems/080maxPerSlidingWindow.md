@@ -176,3 +176,8 @@ Window size = 3    Solution Container
 ```
 
 * This system ensures that the front first item is the maximum of the window.  
+
+## Implementation
+
+* [GitHub: Max per sliding window .kt](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5ef3ac50713bbe94b673a1562c5d08f6b7d8edd8/src/courses/uc/course02dataStructures/module01/section04assignmentProblems/05maximumInSlidingWindow.kt)
+* [Local: Max per sliding window .kt](src/courses/uc/course02dataStructures/module01/section04assignmentProblems/05maximumInSlidingWindow.kt)
