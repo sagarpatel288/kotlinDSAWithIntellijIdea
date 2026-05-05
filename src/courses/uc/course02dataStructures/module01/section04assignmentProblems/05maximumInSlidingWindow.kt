@@ -1123,10 +1123,13 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  *
  */
 fun findMaxInSlidingWindow(windowSize: Int, itemList: List<Int>): String {
+    // Handle empty input case
     if (itemList.isEmpty()) return ""
     val results = mutableListOf<Int>()
     val deque = ArrayDeque<Int>()
+    // Iterate through the array to process each element
     for (i in 0..<itemList.size) {
+        // Maintain a monotonic decreasing queue by removing the smaller items from the back.
         // Remove all the values from the last that are smaller than the upcoming value.
         while (deque.isNotEmpty() && itemList[deque.last()] <= itemList[i]) {
             deque.removeLast()
