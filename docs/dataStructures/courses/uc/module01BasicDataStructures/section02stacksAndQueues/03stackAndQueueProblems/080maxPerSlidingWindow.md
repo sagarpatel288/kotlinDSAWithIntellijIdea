@@ -20,3 +20,10 @@
 * The reason we remove the item that cannot be the maximum for this window is to get the actual (true) maximum of the window from the front in O(1).
 * When we add a new item to the solution container, and we find that the previous item of the same window is smaller than this new upcoming item, we remove the smaller item.
 * This system ensures that the maximum item of the window stays in the front. 
+* Notice that we don't remove, or skip the upcoming item ever, even if it is smaller than the previous, pre-existing item of the solution container.
+* Because we might get the future window that starts from this now-seemed so-called small item where the rest of the future items of the remaining window can be even smaller than that!
+* And the reason we remove (drop) the previous (pre-existing) item from the container when it is smaller than the upcoming item is that what else we do with that smaller item!
+* I mean, we already know that it cannot to be the maximum.
+* We can get the maximum of the current window at the front only if we remove (drop) the smaller items that block it.
+* So remember, we remove the past items, and not the upcoming items.
+* New resources replaces the old resources.
