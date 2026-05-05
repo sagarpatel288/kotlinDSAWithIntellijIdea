@@ -51,5 +51,128 @@
 
 **How do we get to know that we have already scanned the window, and now it is time to get the maximum from the front?**
 
-* 
+* Using the index.
+* All the indices less than the `current index - window size + 1` are out of current window.
 
+**Quick Visual**
+
+```markdown
+
+                    Problem Container    
+                                         
+                                         
+                +-----|-----|-----|-----|
+                |     |     |     |     |
+    Indices     |  0  |  1  |  2  |  3  |
+                |     |     |     |     |
+                +-----|-----|-----|-----|
+                |     |     |     |     |
+    Elements    |  7  |  4  |  0  |  5  |
+                |     |     |     |     |
+                +-----|-----|-----|-----|
+                                         
+                                         
+Window size = 3    Solution Container    
+                                         
+                                         
+                +-----|-----|-----+      
+                |     |     |     |      
+      Queue     |  7  |  4  |  0  |      
+                |     |     |     |      
+                +-----|-----|-----+      
+
+
+```
+
+* Now, as soon as we try to add `index i = 3 (element value is 5)`, we remove all the smaller past items.
+* Remember that new resources replace old resources.
+
+```markdown
+
+                    Problem Container    
+                                         
+                                         
+                +-----|-----|-----|-----|
+                |     |     |     |     |
+    Indices     |  0  |  1  |  2  |  3  |
+                |     |     |     |     |
+                +-----|-----|-----|-----|
+                |     |     |     |     |
+    Elements    |  7  |  4  |  0  |  5  |
+                |     |     |     |     |
+                +-----|-----|-----|-----|
+                                         
+                                         
+Window size = 3    Solution Container    
+                                         
+                                         
+                +-----|-----|-----+      
+                |     |     |     |      
+      Queue     |  7  |     |     |      
+                |     |     |     |      
+                +-----|-----|-----+      
+
+```
+
+* We removed `0` and then `4` because they were smaller than the upcoming item `5`. 
+* And we also remove all the old items who have been slid out of the current window.
+* So, it becomes:
+
+```markdown
+
+                    Problem Container    
+                                         
+                                         
+                +-----|-----|-----|-----|
+                |     |     |     |     |
+    Indices     |  0  |  1  |  2  |  3  |
+                |     |     |     |     |
+                +-----|-----|-----|-----|
+                |     |     |     |     |
+    Elements    |  7  |  4  |  0  |  5  |
+                |     |     |     |     |
+                +-----|-----|-----|-----|
+                                         
+                                         
+Window size = 3    Solution Container    
+                                         
+                                         
+                +-----|-----|-----+      
+                |     |     |     |      
+      Queue     |     |     |     |      
+                |     |     |     |      
+                +-----|-----|-----+      
+
+
+```
+
+* Then, we add the upcoming item.
+
+```markdown
+
+                    Problem Container    
+                                         
+                                         
+                +-----|-----|-----|-----|
+                |     |     |     |     |
+    Indices     |  0  |  1  |  2  |  3  |
+                |     |     |     |     |
+                +-----|-----|-----|-----|
+                |     |     |     |     |
+    Elements    |  7  |  4  |  0  |  5  |
+                |     |     |     |     |
+                +-----|-----|-----|-----|
+                                         
+                                         
+Window size = 3    Solution Container    
+                                         
+                                         
+                +-----|-----|-----+      
+                |     |     |     |      
+      Queue     |  5  |     |     |      
+                |     |     |     |      
+                +-----|-----|-----+
+
+```
+
+* This system ensures that the front first item is the maximum of the window.  
