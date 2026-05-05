@@ -37,6 +37,19 @@
 * So, we remove the definite small item from the last before we push the upcoming item from the back.
 * That's why we remove the small items from the back.
 
+**Side-effects (Intention)**
+
+* When we remove the smaller items from the back, we maintain a monotonic decreasing order in the queue.
+* Because we know that the item before the upcoming item or the last pushed item cannot be smaller than the item we pushed last.
+* Because we already remove such items.
+* It means that it must be equivalent or greater than the upcoming item we pushed last.
+* So this is how the system maintains the monotonic decreasing order.
+* Now, this is not the side effect.
+* This is the intention to keep the max item to the front of the queue so that we can get it in O(1).
+* So maybe we can call it a side effect disguised in the intention.
+* The main point is, this is the intentional system design.
+
 **How do we get to know that we have already scanned the window, and now it is time to get the maximum from the front?**
 
 * 
+
