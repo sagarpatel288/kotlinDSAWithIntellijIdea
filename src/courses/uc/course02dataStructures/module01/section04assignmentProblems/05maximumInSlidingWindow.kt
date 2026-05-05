@@ -1134,23 +1134,28 @@ fun findMaxInSlidingWindow(windowSize: Int, itemList: List<Int>): String {
         while (deque.isNotEmpty() && itemList[deque.last()] <= itemList[i]) {
             deque.removeLast()
         }
-        // Add the next index.
+        // Add the index.
         deque.addLast(i)
+        // Remove the indices that have slid out of the current window from the front.
         // Remove all the indices from the front that are smaller than the starting index of this window.
         while (deque.isNotEmpty() && deque.first() < (i - windowSize + 1)) {
             deque.removeFirst()
         }
+        // If the full window is formed, the maximum is at the front.
         // If it is a valid window size, collect the max value from the front of the deque.
         if (i >= windowSize - 1) {
             results.add(itemList[deque.first()])
         }
     }
+    // Return the collected maximums as a space-separated string
     return results.joinToString(" ")
 }
 
 fun main() {
+    // Read input values for the array size, elements, and the window size.
     val totalItems = readln().toInt()
     val itemList = readln().split(" ").map { it.toInt() }
     val windowSize = readln().toInt()
+    // Compute and print the sliding window maximums.
     println(findMaxInSlidingWindow(windowSize, itemList))
 }
