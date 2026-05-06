@@ -40,3 +40,10 @@
 * Similarly: `EmptyStackException` Vs. `NoSuchElementException`.
 * Similarly: `StackOverFlowError` Vs. `EmptyStackException`.
 * Similarly: What is the `RuntimeException`?
+
+## Idioms
+
+* Lambda functions
+* Scope functions
+* Which data type does the repeat block take?
+* What does the lambda of the repeat block provide?
