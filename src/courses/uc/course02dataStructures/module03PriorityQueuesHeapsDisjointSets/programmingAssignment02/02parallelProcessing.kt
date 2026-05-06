@@ -298,6 +298,9 @@ fun main() {
     val stringBuilder = StringBuilder()
     // Process each job by assigning it to the next available thread.
     for (jobProcessTime in jobProcessTimeList) {
+        // Caution! Possible point of mistake!
+        // We use `priorityQueue.poll()` instead of `priorityQueue.first()`.
+        // That's how we update the `priorityQueue` and the threads.
         // Update the thread's finish time and put it back into the queue.
         // A `PriorityQueue` maintains a `min heap`.
         // So, a `thread` with the lowest `finishTime` is at the root.

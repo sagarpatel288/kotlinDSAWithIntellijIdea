@@ -85,7 +85,7 @@ Window size = 3    Solution Container
 ```
 
 * Now, as soon as we try to add `index i = 3 (element value is 5)`, we remove all the smaller past items.
-* Remember that new resources replace old resources.
+* Remember that the new resources replace the old resources.
 
 ```markdown
 
