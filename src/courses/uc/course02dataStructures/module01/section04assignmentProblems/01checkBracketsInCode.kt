@@ -309,6 +309,7 @@ fun checkBracketsInCode(input: String): String {
         // If it is an opening bracket, add it to the deque.
         if (isOpeningBracket(ch)) {
             deque.addLast(BracketWithPosition(ch, index))
+            // Caution! Possible point of mistake! Ensure that the queue is not empty before we try to remove an item from it.
         } else if (isClosingBracket(ch) && deque.isNotEmpty()) {
             // We don't want to compare the opening bracket with any random character that is not a bracket.
             // That is why the `isClosingBracket` condition.
