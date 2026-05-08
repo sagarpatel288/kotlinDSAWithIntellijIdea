@@ -20,6 +20,7 @@
 * Collection.map
 * Collection.joinToString(" ") Vs. Collection.joinToString { }
 * Collection.take, Collection.joinToString, Collection.takeIf
+* Adjacency list: List (size) { mutableListOf<Int>() } 
 
 ## String, Input, and Readers
 
@@ -27,7 +28,8 @@
 * InputStreamReader
 * System.`in`
 * StringBuilder Vs. buildString { }
-* How to compare characters?
+* How to read, compare, and process characters (various operations)?
+* How to get the character code?
 * Various operators and operations on a string
 
 ## Interfaces and other things
