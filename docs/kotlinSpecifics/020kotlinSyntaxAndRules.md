@@ -2,6 +2,24 @@
 
 * Copy all the notes of Kotlin lessons from the Google Doc to this file.
 
+## Maths
+
+* Modulo
+* Finding the last digit
+* Logarithms
+* Trigonometry (Shapes, area, etc.)
+* 
+
+## Time Complexity
+
+* Logarithmic
+* Linear
+* Quadratic
+* Exponential
+* Best case
+* Average case
+* Worst case
+
 ## Data Structures
 
 * IntArray Vs. arrayOf Vs. ArrayList
