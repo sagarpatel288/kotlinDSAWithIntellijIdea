@@ -5,7 +5,7 @@
 * It means that we can find the last digit of the smaller variant.
 * The formula is:
 
-$f(a) % m = f(b) % m$ where $b = a % p$ and p = Pissano period (length).  
+f(a) % m = f(b) % m; where b = a % p and p = Pissano period (length).  
 
 * Here, `b` is a smaller variant of `a` and the last digit of both `a` and `b` are the same.
 * So, we don't have to run up to `a`.
