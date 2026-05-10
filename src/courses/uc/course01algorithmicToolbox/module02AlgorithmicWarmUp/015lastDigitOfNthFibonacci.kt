@@ -66,9 +66,11 @@ fun main() {
      * So, we use modulo. Any number modulo 10 gives the last digit of the number.
      */
     fun getFibonacciLastDigit(reducedN: Long, modulo: Long): Long {
+        // Handle the base cases: The Fibonacci number (indices) 0 and 1.
         if (reducedN <= 1L) return reducedN
         var previous = 0L
         var current = 1L
+        // Iteratively compute the Fibonacci number % modulo m up to the reduced N.
         // We already have F(0) and F(1). Hence, we start from 2.
         // For example, let us assume that the reducedN is 5.
         // The reducedN is our upper limit and it is 5.
@@ -128,10 +130,14 @@ fun main() {
      *
      */
     fun findPisanoPeriodOfFibonacci(modulo: Long): Long {
+        // Validate the modulo
         if (modulo == 0L) throw IllegalArgumentException("Modulo cannot be 0")
+        // Initialize the variables for sequence tracking
         var previous = 0L
         var next = 1L
+        // Initialize the length variable
         var length = 0L
+        // Iterate to find the Pissano period (length) where the last digit Fibonacci sequence repeats (starts with 0, 1)
         for (i in 0..(modulo * modulo)) {
             // Let us assume that f(8) = 21 and f(9) = 34.
             // So, f(10) = f(8) + f(9) = 21 + 34 = 55.
@@ -153,6 +159,7 @@ fun main() {
             next = lastDigitOfLastTwoFibonacciNumbers
             length += 1
 
+            // When the sequence is repeated, return the length
             if (previous == 0L && next == 1L) {
                 // Stop when the sequence repeats
                 return length
@@ -165,12 +172,13 @@ fun main() {
      * Gives the fibonacci value for the [nthFibonacci].
      */
     fun getFibonacciLastDigit(nthFibonacci: Long): Long {
-
+        // Handle the base cases: The Fibonacci numbers (indices) 0 and 1.
         // If it is 0, the last digit is 0.
         // If it is 1, the last digit is 1.
         // Anything less than or equal to 1, returns the number itself.
         if (nthFibonacci <= 1L) return nthFibonacci
 
+        // Calculate the Pissano Period for the Modulo = 10 to reduce the large number (index).
         // We are interested in the last digit of nth fibonacci.
         // Any number modulo 10 gives the last digit!
         // But, it is inefficient if we do that for each and every large fibonacci number.
@@ -182,12 +190,14 @@ fun main() {
         // We have our modulo as 10. Let us find out the Pisano period.
         val pisanoPeriod = findPisanoPeriodOfFibonacci(10L)
 
+        // Reduce the large input number (index) using the Pissano Period.
         // We reduce the input (nth fibonacci number) modulo pisanoPeriod to get a much smaller equivalent of the input!
         // E.g., F(4) mod 10 and F(64) mod 10 will give the same answer: 3.
         // Where F(4) is the 4th element in the Fibonacci series and F(64) is the 64th element in the Fibonacci series.
         // Note that this is an element or index, not the value itself.
         val reducedN = (nthFibonacci % pisanoPeriod)
 
+        // Compute and return the last digit of the Fibonacci number (index) at the reduced index.
         // Let us find the last digit of the much smaller equivalent fibonacci number.
         // Any number modulo 10 gives the last digit!
         // So, we pass 10 as a modulo value.
