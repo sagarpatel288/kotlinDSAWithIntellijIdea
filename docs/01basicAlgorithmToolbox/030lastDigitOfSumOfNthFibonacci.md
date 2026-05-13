@@ -38,6 +38,8 @@ F(n + 2) - F(m + 1)
 
 ![050partial_sum_of_fibonacci_start_end.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/050partial_sum_of_fibonacci_start_end.png)
 
+![055partial_sum_of_fibonacci_start_end_steps.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/055partial_sum_of_fibonacci_start_end_steps.png)
+
 ---
 
 **How to remember?**
