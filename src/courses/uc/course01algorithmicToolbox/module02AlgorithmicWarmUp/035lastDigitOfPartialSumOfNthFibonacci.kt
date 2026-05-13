@@ -114,11 +114,15 @@ fun main() {
      */
     fun getLastDigitOfPartialSumOfNthFibonacci(start: Long, end: Long): Long {
         val pisanoPeriod = getPisanoPeriodOfFibonacci(10L)
+        // Caution! Possible point of mistake!
+        // Do not miss this edge case!
         if (start == end) {
             if (start == 0L) return 0
             val reducedN = start % pisanoPeriod
             return getLastDigitOfNthFibonacci(reducedN)
         }
+        // Caution! Possible point of mistake!
+        // Notice: It is: { (end + 2) - (start + 1) } % 10
         val reducedEndPlusTwo = (end + 2) % pisanoPeriod
         val reducedStartPlusOne = (start + 1) % pisanoPeriod
         val reducedEndMod = getLastDigitOfNthFibonacci(reducedEndPlusTwo)
