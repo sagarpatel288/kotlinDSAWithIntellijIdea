@@ -68,6 +68,207 @@ The last digit is the only call!
 
 * Similarly, Sum of square of nth Fibonacci:
 
+* Suppose that we have a single square of size `1`.
+
+```markdown
+
++---+
+| 1 |
++---+
+                                 
+n = 1
+
+```
+
+> At this moment, area is `1 * 1`.
+
+* Now, we take another square of the longest side of the previous block.
+* The previous block was `1 * 1`.
+* The longest side is `1`.
+* So, we take another block of size `1 * 1`.
+
+```markdown
+
++---+                       +---+
+| 1 |                       | 1 |
++---+                       +---+
+                                 
+n = 1                       n = 2
+
+```
+
+
+* So, we have these two squares. 
+* Square n = 1 of size (area) 1 and square n = 2 of size (area) 1.
+* We joint them with the longest side (height or width).
+* Currently, before we join them, there is no long side.
+* They both have equal size of sides.
+* So, we can join them at any side.
+* Suppose that we join them vertically.
+* So, it becomes:
+
+```markdown
+
++---+       
+| 1 |       
++---+  h = 2
+| 1 |       
++---+       
+            
+w = 1
+
+```
+
+> At this moment, area is `1 * 2`.
+
+* The history of area is:
+
+```markdown
+
+| 1 * 1 |
+|-------|
+| 1 * 2 |
+
+```
+
+* Now, the longest side of the resultant rectangle is `height = 2`.
+* Another point is that we have a pattern for the area of the resultant rectangle.
+* We can know it in advance when we attach (joint) two rectangles in this way by their longest side.
+* When we attach two rectangles by their longest side, the remaining side is just an addition.
+* For example, the next square we need to take should have the size of the longest side of the previous rectangle.
+* The longest side of the current rectangle is `height = 2`.
+* So, the size of the next square is `2 * 2`.
+* So, we take another square, n = 3 of size (area) 2 next to the previous resultant rectangle.
+
+```markdown
+
+   +---+                    +---+---+       
+   | 1 |                    | 2 | 2 |       
+   +---+  h = 2             +---+---+  h = 2
+   | 1 |                    | 2 | 2 |       
+   +---+                    +---+---+       
+                                            
+   w = 1                      w = 2         
+                                            
+                                            
+Rectangle n               Rectangle n + 1   
+
+
+```
+
+* Now, we join these two rectangles by their longest sides.
+* The longest side of the previous rectangle n is `height = 2`.
+* So, when we join them by their height, the width of the resultant rectangle is just an addition of their widths, which becomes `1 + 2 = 3`.
+* And `area = height * width = 2 * 3 = 6`.
+
+```markdown
+
++---+---+---+       
+| 1 | 2 | 2 |       
++---+---+---+  h = 2
+| 1 | 2 | 2 |       
++---+---+---+       
+                    
+    w = 3           
+
+```
+
+> At this point, area is `2 * 3`.
+
+* History of area
+
+```markdown
+
+| 1 * 1 |
+|-------|
+| 1 * 2 |
+| 2 * 3 |
+
+```
+
+* Similarly, if we take the next square of size (area) 3 to join it with the previous resultant rectangle.
+
+
+```markdown
+
+                                 +---+---+---+       
++---+---+---+                    | 3 | 3 | 3 |       
+| 1 | 2 | 2 |                    +---+---+---+       
++---+---+---+  h = 2             | 3 | 3 | 3 |  h = 3
+| 1 | 2 | 2 |                    +---+---+---+       
++---+---+---+                    | 3 | 3 | 3 |       
+                                 +---+---+---+       
+    w = 3                                            
+                                     w = 3
+
+```
+
+* The longest common side of these two rectangles is `width = 3`.
+* So, if we join these two rectangles by their width, the height of the resultant rectangle is simply an addition.
+* So, the height of the resultant rectangle will be `2 + 3 = 5`.
+* And hence, the area of the resultant rectangle will be `width * height = 3 * 5 = 15`.
+
+```markdown
+
++---+---+---+       
+| 3 | 3 | 3 |       
++---+---+---+       
+| 3 | 3 | 3 |       
++---+---+---+       
+| 3 | 3 | 3 |  h = 5
++---+---+---+       
+| 1 | 2 | 2 |       
++---+---+---+       
+| 1 | 2 | 2 |       
++---+---+---+       
+                    
+    w = 3
+
+```
+
+> At this moment, area is `3 * 5`
+
+* History of area:
+
+```markdown
+
+| 1 * 1 |
+|-------|
+| 1 * 2 |
+| 2 * 3 |
+| 3 * 5 |
+
+```
+
+* Did you notice the pattern?
+* It is Fibonacci!
+* The area of the next rectangle will be `5 * 8` 🤯!
+
+```markdown
+
+| 1 * 1 |
+|-------|
+| 1 * 2 |
+| 2 * 3 |
+| 3 * 5 |
+| 5 * 8 |
+
+```
+
+* And the area of the next rectangle will be `8 * 13`!
+
+```markdown
+
+| 1 * 1  |
+|--------|
+| 1 * 2  |
+| 2 * 3  |
+| 3 * 5  |
+| 5 * 8  |
+| 8 * 13 |
+
+```
+
 $$F_0^2 +F_1^2 +···+F_n^2$$
 
 * But in reality, we don't have to square and sum up each Fibonacci.
