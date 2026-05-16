@@ -119,6 +119,18 @@ w = 1
 
 ```
 
+* Now, we can think of this result in this way, too.
+* The previous square was `1`, and we joined it with `1`.
+* We can denote the longest common side of them as $f(n)$ and it is `1`.
+* At this moment, both the blocks have common height and width.
+* For both blocks, `height = 1`, and `width = 1`.
+* So, we can consider any of them as the longest common side.
+* Suppose we take `width` as the longest common side.
+* And we can sum up the remaining side of them.
+* Which means, we sum up their heights: `1 + 1`.
+* We represent this sum as $f(n + 1)$.
+* So, the area of the resultant rectangle becomes `width * height` = $f(n) * f(n + 1) = 1 * 2$.
+
 > At this moment, area is `1 * 2`.
 
 * The history of area is:
@@ -173,6 +185,16 @@ Rectangle n               Rectangle n + 1
 
 ```
 
+* Now, we can think of this resultant rectangle in this way.
+* We joined `1 * 1` with `2 * 2` by their longest common side.
+* Their longest common side was `height = 2`.
+* We represent this longest common side as $f(n)$.
+* Now, the remaining side of the resultant rectangle is `width`.
+* It will be sum up of the widths of these two rectangles.
+* So, it is `width = 1 + 2 = 3`.
+* We represent it as $f(n + 1)$.
+* Then, the resultant rectangle we get is `height * width = 2 * 3` = $f(n) * f(n + 1)$.
+
 > At this point, area is `2 * 3`.
 
 * History of area
@@ -226,6 +248,14 @@ Rectangle n               Rectangle n + 1
 
 ```
 
+* Again, we can analyze the resultant rectangle in this way.
+* We joined `2 * 3` with `3 * 3`.
+* Their longest common side was, `width = 3`.
+* We represent it as $f(n)$.
+* The summation of the remaining side, which is `height` is `2 + 3 = 5`.
+* We represent it as $f(n + 1)$.
+* So, the size of the resultant rectangle is `width * height = 3 * 5` = $f(n) * f(n + 1)$.
+
 > At this moment, area is `3 * 5`
 
 * History of area:
@@ -268,6 +298,9 @@ Rectangle n               Rectangle n + 1
 | 8 * 13 |
 
 ```
+
+![070sum_of_squares_of_n_fibonacci.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/070sum_of_squares_of_n_fibonacci.png)
+
 
 $$F_0^2 +F_1^2 +···+F_n^2$$
 
