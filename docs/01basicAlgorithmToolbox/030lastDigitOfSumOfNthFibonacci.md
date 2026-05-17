@@ -9,6 +9,8 @@ F(0) + F(1) + F(2) + .. + F(n)
 
 F(n + 2) - 1
 
+![030sumOfNFibonacci.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/030sumOfNFibonacci.png)
+
 * So, instead of doing `{ F(0) + F(1) + F(2) + .. + F(n) } % 10`, we do `{ F(n + 2) - 1 } % 10`.
 * Here, we can take `F(n + 2) = a` and `1 = b`.
 * Now, according to the modulo arithmetic, `(a - b) % 10 = { (a % 10) - (b % 10) } % 10`.
@@ -40,6 +42,7 @@ F(n + 2) - F(m + 1)
 
 ![055partial_sum_of_fibonacci_start_end_steps.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/055partial_sum_of_fibonacci_start_end_steps.png)
 
+![060partialSumOfFibonacci.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/060partialSumOfFibonacci.png)
 ---
 
 **How to remember?**
@@ -309,3 +312,6 @@ $$F_0^2 +F_1^2 +···+F_n^2$$
 
 F(n) * F(n + 1)
 
+* Visual Proof:
+
+![075sum_of_squares_of_n_fibonacci.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/075sum_of_squares_of_n_fibonacci.png)
