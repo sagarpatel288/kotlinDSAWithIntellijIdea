@@ -18,7 +18,7 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  *
  * You are given a calculator that only performs the following three operations with an integer x:
  *
- * add 1 to x, multiply xby 2, or multiply xby 3.
+ * add 1 to x, multiply x by 2, or multiply x by 3.
  *
  * Given a positive integer n, your goal is to find the minimum number of operations needed to obtain n starting
  * from the number 1.
@@ -148,6 +148,8 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * If we take the size of the `operations` array as `n - 1`, then
  * as soon as we try to store or read the value for `operations[n]`,
  * we will get the `index out of bound` exception.
+ *
+ * * For the last index (index upto) `n`, the size must be `n + 1`.
  *
  * * So, the size of the `operations` array will be `n + 1`.
  *
@@ -595,12 +597,17 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
 fun main() {
 
     fun minOperationsShortestPath(targetNumber: Int): Pair<Int, List<Int>> {
+        // Initialize the DP table with the base case for 1.
         // A container to store the minimum number of operations required for each number.
+        // Caution! Possible point of mistake! No manual default value. It takes the `in-built` default, which is `0`.
         val operationsPaths = IntArray(targetNumber + 1)
+        // The default value should handle this automatically.
         operationsPaths[1] = 0 // Starting point. It takes 0 operations to reach 1.
         // Handle edge-cases.
         if (targetNumber == 1) return 0 to mutableListOf(1)
         // Bottom-up approach.
+        // Fill the DP table bottom-up by calculating the minimum operations for each number up to
+        //targetNumber.
         for (i in 2..targetNumber) {
             // We can always reach `i` from `i - 1` using the `+1` operator on `i - 1`.
             // For example, we can always reach `4` from `3` using the `+1` operator on `3`.
@@ -618,9 +625,11 @@ fun main() {
         }
 
         //Backtracking. Identifying the path, the stops, the stations from the beginning to the destination.
+        // Backtrack from targetNumber to 1 to reconstruct the sequence of intermediate numbers.
         var currentNumber = targetNumber
         val stops = mutableListOf<Int>()
         while (currentNumber > 1) {
+            // Add the starting point, reverse the sequence, and return the total operations and the path.
             stops.add(currentNumber)
             when {
                 operationsPaths[currentNumber] == operationsPaths[currentNumber - 1] + 1 -> {
@@ -634,10 +643,16 @@ fun main() {
                 }
             }
         }
+        // Caution! Possible point of mistake!
+        // We add the `currentNumber`, and not `1`!
         stops.add(currentNumber) //The starting point = 1.
+        // Caution! Possible point of mistake!
+        // We return the value of the last index, and not the `size`!
         return (operationsPaths.last() to stops.reversed())
     }
 
+    // Read input, compute the result using the DP function, and print the minimum operations and
+    // the path.
     val input = readln().toInt()
     val result = minOperationsShortestPath(input)
     println(result.first)
