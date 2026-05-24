@@ -337,6 +337,7 @@ fun main() {
         // And then you try all the combinations of the available coin denominations.
         for (amount in 1..targetAmount) {
             // Chapter 3.2: Try every coin denomination to compute the minimum number of coins for the current amount.
+            // For each amount, try each coin.
             // Calculating the target amount with each coin.
             for (coin in coinDenominations) {
                 // Episode 04: Check if we can use the coin.
@@ -370,6 +371,7 @@ fun main() {
                 // So, it validates the remaining amount.
                 if (amount >= coin && minCoins[amount - coin] != Int.MAX_VALUE) {
                     // Episode 05: Updating the cheat-sheet:
+                    // If the coin is usable and the remaining amount has a valid solution, update the minimum coins.
                     // Storing the result that gives the minimum number of coins.
                     // Let us understand this line of code with an example.
                     // Suppose, the target amount is 5 and we use the coin denomination 3.
