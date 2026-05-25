@@ -26,9 +26,14 @@ fun main() {
         val path = mutableListOf<Int>()
         while (indexPointer > 0) {
             for (option in coinDenominations) {
+                // Caution! Possible point of mistake!
+                // Do not miss this check!
+                // `curr - coin` must be >= 0!
                 if (indexPointer - option >= 0 && minCoins[indexPointer] == minCoins[indexPointer - option] + 1) {
                     path.add(option)
                     indexPointer -= option
+                    // Caution! Possible point of mistake!
+                    // Do not miss this optimization!
                     break
                 }
             }
