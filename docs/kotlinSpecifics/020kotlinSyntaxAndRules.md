@@ -50,6 +50,7 @@
 * How to read, compare, and process characters (various operations)?
 * How to get the character code?
 * Various operators and operations on a string
+* String formats (Decimal, date, time, etc.)
 
 ## Interfaces and other things
 

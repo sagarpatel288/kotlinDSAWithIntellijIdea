@@ -70,7 +70,7 @@ package courses.uc.course01algorithmicToolbox.module03GreedyAlgorithms
  *
  * Bells and whistles.
  *
- * Although the Input to this problem consists of integers, the Output may be non-integer.
+ * Although the Input to this problem consists of integers, the Output may be noninteger.
  * Therefore, the absolute value of the difference between the answer of your program and the optimal value
  * should be at most 10 to the power of 3.
  * To ensure this, output your answer with at least four digits after the decimal point
@@ -81,8 +81,11 @@ package courses.uc.course01algorithmicToolbox.module03GreedyAlgorithms
  * Input:
  *
  * 3 50
+ *
  * 60 20
+ *
  * 100 50
+ *
  * 120 30
  *
  * Output:
@@ -96,9 +99,12 @@ package courses.uc.course01algorithmicToolbox.module03GreedyAlgorithms
  * Input:
  *
  * 1 10
+ *
  * 500 30
  *
+ *
  * Output:
+ *
  * 166.6667
  *
  * The thief should take ten pounds of the only available compound.
@@ -107,6 +113,12 @@ package courses.uc.course01algorithmicToolbox.module03GreedyAlgorithms
  * -----------------------Explanation-----------------------
  *
  * The name of the problem can be maximumShopping as well - just to be positive.
+ * This problem is also famously known as `Fractional Knapsack` problem that we can solve using a greedy approach.
+ * We call it `Fractional` because we can take the `fraction` of the given items.
+ * There is also a variation of this problem, which is known as `0/1 Knapsack`.
+ * In the `0/1 Knapsack` problem, we cannot take a fraction of the item.
+ * Hence, we solve the `0/1 knapsack` problem using a dynamic programming.
+ * But for now, let us focus on this `Fractional knapsack` problem.
  * So, here is the thought process.
  * The problem statement gives the following data:
  * Total number of items, maximum capacity of a backpack, and
