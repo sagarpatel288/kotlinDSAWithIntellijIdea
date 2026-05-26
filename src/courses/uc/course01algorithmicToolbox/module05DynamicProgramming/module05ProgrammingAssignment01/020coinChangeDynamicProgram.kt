@@ -4,9 +4,12 @@ fun main() {
 
     fun minimumCoins(targetAmount: Int, coinDenominations: List<Int>): Pair<Int, List<Int>> {
         // Create a cheat-sheet (Memoization, cache).
+        // A container of `target + 1` size with default value `Int.MAX_VALUE`
         val minCoins = IntArray(targetAmount + 1) { Int.MAX_VALUE }
         // We know the answer when the target amount is 0.
+        // Base case: 0 amount = 0 coins needed.
         minCoins[0] = 0
+        // For each amount, try each coin.
         // Try each amount.
         for (amount in 1..targetAmount) {
             // Try each coin for the given/target amount.
@@ -22,16 +25,16 @@ fun main() {
         // If this is not clear at this moment, checkout the next example:
         // Primitive Calculator.
         // https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/f8687e7831a6788ed57387ab9be15a40dc2bb7a0/src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/030primitiveCalculator.kt
-        var indexPointer = targetAmount
+        var curr = targetAmount
         val path = mutableListOf<Int>()
-        while (indexPointer > 0) {
-            for (option in coinDenominations) {
+        while (curr > 0) {
+            for (coin in coinDenominations) {
                 // Caution! Possible point of mistake!
                 // Do not miss this check!
                 // `curr - coin` must be >= 0!
-                if (indexPointer - option >= 0 && minCoins[indexPointer] == minCoins[indexPointer - option] + 1) {
-                    path.add(option)
-                    indexPointer -= option
+                if (curr - coin >= 0 && minCoins[curr] == minCoins[curr - coin] + 1) {
+                    path.add(coin)
+                    curr -= coin
                     // Caution! Possible point of mistake!
                     // Do not miss this optimization!
                     break
