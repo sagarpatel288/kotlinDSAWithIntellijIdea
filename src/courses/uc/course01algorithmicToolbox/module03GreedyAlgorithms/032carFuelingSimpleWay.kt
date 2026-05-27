@@ -106,8 +106,8 @@ fun main() {
      * 5. We can calculate the fuel as we travel.
      * 5. We can calculate the distance we need to travel to reach the next gas station to refill our fuel.
      * 6. So, when we arrive at a particular gas station, we calculate how much distance we have already traveled,
-     * so that we can determine how much fuel is left, and then assess if the remaining fuel is sufficient
-     * to reach the next gas station.
+     * so that we can determine how much fuel is left.
+     * And then assess if the remaining fuel is sufficient to reach the next gas station.
      * 7. If it is sufficient, we refill the fuel to the next gas station. Otherwise, we refill the fuel at the
      * current gas station.
      *
@@ -129,12 +129,17 @@ fun main() {
         // So, we might receive the stops as follows: 100, 150, 250, 300, and 400.
         // See, it does not include the destination at `500` km.
         // Hence, adding the destination as the last stop.
+        // They don't include the destination in the "stops" because these "stops" are the gas stations.
+        // And we don't need any gas station at the destination, because we have already arrived at the destination.
+        // However, we add the "destination" to these "stops" to determine the distance between the last gas station,
+        // and the destination.
+        // So, that we can determine whether we have sufficient fuel to travel from the last gas station to the destination.
         val stopsIncludingDestination = stops + totalDistance
-        // It is given that when we start our travelling, the fuel tank is full.
+        // It is given that when we start our traveling, the fuel tank is full.
         var currentFuel = fullTankFuel
-        // This is important to understand that we start travelling from 0
+        // This is important to understand that we start traveling from 0
         var currentPosition = 0
-        // When we start travelling from 0, the initial value of the numberOfRefills is 0.
+        // When we start traveling from 0, the initial value of the numberOfRefills is 0.
         var numberOfRefills = 0
 
         // Each index represents a stop at a particular distance.

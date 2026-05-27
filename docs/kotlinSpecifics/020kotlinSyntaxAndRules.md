@@ -9,7 +9,8 @@
 * LCM (The Least Common Multiplier) and GCD (Greatest Common Divisor or HCF - Highest Common Factor)
 * Logarithms
 * Trigonometry (Shapes, area, etc.)
-* 
+* Discrete maths
+* Statistics
 
 ## Time Complexity
 
