@@ -16,6 +16,28 @@ fun main() {
      * You found three advertisers willing to pay price1 = $2, price2 = $3, and price3 = $5 per click.
      * How would you pair the slots and advertisers to maximize the revenue?
      *
+     * ---
+     * Sagar:
+     * Think of it like this:
+     * We have 3 advertisement banners and each of them have certain fixed configurations.
+     * Banner 1 can blink and show only 10 advertises per day.
+     * And when a user clicks on the advertisement, we get the money based on the product whose advertise we displayed.
+     * Similarly, banner 2 can blink and show only 20 advertises per day.
+     * Again, we get money when the user clicks on these advertisements.
+     * And finally, banner 3 can blink and show only 30 advertises per day.
+     * And we get money when the user clicks on these advertisements.
+     *
+     * Now, the money that we get from the user clicks depends on the product owner whose advertise we show.
+     * And we can allocate one banner per product.
+     * A banner cannot share multiple products.
+     * So, we want to allocate the banner 3 to the product owner 1 who pays the maximum per click.
+     * Because the banner 3 shows highest advertises, this pair generates the highest revenue.
+     *
+     * Similarly, we allocate the banner 2 to the product owner 2 who pays less than the product owner 1.
+     * And finally, we allocate the banner 1 to the product owner 3 who pays the least (less than the product owner 2).
+     * This arrangment generates the highest possible revenue for the given data.
+     * ---
+     *
      * | Clicks 	| Prices 	|
      * |--------	|--------	|
      * | 10     	| 2      	|
@@ -82,8 +104,9 @@ fun main() {
      * then we would do: (5 * 8) + (4 * 7) + (3 * 6) to get the maximum product.
      *
      * We can get the maximum dot product (multiplication) of two sequences, [prices] and [clicks]
-     * when we sort both the sequences, [prices] and [clicks] by descending order in such a way that
-     * for both the sequences, the first element gets the highest value and the last element gets the lowest value.
+     * when we sort both the sequences, [prices] and [clicks] by descending order.
+     * Such that for both the sequences, the first element has the highest value and the last element has the lowest
+     * value.
      * For example, if we have the sequence [prices] as [9, 6, 8] and [clicks] as [3, 4, 5], then we first
      * sort both of them in the descending order where the [prices] becomes [9, 8, 6] and the [clicks] becomes [5, 4, 3].
      * Once we do that, the dot product (multiplication) of each element from each sequence gives the highest value.
