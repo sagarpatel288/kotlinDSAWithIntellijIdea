@@ -51,7 +51,7 @@
 
 * Remember the [Range sum query problem](../../../../../src/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/100RangeSumQueryImmutable.kt)?
 
-![rangeSumPrefixedSum.png](../../../../../res/courses/uc/course01algorithmicToolbox/module02AlgorithmicWarmUp/rangeSumPrefixedSum.png)
+![rangeSumPrefixedSum.png](../../../../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/rangeSumPrefixedSum.png)
 
 * We have an `array`: `[3, 5, 4, 2, 1, 9]`
 * We will get a range of indices. 
