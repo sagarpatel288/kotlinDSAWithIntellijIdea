@@ -18,6 +18,11 @@ fun main() {
                 println("Invalid range: start: ${range.start} end: ${range.end} for the input size: ${input.size}")
                 continue
             }
+            // We remember this formula through the visualization.
+            // Base Images:
+            // https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/c34d2468df20f8b02baac915a7f9284f978e11c7/assets/images/algorithmToolbox/module02AlgorithmWarmUp/090rangeSumSeparateArray0basedIndexedQueries.png
+            // The image that we might have saved in our long-term memory, helps us write the below formula.
+            // That image helps us express the idea (formula) in the coding (or mathematical) form.
             val rangeSum = if (range.start == 1) {
                 input[range.end - 1]
             } else {
