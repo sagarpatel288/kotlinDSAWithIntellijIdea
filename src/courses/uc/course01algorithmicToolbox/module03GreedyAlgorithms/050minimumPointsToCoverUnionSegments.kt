@@ -5,9 +5,9 @@ fun main() {
     /**
      * Visual references:
      *
-     * res/level30Module3AlgorithmExercise/050_1minimumPointsToCoverUnionSegments.jpeg
+     * 050_1minimumPointsToCoverUnionSegments.jpeg
      *
-     * res/level30Module3AlgorithmExercise/050_2minimumPointsToCoverUnionSegments.jpeg
+     * 050_2minimumPointsToCoverUnionSegments.jpeg
      *
      * [Interactive Visual](https://discrete-math-puzzles.github.io/puzzles/touch-all-segments/index.html)
      *
@@ -62,7 +62,9 @@ fun main() {
      * For the above image (example), we must select 5 points to cover all the segments.
      *
      * The key observation here is that by always choosing the rightmost endpoint of the segments that are still uncovered,
-     * we can ensure that we minimise the number of points used.
+     * we can ensure that we minimize the number of points used.
+     *
+     * [Image3](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/c01150b72cd1914b14a6d010cb30c343e2b7769d/assets/images/algorithmToolbox/module03AlgorithmExercise/050_3minimumPointsToCoverUnionSegments.png)
      *
      * Let us take the first sample.
      *
@@ -151,10 +153,12 @@ fun main() {
         }
         // Create a bucket to store points that we need to touch.
         val mutableListOfCommonPoints = mutableListOf<Int>()
+        // Caution! Possible point of mistake!
         // Sort the segments either by the starting point or the ending point in ascending order.
         val sortedSegmentsByRightEnd = listOfSegments.sortedBy {
             it.second
         }
+        // Iterate through sorted segments and add a new point whenever a segment is not covered by the current point.
         var currentEnd = -1
         for (i in sortedSegmentsByRightEnd.indices) {
             // Let us assume that the first (previous, known, saved, checked) segment is A and the segment that we
@@ -174,9 +178,12 @@ fun main() {
             // They have completely different timeline. And in that case, we have to add the end point of segment B
             // to cover the segment B.
             // Check the visuals and tables provided in the description of the function to understand the same.
+            // Check the below image to understand this condition (logic):
+            // [Image03]
+            // (https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/1f9880152ed260ea5abe0ce0a908ba4c1155ae9a/assets/images/algorithmToolbox/module03AlgorithmExercise/050_3minimumPointsToCoverUnionSegments.png)
             if (currentEnd < segment.first ) {
-                mutableListOfCommonPoints.add(segment.second)
                 currentEnd = segment.second
+                mutableListOfCommonPoints.add(currentEnd)
             }
         }
         return mutableListOfCommonPoints
