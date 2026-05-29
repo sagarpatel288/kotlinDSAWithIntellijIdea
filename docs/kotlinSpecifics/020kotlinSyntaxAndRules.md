@@ -40,7 +40,9 @@
 * Collection.map
 * Collection.joinToString(" ") Vs. Collection.joinToString { }
 * Collection.take, Collection.joinToString, Collection.takeIf
-* Adjacency list: List (size) { mutableListOf<Int>() } 
+* Adjacency list: List (size) { mutableListOf<Int>() }
+* sorted() Vs. sortedBy { }
+* sortedDescending() Vs. sortedByDescending { }
 
 ## String, Input, and Readers
 
