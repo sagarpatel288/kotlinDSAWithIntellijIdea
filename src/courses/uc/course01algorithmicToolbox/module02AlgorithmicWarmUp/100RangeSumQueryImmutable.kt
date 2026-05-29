@@ -160,6 +160,11 @@ fun  main() {
         val rightEnd = indexPair[indexPair.size - 1]
         val leftEnd = indexPair[0]
         // Use the formula: s(l, r) = preSum(r + 1) - preSum(l)
+        // We remember this formula through the visualization.
+        // Base Images:
+        // https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/c34d2468df20f8b02baac915a7f9284f978e11c7/assets/images/algorithmToolbox/module02AlgorithmWarmUp/090rangeSumSeparateArray0basedIndexedQueries.png
+        // The image that we might have saved in our long-term memory, helps us write the below formula.
+        // That image helps us express the idea (formula) in the coding (or mathematical) form.
         println(preFixedSumCollection[rightEnd + 1] - preFixedSumCollection[leftEnd])
     }
 
