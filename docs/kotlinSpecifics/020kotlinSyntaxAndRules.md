@@ -41,7 +41,7 @@
 * Collection.joinToString(" ") Vs. Collection.joinToString { }
 * Collection.take, Collection.joinToString, Collection.takeIf
 * Adjacency list: List (size) { mutableListOf<Int>() }
-* sorted() Vs. sortedBy { }
+* sorted() Vs. sortedBy { } Vs. sortedWith { } 
 * sortedDescending() Vs. sortedByDescending { }
 
 ## String, Input, and Readers
@@ -58,6 +58,10 @@
 ## Interfaces and other things
 
 * Comparable Vs. Comparator
+* Explain `compareTo`: Why and how does the order matter?
+* What is the difference between `(a + b).compareTo(b + a)` and `(b + a).compareTo(a + b)`?
+* How do we get ascending and descending order using `compareTo`?
+* 
 
 ## Exceptions and Errors
 
