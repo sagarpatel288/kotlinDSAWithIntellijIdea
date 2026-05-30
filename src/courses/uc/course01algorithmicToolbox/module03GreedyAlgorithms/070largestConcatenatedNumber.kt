@@ -146,6 +146,8 @@ fun main() {
         // Sort the result of two strings (concatenation) in descending order,
         // and we need to store it to a variable.
         val sortedIntegers = listOfIntegers.sortedWith { a, b ->
+            // When we say a.compareTo(b), it gives a sorted list in ascending order (lowest to highest value).
+            // If we say b.compareTo(a), it gives a sorted list in descending order (highest to lowest value).
             // The below line says:
             // Compare the concatenation of b + a and a + b, and then sort them in descending order.
             (b + a).compareTo(a + b)
@@ -154,6 +156,9 @@ fun main() {
         // By checking if (sortedIntegers[0] == "0"), we determine if the first (and thus the largest) element is "0".
         // If it is, then all elements in the list must be zeros, and we return "0" instead of "000000".
         // Otherwise, we concatenate all the elements in sortedIntegers using joinToString("").
+        // Caution! Possible point of mistake!
+        // Do not simply return [0]!
+        // We need to return the 1 number (the largest possible number) that uses all the elements!
         val largestNumber = if (sortedIntegers[0] == "0") "0" else sortedIntegers.joinToString("")
         return largestNumber
     }
