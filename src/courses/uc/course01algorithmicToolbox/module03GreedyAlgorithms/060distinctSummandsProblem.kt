@@ -12,9 +12,10 @@ fun main() {
      * Maximum Number of Prizes
      * Distinct Summands Problem
      * Represent a positive integer as the sum of the maximum number of pairwise distinct positive integers.
-     * Input: A positive integer n. Output: The maximum k such that n can be represented as the sum a1 +···+ak of k distinct positive integers.
+     * Input: A positive integer n.
+     * Output: The maximum k such that n can be represented as the sum a1 +···+ak of k distinct positive integers.
      *
-     * You are organising a competition for children and have n candies to give as prizes.
+     * You are organizing a competition for children and have n candies to give as prizes.
      * You would like to use these candies for top k places in this competition with a restriction that
      * a higher place gets a larger number of candies.
      * To make as many children happy as possible, you need to find the largest value of k for which it is possible.
@@ -108,15 +109,25 @@ fun main() {
         val mutableListOfDistinctSummand = mutableListOf<Int>()
         // We continue adding the values as long as the summand is less than or equal to the given total value (limit).
         while(summand <= total) {
-            // We add values to our bucket.
+            // Caution! Possible point of mistake!
+            // The order matters:
+            // AB (Add to bucket) + Si (Sum and Increase) + CoRec (Compare Remaining and Current).
+            // 1. From the loop, it goes to the collection.
+            // 1. We add values to our bucket.
             mutableListOfDistinctSummand.add(current)
             // Key-point: Summand = summand + current value.
+            // 2. After it goes to the collection, we count the sum.
             summand += current
-            // We increase the value by 1.
+            // 3. Then, we check the remaining amount.
+            // So that we can prepare the next item accordingly.
+            val remainingAmount = total - summand
+            // 4. Then, we prepare the next item.
+            // 4. We increase the value by 1.
             current++
+            // 5. But before sending it to the loop, we test the new item.
+            // 5. The new item goes to the quality analysis (quality approval, quality assurance, test).
             // After increasing the value by 1, if we find that it exceeds to the remaining amount,
             // we replace the last added value by: last added value + remaining value.
-            val remainingAmount = total - summand
             if (current > remainingAmount) {
                 val lastElement = mutableListOfDistinctSummand[mutableListOfDistinctSummand.size - 1]
                 val newLastElement = lastElement + remainingAmount
