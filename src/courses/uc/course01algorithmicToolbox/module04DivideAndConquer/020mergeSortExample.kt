@@ -131,6 +131,12 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
  * * How to merge a collection in sorted order?
  * * How to validate the index range of a collection? (start < end)
  *
+ * ## How to remember the merge sort?
+ *
+ * * M of Merge Sort => Mid and divide (Find the middle index and divide) (This is the divide function).
+ * * Sort of Merge Sort => Merge using array, start, mid, and end.
+ * * Start to mid is one array, and mid + 1 to end is the second array.
+ *
  */
 fun main() {
 
@@ -176,11 +182,13 @@ fun main() {
      * * So in that sense, we modify the existing [array] using the sorted `temp` array and `[startIndex]`.
      */
     fun merge(array: IntArray, startIndex: Int, mid: Int, endIndex: Int) {
+        // Initialize a temporary array and pointers for the left, right, and sorted segments.
         val tempArray = IntArray(endIndex - startIndex + 1)
         var currentIndexOfLeft = startIndex
         var currentIndexOfRight = mid + 1
         var currentIndexOfSortedArray = 0
 
+        // Compare elements from both halves and merge them into the temporary array in ascending order.
         // This while loop is to compare and then insert the elements.
         while (currentIndexOfLeft <= mid && currentIndexOfRight <= endIndex) {
             if (array[currentIndexOfLeft] <= array[currentIndexOfRight]) {
@@ -190,6 +198,7 @@ fun main() {
             }
         }
 
+        // Append any remaining elements from the left or right halves to the temporary array.
         // Note that these two while loops are outside (after) the first while loop.
         // This while loop is to insert the remaining elements without comparison,
         // because the right part has finished the iteration.
@@ -205,6 +214,9 @@ fun main() {
             tempArray[currentIndexOfSortedArray++] = array[currentIndexOfRight++]
         }
 
+        // Caution! Possible point of mistake!
+        // Do not forget to copy from the temp to the original!
+        // Copy the sorted elements from the temporary array back into the original array at the correct offset.
         // We have inserted the elements in sorted order in the temp array.
         // Now, we need to use this temp array to insert the elements in sorted order in the original array.
         for (i in tempArray.indices) {
@@ -266,6 +278,7 @@ fun main() {
      * | Final Merge           	| [33, 42, 51] 	| [15, 24]   	| [15, 24, 33, 42, 51] 	|
      */
     fun mergeSort(array: IntArray, startIndex: Int, endIndex: Int) {
+        // Base case: if the array is empty or has one element, it is already sorted.
         if (array.size <= 1) {
             return
         }
@@ -274,16 +287,19 @@ fun main() {
         // start < end confirms that the array has more than one element.
         // start < end is our base condition.
         if (startIndex < endIndex) {
+            // Divide the array into two halves by finding the middle index.
             // We cut the array into two halves.
             // To cut the array into two halves, we need to find the middle.
             // A better way to find the mid that limits the number within the type boundary.
             // i.e., If we do (startIndex + endIndex) /2, the addition can cross the `integer` boundary!
             val mid = startIndex + (endIndex - startIndex) / 2
+            // Recursively sort the left and right halves.
             // The left part (startIndex to mid), where the mid-index becomes the endIndex.
             mergeSort(array, startIndex, mid)
             // The right part (mid + 1 to endIndex) where the mid + 1 becomes the startIndex.
             // The below function will get executed only after the above first recursive call is completed.
             mergeSort(array, mid + 1, endIndex)
+            // Merge the two sorted halves back together.
             // Only after the above two recursive calls are completed, this call will happen.
             merge(array, startIndex, mid, endIndex)
         }

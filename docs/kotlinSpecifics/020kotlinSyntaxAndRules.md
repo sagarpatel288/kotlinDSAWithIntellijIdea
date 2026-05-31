@@ -35,7 +35,10 @@
 
 ## Collections
 
-* How to define and declare list of list?
+* IntArray Vs. List<Int>
+* How do we initialize `IntArray`?
+* How do we initialize `List`?
+* How to define and declare list of list (adjacent list)?
 * Various idiomatic operators and operations on a collection.
 * Collection.map
 * Collection.joinToString(" ") Vs. Collection.joinToString { }

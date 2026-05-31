@@ -143,6 +143,7 @@ fun main() {
             val largestNumber = listOfIntegers.joinToString("")
             return largestNumber
         }
+        // Key-lemma: Sort the concatenation in descending order.
         // Sort the result of two strings (concatenation) in descending order,
         // and we need to store it to a variable.
         val sortedIntegers = listOfIntegers.sortedWith { a, b ->
@@ -159,6 +160,7 @@ fun main() {
         // Caution! Possible point of mistake!
         // Do not simply return [0]!
         // We need to return the 1 number (the largest possible number) that uses all the elements!
+        // `joinToString("")` because we know that the sorted list is in lexicographical descending order.
         val largestNumber = if (sortedIntegers[0] == "0") "0" else sortedIntegers.joinToString("")
         return largestNumber
     }
