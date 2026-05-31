@@ -5,11 +5,15 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
  *
  * Explain and demonstrate (illustrate) selection sort:
  * OR
- * Explain and demonstrate a sorting algorithm that is an in-place algorithm and has minimum space-complexity.
+ * Explain and demonstrate a sorting algorithm that is an in-place-algorithm and has minimum space-complexity.
  * OR
  * Explain and demonstrate a sorting algorithm that is memory efficient (but with poor time-complexity).
  *
- * -------------------------------- Explanation
+ * -------------------------------- Visualization ------------------------------
+ *
+ * [Visualization](https://youtu.be/MxEooU-8ps8?si=Xqg2pj4lebD0FJFV)
+ *
+ * -------------------------------- Explanation --------------------------------
  *
  * Selection Sort is a simple sorting algorithm that sorts an array by repeatedly finding the minimum element
  * (considering ascending order) from the unsorted portion of the array and moving it to the beginning.
@@ -53,7 +57,7 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
  *
  * Space-Complexity:
  *
- * It is an in-place algorithm. It means, it does not require additional space for another array,
+ * It is an in-place-algorithm. It means, it does not require additional space for another array,
  * except a constant amount of extra space. Hence, the space-complexity of the selection sort is O(1).
  *
  * How does the space complexity of the selection sort is O(1)?
@@ -67,6 +71,12 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
  *
  * Hence, we can say that, the space complexity of the selection sort is O(1).
  *
+ * ## How to remember?
+ *
+ * * Selection sort -> select and swap
+ * * Selection sort -> Nested for loops, compare `minIndex = i` with `i + 1` to last index, swap after nested for loop.
+ * * Selection sort is O(n^2) in-place (no extra space), and unstable.
+ *
  *
  */
 fun main() {
@@ -78,10 +88,12 @@ fun main() {
         }
         // Going through each index of the incoming list
         for (i in input.indices) {
+            // Initially, `minIndex = i`.
             // Taking the current index and will compare it with the rest of the elements and indices.
             // `minIndex` means, an index that has the lower value element than it's successive indices.
             var minIndex = i
 
+            // Comparing it with the rest of the elements.
             // Comparing the element at the current index with the element of each index
             for (j in i + 1..< input.size) {
                 // If we find that the element at the current index (i) is greater than the element at a particular index (j),
@@ -89,11 +101,15 @@ fun main() {
                 // The key point here is, we compare input[j] with input[minIndex] instead of input[j] with input[i].
                 if (input[j] < input[minIndex]) {
                     // We find that j is the `minIndex`, the index which has a lower value element than the index i.
+                    // Update the `minIndex`.
+                    // First, we swap the indices only.
+                    // Once we finalize the `minIndex` (after the nested for loop), then we swap the values.
                     minIndex = j
                 }
             }
 
-            // Avoid unnecessary swapping
+            // Swap values, but avoid unnecessary swapping
+            // Swap values only if `minIndex` is not at where we had set it in the beginning (before the nested for loop)
             if (i != minIndex) {
                 // Get the element from the current index
                 val oldValue = input[i]
@@ -103,6 +119,8 @@ fun main() {
                 input[minIndex] = oldValue
             }
         }
+        // This is the in-place-sorting-algorithm.
+        // The given `input` has been sorted.
         println(input)
     }
 
