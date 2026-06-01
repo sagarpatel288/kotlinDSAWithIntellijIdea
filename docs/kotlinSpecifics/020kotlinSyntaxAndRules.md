@@ -39,6 +39,7 @@
 * How do we initialize `IntArray`?
 * How do we initialize `List`?
 * How to define and declare list of list (adjacent list)?
+* Iterate using list.withIndex()
 * Various idiomatic operators and operations on a collection.
 * Collection.map
 * Collection.joinToString(" ") Vs. Collection.joinToString { }

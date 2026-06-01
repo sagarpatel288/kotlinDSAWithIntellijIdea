@@ -26,8 +26,45 @@ fun main() {
      *
      * Sagar: Let me tell you a story!
      *
+     * A teacher asked students to note down their age on a paper.
+     * Then, the teacher noticed that the age ranges between 5 and 10.
+     * So, the teacher created 6 boxes (that represents the age): 5, 6, 7, 8, 9, and 10.
      *
-     * A few kids wanted to watch a movie in a theater. The total number of kids was close to the age of the oldest child.
+     * | Age | Count |
+     * |-----|-------|
+     * | 5   |       |
+     * | 6   |       |
+     * | 7   |       |
+     * | 8   |       |
+     * | 9   |       |
+     * | 10  |       |
+     *
+     * And counted how many students belonged to each box.
+     *
+     * | Age | Count |
+     * |-----|-------|
+     * | 5   | 2     |
+     * | 6   | 3     |
+     * | 7   | 1     |
+     * | 8   | 4     |
+     * | 9   | 2     |
+     * | 10  | 2     |
+     *
+     * And then wrote each age according to the count:
+     *
+     * 5 5
+     * 6 6 6
+     * 7
+     * 8 8 8 8
+     * 9 9
+     * 10 10
+     *
+     * That was the count sort algorithm!
+     *
+     * Another story (complicated):
+     *
+     * A few kids wanted to watch a movie in a theater.
+     * The total number of kids was close to the age of the oldest child.
      * The manager asked the guard to find both the youngest and the oldest child, and then arrange all the kids by age,
      * ensuring that the youngest would get a seat first and the oldest would get a seat last.
      * The manager also wanted to respect and maintain the order in which the kids purchased their tickets.
@@ -205,9 +242,10 @@ fun main() {
      * where the maximum value element is 4, and it is not significantly larger than the number of elements
      * (= size of the array = n) that is 8. Here, we can use the counting sort algorithm.
      *
-     * However, if we have an array of size 100 (= n) and the maximum value is 100,00 (= n raised to the power of 2),
-     * then the max value here grows faster than the size of the input array as we increase the maximum value
-     * while keeping the size of the array the same.
+     * However, if we have array size 100 (= n) and the maximum value is 100,00 (= n raised to the power of 2),
+     * then the max value here grows faster than the input size as we increase the maximum value while keeping the array
+     * size the same.
+     *
      * Here, we better use the merge sort algorithm than the counting sort algorithm.
      *
      * Time Complexity:
@@ -300,7 +338,8 @@ fun main() {
          * It means that all the elements in the given input array hold the same value.
          * In that case, we don't need to do anything.
          * We can say that the given input array is already sorted.
-         *
+         * // Caution! Possible point of mistake!
+         * Do not miss this optimization!
          */
         if (minValue == maxValue) {
             println(": :countSort: ${array.toList()}")
@@ -483,14 +522,17 @@ fun main() {
          * This formula helps to understand the mapping between the countArray and the original input array during de-normalization.
          *
          * Key-point, Conclusion:
+         *
          * `original value` of the input array maps to `value - minValue` of the countArray as an index.
          * The value of the index of the countArray represents the count (repetition, occurrences).
          * Later, if we want to find the occurrence count (repetition) of a particular value,
          * and we have the original value, we can use the above formula to first get the corresponding (associated)
-         * index (that maps the original value) of the countArray, and then, we can take the value of that particular index
-         * of the countArray that represents the occurrence count (repetition).
+         * index (that maps the original value) of the countArray, and then, we can take the value of that particular index of the countArray that represents the occurrence count (repetition).
          * This formula helps to understand the mapping between the countArray and the original input array
          * during normalization and de-normalization.
+         *
+         * So: Count the occurrences of each element in the input array, using normalization for
+         * negative values.
          *
          * Complexity:
          * The time complexity of this step is: O(n).
@@ -589,6 +631,9 @@ fun main() {
          * So now, the indices of the countArray represents the original elements and the value of each index
          * in the countArray represents the cumulative count of allocated positions/seats up to the element.
          *
+         * TL;DR
+         * Transform the count array into a cumulative count array to determine relative positions.
+         *
          * Complexity Analysis:
          * We travel according to the size of the [countArray].
          * We cannot denote the size of the [countArray] by `n` as we have already taken it for the input array.
@@ -682,6 +727,9 @@ fun main() {
          * So, countArray[original element value - minValue]--
          * So that when we see the reservation chart (occupied seats), we get the correct information of the available
          * seats.
+         *
+         * TL;DR:
+         * Build the sorted array by iterating through the input in reverse to maintain stability.
          *
          * Complexity:
          * The time complexity of this step is: O(n).
