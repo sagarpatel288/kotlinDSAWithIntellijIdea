@@ -59,9 +59,20 @@ fun main() {
      * 9 9
      * 10 10
      *
+     * And if we want to be more specific:
+     *
+     * | Age | Count | Cumulative Count | Relative position (0-indexed seats, start from the last) |
+     * |-----|-------|------------------|----------------------------------------------------------|
+     * | 5   | 2     | 2                | 1, 0                                                     |
+     * | 6   | 3     | 5                | 4, 3, 2                                                  |
+     * | 7   | 1     | 6                | 5                                                        |
+     * | 8   | 4     | 10               | 9, 8, 7, 6                                               |
+     * | 9   | 2     | 12               | 11, 10                                                   |
+     * | 10  | 2     | 14               | Allocation starts from here: 13, 12                      |
+     *
      * That was the count sort algorithm!
      *
-     * Another story (complicated):
+     * Another story (detailed and complicated):
      *
      * A few kids wanted to watch a movie in a theater.
      * The total number of kids was close to the age of the oldest child.
@@ -531,8 +542,12 @@ fun main() {
          * This formula helps to understand the mapping between the countArray and the original input array
          * during normalization and de-normalization.
          *
-         * So: Count the occurrences of each element in the input array, using normalization for
-         * negative values.
+         * TL;DR
+         * Count the occurrences of each element in the input array, using normalization.
+         * Because index starts from 0 and an index cannot be a negative value.
+         * Normalization solves both of these problems.
+         * Normalization converts the negative value into the positive one and it (normalization) also makes it
+         * possible to start the indices from 0.
          *
          * Complexity:
          * The time complexity of this step is: O(n).
