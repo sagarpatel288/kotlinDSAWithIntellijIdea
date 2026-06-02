@@ -41,6 +41,15 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
  * * `O(n)` for the worst-case due to unbalanced partitions (more recursive depth).
  * * `O(log n)` for the average and best case due to balanced partitions (less recursive depth).
  *
+ * ## How to remember?
+ *
+ * * Quick sort = Quick cup ([The cup video](https://youtu.be/MZaf_9IZCrc?si=kbN4GFYw8RorQRds))
+ * * Partition index, pivot
+ * * pivot = end, partitionIndex = start - 1
+ * * j from start to <end
+ * * if (j < pivot) partitionIndex++ if (partitionIndex != j) swap
+ * * swap (partitionIndex + 1, pivot)
+ *
  * ## Next
  *
  * * [Next: Part-02: Randomization By: GATE Applied Course](https://youtu.be/HY64dw_Af94?si=DnxKbcwXevD3tzV5)
@@ -63,7 +72,7 @@ fun main() {
      * ## Story
      *
      * * Think of an event where we expect all the kids to be in the front row, followed by the adults.
-     * * Therefore, we inspect (review, analyse, iterate through) the front row.
+     * * Therefore, we inspect (review, analyze, iterate through) the front row.
      * * If we find an adult in the front row, we replace the adult with a kid—if there is a kid available.
      *
      * **How do we accomplish this?**
@@ -72,7 +81,7 @@ fun main() {
      * ensuring that the kid takes priority in the front row.
      * * If there are no more kids, it means the goal has already been achieved.
      * * However, if we do find a kid, we exchange (swap, relocate, move) the positions of the adult and the kid,
-     * ensuring that the kid is prioritised in the front row.
+     * ensuring that the kid is prioritized in the front row.
      *
      * **Now, how does the swapping procedure work?**
      *
@@ -188,6 +197,7 @@ fun main() {
         // Hence, the initial value is: `start - 1`.
         var partitionIndex = start - 1
 
+        // Iterate through the range and swap elements smaller than the pivot to the left side.
         // This iteration compares all the elements between the [start] and the [end] range, with our pivot element.
         // However, we have taken the last element as our pivot element,
         // and we don't want to compare the pivot element with itself.
@@ -207,7 +217,7 @@ fun main() {
                 // move the element from the position `j` to the position created by the `partitionIndex`.
                 // But then, what will happen to the element which is already at the `partitionIndex` position?
                 // The element at the current `partitionIndex` position will move to the `j` position.
-                // So basically, every time we find that `input[j] <= pivot`, the `partitionIndex` will create a seat
+                // So basically, every time we find that `input[j] <= pivot`, the `partitionIndex` will create a seat,
                 // and we will swap the elements at positions `partitionIndex` and `j`.
                 // It means that for the cases when `input[j] > pivot`, the `partitionIndex` does not make progress.
                 // But in that case, `j` continues making progress.
@@ -258,6 +268,7 @@ fun main() {
                 }
             }
         }
+        // Place the pivot in its final sorted position and return its index.
         // This is for printing, understanding, and acknowledgment purposes.
         // Otherwise, we could have used pre-increment while calling the swapElements function, and it would work.
         // The actual code can use: swapElements(input, ++partitionIndex, end) without first doing partitionIndex++ separately.
@@ -447,8 +458,10 @@ fun main() {
         // start > end means, an invalid range, or an empty array.
         // start < end confirms that the [input] array has more than one element.
         // start < end is our base condition.
+        // If the range is valid, partition the array and recursively sort the sub-arrays.
         if (start < end) {
             val partitionIndex = getPartitionIndex(input, start, end)
+            // Why `partitionIndex - 1`? Because `partitionIndex` is already at its final position.
             quickSort(input, start, partitionIndex - 1)
             quickSort(input, partitionIndex + 1, end)
         }
