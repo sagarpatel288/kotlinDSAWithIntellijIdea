@@ -263,6 +263,17 @@ fun main() {
                 // That's why the iteration j continues the journey, while the partitionIndex can lag behind.
                 // And if the partitionIndex is behind the iteration j, it means the partitionIndex
                 // has found an older kid that we need to exchange if the iteration j finds a younger kid.
+                // TL;DR
+                // This is the case (incident) where before this happened, `j` had a greater item than the pivot.
+                // So, the partitionIndex could not move on. But `j` moved on.
+                // It means that `j` is now ahead of the `partitionIndex`.
+                // But then when this incident happened, it is inside the `input[j] <= pivot`.
+                // It means that when this incident happened, `j` found an item smaller or equal to the pivot.
+                // So, the partitionIndex moved one step further.
+                // But, it will land on the item that is greater than the pivot.
+                // And `j` is on the item that is equal to or smaller than the pivot.
+                // (That's why we are inside this if block).
+                // So, `j` and the `partitionIndex` swaps their items with each other.
                 if (partitionIndex != j) {
                     swapElements(input, partitionIndex, j)
                 }
