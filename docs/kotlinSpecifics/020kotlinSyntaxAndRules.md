@@ -74,6 +74,10 @@
 * Similarly: `StackOverFlowError` Vs. `EmptyStackException`.
 * Similarly: What is the `RuntimeException`?
 
+## Util
+
+* Random.nextInt(inclusive, exclusive)
+
 ## Idioms
 
 * Lambda functions

@@ -285,6 +285,10 @@ fun main() {
      * We take these two major and dominant factors, and ignore space complexity of other small and temporary variables.
      * So, the space complexity of the count sort algorithm is O(n + k).
      *
+     * ## How to remember?
+     *
+     * * Count Sort: We take a count array of size (max - min + 1), count the items, cumulative count, and reverse.
+     *
      */
     fun countSort(array: IntArray) {
 
