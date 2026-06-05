@@ -3,7 +3,13 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
 import kotlin.random.Random
 
 /**
- * Explain and demonstrate:
+ * ## References:
+ * Beautiful explanation along with visual (animation)
+ * [0612 TV w/ Nerd First](https://youtu.be/KQZex95FKT4?si=H2n1mtEppnzLRZbq)
+ *
+ *
+ * ## Explain and demonstrate:
+ *
  * 3-way-partitioning or Dutch National Flag partitioning in quicksort.
  * OR
  * Sort the given array where majority elements are duplicate.
@@ -13,6 +19,8 @@ import kotlin.random.Random
  * Sort the given array where all the elements less than a pivot element stay to the left side of the pivot,
  * all the elements equal to the pivot elements stay in the middle,
  * and all the elements greater than the pivot stay to the right side of the pivot.
+ *
+ *
  */
 fun main() {
 
@@ -137,11 +145,14 @@ fun main() {
             println(": :quickSort: sorted: ${input.toList()}")
             return
         }
+        // Caution! Possible point of mistake!
+        // Do not forget this base condition!
         if (start >= end) return
         println(": :quickSort: input: -----------------before random pivot: ${input.toList()} start: $start end: $end")
         val randomIndex = Random.nextInt(start, end + 1)
         swapElements(input, randomIndex, end)
         val pivot = input[end]
+        // 3-Markers before the while loop.
         // The `lessThanMarker` confirms that all the elements less than the pivot are to the left side of it.
         var lessThanMarker = start
         // The `greaterThanMarker` confirms that all the elements greater than the pivot are to the right side of it.
@@ -191,8 +202,8 @@ fun main() {
                 }
             }
         }
-
-        // The while loop fixes the final and correct position of the pivot.
+        // Recursion call after the while loop.
+        // The while loop fixes the final and correct position of the pivot (along with all the same values).
         // We have to call the function recursively to fix the final and correct position of all the elements.
         quickSort(input, start, lessThanMarker - 1)
         quickSort(input, greaterThanMarker + 1, end)
