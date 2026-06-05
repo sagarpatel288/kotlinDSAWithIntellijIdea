@@ -171,6 +171,10 @@ fun main() {
                     if (currentPointer != lessThanMarker && input[currentPointer] != input[lessThanMarker]) {
                         swapElements(input, lessThanMarker, currentPointer)
                     }
+                    // Caution! Possible point of mistake!
+                    // Only the swap condition is in the `if` block.
+                    // Increment happens outside the `if` block.
+                    // Increment is out of the `if` condition.
                     // The increment to the `lessThanMarker` confirms that all the elements less than the pivot stays
                     // to the left side of the `lessThanMarker`.
                     lessThanMarker++
@@ -181,9 +185,14 @@ fun main() {
                 }
                 input[currentPointer] > pivot -> {
                     println(": :quickSort: greaterThan: $greaterThanMarker input: ${input.toList()} currentPointer: $currentPointer")
+                    // Caution! Possible point of mistake!
+                    // currentPointer == greaterThanMarker is allowed, because we don't want to lose that card!
                     if (input[currentPointer] != input[greaterThanMarker]) {
                         swapElements(input, currentPointer, greaterThanMarker)
                     }
+                    // Caution! Possible point of mistake!
+                    // Only the swap condition is in the `if` block.
+                    // Increment happens outside the `if` block.
                     // The decrement of the `greaterThanMarker` confirms that all the elements greater than the pivot,
                     // stays to the right side of the `greaterThanMarker`.
                     greaterThanMarker--
