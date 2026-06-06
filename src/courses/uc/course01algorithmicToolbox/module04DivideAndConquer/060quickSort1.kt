@@ -279,7 +279,12 @@ fun main() {
                 }
             }
         }
-        // Place the pivot in its final sorted position and return its index.
+        // Recall that we had selected the pivot from the `end`.
+        // And now, we are swapping its position with the `partitionIndex`.
+        // And we have already placed all the items smaller than the pivot, before the `partitionIndex`.
+        // It means that the very next position of all these smaller items is the final position of the `pivot`.
+        // That will give us the ascending order.
+        // So, place the pivot in its final sorted position and return its index.
         // This is for printing, understanding, and acknowledgment purposes.
         // Otherwise, we could have used pre-increment while calling the swapElements function, and it would work.
         // The actual code can use: swapElements(input, ++partitionIndex, end) without first doing partitionIndex++ separately.
