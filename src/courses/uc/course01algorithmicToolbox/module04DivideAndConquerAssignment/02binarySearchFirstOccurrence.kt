@@ -78,6 +78,11 @@ fun main() {
             when {
                 input[mid] == query -> {
                     resultIndex = mid
+                    // Caution! Possible point of mistake!
+                    // Reduce the end-boundary.
+                    // Instead, if we push the starting point to `mid + 1`, it may not work.
+                    // Can you explain, why is it so?
+                    // Refer:
                     end = mid - 1
                 }
                 input[mid] > query -> {
