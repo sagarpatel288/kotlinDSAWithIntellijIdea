@@ -9,6 +9,8 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  *
  * [Image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/415ab40c38d28640dd97b5615292c0e9f080fd85/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/majorityElementOccurrences.png)
  *
+ * [With Animation](https://youtube.com/shorts/8hl4yVl4H0I?si=ePC90BzGU3zI7Rv6)
+ *
  * Majority Element Problem:
  *
  * Check whether a given sequence of numbers contains an element that appears more than half of the times.
@@ -268,6 +270,14 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  * 1. What is a majority element?
  * 2. How to find a majority element?
  * 3. Counting: Support (reinforce = increment) and canceling-out (decrement).
+ *
+ * Why do we have to go through the phase 2?
+ *
+ * Because it is possible to get the count even when there is no majority item.
+ * For example, for the input [1, 2, 3, 4], we might get the count = 1 for the item `4`.
+ * But `4` is not a majority item.
+ * In fact, there is no majority item.
+ * Hence, it is necessary to verify using the second phase.
  */
 fun main() {
 
