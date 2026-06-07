@@ -82,7 +82,8 @@ fun main() {
                     // Reduce the end-boundary.
                     // Instead, if we push the starting point to `mid + 1`, it may not work.
                     // Can you explain, why is it so?
-                    // Refer:
+                    // Refer: [Image](https://github
+                    // .com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/0bc4c8a92b16d2e1f285156891e966f0d78209b6/assets/images/algorithmToolbox/module04DivideAndConquerAssignment/02binarySearchFirstOrLastOccur.webp)
                     end = mid - 1
                 }
                 input[mid] > query -> {
