@@ -141,6 +141,11 @@ fun main() {
             } else {
                 tempSorted[sortedPointer++] = input[rightPointer++]
                 // This is the key-point.
+                // Index of the left part is always going to be smaller than the index of the right part.
+                // So, all the cases where the item of the left part is greater than the item of the right part,
+                // is the case of inversion.
+                // Recall the definition of the inversion: if i < j, but a[i] > a[j], then it is the inversion.
+                // And:
                 // In a sorted array, if an element from the left side is greater than the element of the right side,
                 // all the other elements of the left side will also be greater than the element of the right side.
                 // For example, we know that we have two sorted parts.
@@ -172,6 +177,11 @@ fun main() {
     
     fun divideMergeAndCount(input: MutableList<Int>, startIndex: Int, endIndex: Int): Int {
         var inversionCount = 0
+        // Caution! Possible point of mistake!
+        // It must be `start < end`.
+        // Using `start <= end` will give StackOverflow.
+        // Can you explain, why?
+        // Do you know what does it mean to have `start < end` Vs. `start <= end`?
         if (startIndex < endIndex) {
             val mid = startIndex + (endIndex - startIndex) / 2
             inversionCount += divideMergeAndCount(input, startIndex, mid)
