@@ -177,6 +177,11 @@ fun main() {
     
     fun divideMergeAndCount(input: MutableList<Int>, startIndex: Int, endIndex: Int): Int {
         var inversionCount = 0
+        // Caution! Possible point of mistake!
+        // It must be `start < end`.
+        // Using `start <= end` will give StackOverflow.
+        // Can you explain, why?
+        // Do you know what does it mean to have `start < end` Vs. `start <= end`?
         if (startIndex < endIndex) {
             val mid = startIndex + (endIndex - startIndex) / 2
             inversionCount += divideMergeAndCount(input, startIndex, mid)
