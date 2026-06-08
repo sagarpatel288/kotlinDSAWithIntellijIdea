@@ -44,7 +44,9 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquer
  * ## How to remember?
  *
  * * Quick sort = Quick cup ([The cup video](https://youtu.be/MZaf_9IZCrc?si=kbN4GFYw8RorQRds))
- * * Partition index, pivot
+ * * Quick sort = QPi => Quick sort uses Partition index (QPi) and Pivot (QPi)
+ * * Partition index (Pi), pivot (Pi)
+ * * Both partition index and pivot are used by (within) the `getPartitionIndex` function.
  * * pivot = end, partitionIndex = start - 1
  * * j from start to <end
  * * if (j < pivot) partitionIndex++ if (partitionIndex != j) swap
