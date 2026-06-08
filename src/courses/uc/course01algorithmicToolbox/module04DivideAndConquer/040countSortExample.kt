@@ -579,6 +579,8 @@ fun main() {
         // Also, we know that to normalise the elements, we subtracted each element by `minValue`.
         // Hence, while placing the original element back from the countArray to the original input array,
         // we add the `minValue` to each element.
+        // Caution! Possible point of mistake!
+        // Remember that the unstable solution does not require cumulative count!
         /*var index = 0
         for ((element, count) in countArray.withIndex()) {
             println(": :countSort: unstable solution: index: $index element: $element count: $count")
