@@ -1,6 +1,8 @@
 package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
 
 /**
+ * [Shradha Madam](https://youtu.be/ynnWDBTdVi0?si=FN-MFG9Gb2GnY-iw)
+ *
  * Problem Statement:
  *
  * Number of Inversions Problem:
@@ -119,6 +121,14 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  */
 fun main() {
 
+    /**
+     * It is critical to understand that this function, [mergeSortAndCount] receives two sorted parts: left and right.
+     * Yes, it receives two already sorted parts, and then we combine these two sorted parts into one sorted part.
+     * This is the heart of this entire problem.
+     * This is the reason we use `merge sort` algorithm to solve this problem.
+     * To understand how this function [mergeSortAndCount] receives two already sorted parts, refer the image below:
+     * [Merge sort image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/2dec310ecd6132df62733331a64c046e84e5676f/assets/images/algorithmToolbox/module04DivideAndConquer/mergeSort.webp)
+     */
     fun mergeSortAndCount(input: MutableList<Int>, startIndex: Int, midIndex: Int, endIndex: Int): Int {
         var leftPointer = startIndex
         var rightPointer = midIndex + 1
