@@ -182,6 +182,14 @@ fun main() {
         // Using `start <= end` will give StackOverflow.
         // Can you explain, why?
         // Do you know what does it mean to have `start < end` Vs. `start <= end`?
+        // `start < end` means there are at least two elements that we can divide.
+        // `start == end` means there is only one element, and in that case, `start` and `mid` values will be the same.
+        // For example, `start` = 0, and `mid` = 0.
+        // We pass these values to this function.
+        // Again, `start == end`.
+        // Again, `start` and `mid` values will be the same.
+        // Again, we pass these values to this function.
+        // And it goes on, causing StackOverflow.
         if (startIndex < endIndex) {
             val mid = startIndex + (endIndex - startIndex) / 2
             inversionCount += divideMergeAndCount(input, startIndex, mid)
