@@ -3,6 +3,11 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
 /**
  * ----------------------- Points and Segments Problem: -----------------------
  *
+ * Reference (Somewhat):
+ *
+ * [Sweep Line Algorithm](https://youtu.be/YnIxejYW7cE?si=eo37KalFY5Kh78c4)
+ * [Sweep Line Concept And Algorithms](https://youtube.com/playlist?list=PLpIkg8OmuX-IOG_-Bv92l-EhuBQX28LOm&si=O6O1v3CJQD0D9R7L)
+ *
  * Visual references:
  *
  * res/courses/uc/module04DivideAndConquerAssignment/06a_LotterySegment.png
@@ -105,6 +110,17 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  *
  * ----------------------- Story Time -----------------------
  *
+ * We cannot sort the segments like we did in the `050minimumPointsToCoverUnionSegments.kt`.
+ * In that problem, to cover the maximum segments, we were allowed to move them.
+ * So, we sorted the segments.
+ *
+ * Here, each segment has fixed starting point and end point.
+ * Similarly, we have fixed points across the segments.
+ *
+ * We can neither move the segments nor the points.
+ *
+ * So, here is the story to visualize and understand the problem.
+ *
  * Imagine a restaurant that wants to analyze its busiest hours.
  * Every customer enters the restaurant at a specific time (arrival) and leaves at a specific time (departure).
  *
@@ -133,6 +149,24 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  * 2. A customer leaves the restaurant (end of a segment).
  * 3. A query checks how many customers are present at a given time.
  *
+ *
+ * Note: For the priority order, the easy and straightforward way is:
+ * src/practice/courses/algorithms/uc/module04DivideAndConquerAssignment/sweepLineSeg.kt
+ *
+ * There:
+ * If the point is at the start of the segment, we consider it as a part of the segment.
+ * So, the segment start part has the highest priority.
+ * Start comes first: So, it is `-1`.
+ * If the point is at the end of the segment, we still consider it as a part of the segment.
+ * So, the query point comes before the segment end.
+ * Hence, it is `0`.
+ * Finally, segment end is `+1`.
+ *
+ * The main comparison is based on the `point`.
+ * If `points` are the same, we compare it by the type.
+ *
+ * However, in the below example, we have taken a slightly different and more complex approach for this part.
+ *
  * Example:
  *
  * Input:
@@ -155,7 +189,7 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  * 1(+1) start-segment, 4(+1) start-segment, 4(0) query, 4(-1) end-segment, 8(-1) end-segment.
  *
  * So, at the time of query, we have 2 customers. This is important. If we want to prioritize it in a different way,
- * then we have to adjust the sortWith function call, especially the it.type part.
+ * then we have to adjust the sortWith function call, especially the `it.type` part.
  *
  * For example, without minus sign, sortWith(compareBy({it.time}, {it.type}) ) would prioritize the type as:
  * -1, 0, +1. In that case, for the segments (1, 4) and (4, 8), and the query-point 4, the sorting will be:
@@ -164,7 +198,7 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  *
  * And the output will be 0.
  *
- * So, with -it.type, the sorting of for our example will be:
+ * So, with -it.type, the sorting of our example will be:
  *
  * 0(+1), 1(+1), 1(0), 5(-1), 6(0), 6(-1), 7 (+1), 10(-1), 11(+1), 11(0), 15(-1).
  *
