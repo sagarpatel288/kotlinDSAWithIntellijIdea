@@ -6,6 +6,12 @@ import kotlin.math.pow
 import kotlin.math.abs
 
 /**
+ *
+ * Reference:
+ *
+ * [Closest Pair Of Points](https://youtu.be/6u_hWxbOc7E?si=lDCLKzRNdHHZ1qf9)
+ * [Playlist](https://youtube.com/playlist?list=PLL-JBmgAwwRX6cZ092RqOuKNY2fTWxYyy&si=y1MMzfrfvknYMmr6)
+ *
  * ----------------------- Problem Statement -----------------------
  *
  * Closest Points Problem:
@@ -124,6 +130,7 @@ fun main() {
      * Euclidean distance formula. Each point has an x-axis and a y-axis value.
      */
     fun euclideanDistanceOfPoints(pointOne: Point, pointTwo: Point): Double {
+        // Calculate the Euclidean distance between two points using the standard formula.
         return sqrt(
             (
                     (pointOne.xAxis - pointTwo.xAxis).toDouble().pow(2)
@@ -138,8 +145,14 @@ fun main() {
      *
      * In a brute force function, we compare every single point with every other point.
      * This requires an outer for loop (i) and an inner for loop `(i + 1)..end`.
+     *
+     * We will use this brute force in two scenarios:
+     * 1. The input itself has less than or equals to 2 or 3 total points.
+     * 2. During the vertical strip: [closestPointsInStrip]
+     * Because in the strip, we compare each point with the next 6 to 7 points.
      */
     fun closestPointsByBruteForce(sortedPoints: List<Point>, start: Int, end: Int): Double {
+        // Compare every pair of points in the given range to find the minimum distance.
         var minDistance = Double.MAX_VALUE
         for (i in start..end) {
             // If we use `..<` instead of `until`, we may get the below error:
@@ -242,6 +255,8 @@ fun main() {
      *
      */
     fun closestPointsInStrip(sortedByY: List<Point>, midX: Int, minDistance: Double): Double {
+        // Create the vertical strip.
+        // Filter points that are within minDistance of the vertical dividing line.
         val strip = sortedByY.filter { abs(it.xAxis - midX) < minDistance }
         var minDistanceStrip = minDistance
         // Iterate over each point in the strip.
@@ -290,10 +305,23 @@ fun main() {
         }
 
         // Divide into two halves.
+        // Notice that we divide based on the total points, not based on their x-distance.
+        // Because, the initial ultimate goal is to get the smallest possible subset of two points out of many points.
+        // So, we are dividing based on the number of points.
         val mid = start + (end - start) / 2
         val midX = sortedByX[mid].xAxis
 
         // Filter once for left and right subsets of points based on x-axis midpoint.
+        // This filters on the sortedByY help the `closestPointsInStrip` function.
+        // Due to these filters, the `closestPointsInStrip` gets the required `sortedByY` strip.
+        // The benefit is, `sortedByY` which is required in the `strip` is already sorted.
+        // We are not sorting it inside this recursion.
+        // If we sort it inside this recursion or inside the `strip` function, that we call from this recursion,
+        // each `sortByY` call will take another `O(n log n)` time.
+        // It means that for each `merge sort`, we will spend extra `O(n log n)` time on `sortByY` for the strip.
+        // That will make the total time `O(n log^2 n)`.
+        // So, we better `sortByY` once, and pass it along the way.
+        // We use `sortedByX` to find the `mid`, and then we apply that `mid` on the `sortedByY`.
         // The partition spans the area from top to bottom. We began at the bottom and will now cover the top area.
         // Imagine that we have multiple row houses.
         // If we want to divide the row houses into two parts, we don’t simply divide the floors (x-axis).
@@ -337,6 +365,7 @@ fun main() {
      * This will help us calculate the proper distance between each pair.
      */
     fun closestPoints(points: List<Point>): Double {
+        // Prepare sorted lists of points by X and Y coordinates to optimize the recursive search.
         // Sorting by x-axis is like arranging all the pairs in rows based on their x-coordinates.
         // Imagine marking positions on a horizontal line and placing each pair where its x-coordinate matches.
         // Now the pairs are aligned horizontally, making it easier to compute distances between nearby pairs along the x-axis.
@@ -345,9 +374,22 @@ fun main() {
         // This setup helps efficiently calculate distances for subsets of points constrained by y-coordinates,
         // such as the “strip” in the closest pair problem.
         val sortedByY = points.sortedBy { it.yAxis }
+        // Start the recursive divide-and-conquer process.
+        // Notice that we divide based on the total points, not based on their x-distance.
+        // The range, `start = 0` to `end = sortedByX.lastIndex` represents number of points within this range.
+        // It does not represent `x = 0` to `x = maximumXDistance`.
+        // However, the `sortedByX` is already `sorted by x`.
+        // It means that it is natural that the last element will have the maximum x-distance.
+        // But dividing based on the total number Vs. based on the x-distance will give a different time complexity.
+        // If we divide based on the x-distance, there can be a situation of unbalanced partition.
+        // But if we divide based on the total number of points, there will be always the balanced partition.
+        // Both the parts will get almost equal points.
+        // Because, the initial ultimate goal is to get the smallest possible subset of two points out of many points.
+        // So, we are dividing based on the number of points.
         return closestPointsRecursively(sortedByX, sortedByY, 0, sortedByX.lastIndex)
     }
 
+    // Read the number of points and their coordinates from standard input.
     val totalPairs = readln().toInt()
     val points = mutableListOf<Point>()
     for (i in 1..totalPairs) {
@@ -355,6 +397,7 @@ fun main() {
         points.add(Point(point[0], point[1]))
     }
 
+    // Calculate the result and print it formatted to four decimal places.
     val result = closestPoints(points)
     // Ensure 4 decimal places.
     println("%.4f".format(result))
