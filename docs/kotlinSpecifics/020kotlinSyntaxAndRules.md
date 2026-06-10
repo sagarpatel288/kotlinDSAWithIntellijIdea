@@ -6,8 +6,10 @@
 
 * Modulo
 * Finding the last digit
+* Fibonacci
 * LCM (The Least Common Multiplier) and GCD (Greatest Common Divisor or HCF - Highest Common Factor)
 * Logarithms
+* Euclidean formula to find the distance between two points.
 * Trigonometry (Shapes, area, etc.)
 * Discrete maths
 * Statistics

@@ -31,6 +31,7 @@
 * Euclidean theory of GCD and LCF.
 * Fibonacci formulas.
 * Range sum prefixed.
+* Euclidean formula to find the distance between two points.
 * Finding the minimum value in `O(1)` in a stack using the clever encoding-decoding technique.
   * Reference: Min stack.
 * The circular array instead of a plain array as an underlying data structure for a queue to prevent `O(n)` shifting cost.
