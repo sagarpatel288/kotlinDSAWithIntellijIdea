@@ -110,14 +110,18 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  *
  * ----------------------- Story Time -----------------------
  *
- * We cannot sort the segments like we did in the `050minimumPointsToCoverUnionSegments.kt`.
- * In that problem, to cover the maximum segments, we were allowed to move them.
- * So, we sorted the segments.
+ * We can sort the segments like we did in the `050minimumPointsToCoverUnionSegments.kt`.
+ * Reference: [Max segments in min points](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/66e862b43782b3c098173059ad5104d83ac04214/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/050minimumPointsToCoverUnionSegments.kt)
  *
- * Here, each segment has fixed starting point and end point.
- * Similarly, we have fixed points across the segments.
+ * Here also, each segment has a starting point and an end point.
+ * And, we have a few points across the segments.
  *
- * We can neither move the segments nor the points.
+ * We can sort the segments by their start time.
+ * We can consider `start time` as the arrival time of the segment.
+ * And similarly, we can consider `end time` as the leaving time of the segment.
+ * But in addition to the segments, we also have points.
+ * So, we need a container where we can add all these numbers: start, query, end
+ * And then we should be able to sort that container with the specific order.
  *
  * So, here is the story to visualize and understand the problem.
  *
@@ -300,6 +304,9 @@ fun main() {
      * res/courses/uc/module04DivideAndConquerAssignment/06c_PointsAndSegmentEvents.png
      *
      * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/f6770717e97f32de4f9824eb236b71c58c4bada9/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/06c_PointsAndSegmentEvents.png)
+     *
+     * Look alike problem:
+     * [Max segments in min points](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/66e862b43782b3c098173059ad5104d83ac04214/src/courses/uc/course01algorithmicToolbox/module03GreedyAlgorithms/050minimumPointsToCoverUnionSegments.kt)
      *
      */
     data class Event(val point: Int, val type: Int, val queryIndex: Int = -1)
