@@ -142,6 +142,10 @@ fun main() {
      * | 3    	| 3             	| (5, 6)           	| 3                          	| No                            	| Add 6 to Points 	| 6                          	| [3, 6] 	|
      * | 4    	| 6             	| (4, 7)           	| 6                          	| Yes                           	| No Action       	| 6                          	| [3, 6] 	|
      *
+     *
+     * Look alike problem:
+     * [Sweep Line Algorithm](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/c72305679694f8905c9f2301702202c549f10401/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquerAssignment/06a_pointsAndSegments.kt)
+     *
      */
     fun minimumPointsToTouchAllTheSegments(listOfSegments: List<Pair<Int, Int>>): List<Int> {
         // Regular checks
