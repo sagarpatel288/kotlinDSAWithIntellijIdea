@@ -270,6 +270,13 @@ fun main() {
             // So, compare only the next j points, minOf(i + 7, strip.size)
             // until the y-axis difference exceeds minDistance.
             for (j in i + 1 until minOf(i + 7, strip.size)) {
+                // Caution! Possible point of mistake!
+                // Do not miss this optimization!
+                // This is already `sorted by Y` collection.
+                // So, if we ever find that the distance between the subject point and neighbor point is greater than
+                // the `minDistanceStrip`, then the distance between the subject point and remaining
+                // neighbor points will also be more than the `minDistanceStrip`.
+                // So, we don't need to check those remaining neighbors.
                 // If the y-distance exceeds minDistance, break early.
                 if ((strip[j].yAxis - strip[i].yAxis) >= minDistanceStrip) break
                 // Otherwise, calculate and update the minimum distance.
@@ -311,8 +318,8 @@ fun main() {
         val mid = start + (end - start) / 2
         val midX = sortedByX[mid].xAxis
 
-        // Filter once for left and right subsets of points based on x-axis midpoint.
-        // This filters on the sortedByY help the `closestPointsInStrip` function.
+        // Filter left and right subsets of points based on x-axis midpoint.
+        // These filters on the `sortedByY` help the `closestPointsInStrip` function.
         // Due to these filters, the `closestPointsInStrip` gets the required `sortedByY` strip.
         // The benefit is, `sortedByY` which is required in the `strip` is already sorted.
         // We are not sorting it inside this recursion.
@@ -366,11 +373,16 @@ fun main() {
      */
     fun closestPoints(points: List<Point>): Double {
         // Prepare sorted lists of points by X and Y coordinates to optimize the recursive search.
+        // Sorting by x-axis creates geometric partition.
+        // It helps (powers) the creation, existence, definition of the upcoming strip concept.
+        // Without sorting by x-axis, there can be no strip.
         // Sorting by x-axis is like arranging all the pairs in rows based on their x-coordinates.
         // Imagine marking positions on a horizontal line and placing each pair where its x-coordinate matches.
         // Now the pairs are aligned horizontally, making it easier to compute distances between nearby pairs along the x-axis.
         val sortedByX = points.sortedBy { it.xAxis }
         // Sorting by y-axis is akin to arranging the same pairs vertically, focusing on their y-coordinates.
+        // Sorting by y-axis helps scan the strip.
+        // It also helps follow the "6 to 7 neighbors at most" concept within the strip.
         // This setup helps efficiently calculate distances for subsets of points constrained by y-coordinates,
         // such as the “strip” in the closest pair problem.
         val sortedByY = points.sortedBy { it.yAxis }
