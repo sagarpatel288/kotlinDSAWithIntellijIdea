@@ -1,6 +1,13 @@
 package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module05ProgrammingAssignment01
 
 /**
+ *
+ * ## Reference:
+ * [Vivekanand Khyade](https://youtu.be/b6AGUjqIPsA?si=d7VD4e5lSC8eUuGR)
+ * [Hello Byte](https://youtu.be/c3KYnQ-VEhs?si=KxgK9Wh0wkbt5dWh)
+ * [Playlist](https://youtube.com/playlist?list=PLL-JBmgAwwRXfwWT7k3-Gp-y9shlkphFU&si=YhhpudYX02RTbLf1)
+ *
+ *
  * ## ----------------------- Problem Statement -----------------------
  *
  * [Image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5b4d35fc27f4c235a749fef2c89f05280607d0ec/res/coursera/ucSanDiego/module05DynamicProgramming/03editDistanceMatchString/003editDistanceMatchStrings.png)
@@ -681,14 +688,29 @@ fun main() {
         // which is mandatory for the correctness of the upcoming logic.
         // In this sense, it is the base of the logic, and it is kind of a pre-computed key-lemma.
         // In fact, This is a part of the wagner-fischer process/formula who gave this logic.
+        // Fill the base cases for empty target or reference strings.
         for (i in 0..targetLength) {
             // When `j` is 0, it indicates `0th` character, that is, an empty reference string.
             // Fill `0th` column.
+            // How many operations do we need to match the target string with the reference string?
+            // When the reference string is empty, and:
+            // If `i = 0`, then we will need `0` operations, because both strings are empty.
+            // If `i = 1`, then we will need `1` operation to delete the only character of the target string.
+            // If `i = 2`, then we will need `2` operations to delete those `2` characters of the target string.
+            // And so on...
+            // Clearly, we need `i` operation/s to match the target string with the reference string.
             operations[i][0] = i
         }
         for (j in 0..referenceLength) {
             // When `i` is 0, it indicates `0th` character, that is, an empty target string.
             // Fill `0th` row.
+            // How many operations do we need to match the target string with the reference string?
+            // When the target string is empty, and:
+            // If `j = 0`, then we will need `0` operation, because both the strings are empty.
+            // If `j = 1`, then we will need `1` operation to delete the only character of the reference string.
+            // If `j = 2`, then we will need `2` operations to delete `2` characters of the reference string.
+            // And so on...
+            // Clearly, we need `j` operation/s to match the target string with the reference string.
             operations[0][j] = j
         }
 
@@ -712,6 +734,7 @@ fun main() {
         // `target[i - 1]` = `target[targetLength - 1]`, which is valid.
         // Similarly, when the pointer `j` is `referenceLength`, it becomes:
         // `reference[j - 1]` = `reference[referenceLength - 1]`, which is valid.
+        // Iterate through the strings to fill the DP table based on character matches or edit operations.
         for (i in 1..targetLength) {
             for (j in 1..referenceLength) {
                 // `i` and `j` start from 1, because we have already calculated the value of the 0th index (row/column),
@@ -747,6 +770,7 @@ fun main() {
             }
         }
         // The bottom-last cell value is the result (minimum edit distance of the two strings).
+        // Return the value in the last cell, which represents the minimum edit distance.
         return operations[targetLength][referenceLength]
     }
 
