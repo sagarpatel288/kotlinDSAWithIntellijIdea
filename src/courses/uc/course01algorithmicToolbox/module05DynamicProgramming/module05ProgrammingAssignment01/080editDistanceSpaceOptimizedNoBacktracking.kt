@@ -52,6 +52,8 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * the `current cell (i)`, depends on the `(i) of the previous` row for the delete operation,
  * `i - 1 of the current` row for the insert operation, and `i - 1 of the previous` row for the substitute operation.
  *
+ * [Image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/f970241ced958d1d1c70b7b57a442b5bffee578b/assets/images/algorithmToolbox/module05DynamicProgramming/03editDistanceMatchStringSpaceOptimized/003a_editDistance2DVs1DAlgoTransformation.webp)
+ *
  * [Image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/7d7bfba61c5f9cfd24bfd36e2421532f151a0aef/res/coursera/ucSanDiego/module05DynamicProgramming/03editDistanceMatchStringSpaceOptimized/003editDistanceSpaceOptimizedExample.png)
  *
  * | Previous Row 	| prev ( i - 1 ) 	| prev ( i ) 	|
