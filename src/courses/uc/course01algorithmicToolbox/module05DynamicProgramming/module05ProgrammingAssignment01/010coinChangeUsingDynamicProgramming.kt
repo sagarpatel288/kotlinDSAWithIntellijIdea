@@ -419,6 +419,9 @@ fun main() {
                     // So, we compare: minCoins[5] = 5 Vs. minCoins[5 - 3] + 1 = minCoins[2] + 1 = 2 + 1 = 3.
                     // That's how the complete line of code becomes as below.
                     // It updates minCoins[5] from 5 to 3 as a result of minOf(minCoins[5], minCoins[5-3] + 1).
+                    // Caution! Possible point of mistake!
+                    // Do not forget to use `minOf(min[amount], min[amount - coin] + 1)`, because we are trying
+                    // different coins and we will take the answer (combination) that requires minimum coins.
                     minCoins[amount] = minOf(minCoins[amount], minCoins[amount - coin] + 1)
                 }
             }
