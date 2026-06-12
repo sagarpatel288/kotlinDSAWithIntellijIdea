@@ -253,6 +253,16 @@ fun main() {
         // When one of the strings is empty.
         // Visualize: We are filling the first row.
         // The columns keeps changing (incrementally and horizontal) to fill each cell of the first row.
+        // This is the base case where we are filling the very first entire row, where the longer string is empty.
+        // This is the 0th row.
+        // | 0 | 0 | S | U | N |
+        // |---|---|---|---|---|
+        // | 0 | 0 | 1 | 2 | 3 | <-------- This is what we are filling at the moment from left to right.
+        // | S |   |   |   |   |
+        // | H |   |   |   |   |
+        // | I |   |   |   |   |
+        // | N |   |   |   |   |
+        // | E |   |   |   |   |
         for (i in 0..shorter.length) {
             prev[i] = i
         }
@@ -264,7 +274,10 @@ fun main() {
         // each cell of the row.
         // Once we fill the entire row, the inner for loop gets finished, and the outer for loop changes the row.
         // Hence, the outer for loop moves vertical and downwards to change the row.
+        // `i` is the pointer that changes the row.
         for (i in 1..longer.length) {
+            // Each row starts from here, where the column value is `0` (meaning, empty string).
+            // curr[0] represents the value of the "0th" column (the very first, base-case, empty-string column).
             // As soon as we start the iteration for the vertical rows,
             // the first index of the current array is always equal to the length up to the
             // current vertical row character.
@@ -278,8 +291,14 @@ fun main() {
             // The inner for loop represents the shorter string (columns). It moves horizontally. Column by column.
             // The inner for loop fills each cell of the row.
             // The inner for loop moves horizontal and increments the column index.
+            // `j` is the pointer that changes the columns.
             for (j in 1..shorter.length) {
                 // Compare the character of the longer string with each character of the shorter string.
+                // `i` takes the value from the row, `j` takes the value from the column.
+                // `j` is the cell index where we want to put the value.
+                // Because we are changing columns (`j`) more frequently than the row.
+                // It is like:
+                // (r_i, c_j) = (0, 0), (0, 1), (0, 2)...(1, 0), (1, 1), (1, 2)...(2, 0), (2, 1), (2, 2)... and so on...
                 if (longer[i - 1] == shorter[j - 1]) {
                     curr[j] = prev[j - 1]
                 } else {
@@ -290,15 +309,18 @@ fun main() {
                 }
             }
             // Once we fill the entire array (covering each column), and before we change the row,
-            // the current becomes the previous.
+            // the previous becomes the current.
             // Or in other words, we assign the current array to the previous array.
-            // In this way, the variable `prev` now represents the `curr` array.
+            // In this way, the variable `prev` now represents (points to) the `curr` array.
+            // Then, what about the `old curr` array?
+            // We temporarily give it the old value of the `prev`, the old value of `prev` before we did `prev = curr`.
             // We assign the old `prev` to the `curr` to reduce the garbage.
             val temp = prev
             prev = curr
             curr = temp
         }
 
+        // The last value of the curr (`prev` points to the `curr`. So, `prev` is the `curr`!).
         return prev[shorter.length]
     }
 
