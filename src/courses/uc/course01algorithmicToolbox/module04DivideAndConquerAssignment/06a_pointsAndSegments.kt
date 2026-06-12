@@ -14,11 +14,11 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  *
  * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a882c2ce8c809ddefc054cbf8737cdcf6643695f/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/06a_LotterySegment.png)
  *
- * res/courses/uc/module04DivideAndConquerAssignment/06b_PointsAndSegments.png
+ * res/courses/uc/module04DivideAndConquerAssignment/06e_PointsAndSegments.png
  *
  * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a882c2ce8c809ddefc054cbf8737cdcf6643695f/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/06b_PointsAndSegments.png)
  *
- * res/courses/uc/module04DivideAndConquerAssignment/06c_PointsAndSegmentEvents.png
+ * res/courses/uc/module04DivideAndConquerAssignment/06g_PointsAndSegmentEvents.png
  *
  * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a882c2ce8c809ddefc054cbf8737cdcf6643695f/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/06c_PointsAndSegmentEvents.png)
  *
@@ -301,7 +301,7 @@ fun main() {
      * To visualize the explanation, please check the problem-statement comments.
      * Specifically:
      *
-     * res/courses/uc/module04DivideAndConquerAssignment/06c_PointsAndSegmentEvents.png
+     * res/courses/uc/module04DivideAndConquerAssignment/06g_PointsAndSegmentEvents.png
      *
      * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/f6770717e97f32de4f9824eb236b71c58c4bada9/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/06c_PointsAndSegmentEvents.png)
      *

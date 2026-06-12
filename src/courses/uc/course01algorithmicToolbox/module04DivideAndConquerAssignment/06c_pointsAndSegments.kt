@@ -25,8 +25,9 @@ class SweepLinePointsAndSegments {
     }
 
     fun countSegments(segments: List<Pair<Int, Int>>, queries: List<Int>): IntArray {
-        val events = mutableListOf<Event>()
         // Create events for the start and end of each segment.
+        val events = mutableListOf<Event>()
+        // Add separate events for the start and end of each segment.
         for (segment in segments) {
             events.add(Event(segment.first, EventType.START))
             events.add(Event(segment.second, EventType.END))
