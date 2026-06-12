@@ -14,6 +14,10 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  *
  * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a882c2ce8c809ddefc054cbf8737cdcf6643695f/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/06a_LotterySegment.png)
  *
+ * assets/images/algorithmToolbox/module04DivideAndConquerAssignment/06c_PointsAndSegmentsSweepLineAlgorithm.webp
+ *
+ * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/045b5da854eacb1bb6cf14f638cc9d2f6f46c167/assets/images/algorithmToolbox/module04DivideAndConquerAssignment/06c_PointsAndSegmentsSweepLineAlgorithm.webp)
+ *
  * res/courses/uc/module04DivideAndConquerAssignment/06e_PointsAndSegments.png
  *
  * [image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a882c2ce8c809ddefc054cbf8737cdcf6643695f/res/coursera/ucSanDiego/module04DivideAndConquerAssignment/06b_PointsAndSegments.png)
