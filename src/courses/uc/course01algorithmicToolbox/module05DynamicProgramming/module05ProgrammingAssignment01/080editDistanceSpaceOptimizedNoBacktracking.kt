@@ -267,6 +267,8 @@ fun main() {
             // the first index of the current array is always equal to the length up to the
             // current vertical row character.
             // Because, the first column considers the case where the string that represents the columns, is empty.
+            // It means that the number of operation we need when one string is empty but the other string is non-empty,
+            // is equal to the number of characters of the non-empty string.
             // To understand:
             // Visualize: We are filling each cell of the first column.
             // The row keeps changing (incrementally and vertically) to fill each cell of the first column.
