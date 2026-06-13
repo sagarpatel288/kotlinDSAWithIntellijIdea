@@ -1,6 +1,12 @@
 package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module05ProgrammingAssignment01
 
 /**
+ * Note: This is the `Longest common subsequnces`, and not the `Longest common substring`!
+ *
+ * References:
+ *
+ * [Playlist](https://youtube.com/playlist?list=PLL-JBmgAwwRWt29tPv_KrUW2ALv-y8B1b&si=RiQy5ucEFzlld24S)
+ *
  * # ----------------------- History -----------------------
  *
  * Based on the `Bellman`'s DP theory, James Hunt and Douglas Mcilroy gave LCS-like approach for their `diff` program.
@@ -23,9 +29,6 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  *
  * # ----------------------- Formulas -----------------------
  *
- * References:
- *
- * []()
  *
  * According to the `Diff` program, suppose we have two strings.
  * Similar to the last [Edit Distance](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d54335c0d51925e1ef9183c4ba7107f3d40b66d9/src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/050editDistanceMatchStrings.kt)
