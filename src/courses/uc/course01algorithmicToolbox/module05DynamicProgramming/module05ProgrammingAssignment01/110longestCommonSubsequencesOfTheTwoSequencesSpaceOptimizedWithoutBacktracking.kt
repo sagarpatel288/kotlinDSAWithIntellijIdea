@@ -48,12 +48,54 @@ fun main() {
         }
         var prevRow = IntArray(shorterList.size + 1)
         var currRow = IntArray(shorterList.size + 1)
+
         // We can replace this first `for loop` with default initialization to `0` for the `prevRow`.
-        for (i in 0..prevRow.lastIndex) {
-            prevRow[i] = 0
+        // When one of the strings is empty.
+        // Visualize: We are filling the first row.
+        // The columns keeps changing (incrementally and horizontal) to fill each cell of the first row.
+        // This is the base case where we are filling the very first entire row, where the longer string is empty.
+        // This is the 0th row.
+        //
+        // | 0 | 0 | S | U | N |
+        // |---|---|---|---|---|
+        // | 0 | 0 | 0 | 0 | 0 | <-------- This is what we are filling at the moment from left to right.
+        // | S |   |   |   |   |
+        // | H |   |   |   |   |
+        // | I |   |   |   |   |
+        // | N |   |   |   |   |
+        // | E |   |   |   |   |
+        //
+        // In this implementation, `j` represents the columns. (Check the inner loop to understand.)
+        // The pointer `j` moves from left-to-right to fill the columns for each row.
+        // So, to align with it, we can take `j` instead of `i` to keep it easy to understand and relevant.
+        //
+        for (j in 0..prevRow.lastIndex) {
+            prevRow[j] = 0
         }
+
         for (i in 1..longerList.size) {
             // We don't have to assign the value `0` if we initialize the `currRow` with the default value `0`.
+            // curr[0] = (r_i, 0)
+            // Here, one of the two strings is empty.
+            // 0th column indicates that the string is empty.
+            // Hence, there will be no matching!
+            // That's why:
+            // curr[0] = (r_i, 0)
+            // curr[0] fills the 0th column for each row, only one cell at a time, followed by the inner loop.
+            //       |
+            //       |
+            //       |
+            //       |
+            //       V
+            // | 0 | 0 | S | U | N |
+            // |---|---|---|---|---|
+            // | 0 | 0 | 0 | 0 | 0 |
+            // | S | 0 | <---------- Later, the inner loop fills the remaining columns of the row from left to right.
+            // | H |   | <----------
+            // | I |   | <----------
+            // | N |   | <----------
+            // | E |   | <----------
+            //
             currRow[0] = 0
             for (j in 1..shorterList.size) {
                 if (longerList[i - 1] == shorterList[j - 1]) {
