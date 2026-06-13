@@ -263,8 +263,13 @@ fun main() {
         // | I |   |   |   |   |
         // | N |   |   |   |   |
         // | E |   |   |   |   |
-        for (i in 0..shorter.length) {
-            prev[i] = i
+        //
+        // In this implementation, `j` represents the columns. (Check the inner loop to understand.)
+        // The pointer `j` moves from left-to-right to fill the columns for each row.
+        // So, to align with it, we can take `j` instead of `i` to keep it easy to understand and relevant.
+        //
+        for (j in 0..shorter.length) {
+            prev[j] = j
         }
 
         // The outer for loop represents the longer string (rows). It moves vertically, Row by row.
@@ -287,11 +292,43 @@ fun main() {
             // To understand:
             // Visualize: We are filling each cell of the first column.
             // The row keeps changing (incrementally and vertically) to fill each cell of the first column.
+            // curr[0] = (r_i, 0)
+            // curr[0] fills the 0th column for each row, only one cell at a time, followed by the inner loop.
+            //       |
+            //       |
+            //       |
+            //       |
+            //       V
+            // | 0 | 0 | S | U | N |
+            // |---|---|---|---|---|
+            // | 0 | 0 | 1 | 2 | 3 |
+            // | S | 1 | <---------- Later, the inner loop fills the remaining columns of the row from left to right.
+            // | H |   | <----------
+            // | I |   | <----------
+            // | N |   | <----------
+            // | E |   | <----------
             curr[0] = i
             // The inner for loop represents the shorter string (columns). It moves horizontally. Column by column.
             // The inner for loop fills each cell of the row.
             // The inner for loop moves horizontal and increments the column index.
             // `j` is the pointer that changes the columns.
+            //
+            // | 0 | 0 | S | U | N |
+            // |---|---|---|---|---|
+            // | 0 | 0 | 1 | 2 | 3 | <-------- We have already filled this via the independent for loop:  prev[i] = i
+            //
+            // The inner loop fills these columns from left to right for each row.
+            //       |   |   |   |
+            //       |   |   |   |
+            //       |   |   |   |
+            //       |   |   |   |
+            //       V   V   V   V
+            // | S | 1 | 0 | 1 | 2 | <-- Finishing the inner loop = Finishing all the columns of the row.
+            // | H |   |   |   |   | <-- Then, the outer loop sets the new row and the inner loop changes the columns.
+            // | I |   |   |   |   | <-- It continues until we finish the last row (all the columns of the last row).
+            // | N |   |   |   |   |
+            // | E |   |   |   |   |
+            //
             for (j in 1..shorter.length) {
                 // Compare the character of the longer string with each character of the shorter string.
                 // `i` takes the value from the row, `j` takes the value from the column.
@@ -299,6 +336,26 @@ fun main() {
                 // Because we are changing columns (`j`) more frequently than the row.
                 // It is like:
                 // (r_i, c_j) = (0, 0), (0, 1), (0, 2)...(1, 0), (1, 1), (1, 2)...(2, 0), (2, 1), (2, 2)... and so on...
+                //
+                // Think of `prev` and `curr` as two rows (from left to right).
+                // `prev` and `curr` are our `1-D-Arrays`.
+                // We need and track only two columns: `j - 1` and `j` for each row (1-D array).
+                // Two 1-D-Arrays, and previous and current index for each is all we need to calculate the cost.
+                //
+                // | prev | j - 1 | j |
+                // |------|-------|---|
+                // | curr | j - 1 | j |
+                //
+                // Using which we can calculate the cost as:
+                //
+                // | prev | j - 1  (replace)    | j (delete) |
+                // |      |                \    |      |     |
+                // |      |                 \   |      |     |
+                // |      |                  ⊿  |      ▿     |
+                // |------|---------------------|------------|
+                // | curr | j - 1 (insert) --▷  | j          |
+                //
+                //
                 if (longer[i - 1] == shorter[j - 1]) {
                     curr[j] = prev[j - 1]
                 } else {
