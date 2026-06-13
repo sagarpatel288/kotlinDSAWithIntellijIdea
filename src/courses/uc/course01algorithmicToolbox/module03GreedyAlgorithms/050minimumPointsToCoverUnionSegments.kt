@@ -185,6 +185,10 @@ fun main() {
             // Check the below image to understand this condition (logic):
             // [Image03]
             // (https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/1f9880152ed260ea5abe0ce0a908ba4c1155ae9a/assets/images/algorithmToolbox/module03AlgorithmExercise/050_3minimumPointsToCoverUnionSegments.png)
+            // By observing the image, we find that:
+            // Whether we sort by start or end, the condition will always be: if (point < start)
+            // Then, if we have sorted it by start, then: add(start)
+            // And if we have sorted it by end, then: add(end)
             if (currentEnd < segment.first ) {
                 currentEnd = segment.second
                 mutableListOfCommonPoints.add(currentEnd)
