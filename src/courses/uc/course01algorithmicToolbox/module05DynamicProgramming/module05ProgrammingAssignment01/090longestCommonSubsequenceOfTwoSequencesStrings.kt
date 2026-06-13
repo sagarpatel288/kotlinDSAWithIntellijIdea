@@ -23,6 +23,10 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  *
  * # ----------------------- Formulas -----------------------
  *
+ * References:
+ *
+ * []()
+ *
  * According to the `Diff` program, suppose we have two strings.
  * Similar to the last [Edit Distance](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d54335c0d51925e1ef9183c4ba7107f3d40b66d9/src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/050editDistanceMatchStrings.kt)
  * problem, each character of one string represents rows, and each character of another string represents columns.
@@ -123,6 +127,8 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * Now, the existing known LCS value is 3.
  * And so on...
  *
+ * That's why we do `+1`. It is essentially a counter that we increase whenever we find a match.
+ *
  * So, if `rowString[i - 1] == columnString[j - 1]`, then we have one more match (+1) then the last stored value.
  * Hence, we do: `cell[i][j] = 1 + cell[i - 1][j - 1]`, which simply signifies that we found one more match.
  *
@@ -186,6 +192,10 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * We use a 2D-array (a table) of size `(n + 1)(m + 1)`.
  * We ignore the constants in the complexity analysis.
  * Hence, the space complexity is `O(n * m)`.
+ * Note that these are not two separate 1-D arrays!
+ * If they were two separate 1-D arrays, then the space complexity would have been: `(n + m)`
+ * But here, it is a 2-D array of size `(n + 1)(m + 1)`.
+ * Hence, the space complexity is: `(n * m)`.
  */
 fun main() {
 
