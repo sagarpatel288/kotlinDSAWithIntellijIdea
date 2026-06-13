@@ -71,6 +71,11 @@ fun main() {
         var targetPointer = target.length
         var referencePointer = reference.length
         var numberOfOperations = 0
+        // Caution! Possible point of mistake!
+        // The condition uses `> 0` and not the `>= 0`.
+        // Because we are going to perform `pointer - 1` to get the actual indexed element.
+        // So, if the condition uses `>=0`, then it can cause `-1` index and `IndexOutOfBounds` exception.
+        // Hence, use `> 0`.
         while (targetPointer > 0 || referencePointer > 0) {
             // Checking the last characters of each string.
             if (targetPointer > 0) {
