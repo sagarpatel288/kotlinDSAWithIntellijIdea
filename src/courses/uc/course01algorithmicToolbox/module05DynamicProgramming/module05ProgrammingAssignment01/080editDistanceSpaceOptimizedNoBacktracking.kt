@@ -272,6 +272,7 @@ fun main() {
             prev[j] = j
         }
 
+        // Outer `for` loop => Longer string.
         // The outer for loop represents the longer string (rows). It moves vertically, Row by row.
         // To understand:
         // Visualize:
@@ -308,6 +309,8 @@ fun main() {
             // | N |   | <----------
             // | E |   | <----------
             curr[0] = i
+
+            // Inner `for` loop => Shorter string.
             // The inner for loop represents the shorter string (columns). It moves horizontally. Column by column.
             // The inner for loop fills each cell of the row.
             // The inner for loop moves horizontal and increments the column index.
