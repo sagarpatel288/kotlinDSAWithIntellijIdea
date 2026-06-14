@@ -13,12 +13,14 @@ class TwoPilesOfRocks {
     fun fillResult(rocks: Int): Map<Pile, Boolean> {
         val dp = Array(rocks + 1) { BooleanArray(rocks + 1) }
         dp[0][0] = false
-        var canWin = false
         for (i in 0..rocks) {
             for (j in 0..rocks) {
                 // Skip [0,0] because we have already defined it.
                 if (i == 0 && j == 0) continue
                 // Otherwise:
+                // Caution! Possible point of mistake!
+                // We reset the `canWin` inside the inner `for` loop, just before our calculation.
+                var canWin = false
                 // A state [i, j] is a winning state if it can hand over a losing state.
                 // If we can hand over a losing configuration, then the current state [i, j] is a winning state.
                 // If the configuration that we hand over after removing a rock from each pile is a losing state,
