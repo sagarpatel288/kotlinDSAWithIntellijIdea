@@ -1,0 +1,5 @@
+package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module05puzzleAssignment02
+
+class TwoPilesOfRocksMaths {
+
+}
