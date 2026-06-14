@@ -69,7 +69,7 @@
 * Explain `compareTo`: Why and how does the order matter?
 * What is the difference between `(a + b).compareTo(b + a)` and `(b + a).compareTo(a + b)`?
 * How do we get ascending and descending order using `compareTo`?
-* 
+* `compareTo` Vs. `compareValuesBy`
 
 ## Exceptions and Errors
 
