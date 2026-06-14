@@ -251,6 +251,7 @@ fun main() {
         var curr = IntArray(shorter.length + 1)
 
         // When one of the strings is empty.
+        // First, we fill the first row, the row that represents that one of the two strings is empty.
         // Visualize: We are filling the first row.
         // The columns keeps changing (incrementally and horizontal) to fill each cell of the first row.
         // This is the base case where we are filling the very first entire row, where the longer string is empty.

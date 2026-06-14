@@ -2,11 +2,19 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
 
 /**
  *
+ * # Visual
+ *
+ * [Take the last stone](https://discrete-math-puzzles.github.io/puzzles/take-the-last-stone/index.html)
+ *
  *  ----------------------- Problem Statement -----------------------
  *
- *  There are two piles of ten rocks. In each turn, you may either take one
- *  rock from a single pile, or one rock from both piles. The player that
- *  takes the last rock wins the game. Your opponent moves first.
+ *  There are two piles of ten rocks.
+ *
+ *  In each turn, you may either take one rock from a single pile, or one rock from both piles.
+ *
+ *  The player that takes the last rock wins the game.
+ *
+ *  Your opponent moves first.
  *
  *  We need to develop a program that will help us in winning the game.
  *
@@ -108,6 +116,35 @@ fun main() {
          *
          * "If I make this move, will I leave the opponent in a losing position?"
          *
+         * In other words:
+         *
+         * "What configuration (losing or winning) am I handing over to the opponent?"
+         *
+         * If the player hands over the winning configuration to the opponent, then it is the losing move for the player.
+         *
+         * And if the player hands over the losing configuration to the opponent, then it is the winning move for the player.
+         *
+         * We don't play on the configuration we create. The opponent plays on it.
+         *
+         * Therefore, our objective is to hand over a losing configuration on which the opponent will have to play.
+         *
+         * For example, (1, 0), (0, 1), and (1, 1) are the winning configurations.
+         *
+         * The player that receives one of these configurations wins the game.
+         *
+         * So, we want to ensure tha we don't hand over the winning configuration.
+         *
+         * We can think of this like the chess game.
+         *
+         * When it is our turn, we want to create "check and mate (checkmate)" situation (configuration) for the
+         * opponent.
+         *
+         * The "Check and mate (Checkmate)" configuration is a losing configuration.
+         *
+         * So, if we are handing over the losing configuration, we win.
+         *
+         * It means that whether we win or lose, depends upon what configuration we hand over.
+         *
          * The player starts with no confidence of winning: ```canWin = false```.
          *
          * The player evaluates Move Type 1:
@@ -127,6 +164,26 @@ fun main() {
          * saving unnecessary computation.
          *
          * Recursive function to compute results
+         *
+         * Think of this [fillResults] function as a magic crystal ball that can read the future.
+         * Or more precisely, think of this [fillResults] function as the Doctor Strange.
+         * Doctor Strange can check all the possibilities of every move.
+         * And using his power, we can decide which configuration we should hand over.
+         *
+         * For example, suppose we have received (4, 1).
+         * Now, we will try to give the configuration that cannot end up in the winning situation for the opponent.
+         * So, we run this program.
+         * For the three possible moves: (1) Take one from right (2) Take one from left (3) Take one from each
+         * It says that: (4, 0) = false, (3, 1) = true, and (3, 0) = true.
+         * So, we will try to hand over the (4, 0) configuration to the opponent.
+         * Because (4, 0) = false, which indicates that it is a losing configuration.
+         * If we hand over the losing configuration to the opponent, we are winning.
+         * To hand over (4, 0), we will take one rock from the right pile.
+         * So that (4, 1) becomes (4, 0) which is a losing configuration.
+         * The opponent receives (4, 0) and gives us (3, 0).
+         * We receive (3, 0) and give (2, 0).
+         * The opponent receives (2, 0) and gives us (1, 0).
+         * We take the last rock and we win.
          */
         private fun fillResults(left: Int, right: Int): Boolean {
             val currentPile = Pile(left, right)
@@ -145,6 +202,21 @@ fun main() {
             // For example, if the previous player has already set it (stored value) as a "winning configuration",
             // then we have to flip it because as a reader, as a caller of this function, we get that configuration,
             // and it becomes a "losing configuration" for us.
+            // The current player is finding the state in the Cache to hand over it to the opponent.
+            // If the Cache (map) has that state as the winning state, it means that the current player hands over
+            // the winning state to the opponent, and it is a bad move (losing state) for the current player.
+            // Similarly, if the cache (map) has that state saved as the losing state, it means that the current
+            // player is going to hand over the losing state to the opponent, and it is a good move (winning state)
+            // for the current player.
+            // Think of this cache as a box that holds piles or cards.
+            // We try to find a particular pile (or a card) and hand over it to the opponent.
+            // If the pile (card) has a winning state, we hand over the winning state to the opponent.
+            // And if the opponent gets a winning state, it means that we get the losing state.
+            // Similarly, if the pile (card) has a losing state, we hand over the losing state to the opponent.
+            // And if the opponent gets a losing state, it means that we get the winning state.
+            // So, whether we win or lose, is the opposite of what this box gives us.
+            // If it gives us a winning state, we lose.
+            // If it gives us a losing state, we win.
             resultMap[currentPile]?.let { return !it }
 
             // A boolean variable that represents whether the current player can win from the current state of the piles
@@ -191,8 +263,27 @@ fun main() {
 
             // Store the result.
             // The reader, the caller of this function (current player), performs the storage operation.
+            // If the current configuration (left, right) has at least one winning possibility,
+            // then it is the winning configuration.
+            // Otherwise, it is the losing configuration.
             resultMap[currentPile] = canWin
 
+            // If someone has called (asked) to this function about the (left, right) configuration,
+            // then the question will be:
+            // I handed over this configuration. Will I win or lose after giving this configuration?
+            // If it was the winning configuration, then the person who is asking this question is losing the game.
+            // And if it was the losing configuration, then the person who is asking this question is winning the game.
+            // The relationship is opposite.
+            // Similarly, if we are asking (calling) to this function, then it will be like:
+            // I am handing over this configuration. Will I win or lose?
+            // If we are handing over the winning configuration, we are losing.
+            // If we are handing over the losing configuration, we are winning.
+            // Again, the relationship is opposite.
+            // The important perspective to understand is that:
+            // We are asking: What happens if I give this configuration or if I have given this configuration.
+            // We have three possible moves.
+            // So, we ask this question, we use this function for each possible move.
+            // And then the goal is to hand over the configuration that does not have any winning possibility.
             // Return the result for the current player (opposite of the stored result).
             // Why opposite? Because we have calculated what the `canWin` result will be after we make a move.
             // Does it provide a winning position to the opponent? If so, it is a `losing move` for us.
@@ -211,6 +302,10 @@ fun main() {
             // We return the vantage point of the other (next) player receiving this return value.
             // And the vantage point of the opponent (next, other) player is opposite to our vantage point.
             // Hence, we return the opposite.
+            // The variable `canWin` represents the state the current player is going to hand over.
+            // If it is the winning state, then the current player might lose the game.
+            // And if it is the losing state, the current player might win the game.
+            // That's why, we return the opposite.
             return !canWin
         }
     }
