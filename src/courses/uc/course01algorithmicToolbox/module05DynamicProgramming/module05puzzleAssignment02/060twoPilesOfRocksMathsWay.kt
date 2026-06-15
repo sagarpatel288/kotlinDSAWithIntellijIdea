@@ -7,6 +7,11 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  *
  * * [Two Piles And Rocks: Dynamic Programming](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/7addc079adc4c41984786eaa6aa90eaf4a4f5c38/src/courses/uc/course01algorithmicToolbox/module05DynamicProgramming/module05puzzleAssignment02/040twoPilesOfRocksDp.kt)
  *
+ * # Visual
+ *
+ * [Take the last stone](https://discrete-math-puzzles.github.io/puzzles/take-the-last-stone/index.html)
+ * [Two Piles, Three Stones](https://discrete-math-puzzles.github.io/puzzles/three-rocks-game/index.html)
+ *
  * # Pattern
  *
  * * If we look at the logs, there is a definite pattern for the losing state.
