@@ -1,6 +1,10 @@
 package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module05puzzleAssignment03
 
 /**
+ *  # Visual
+ *
+ *  [3 Piles Of Rocks: Take the last stone](https://discrete-math-puzzles.github.io/puzzles/three-rocks-game/index.html)
+ *
  *  ----------------------- Problem Statement -----------------------
  *
  *  There are two piles of ten rocks. In each turn, you may take up to three
