@@ -410,9 +410,13 @@ fun main() {
     fun maxShopping(capacity: Int, items: List<Int>) {
         // A container (table) of size + 1 to cover the 0th row and 0th column cases.
         val table = Array(items.size + 1) { IntArray(capacity + 1) }
+        // We have a list of items, and we pick an item from it.
+        // We need to pick up a combination of items such that we can utilize the maximum capacity of the knapsack.
         // The outside item loop starts from 1 as we have already covered the 0th row.
         for (i in 1..items.size) {
             // The inside weight loop starts from 1 as we have already covered the 0th column.
+            // Notice that this is not a list of capacity or weight.
+            // It just starts from 1 and goes up to the maximum capacity (weight) of the knapsack.
             for (weight in 1..capacity) {
                 // Remember to read the item, and not the index, i!
                 if (items[i - 1] <= weight) {
