@@ -360,6 +360,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * cell(i, capacity) = maxOf ( cell(i - 1, capacity), wi + cell(i - 1, capacity - wi))
  * ```
  * Here, `wi + cell(i - 1, capacity - wi)` conveys `current item + remaining items for the remaining capacity`.
+ * And by `remaining items`, I mean, maximum possible items for the remaining capacity.
  * Let us verify the formula:
  * ```
  * cell(2, 5)
