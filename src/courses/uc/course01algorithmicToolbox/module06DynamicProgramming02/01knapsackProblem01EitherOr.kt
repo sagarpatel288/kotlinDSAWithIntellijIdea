@@ -150,6 +150,31 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * When this process continues, we get evolution.
  * So, understand the formulas (logic, expressions) properly to be able to solve unknown problems.
  *
+ * # Story
+ *
+ * **Note: This is a simple story to reveal the core logic of this problem. Please do not try to find the story itself logical!**
+ *
+ * * Suppose that you are running an NGO, and your current balance is $100.
+ * * Your NGO takes only one donation per day, between 10:00 AM to 21:30 PM.
+ * * Either you get donation, or you don't get any donation.
+ * * You check your balance every day at 09:30 AM, before you start accepting the donation.
+ * * Suppose that today, it's Monday, and the balance is $100.
+ * * Now, on Tuesday, you find that your balance is $150.
+ * * It clearly indicates that you have got some donation on Monday.
+ * * Then, on Wednesday, you find that it is the same $150 in your account.
+ * * It means that you did not receive any donation on Tuesday.
+ * * The pattern is, if the answer is the same as the previous one, it means that there is no addition.
+ * * We compare our current situation with the previous situation to understand what changed.
+ * * If we denote today with `i`, then the previous day (yesterday) is `i - 1`.
+ * * If the value of `i` and `i - 1` are the same, then nothing has changed.
+ * * If they are not the same, something has changed.
+ * * We can map (model) this story and this problem as below:
+ * * The amount in our bank account is our capacity, and days are our items.
+ * * Some days, we might get $50, the other day, we might get $100, and sometimes, we might get nothing.
+ * * But to know if we have got anything, we compare the amount we had yesterday (i - 1) and today (i).
+ * * If there is a difference, it means we have got some donation (item).
+ * * If they are the same, it means that we have got nothing.
+ *
  * # ----------------------- Building the logic: Step-By-Step -----------------------
  *
  * ## ----------------------- Formula -----------------------

@@ -1,6 +1,11 @@
 package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
 
 /**
+ * # Reference:
+ *
+ * * [Abdul Bari Sir](https://youtu.be/nLmhmB6NzcM?si=IFAcqcsGxfozxVvw)
+ * * [Jenny Madam](https://youtu.be/PfkBS9qIMRE?si=5b67n1jo08WPIePH)
+ *
  * # ----------------------- Problem statement -----------------------
  *
  * This is the same problem that we have seen below:
@@ -182,7 +187,9 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * previous examples of backtracking.
  *
  * References:
+ *
  * 1. src/courses/uc/module05DynamicProgramming/module05ProgrammingAssignment01/070editDistanceBacktrackReconstruct.kt
+ *
  * 2. src/courses/uc/module05DynamicProgramming/module05ProgrammingAssignment01/100longestCommonSequencesOfTwoSequencesWithBacktracking.kt
  *
  * So, we know that we start from the last cell and move backward.
@@ -234,10 +241,33 @@ fun main() {
         for (i in items.size downTo 1) {
             // If the value with this item is different from the value without this item for the same weight capacity,
             // it means that we have included this item.
+            // For example, dp[5][5] represents the answer when we have 5 items and the max capacity is 5.
+            // Now, if dp[5][5] is equal to dp[4][5], it means that we did (could) not include the 5th item.
+            // And if the answer of dp[5][5] is different from the dp[4][5], it means that we have included the 5th item.
+            // We can think of it like below also:
+            // Recall the condition that decides whether to include a particular item `i` or exclude for capacity `j`.
+            // dp[i][j] = maxOf(exclude, include)
+            // Exclude = dp[i - 1][j]
+            // Include = wi + dp[i - 1][j - wi] // wi represents the weight of the current item: items[i - 1]
+            // If dp[i][j] == dp[i - 1][j], it means we have excluded the item.
+            // Otherwise, we have included the item.
             if (table[i][currentCapacity] != table[i - 1][currentCapacity]) {
                 // Yes, we have included this item as a part of the solution.
                 selectedItems.add(items[i - 1])
                 // Now, find the optimal value without this item.
+                // We found the item/s that we have added for the `currentCapacity`.
+                // Next, we need to find the solution for: `currentCapacity - currentlySelectedItemWeight`.
+                // That will give us the new and reduced `currentCapacity`.
+                // For example, after we find the answer that includes the 5th item,
+                // the next step is to find the answer that does not include the 5th item.
+                // And if that answer does not include the 5th item, then the max capacity can also not include the weight of the 5th item.
+                // So, we reduce the current capacity by the weight of the 5th item.
+                // We subtract the weight of the 5th item from the current capacity.
+                // And that's how we get the new `currentCapacity`.
+                // Think of it in this way:
+                // If we have taken some item, it is obvious that our bag will have less capacity going forward.
+                // How much less? We subtract the `currentCapacity` by the weight of the item.
+                // So, the new remaining capacity of the bag will be: `currentCapacity - currentItemWeight`.
                 currentCapacity -= items[i - 1]
             }
         }
