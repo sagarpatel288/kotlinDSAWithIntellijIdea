@@ -30,9 +30,9 @@ class TwoPilesOnePilePerTurn {
         // The leverage level
         // If it is `0`, we are unarmed.
         // If it is `0`, it is a losing configuration.
-        val p1ThreatLevel = state.p1 % losingConfig
-        val p2ThreatLevel = state.p2 % losingConfig
-        val xorSum = p1ThreatLevel xor(p2ThreatLevel)
+        val p1WinLevel = state.p1 % losingConfig
+        val p2WinLevel = state.p2 % losingConfig
+        val xorSum = p1WinLevel xor(p2WinLevel)
         // If current state is perfectly balanced (xor == 0), we are forced to make it unbalanced.
         // Our move will make the state unbalanced.
         // We will hand over an unbalanced state and the opponent will hand over the balanced state back to us.
