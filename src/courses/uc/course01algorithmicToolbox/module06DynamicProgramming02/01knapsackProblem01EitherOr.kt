@@ -1,6 +1,11 @@
 package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
 
 /**
+ * # Reference
+ *
+ * * [Abdul Bari Sir](https://youtu.be/nLmhmB6NzcM?si=IFAcqcsGxfozxVvw)
+ * * [Jenny Madam](https://youtu.be/PfkBS9qIMRE?si=5b67n1jo08WPIePH)
+ *
  * # ----------------------- Problem Statement -----------------------
  *
  * Maximum Amount of Gold Problem:
@@ -125,7 +130,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * for different problem statements, scenarios, contexts, etc.
  *
  * For example, we might have a different formula to solve the edit distance problem,
- * then the longest common subsequence.
+ * than the longest common subsequence.
  *
  * ### 4. Conclusion:
  *
@@ -269,9 +274,21 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * #### ----------------------- Building the formula from the observation, pattern, and behavior -----------------------
  *
+ * ##### ----------------------- cell(2, capacity: 4) -----------------------
+ *
+ * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+ * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
+ * |       0      	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	| 0 	|  0 	|
+ * | 1 (Weight 1) 	| 0 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	| 1 	|  1 	|
+ * | 2 (Weight 4) 	| 0 	| 1 	| 1 	| 1 	| 4 	|   	|   	|   	|   	|   	|    	|
+ * | 3 (Weight 8) 	| 0 	|   	|   	|   	|   	|   	|   	|   	|   	|   	|    	|
+ *
  * The column 4 conveys that the maximum weight capacity of the knapsack is 4.
  * The value cell(2, 4) = 4 conveys that we have picked up the items whose total weight is 4.
- * The remaining weight capacity of the knapsack is: `4 - 4 = 0`.
+ * The remaining weight capacity of the knapsack is:
+ * The total weight of the items we have picked up - Knapsack capacity = `4 - 4 = 0`.
+ * Mathematical Confirmation:
+ * The remaining weight capacity `0` indicates the column of the previous row.
  * If we go to the previous row:
  * `( i - 1 ) = ( 2 - 1 ) = 1` and the column `0` (the remaining weight capacity of the knapsack),
  * we find the value cell(1, 0) = 0, and it conveys that at this stage, we cannot add any other item.
@@ -342,6 +359,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * ```
  * cell(i, capacity) = maxOf ( cell(i - 1, capacity), wi + cell(i - 1, capacity - wi))
  * ```
+ * Here, `wi + cell(i - 1, capacity - wi)` conveys `current item + remaining items for the remaining capacity`.
  * Let us verify the formula:
  * ```
  * cell(2, 5)
