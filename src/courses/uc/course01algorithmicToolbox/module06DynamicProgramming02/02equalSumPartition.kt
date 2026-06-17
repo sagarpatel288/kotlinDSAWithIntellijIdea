@@ -964,7 +964,32 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * If we consider the number of operations at each level, sum up them, and take the dominant term,
  * it turns out to be 2^n when the number of elements to consider is n.
  *
- * 5. Hence, the time complexity of the K-Partitions with Equal Sum using recursion is O(2^n).
+ * For every single subset, we repeat this process.
+ * For every single subset, we ask each number (item) and each item has two possibilities.
+ * For every single subset, we get O(2^n) time complexity.
+ * If we have k-subsets, we get O(k * 2^n) time complexity.
+ *
+ *
+ * 5. Hence, the time complexity of the K-Partitions with Equal Sum using recursion is O(2^n) per subset.
+ * If we have to make choice for k-subsets, it becomes O(k * 2^n).
+ *
+ * 6. Another way to see it is, each number get `k` choices.
+ * If `k = 3`, each number will either go to k = 1, 2, or 3.
+ * Each number has `k` choice.
+ * So, if there are `n` numbers, then it will be like:
+ * [k, k, k, k, ...up to the nth number, which will also have k choices]
+ * How many `k`s do we get when there are a total of `n` items?
+ * Total `k` = `n`.
+ * If `k = 1`, it is `k^1`.
+ * If `k = 2`, it is `k^2`.
+ * If `k = 3`, it is `k^3`.
+ * If `k = n`, it is `k^n`.
+ * So, it is `k^n`.
+ * So, the time complexity is `O(k ^ n)`.
+ *
+ * 7. Hence, we can say that the time complexity is `O(2^n)`, `O(k * 2^n)` or `O(k^n)` as all of them are correct.
+ * They all are almost the same (almost near to each other) as per the definition of Big-O.
+ *
  *
  * ## ----------------------- Space Complexity -----------------------
  *
@@ -1016,6 +1041,8 @@ fun main() {
             if (subsets == 1) return true
 
             // If the current subset reaches the target sum, start forming the next subset.
+            // Caution! Possible point of mistake!
+            // This is when, where, and how we start checking the next subset.
             if (currentSum == targetSum) return canPartition(0, subsets - 1, 0)
 
             // Try to add each unvisited element to the current subset.
@@ -1033,6 +1060,8 @@ fun main() {
                     // Yes (return true), if the remaining elements can form valid subsets.
                     // Otherwise, deselect the `i`. We will continue the iteration for(i in startIndex..<values.size).
                     // Recursively attempt to form the current subset with the remaining elements (i + 1).
+                    // Caution! Possible point of mistake!
+                    // The next step checks `i + 1` index, and not `start + 1`.
                     if (canPartition(i + 1, subsets, currentSum + sorted[i])) return true
 
                     // Backtrack: unmark the element and try the next possibility.
