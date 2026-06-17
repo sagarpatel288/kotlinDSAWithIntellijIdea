@@ -53,6 +53,8 @@ class TwoPilesOfRocks {
                 // is a losing state, then the current state [i, j] is a winning state.
                 if (j > 0 && !dp[i][j - 1]) canWin = true
                 dp[i][j] = canWin
+                // We can print right from here, too.
+                println("left: $i right: $j canWin: $canWin")
             }
         }
         val map = mutableMapOf<Pile, Boolean>()
