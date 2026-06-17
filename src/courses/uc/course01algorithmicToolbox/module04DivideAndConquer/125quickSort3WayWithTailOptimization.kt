@@ -22,10 +22,10 @@ class QuickSort3WayWithTailOptimization {
             var cur = curStart
             var right = curEnd
             // Caution! Possible point of mistake!
-            // We need to handle the `cur == curEnd` case because that `value` is still unrevealed and unhandled.
+            // We need to handle the `cur == right` case because that `value` is still unrevealed and unhandled.
             // Fixes the same values at their final positions
             // 3-Way Partitions to handle the duplicate items efficiently
-            while (cur <= curEnd) {
+            while (cur <= right) {
                 when {
                     input[cur] > pivot -> {
                         swap(input, cur, right)
