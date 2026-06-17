@@ -229,6 +229,8 @@ fun main() {
                 if (items[i - 1] <= weight) {
                     table[i][weight] = maxOf(table[i - 1][weight], items[i - 1] + table[i - 1][weight - items[i - 1]])
                 } else {
+                    // Caution! Possible point of mistake!
+                    // Do not forget this `else` part!
                     table[i][weight] = table[i - 1][weight]
                 }
             }
