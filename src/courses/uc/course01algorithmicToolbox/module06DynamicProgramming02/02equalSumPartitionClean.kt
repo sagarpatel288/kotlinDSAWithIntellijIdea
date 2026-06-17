@@ -12,15 +12,18 @@ fun main() {
         if (totalSum == 0) return true
         if (totalSum % subsets != 0) return false
         val targetSum = totalSum / subsets
+        if (values.maxOrNull()!! > targetSum) return false
+        val sorted = values.sortedDescending()
         val selected = BooleanArray(values.size)
+
 
         fun canPartition(startIndex: Int, subsets: Int, currentSum: Int): Boolean {
             if (subsets == 1) return true
             if (currentSum == targetSum) return canPartition(0, subsets - 1, 0)
-            for (i in startIndex..<values.size) {
-                if (!selected[i] && currentSum + values[i] <= targetSum) {
+            for (i in startIndex..<sorted.size) {
+                if (!selected[i] && currentSum + sorted[i] <= targetSum) {
                     selected[i] = true
-                    if (canPartition(startIndex + 1, subsets, currentSum + values[i])) return true
+                    if (canPartition(startIndex + 1, subsets, currentSum + sorted[i])) return true
                     selected[i] = false
                 }
             }

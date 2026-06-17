@@ -34,7 +34,10 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *                 1                         2                         3
  * ```
  *
- * How did I use mathematical expressions, and greek symbols?
+ * How to insert mathematical expressions in comments?
+ * How to insert mathematical expressions in Markdown?
+ * How did I use mathematical expressions, and Greek symbols?
+ *
  * 1. Use [An online latex editor](https://www.sciweavers.org/free-online-latex-equation-editor#).
  *
  *      1.1 We can select an image, adjust the symbols, syntax, notation, values, etc.
@@ -262,13 +265,13 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * 36
  * ```
  *
- * The sum of the integers is perfectly divisible by 3.
+ * The sum of the integers is perfectly divisible by 3 (the number of subsets we want).
  *
  * ```
  * 36 % 3 == 0
  * ```
  *
- * And what do we get when we divide the sum of the integers by 3?
+ * And what do we get when we divide the sum of the integers by 3 (the number of subsets we want)?
  *
  * ```
  * 36 / 3 = 12 (target sum of each subset)
@@ -276,7 +279,31 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * So, we need to make sure that the sum of the elements of each subset must be exactly 12.
  *
- * _**How do we make it sure that the sum of the elements of each subset must be equal to the target sum?**_
+ * After finding the target sum, we need to check one more condition.
+ *
+ * If there exists an item value that is greater than the target sum, it cannot fit in any subset (bucket).
+ *
+ * For example, suppose that we have the following input:
+ *
+ * ```
+ * [11, 3, 5, 1, 6, 4]
+ * ```
+ *
+ * Now, the total is: `30`
+ *
+ * And we want `3` subsets.
+ *
+ * So, the `target sum` is `30 / 3 = 10`.
+ *
+ * It means, we are expecting that each subset should be equal to `10`.
+ *
+ * However, we have an item value `11`.
+ *
+ * And `11` cannot fit in any of our subset (bucket).
+ *
+ * It goes beyond the target sum.
+ *
+ * _**How do we ensure that the sum of the elements of each subset must be equal to the target sum?**_
  *
  * ```
  * We try each option.
@@ -561,7 +588,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * Point-02: The maximum capacity of each knapsack is the same (target sum).
  * Point-03: All the knapsack should be filled with maximum weight that does not exceed the knapsack capacity.
  * ```
- * Things are getting more differences from here.
+ * Things are getting more different from here.
  * ```
  * Point-04: The total weight of each filled knapsack must be equal to the knapsack capacity.
  * Point-05: The total weight of each filled knapsack must be equal.
@@ -625,7 +652,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * we need to check the result (consequences) of the other subsets with the remaining elements.
  * ```
  *
- * Also, there is no linear, and straightforward way to logical build up the solution for each subset where we can use
+ * Also, there is no linear, and straightforward way to logically build up the solution for each subset where we can use
  * the result of previous subset to fill the current subset, and so on.
  * Because, there can be multiple combinations spread and split across different indices.
  *
@@ -845,6 +872,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * ```
  *
  * 1. The `remaining elements` start with selected `index i + 1`.
+ * It conveys that we have already tried all the indices up to the current index `i`.
+ * And now, we want to check the remaining indices, which starts from: `i + 1`.
  * 2. The number of subset requirement remains as it is at this point.
  * We change it only when the `currentSum` becomes equal to the `targetSum.`
  * Hence, no change in the number of subset requirement at this moment.
@@ -950,6 +979,12 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  */
 fun main() {
     // This function attempts to partition the array into three subsets with equal sum.
+    // Before it starts filling the subsets, it executes pre-requisites and pre-calculations.
+    // Because first, we need to check if it is possible to have k-partitions with equal sum for the given input.
+    // Once we determine that it is possible, then we need certain data like target sum to fill each subset.
+    // And then we may sort the given input in descending order.
+    // And a boolean container to mark selected items.
+    // So, this outer function is preparation, that verifies the pre-requisites and conducts pre-calculation.
     fun canPartitionIntoThreeSubsets(values: IntArray): Int {
         // Calculate the total sum of all elements in the array.
         val totalSum = values.sum()
@@ -959,6 +994,18 @@ fun main() {
 
         // Calculate the target sum for each subset.
         val targetSum = totalSum / 3
+
+        // If there is any value which is greater than the target sum, it cannot fit in any subset (bucket).
+        // Hence, equal partition is not possible.
+        if (values.maxOrNull()!! > targetSum) return 0
+
+        // Sorting by descending order is not necessary, but it can help.
+        // Trying the large elements first helps us fail fast during the backtracking.
+        // For example, if the input is [1, 2, 3, 10, 8, 6], the target sum becomes 10.
+        // If we start from `1`, it takes time to fill the bucket, and verify the consequences.
+        // We may try more items.
+        // If we sort the input: [10, 8, 6, 3, 2, 1], the process can become slightly faster, and easy to understand.
+        val sorted = values.sortedDescending()
 
         // Boolean array to track whether an element has been used in a subset.
         val selected = BooleanArray(values.size) { false }
@@ -972,10 +1019,12 @@ fun main() {
             if (currentSum == targetSum) return canPartition(0, subsets - 1, 0)
 
             // Try to add each unvisited element to the current subset.
-            for (i in startIndex..<values.size) {
-                println("Subset: $subsets current sum: $currentSum selected: ${selected.toList()}")
+            // But to check whether a particular item is selected or not, we need to visit all the items anyway.
+            // But the important point is: These items (indices) start from the `startIndex`, and not from `0`.
+            for (i in startIndex..<sorted.size) {
+//                println("Subset: $subsets current sum: $currentSum selected: ${selected.toList()}")
                 // Check if the element can be added without exceeding the target sum.
-                if (!selected[i] && currentSum + values[i] <= targetSum) {
+                if (!selected[i] && currentSum + sorted[i] <= targetSum) {
                     // Mark the element as visited.
                     selected[i] = true
 
@@ -984,7 +1033,7 @@ fun main() {
                     // Yes (return true), if the remaining elements can form valid subsets.
                     // Otherwise, deselect the `i`. We will continue the iteration for(i in startIndex..<values.size).
                     // Recursively attempt to form the current subset with the remaining elements (i + 1).
-                    if (canPartition(i + 1, subsets, currentSum + values[i])) return true
+                    if (canPartition(i + 1, subsets, currentSum + sorted[i])) return true
 
                     // Backtrack: unmark the element and try the next possibility.
                     selected[i] = false
