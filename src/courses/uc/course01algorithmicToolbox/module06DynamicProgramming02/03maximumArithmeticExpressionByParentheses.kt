@@ -1806,6 +1806,8 @@ fun main() {
             // After selecting a particular length, we slide the window to cover different expressions of the same length.
             // We slide the window by moving the start index forward, from left to right, one step at a time.
             // Start index of the subexpression always starts from 0.
+            // Caution! Possible point of mistake!
+            // The `end-boundary` is `< (n - length)` because of the upcoming `j` which is `j = i + length`.
             for (i in 0 until numberOfDigits - length) {
                 // End index of the subexpression to respect and limit the defined length of the subexpression
                 // This is interesting
@@ -1819,6 +1821,9 @@ fun main() {
                 // If `i = 1`, then `j = 1 + 2 = 3`, So: [1][3], and covers: digits at indices: 1, 2, 3
                 // And so on...
                 val j = i + length
+                // Caution! Possible point of mistake!
+                // `min` is by default the `MAX` so that we can find a real `min` than the default min!
+                // `max` is by default the `MIN` so that we can find a real `max` than the default max!
                 var minValue = Long.MAX_VALUE
                 var maxValue = Long.MIN_VALUE
                 // Include operators.
@@ -1847,9 +1852,11 @@ fun main() {
                     val four = calculate(maxTable[i][k], minTable[k + 1][j], op)
                     minValue = minOf(minValue, one, two, three, four)
                     maxValue = maxOf(maxValue, one, two, three, four)
-                    minTable[i][j] = minValue
-                    maxTable[i][j] = maxValue
                 }
+                // Caution! Possible point of mistake!
+                // This will be outside the innermost for-loop, but inside the `start-index` (second, middle) for-loop!
+                minTable[i][j] = minValue
+                maxTable[i][j] = maxValue
             }
         }
         // cell(0, n - 1) contains the maximum value
