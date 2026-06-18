@@ -1,7 +1,7 @@
 package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
 
 /**
- * # ----------------------- Problem Statement -----------------------
+ * # -------- Problem Statement --------
  *
  * References:
  * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/03maximumArithmeticExpression.png
@@ -56,9 +56,9 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Why and How 200? Because 200 = (5−((8 + 7) ×(4−(8 + 9))))
  *
- * # ----------------------- Thought Process & Translating it into the code: Part-01 -----------------------
+ * # -------- Thought Process & Translating it into the code: Part-01 --------
  *
- * ## ----------------------- Objective: Understanding the pattern: -----------------------
+ * ## -------- Objective: Understanding the pattern: --------
  *
  * Suppose that we have the following input:
  *
@@ -66,7 +66,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * 5 - 8 + 7 x 4 - 8 + 9
  * ```
  *
- * ## ----------------------- _** 01: The Characteristics, Pattern, and Approach**_ -----------------------
+ * ## -------- _** 01: The Characteristics, Pattern, and Approach**_ --------
  *
  * _**Prerequisites (A few examples and practice of dynamic programming):**_
  * * src/courses/uc/module05DynamicProgramming/module05ProgrammingAssignment01/050editDistanceMatchStrings.kt
@@ -90,7 +90,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * This is a classical bottom-up characteristic and pattern of a dynamic programming approach.
  *
- * ## ----------------------- 02: Classification of Operators and Digits (Numbers) -----------------------
+ * ## -------- 02: Classification of Operators and Digits (Numbers) --------
  *
  * We have a single string containing operators and digits (numbers).
  * If we separate operators and digits (numbers) into separate containers, they become easy to use and manage.
@@ -376,9 +376,17 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * * A Reflective Question:
  * **_ Ok. What do we do after segregating and classifying digits and operators? _**
  *
- * # ----------------------- Thought Process & Translating it into the code: Part-02 -----------------------
+ * # -------- Thought Process & Translating it into the code: Part-02 --------
  *
  * ## --------- **_Key-point: 1: The last operation that splits the expression_** -----------
+ *
+ * Every parenthesization splits the expression into two halves.
+ *
+ * For example, if we have parenthesization as:
+ * ```
+ * (a + b) - (c + d)
+ * ```
+ * Then, we have a left-part: (a + b), the operator `-`, and the right part (c + d)
  *
  * The parentheses define an order in the Arithmetic operation.
  *
@@ -416,7 +424,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * `(i, k)` = `5 - 8 + 7`, and
  * `(k + 1, j)` = `4 - 8 + 9`.
  *
- * ## ----------------------- _**Key-point: 2: Maximizing an expression**_ -----------------------
+ * ## -------- _**Key-point: 2: Maximizing an expression**_ --------
  *
  * Now, to maximize the arithmetic expression value, these two subsets must be an optimal solution.
  * What we want to convey here is that, to be the maximum arithmetic expression (the original problem),
@@ -439,35 +447,58 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * In other words, for the original problem to produce the maximum value,
  * both of these subproblems must also yield the maximum value.
  *
- * ## ----------------------- _**Key-point: 3: Max or Min? The Subtraction Example. **_ -----------------------
+ * ## -------- _**Key-point: 3: Max or Min? The Subtraction Example. **_ --------
  *
  * However, knowing or considering only the maximum value is not enough. Why?
  * Because, if the last operation was subtraction, then we would want the subexpression one (minuend)
  * to be as large as possible, but the subexpression two (subtrahend) should be as small as possible to produce
  * the maximum value of the arithmetic operation. Right?
  *
- * ## ----------------------- _**Key-point: 4: The four combinations**_ -----------------------
+ * ## -------- _**Key-point: 4: The four combinations**_ --------
  *
  * That means we need to consider at least four combinations for two sub-expressions as below:
  *
  * ```
- * 1. max1 operation max2
- * 2. max1 operation min2
- * 3. min1 operation min2
- * 4. min1 operation max2
+ * 1. max1 operation max2 // E.g., Multiplication between two positive values
+ * 2. max1 operation min2 // E.g., Max subtracts min or max subtracts a negative value
+ * 3. min1 operation min2 // E.g., (-2) * (-3): Multiplication between two negative values
+ * 4. min1 operation max2 // E.g., 2 - (-2): Min subtracts a negative value
  * ```
  *
  * Out of these four combinations, we take the one that gives us the maximum value.
  *
- * ## ----------------------- _**Key-point: 5: What do a row, column, and a cell represent? **_ ------------------
+ * ## -------- _**Key-point: 5: What do a row, column, and a cell represent? **_ ---
  *
  * What happens when we place all the elements into a 2D-Matrix Table?
+ * How do we place them?
  *
  * Reference:
+ *
  * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/05singleElementsInDiagonalCells.png
  * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/06cellSignificance.png
  *
+ * Expression:
+ *
+ * ```markdown
+ *
+ *    +-----------------------------------+
+ *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
+ *    +-----------------------------------+
+ * -----------------------------------------
+ *      Indices =   0   1   2   3   4   5
+ *                +---+---+---+---+---+---+
+ *       Digits   | 5 | 8 | 7 | 4 | 8 | 9 |
+ *                +---+---+---+---+---+---+
+ * ------------------------------------------
+ *      Indices =   0   1   2   3   4
+ *                +---+---+---+---+---+
+ *     Operators  | - | + | * | - | + |
+ *                +---+---+---+---+---+
+ * ```
+ *
  * Table:
+ *
+ * ```markdown
  *
  * | i / j 	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	|
  * |:-----:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|
@@ -477,6 +508,18 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|   	|   	| 4 	|   	|   	|
  * |   4   	|   	|   	|   	|   	| 8 	|   	|
  * |   5   	|   	|   	|   	|   	|   	| 9 	|
+ * ```
+ *
+ * ```
+ * The row (i) represents the index of the starting digit of an expression.
+ * The column (j) represents the index of the ending digit of an expression.
+ * dp[i][j] represents the value of an expression whose first digit is at `i` and last digit is at `j`.
+ * ```
+ *
+ * For example, when (r, c) = (0, 5) indicates that the starting index is 0, and the ending index is 5.
+ * And it means that we are talking about the expression: `5 - 8 + 7 * 4 - 8 + 9`.
+ *
+ * And if (r, c) = (2, 4), it means we are talking about: `7 * 4 - 8`.
  *
  * We can see that when the values of i and j are the same, it represents only a single element.
  * There is no operation for a single element.
@@ -494,26 +537,141 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * val minTable = Array(n) { IntArray(n) }
  * val maxTable = Array(n) { IntArray(n) }
  * for (i in 0..<n) {
- *     minTable[i][i] = digits[i]
+ *     minTable[i][i] = digits[i] // if `j = i`, it means that we are talking about the single element at index `i`.
  *     maxTable[i][i] = digits[i]
  * }
  * ```
  *
  * Similarly, when the difference between `i` and `j` is 1, we get two elements.
+ *
+ * Expression:
+ *
+ * ```markdown
+ *
+ *    +-----------------------------------+
+ *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
+ *    +-----------------------------------+
+ * -----------------------------------------
+ *      Indices =   0   1   2   3   4   5
+ *                +---+---+---+---+---+---+
+ *       Digits   | 5 | 8 | 7 | 4 | 8 | 9 |
+ *                +---+---+---+---+---+---+
+ * ------------------------------------------
+ *      Indices =   0   1   2   3   4
+ *                +---+---+---+---+---+
+ *     Operators  | - | + | * | - | + |
+ *                +---+---+---+---+---+
+ * ```
+ *
+ *```markdown
+ *
+ * | i / j | 0 | 1     | 2     | 3     | 4     | 5      |
+ * |-------|---|-------|-------|-------|-------|--------|
+ * | 0     | 5 | 5 - 8 |       |       |       |        |
+ * | 1     |   | 8     | 8 + 7 |       |       |        |
+ * | 2     |   |       | 7     | 7 * 4 |       |        |
+ * | 3     |   |       |       | 4     | 4 - 8 |        |
+ * | 4     |   |       |       |       | 8     | 8  + 9 |
+ * | 5     |   |       |       |       |       | 9      |
+ *```
+ *
  * For example, when `i = 0` and `j = 1`, it indicates the arithmetic operation between the elements `5` and `8`.
+ *
  * Similarly, when `i = 1` and `j = 2`, it indicates the arithmetic operation between the elements `8` and `7`.
  *
  * Again, when the difference between `i` and `j` is 2, we get three elements.
+ *
+ * Expression:
+ *
+ * ```markdown
+ *
+ *    +-----------------------------------+
+ *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
+ *    +-----------------------------------+
+ * -----------------------------------------
+ *      Indices =   0   1   2   3   4   5
+ *                +---+---+---+---+---+---+
+ *       Digits   | 5 | 8 | 7 | 4 | 8 | 9 |
+ *                +---+---+---+---+---+---+
+ * ------------------------------------------
+ *      Indices =   0   1   2   3   4
+ *                +---+---+---+---+---+
+ *     Operators  | - | + | * | - | + |
+ *                +---+---+---+---+---+
+ * ```
+ *
+ * ```markdown
+ *
+ * | i / j | 0 | 1     | 2         | 3         | 4         | 5         |
+ * |-------|---|-------|-----------|-----------|-----------|-----------|
+ * | 0     | 5 | 5 - 8 | 5 - 8 + 7 |           |           |           |
+ * | 1     |   | 8     | 8 + 7     | 8 + 7 * 4 |           |           |
+ * | 2     |   |       | 7         | 7 * 4     | 7 * 4 - 8 |           |
+ * | 3     |   |       |           | 4         | 4 - 8     | 4 - 8 + 9 |
+ * | 4     |   |       |           |           | 8         | 8  + 9    |
+ * | 5     |   |       |           |           |           | 9         |
+ * ```
+ *
  * For example, when `i = 0` and `j = 2`, it indicates the arithmetic operation between the elements `5`, `8`, and `7`.
  * Similarly, when `i = 1` and `j = 3`, it indicates the arithmetic operation between the elements `8`, `7`, and `4`.
  *
  * And so on...
+ *
+ * Expression:
+ *
+ * ```markdown
+ *
+ *    +-----------------------------------+
+ *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
+ *    +-----------------------------------+
+ * -----------------------------------------
+ *      Indices =   0   1   2   3   4   5
+ *                +---+---+---+---+---+---+
+ *       Digits   | 5 | 8 | 7 | 4 | 8 | 9 |
+ *                +---+---+---+---+---+---+
+ * ------------------------------------------
+ *      Indices =   0   1   2   3   4
+ *                +---+---+---+---+---+
+ *     Operators  | - | + | * | - | + |
+ *                +---+---+---+---+---+
+ * ```
+ *
+ * ```markdown
+ *
+ * | i / j | 0 | 1     | 2         | 3             | 4                 | 5                     |
+ * |-------|---|-------|-----------|---------------|-------------------|-----------------------|
+ * | 0     | 5 | 5 - 8 | 5 - 8 + 7 | 5 - 8 + 7 * 4 | 5 - 8 + 7 * 4 - 8 | 5 - 8 + 7 * 4 - 8 + 9 |
+ * | 1     |   | 8     | 8 + 7     | 8 + 7 * 4     | 8 + 7 * 4 - 8     | 8 + 7 * 4 - 8 + 9     |
+ * | 2     |   |       | 7         | 7 * 4         | 7 * 4 - 8         | 7 * 4 - 8 + 9         |
+ * | 3     |   |       |           | 4             | 4 - 8             | 4 - 8 + 9             |
+ * | 4     |   |       |           |               | 8                 | 8  + 9                |
+ * | 5     |   |       |           |               |                   | 9                     |
+ * ```
+ *
+ * We can see that the final answer for the full length string, is at (0, 5).
  *
  * ```
  * We can say that if `i` and `j` are 0-based indices, and `i <= j`, we get `j - i = result + 1` elements.
  * ```
  *
  * Also, we can associate the given terms `5 - 8 + 7 * 4 - 8 + 9` with the indices (columns) as below:
+ *
+ * ```markdown
+ *
+ *    +-----------------------------------+
+ *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
+ *    +-----------------------------------+
+ * -----------------------------------------
+ *      Indices =   0   1   2   3   4   5
+ *                +---+---+---+---+---+---+
+ *       Digits   | 5 | 8 | 7 | 4 | 8 | 9 |
+ *                +---+---+---+---+---+---+
+ * ------------------------------------------
+ *      Indices =   0   1   2   3   4
+ *                +---+---+---+---+---+
+ *     Operators  | - | + | * | - | + |
+ *                +---+---+---+---+---+
+ * ```
  *
  * ```
  * 5 = index 0
@@ -529,6 +687,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * References:
  * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/06cellSignificance.png
  *
+ * ```markdown
+ *
  * | i / j 	| 0 	|   1   	|     2     	|       3       	|         4         	|           5           	|
  * |:-----:	|:-:	|:-----:	|:---------:	|:-------------:	|:-----------------:	|:---------------------:	|
  * |   0   	| 5 	| 5 - 8 	| 5 - 8 + 7 	| 5 - 8 + 7 * 4 	| 5 - 8 + 7 * 4 - 8 	| 5 - 8 + 7 * 4 - 8 + 9 	|
@@ -539,11 +699,30 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   5   	|   	|       	|           	|               	|                   	|           9           	|
  *
  * ```
+ *
+ * ```
  * If we observe the journey of row 0 from column 0 to column 5, it is a classical dynamic programming pattern,
  * where we start from the bottom and increase the size of the problem as we move to the right side.
  * ```
  *
  * For the given expression `5 - 8 + 7 * 4 - 8 + 9`, each row signifies the below meanings:
+ *
+ * ```markdown
+ *
+ *    +-----------------------------------+
+ *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
+ *    +-----------------------------------+
+ * -----------------------------------------
+ *      Indices =   0   1   2   3   4   5
+ *                +---+---+---+---+---+---+
+ *       Digits   | 5 | 8 | 7 | 4 | 8 | 9 |
+ *                +---+---+---+---+---+---+
+ * ------------------------------------------
+ *      Indices =   0   1   2   3   4
+ *                +---+---+---+---+---+
+ *     Operators  | - | + | * | - | + |
+ *                +---+---+---+---+---+
+ * ```
  *
  * ```
  * 1. Each row signifies (represents) the starting index (digit, number) of a sub-expression.
@@ -561,10 +740,16 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * * The `cell(2, 5)` represents a sub-expression `7 * 4 - 8 + 9`.
  * * And so on...
  *
- * ## ----------------------- _**Key-point: 6: Two Tables**_ -----------------------
+ * ## -------- _**Key-point: 6: Two Tables**_ --------
  *
- * Now, if you remember, we have concluded that we need both the maximum and minimum values.
+ * Now, if you remember, we have concluded that we need both the maximum and the minimum values.
  * Hence, we will use two tables. One table for the minimum values, and the other for the maximum values.
+ * So, it will be like:
+ *
+ * ```
+ * `min[i][j]` would represent the min value of an expression whose starting digit is at `i` and ending digit is at `j`.
+ * `max[i][j]` would represent the max value of an expression whose starting digit is at `i` and ending digit is at `j`.
+ * ```
  *
  * **_We have filled in the base cases for each table. But how do we fill the entire table?_**
  *
@@ -600,6 +785,23 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * And if we use the corresponding index of each term, we can say that:
  *
+ * ```markdown
+ *
+ *    +-----------------------------------+
+ *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
+ *    +-----------------------------------+
+ * -----------------------------------------
+ *      Indices =   0   1   2   3   4   5
+ *                +---+---+---+---+---+---+
+ *       Digits   | 5 | 8 | 7 | 4 | 8 | 9 |
+ *                +---+---+---+---+---+---+
+ * ------------------------------------------
+ *      Indices =   0   1   2   3   4
+ *                +---+---+---+---+---+
+ *     Operators  | - | + | * | - | + |
+ *                +---+---+---+---+---+
+ * ```
+ *
  * ```
  * 1. (5 - 8) = 2 elements => 1 - 0 = 1 + 1. So, i = 0 and j = 1 => (0, 1).
  * 2. Similarly, (8 + 7) = 2 elements => j = 2, and i = 1 => (1, 2).
@@ -611,7 +813,24 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/07twoElements.png
  * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/08allTwoElements.png
  *
- * Expression: `5 - 8 + 7 * 4 - 8 + 9`
+ * ```markdown
+ *
+ *    +-----------------------------------+
+ *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
+ *    +-----------------------------------+
+ * -----------------------------------------
+ *      Indices =   0   1   2   3   4   5
+ *                +---+---+---+---+---+---+
+ *       Digits   | 5 | 8 | 7 | 4 | 8 | 9 |
+ *                +---+---+---+---+---+---+
+ * ------------------------------------------
+ *      Indices =   0   1   2   3   4
+ *                +---+---+---+---+---+
+ *     Operators  | - | + | * | - | + |
+ *                +---+---+---+---+---+
+ * ```
+ *
+ * ```markdown
  *
  * | i / j 	| 0 	|  1 	|  2 	| 3 	| 4 	| 5 	|
  * |:-----:	|:-:	|:--:	|:--:	|:-:	|:-:	|:-:	|
@@ -621,9 +840,11 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|    	| 4 	|   	|   	|
  * |   4   	|   	|    	|    	|   	| 8 	|   	|
  * |   5   	|   	|    	|    	|   	|   	| 9 	|
- *
+ * ```
  *
  * After filling in all the pairs of two elements, the table looks as shown below:
+ *
+ * ```markdown
  *
  * | i / j 	| 0 	|  1 	|  2 	|  3 	|  4 	|  5 	|
  * |:-----:	|:-:	|:--:	|:--:	|:--:	|:--:	|:--:	|
@@ -633,6 +854,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|    	|  4 	| -4 	|    	|
  * |   4   	|   	|    	|    	|    	|  8 	| 17 	|
  * |   5   	|   	|    	|    	|    	|    	|  9 	|
+ * ```
  *
  * 1. The operation `5 - 8` goes to the cell `(i, j) = (0, 1) = -3`.
  * 2. The operation `8 + 7` goes to the cell `(i, j) = (1, 2) = 15`.
@@ -642,7 +864,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * What about the case when there are more than two elements?
  *
- * ## --------------- _**Key-Point: 8: Filling Up The Two Tables: Part-02: Minimum & Maximum Values **_ -------------
+ * ##  _**Key-Point: 8: Filling Up The Two Tables: Part-02: Minimum & Maximum Values **_ -------------
  *
  * When there are more than two elements in an arithmetic expression, we can have multiple combinations.
  * Out of these combinations, there must be one combination that gives us the minimum result,
@@ -665,6 +887,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Minimum:
  *
+ * ```markdown
+ *
  * | i / j 	| 0 	|  1 	|  2  	| 3 	| 4 	| 5 	|
  * |:-----:	|:-:	|:--:	|:---:	|:-:	|:-:	|:-:	|
  * |   0   	| 5 	| -3 	| -10 	|   	|   	|   	|
@@ -673,11 +897,14 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|     	| 4 	|   	|   	|
  * |   4   	|   	|    	|     	|   	| 8 	|   	|
  * |   5   	|   	|    	|     	|   	|   	| 9 	|
+ * ```
  *
  * In the minimum table, the cell (i, j) = (0, 2) stores the minimum value of the expression `5 - 8 + 7`, which is
  * `5 - (8 + 7) = -10`.
  *
  * Maximum:
+ *
+ * ```markdown
  *
  * | i / j 	| 0 	|  1 	|  2 	| 3 	| 4 	| 5 	|
  * |:-----:	|:-:	|:--:	|:--:	|:-:	|:-:	|:-:	|
@@ -687,6 +914,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|    	| 4 	|   	|   	|
  * |   4   	|   	|    	|    	|   	| 8 	|   	|
  * |   5   	|   	|    	|    	|   	|   	| 9 	|
+ * ```
  *
  * In the maximum table, the cell (i, j) = (0, 2) stores the maximum value of the expression `5 - 8 + 7`, which is
  * `(5 - 8) + 7 = 4`.
@@ -698,6 +926,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Minimum:
  *
+ * ```markdown
+ *
  * | i / j 	| 0 	|  1 	|  2  	|  3 	|  4  	|  5  	|
  * |:-----:	|:-:	|:--:	|:---:	|:--:	|:---:	|:---:	|
  * |   0   	| 5 	| -3 	| -10 	|    	|     	|     	|
@@ -706,10 +936,28 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|     	|  4 	|  -4 	| -13 	|
  * |   4   	|   	|    	|     	|    	|  8  	|  17 	|
  * |   5   	|   	|    	|     	|    	|     	|  9  	|
- *
+ * ```
  *
  * Explanation:
+ *
  * Our expression is: `5 - 8 + 7 * 4 - 8 + 9`.
+ *
+ * ```markdown
+ *
+ *    +-----------------------------------+
+ *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
+ *    +-----------------------------------+
+ * -----------------------------------------
+ *      Indices =   0   1   2   3   4   5
+ *                +---+---+---+---+---+---+
+ *       Digits   | 5 | 8 | 7 | 4 | 8 | 9 |
+ *                +---+---+---+---+---+---+
+ * ------------------------------------------
+ *      Indices =   0   1   2   3   4
+ *                +---+---+---+---+---+
+ *     Operators  | - | + | * | - | + |
+ *                +---+---+---+---+---+
+ * ```
  *
  * Each element corresponds to a particular column index as below:
  *
@@ -751,6 +999,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Maximum:
  *
+ * ```markdown
+ *
  * | i / j 	| 0 	|  1 	|  2 	|  3 	|  4 	|  5 	|
  * |:-----:	|:-:	|:--:	|:--:	|:--:	|:--:	|:--:	|
  * |   0   	| 5 	| -3 	|  4 	|    	|    	|    	|
@@ -759,6 +1009,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|    	|  4 	| -4 	|  5 	|
  * |   4   	|   	|    	|    	|    	|  8 	| 17 	|
  * |   5   	|   	|    	|    	|    	|    	|  9 	|
+ * ```
  *
  * We have already seen how each value for each single element and for each pair of two elements has been calculated.
  * We have also seen how the minimum values for each pair of 3 elements have been calculated and stored.
@@ -776,6 +1027,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * Now, the interesting part starts when there are more than 3 elements, or in other words,
  * when there are more than 2 combinations.
  *
+ * ```markdown
+ *
  * | i / j 	| 0 	|   1   	|     2     	|       3       	|         4         	|           5           	|
  * |:-----:	|:-:	|:-----:	|:---------:	|:-------------:	|:-----------------:	|:---------------------:	|
  * |   0   	| 5 	| 5 - 8 	| 5 - 8 + 7 	| 5 - 8 + 7 * 4 	| 5 - 8 + 7 * 4 - 8 	| 5 - 8 + 7 * 4 - 8 + 9 	|
@@ -784,6 +1037,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|       	|           	|       4       	|       4 - 8       	|       4 - 8 + 9       	|
  * |   4   	|   	|       	|           	|               	|         8         	|         8 + 9         	|
  * |   5   	|   	|       	|           	|               	|                   	|           9           	|
+ * ```
  *
  * References:
  * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/13fourElements.png
@@ -868,6 +1122,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Minimum:
  *
+ * ```markdown
+ *
  * | i / j 	| 0 	|  1 	|  2  	|  3  	|  4  	|  5  	|
  * |:-----:	|:-:	|:--:	|:---:	|:---:	|:---:	|:---:	|
  * |   0   	| 5 	| -3 	| -10 	| -55 	|     	|     	|
@@ -876,8 +1132,11 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|     	|  4  	|  -4 	| -13 	|
  * |   4   	|   	|    	|     	|     	|  8  	|  17 	|
  * |   5   	|   	|    	|     	|     	|     	|  9  	|
+ * ```
  *
  * Maximum:
+ *
+ * ```markdown
  *
  * | i / j 	| 0 	|  1 	|  2 	|  3 	|  4 	|  5 	|
  * |:-----:	|:-:	|:--:	|:--:	|:--:	|:--:	|:--:	|
@@ -887,6 +1146,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|    	|  4 	| -4 	|  5 	|
  * |   4   	|   	|    	|    	|    	|  8 	| 17 	|
  * |   5   	|   	|    	|    	|    	|    	|  9 	|
+ * ```
  *
  * If we fill each cell in both the minimum and the maximum tables, they look as shown below:
  *
@@ -894,6 +1154,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/21theCompleteTablesBothMinAndMaxForAllElements.png
  *
  * Minimum:
+ *
+ * ```markdown
  *
  * | i / j 	| 0 	|  1 	|  2  	|  3  	|  4  	|   5  	|
  * |:-----:	|:-:	|:--:	|:---:	|:---:	|:---:	|:----:	|
@@ -903,8 +1165,11 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|     	|  4  	|  -4 	|  -13 	|
  * |   4   	|   	|    	|     	|     	|  8  	|  17  	|
  * |   5   	|   	|    	|     	|     	|     	|   9  	|
+ * ```
  *
  * Maximum:
+ *
+ * ```markdown
  *
  * | i / j 	| 0 	|  1 	|  2 	|  3 	|  4 	|  5  	|
  * |:-----:	|:-:	|:--:	|:--:	|:--:	|:--:	|:---:	|
@@ -914,12 +1179,13 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * |   3   	|   	|    	|    	|  4 	| -4 	|  5  	|
  * |   4   	|   	|    	|    	|    	|  8 	|  17 	|
  * |   5   	|   	|    	|    	|    	|    	|  9  	|
+ * ```
  *
  * Ok. What do we do with these tables? How does that help? How do we convert them into code?
  *
- * ## ------------------ Key-Point: 09: Filling Up The Tables: Part-03: The Code Conversion -------------------
+ * ## --- Key-Point: 09: Filling Up The Tables: Part-03: The Code Conversion ----
  *
- * ### ----------------------- Chapter 01: The Operator Iteration < n -----------------------
+ * ### -------- Chapter 01: The Operator Iteration < n --------
  *
  * We can see that there is a pattern in the way we filled the table.
  * The pattern looks like this:
@@ -990,7 +1256,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * }
  * ```
  *
- * ### ----------------------- Chapter 02: The Numbers (Digits) Iteration < n - length  -----------------------
+ * ### -------- Chapter 02: The Numbers (Digits) Iteration < n - length  --------
  *
  * Now, within the operator iteration, we make pairs because each operator splits the expression.
  * To make pairs, we need to iterate through the numbers to pick up the numbers.
@@ -1002,7 +1268,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * It means, as we discussed earlier, there will be `1` operator.
  * It will form pairs of two elements. 1 element left and 1 right of the operator.
  *
- * How do we make pairs? A pair comprises digits, and digits are the parts of the expression.
+ * How do we make pairs? A pair comprises of digits, and digits are the parts of the expression.
  *
  * The expression is: `5 - 8 + 7 * 4 - 8 + 9`.
  *
@@ -1054,7 +1320,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * }
  * ```
  *
- * ### ----------------------- Chapter: 03: The Stop-Index Of A Pair: j = i + length  -----------------------
+ * ### -------- Chapter: 03: The Stop-Index Of A Pair: j = i + length  --------
  *
  * Now, let us understand how many "number" elements each pair includes based on the `length` value,
  * and what the end index will be for each pair.
@@ -1134,7 +1400,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * }
  * ```
  *
- * ### ----------------------- Chapter: 04: Include Operators: < j -----------------------
+ * ### -------- Chapter: 04: Include Operators: < j --------
  *
  * Now, a sub-expression consists of both the number(s) (digits) and operator(s).
  * I mean, to call the pair `[5, 8]` a sub-expression, it must include the operator between them, right?
@@ -1207,7 +1473,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Ok, what's next?
  *
- * ### ----------------------- _**Chapter: 05: Calculating The Four Combinations**_  -----------------------
+ * ### -------- _**Chapter: 05: Calculating The Four Combinations**_  --------
  *
  * The original expression is: `5 - 8 + 7 * 4 - 8 + 9`
  *
@@ -1358,7 +1624,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Wait. How do we use those four combinations? And what happened to the split point operator itself?
  *
- * ### ----------------------- Chapter: 06: Split point operator -----------------------
+ * ### -------- Chapter: 06: Split point operator --------
  *
  * Once we have the split point operator and the four combinations, we calculate the values as below:
  *
@@ -1419,7 +1685,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * 3. For each pair, the start index is `i`, and the end index is `i + length` (inclusive).
  * ```
  *
- * ## ----------------------- Important Observations: Summary Of The Key-Points -----------------------
+ * ## -------- Important Observations: Summary Of The Key-Points --------
  *
  * ```
  * 1. For the given range (i, j), we can split it into two subproblems as (i, k) and (k + 1, j).
@@ -1435,9 +1701,9 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * which is the original problem.
  * ```
  *
- * # ----------------------- Complexity Analysis -----------------------
+ * # -------- Complexity Analysis --------
  *
- * ## ----------------------- Time Complexity -----------------------
+ * ## -------- Time Complexity --------
  *
  * We have 3 lexical (nested) for loops.
  *
@@ -1455,7 +1721,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * None of the for loop reaches `n`, but we drop the constants.
  * Hence, the time complexity is O(n^3).
  *
- * ## ----------------------- Space Complexity -----------------------
+ * ## -------- Space Complexity --------
  *
  * We take two tables.
  *
@@ -1468,7 +1734,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * So, the maximum memory we use is n * n = n^2.
  * Hence, the space complexity is O(n^2).
  *
- * # ----------------------- Grader Output -----------------------
+ * # -------- Grader Output --------
  * Good job! (Max time used: 0.10/2.00, max memory used: 43524096/536870912.)
  *
  */
@@ -1513,6 +1779,9 @@ fun main() {
                 // Include operators
                 for (k in i until j) {
                     val op = operators[k]
+                    // Left part: [i, k], Right part: [k + 1, j]
+                    // And `k` is in the loop.
+                    // It means that we are changing the `split` operator to find the `min` and the `max` values.
                     val one = calculate(minTable[i][k], minTable[k + 1][j], op)
                     val two = calculate(minTable[i][k], maxTable[k + 1][j], op)
                     val three = calculate(maxTable[i][k], maxTable[k + 1][j], op)
