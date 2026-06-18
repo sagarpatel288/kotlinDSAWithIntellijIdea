@@ -5,15 +5,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * References:
  * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/03maximumArithmeticExpression.png
- * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/05singleElementsInDiagonalCells.png
- * 3. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/06cellSignificance.png
- * 4. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/07twoElements.png
- * 5. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/09minimumMaximum.png
- * 6. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/11allThreeElements.png
- * 7. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/13fourElements.png
- * 8. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/15fourElementsExample02.png
- * 9. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/17fourElementsTable.png
- * 10. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/21theCompleteTablesBothMinAndMaxForAllElements.png
+ * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/050singleElementsInDiagonalCells.png
+ * 3. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/060cellSignificance.png
+ * 4. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/070twoElements.png
+ * 5. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/090minimumMaximum.png
+ * 6. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/110allThreeElements.png
+ * 7. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/130fourElements.png
+ * 8. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/150fourElementsExample02.png
+ * 9. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/170fourElementsTable.png
+ * 10. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/210theCompleteTablesBothMinAndMaxForAllElements.png
  *
  * Maximum Value of an Arithmetic Expression Problem:
  *
@@ -474,8 +474,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Reference:
  *
- * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/05singleElementsInDiagonalCells.png
- * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/06cellSignificance.png
+ * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/050singleElementsInDiagonalCells.png
+ * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/060cellSignificance.png
  *
  * Expression:
  *
@@ -685,7 +685,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * What about rows? Any observation/significance of the rows? What do the rows convey?
  *
  * References:
- * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/06cellSignificance.png
+ * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/060cellSignificance.png
  *
  * ```markdown
  *
@@ -810,8 +810,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * We can represent it in the table form as below:
  *
  * References:
- * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/07twoElements.png
- * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/08allTwoElements.png
+ * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/070twoElements.png
+ * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/080allTwoElements.png
  *
  * ```markdown
  *
@@ -882,8 +882,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * As below:
  *
  * References:
- * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/09minimumMaximum.png
- * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/11allThreeElements.png
+ * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/090minimumMaximum.png
+ * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/110allThreeElements.png
  *
  * Minimum:
  *
@@ -922,7 +922,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * Similarly, we can prepare the entire minimum and the maximum table for all the pairs of three elements as below:
  *
  * References:
- * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/11allThreeElements.png
+ * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/110allThreeElements.png
  *
  * Minimum:
  *
@@ -1040,9 +1040,9 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * ```
  *
  * References:
- * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/13fourElements.png
- * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/15fourElementsExample02.png
- * 3. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/17fourElementsTable.png
+ * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/130fourElements.png
+ * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/150fourElementsExample02.png
+ * 3. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/170fourElementsTable.png
  *
  * ```
  * 1. 5 - (8 + 7 * 4)
@@ -1114,8 +1114,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * So, the table looks as shown below:
  *
  * References:
- * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/15fourElementsExample02.png
- * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/17fourElementsTable.png
+ * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/150fourElementsExample02.png
+ * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/170fourElementsTable.png
  *
  * The expression: `5 - 8 + 7 * 4 - 8 + 9`
  * Range: `(i, j) = (1, 4) = 8 + 7 * 4 - 8`.
@@ -1151,7 +1151,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * If we fill each cell in both the minimum and the maximum tables, they look as shown below:
  *
  * References:
- * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/21theCompleteTablesBothMinAndMaxForAllElements.png
+ * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/210theCompleteTablesBothMinAndMaxForAllElements.png
  *
  * Minimum:
  *
@@ -1563,7 +1563,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * and we get the right part `7 * 4 - 8`, which is stored at `cell(2, 4)`.
  *
  * References:
- * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/21theCompleteTablesBothMinAndMaxForAllElements.png
+ * res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/210theCompleteTablesBothMinAndMaxForAllElements.png
  *
  * So, can we say that the left part is `cell(i, k)` = `cell(1, 1)`,
  * and the right part is `cell(k + 1, j)` = `cell(2, 4)`?
@@ -1645,7 +1645,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *         val j = i + length
  *         // Splitting the sub-expression into different combinations using the available operators within the sub-expression
  *         // Reference examples that explain why we need `minValue` and `maxValue` variables, and why we update them:
- *         // res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/15fourElementsExample02.png
+ *         // res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/150fourElementsExample02.png
  *         // For a particular length, we consider each operator as the last operation for the same expression.
  *         // We evaluate each result and finalize the minimum and the maximum values for the relevant tables.
  *         var minValue = Int.MAX_VALUE
