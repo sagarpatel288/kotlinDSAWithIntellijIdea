@@ -1821,10 +1821,12 @@ fun main() {
                 val j = i + length
                 var minValue = Long.MAX_VALUE
                 var maxValue = Long.MIN_VALUE
-                // Include operators
-                // There can be multiple operators
-                // We try each operator as a split point
-                // Check every split point between `i` and `j`
+                // Include operators.
+                // There can be multiple operators.
+                // We try each operator as a split point.
+                // Check every split point between `i` and `j`.
+                // To select the correct operators between the start-digit at index `i` and end-digit at index `j`,
+                // we start the range from `i` and as in any valid expression, an operator finishes before `j`.
                 for (k in i until j) {
                     val op = operators[k]
                     // At this point, we have selected and are calculating the fixed: [i][j]
