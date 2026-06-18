@@ -1819,6 +1819,9 @@ fun main() {
                 // If `i = 1`, then `j = 1 + 2 = 3`, So: [1][3], and covers: digits at indices: 1, 2, 3
                 // And so on...
                 val j = i + length
+                // Caution! Possible point of mistake!
+                // `min` is by default the `MAX` so that we can find a real `min` than the default min!
+                // `max` is by default the `MIN` so that we can find a real `max` than the default max!
                 var minValue = Long.MAX_VALUE
                 var maxValue = Long.MIN_VALUE
                 // Include operators.
