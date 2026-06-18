@@ -1759,6 +1759,10 @@ fun main() {
     }
 
     fun maximizeArithmeticExpression(string: String): Long {
+        // RegEx might look cool, but it uses more memory (time and space) with RegEx engine overhead!
+        // For this particular problem, using a `for-loop` is more efficient and recommended.
+        // Because we can parse both `digits` and `operators` in one-pass of the `for-loop`.
+        // So, use a `for-loop` to parse `digits` and `operators` in one-pass.
         val digits = Regex("\\d+").findAll(string).map { it.value.toLong() }.toList()
         val numberOfDigits = digits.size
         val operators = Regex("[+\\-*]").findAll(string).map { it.value }.toList()
