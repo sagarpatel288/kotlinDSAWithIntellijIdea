@@ -1768,24 +1768,77 @@ fun main() {
         val operators = Regex("[+\\-*]").findAll(string).map { it.value }.toList()
         val minTable = Array(numberOfDigits) { LongArray(numberOfDigits) }
         val maxTable = Array(numberOfDigits) { LongArray(numberOfDigits) }
+        // Base case:
+        // An expression starts from `i` and ends at `j`
+        // Rows (i) represent the starting index of the digit in a particular expression
+        // Columns (j) represents the ending index of the digit in the expression
+        // If `i == j`, it indicates a single element (digit)
+        // And in that case, the answer is the digit (element) itself
+        // Because there is no other digit or operator is involved
         for (i in 0 until numberOfDigits) {
             minTable[i][i] = digits[i]
             maxTable[i][i] = digits[i]
         }
-        // Length of the number of operators included that defines the length of a subexpression
+        // 3 Nested for-loops.
+        // These 3 nested for-loops are the core computation of our algorithm.
+        // They together solve a smaller problem of a smaller range, and eventually solve the full length problem.
+        // For example, suppose that the expression is: 5 - 8 + 7 * 4 - 8 + 9
+        // These for-loops (trio) checks smaller problems of smaller ranges (lengths) like: 2, 3, 4, and so on...
+        // For example:
+        // 5 - 8, 8 + 7, 7 * 4, 4 - 8, 8 + 9, 5 - 8 + 7, 8 + 7 * 4, 7 * 4 - 8, 4 - 8 + 9, 5 - 8 + 7 * 4, and so on...
+        // They keep increasing the length of the problem (expression).
+        // Eventually, they solve the final full length expression, which is: 5 - 8 + 7 * 4 - 8 + 9
+        // Outer: Length of the expression.
+        // Middle: Digits.
+        // Inner: Operators.
+        // Length of the number of operators included that defines the length of a subexpression.
+        // If the length of an operator is `1`, it means we include `2` digits around it.
+        // If the length of the operators is `2`, it means that we get `3` digits.
+        // And so on...
+        // Or we can also say that the length is the distance between the start and the end digits (indices).
+        // If the distance is `1`, we get `2` digits.
+        // For example: [0][1], [1][2], [2][3], and so on...
+        // If the distance is `2`, we get `3` digits.
+        // For example: [0][2], [1][3], [2][4], and so on...
+        // And so on...
+        // Both the perspectives are right as long as they use the correct mathematical and logical translation.
         for (length in 1 until numberOfDigits) {
-            //Start index of the subexpression
+            // After selecting a particular length, we slide the window to cover different expressions of the same length.
+            // We slide the window by moving the start index forward, from left to right, one step at a time.
+            // Start index of the subexpression always starts from 0.
             for (i in 0 until numberOfDigits - length) {
                 // End index of the subexpression to respect and limit the defined length of the subexpression
+                // This is interesting
+                // If the length is `1`, we get `two` digits.
+                // For example, if we start from `i = 0`, then `j = i + length = 0 + 1 = 1`.
+                // So, it becomes: [i][j] = [0][1]
+                // If we start from `i = 1`, then `j = 1 + 1 = 2`, and it becomes: [i][j] = [1][2]
+                // And so on...
+                // Similarly, if the length is `2`, we get `three` digits.
+                // If `i = 0`, then `j = 0 + 2 = 2`, So: [0][2], and covers: digits at indices: 0, 1, 2
+                // If `i = 1`, then `j = 1 + 2 = 3`, So: [1][3], and covers: digits at indices: 1, 2, 3
+                // And so on...
                 val j = i + length
                 var minValue = Long.MAX_VALUE
                 var maxValue = Long.MIN_VALUE
                 // Include operators
+                // There can be multiple operators
+                // We try each operator as a split point
+                // Check every split point between `i` and `j`
                 for (k in i until j) {
                     val op = operators[k]
+                    // At this point, we have selected and are calculating the fixed: [i][j]
+                    // We are calculating the min and the max of an expression that starts from `i` and ends at `j`.
                     // Left part: [i, k], Right part: [k + 1, j]
                     // And `k` is in the loop.
                     // It means that we are changing the `split` operator to find the `min` and the `max` values.
+                    // For example, suppose that the expression window is: 5 - 8 + 7
+                    // Now, we have to check all the possible split points to find the `min` and the `max` values.
+                    // Suppose that we first make the `-` operator the split point.
+                    // Then, it becomes: 5 - (8 + 7)
+                    // Then, we make the `+` operator the split point.
+                    // So, it becomes: (5 - 8) + 7
+                    // This is how we keep changing the split point operator to evaluate the `min` and the `max`.
                     val one = calculate(minTable[i][k], minTable[k + 1][j], op)
                     val two = calculate(minTable[i][k], maxTable[k + 1][j], op)
                     val three = calculate(maxTable[i][k], maxTable[k + 1][j], op)
