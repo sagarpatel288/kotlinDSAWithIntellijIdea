@@ -58,7 +58,26 @@ class Node<T>(var data: T, var next: Node<T>?) {
  *
  * [Singly Linked List](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/fa88641df26851c504c5a0b640fe9b5f853cef68/res/coursera/ucSanDiego/course02dataStructures/module01arraysAndLinkedLists/video02linkedLists)
  *
- * # ----------------------- How to remember? -----------------------
+ * # ------- How to remember? -------
+ *
+ * ## Implementation
+ *
+ * ### Underlying classes
+ *
+ * * Two linked classes: A linked list uses two linked classes.
+ * * One: It uses a [Node].
+ * * A [Node] holds a value [Node.data] and the address of the next node [Node.next].
+ * * We can change the value and the address of the next node.
+ * * Hence, these are mutable properties.
+ * * So, we use a normal class.
+ * * We uses a total of two normal classes and they are linked.
+ * * Two: A separate [SinglyLinkedListWithoutTail] class that uses this [Node] as head, tail, and as an item.
+ *
+ * ### Main Properties and Functions
+ *
+ * * add, read, and remove from head
+ * * add, read, and remove from tail
+ * * Other helpers: size and isEmpty
  *
  * Use your 5 fingers of any hand or leg to visualize any operation of the Linked List.
  * For example, I use the fingers of my right hand to visualize any operation of the Linked List.
@@ -77,7 +96,10 @@ class Node<T>(var data: T, var next: Node<T>?) {
  *
  * * Also, whenever we remove a node, it is the best practice to nullify its next and previous pointers.
  *
- * ToDo: There are a few things in this file (implementation) that we can improve.
+ * ToDo: There are a few things in this file (implementation) that we can improve. Such as:
+ *
+ * * We can replace the `size()` function with read-only `size` property. (Private set).
+ * *
  *
  */
 class SinglyLinkedListWithoutTail<T>() {
