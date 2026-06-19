@@ -23,7 +23,7 @@ fun main() {
             for (i in startIndex..<sorted.size) {
                 if (!selected[i] && currentSum + sorted[i] <= targetSum) {
                     selected[i] = true
-                    if (canPartition(startIndex + 1, subsets, currentSum + sorted[i])) return true
+                    if (canPartition(i + 1, subsets, currentSum + sorted[i])) return true
                     selected[i] = false
                 }
             }
