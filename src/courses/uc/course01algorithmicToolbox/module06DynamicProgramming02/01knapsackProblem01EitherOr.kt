@@ -413,6 +413,36 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * 1. The table (2D array) size to store the values. --> + 1 --> Size + 1, Options + 1, Target + 1, End + 1, Items + 1.
  * 2. Bottom-up journey (iteration). It will start from 0 or 1, and will go up to the target, limit, or end point.
  *
+ * ## TL;DR
+ *
+ * * We have a problem where we have `n` items and the max capacity is `m`.
+ * * So, instead of trying to solve the problem directly for `n` items, and `m` capacity, we solve smaller problems.
+ * * So, we solve the problems from `0` to `n - 1` items for `0` to `m - 1` capacity.
+ * * And that will help us solve the original problem.
+ * * So, we go with the bottom-up approach (dynamic programming, tabulation) for `0` to `n` and `0` to `m`.
+ * * We take a 2D table.
+ * * Columns represent weights from `0` to `m`.
+ * * Rows represent items from `0` to `n`.
+ * * The condition to add any item for a particular weight in any cell is:
+ * ```
+ * if (rowItem <= cellWeightCapacity)
+ * ```
+ * * And the formula to store the maximum value in the dp table for any cell is:
+ * ```
+ * // `i` represents the current item and `j` represents the current weight capacity
+ * dp[i][j] = maxOf(withoutItem, withItem)
+ * ```
+ * * The formula to get the value of `withoutItem` is:
+ * ```
+ * // `[i - 1][j]` represents the answer of the same weight capacity without including the current item
+ * val withoutItem = dp[i - 1][j]
+ * ```
+ * * And the formula to get the value of `withItem` is:
+ * ```
+ * // `[i - 1][j - item]` indicates the maximum possible value without this item
+ * val withItem = item + dp[i - 1][j - item]
+ * ```
+ *
  * # ------ Complexity Analysis ------
  *
  * ## ------ Time Complexity Analysis ------
