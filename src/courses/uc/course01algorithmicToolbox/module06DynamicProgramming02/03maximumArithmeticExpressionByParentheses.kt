@@ -481,6 +481,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * ```markdown
  *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
+ *
+ * ```markdown
+ *
  *    +-----------------------------------+
  *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
  *    +-----------------------------------+
@@ -517,9 +526,11 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * ```
  *
  * For example, when (r, c) = (0, 5) indicates that the starting index is 0, and the ending index is 5.
+ * It means that our digits are: `5  8  7  4  8  9`.
+ * And if we inject the corresponding operators from the operator array, it becomes: `5 - 8 + 7 * 4 - 8 + 9`.
  * And it means that we are talking about the expression: `5 - 8 + 7 * 4 - 8 + 9`.
  *
- * And if (r, c) = (2, 4), it means we are talking about: `7 * 4 - 8`.
+ * Similarly, if (r, c) = (2, 4), it means that we are talking about: `7 * 4 - 8`.
  *
  * We can see that when the values of i and j are the same, it represents only a single element.
  * There is no operation for a single element.
@@ -545,6 +556,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * Similarly, when the difference between `i` and `j` is 1, we get two elements.
  *
  * Expression:
+ *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
  *
  * ```markdown
  *
@@ -585,6 +605,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * ```markdown
  *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
+ *
+ * ```markdown
+ *
  *    +-----------------------------------+
  *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
  *    +-----------------------------------+
@@ -618,6 +647,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * And so on...
  *
  * Expression:
+ *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
  *
  * ```markdown
  *
@@ -655,6 +693,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * ```
  *
  * Also, we can associate the given terms `5 - 8 + 7 * 4 - 8 + 9` with the indices (columns) as below:
+ *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
  *
  * ```markdown
  *
@@ -706,6 +753,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * ```
  *
  * For the given expression `5 - 8 + 7 * 4 - 8 + 9`, each row signifies the below meanings:
+ *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
  *
  * ```markdown
  *
@@ -787,6 +843,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * ```markdown
  *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
+ *
+ * ```markdown
+ *
  *    +-----------------------------------+
  *    | Expression: 5 - 8 + 7 * 4 - 8 + 9 |
  *    +-----------------------------------+
@@ -812,6 +877,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * References:
  * 1. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/070twoElements.png
  * 2. res/courses/uc/module06DynamicProgramming02/03maximumArithmeticExpression/080allTwoElements.png
+ *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
  *
  * ```markdown
  *
@@ -941,6 +1015,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * Explanation:
  *
  * Our expression is: `5 - 8 + 7 * 4 - 8 + 9`.
+ *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
  *
  * ```markdown
  *
@@ -1412,6 +1495,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * The original expression is: `5 - 8 + 7 * 4 - 8 + 9`
  *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
+ *
  * Let us analyze the indices of a small sub-expression `5 - 8`.
  * The length of the number of operators to be included is `1`.
  * The `start index` of the sub-expression is `0`.
@@ -1421,6 +1513,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * The last operator index is `0`, which is `< stop-index of the pair`.
  *
  * Let us take another example.
+ *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
  *
  * Let us assume that the sub-expression is `8 + 7 * 4`.
  * The length of the number of operators to be included is `2`.
@@ -1432,6 +1533,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Let us take one last example.
  *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
+ *
  * Let us assume the sub-expression is `7 * 4 - 8 + 9`.
  * Here, the length of the number of operators to be included is `3`.
  * The start-index of the sub-expression is `2`.
@@ -1441,6 +1551,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * The last operator is at index `4`, which is again, `< stop-index of the pair`.
  *
  * So, can we say that:
+ *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
  *
  * ```
  * The start-index of the operator is `k = start-index of the sub-expression`,
@@ -1712,15 +1831,23 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * * (It means that we need to segregate digits from the given input string.)
  * * And then, we can try different combinations like:
  * * If the original expression is: 5 - 8 + 7 * 4 - 8 + 9
- * * Here, digits at:
- * * index 0 = 5,
- * * index 1 = 8,
- * * index 2 = 7,
- * * index 3 = 4,
- * * index 4 = 8, and
- * * index 5 = 9.
+ * * Then:
+ *
+ * ```markdown
+ *
+ * | Digit Indices -->    | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   | 5 |
+ * |----------------------|---|---|---|---|---|---|---|---|---|---|---|
+ * | Expression -->       | 5 | - | 8 | + | 7 | * | 4 | - | 8 | + | 9 |
+ * | Operator Indices --> |   | 0 |   | 1 |   | 2 |   | 3 |   | 4 |   |
+ *
+ * ```
+ *
  * * Then, (r, c) = (0, 3) = Length of a sub-expression from the digit at 0th index up to the digit at 3rd index.
+ * * So, (r, c) = (0, 3) = 5  8  7  4
+ * * And then using the operator array, we can inject the right operators between them.
+ * * So, it becomes:
  * * So, (r, c) = (0, 3) = 5 - 8 + 7 * 4
+ * * (That's how having a separate operator array helps. This is how we use that operator array.)
  * * In other words, `dp[i][j]` is a sub-expression that starts from digit `i` and ends at digit `j`.
  * * Now, to calculate different combinations of this example sub-expression,
  * we need to try every possible split-point operator of this sub-expression.
