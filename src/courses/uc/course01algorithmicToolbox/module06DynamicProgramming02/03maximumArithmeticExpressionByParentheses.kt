@@ -1721,6 +1721,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * * index 5 = 9.
  * * Then, (r, c) = (0, 3) = Length of a sub-expression from the digit at 0th index up to the digit at 3rd index.
  * * So, (r, c) = (0, 3) = 5 - 8 + 7 * 4
+ * * In other words, `dp[i][j]` is a sub-expression that starts from digit `i` and ends at digit `j`.
  * * Now, to calculate different combinations of this example sub-expression,
  * we need to try every possible split-point operator of this sub-expression.
  * * For example:
@@ -1825,10 +1826,10 @@ fun main() {
         // 5 - 8, 8 + 7, 7 * 4, 4 - 8, 8 + 9, 5 - 8 + 7, 8 + 7 * 4, 7 * 4 - 8, 4 - 8 + 9, 5 - 8 + 7 * 4, and so on...
         // They keep increasing the length of the problem (expression).
         // Eventually, they solve the final full length expression, which is: 5 - 8 + 7 * 4 - 8 + 9
-        // Outer: Length of the expression.
-        // Middle: Digits.
-        // Inner: Operators.
-        // Length of the number of operators included that defines the length of a subexpression.
+        // Outer: Length of the expression. How large is the sub-expression?
+        // Middle: Digits. Different sub-expressions of the same length defined by the outer for-loop.
+        // Inner: Operators. Sliding the split-point operator for the sub-expression given by the middle for-loop.
+        // Length of the number of operators included defines the length of a subexpression.
         // If the length of an operator is `1`, it means we include `2` digits around it.
         // If the length of the operators is `2`, it means that we get `3` digits.
         // And so on...
@@ -1839,6 +1840,20 @@ fun main() {
         // For example: [0][2], [1][3], [2][4], and so on...
         // And so on...
         // Both the perspectives are right as long as they use the correct mathematical and logical translation.
+        // Also, we can consider the `length` as a `size` or `length` of number of digits included in the expression.
+        // In that case, the range of the outer for-loop will be: `for (digits in 2..numberOfDigits)` (inclusive),
+        // and `j` will be `j = i + length - 1`.
+        // Then, we can visualize the progress as:
+        // The sub-expressions of `2` digits, then `3` digits, then `4` digits, and so on...
+        // So, it will be like:
+        // 1-digit expressions, 2-digits expressions, 3-digit expressions, 4-digit expressions, and so on...
+        // It continues until we cover all the digits (full length of the digits).
+        // And in that case, we have already covered the 1-digit expressions as a part of our base-case.
+        // Hence, this outer for-loop will start from `2` as: `for(digits in 2..digits.size)` (inclusive).
+        // And `j` will be: `j = i + digits - 1`.
+        // So, we can use any perspective.
+        // We may need to adjust our mathematical and logical translation according to our perspective.
+        // The only thing we need to ensure is that the mathematical and logical translation should be correct.
         for (length in 1 until numberOfDigits) {
             // After selecting a particular length, we slide the window to cover different expressions of the same length.
             // We slide the window by moving the start index forward, from left to right, one step at a time.
@@ -1871,8 +1886,8 @@ fun main() {
                 // we start the range from `i` and as in any valid expression, an operator finishes before `j`.
                 for (k in i until j) {
                     val op = operators[k]
-                    // At this point, we have selected and are calculating the fixed: [i][j]
-                    // We are calculating the min and the max of an expression that starts from `i` and ends at `j`.
+                    // At this point, we have selected the [i][j] and now we are calculating: [i][j]
+                    // We are calculating the min and the max of the expression that starts from `i` and ends at `j`.
                     // Left part: [i, k], Right part: [k + 1, j]
                     // And `k` is in the loop.
                     // It means that we are changing the `split` operator to find the `min` and the `max` values.
