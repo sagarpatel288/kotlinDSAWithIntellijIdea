@@ -6,7 +6,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * * [Abdul Bari Sir](https://youtu.be/nLmhmB6NzcM?si=IFAcqcsGxfozxVvw)
  * * [Jenny Madam](https://youtu.be/PfkBS9qIMRE?si=5b67n1jo08WPIePH)
  *
- * # ----------------------- Problem Statement -----------------------
+ * # ------ Problem Statement ------
  *
  * Maximum Amount of Gold Problem:
  * (Generally known as: The 0/1 Knapsack problem. Either we pick up the entire item, or we don't pick up the item at all.)
@@ -68,15 +68,15 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * The sum of the weights of the first and the last bar is equal to 9.
  *
- * # ----------------------- References Of Pre-requisites -----------------------
+ * # ------ References Of Pre-requisites ------
  *
  * 1. Dynamic Programming.
  * So, all the problems of the directory/package:
  * src/courses/uc/module05DynamicProgramming/module05ProgrammingAssignment01
  *
- * # ----------------------- Base Explanation: Base Thought Process -----------------------
+ * # ------ Base Explanation: Base Thought Process ------
  *
- * ## ---------------------- Why does the Greedy approach fail? How? ----------------------
+ * ## ------ Why does the Greedy approach fail? How? ------
  *
  * Greedy Approach Vs. Dynamic Programming:
  *
@@ -175,11 +175,11 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * * If there is a difference, it means we have got some donation (item).
  * * If they are the same, it means that we have got nothing.
  *
- * # ----------------------- Building the logic: Step-By-Step -----------------------
+ * # ------ Building the logic: Step-By-Step ------
  *
- * ## ----------------------- Formula -----------------------
+ * ## ------ Formula ------
  *
- * ### ----------------------- Initial Setup -----------------------
+ * ### ------ Initial Setup ------
  *
  * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
  * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
@@ -214,20 +214,20 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * We repeat this process until we fill each cell.
  *
- * ### ----------------------- cell(0, capacity) -----------------------
+ * ### ------ cell(0, capacity) ------
  *
  * When there is no item, irrespective of the knapsack capacity, all the cells of the 0th row will have value 0.
  * It indicates that when there is no item (0 item), irrespective of the knapsack capacity, we can't pick up any item.
  *
  * Hence, the entire 0th row will have the value 0.
  *
- * ### ----------------------- cell(item, 0) -----------------------
+ * ### ------ cell(item, 0) ------
  *
  * When the knapsack weight capacity is 0, irrespective of the total items, we can't pick up any item.
  *
  * Hence, the entire 0th column will have the value 0.
  *
- * ### ----------------------- cell(1, capacity) -----------------------
+ * ### ------ cell(1, capacity) ------
  *
  * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
  * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
@@ -239,7 +239,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * When there is only 1 item, and the knapsack weight capacity satisfies (greater than or equal to the item's weight),
  * we can place the item in the knapsack (to the cell).
  *
- * ### ----------------------- cell(2, capacity: 1..3) -----------------------
+ * ### ------ cell(2, capacity: 1..3) ------
  *
  * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
  * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
@@ -266,7 +266,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * cell(i, capacity) = cell(i - 1, capacity)
  * ```
  *
- * ### ----------------------- cell(2, capacity: 4) -----------------------
+ * ### ------ cell(2, capacity: 4) ------
  *
  * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
  * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
@@ -297,9 +297,9 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  *
  * Now comes the interesting magic of math.
  *
- * #### ----------------------- Building the formula from the observation, pattern, and behavior -----------------------
+ * #### ------ Building the formula from the observation, pattern, and behavior ------
  *
- * ##### ----------------------- cell(2, capacity: 4) -----------------------
+ * ##### ------ cell(2, capacity: 4) ------
  *
  * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
  * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
@@ -342,7 +342,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * Remember that math is also a language.
  * Each formula expresses (conveys) something. That's why we call it an expression.
  *
- * ### ----------------------- cell(2, capacity: 5..10) -----------------------
+ * ### ------ cell(2, capacity: 5..10) ------
  *
  * |     i / w    	| 0 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
  * |:------------:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:--:	|
@@ -356,7 +356,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * So, we cannot take any additional items.
  * Hence, cell(2, 5) = 5.
  *
- * #### ------------- How do we do it mathematically? -------------
+ * #### ------ How do we do it mathematically? ------
  *
  * Let us start from the beginning.
  *
@@ -397,7 +397,7 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * = 5
  * ```
  *
- * ### ----------------------- Using the formula -----------------------
+ * ### ------ Using the formula ------
  *
  * We can fill the entire table using the above formula:
  *
@@ -408,25 +408,25 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * | 2 (Weight 4) 	| 0 	| 1 	| 1 	| 1 	| 4 	| 5 	| 5 	| 5 	| 5 	| 5 	|  5 	|
  * | 3 (Weight 8) 	| 0 	| 1 	| 1 	| 1 	| 4 	| 5 	| 5 	| 5 	| 8 	| 9 	|  9 	|
  *
- * ## ----------------------- More observation (patterns, behavior) -----------------------
+ * ## ------ More observation (patterns, behavior) ------
  *
  * 1. The table (2D array) size to store the values. --> + 1 --> Size + 1, Options + 1, Target + 1, End + 1, Items + 1.
  * 2. Bottom-up journey (iteration). It will start from 0 or 1, and will go up to the target, limit, or end point.
  *
- * # ----------------------- Complexity Analysis -----------------------
+ * # ------ Complexity Analysis ------
  *
- * ## ----------------------- Time Complexity Analysis -----------------------
+ * ## ------ Time Complexity Analysis ------
  *
  * We have two nested for loops. If the number of items are `n`,
  * and the maximum weight capacity of the knapsack is, `W,`
  * then the time complexity is O(n * W).
  *
- * ## ----------------------- Space Complexity Analysis -----------------------
+ * ## ------ Space Complexity Analysis ------
  *
  * We take a container (table) of size (n + 1)(W + 1).
  * Hence, the space complexity is also O(n * W).
  *
- * # ----------------------- Grader Output -----------------------
+ * # ------ Grader Output ------
  *
  * Good job! (Max time used: 0.11/4.00, max memory used: 54890496/536870912.)
  */
