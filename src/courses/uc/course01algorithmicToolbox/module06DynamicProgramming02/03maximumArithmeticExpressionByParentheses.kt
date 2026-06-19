@@ -1701,6 +1701,43 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * which is the original problem.
  * ```
  *
+ * # TL;DR
+ *
+ * * To find the maximum value of an expression using different combinations of parenthesis,
+ * we need to try different combinations.
+ * * We need to solve a smaller sub-expression of a smaller length with all the possible combinations,
+ * and gradually move to the full length expression.
+ * * To solve different sub-expressions of different lengths with different combinations, we take a 2D table.
+ * * Both the rows and columns of this 2D table will be the indices of the digits.
+ * * (It means that we need to segregate digits from the given input string.)
+ * * And then, we can try different combinations like:
+ * * If the original expression is: 5 - 8 + 7 * 4 - 8 + 9
+ * * Here, digits at:
+ * * index 0 = 5,
+ * * index 1 = 8,
+ * * index 2 = 7,
+ * * index 3 = 4,
+ * * index 4 = 8, and
+ * * index 5 = 9.
+ * * Then, (r, c) = (0, 3) = Length of a sub-expression from the digit at 0th index up to the digit at 3rd index.
+ * * So, (r, c) = (0, 3) = 5 - 8 + 7 * 4
+ * * Now, to calculate different combinations of this example sub-expression,
+ * we need to try every possible split-point operator of this sub-expression.
+ * * For example:
+ * * 5 - (8 + 7 * 4) // Here, the split-point operator is `-`.
+ * * (5 - 8) + (7 * 4) // Here, the split-point operator is `+`.
+ * * (5 - 8 + 7) * 4 // Here, the split-point operator is `*`.
+ * * And then, we need to select and store both the `min` and the `max` values out of these combinations.
+ * * Because we don't know which combination will give the ultimate `max` value.
+ * * For example, we might think that `max * max = max`, but it can be `min * min = max`, too!
+ * * For example, `3 (max) * 3 (max) = 9` is less than `-10 (min) * -10 (min) = 100`.
+ * * The same goes with addition and subtraction.
+ * * So, we need two 2D tables: One to store `min` values and another to store `max` values.
+ * * And then, we try all the possible combinations of these `min` and `max` values.
+ * * Then, we store the ultimate `min` result to the `min table`, and ultimate `max` result to the `max table`.
+ * * And then we use these `min` and `max` values to evaluate next `min` and `max` values.
+ * * This process continues until we find the ultimate and final `max` value of the full length expression.
+ *
  * # -------- Complexity Analysis --------
  *
  * ## -------- Time Complexity --------
