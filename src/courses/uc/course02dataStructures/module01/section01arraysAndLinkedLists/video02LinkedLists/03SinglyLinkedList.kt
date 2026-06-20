@@ -104,6 +104,15 @@ class Node<T>(var data: T, var next: Node<T>? = null) {
  *
  * * Also, whenever we remove a node, it is the best practice to nullify its next and previous pointers.
  *
+ * >----
+ *
+ * **Common Mistakes**
+ *
+ * * `isEmpty` should be a computational property (or function)
+ * * Forgetting to handle the edge cases: `isEmpty`, and `head?.next == null`
+ * * Forgetting to update the size
+ * * Overusing the edge cases even when not required (it's minor)
+ *
  * ToDo: There are a few things in this file (implementation) that we can improve. Such as:
  *
  * * We can replace the `size()` function with read-only `size` property. (Private set).
