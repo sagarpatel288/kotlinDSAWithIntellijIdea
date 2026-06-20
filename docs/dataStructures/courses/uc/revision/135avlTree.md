@@ -29,7 +29,21 @@
 
 ## Prerequisites / Previously
 
-*
+* [Arrays](010arrays.md)
+* [Dynamic Arrays.md](020dynamicArrays.md)
+* [Linked Lists](030linkedLists.md)
+* [Singly Linked List Without Tail](035singlyLinkedListWithoutTail.md)
+* [Doubly Linked List With Tail.md](045doublyLinkedListWithTail.md)
+* [Queues](050queues.md)
+* [Stacks](060stacks.md)
+* [Trees](070trees.md)
+* [Priority Queues](080priorityQueues.md)
+* [Disjoint Sets](090disjointSets.md)
+* [Hash Tables](100hashTables.md)
+* [Hash Map](105hashMap.md)
+* [Hash Set](110hashSet.md)
+* [Binary Search Trees](120binarySearchTrees.md)
+* [Self Balancing Binary SearchTrees](130selfBalancingBinarySearchTrees.md)
 
 ## References / Resources
 

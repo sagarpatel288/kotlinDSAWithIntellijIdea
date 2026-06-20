@@ -30,7 +30,9 @@
 
 ## Prerequisites / Previously
 
-* [Linked Lists.md](030linkedLists.md)
+* [Arrays](010arrays.md)
+* [Dynamic Arrays.md](020dynamicArrays.md)
+* [Linked Lists](030linkedLists.md)
 
 ## References / Resources
 

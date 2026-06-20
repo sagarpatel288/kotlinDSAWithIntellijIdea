@@ -29,7 +29,14 @@
 
 ## Prerequisites / Previously
 
-*
+* [Arrays](010arrays.md)
+* [Dynamic Arrays.md](020dynamicArrays.md)
+* [Linked Lists](030linkedLists.md)
+* [Singly Linked List Without Tail](035singlyLinkedListWithoutTail.md)
+* [Doubly Linked List With Tail.md](045doublyLinkedListWithTail.md)
+* [Queues](050queues.md)
+* [Stacks](060stacks.md)
+* [Trees](070trees.md)
 
 ## References / Resources
 
