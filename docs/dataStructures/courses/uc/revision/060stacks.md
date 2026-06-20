@@ -42,19 +42,19 @@
 
 ## What
 
-*
+* 
 
 ## Solves
 
-*
+* 
 
 ## How
 
-*
+* 
 
 ## Problem/s
 
-*
+* 
 
 ## Next
 

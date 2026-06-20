@@ -41,11 +41,29 @@
 
 ## What
 
-* 
+* "Everything in moderation!"
+* "Too much of anything can make us sick!"
+* Having too many functionalities than what we need increases the chances of bugs.
+* Earlier, we have seen arrays, dynamic arrays, and linked lists.
+* What if all we do is `pushBack` and `popFront`?
+* It doesn't create a cycle, and we don't travel to find anything between `top` and `end`.
+* We don't even perform `popBack`!
+* We always `insert` an item to the `back` and get the item from the `front`.
+* So, we want to mimic the real-world `Queue` behavior.
+* It follows `FIFO - First In, First Out`.
+* Like: First come, first served.
+* For example: The request (e.g., API call) we get the first, is the first we serve. 
+* So, we came up with a new data structure: `Queue`.
+* Where we want to respect the order of arrival.
+* The item that we get from the front, is the item that has the longest waiting period in the queue compared to any other item of the queue.
 
 ## Solves
 
-* 
+* We get only what is needed: `FIFO - First In, First Out`.
+* Take the item from the front in `O(1)`.
+* Insert the item to the back in `O(1)`.
+* We don't get anything unnecessary.
+* It reduces the chances of bugs.
 
 ## How
 
