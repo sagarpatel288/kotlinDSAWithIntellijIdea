@@ -46,7 +46,7 @@ package courses.uc.course02dataStructures.module01.section01arraysAndLinkedLists
  * * It means that if the values of two objects are the same, then the objects are equal by default,
  * unless we override the default behavior.
  */
-class Node<T>(var data: T, var next: Node<T>?) {
+class Node<T>(var data: T, var next: Node<T>? = null) {
     override fun toString(): String {
         // If we print "next," it will print all the data simultaneously! It will be like a recursive call!
         return "data: $data"
@@ -75,16 +75,24 @@ class Node<T>(var data: T, var next: Node<T>?) {
  *
  * ### Main Properties and Functions
  *
+ * >----
+ *
  * * add, read, and remove from head
  * * add, read, and remove from tail
- * * Other helpers: size and isEmpty
+ * * Helpers: size and isEmpty
+ * * Cycles: [hasCycle], [findStartCycle], [breakCycle], [findMiddleNode]
+ * * And: [findMiddleNode], [reverse], and [mergeTwoLinkedLists]
  *
- * Use your 5 fingers of any hand or leg to visualize any operation of the Linked List.
- * For example, I use the fingers of my right hand to visualize any operation of the Linked List.
- * Such as:
- * [pushFront], [topFront], [popFront],
- * [pushBack], [topBack], [popBack],
- * [addItemAtIndex], [getItemAtIndex], [setReplace], [removeItemAtIndex], etc.
+ * >----
+ *
+ * * Use your 5 fingers of any hand or leg to visualize any operation of the Linked List.
+ * * For example, I use the fingers of my right hand to visualize any operation of the Linked List.
+ * * Such as:
+ * * [pushFront], [topFront], [popFront],
+ * * [pushBack], [topBack], [popBack],
+ * * [addItemAtIndex], [getItemAtIndex], [setReplace], [removeItemAtIndex], etc.
+ *
+ * >----
  *
  * * We have 3 cases on an average for each operation.
  *
@@ -115,7 +123,11 @@ class SinglyLinkedListWithoutTail<T>() {
     // We use this condition in almost all the functions. Hence, a separate and dedicated function.
     fun isEmpty() = head == null
 
-    // Add an item to the front (top, start, first) of the list. Time complexity is O(1).
+    /**
+     * * Add an item to the front (top, start, first) of the list. Time complexity is O(1).
+     * * This is a longer version for understanding purpose.
+     * * The shorter, cleaner, and more straight-forward version is: [pushFrontShort]
+     */
     fun pushFront(data: T) {
         val newNode = Node(data, null)
         // The list is empty.
@@ -126,6 +138,14 @@ class SinglyLinkedListWithoutTail<T>() {
             newNode.next = head
             head = newNode
         }
+        size++
+    }
+
+    /**
+     * * This is a short, clean, straight-forward version of [pushFront].
+     */
+    fun pushFrontShort(data: T) {
+        head = Node(data, head)
         size++
     }
 
@@ -150,7 +170,10 @@ class SinglyLinkedListWithoutTail<T>() {
         //endregion
     }
 
-    // Add an item to the back (last, tail, end) of the list. Worst-case time complexity is O(n).
+    /**
+     * * Add an item to the back (last, tail, end) of the list. Worst-case time complexity is O(n).
+     * * The shorter, cleaner, and straight forward version is: [pushBackShort]
+     */
     fun pushBack(value: T) {
         val newNode = Node(value, null)
         // If the list is empty, the time complexity is O(1).
@@ -178,6 +201,23 @@ class SinglyLinkedListWithoutTail<T>() {
         size++
     }
 
+    /**
+     * * This is the shorter, cleaner, straight-forward version of [pushBack].
+     */
+    fun pushBackShort(data: T) {
+        if (isEmpty()) {
+            pushFrontShort(data)
+            return
+        }
+        val node = Node(data, null)
+        var curr = head
+        while (curr?.next != null) {
+            curr = curr.next // No need to use null-safe because we know curr?.next != null
+        }
+        curr?.next = node
+        size++
+    }
+
     // Read (get) the back (last, tail, end) item of the list. Worst-case time complexity is O(n).
     fun topBack(): T? {
         // If the list is empty.
@@ -193,7 +233,7 @@ class SinglyLinkedListWithoutTail<T>() {
         var curr = head
         while (curr?.next != null) {
             // keep doing (continue, do) curr = curr.next as long as curr?.next != null
-            curr = curr.next
+            curr = curr.next // No null-safe operator because we know curr?.next != null
         }
         return curr?.data
     }
@@ -507,9 +547,14 @@ class SinglyLinkedListWithoutTail<T>() {
     }
 
     /**
+     *
+     * * For a simple, cleaner, shorter, and straight-forward version, check: [reverseNormally].
+     *
      * In-place reverse function is a standard best practice.
-     * It changes the original object
-     * (In our case, currently it is [courses.uc.course02dataStructures.module01.section01arraysAndLinkedLists.video02LinkedLists.SinglyLinkedListWithoutTail]).
+     * It changes the original object.
+     * (In our case, currently it is:
+     * [courses.uc.course02dataStructures.module01.section01arraysAndLinkedLists.video02LinkedLists.SinglyLinkedListWithoutTail]).
+     *
      *
      * For example, suppose the original list is:
      * ```
@@ -525,7 +570,8 @@ class SinglyLinkedListWithoutTail<T>() {
      * ```
      *
      * Now, notice how we change the `next pointer`.
-     * For example, ```3 --> 5``` becomes ```3 <-- 5```.
+     * For example, `3 --> 5` becomes `3 <-- 5`.
+     *
      *
      * Note that in the original list, `3` was the `head`.
      * And in the reversed version, it becomes the last element.
@@ -622,6 +668,10 @@ class SinglyLinkedListWithoutTail<T>() {
      * }
      * head = prev // Because "prev" is the new, last, latest "curr," and the last target is the new "head."
      * ```
+     *
+     * * For the simple, shorter, cleaner, and straight-forward version, check:
+     * * [reverseNormally]
+     *
      */
     fun reverse(breakCycle: Boolean = true) {
         var prev: Node<T>? = null
@@ -629,6 +679,12 @@ class SinglyLinkedListWithoutTail<T>() {
         val last = head
         val set = mutableSetOf<Node<T>?>()
         val startCycle = findStartCycle()
+        // Caution! Possible point of mistake!
+        // We want to cover all the nodes.
+        // We don't want to stop on the last node.
+        // We want to cross the last node and go past the last node.
+        // We can't exclude the last node, too.
+        // So, it is `while (curr != null)`, and not `while (curr?.next != null)`.
         while (curr != null) {
             if (set.contains(curr)) {
                 println("The cycle starts at index ${set.indexOf(curr)}")
@@ -648,6 +704,22 @@ class SinglyLinkedListWithoutTail<T>() {
         if (!breakCycle && startCycle != null) {
             last?.next = startCycle
         }
+    }
+
+    /**
+     * This is a simple, shorter, cleaner, straight-forward version of [reverse].
+     * To understand, check: [reverse].
+     */
+    fun reverseNormally() {
+        var prev: Node<T>? = null
+        var curr = head
+        while (curr != null) {
+            val next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        }
+        head = prev
     }
 
     /**
@@ -677,7 +749,32 @@ class SinglyLinkedListWithoutTail<T>() {
      * 1. [Striver, Raj, TakeUForward](https://youtu.be/jXu-H7XuClE?si=bETfXB3hwIB0DV2c)
      * 2. [Monica AI](https://monica.im/share/chat?shareId=uZBeKJIaViG0Axu3&locale=en)
      *
+     * # Merge Two Sorted Linked Lists
+     *
+     * * Yes! The two linked lists that we receive are already sorted!
+     * * We need to merge them and ensure that the resultant (merged) linked list is also sorted!
+     * * This is almost similar to the `merge` part of the `merge sort` algorithm.
+     * * So, we take 3 pointers.
+     * * One for the sorted container, one for the left part, and one for the right part.
+     * * When we select an item of a particular part, we increase the pointer of that part.
+     * * And we also increase the pointer of the sorted container, to fill the next bucket.
+     *
      * # Explanation:
+     *
+     * * No need to make it more complicated. (Yes. I am sorry, but the current story is complicated!)
+     * * Remember the merge sort?
+     *
+     * * [Merge Sort](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/55e63ef6444f108d85421e89b09df0c5953b1f4f/src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/020mergeSortExample.kt)
+     * * [Merge Sort](src/courses/uc/course01algorithmicToolbox/module04DivideAndConquer/020mergeSortExample.kt)
+     *
+     * * Remember the `temp` container we created while comparing the `left` and the `right` parts?
+     * * Remember the variables `sorted`, `left` and the `right`?
+     * * The `sorted` variable to manage the indices and fill the items in the `temp` container.
+     * * The `left` variable would move on the `left` part.
+     * * And the `right` variable would move on the `right` part.
+     * * We would take the smaller element from one of the parts, add it to the `temp`,
+     * and move the index of the selected part.
+     * * This is almost the same.
      *
      * The idea is, we take a fake node, called `preHead`.
      * The resultant list (the merged list) starts from this `preHead`.
@@ -1002,7 +1099,7 @@ class SinglyLinkedListWithoutTail<T>() {
         // A separate node in the space
         val preHead = Node(-1, null)
         // A helper variable to establish next nodes to "preHead."
-        var temp = preHead
+        var sorted = preHead
         // A helper variable to cover each item of the listOne, starting from the head.
         var temp1 = listOne.head
         // A helper variable to cover each item of the listTwo, starting from the head.
@@ -1012,14 +1109,14 @@ class SinglyLinkedListWithoutTail<T>() {
             if (temp1.data <= temp2.data) {
                 // The winner becomes the next node.
                 // temp.next = winner
-                temp.next = temp1 // Establishes the next node.
-                temp = temp1 // Moves to the established node. This can also be: temp = temp.next
+                sorted.next = temp1 // Establishes the next node.
+                sorted = temp1 // Moves to the established node. This can also be: sorted = sorted.next
                 temp1 = temp1.next // Moves to the next item.
             } else {
                 // The winner becomes the next node.
                 // temp.next = winner
-                temp.next = temp2 // Establish the next node.
-                temp = temp2 // Moves to the established node. This can also be: temp = temp.next
+                sorted.next = temp2 // Establish the next node.
+                sorted = temp2 // Moves to the established node. This can also be: temp = temp.next
                 temp2 = temp2.next // Moves to the next item.
             }
         }
@@ -1027,9 +1124,33 @@ class SinglyLinkedListWithoutTail<T>() {
         // If one of the two lists gets exhausted, the remaining list becomes the winner.
         // temp.next = unexhausted winnerList
         // Caution! Possible point of mistake!
-        // It is `temp.next = ...` and not the `temp = ...`.
-        temp.next = temp1 ?: temp2
+        // It is `sorted.next = ...` and not the `temp = ...`.
+        sorted.next = temp1 ?: temp2
         val mergedList = SinglyLinkedListWithoutTail<Int>()
+        // Caution! Possible point of mistake!
+        // It is: `mergedList.head = preHead.next`, and not `mergedList.head = sorted`,
+        // because the `sorted` might have gone far away!
+        // But it (the `sorted`) has already built the bridge before every single step it took to move forward.
+        // It has already connected the `preHead.next`.
+        // Initially, `sorted` was at `preHead` only.
+        // Then, `sorted.next = temp1` or `sorted.next = temp2` was actually: `preHead.next`.
+        // Then only `sorted` jumped on that next step: `sorted = temp1` or `sorted = temp2`.
+        // Think of this as a game.
+        // A game where a kid puts (laid downs) a stone before moving on to it.
+        // After putting the stone (building the bridge), the kid moves on to it.
+        // The kid continues doing the same.
+        // The kid builds a bridge before moving forward.
+        // Now, the only thing his friend needs to do is: Take the next step and put it on the starting of the bridge.
+        // The bridge is already built.
+        // `sorted.next = temp` => The kid puts (laid downs) a stone on the ground.
+        // `sorted = sorted.next` => The kid moves forward and stands on that stone.
+        // `temp = temp.next` => The kid gets the next stone.
+        // The kid repeats this process as long as he gets stones.
+        // So, remember that the `mergedList.head` is the friend of the kid.
+        // Or maybe, `head` = `king`.
+        // And the only thing that the friend (king) needs to do is, put the `next` step on the bridge.
+        // The original `preHead` is an arbitrary node.
+        // The bridge starts from `preHead.next`.
         mergedList.head = preHead.next
         // If it were the lists with tail, and we needed to assign the tail, then:
         // The tail of the list that didn't exhaust becomes the tail.
@@ -1334,6 +1455,9 @@ class SinglyLinkedListWithoutTail<T>() {
             fast = fast.next?.next
             if (slow == fast) {
                 slow = head
+                // Caution! Possible point of mistake!
+                // Do not miss this edge case, where slow and fast meet at head!
+                // If we miss this part, we might get `+1` offset (gap) in the answer.
                 //region Considering a case where both the slow and the fast pointers meet at the head.
                 // Hence, the head itself is a cycle entry (start) point.
                 // It means that this is a perfect circular list where the last item points to the head.
