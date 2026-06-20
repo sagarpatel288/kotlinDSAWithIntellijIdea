@@ -37,7 +37,10 @@
 
 ## Prerequisites / Previously
 
-* [Revision: Singly Linked List With Tail.md](037singlyLinkedListWithTail.md)
+* [Arrays](010arrays.md)
+* [Dynamic Arrays.md](020dynamicArrays.md)
+* [Linked Lists](030linkedLists.md)
+* [Singly Linked List Without Tail](035singlyLinkedListWithoutTail.md)
 
 ## References / Resources
 
