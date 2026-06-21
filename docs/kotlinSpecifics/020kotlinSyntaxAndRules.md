@@ -29,6 +29,8 @@
 ## Data Structures
 
 * IntArray Vs. arrayOf Vs. ArrayList
+* Is it possible to have: `Array<T>(val size = 0)`? Why?
+* Array<Any?>
 * arrayOfNulls
 * List Vs. listOf Vs. MutableList 
 * ArrayDequeue and operations
