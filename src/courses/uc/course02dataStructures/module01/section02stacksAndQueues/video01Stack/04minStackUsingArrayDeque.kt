@@ -120,8 +120,16 @@ class MinStackUsingArrayDeque() {
             // See, we got the same original incoming value even after going through the encoding computation!
             // So, why to waste resources on the computation operation that ultimately does nothing?
             // Also, when we `pop`, it decodes only `if (popped < currentMin)`.
+            // And the decoding formula is: `2 * currentMin - poppedEncoded`.
+            // And we have just seen that encoding does not change the item value that is equivalent to the current min.
+            // It means that: `poppedEncoded = currentMin`.
+            // So, we get: `2 * currentMin - currentMin = currentMin`.
+            // Ultimately, we are getting `currentMin` only!
             // So, for the items that are equivalent to the current min, there will be no decoding for that!
+            // So, why to encode-decode an item whose resultant value remains the same even after encoding-decoding?
+            // Why to encode-decode an item that gives `currentMin` even without going through encoding-decoding?
             // Hence, we don't encode-decode the items that are equivalent to the current min.
+            // We only encode-decode items that are less than the current min.
             arrayDeque.addFirst(longValue)
         } else {
             val encoded = 2L * value - minValue
