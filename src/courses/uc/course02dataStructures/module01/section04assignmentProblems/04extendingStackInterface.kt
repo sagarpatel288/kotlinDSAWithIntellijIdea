@@ -271,6 +271,7 @@ fun maxStack(queryList: List<String>): String {
                     latestMax = oldMax
                 }
                 // If the stack is empty, we should reset the `latestMax`.
+                // Otherwise, it will hold a stale (leftover) value.
                 if (stack.isEmpty()) {
                     latestMax = Long.MIN_VALUE
                 }

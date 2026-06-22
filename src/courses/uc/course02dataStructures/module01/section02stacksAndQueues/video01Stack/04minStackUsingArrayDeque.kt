@@ -86,7 +86,10 @@ class MinStackUsingArrayDeque() {
 
     fun push(value: Int) {
         val longValue = value.toLong()
-        // If the stack is empty, we don't have any previous minimum to remember and restore when we pop this new min.
+        // We perform encoding when we find a `new min` to store the `previous` and the `current` min in one value.
+        // Because the `new` min is going to replace the `previous` min and becomes the `current` min.
+        // And when we remove the `current` min, we need to retrieve and restore the `previous` min.
+        // But, if the stack is empty, we don't have any previous minimum to restore when we pop this new min.
         // So, we don't need to encode the very first item.
         // What happens if we encode it? We have to go through unnecessary computational overhead.
         // Because our current and default value is Long.MAX_VALUE.
