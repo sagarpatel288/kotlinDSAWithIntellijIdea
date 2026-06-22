@@ -125,7 +125,7 @@ class MinStackUsingArrayDeque() {
     fun pop(): Int {
         if (isEmpty) throw EmptyStackException()
         val popped = arrayDeque.removeFirst()
-        return if (popped < minValue) {
+        val answer = if (popped < minValue) {
             val actualValue = minValue
             val oldMin = (2L * minValue) - popped
             minValue = oldMin
@@ -133,6 +133,18 @@ class MinStackUsingArrayDeque() {
         } else {
             popped.toInt()
         }
+        // Caution! Possible point of mistake!
+        // This is very critical.
+        // Even though we ensure the correctness through our wrapper function `fun min()` and `isEmpty` gatekeepers,
+        // we must reset the `min` value.
+        // Yes, it is right that `fun min()` will check `isEmpty` and we will get the correct answer only.
+        // Yes, it is right that `isEmpty` ensures that when we `push` the first item, we would update the `min`.
+        // However, without this reset, those are `masks` that hide the actual bug.
+        // To ensure the entire technical hygiene, we must reset the `min` when the stack is empty.
+        if (isEmpty) {
+            minValue = Long.MAX_VALUE
+        }
+        return answer
     }
 
     override fun toString() = buildString {
