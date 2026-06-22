@@ -54,6 +54,10 @@ import java.util.EmptyStackException
  */
 class MinStackUsingArrayDeque() {
 
+    // Caution! Possible point of mistake!
+    // We use `Long` instead of `Int`.
+    // Because our encryption and decryption can cause `IntegerOverflow`.
+    // Always use `Long` (or `Double` for fractions/decimal) whenever we have a mathematical formula in an algorithm.˛
     private val arrayDeque = ArrayDeque<Long>()
 
     val size: Int
@@ -63,12 +67,15 @@ class MinStackUsingArrayDeque() {
         get() = arrayDeque.isEmpty()
 
     // Caution! Possible point of mistake!
-    // Initially, we have a default placeholder value for the `min`.
+    // 1. Initially, we have a default placeholder value for the `min`.
     // And we set the default `min` value as `Long.MAX_VALUE`,
     // to ensure that whenever we push the very first item to the stack,
     // it will be less than this default `min`.
     // So that the new (and real) item can become actual new `min`.
-    // Also, we don't want external world to accidentally retrieve this default `min` as the actual `min`.
+    // 2. And yes, it will be a `Long` type instead of an `Int` type.
+    // Because our encryption and decryption can cause `IntegerOverflow`.
+    // So, ensure to take (use) `Long` instead of `Int`.
+    // 3. Also, we don't want external world to accidentally retrieve this default `min` as the actual `min`.
     // So, we allow the external world to access this `min` only through the helper function.
     private var minValue: Long = Long.MAX_VALUE
 
