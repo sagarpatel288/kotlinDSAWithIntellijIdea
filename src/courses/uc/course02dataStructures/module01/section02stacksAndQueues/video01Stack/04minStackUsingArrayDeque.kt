@@ -107,6 +107,21 @@ class MinStackUsingArrayDeque() {
             minValue = longValue
             arrayDeque.addFirst(longValue)
         } else if (longValue >= minValue) {
+            // Caution! Possible point of mistake!
+            // We don't encode the item that is equivalent to the current min.
+            // Because we are interested in one `min` value, and not multiple or in any specific order.
+            // And if we try to encode the value that is equivalent to the current min, it does not change the value.
+            // For example, if the new incoming value is `i` and the current min value is `c`.
+            // Now, we are saying that both the values are equal.
+            // So, `i == c`.
+            // Now, the encoding formula is: 2 * i - c
+            // But we can replace `i` with `c` or vice versa.
+            // So, it becomes: `2i - i = i`.
+            // See, we got the same original incoming value even after going through the encoding computation!
+            // So, why to waste resources on the computation operation that ultimately does nothing?
+            // Also, when we `pop`, it decodes only `if (popped < currentMin)`.
+            // So, for the items that are equivalent to the current min, there will be no decoding for that!
+            // Hence, we don't encode-decode the items that are equivalent to the current min.
             arrayDeque.addFirst(longValue)
         } else {
             val encoded = 2L * value - minValue
