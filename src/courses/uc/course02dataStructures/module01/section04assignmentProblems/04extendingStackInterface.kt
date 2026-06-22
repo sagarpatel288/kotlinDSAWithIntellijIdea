@@ -246,7 +246,15 @@ fun maxStack(queryList: List<String>): String {
                 val incoming = query[1].toLong()
                 if (stack.isEmpty()) {
                     latestMax = incoming
-                    // ToDo: I doubt this "isEmpty" condition, and the logic that adds the value without encoding.
+                    // We don't need to encrypt if it is the first and the only item.
+                    // Because the purpose of encryption is to remember and restore the previous max.
+                    // But when the stack is already empty, there is no previous max.
+                    // If we still encrypt it, we have to go through unnecessary computational overhead.
+                    // Because the encryption will use the default `Long.MIN_VALUE`.
+                    // And we will have to decrypt the value when we pop it, even though we restore nothing.
+                    // Because this is the first max value, there is no previous max to restore.
+                    // However, if it is the first item in the stack, we can get it without encryption and decryption.
+                    // So, do not encrypt if it is the first item in the stack.
                     stack.addLast(incoming)
                 } else if (incoming > latestMax) {
                     val encoded = 2 * incoming - latestMax
