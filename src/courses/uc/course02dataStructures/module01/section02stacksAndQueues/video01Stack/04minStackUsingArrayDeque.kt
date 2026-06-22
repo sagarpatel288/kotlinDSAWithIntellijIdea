@@ -69,7 +69,20 @@ class MinStackUsingArrayDeque() {
 
     fun push(value: Int) {
         val longValue = value.toLong()
-        // ToDo: I doubt this empty condition and the logic that adds the value without encoding.
+        // If the stack is empty, we don't have any previous minimum to remember and restore when we pop this new min.
+        // So, we don't need to encode the very first item.
+        // What happens if we encode it? We have to go through unnecessary computational overhead.
+        // Because our current and default value is Long.MAX_VALUE.
+        // When we encode, it becomes: 2L * incoming - Long.MAX_VALUE, which will be a massive negative number.
+        // Then, we will push the encoded value to the stack.
+        // Now, when we pop that value, we want to return the actual min value and restore the previous min.
+        // But there is no previous min, because this is the first and only min value.
+        // But we still have to return the actual value.
+        // So, we would again go through the decoding computation.
+        // In the end, we would return the actual value.
+        // But we could have done these all without these heavy encoding-decoding computation, for the first item.
+        // And we would still maintain the correctness of the algorithm, with higher efficiency.
+        // Hence, avoid encryption-decryption when we push the first and only item to the stack.
         if (isEmpty) {
             minValue = longValue
             arrayDeque.addFirst(longValue)

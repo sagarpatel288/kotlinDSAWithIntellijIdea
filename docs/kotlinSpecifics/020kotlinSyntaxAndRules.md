@@ -9,6 +9,7 @@
 * Fibonacci
 * LCM (The Least Common Multiplier) and GCD (Greatest Common Divisor or HCF - Highest Common Factor)
 * Logarithms
+* Range sum formula (prefixed sum array)
 * Euclidean formula to find the distance between two points.
 * Formulas of: Edit distance to match two strings
 * Trigonometry (Shapes, area, etc.)
