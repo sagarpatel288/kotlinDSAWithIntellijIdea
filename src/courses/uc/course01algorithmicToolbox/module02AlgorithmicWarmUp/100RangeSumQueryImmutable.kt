@@ -136,11 +136,11 @@ fun  main() {
      *
      * TL;DR:
      *
-     * 1. Build a pre-defined accumulative sum array of size input + 1 and set [0] = 0.
+     * 1. Build a pre-defined accumulative sum array of size `input + 1` and set `[0] = 0`.
      * 2. Store cumulative sum to pre-defined sum array by iterating through the input array.
-     * 3. Cumulative sum formula: preSum[i + 1] = preSum[i] + input[i]
+     * 3. Cumulative sum formula: `preSum[i + 1] = preSum[i] + input[i]`
      * 4. Range sum formula:
-     * for the given s(l, r), preSum[r + 1] - preSum[l].
+     * for the given `s(l, r), preSum[r + 1] - preSum[l]`.
      *
      */
     fun giveRangeSumQueriesImmutable(originalCollection: List<Int>, indexPair: List<Int>) {
