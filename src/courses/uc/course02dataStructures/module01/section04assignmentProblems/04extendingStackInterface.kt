@@ -270,6 +270,10 @@ fun maxStack(queryList: List<String>): String {
                     val oldMax = 2 * latestMax - popped
                     latestMax = oldMax
                 }
+                // If the stack is empty, we should reset the `latestMax`.
+                if (stack.isEmpty()) {
+                    latestMax = Long.MIN_VALUE
+                }
             }
             "max" -> {
                 if (stack.isEmpty()) {
