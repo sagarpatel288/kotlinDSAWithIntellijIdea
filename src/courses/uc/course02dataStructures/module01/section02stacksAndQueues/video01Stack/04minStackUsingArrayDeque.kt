@@ -62,9 +62,19 @@ class MinStackUsingArrayDeque() {
     val isEmpty: Boolean
         get() = arrayDeque.isEmpty()
 
-    var minValue: Long = Long.MAX_VALUE
-        private set
+    // Caution! Possible point of mistake!
+    // Initially, we have a default placeholder value for the `min`.
+    // And we set the default `min` value as `Long.MAX_VALUE`,
+    // to ensure that whenever we push the very first item to the stack,
+    // it will be less than this default `min`.
+    // So that the new (and real) item can become actual new `min`.
+    // Also, we don't want external world to accidentally retrieve this default `min` as the actual `min`.
+    // So, we allow the external world to access this `min` only through the helper function.
+    private var minValue: Long = Long.MAX_VALUE
 
+    // Caution! Possible point of mistake!
+    // The external world access the `min` value through this helper function only.
+    // Without this helper function, external world can accidentally get a default (dummy, placeholder) value of `min`.
     fun getMin() = if (isEmpty) throw EmptyStackException() else minValue.toInt()
 
     fun push(value: Int) {
