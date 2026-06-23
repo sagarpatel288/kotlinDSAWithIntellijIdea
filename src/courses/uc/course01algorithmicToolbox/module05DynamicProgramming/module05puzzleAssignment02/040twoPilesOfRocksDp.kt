@@ -1,5 +1,34 @@
 package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module05puzzleAssignment02
 
+/**
+ * * Given:
+ * * Two piles of `n` rocks.
+ * * A player can pick up a rock either from a pile or from both the piles.
+ * * The player who takes the last turn and leaves no stone behind wins the game.
+ *
+ * * Output:
+ * * Print all the possible winning and losing configurations.
+ *
+ * * Thought Process:
+ * * We have `n` rocks in each pile.
+ * * And depending upon the choice of a player, we get many combinations.
+ * * For example, a player can make (10, 10) into (9, 9) or (9, 10), or (10, 9).
+ * * And depending upon each choice, we get next set of combinations.
+ * * So basically, there are many combinations.
+ * * So, instead of trying to solve the original and large problem `(n, n)`, we start small.
+ * * We start small from (0, 0) and slowly, gradually move towards (n, n).
+ * * This pattern indicates the bottom-up (tabulation) approach (dynamic programming).
+ * * The `dpTable` that we take is: `Array(rocks + 1) { BooleanArray(rocks + 1) }`.
+ * * We store the boolean value for each configuration.
+ * * The boolean value `true` indicates that the configuration is a winning configuration.
+ * * And the boolean value `false` indicates that the configuration is a losing configuration.
+ * * We start with the default (base-case) configuration.
+ * * We know that when there is no rock in any pile, it is a losing configuration.
+ * * If a player receives such a configuration, the player who receives it, loses the game.
+ * * The translation of this configuration is: `dp[0][0]` where there is no rock in any pile.
+ * * So, we manually set the value of this default (base-case) configuration `dp[0][0]` as `false`.
+ * * And then, we gradually build all the configurations on top of it.
+ */
 class TwoPilesOfRocks {
 
     data class Pile(val left: Int, val right: Int): Comparable<Pile> {

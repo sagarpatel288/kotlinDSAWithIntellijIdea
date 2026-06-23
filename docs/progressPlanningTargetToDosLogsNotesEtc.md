@@ -54,7 +54,7 @@
   * **Time coding took: Approx 9 Minutes** (Including 1-2 minutes of distraction: Noting down a thought!)
   * Total time: Approx 19 Minutes
   * Almost as per the given estimated time!
-* Queues
+* **Queues**
   * Estimated time:
     * Circular Array Theory: 20 Minutes
     * Pseudocode/explanation: 20 Minutes
@@ -74,6 +74,9 @@
   * Started queue using a linked list theory at: Tuesday, 23/Jun/26 19:19:13 PM
   * Started coding implementation of a queue using a linked list at: Tuesday, 23/Jun/26 19:31:15 PM
   * Finished reviewing of queue using a linked list at: Tuesday, 23/Jun/26 20:00:26 PM
+* **Piles and rocks variations**
+  * Started pseudocode at Tuesday, 23/Jun/26 20:10:11 PM
+  * 
 
 ## Next
 
