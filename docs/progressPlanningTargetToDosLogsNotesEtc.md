@@ -56,8 +56,22 @@
   * Almost as per the given estimated time!
 * Queues
   * Estimated time:
-    * Theory: 20 Minutes
-    * Implementation: Circular Array: 25 Minutes
-    * Implementation: Linked List: 25 Minutes
+    * Circular Array Theory: 20 Minutes
+    * Pseudocode/explanation: 20 Minutes
+    * Coding: Using Circular Array: 25 Minutes
+    * Coding: Using Linked List: 25 Minutes
     * Estimated time: 01 Hour 10 Minutes
-  * Started at: Tuesday, 23/Jun/26 15:43:06 PM
+  * Started circular array theory at: Tuesday, 23/Jun/26 15:43:06 PM
+  * Started pseudocode / explanation with circular array: Tuesday, 23/Jun/26 15:59:08 PM
+  * Started coding with circular array at: Tuesday, 23/Jun/26 16:08:07 PM
+  * Started evaluation of the coding at: Tuesday, 23/Jun/26 16:13:17 PM
+  * Started the variation (Dynamic circular array) at: Tuesday, 23/Jun/26 16:22:55 PM
+  * Break
+  * Started pseudocode / explanation for the queue with dynamic circular array at: Tuesday, 23/Jun/26 17:37:51 PM
+  * Started coding (queue with dynamic circular array) at: Tuesday, 23/Jun/26 17:49:35 PM
+  * Evaluation of the implementation (queue with dynamic circular array) at: Tuesday, 23/Jun/26 18:01:25 PM
+  * 
+
+## Next
+
+* Dynamic queue using a circular array (Ring buffer)
