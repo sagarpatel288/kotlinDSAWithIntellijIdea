@@ -70,6 +70,8 @@
   * Started pseudocode / explanation for the queue with dynamic circular array at: Tuesday, 23/Jun/26 17:37:51 PM
   * Started coding (queue with dynamic circular array) at: Tuesday, 23/Jun/26 17:49:35 PM
   * Evaluation of the implementation (queue with dynamic circular array) at: Tuesday, 23/Jun/26 18:01:25 PM
+  * Break
+  * Started queue using a linked list theory at: Tuesday, 23/Jun/26 19:19:13 PM
   * 
 
 ## Next
