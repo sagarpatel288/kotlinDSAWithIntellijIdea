@@ -940,6 +940,12 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * Point-1. We need and use a few values inside the recursive function `canPartition,`
  * which are `targetSum,` and `selected` boolean array. It means, we need to define these values outside.
  *
+ * # TL;DR
+ *
+ * * We need to try each number to make a set.
+ * * And for each selected number, we need to ensure that it doesn't make it impossible for the other sets.
+ * * So, we have to check it recursively after every selection of the number.
+ *
  * # ----------------------- Complexity Analysis -----------------------
  *
  * ## ----------------------- Time Complexity Analysis -----------------------
