@@ -1866,6 +1866,31 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * * And then we use these `min` and `max` values to evaluate next `min` and `max` values.
  * * This process continues until we find the ultimate and final `max` value of the full length expression.
  *
+ *
+ * # TL;DR-02
+ *
+ * * We get an input string.
+ * * There will be digits and operators.
+ * * We get many combinations of different expression lengths.
+ * * Each combination can give min or max.
+ * * We need to try all these `min` and `max` results of different expressions of different lengths to get the answer.
+ * * So, we start solving the problem of the smallest possible length, which is `1`.
+ * * And then, we gradually increase the length of the expression until we get the original expression length.
+ * * This indicates a bottom-up (tabulation, dynamic programming) approach.
+ * * We will have two tables: `minDp` and `maxDp` of size `digits`.
+ * * And we will decide the length of the expression by gradually increasing the number of digits in the expression.
+ * * For example, if there are two digits, then the length of the expression becomes `3`.
+ * * `5 - 8`.
+ * * If there are three digits, the length of the expression becomes `5`.
+ * * `5 - 8 + 7`.
+ * * And so on...
+ * * And to try each combination of the expression, we will keep changing the split point operator.
+ * * For example: `5 - ( 8 + 7)` Vs. `(5 - 8) + 7`.
+ * * So, we split the expression `(i, j)` as: `[i, k]` and `[k + 1, j]`.
+ * * We get four combinations to get the `min` and the `max` of a particular expression.
+ * * And we will store the results in the `minDp` and `maxDp`.
+ *
+ *
  * # -------- Complexity Analysis --------
  *
  * ## -------- Time Complexity --------
@@ -1896,8 +1921,8 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * val maxTable = Array(n) { IntArray(n) }
  * ```
  *
- * So, the maximum memory we use is n * n = n^2.
- * Hence, the space complexity is O(n^2).
+ * So, the maximum memory we use is `n * n = n^2`.
+ * Hence, the space complexity is `O(n^2)`.
  *
  * # -------- Grader Output --------
  * Good job! (Max time used: 0.10/2.00, max memory used: 43524096/536870912.)
