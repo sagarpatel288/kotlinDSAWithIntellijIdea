@@ -443,6 +443,41 @@ package courses.uc.course01algorithmicToolbox.module06DynamicProgramming02
  * val withItem = item + dp[i - 1][j - item]
  * ```
  *
+ * # TL;DR
+ *
+ * * Given:
+ * * Items (weight, values), and a maximum capacity of a bag
+ * * Output:
+ * * Use the maximum capacity of the bag to produce the maximum value of the filled bag
+ * * In other words, fill the bag with items such that it produces the maximum value
+ * * Thought-Process:
+ * * We need to try each item and check how much space it leaves behind for the other items.
+ * * There will be many combinations.
+ * * So, we break the problem into small parts.
+ * * Instead of trying to solve the problem for `n` items and `m` capacity,
+ * we start building the solution from `0` item to `n` with `0` capacity to `m` capacity.
+ * * This indicates the bottom-up (tabulation, dynamic programming) approach.
+ * * The condition will be:
+ * ```
+ * if (items[i - 1] <= j)
+ * ```
+ * * The formula is:
+ * ```
+ * dp[i][j] = maxOf(withoutItem, withItem)
+ * ```
+ * * Without item is:
+ * ```
+ * dp[i - 1][j]
+ * ```
+ * * With item is:
+ * ```
+ * item + dp[i - 1][j - item]
+ * ```
+ * * Where, `item` is:
+ * ```
+ * item = items[i - 1]
+ * ```
+ *
  * # ------ Complexity Analysis ------
  *
  * ## ------ Time Complexity Analysis ------
