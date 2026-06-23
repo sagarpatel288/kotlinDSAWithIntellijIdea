@@ -30,6 +30,7 @@ package courses.uc.course02dataStructures.module01.section02stacksAndQueues.vide
  * * That would be O(n) time complexity for each `dequeue` operation.
  * * We can still get it done in O(1) time complexity if we use a doubly linked list in which case we can move backward
  * to the second-last element from the old-last element to make it a new tail.
+ * * But if we use a doubly-linked list, we get an extra overhead to maintain the previous pointer of each node.
  *
  * # Time Complexity
  *
