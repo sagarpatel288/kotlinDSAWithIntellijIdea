@@ -925,8 +925,8 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 fun <T> levelOrderTraversal(key: T) {
     // We can create a queue using a linked list or a circular array.
     // We have already covered that topic.
-    // src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video02queues/02queueUsingLinkedList.kt
-    // src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video02queues/01QueueUsingCircularArray.kt
+    // src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video02queues/020queueUsingLinkedList.kt
+    // src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video02queues/010QueueUsingCircularArray.kt
     // The circular array will require a capacity.
     // The linked list can grow dynamically.
     val queue = Queue()
