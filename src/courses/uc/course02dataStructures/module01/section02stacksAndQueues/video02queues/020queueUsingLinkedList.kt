@@ -42,8 +42,15 @@ package courses.uc.course02dataStructures.module01.section02stacksAndQueues.vide
  */
 class QueueUsingLinkedList<T> {
 
-    private data class Node<T>(var value: T, var next: Node<T>? = null)
+    /**
+     * * If the properties [value] and [next] are mutable, we should not use a `data class`.
+     * * A data class should not hold mutable properties.
+     * * Use a normal class here.
+     */
+    private class Node<T>(var value: T, var next: Node<T>? = null)
 
+    // Caution! Possible point of mistake!
+    // Ensure that these `head` and `tail` properties are private!
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
 
