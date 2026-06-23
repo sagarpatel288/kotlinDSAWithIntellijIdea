@@ -72,7 +72,8 @@
   * Evaluation of the implementation (queue with dynamic circular array) at: Tuesday, 23/Jun/26 18:01:25 PM
   * Break
   * Started queue using a linked list theory at: Tuesday, 23/Jun/26 19:19:13 PM
-  * 
+  * Started coding implementation of a queue using a linked list at: Tuesday, 23/Jun/26 19:31:15 PM
+  * Finished reviewing of queue using a linked list at: Tuesday, 23/Jun/26 20:00:26 PM
 
 ## Next
 
