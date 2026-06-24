@@ -107,7 +107,7 @@ class StackUsingArray<T>(val capacity: Int) {
      * Time complexity is O(1), constant time.
      * Space complexity is also O(1), no additional memory.
      */
-    fun top(): T {
+    fun peek(): T {
         if (isEmpty) throw NoSuchElementException("The stack is empty!")
         @Suppress("Unchecked_Cast")
         return array[size - 1] as T
@@ -119,7 +119,7 @@ class StackUsingArray<T>(val capacity: Int) {
      */
     fun pop(): T {
         // top() already handles the "isEmpty" case.
-        val top = top()
+        val top = peek()
         // Caution! Possible point of mistake!
         // It is important to nullify the place that we just removed.
         array[size - 1] = null
@@ -161,7 +161,7 @@ fun main() {
     println("Print stack: ${stack.printStack()}")
     println("Stack push 30: ${stack.push(30)}")
     println("Print stack: ${stack.printStack()}")
-    println("Stack top: ${stack.top()}")
+    println("Stack top: ${stack.peek()}")
     println("Stack pop: ${stack.pop()}")
     println("Print stack: ${stack.printStack()}")
     println("Stack pop: ${stack.pop()}")
@@ -177,7 +177,7 @@ fun main() {
     println("Stack isEmpty: ${stack.isEmpty}")
     println("Stack size: ${stack.size}")
     println("Stack isEmpty: ${stack.isEmpty}")
-    println("Top on empty stack: ${stack.top()}")
+    println("Top on empty stack: ${stack.peek()}")
     println("Pop on empty stack: ${stack.pop()}")
     println("Push 10: ${stack.push(10)}")
     println("Push 20: ${stack.push(20)}")
