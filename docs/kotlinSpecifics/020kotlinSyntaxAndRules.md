@@ -56,6 +56,10 @@
 * sorted() Vs. sortedBy { } Vs. sortedWith { } 
 * sortedDescending() Vs. sortedByDescending { }
 
+## Generics
+
+* 
+
 ## String, Input, and Readers
 
 * BufferedReader
