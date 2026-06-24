@@ -3,13 +3,13 @@ package courses.uc.course02dataStructures.module01.section02stacksAndQueues.vide
 class StackUsingLinkedList<T>() {
 
     /**
-     * ToDo: We should not take a data class if the values are mutable.
+     * If the properties are mutable, we take a normal class instead of a data class.
      * Check for more details:
      * [SinglyLinkedList](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/64efb835cef792ff5cc9af6c940d02bc5500e8f2/src/courses/uc/course02dataStructures/module01/section01arraysAndLinkedLists/video02LinkedLists/03SinglyLinkedList.kt)
      *
      *
      */
-    private data class Node<T>(var value: T, var next: Node<T>?)
+    private class Node<T>(var value: T, var next: Node<T>?)
 
     /**
      * We cannot use `public` property [head] that exposes the `private` class [Node].
