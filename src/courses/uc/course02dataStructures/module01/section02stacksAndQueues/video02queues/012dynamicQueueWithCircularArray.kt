@@ -59,7 +59,7 @@ class QueueWithDynamicCircularArray<T>(private var capacity: Int = 10) {
         // When we rebuild the queue, we want to copy the valid items, and nothing else, no extra work.
         // The `queue` contains the `size` elements, not the `capacity` elements!
         for (i in 0..<size) {
-            val originalIndex = (readIndex + i) % capacity
+            val originalIndex = (i + readIndex) % capacity
             reArray[i] = array[originalIndex]
         }
         array = reArray
@@ -78,6 +78,11 @@ class QueueWithDynamicCircularArray<T>(private var capacity: Int = 10) {
     }
 
     fun peek(): T? {
+        // Caution! Possible point of mistake!
+        // Whenever we read from a container using an index,
+        // we have to check, and we must check whether the container is empty or not.
+        // Otherwise, if we directly ask it using an index, and if the container is empty,
+        // we might get `IndexOutOfBounds` exception.
         if (isEmpty) return null
         return array[readIndex] as T
     }
