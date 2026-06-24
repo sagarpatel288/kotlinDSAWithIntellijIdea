@@ -106,6 +106,11 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * if (rowString[i - 1] == columnString[j - 1]) {
  *    cell[i][j] = 1 + cell[i - 1][j - 1]
  * } else {
+ *    // How to remember? `L`onges`T` common (max) subsequence -> Either from `L` for `L`ef`T` or from `T` for `Top`
+ *    // Left means, we decrease the column by 1, but keep the row as it is.
+ *    // So, left = [i][j - 1]
+ *    // Top means, we decrease the row by 1, but keep the column as it is.
+ *    // So, top = [i - 1][j]
  *    cell[i][j] = maxOf( cell[i - 1][j], cell[i][j - 1] )
  * }
  * ```
@@ -219,6 +224,12 @@ fun main() {
                 if (refList[i - 1] == targetList[j - 1]) {
                     table[i][j] = 1 + table[i - 1][j - 1]
                 } else {
+                    // How to remember?
+                    // `L`onges`T` common (max) subsequence -> Either from `L` for `L`ef`T` or from `T` for `Top`
+                    // Left means, we decrease the column by 1, but keep the row as it is.
+                    // So, left = [i][j - 1]
+                    // Top means, we decrease the row by 1, but keep the column as it is.
+                    // So, top = [i - 1][j]
                     val topToDown = table[i - 1][j]
                     val leftToRight = table[i][j - 1]
                     table[i][j] = maxOf(topToDown, leftToRight)
