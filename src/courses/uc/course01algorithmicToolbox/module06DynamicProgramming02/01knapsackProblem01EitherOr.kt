@@ -499,6 +499,20 @@ fun main() {
 
     fun maxShopping(capacity: Int, items: List<Int>) {
         // A container (table) of size + 1 to cover the 0th row and 0th column cases.
+        // How to remember?
+        // Suppose, if we take `items.size`, and there are a total of `2` items.
+        // It means that, we will end up with rows: 0, 1
+        // Now, row `0` represents that the total number of items are `0`.
+        // Row `1` represents that the total number of items are `1`.
+        // And see, we do not have any row to represent and calculate when the total number of items are `2`!
+        // So, we need: `items.size + 1`.
+        // Similarly, if we take only `capacity` columns, we miss the last max (actual max) capacity.
+        // Because each column represents capacity.
+        // For example, if the max capacity is `2`, and we take the size `2`.
+        // So, the column `0` represents that the capacity is `0`.
+        // Column `1` represents that the capacity is `1`.
+        // See, we do not have any column to represent and calculate when the total capacity is `2`!
+        // Hence, we take: `rows = items.size + 1` and `columns = capacity + 1`.
         val table = Array(items.size + 1) { IntArray(capacity + 1) }
         // We have a list of items, and we pick an item from it.
         // We need to pick up a combination of items such that we can utilize the maximum capacity of the knapsack.
