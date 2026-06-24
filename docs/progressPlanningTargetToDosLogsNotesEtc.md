@@ -105,7 +105,9 @@
 * Queue using a fixed circular array
 * Queue using a dynamic circular array
 * Queue using a linked list
-* Stack using array deque
+* Stack using an array
+* Stack using an array deque
+* Stack using a linked list
 * Min stack
 * Max stack
 

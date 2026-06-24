@@ -138,9 +138,17 @@ class MinStackUsingArrayDeque() {
         }
     }
 
-    fun top(): Int {
+    fun peek(): Int {
         if (isEmpty) throw EmptyStackException()
         val topped = arrayDeque.first()
+        // Caution! Possible point of mistake!
+        // We cannot return the topped (peeked) value directly!
+        // It can be an encoded value!
+        // So, first we check.
+        // If it is less than the current min, then it is an encoded value.
+        // In that case, we return the current min.
+        // Otherwise, if the peeked value is greater than or equal to the current min,
+        // we return it as it is.
         return if (topped < minValue) {
             minValue.toInt()
         } else {
@@ -186,7 +194,7 @@ fun main() {
     println("isEmpty: ${minStack.isEmpty}")
     println("printStack: $minStack")
     try {
-        println("top: ${minStack.top()}")
+        println("top: ${minStack.peek()}")
     } catch (e: Exception) {
         println("Exception: ${e.message}")
     }
@@ -211,27 +219,27 @@ fun main() {
     println("push -3: ${minStack.push(-3)}")
     println("print stack: $minStack")
     println("min: ${minStack.getMin()}")
-    println("top: ${minStack.top()}")
+    println("top: ${minStack.peek()}")
     println("pop: ${minStack.pop()}")
     println("print stack: $minStack")
     println("min: ${minStack.getMin()}")
-    println("top: ${minStack.top()}")
+    println("top: ${minStack.peek()}")
     println("pop: ${minStack.pop()}")
     println("print stack: $minStack")
     println("min: ${minStack.getMin()}")
-    println("top: ${minStack.top()}")
+    println("top: ${minStack.peek()}")
     println("pop: ${minStack.pop()}")
     println("print stack: $minStack")
     println("min: ${minStack.getMin()}")
-    println("top: ${minStack.top()}")
+    println("top: ${minStack.peek()}")
     println("pop: ${minStack.pop()}")
     println("print stack: $minStack")
     println("min: ${minStack.getMin()}")
-    println("top: ${minStack.top()}")
+    println("top: ${minStack.peek()}")
     println("pop: ${minStack.pop()}")
     println("print stack: $minStack")
     println("min: ${minStack.getMin()}")
-    println("top: ${minStack.top()}")
+    println("top: ${minStack.peek()}")
     println("pop: ${minStack.pop()}")
     println("print stack: $minStack")
     println("min: ${minStack.getMin()}")
