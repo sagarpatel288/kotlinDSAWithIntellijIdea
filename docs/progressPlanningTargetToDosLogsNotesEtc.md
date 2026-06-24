@@ -80,4 +80,57 @@
 
 ## Next
 
-* Dynamic queue using a circular array (Ring buffer)
+* Check brackets in code
+* Compute tree height
+* Network packet processing simulation
+
+# Wednesday, 24/Jun/26 11:19:01 AM
+
+## Yesterday
+
+### Revision
+
+* Maximum arithmetic expression
+* Equal sum subsets
+* 0/1 Knapsack
+* Queue using a fixed circular array
+* Queue using a dynamic circular array
+* Queue using a linked list
+* Piles and rocks variations
+
+## Today
+
+### Revision
+
+* Queue using a fixed circular array
+* Queue using a dynamic circular array
+* Queue using a linked list
+* Stack using array deque
+* Min stack
+* Max stack
+
+### Quick Revision
+
+* Maximum arithmetic expression
+* Piles and rocks
+* 0/1 Knapsack
+* Equal sum subsets (partitions)
+
+### Revision
+
+* Longest common subsequence of two strings
+* Longest common subsequence of three strings
+* Edit distance with backtracking
+* Edit distance without backtracking, space optimized
+* Primitive calculator
+* Coin change denomination with backtracking
+
+### Revision
+
+* Check brackets in code
+* Compute tree height
+* Network packet processing simulation
+
+## Next
+
+*  
