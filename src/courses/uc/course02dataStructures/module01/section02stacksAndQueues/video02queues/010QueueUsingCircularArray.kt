@@ -11,13 +11,13 @@ package courses.uc.course02dataStructures.module01.section02stacksAndQueues.vide
  *
  * # Why a circular array instead of a plain array?
  *
- * * Because a plain array would take `O(n)` time complexity for each [dequeue] operation due to shifting.
+ * * Because a plain array would take `O(n)` time complexity for each [poll] operation due to shifting.
  *
  * # How does a circular array improve (optimize) the time complexity?
  *
  * * We use two variables: [readIndex], and [writeIndex] to track reading (dequeue) and writing (enqueue) respectively.
- * * For each [enqueue] operation, the [writeIndex] moves one step forward.
- * * Similarly, for each [dequeue] operation, the [readIndex] moves one step forward.
+ * * For each [offer] operation, the [writeIndex] moves one step forward.
+ * * Similarly, for each [poll] operation, the [readIndex] moves one step forward.
  *
  * # How do we prevent `IndexOutOfBoundsException` if we keep increasing the [readIndex] and [writeIndex]?
  *
@@ -237,7 +237,7 @@ class QueueUsingCircularArray<T>(private val capacity: Int) {
      *
      * * It is O(1) as we are not taking any additional variable other than the global [array] which uses O(n).
      */
-    fun enqueue(value: T): Boolean {
+    fun offer(value: T): Boolean {
         if (isFull) return false
         array[writeIndex] = value
         // Caution! Possible point of mistake!
@@ -269,8 +269,8 @@ class QueueUsingCircularArray<T>(private val capacity: Int) {
      *
      * * It is O(1) as we are not taking any other variable than using the global [array] which uses O(n) space.
      */
-    fun dequeue(): T? {
-        return front()?.let {
+    fun poll(): T? {
+        return peek()?.let {
             array[readIndex] = null // To prevent memory loitering, we nullify the slot.
             // Caution! Possible point of mistake!
             // We also wrap around the read index.
@@ -293,7 +293,7 @@ class QueueUsingCircularArray<T>(private val capacity: Int) {
      *
      * * It is O(1) as there is no additional memory we use here other than the global [array] which uses O(n).
      */
-    fun front(): T? {
+    fun peek(): T? {
         if (isEmpty) return null
         @Suppress("Unchecked_Cast")
         return array[readIndex] as T
@@ -322,41 +322,41 @@ fun main() {
     val queue = QueueUsingCircularArray<Int>(5)
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Dequeue: ${queue.dequeue()}")
-    println("enqueue 1: ${queue.enqueue(1)}")
+    println("Dequeue: ${queue.poll()}")
+    println("enqueue 1: ${queue.offer(1)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 2: ${queue.enqueue(2)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 2: ${queue.offer(2)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 3: ${queue.enqueue(3)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 3: ${queue.offer(3)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 4: ${queue.enqueue(4)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 4: ${queue.offer(4)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 5: ${queue.enqueue(5)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 5: ${queue.offer(5)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 6: ${queue.enqueue(6)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 6: ${queue.offer(6)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
     println("isFull: ${queue.isFull}")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
     println("isFull: ${queue.isFull}")
     println("is empty: ${queue.isEmpty}")
 }
