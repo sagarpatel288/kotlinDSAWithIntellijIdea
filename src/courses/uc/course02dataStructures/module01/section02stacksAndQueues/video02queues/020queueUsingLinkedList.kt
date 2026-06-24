@@ -76,7 +76,7 @@ class QueueUsingLinkedList<T> {
      * * There is no additional memory we use that depends on or grow with the input size.
      * * Hence, the space complexity is O(1).
      */
-    fun enqueue(value: T) {
+    fun offer(value: T) {
         val node = Node(value, null)
         if (isEmpty) {
             head = node
@@ -99,7 +99,7 @@ class QueueUsingLinkedList<T> {
      * * There is no additional memory we use that depends on or grow with the input size.
      * * Hence, the space complexity is O(1).
      */
-    fun front(): T? {
+    fun peek(): T? {
         return head?.value
     }
 
@@ -114,9 +114,9 @@ class QueueUsingLinkedList<T> {
      * * There is no additional memory we use that depends on or grow with the input size.
      * * Hence, the space complexity is O(1).
      */
-    fun dequeue(): T? {
+    fun poll(): T? {
         if (isEmpty) return null
-        val topped = front()
+        val front = peek()
         head = head?.next
         size--
         // Caution! Possible point of mistake!
@@ -125,7 +125,7 @@ class QueueUsingLinkedList<T> {
         if (isEmpty) {
             tail = null // This is critical when we remove the only available element.
         }
-        return topped
+        return front
     }
 
     /**
@@ -153,39 +153,39 @@ fun main() {
     val queue = QueueUsingLinkedList<Int>()
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Dequeue: ${queue.dequeue()}")
-    println("enqueue 1: ${queue.enqueue(1)}")
+    println("Dequeue: ${queue.poll()}")
+    println("enqueue 1: ${queue.offer(1)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 2: ${queue.enqueue(2)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 2: ${queue.offer(2)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 3: ${queue.enqueue(3)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 3: ${queue.offer(3)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 4: ${queue.enqueue(4)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 4: ${queue.offer(4)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 5: ${queue.enqueue(5)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 5: ${queue.offer(5)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("enqueue 6: ${queue.enqueue(6)}")
+    println("Front: ${queue.peek()}")
+    println("enqueue 6: ${queue.offer(6)}")
     println("is empty: ${queue.isEmpty}")
     println("Print: $queue")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
-    println("Front: ${queue.front()}")
-    println("Dequeue: ${queue.dequeue()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
+    println("Front: ${queue.peek()}")
+    println("Dequeue: ${queue.poll()}")
     println("is empty: ${queue.isEmpty}")
 }
