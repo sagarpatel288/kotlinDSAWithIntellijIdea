@@ -770,18 +770,39 @@ fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
     var height = 0
     // Caution! Possible point of mistake!
     // We follow FIFO.
-    // So, we add from the back.
+    // So, we add from the `last`.
     queue.addLast(root)
+    // Keep working as long as the queue is not empty!
+    // Keep working until we finish all the levels!
     while (queue.isNotEmpty()) {
         val size = queue.size
-        // Process all nodes at the current level and add their children to the queue.
+        // Process all the nodes at the current level and add their children to the queue.
         repeat(size) {
             // Caution! Possible point of mistake!
             // We follow the FIFO order.
-            // So, we remove from the front gate.
+            // So, we use `queue`.
+            // We add to the `last` and remove from the `first`.
             val dequeued = queue.removeFirst()
+            // `addAll` adds to the `last`.
             queue.addAll(parentChildrenList[dequeued])
         }
+        // Caution! Possible point of mistake!
+        // We increase the height after the `repeat` loop.
+        // The `repeat` loop indicates adding all the children of the same level.
+        // Increasing the `height` inside the `repeat` loop would show the number of times we added children.
+        // Every time we add children of each node, it would increase the height!
+        // It would count each node tha we process.
+        // And we process all the nodes!
+        // So, the counting will be equal to the number of nodes!
+        // How many times do we add children? It will be equal to the number of children!
+        // The number of children means total nodes - 1, or total nodes!
+        // But we are not finding that!
+        // We are finding the `height`.
+        // We increase the `height` after we finish adding all the children of the same level!
+        // We increase the `height` after finishing one level (the `repeat` loop),
+        // and before moving on to the next level (the `while` loop changes the level)!
+        // So, we increase the `height` after the `repeat` loop, and before the `while` loop starts the next level.
+        // So, we increase the `height` between the `repeat` loop and the `while` loop.
         // Increment height after completing each level.
         height++
     }
