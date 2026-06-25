@@ -269,6 +269,18 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * * Right, so we can change the return type of our function to be `String` and we can convert the `position` into a
  * `String` before we return a position.
  *
+ * ## TL;DR
+ *
+ * * We use a stack.
+ * * How? Using an `ArrayDeque`.
+ * * We `push` and `pop` from `one side`.
+ * * We `push` open brackets and when we find a closing bracket, we `pop`, and compare the two.
+ * * The `one side` can be `first` or `last`.
+ * * So, it can be `addFirst` for `push` and `removeFirst` for `pop`.
+ * * Or it can be `addLast` for `push` and `removeLast` for `pop`.
+ * * If we use the `first` gate, then the item that has been waiting for its pair the longest is the `last()`.
+ * * And if we use the `last` gate, then the item that has been waiting for its pair the longest is the `first()`.
+ *
  * ## Time Complexity:
  *
  * * We travel the entire string. So, it is `O(n)`.

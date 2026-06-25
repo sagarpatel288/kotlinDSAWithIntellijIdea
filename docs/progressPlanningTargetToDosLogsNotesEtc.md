@@ -118,7 +118,7 @@
 * 0/1 Knapsack
 * Equal sum subsets (partitions)
 
-### Revision
+### Quick Revision
 
 * Longest common subsequence of two strings
 * Longest common subsequence of three strings
