@@ -754,6 +754,21 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  */
 fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
     // Construct an adjacency list representing the tree and identify the root node.
+    // The `input` has the format where `indices` are children and `values` are parents.
+    // We convert it into a list where `indices` are parents and `values` are children.
+    // In such a list, each index (parent) can have a list of children.
+    // So, the value is in the format of `list` where we can store multiple children for a particular `index (parent)`.
+    // The size of such an adjancy list will still be the `input.size` or `totalNodes`.
+    // Because, we use level-by-level (BFS) traveling to compute the tree height.
+    // We visit each node (not only the parents, but also the children).
+    // We ask each node about their children.
+    // We visit each node and add their children to the queue.
+    // Now, if a particular node has no child,
+    // it means that the index of that node in the adjacency list will have an empty list.
+    // At some point, this will be true for each node.
+    // And that will help us finish visiting each node and all the levels.
+    // We need the answer to this question from each node: "How many children do you have?"
+    // So, the size of the adjancy list is also: totalNodes or `input.size`.
     val parentChildrenList = List(totalNodes) { mutableListOf<Int>() }
     var root = 0
     // Use `until` while submitting to courses to avoid the compiler error!
@@ -784,6 +799,14 @@ fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
             // We add to the `last` and remove from the `first`.
             val dequeued = queue.removeFirst()
             // `addAll` adds to the `last`.
+            // It is possible that `dequeued` might not have any child.
+            // At some point, it will happen when we process the `leaf` node.
+            // If the size of the adjacent list was less than the `input.size`,
+            // if the adjacent list had stored only `parents`,
+            // the moment we try to find and add children of the `leaf` node,
+            // it would have given the `IndexOutOfBounds` exception.
+            // To compute the tree height, we process each node.
+            // So, the size of the adjacent list is also `input.size`.
             queue.addAll(parentChildrenList[dequeued])
         }
         // Caution! Possible point of mistake!
