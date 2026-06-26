@@ -122,10 +122,6 @@
 
 * Longest common subsequence of two strings
 * Longest common subsequence of three strings
-* Edit distance with backtracking
-* Edit distance without backtracking, space optimized
-* Primitive calculator
-* Coin change denomination with backtracking
 
 ### Revision
 
@@ -149,11 +145,7 @@
 
 * 
 
-### Revision: Pseudo
-
-* 
-
-### Revision: Quick
+### Revision: Pseudo / Quick
 
 * 
 
@@ -167,30 +159,32 @@
 
 * Compute Tree Height 
 * Longest common subsequences (Two lists)
+* Longest common subsequences (Two lists) space optimized
+* Network packet processing simulation
 
 ### Revision: Pseudo / Quick
 
 * Bracket Problem (Stack)
-* Longest common subsequences (Three lists)   
-
+* Longest common subsequences with backtracking   
+* Longest common subsequences of three lists
 
 ### New:
 
 * Network packet processing 
+* 
 
 ## Tomorrow
 
 ### Revision: Coding
 
-* 
+* Edit distance with backtracking
+* Edit distance without backtracking, space optimized
+* Primitive calculator
+* Coin change denomination with backtracking
 
-### Revision: Pseudo
+### Revision: Pseudo / Quick
 
-* 
-
-### Revision: Quick
-
-* 
+*
 
 ### New:
 
