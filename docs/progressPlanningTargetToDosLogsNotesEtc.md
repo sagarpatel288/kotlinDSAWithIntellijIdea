@@ -136,3 +136,62 @@
 ## Next
 
 * 0/1 knapsack space-optimized 
+
+# Thursday,/25/Jun/26, 15:55:46 PM
+
+* Compute Tree Height
+
+# Friday, 26/Jun/26 15:51:27 PM
+
+## Yesterday
+
+### Revision: Coding
+
+* 
+
+### Revision: Pseudo
+
+* 
+
+### Revision: Quick
+
+* 
+
+### New:
+
+* 
+
+## Today
+
+### Revision: Coding
+
+* Compute Tree Height 
+* Longest common subsequences (Two lists)
+
+### Revision: Pseudo / Quick
+
+* Bracket Problem (Stack)
+* Longest common subsequences (Three lists)   
+
+
+### New:
+
+* Network packet processing 
+
+## Tomorrow
+
+### Revision: Coding
+
+* 
+
+### Revision: Pseudo
+
+* 
+
+### Revision: Quick
+
+* 
+
+### New:
+
+* 

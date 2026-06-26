@@ -187,6 +187,27 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * The size of the table is `(n + 1)(m + 1)`.
  * Hence, the last cell is: `cell[n][m]`.
  *
+ * # TL;DR
+ *
+ * * Given: Two strings (may or may not have the same length)
+ * * Output: Longest common subsequence
+ * * Instead of trying to solve the problem directly for the entire length of both the strings, we start small.
+ * * We start from `0` and gradually build our solution for their length `n` and `m`.
+ * * This approach is known as bottom-up tabulation (Dynamic programming).
+ * * The formula is:
+ * ```
+ * if (match) {
+ *     // If they match, we get `+1` more match than the previous result.
+ *     // So, we add `+1` to the previous result.
+ *     dp[i][j] = dp[i - 1][j - 1] + 1
+ * } else {
+ *     // Otherwise, we take `maxOf(top, left)` (Max of top or left).
+ *     dp[i][j] = maxOf(dp[i - 1][j], dp[i][j - 1])
+ * }
+ * ```
+ * * The `dp` size is: Array(longer.length + 1) { IntArray(shorter.length + 1) }
+ * * `+1` because we also store the result when either one of them or both are of length `0`.
+ *
  * # ----------------------- Complexity Analysis -----------------------
  *
  * * Time Complexity:

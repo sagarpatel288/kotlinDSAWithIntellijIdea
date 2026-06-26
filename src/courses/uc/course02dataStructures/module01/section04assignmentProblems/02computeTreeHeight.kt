@@ -723,6 +723,16 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * return height
  * ```
  *
+ * # TL;DR
+ *
+ * * We get: Implicit `index` as a child node and explicit value as its `parent`.
+ * * We convert (make) it to: `Parent` as index and list of children as its value.
+ * * `(index, parent) in input.withIndex()` -> `parentChildren[parent].add(index)`
+ * * We find the root (if `parent == -1`) and `addLast(root)` to a `queue`.
+ * * We follow `FIFO = addLast and removeFirst` to travel level-by-level (BFS Traversal).
+ * * After each `repeat(queue.size)` loop and before the `while(queue.isNotEmpty())` loop starts the next level,
+ * we increase the `height`.
+ *
  * # Time Complexity:
  *
  * * We travel the parent list once. The size of the parent list is `n`, where `n` is the total number of nodes.
@@ -769,6 +779,10 @@ fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
     // And that will help us finish visiting each node and all the levels.
     // We need the answer to this question from each node: "How many children do you have?"
     // So, the size of the adjancy list is also: totalNodes or `input.size`.
+    // In short, we will visit each node during our BFS (level-by-level) traversal to add their children.
+    // We will treat each node as an index whose value will be in the form of a list.
+    // We treat each node as an index to access it and its children in O(1).
+    // For example: queue[nodeAsIndex] or queue[indexAsNodeID] will give us a list of children of that `nodeAsIndex`.
     val parentChildrenList = List(totalNodes) { mutableListOf<Int>() }
     var root = 0
     // Use `until` while submitting to courses to avoid the compiler error!
