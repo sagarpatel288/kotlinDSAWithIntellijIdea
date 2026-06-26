@@ -9,6 +9,12 @@ package courses.uc.course01algorithmicToolbox.module05DynamicProgramming.module0
  * And it is based on:
  * [Edit distance with backtracking](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/be74523bc7fb51c51d6418039bdc885dcadc55eb/src/coursera/ucSanDiego/module05DynamicProgramming/module05ProgrammingAssignment01/070editDistanceBacktrackReconstruct.kt)
  *
+ * # TL;DR
+ *
+ * * `i = longer.length`
+ * * `j = shorter.length`
+ * * `if (match) i-- j-- else if (top >= left) i-- else j--`
+ *
  */
 fun main() {
 
