@@ -48,6 +48,7 @@
     * [Why do heaps use arrays instead of explicit tree nodes?](#why-do-heaps-use-arrays-instead-of-explicit-tree-nodes)
     * [What operations become inefficient if a heap is not complete?](#what-operations-become-inefficient-if-a-heap-is-not-complete)
     * [What additional data structures would you need to support both findMin() and findMax() in O(1)?](#what-additional-data-structures-would-you-need-to-support-both-findmin-and-findmax-in-o1)
+    * [Similar to min stack in O(1), max stack in O(1), circular array using two pointers (read index and write index) in a queue, etc., can't we use a similar concept to implement (construct) a priority queue instead of using a heap? Is there any problem in doing that? What are the pros and cons? Has anyone tried it before?](#similar-to-min-stack-in-o1-max-stack-in-o1-circular-array-using-two-pointers-read-index-and-write-index-in-a-queue-etc-cant-we-use-a-similar-concept-to-implement-construct-a-priority-queue-instead-of-using-a-heap-is-there-any-problem-in-doing-that-what-are-the-pros-and-cons-has-anyone-tried-it-before-)
 <!-- TOC -->
 
 ## Resources / References
@@ -312,7 +313,7 @@ Indices       0     1     2     3     4     5     6
 
 * Core:
   * A priority queue is an Abstract Data Type where each element is associated with a priority.
-  * It uses a binary heap tree.
+  * It uses a binary heap tree as a logical structure and an array as a physical structure.
   * A binary heap tree uses a complete binary tree.
   * The complete binary tree keeps the tree height compact `O(log n)`.
   * Because in a complete binary tree, the nodes are filled from left-to-right without any gaps.
@@ -320,7 +321,7 @@ Indices       0     1     2     3     4     5     6
   * So, we get all the benefits of an array with the reduced shifting cost of `O(log n)` instead of `O(n)`.
   * Also, the heap property allows us to access the extremum in `O(1)`.
 * Operations:
-  * It mainly performs `insert (add, offer)`, `peek`, `remove (poll)`, and `changePriority` operations.
+  * It mainly performs `offer (add, insert)`, `peek`, `poll (remove)`, and `changePriority` operations.
 * Operation specific:
   * The elements are removed based on their priorities instead of their arrival orders.
 * Implementation:
@@ -430,5 +431,9 @@ Indices       0     1     2     3     4     5     6
 *  
 
 ### What additional data structures would you need to support both findMin() and findMax() in O(1)?
+
+*  
+
+### Similar to min stack in O(1), max stack in O(1), circular array using two pointers (read index and write index) in a queue, etc., can't we use a similar concept to implement (construct) a priority queue instead of using a heap? Is there any problem in doing that? What are the pros and cons? Has anyone tried it before? 
 
 *  
