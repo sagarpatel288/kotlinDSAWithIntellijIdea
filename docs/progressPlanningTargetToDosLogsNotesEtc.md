@@ -184,6 +184,63 @@
 
 ### Revision: Pseudo / Quick
 
+* 
+
+### New:
+
+* 
+
+# Saturday, 27/Jun/26 17:31:00 PM
+
+## Yesterday
+
+### Revision: Coding
+
+* Compute Tree Height
+* Longest common subsequences (Two lists)
+* Longest common subsequences (Two lists) space optimized
+* Network packet processing simulation
+
+### Revision: Pseudo / Quick
+
+* Bracket Problem (Stack)
+* Longest common subsequences with backtracking
+* Longest common subsequences of three lists
+
+### New:
+
+* Network packet processing
+
+## Today
+
+### Revision: Coding
+
+* Network packet processing 
+* Edit distance with backtracking
+* Edit distance without backtracking, space optimized
+* Primitive calculator
+* Coin change denomination with backtracking
+
+### Revision: Pseudo / Quick
+
+* 
+
+### New:
+
+*
+
+## Tomorrow
+
+### Revision: Coding
+
+*
+
+### Revision: Pseudo
+
+*
+
+### Revision: Quick
+
 *
 
 ### New:

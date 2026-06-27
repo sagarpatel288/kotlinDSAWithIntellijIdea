@@ -495,6 +495,63 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * }
  * ```
  *
+ * ## TL;DR
+ *
+ * * **Given:**
+ * * Buffer size
+ * * Total packets
+ * * Arrival time and process time of each packet
+ *
+ * * **Output:**
+ * * Process start time of each packet or `-1` for the packets that we drop
+ *
+ * * **Thought Process:**
+ *
+ * >---
+ * * We have a fixed-sized buffer.
+ * * A packet tries to go inside the buffer to get processed.
+ * * If the buffer is already full, we have to drop it.
+ * * Otherwise, we let the packet go inside the buffer and process it.
+ *
+ * >---
+ * * We process the packets based on their arrival time.
+ * * So, it is first-come first-served.
+ * * Which clearly indicates the `queue` data structure.
+ * * To make the room for the new packets, we have to release the packets that have finished their process.
+ * * And even after removing the old packets, if we find that the queue is full, we have to drop that packet.
+ * * Otherwise, we process the packet.
+ *
+ * >---
+ * * How do we remove the old packets?
+ * * How do we get to know that we will have to drop the packet?
+ * * And if we process the packet, how do we store and print the process start time of the packet?
+ * * How do we translate (model) all these into coding?
+ *
+ * >---
+ * * We have a queue, arrival time of a packet, and process time of a packet.
+ * * Using these three data, we calculate the process start time and process finish time of each packet.
+ *
+ * * Process start time:
+ * ```
+ * val startTime = if (queue.isEmpty()) packet.arrivalTime else maxOf(queue.last(), packet.arrivalTime)
+ * ```
+ * * Process finish time:
+ * ```
+ * val finishTime = startTime + packet.processTime
+ * ```
+ * * Releasing old packets:
+ * ```
+ * while (queue.isNotEmpty() && queue.first() <= packet.arrivalTime) {
+ *     queue.removeFirst()
+ * }
+ * ```
+ * * Even after removing the old packets, if the queue is full, drop the packet. We cannot process it!
+ * ```
+ * if (queue.size == bufferCapacity) {
+ *     println("-1\n")
+ * }
+ * ```
+ *
  * ## Time Complexity:
  *
  * * We have to iterate `n` times, where `n` is the total number of items (packets).
