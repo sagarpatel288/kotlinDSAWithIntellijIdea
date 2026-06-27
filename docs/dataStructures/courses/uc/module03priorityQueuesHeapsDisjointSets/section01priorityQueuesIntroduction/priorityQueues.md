@@ -38,6 +38,16 @@
     * [What are the invariants (rules) of the priority queue?](#what-are-the-invariants-rules-of-the-priority-queue-)
     * [What is the difference between a priority queue and a regular queue? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-priority-queue-and-a-regular-queue-explain-the-overall-difference-and-the-difference-for-each-operation)
     * [What are the few cases where we might prefer a regular queue over a priority queue? Why?](#what-are-the-few-cases-where-we-might-prefer-a-regular-queue-over-a-priority-queue-why)
+    * [Why does a min stack need only O(1) extra information per element?](#why-does-a-min-stack-need-only-o1-extra-information-per-element)
+    * [Why can't a single maxIndex variable make a priority queue efficient?](#why-cant-a-single-maxindex-variable-make-a-priority-queue-efficient)
+    * [What property does a heap maintain that a sorted array maintains more strongly?](#what-property-does-a-heap-maintain-that-a-sorted-array-maintains-more-strongly)
+    * [Why is a heap only partially ordered?](#why-is-a-heap-only-partially-ordered)
+    * [Why does partial ordering lead to O(log n) operations?](#why-does-partial-ordering-lead-to-olog-n-operations)
+    * [Why is a complete binary tree important?](#why-is-a-complete-binary-tree-important)
+    * [Could a linked list implement a priority queue? What trade-offs would it make?](#could-a-linked-list-implement-a-priority-queue-what-trade-offs-would-it-make)
+    * [Why do heaps use arrays instead of explicit tree nodes?](#why-do-heaps-use-arrays-instead-of-explicit-tree-nodes)
+    * [What operations become inefficient if a heap is not complete?](#what-operations-become-inefficient-if-a-heap-is-not-complete)
+    * [What additional data structures would you need to support both findMin() and findMax() in O(1)?](#what-additional-data-structures-would-you-need-to-support-both-findmin-and-findmax-in-o1)
 <!-- TOC -->
 
 ## Resources / References
@@ -291,7 +301,8 @@ Indices       0     1     2     3     4     5     6
 
 ## Which data structure is most commonly used to implement a priority queue?
 
-* A binary heap tree.
+* Logically: A binary heap tree.
+* Physically: An array.
 
 ## Explain a binary heap tree.
 
@@ -381,3 +392,43 @@ Indices       0     1     2     3     4     5     6
 ### What are the few cases where we might prefer a regular queue over a priority queue? Why?
 
 * 
+
+### Why does a min stack need only O(1) extra information per element?
+
+* 
+ 
+### Why can't a single maxIndex variable make a priority queue efficient?
+
+*  
+
+### What property does a heap maintain that a sorted array maintains more strongly?
+
+*  
+
+### Why is a heap only partially ordered?
+
+*  
+
+### Why does partial ordering lead to O(log n) operations?
+
+*  
+
+### Why is a complete binary tree important?
+
+*  
+
+### Could a linked list implement a priority queue? What trade-offs would it make?
+
+* 
+
+### Why do heaps use arrays instead of explicit tree nodes?
+
+* 
+
+### What operations become inefficient if a heap is not complete?
+
+*  
+
+### What additional data structures would you need to support both findMin() and findMax() in O(1)?
+
+*  
