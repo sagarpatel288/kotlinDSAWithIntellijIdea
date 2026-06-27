@@ -48,7 +48,7 @@
     * [Why do heaps use arrays instead of explicit tree nodes?](#why-do-heaps-use-arrays-instead-of-explicit-tree-nodes)
     * [What operations become inefficient if a heap is not complete?](#what-operations-become-inefficient-if-a-heap-is-not-complete)
     * [What additional data structures would you need to support both findMin() and findMax() in O(1)?](#what-additional-data-structures-would-you-need-to-support-both-findmin-and-findmax-in-o1)
-    * [Similar to min stack in O(1), max stack in O(1), circular array using two pointers (read index and write index) in a queue, etc., can't we use a similar concept to implement (construct) a priority queue instead of using a heap? Is there any problem in doing that? What are the pros and cons? Has anyone tried it before?](#similar-to-min-stack-in-o1-max-stack-in-o1-circular-array-using-two-pointers-read-index-and-write-index-in-a-queue-etc-cant-we-use-a-similar-concept-to-implement-construct-a-priority-queue-instead-of-using-a-heap-is-there-any-problem-in-doing-that-what-are-the-pros-and-cons-has-anyone-tried-it-before-)
+    * [Can't we use the combination of min/max stack, and a dynamic array deque that uses two pointers (read index and write index) etc., to implement (construct) a priority queue instead of using a binary heap? Is there any problem in doing that? What are the pros and cons?](#cant-we-use-the-combination-of-minmax-stack-and-a-dynamic-array-deque-that-uses-two-pointers-read-index-and-write-index-etc-to-implement-construct-a-priority-queue-instead-of-using-a-binary-heap-is-there-any-problem-in-doing-that-what-are-the-pros-and-cons)
 <!-- TOC -->
 
 ## Resources / References
@@ -434,6 +434,31 @@ Indices       0     1     2     3     4     5     6
 
 *  
 
-### Similar to min stack in O(1), max stack in O(1), circular array using two pointers (read index and write index) in a queue, etc., can't we use a similar concept to implement (construct) a priority queue instead of using a heap? Is there any problem in doing that? What are the pros and cons? Has anyone tried it before? 
+### Can't we use the combination of min/max stack, and a dynamic array deque that uses two pointers (read index and write index) etc., to implement (construct) a priority queue instead of using a binary heap? Is there any problem in doing that? What are the pros and cons?
 
-*  
+>---
+
+* If we want to remove the min/max that is not the `top` element, the `array deque` will have to scan the entire database (items) to find it, and it takes `O(n)` time.
+* However, the conventional priority queue (that logically uses a binary heap tree and physically uses an array) takes `O(log n)` for the same operation.
+* The priority queue guarantees that the `poll` operation always removes (deletes) the extremum.
+* Whereas the suggested combination cannot guarantee that!
+
+>---
+
+* Similarly, if we want to remove any arbitrary item using its value, it will take `O(n)` time in the suggested combination.
+* Whereas, it will be `O(log n)` time in the conventional priority queue.
+
+>---
+ 
+* Priority change is `O(log n)` in the conventional priority queue.
+* Whereas changing the priority in the suggested combination completely destroys the structure of historically saved extremum!
+
+>---
+
+* The conventional priority queue holds and sustains: `parent >= children.`
+* Whereas there is no such order in the suggested combination.
+
+>---
+
+
+ 
