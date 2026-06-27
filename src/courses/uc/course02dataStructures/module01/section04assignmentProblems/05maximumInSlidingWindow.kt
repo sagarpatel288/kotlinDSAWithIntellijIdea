@@ -1098,7 +1098,7 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  *
  * * **Thought Process:**
  *
- * >--
+ * >---
  *
  * * When we slide the window, we remove the items that have been slid out of the window.
  * * And we remove such items from the front.
@@ -1108,17 +1108,20 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * * That suggests the deque structure.
  * * Because we remove old items from the front and smaller items from the back.
  *
- * >--
+ * >---
  *
  * * How do we get to know that an item is out of the window?
  * * How do we get to know that the last item is smaller than or equal to the upcoming item?
+ * * How do we get the result?
  *
- * >--
+ * >---
  *
- * * Getting know if the item is out of the window:
+ * * Getting to know if the item is out of the window:
+ *
  * ```
  * if (queue.first() < currentIndex - windowSize + 1)
  * ```
+ *
  * ```markdown
  * Current index:                       i
  *                            +-----------+
@@ -1126,16 +1129,32 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  *                            +-----------+
  *   Window size:   3
  * ```
+ *
  * * Removing the items that have been slid out of the window:
+ *
  * ```
  * while (queue.isNotEmpty() && queue.first() < i - windowSize + 1) {
  *     queue.removeFirst()
  * }
  * ```
+ *
  * * Removing the last items that are smaller than or equal to the upcoming (next) items:
+ *
  * ```
  * while (queue.isNotEmpty() && input[queue.last()] <= input[i]) {
  *     queue.removeLast()
+ * }
+ * ```
+ *
+ * * **How do we get the result?**
+ *
+ * * This structure (arrangement, process, logic, etc.) ensures that we get the result for each window as:
+ * ```
+ * // As long as we have a valid window
+ * if (i >= windowSize - 1) {
+ *     // The first item of the queue is the maximum for the window.
+ *     // Add the first item of the queue to the result list.
+ *     results.add(input[queue.first()])
  * }
  * ```
  *
