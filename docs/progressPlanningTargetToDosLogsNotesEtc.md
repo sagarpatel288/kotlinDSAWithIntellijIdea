@@ -216,10 +216,7 @@
 ### Revision: Coding
 
 * Network packet processing 
-* Edit distance with backtracking
-* Edit distance without backtracking, space optimized
-* Primitive calculator
-* Coin change denomination with backtracking
+* Maximum in sliding window
 
 ### Revision: Pseudo / Quick
 
@@ -227,22 +224,25 @@
 
 ### New:
 
-*
+* 
 
 ## Tomorrow
 
 ### Revision: Coding
 
-*
+* Edit distance with backtracking
+* Edit distance without backtracking, space optimized
+* Primitive calculator
+* Coin change denomination with backtracking
 
 ### Revision: Pseudo
 
-*
+* 
 
 ### Revision: Quick
 
-*
+* 
 
 ### New:
-
-* 
+ 
+*  
