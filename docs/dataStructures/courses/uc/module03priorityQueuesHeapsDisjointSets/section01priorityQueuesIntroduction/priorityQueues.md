@@ -130,7 +130,7 @@
 
 ## Common Operations
 
-* Add (or offer), peek, poll (or remove), isEmpty, max (or findMax, getMax) or min (or findMin, getMin),
+* Offer (or add), peek, poll (or remove), isEmpty, max (or findMax, getMax) or min (or findMin, getMin),
   changePriority, etc.
 
 ## When to use?

@@ -7,15 +7,15 @@
     * [Definition](#definition)
     * [Common Operations](#common-operations)
     * [Time Complexity Of Each Operation](#time-complexity-of-each-operation)
-      * [GetMax (or peek, or max)](#getmax-or-peek-or-max)
-      * [Insert (or add or offer) = `SiftUp`](#insert-or-add-or-offer--siftup-)
+      * [Peek (or getMax, or max)](#peek-or-getmax-or-max)
+      * [Offer (or add or insert) = `SiftUp`](#offer-or-add-or-insert--siftup-)
         * [How to remember?](#how-to-remember-)
       * [ExtractMax = `SiftDown`](#extractmax--siftdown-)
         * [How to remember? The story: Story Time](#how-to-remember-the-story-story-time)
         * [How does `ExtractMax` work?](#how-does-extractmax-work)
         * [How to remember? 02](#how-to-remember-02)
       * [changePriority: Increase = `SiftUp`, Decrease = `SiftDown`.](#changepriority-increase--siftup-decrease--siftdown)
-      * [Remove (or poll)](#remove-or-poll)
+      * [Poll (or remove, delete)](#poll-or-remove-delete)
         * [The Story Time](#the-story-time)
         * [Process](#process)
     * [Question: Binary Max Heap Tree Height](#question-binary-max-heap-tree-height)
@@ -42,7 +42,7 @@
 
 ## Binary Max Heap Tree
 
-* A [priority queue](../../section01priorityQueuesIntroduction/priorityQueues.md) uses a binary heap tree.
+* Logically, a [priority queue](../../section01priorityQueuesIntroduction/priorityQueues.md) uses a binary heap tree.
 * So, let us understand the binary heap tree.
 
 ### Definition
@@ -65,11 +65,11 @@
 
 ### Common Operations
 
-* getMax(or max, peek), insert(or add, or offer), extractMax(or extractMin), poll (or remove), changePriority, etc.
+* peek(or getMax, max), offer(or add, or insert), extractMax(or extractMin), poll (or remove), changePriority, etc.
 
 ### Time Complexity Of Each Operation
 
-#### GetMax (or peek, or max)
+#### Peek (or getMax, or max)
 
 ![030getMaxOfBinaryMaxHeapTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/030getMaxOfBinaryMaxHeapTree.png)
 
@@ -77,7 +77,7 @@
 * So, we simply return the root node.
 * It is `O(1)` time.
 
-#### Insert (or add or offer) = `SiftUp` 
+#### Offer (or add or insert) = `SiftUp` 
 
 ![040insertOfBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/040insertOfBinaryMaxHeap.png)
 
@@ -168,7 +168,7 @@
 * Both the `SiftUp` and `SiftDown` process has `O(tree height)` time complexity.
 * Hence, the `changePriority` operation also gets the `O(tree height)` time complexity. 
 
-#### Remove (or poll)
+#### Poll (or remove, delete)
 
 ![080removeBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/080removeBinaryMaxHeap.png)
 
