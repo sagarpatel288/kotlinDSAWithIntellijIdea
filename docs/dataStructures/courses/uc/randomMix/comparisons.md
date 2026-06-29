@@ -4,6 +4,9 @@
 * [Comparisons of data structures and algorithms](#comparisons-of-data-structures-and-algorithms)
 * [Data Structures](#data-structures)
 * [Trie and Graphs](#trie-and-graphs)
+  * [Graph: Adjacency List](#graph-adjacency-list)
+  * [Graph: Adjacency Matrix](#graph-adjacency-matrix)
+  * [Which one to choose: When and Why](#which-one-to-choose-when-and-why)
 * [Which data structure to choose: When and why](#which-data-structure-to-choose-when-and-why)
 <!-- TOC -->
 
@@ -61,7 +64,51 @@
 
 # Trie and Graphs
 
+## Graph: Adjacency List
+
 *  
+
+| Operation               | Complexity   |
+|-------------------------|--------------|
+| Is edge (u, v) present? | O(degree(u)) |
+| Add edge                | O(1)         |
+| Remove edge             | O(degree(u)) |
+| Iterate neighbors       | O(degree(u)) |
+| BFS/DFS                 | O(V + E)     |
+
+
+*  
+
+## Graph: Adjacency Matrix
+
+* 
+
+| Operation               | Complexity |
+|-------------------------|------------|
+| Is edge (u, v) present? | O(1)       |
+| Add edge                | O(1)       |
+| Remove edge             | O(1)       |
+| Iterate neighbors       | O(V)       |
+| BFS/DFS                 | O(V²)      |
+
+*  
+
+## Which one to choose: When and Why
+
+* 
+
+| Requirement                                  | Sacrifice                            | Choose                   |
+|----------------------------------------------|--------------------------------------|--------------------------|
+| Fast prefix search/autocomplete              | Large memory consumption             | Trie                     |
+| Dictionary lookup independent of total words | Extra nodes and pointers             | Trie                     |
+| Sparse graph (few edges)                     | O(degree(v)) edge checks             | Graph (Adjacency List)   |
+| Dense graph (many edges)                     | O(V²) memory                         | Graph (Adjacency Matrix) |
+| Constant-time edge existence queries         | Huge memory usage                    | Graph (Adjacency Matrix) |
+| Efficient graph traversal (BFS/DFS)          | Slower edge lookups                  | Graph (Adjacency List)   |
+| Dynamic graph updates                        | Slightly more complex implementation | Graph (Adjacency List)   |
+| Complete graphs or all-pairs algorithms      | Wasted space on sparse graphs        | Graph (Adjacency Matrix) |
+
+* 
 
 # Which data structure to choose: When and why
 
