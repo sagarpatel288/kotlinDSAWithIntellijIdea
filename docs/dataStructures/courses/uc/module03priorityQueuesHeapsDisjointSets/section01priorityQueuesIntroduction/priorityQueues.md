@@ -84,7 +84,9 @@
 * In a stack, we can remove an item only from the top.
 * In a queue, we can remove an item only from the front.
 * Removing an item from an array, takes `O(n)` (finding and shifting).
-* Removing an item from a linked list, also takes `O(n)` (finding).
+* If it is an unsorted array, finding an item takes `O(n)`, and it can cause the shifting cost of `O(n)`.
+* If it is a sorted array, finding an item might take `O(log n)`, but shifting can cost `O(n)`.
+* Removing an item from a linked list, also takes `O(n)` (finding takes `O(n)`).
 * In a priority queue, it is `O(log n)`.
 
 **Need: Efficient `changePriority`**
@@ -93,20 +95,38 @@
 
 * In an unsorted array, we access the item in `O(1)`, and change its value.
 * But then finding the extremum (max or min) takes `O(n)` in an unsorted array.
+* Whereas in a priority queue, changing the priority takes `O(log n)` time.
+* And we can find the extremum (max or min) in `O(1)` time.
+---
 * In a sorted array, we access the item in `O(1)`, and change its value.
 * But then we have to sort the array again, and it might take `O(n log n)` time.
 * If we change the values frequently, it can go up to `O(n * n log n)`.
+* Whereas in a priority queue, changing the priority takes `O(log n)` time.
+* And if we change the priority `n` times, it takes a total of `O(n log n)` time.
+* And whether we change the priority `n` times of `0` times, we always get the extremum in `O(1)` time.
+---
 * If we use a linked list, then finding the item that we want to change takes `O(n)` time.
 * If we change the values `n` times, then it becomes `O(n^2)`.
 * Stack, queue, and deque are not designed to access an arbitrary item.
+---
+
+**Trade Off**
+
+* To achieve `extractMax` (or `extractMin`) in `O(1)`, and `poll` and `changePriority` in `O(log n)`, we pay slightly more for the `offer`.
+* While array, linked list, stack, queue, and deque takes `O(1)` for the `offer (or add, insert)`, a priority queue takes `O(log n)`.
+* Big-O Chart:
+
+![050bigOComplexityChart.png](../../../../../../assets/images/algorithmToolbox/module01basics/050bigOComplexityChart.png)
+
+* Reference/Resource/Origin: https://www.bigocheatsheet.com/
 
 **What problem does a priority queue solve better than the other data structures?**
 
 * A priority queue finds the extremum in `O(1)` with efficient cost of adding or removing the data.
 * The max heap finds the item having the maximum value (weight, priority) in `O(1)`.
 * The min heap finds the item having the minimum value (weight, priority) in `O(1)`.
-* Adding an item takes `O(log n)` due to heapify-up process.
-* Removing an item takes `O(log n)` due to heapify-down process.
+* Adding an item takes `O(log n)` due to heapify-up (siftUp) process.
+* Removing an item takes `O(log n)` due to heapify-down (siftDown) process.
 * We can build a heap out of unsorted data in `O(n)`.
 
 ## Definition
