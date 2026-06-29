@@ -65,14 +65,21 @@
 
 # Which data structure to choose: When and why
 
-| Requirement    | Sacrifice         | Choose        |
-|----------------|-------------------|---------------|
-| Fast indexing  | Insert/Delete     | Array         |
-| Fast append    | Occasional resize | Dynamic Array |
-| Fast insertion | Random access     | Linked List   |
-| LIFO behavior  | Flexibility       | Stack         |
-| FIFO behavior  | Arbitrary access  | Queue         |
-| Fast min/max   | General search    | Heap          |
-| Fast lookup    | Extra memory      | Hash Table    |
-| Ordered search | Complex balancing | BST/AVL       |
+* 
 
+| Requirement                    | Sacrifice                   | Choose             |
+|--------------------------------|-----------------------------|--------------------|
+| Fast indexing                  | Insert/Delete               | Array              |
+| Flexible size                  | Occasional resize cost      | Dynamic Array      |
+| Fast insertion/deletion        | Random access               | Linked List        |
+| LIFO behavior                  | Arbitrary access            | Stack              |
+| FIFO behavior                  | Arbitrary access            | Queue              |
+| Access from both ends          | Middle access               | Deque              |
+| Hierarchical data              | Complexity                  | Tree               |
+| Ordered search                 | Possible imbalance          | BST                |
+| Guaranteed O(log n) operations | Rotations and extra logic   | AVL/Red-Black Tree |
+| Fast min/max                   | General searching           | Heap               |
+| Fast average lookup            | Extra memory and collisions | Hash Table         |
+| Fast prefix matching           | High memory usage           | Trie               |
+| Sparse graph representation    | Slower edge lookup          | Adjacency List     |
+| Constant-time edge checks      | O(V²) memory                | Adjacency Matrix   |
