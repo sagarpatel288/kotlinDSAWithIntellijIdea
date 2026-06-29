@@ -224,16 +224,13 @@
 
 ### New:
 
-* 
+* Binary Heap (The underlying logical structure of a priority queue): Theory
 
 ## Tomorrow
 
 ### Revision: Coding
 
-* Edit distance with backtracking
-* Edit distance without backtracking, space optimized
-* Primitive calculator
-* Coin change denomination with backtracking
+* 
 
 ### Revision: Pseudo
 
@@ -244,5 +241,67 @@
 * 
 
 ### New:
- 
+
+* 
+
+# Monday, 29/Jun/26 11:28:59 AM
+
+## Yesterday
+
+### Revision: Coding
+
+* 
+
+### Revision: Pseudo
+
+* 
+
+### Revision: Quick
+
 *  
+
+### New:
+
+* 
+
+## Today
+
+### Revision: Coding
+
+* Edit distance with backtracking
+* Edit distance without backtracking, space optimized
+* Primitive calculator
+* Coin change denomination with backtracking
+
+### Revision: Pseudo
+
+* Priority Queue
+* Binary Heap
+
+### Revision: Quick
+
+* 
+
+### New:
+
+* Complete Binary Tree
+* Binary Max Heap
+* Binary Min Heap
+
+## Tomorrow
+
+### Revision: Coding
+
+* 
+
+### Revision: Pseudo
+
+* 
+
+### Revision: Quick
+
+* 
+
+### New:
+
+*   

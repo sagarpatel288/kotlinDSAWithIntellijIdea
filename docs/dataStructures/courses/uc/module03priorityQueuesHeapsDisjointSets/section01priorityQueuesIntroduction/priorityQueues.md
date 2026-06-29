@@ -79,6 +79,27 @@
 
 ---
 
+**Need: Efficient poll**
+
+* In a stack, we can remove an item only from the top.
+* In a queue, we can remove an item only from the front.
+* Removing an item from an array, takes `O(n)` (finding and shifting).
+* Removing an item from a linked list, also takes `O(n)` (finding).
+* In a priority queue, it is `O(log n)`.
+
+**Need: Efficient `changePriority`**
+
+**How can we change the value of an item?**
+
+* In an unsorted array, we access the item in `O(1)`, and change its value.
+* But then finding the extremum (max or min) takes `O(n)` in an unsorted array.
+* In a sorted array, we access the item in `O(1)`, and change its value.
+* But then we have to sort the array again, and it might take `O(n log n)` time.
+* If we change the values frequently, it can go up to `O(n * n log n)`.
+* If we use a linked list, then finding the item that we want to change takes `O(n)` time.
+* If we change the values `n` times, then it becomes `O(n^2)`.
+* Stack, queue, and deque are not designed to access an arbitrary item.
+
 **What problem does a priority queue solve better than the other data structures?**
 
 * A priority queue finds the extremum in `O(1)` with efficient cost of adding or removing the data.
