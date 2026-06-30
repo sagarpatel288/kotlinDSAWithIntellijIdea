@@ -20,6 +20,8 @@
       * [poll](#poll)
   * [TL;DR](#tldr)
   * [Critical Points](#critical-points)
+  * [Questions: Theoretical](#questions-theoretical)
+  * [Questions: Coding](#questions-coding)
   * [ToDO](#todo)
 <!-- TOC -->
 
@@ -365,6 +367,100 @@ fun poll(index: Int): T? {
 * **Correct `index` usages in**
 * [hasParent], [getParentIndexOf], [hasLeftChild], [getLeftChildIndexOf], [hasRightChild], [getRightChildIndexOf],
 * [siftUp], [siftDown], etc.
+
+## Questions: Theoretical
+
+**Why don't we use a node structure instead of an array structure for a heap?**
+
+**Why are arrays preferred over tree nodes?**
+
+* A node structure takes additional overhead of pointers in terms of storage as well as maintenance, and it is not cache friendly.
+* Whereas an array is a contiguous data structure.
+* It means that we can get fast random access when we know the index.
+* And it is also cache friendly.
+* More on contiguous data structure:
+
+[questionsOnBasicDataStructures.md](../../../module01BasicDataStructures/questionsOnBasicDataStructures.md)
+
+* 
+
+**Why must a heap be complete?**
+
+* 
+
+**Why is buildHeap() O(n)?**
+
+* 
+
+**Why isn't a heap a BST?**
+
+* 
+
+**Why can't we binary-search a heap?**
+
+* 
+
+**Why is finding an arbitrary element O(n)?**
+
+* 
+
+**Why is finding max in a min-heap O(n)?**
+
+* 
+
+**Why is heap sort not stable?**
+
+* 
+
+**Why is quicksort usually faster in practice?**
+
+*  
+
+**Why do Fibonacci heaps exist?**
+
+* 
+
+## Questions: Coding
+
+**Implement Min Heap.**
+
+* 
+
+**Convert array to heap in O(n).**
+
+* 
+
+**Heap Sort.**
+
+* 
+
+**Top K Frequent Elements.**
+
+* 
+
+**Kth Largest Element.**
+
+* 
+
+**Merge K Sorted Lists.**
+
+* 
+
+**Median from Data Stream.**
+
+* 
+
+**Sliding Window Median.**
+
+* 
+
+**Task Scheduler.**
+
+* 
+
+**Dijkstra using an Indexed Priority Queue.**
+
+* 
 
 ## ToDO
 
