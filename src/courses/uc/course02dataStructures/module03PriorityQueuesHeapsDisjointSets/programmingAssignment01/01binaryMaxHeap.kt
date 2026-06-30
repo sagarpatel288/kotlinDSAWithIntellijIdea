@@ -46,7 +46,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  *
  * ### What is the contract (core operations) of a binary max heap tree?
  *
- * * It supports [insert], [changePriorityOf], [remove], and [peekMax].
+ * * It supports [offer], [changePriorityOf], [remove], and [peekMax].
  *
  * ### Which data structure can support these operations efficiently?
  *
@@ -55,7 +55,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * * It requires comparison between the parents and the children.
  * * To compare the parents and the children, we need to access and read them as fast as possible.
  * * An `Array` (or more precisely, a `mutableListOf`) because it supports random access in constant time.
- * * It means we can find an element in `O(1)` time.
+ * * It means we can find an element at (from) the known index in `O(1)` time.
  *
  * ### What condition should be fulfilled by the data structure of a complete binary tree?
  *
@@ -126,7 +126,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  *
  * ### What are the common operations of a binary max heap tree?
  *
- * * [insert] (or add),
+ * * [offer] (or add),
  * * [changePriorityOf] (or update),
  * * [remove] (or delete, poll,)
  * * [peekMax] (or max, getMax, peek),
@@ -242,7 +242,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      *
      * This is a helper function. That is why it is `private.`
      * This is [courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
-     * It supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * It supports various operations like [offer], [changePriorityOf], [remove], [peekMax], etc.
      * It means that every time we insert, update, or delete an element from the [heap], we need to sustain the heap properties.
      * We need to ensure that the parent node is greater than or equal to the child nodes.
      * So, we need to find the parent node of the given [index] in the [heap].
@@ -256,7 +256,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      *
      * This is a helper function. That is why it is `private.`
      * This is [courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
-     * And it supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * And it supports various operations like [offer], [changePriorityOf], [remove], [peekMax], etc.
      * It means that we need to maintain the heap properties across various operations.
      * For example, a parent must be greater than or equal to the child node.
      * To compare a parent with the child nodes, we need to find their positions in the [heap].
@@ -269,7 +269,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      *
      * This is a helper function. That is why it is `private`.
      * This is [courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
-     * It supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * It supports various operations like [offer], [changePriorityOf], [remove], [peekMax], etc.
      * We need to maintain the heap properties across these operations.
      * For example, a parent must be greater than or equal to the child nodes.
      * To compare the parent and the child nodes, we need to find their positions in the [heap].
@@ -315,7 +315,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      *
      * This is a helper function. That is why it is `private.`
      * This is [courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
-     * It supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * It supports various operations like [offer], [changePriorityOf], [remove], [peekMax], etc.
      * We need to maintain the heap properties across these operations.
      * For example, a parent must be greater than the child nodes.
      * For example, during the [siftDown] operation, we compare the parent with the child with the maximum value.
@@ -336,7 +336,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      *
      * This is a helper function. That is why it is `private.`
      * This is [courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSets.BinaryMaxHeap].
-     * It supports various operations like [insert], [changePriorityOf], [remove], [peekMax], etc.
+     * It supports various operations like [offer], [changePriorityOf], [remove], [peekMax], etc.
      * It means that we need to maintain the heap properties across these operations.
      * For example, a parent must be greater than or equal to the child nodes.
      * If the child node is greater than the parent node, we [swap] their positions to maintain the heap properties.
@@ -350,12 +350,12 @@ class BinaryMaxHeap<T: Comparable<T>>() {
     }
 
     /**
-     * Ensure to add the new element [value] as the immediate next neighbour of the current last element.
+     * Ensure to add the new element [value] as the immediate next neighbor of the current last element.
      * And then call the [siftUp] function to maintain and keep the tree as a binary max heap tree.
      *
      * # Time Complexity
      *
-     * * Adding an element into a mutable list is `O(1)`.
+     * * Adding an element into a mutable list is `O(1)` (Amortized).
      * * But it may violate the binary max heap tree.
      * * So, the worst-case time complexity is `O(log n)`, which is the maximum `binary max heap tree height`.
      * * As we might have to traverse from the last `leaf` node up to the `root node.`
@@ -364,9 +364,9 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      *
      * * Other than [heap], we are not using anything else.
      * * All the small variables we might take are constant.
-     * * So, the overall space complexity of this [insert] function (excluding the [heap]) is `O(1)`.
+     * * So, the overall space complexity of this [offer] function (excluding the [heap]) is `O(1)`.
      */
-    fun insert(value: T) {
+    fun offer(value: T) {
         heap.add(value)
         siftUp(heap.lastIndex)
     }
@@ -375,7 +375,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * # What do we do in the [siftUp] process? Why do we have this function?
      *
      * * In a binary max heap tree, the parent is always greater than or equal to the children.
-     * * [insert] or [changePriorityOf] may violate the heap properties.
+     * * [offer] or [changePriorityOf] may violate the heap properties.
      * * This function checks whether the child is greater than the parent.
      * * We compare the given child node [fromIndex] with the parent element.
      * * As long as the child element is greater than the parent element, we keep swapping the element positions.
@@ -386,13 +386,13 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * # Time Complexity
      *
      * ** Best Case:
-     * * For example, we [insert] a new element that has the smallest value in the binary max heap tree.
+     * * For example, we [offer] a new element that has the smallest value in the binary max heap tree.
      * * In that case, we just compare the newly inserted element with the parent, and find that it already maintains the binary max heap properties.
      * * So, we don't need to perform anything else further.
      * * In that case, it is `O(1)` only.
      *
      * ** Worst case:
-     * * For example, we [insert] a new element that has a higher value than the root node!
+     * * For example, we [offer] a new element that has a higher value than the root node!
      * * In that case, it is `O(log n)` where `log n` is the maximum `binary max heap tree height.`
      *
      * # Space Complexity
@@ -437,7 +437,13 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * * Hence, the space complexity of this function is `O(1)`.
      */
     fun extractMax(): T? {
+        // If the heap is empty
         if (heap.isEmpty()) return null
+        // If the heap has only one element
+        if (heap.size == 1) {
+            return heap.removeAt(0)
+        }
+        // Otherwise
         // Extract the root element
         val max = heap[0]
         // Swap the root element with the last leaf
@@ -520,9 +526,43 @@ class BinaryMaxHeap<T: Comparable<T>>() {
     }
 
     /**
+     *
+     */
+    fun remove(index: Int): T? {
+        // When the heap is empty
+        if (heap.isEmpty() || index !in 0..<heap.size) return null
+        val node = heap[index]
+        // When the heap has only one element
+        if (index == heap.lastIndex) {
+            heap.removeAt(index)
+            return node
+        }
+        // When we are removing the top element
+        if (index == 0) {
+            return extractMax()
+        }
+        // Otherwise, swap it with the last node
+        swap(index, heap.lastIndex)
+        // Now that the target node is at the last position, remove it
+        heap.removeAt(heap.lastIndex)
+        // Restore the heap properties as we have put the old last node at some arbitrary index.
+        // Note that the root node will not have a parent.
+        // That's why, we have explicitly handled it above.
+        if (hasParent(index)) {
+            val parent = getParentIndexOf(index)
+            if (heap[parent] < heap[index]) {
+                siftUp(index)
+            } else {
+                siftDown(index)
+            }
+        }
+        return node
+    }
+
+    /**
      * # Why do we have this function? What does it do?
      * * It gives the maximum element.
-     * * As we maintain the binary max heap tree while we [insert], [extractMax], [changePriorityOf], etc.,
+     * * As we maintain the binary max heap tree while we [offer], [extractMax], [changePriorityOf], etc.,
      * It is guaranteed that the element with the maximum value is at the root.
      *
      * # Time Complexity
@@ -560,6 +600,12 @@ class BinaryMaxHeap<T: Comparable<T>>() {
 }
 
 /**
+ * # Note:
+ *
+ * **This is not a recommended way of removing an element. This is only to be aware of an alternative way.**
+ *
+ * * The recommended way of removing an element is: [BinaryMaxHeap.remove] that handles generics.
+ *
  * # Why do we have this function? What does it do? How?
  *
  * * It removes an element from the given [index].
