@@ -12,6 +12,7 @@
 * Range sum formula (prefixed sum array)
 * Euclidean formula to find the distance between two points.
 * Formulas of: Edit distance to match two strings
+* Formulas of: Binary heap tree to get parent and children.
 * Trigonometry (Shapes, area, etc.)
 * Discrete maths 
 * Combinatorial Game Theory 

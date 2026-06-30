@@ -41,6 +41,7 @@
 * The circular array instead of a plain array as an underlying data structure for a queue to prevent `O(n)` shifting cost.
 * The fast and slow pointers, both start from the head, slow moves one step at a time, fast moves two steps at a time, if there is a cycle, they will meet, otherwise at some point, fast or `fast.next` will be `null`.
   * Reference: In a linked list: To detect a cycle, to find the start of the cycle, to break the cycle, and to find the middle point.
+* Formulas of: Binary heap tree to get parent and children.
 
 ## Edge Cases
 

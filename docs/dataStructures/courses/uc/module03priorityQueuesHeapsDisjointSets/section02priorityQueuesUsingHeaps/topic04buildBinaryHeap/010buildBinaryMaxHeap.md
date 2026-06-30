@@ -59,21 +59,21 @@
 
 ## Thought Process
 
-* We have learned that a priority queue uses a binary heap tree.
+* We have learned that a priority queue physically uses an array, and logically uses a binary heap tree.
 * And a binary heap tree uses a complete binary tree (the heap structure) and the heap properties.
   * A complete binary tree ensures that the tree height remains compact: `O(log n)`.
   * The max heap property ensures that we get the element with the highest priority in: `O(1)`.
   * We have parent-children formulas to check and confirm the heap properties.
 * Now, we expect the following operations from a priority queue:
-  * insert (or add, or offer)
-  * peek
-  * extractMax (or poll)
-  * remove
-  * changePriority
+  * offer (or add, or insert)
+  * peek (getMax, or max without removing it)
+  * extractMax (removes the max)
+  * poll (removes any element)
+  * changePriority (changes the priority of the given element)
 * But an operation can change the properties of the heap tree.
-  * For example, the `insert`, `extractMax`, `changePriority`, and the `remove` operations.
+  * For example, the `offer`, `extractMax`, `changePriority`, and the `poll` operations.
 * So, to sustain the heap properties against these operations, we have certain additional operations.
-* For example, the `insert` operation is followed by the `siftUp` operation.
+* For example, the `offer` operation is followed by the `siftUp` operation.
 * The `extractMax` operation is followed by the `siftDown` operation.
 * If the `changePriority` operation increases the priority, then it is followed by the `siftUp` operation.
 * If the `changePriority` operation decreases the priority, then it is followed by the `siftDown` operation.
@@ -87,7 +87,7 @@
 
 ### What is the contract (core operations) of a binary max heap tree?
 
-* It supports insert (or add, or offer), changePriorityOf, remove (or poll), and peekMax.
+* It supports offer (or add, or insert), changePriorityOf, poll (or remove), and peekMax.
 
 ### Which data structure can support these operations efficiently?
 
@@ -95,7 +95,7 @@
 * For example, a parent must be greater than or equal to the children nodes.
 * It requires comparison between the parents and the children.
 * **To compare the parents and the children, we need to access and read them as fast as possible.**
-* So, we choose an `Array` (or more precisely, a `mutableListOf`) because it supports random access in constant time.
+* So, we choose an `Array` (a mutable or dynamic array) because it supports random access in constant time.
 * It means we can find an element in `O(1)` time.
 
 ### What condition should be fulfilled by the data structure of a complete binary tree?
@@ -113,7 +113,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
 ### In which data structure can we represent a complete binary tree?
 
 * Array.
-* It means that we will be using an `ArrayList` (or precisely, a `mutableList`) as an underlying data structure.
+* It means that we will be using an `ArrayList` (a mutable or dynamic array) as an underlying data structure.
 * So, we can have something like:
 
 ```kotlin
@@ -168,16 +168,16 @@ fun hasRightChildIndexOf(index: Int) = getRightChildIndexOf(index) <= heap.size 
 
 ### What are the common operations of a binary max heap tree?
 
-* insert (or add, or offer),
+* offer (or add, or insert),
 * changePriorityOf (or update),
-* remove (or delete, or poll),
+* poll (or delete, or remove),
 * peekMax (or max, getMax, or peek),
 * extractMax (or removeMax), 
 * etc.
 
 ### How do we maintain (keep, sustain, preserve) the complete binary tree for all the operations?
 
-#### Insert
+#### Offer (add or insert)
 
 * When we insert a new element, we ensure that we insert it as the immediate next neighbor of the current last node.
 * This way, the new element will be left-aligned, and we follow the left-to-right order.
@@ -185,8 +185,8 @@ fun hasRightChildIndexOf(index: Int) = getRightChildIndexOf(index) <= heap.size 
 
 #### How do we do that?
 
-* It is natural for an `ArrayList` (or to be more specific, a `mutableList`) to `insert` a new element at the end.
-* So, adding an element at the end of a `mutableList` is:
+* It is natural for an `ArrayList` (dynamic or mutable) to `insert` a new element at the end.
+* So, adding an element at the end of a dynamic or mutable array is:
 
 ```kotlin
 fun insert(newElement: Int) {
@@ -318,11 +318,11 @@ fun changePriority(atIndex: Int, newValue: T) {
 }
 ```
 
-#### remove
+#### poll
 
 ```kotlin
 
-fun remove(index: Int): T? {
+fun poll(index: Int): T? {
     if (index !in heap.indices) return null
     if (index == heap.lastIndex) {
         return heap.removeLast()
@@ -344,15 +344,15 @@ fun remove(index: Int): T? {
 * To maintain the heap properties, we will be comparing parents and children.
 * So, the data must be comparable.
 * To compare data, we need fast random access.
-* So, we will be using an array to store the data.
+* So, we will be using an array (dynamic or mutable) to store the data.
 * We store the data in the array in a particular way using the below formulas:
 * Parent of index `i` is: `(i - 1)/2`
 * Left child of index `i` is: `2i + 1`
 * Right child of index `i` is: `2i + 2`
-* The `insert` operation is followed by the `siftUp` operation to maintain the heap properties.
+* The `offer` operation is followed by the `siftUp` operation to maintain the heap properties.
 * The `extractMax` operation is followed by the `siftDown` operation.
-* To remove an item, we make its value `infinite`, and make it the root. 
-* Then, we swap it with the last element, extract it, and restore the heap property using the `siftDown` operation.
+* To remove an item, we swap it with the last element. 
+* Then, we remove the last element, and restore the heap property using the `siftDown` or `siftUp` operation.
 * If the `changePriority` increases the priority, then it is followed by the `siftUp` operation.
 * If the `changePriority` decreases the priority, then it is followed by the `siftDown` operation.
 
