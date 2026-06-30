@@ -11,13 +11,13 @@
       * [But arrays usually follow the 0-based index, right? How do we manage it?](#but-arrays-usually-follow-the-0-based-index-right-how-do-we-manage-it)
     * [What are the common operations of a binary max heap tree?](#what-are-the-common-operations-of-a-binary-max-heap-tree)
     * [How do we maintain (keep, sustain, preserve) the complete binary tree for all the operations?](#how-do-we-maintain-keep-sustain-preserve-the-complete-binary-tree-for-all-the-operations)
-      * [Insert](#insert)
+      * [Offer (add or insert)](#offer-add-or-insert)
       * [How do we do that?](#how-do-we-do-that)
         * [And what about the `siftUp` or the `heapifyUp` process? How do we do that?](#and-what-about-the-siftup-or-the-heapifyup-process-how-do-we-do-that)
       * [extractMax](#extractmax)
       * [siftDown or `heapifyDown`](#siftdown-or-heapifydown)
       * [changePriority](#changepriority)
-      * [remove](#remove)
+      * [poll](#poll)
   * [TL;DR](#tldr)
   * [Critical Points](#critical-points)
   * [ToDO](#todo)
@@ -56,6 +56,10 @@
 * [Local heapSort.md](../../../../../docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
 * [Local heapSort.md](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
 * [GitHub heapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b4deae7cce5798fd22bdc82b3b81222cc4c18527/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+
+**Implementation**
+
+* [01binaryMaxHeap.kt](../../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/01binaryMaxHeap.kt)
 
 ## Thought Process
 
