@@ -10,7 +10,9 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  *
  * # YouTube
  *
+ * * [In 3 Minutes](https://youtube.com/shorts/i7xGwTRarl0?si=ShDYaOk1Cu9Se4Oy)
  * * [Michael Sambol](https://youtu.be/2DmK_H7IdTo?si=MNl7Aq1bH4W3Aw9U)
+ *
  *
  * # Coursera
  *
@@ -86,7 +88,67 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * * It will give us a descending (non-increasing) order array.
  * * Then again, we will have to reverse it to make it an ascending (non-decreasing) order array.
  * * And it will require an extra pass (extra work).
- * * So, to get an ascending (non-decreasing) order sorted array, `maxHeap` is an optimal choice.
+ *
+ * **So, to get a sorted array in an ascending (non-decreasing) order, `maxHeap` is an optimal choice.**
+ *
+ * **However, to sort the given data in a descending (non-increasing) order, we use a `minHeap`.**
+ *
+ * * So:
+ *
+ * ```markdown
+ * Sort In Ascending (Non-decreasing) = MaxHeap
+ * Sort In Descending (Non-increasing) = MinHeap
+ * ```
+ *
+ * **How to remember?**
+ *
+ * * M`a`x = `a` of Ascending
+ * * M`i`n = `DiMin` Of D`i`minishing = Descending (`MinDi` or `MinDe` or `DeMin` or `DesMin`)
+ *
+ * # Why do we go backward from `n/2` to `0` instead of going from `0` to `n/2` for [buildHeap]?
+ *
+ * ---
+ *
+ * * Because if we go backward, we guarantee that children are already arranged for a valid heap.
+ * * We can guarantee that children are already forming a valid heap.
+ * * So, we can guarantee that arranging the parent will also form a valid heap.
+ * * This is Floyd's heap construction theory:
+ *
+ * ```markdown
+ * If children form a valid heap, then arranging the parent is guaranteed to form a valid heap.
+ * ```
+ *
+ * * However, if we go from `0` to `n/2` (forward, top-to-down), we are not sure about the children.
+ * * We have not verified children.
+ * * We don't know whether children are forming the valid heap.
+ * * So, we can't guarantee that arranging the parent will make a valid heap or not.
+ *
+ * ---
+ *
+ * * And we start from `n/2` instead of `n - 1` because leaves are already heaps (a valid heap) by definition.
+ *
+ * **How to remember?**
+ *
+ * * `Building A Heap` = `Building A Building (Edifice)` starts from the foundation, and we go from bottom-to-top.
+ *
+ * # Quick Revision
+ *
+ * * The main idea behind the heap sort is that we know it gives extremum (max/min from the root) in `O(1)`.
+ * * And we use the max heap to sort the given data in ascending (non-decreasing) order.
+ * * For the max heap, this extremum is the `max` value.
+ * * Now, the correct position of this `max` in the sorted (ascending) array is the last position.
+ * * We place this `max` to its correct position.
+ * * So now, we got one less element to arrange.
+ * * Hence, we reduce the heap size and do the same for the remaining elements.
+ * * If there are `n` total elements, and we do this exercise for `n - 1` elements, we get the sorted data.
+ * * However, as per the heap definition, leaves are already valid heaps.
+ * * So, we do this exercise only for `n/2` elements!
+ * * And we go from bottom-to-top.
+ * * So, we start and go from `n/2` to `0`.
+ * * We go from bottom-to-top because it guarantees that children are already valid heaps.
+ * * And according to the Floyd's heap construction:
+ * **If children are valid heaps, then arranging the parent forms a valid heap.**
+ * *
  *
  * # TL;DR
  *

@@ -289,7 +289,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
     private fun hasParent(index: Int): Boolean {
         val parentIndex = getParentIndexOf(index)
         // A parent index can be the `0th` index
-        return parentIndex in 0..<heap.size
+        return parentIndex in heap.indices
     }
 
 
@@ -342,7 +342,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * If the child node is greater than the parent node, we [swap] their positions to maintain the heap properties.
      */
     private fun swap(positionOne: Int, positionTwo: Int) {
-        if (heap.isNotEmpty() && positionOne in 0..<heap.size && positionTwo in 0..<heap.size) {
+        if (positionOne in heap.indices && positionTwo in heap.indices) {
             val temp = heap[positionOne]
             heap[positionOne] = heap[positionTwo]
             heap[positionTwo] = temp
@@ -401,7 +401,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * * So, the space complexity is `O(1)`.
      */
     private fun siftUp(fromIndex: Int) {
-        if (heap.isEmpty() || fromIndex !in 0..<heap.size) throw IllegalArgumentException("Index $fromIndex is out of bounds for the size ${heap.size}")
+        if (fromIndex !in heap.indices) throw IllegalArgumentException("Index $fromIndex is out of bounds for the size ${heap.size}")
         var childIndex = fromIndex
         // As long as the child is greater than the parent, we keep swapping the positions.
         while (hasParent(childIndex) && heap[childIndex] > heap[getParentIndexOf(childIndex)]) {
@@ -464,7 +464,7 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * This is how it maintains the binary max heap tree.
      */
     private fun siftDown(fromIndex: Int) {
-        if (heap.isEmpty() || fromIndex !in 0..<heap.size) return
+        if (fromIndex !in heap.indices) return
         var parentIndex = fromIndex
         // We want to compare the parent with the children.
         // It means that the very first condition is: Does the parent have any children?
@@ -513,8 +513,9 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      * * So, the space complexity of this function is `O(1)` only.
      */
     fun changePriorityOf(index: Int, newValue: T) {
-        if (heap.isEmpty() || index !in 0..<heap.size) return
+        if (index !in heap.indices) return
         val oldValue = heap[index]
+        if (oldValue == newValue) return
         heap[index] = newValue
         if (oldValue < newValue) {
             // We have increased the value. So, calling `siftUp` to maintain the binary max heap tree.
@@ -530,9 +531,9 @@ class BinaryMaxHeap<T: Comparable<T>>() {
      */
     fun remove(index: Int): T? {
         // When the heap is empty
-        if (heap.isEmpty() || index !in 0..<heap.size) return null
+        if (index !in heap.indices) return null
         val node = heap[index]
-        // When the heap has only one element
+        // When we are removing the last leaf node
         if (index == heap.lastIndex) {
             heap.removeAt(index)
             return node
