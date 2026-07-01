@@ -148,7 +148,18 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * * We go from bottom-to-top because it guarantees that children are already valid heaps.
  * * And according to the Floyd's heap construction:
  * **If children are valid heaps, then arranging the parent forms a valid heap.**
- * *
+ * * But what do we do while going from `n/2` to `0`?
+ * * For each index `i` starting from `n/2` to `0`, we call `siftDown` to ensure the valid heap structure.
+ * * Once we finish the process, we are ready with a valid `max heap`.
+ * * After getting the valid `max heap`, we start our `extractMax` process in loop.
+ * * The `extractMax` process sets the `max` element to the last position using the `swap` function.
+ * * And with every iteration of `extractMax`, this last position gets reduced.
+ * * The `extractMax` process goes from `n - 1` to `1`.
+ * * Why from `n - 1`? Because it indicates the last available position where we want to put the result of `extractMax`.
+ * * Every time we `extractMax`, we reduce the heap size (by reducing the end-index-boundary of the heap).
+ * * Note that the `extractMax` operation follows the `siftDown` process with specific parameters (arguments).
+ * * This specific parameter is about up to which point we should consider a valid child position.
+ * * It is essentially, the heap size or the end-index-boundary of the unsorted heap.
  *
  * # TL;DR
  *
@@ -158,7 +169,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * leftChild = (2 * i) + 1
  * rightChild = (2 * i) + 2
  * ```
- * * Call [extractMax] and place the maximum element at the last using the [siftDown] function.
+ * * Call [extractMax] (from `n - 1` to `1`) and place the maximum element at the last using the [siftDown] function.
  * * Shrink the `heap tree` and keep calling [extractMax] until we cover the entire `heap tree`.
  *
  * # Time Complexity
