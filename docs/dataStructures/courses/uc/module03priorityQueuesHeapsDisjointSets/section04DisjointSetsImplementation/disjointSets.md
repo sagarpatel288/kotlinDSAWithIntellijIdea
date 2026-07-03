@@ -37,6 +37,7 @@
   * We need to merge multiple containers (groups).
   * We want to know which group an element belongs to.
   * We want to check if two elements belong to the same group.
+* To solve such problems where we need to manage and manipulate multiple groups of elements, we use `Disjoint Sets`.
 * A `Disjoint Set` mainly supports two operations: `find` and `union`.
 * A `find` in other data structure is to search for an element. 
 * It is like asking: Does the element exist?
