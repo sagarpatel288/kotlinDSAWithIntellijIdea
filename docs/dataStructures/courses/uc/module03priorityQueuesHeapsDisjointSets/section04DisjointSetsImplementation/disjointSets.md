@@ -43,6 +43,7 @@
 * It is like asking: Does the element exist?
 * But, a `find` in a `DSU` is to search the root (parent) of the set to which a particular element belongs.
 * It is like asking: To which group does the element belong?
+* So, a `find` in a `DSU` is essentially about finding the root (parent) of the element.
 * For example, if `find(a) == 1`, then `a` belongs to the set with root `1`.
 * In other words, the root of `a` is `1`.
 * Also, if `find(a) == find(b)`, then `a` and `b` belong to the same set.
