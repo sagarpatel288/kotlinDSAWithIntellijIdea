@@ -3,6 +3,7 @@
 <!-- TOC -->
 * [Disjoint Set Union (Also known as, Union Find)](#disjoint-set-union-also-known-as-union-find)
   * [Resources / References](#resources--references)
+  * [Requirement / Need / Purpose](#requirement--need--purpose)
   * [Disjoint Sets](#disjoint-sets)
   * [Find](#find)
   * [Union](#union)
@@ -13,6 +14,7 @@
     * [Maze](#maze)
       * [Translating the process into pseudocode](#translating-the-process-into-pseudocode)
     * [Networking (Network Cabling) Example](#networking-network-cabling-example)
+  * [Application](#application)
   * [Next](#next)
 <!-- TOC -->
 
@@ -24,6 +26,33 @@
 * [Coursera UC San Diego Data Structures](https://www.coursera.org/learn/data-structures)
 * [Next: DisjointSet Implementation](disjointSets02dissection.md)
 
+
+## Requirement / Need / Purpose
+
+* A `Disjoint Set` mainly supports two operations: `find` and `union`.
+* A `find` in other data structure is to search for an element. 
+* It is like asking: Does the element exist?
+* But, a `find` in a `DSU` is to search the root (parent) of the set to which a particular element belongs.
+* It is like asking: To which group does the element belong?
+* For example, if `find(a) == 1`, then `a` belongs to the set with root `1`.
+* In other words, the root of `a` is `1`.
+* Also, if `find(a) == find(b)`, then `a` and `b` belong to the same set.
+* So, it is about solving the connectivity problem.
+* Whereas `union` is a `merge` operation.
+* It is about merging two sets (groups).
+* And the realistic analysis says that a total of `m` such operations take `O(m ⍺(n))` = `O(m)` time on average.
+* `⍺(n)` is the inverse Ackermann function.
+* It is a very slow-growing function, so in practice, it's almost constant.
+* It means that each operation takes almost constant time.
+* This is very efficient.
+* Thanks to optimizations like Union by Rank and Path Compression.
+* Compared to stacks and queues, we are not restricted to elements at boundaries.
+* In fact, stacks and queues are not designed to find arbitrary elements.
+* And compared to an unsorted array, finding takes `O(n)`.
+* And in a sorted array, finding takes `O(log n)`, but mutation costs `O(n)`.
+* And finding an arbitrary element in a heap is `O(n)`.
+* Hence, for efficient `find` and `union` operations, we came up with `Disjoint Sets`.
+* In other words, to merge groups and to find the root of the members efficiently, we came up with the `Disjoint Sets`.
 
 ## Disjoint Sets
 
@@ -235,6 +264,17 @@ fun find(x: Int): Int {
 * But later, as we keep performing the `union` operations on `(3, 4)`, `(2, 3)`, and `(1, 4)`, eventually, it makes the system `1` and `2` parts of the same set. 
 * Now, if we call the `find` operation on the systems `1` and `2`, their results (parents, sets) will be the same.
 
+## Application
+
+* Kruskal's Minimum Spanning Tree
+* Connected Components
+* Dynamic Connectivity Queries
+* Number of Islands problems
+* Clustering and image segmentation
+* Social network friend groups
+* 
+
 ## Next
 
+* [Disjoint Sets Dissection](disjointSets02dissection.md)
 * [Disjoint Sets (Union-Find) Implementation](disjointSets02dissection.md)
