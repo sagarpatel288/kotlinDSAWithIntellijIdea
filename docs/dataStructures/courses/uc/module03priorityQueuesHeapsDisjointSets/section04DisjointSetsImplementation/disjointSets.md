@@ -65,7 +65,7 @@
 * Thanks to optimizations like Union by Rank and Path Compression.
 * Compared to stacks and queues, we are not restricted to elements at boundaries.
 * In fact, stacks and queues are not designed to find arbitrary elements.
-* And compared to an unsorted array, finding takes `O(n)`.
+* And in an unsorted array, finding takes `O(n)`.
 * And in a sorted array, finding takes `O(log n)`, but mutation costs `O(n)`.
 * And finding an arbitrary element in a heap is `O(n)`.
 * Hence, for efficient `find` and `union` operations, we came up with `Disjoint Sets`.
