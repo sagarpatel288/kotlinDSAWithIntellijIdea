@@ -50,6 +50,13 @@
 * So, it is about solving the connectivity problem.
 * Whereas `union` is a `merge` operation.
 * It is about merging two sets (groups).
+* For example, `union(a, b)` would merge the two sets containing elements `a` and `b`.
+* To merge the two sets, both the sets must be `Disjoint` (independent, isolated, disconnected).
+* It means that to perform `union(a, b)`, the elements `a` and `b` must belong to different sets.
+* So, first we perform `find(a)` and `find(b)`.
+* Only if `find(a) != find(b)`, we can perform the union operation between them: `union(a, b)`.
+* If they are already in the same set, we cannot perform the union operation between them.
+* So, those are the two main operations (`find` and `union`) we perform in `DSU`.
 * And the realistic analysis says that a total of `m` such operations take `O(m ⍺(n))` = `O(m)` time on average.
 * `⍺(n)` is the inverse Ackermann function.
 * It is a very slow-growing function, so in practice, it's almost constant.
