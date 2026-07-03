@@ -304,4 +304,20 @@
 
 ### New:
 
-*   
+* 
+
+# Wednesday, 01/Jul/26 19:56:32 PM
+
+## Today
+
+### Coding
+
+* Build heap sort using a max binary heap
+
+### Quick Pseudo
+
+* Edit distance with backtracking
+* Edit distance without backtracking, space optimized
+* Primitive calculator
+* Coin change denomination with backtracking
+ 
