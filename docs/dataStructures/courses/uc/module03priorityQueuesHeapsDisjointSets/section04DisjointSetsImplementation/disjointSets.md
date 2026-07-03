@@ -29,6 +29,14 @@
 
 ## Requirement / Need / Purpose
 
+* We have seen arrays, dynamic arrays, linked lists, stacks, queues, and priority queues (heaps).
+* We have seen them as individual containers with elements in it.
+* All the elements of a particular container belong to the same container, as there are no multiple containers.
+* We have not seen a problem where: 
+  * We have multiple containers (groups).
+  * We need to merge multiple containers (groups).
+  * We want to know which group an element belongs to.
+  * We want to check if two elements belong to the same group.
 * A `Disjoint Set` mainly supports two operations: `find` and `union`.
 * A `find` in other data structure is to search for an element. 
 * It is like asking: Does the element exist?
