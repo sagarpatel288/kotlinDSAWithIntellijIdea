@@ -675,6 +675,22 @@ $$
 * The `⍺(n)` function grows extremely slowly, making the amortized time almost constant.
 * The space complexity is `O(n)`, where `n` is the number of elements.
 
+**Why do the `find` and `union` operations take almost constant time in `DSU`?**
+
+* Because of the **union by rank** and the **path compression** heuristics.
+
+**What are the union by rank and path compression heuristics?**
+
+* **Union by rank**:
+* 
+* When merging two trees, we attach the root of the smaller tree under the root of the larger tree. 
+* This helps keep the tree height logarithmic.
+* 
+* **Path compression**:
+* 
+* During a `find` operation, we make every node along the path point directly to the root. 
+* This flattens the tree and speeds up future operations.
+
 ## Revision
 
 * A disjoint set data structure is a forest of isolated trees.
