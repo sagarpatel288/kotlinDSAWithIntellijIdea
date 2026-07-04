@@ -53,7 +53,7 @@ class DynamicDsu<T> {
         return true
     }
 
-    fun connected(x: T, y: T): Boolean {
+    fun areConnected(x: T, y: T): Boolean {
         return find(x) == find(y)
     }
 
