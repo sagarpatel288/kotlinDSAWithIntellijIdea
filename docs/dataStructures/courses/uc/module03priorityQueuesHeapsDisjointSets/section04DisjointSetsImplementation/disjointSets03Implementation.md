@@ -184,8 +184,15 @@ fun unionBySize(x: Int, y: Int) {
 
 # Implementation
 
-[DisjointSet UnionByRank Implementation.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03DisjointSetsUnionFindDSU.kt)
+* [DisjointSet UnionByRank Implementation.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03DisjointSetsUnionFindDSU.kt)
 
-[DisjointSet UnionBySize Implementation.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03disjointSetsUnionFindUsingSize.kt)
+* [DisjointSet UnionBySize Implementation.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03disjointSetsUnionFindUsingSize.kt)
 
-[Dynamic Dsu.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsu.kt)
+* [Dynamic Dsu.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsu.kt)
+
+# Relevant problems
+
+* Number of Provinces (LeetCode 547?)
+* Redundant Connection (LeetCode 684?)
+* Accounts Merge (LeetCode 721?)
+* Kruskal's Algorithm for Minimum Spanning Trees
