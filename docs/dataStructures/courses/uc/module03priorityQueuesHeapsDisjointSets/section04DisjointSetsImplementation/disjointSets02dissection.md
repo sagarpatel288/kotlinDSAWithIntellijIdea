@@ -29,6 +29,7 @@
       * [Total Running Time](#total-running-time)
       * [Summary](#summary)
       * [Quick Revision](#quick-revision)
+  * [TL;DR](#tldr)
   * [Revision](#revision)
     * [Find Operation](#find-operation)
     * [Union Operation](#union-operation)
@@ -638,6 +639,28 @@ $$
   * Hence, `m` is the dominant term here compared to `n`.
 * So, it becomes:
 * $O(m * log^{*}(n))$.
+
+## TL;DR
+
+**Which data structure do we use for `DSU`?** 
+
+* If we use a linear data structure like an array or a linked list, the size of the container keeps increasing with every `union` operation.
+* So, we use a hierarchical data structure: Tree.
+
+**How do we perform `union(a, b)` in `DSU`?**
+
+* We `find` the root (parent) of both `a` and `b`.
+* If they are in the same set, we do nothing.
+* If they are in different sets, we hang the shorter tree under the root of the taller tree.
+
+**Why do we hang the shorter tree under the root of the taller tree?**
+
+* To keep the tree height shallow (logarithmic), which ensures efficient `find` and `union` operations.
+
+**How do we decide which tree is shorter or longer than the other?**
+
+* We maintain a `rank` for each node.
+* Every time we perform the `union` operation, we update the rank of the root under which we attach the other tree.
 
 ## Revision
 
