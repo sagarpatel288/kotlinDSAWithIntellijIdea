@@ -59,7 +59,7 @@ class DynamicDsuWithSize<T> {
         return size[rootOfA]!!
     }
 
-    fun connected(a: T, b: T): Boolean {
+    fun areConnected(a: T, b: T): Boolean {
         val rootOfA = find(a)
         val rootOfB = find(b)
         return rootOfA == rootOfB

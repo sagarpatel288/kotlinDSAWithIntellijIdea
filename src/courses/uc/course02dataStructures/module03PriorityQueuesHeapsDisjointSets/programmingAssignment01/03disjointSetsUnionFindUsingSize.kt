@@ -87,7 +87,7 @@ class DisjointSetBySize(private val size: Int) {
      * So, we find the root of the given [node].
      * And then we find the size of that root node using [treeSize].
      */
-    fun getTreeSizeFrom(node: Int): Int {
+    fun sizeOfSet(node: Int): Int {
         // The function `findRoot` handles and validates the input
         val rootNode = findRoot(node)
         return treeSize[rootNode]
@@ -97,7 +97,7 @@ class DisjointSetBySize(private val size: Int) {
      * To determine whether the given nodes [x] and [y] share the same `set`.
      * If they share the same `root node`, they belong to the same set.
      */
-    fun hasSameRootNode(x: Int, y: Int): Boolean {
+    fun areConnected(x: Int, y: Int): Boolean {
         // The `findRoot` function handles and validates the input
         val rootOfX = findRoot(x)
         val rootOfY = findRoot(y)

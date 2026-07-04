@@ -142,7 +142,7 @@ class DisjointSet(private val size: Int) {
      * We are not using any additional memory that depends on or grows with the input size.
      * So, the space complexity is `O(1)`.
      */
-    fun hasSameSet(x: Int, y: Int): Boolean {
+    fun areConnected(x: Int, y: Int): Boolean {
         // The `findRoot` function handles and validates the input.
         return findRoot(x) == findRoot(y)
     }
