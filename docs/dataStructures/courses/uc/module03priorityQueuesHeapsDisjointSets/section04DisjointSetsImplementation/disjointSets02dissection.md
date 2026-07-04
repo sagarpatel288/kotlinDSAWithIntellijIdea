@@ -662,6 +662,19 @@ $$
 * We maintain a `rank` for each node.
 * Every time we perform the `union` operation, we update the rank of the root under which we attach the other tree.
 
+**How do we maintain the `rank`?**
+
+* If we merge two trees of equal rank (height), we increase the rank of the resulting tree by one.
+* If we hang a shorter tree under the root of the larger tree, we don't change the rank.
+* And we never hang a larger tree under the root of the shorter tree.
+
+**What are the time and space complexity in `DSU`?**
+
+* A `DSU` supports mainly two operations: `find` and `union`.
+* For `m` such operations, it takes `O(m * α(n))` time, where `α(n)` is the inverse Ackermann function.
+* The `⍺(n)` function grows extremely slowly, making the amortized time almost constant.
+* The space complexity is `O(n)`, where `n` is the number of elements.
+
 ## Revision
 
 * A disjoint set data structure is a forest of isolated trees.
