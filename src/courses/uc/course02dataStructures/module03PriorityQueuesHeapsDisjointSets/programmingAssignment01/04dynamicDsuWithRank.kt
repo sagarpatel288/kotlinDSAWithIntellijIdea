@@ -17,7 +17,7 @@ class DynamicDsu<T> {
     /**
      * * We should avoid the usage of the `non-null assertion operator` as it is considered as a `code smell`.
      * * Please check:
-     * * [050dynamicDsuWithSize]
+     * * [050dynamicDsuWithSize](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8c1f537cd112f68e88224cd641f72c547fa61398/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/050dynamicDsuWithSize.kt)
      */
     fun find(x: T): T {
         makeSet(x)
@@ -27,10 +27,15 @@ class DynamicDsu<T> {
         return parent[x]!!
     }
 
-    fun unionByRank(x: T, y: T) {
+    /**
+     * * We should avoid the usage of the `non-null assertion operator` as it is considered as a `code smell`.
+     * * Please check:
+     * * [050dynamicDsuWithSize](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8c1f537cd112f68e88224cd641f72c547fa61398/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/050dynamicDsuWithSize.kt)
+     */
+    fun unionByRank(x: T, y: T): Boolean {
         val rootX = find(x)
         val rootY = find(y)
-        if (rootX == rootY) return
+        if (rootX == rootY) return false
         val rankX = rank[rootX]!!
         val rankY = rank[rootY]!!
         when {
@@ -45,5 +50,12 @@ class DynamicDsu<T> {
                 rank[rootX] = rankX + 1
             }
         }
+        return true
     }
+
+    fun connected(x: T, y: T): Boolean {
+        return find(x) == find(y)
+    }
+
+
 }

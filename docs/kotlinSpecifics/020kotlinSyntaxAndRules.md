@@ -56,6 +56,10 @@
 * Adjacency list: List (size) { mutableListOf<Int>() }
 * sorted() Vs. sortedBy { } Vs. sortedWith { } 
 * sortedDescending() Vs. sortedByDescending { }
+* map[key] always returns a nullable type even when it is `mutableMapOf<T, T>()`!
+  * Check: [04dynamicDsuWithRank](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8c1f537cd112f68e88224cd641f72c547fa61398/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsuWithRank.kt)
+  * Local: [04dynamicDsuWithRank.kt](../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsuWithRank.kt)
+*   
 
 ## Generics
 
