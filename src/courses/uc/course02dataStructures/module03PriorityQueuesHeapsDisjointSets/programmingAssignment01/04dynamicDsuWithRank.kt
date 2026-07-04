@@ -14,6 +14,11 @@ class DynamicDsu<T> {
         }
     }
 
+    /**
+     * * We should avoid the usage of the `non-null assertion operator` as it is considered as a `code smell`.
+     * * Please check:
+     * * [050dynamicDsuWithSize]
+     */
     fun find(x: T): T {
         makeSet(x)
         if (parent[x] != x) {

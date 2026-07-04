@@ -13,6 +13,7 @@
 * [Space Complexity](#space-complexity)
 * [Note](#note)
 * [Implementation](#implementation)
+* [Relevant problems](#relevant-problems)
 <!-- TOC -->
  
 # Prerequisites / References / Resources
@@ -157,7 +158,7 @@ fun unionBySize(x: Int, y: Int) {
 
 ## Dynamic DSU
 
-* [Dynamic Dsu.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsu.kt)
+* [Dynamic Dsu.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsuWithRank.kt)
 
 * If we don't know how many nodes are there or when we have a stream of dynamic nodes, we can use maps instead of a fixed sized array.
 * Everything remains same except the `makeSet` case.
@@ -188,11 +189,17 @@ fun unionBySize(x: Int, y: Int) {
 
 * [DisjointSet UnionBySize Implementation.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03disjointSetsUnionFindUsingSize.kt)
 
-* [Dynamic Dsu.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsu.kt)
+* [Dynamic Dsu With Rank.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsuWithRank.kt)
+
+* [Dynamic Dsu With Size.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/050dynamicDsuWithSize.kt)
 
 # Relevant problems
 
+* Merge tables problem
 * Number of Provinces (LeetCode 547?)
+* Number of islands
 * Redundant Connection (LeetCode 684?)
 * Accounts Merge (LeetCode 721?)
+* Social network groups
+* Largest component
 * Kruskal's Algorithm for Minimum Spanning Trees
