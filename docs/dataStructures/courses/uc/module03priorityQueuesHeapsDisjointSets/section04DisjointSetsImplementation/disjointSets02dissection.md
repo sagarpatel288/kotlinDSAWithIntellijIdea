@@ -648,8 +648,8 @@ $$
 * So, we use a hierarchical data structure: Tree.
 * However, under the hood, a `Tree` uses an `array` only.
 * So, we can say that a `DSU` logically uses a `Tree` and physically uses an `array`.
-* In other words, the logical data structure of a `DSU` is a tree.
-* But the physical implementation of a `DSU` is an array.
+* In other words, the logical data structure of a `DSU` is a `tree`.
+* But the physical implementation of a `DSU` is an `array`.
 
 **How do we perform `union(a, b)` in `DSU`?**
 
