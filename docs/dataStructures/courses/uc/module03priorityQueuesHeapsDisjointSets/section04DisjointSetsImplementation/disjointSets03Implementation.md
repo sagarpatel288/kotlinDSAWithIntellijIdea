@@ -185,7 +185,7 @@ fun unionBySize(x: Int, y: Int) {
 
 # Implementation
 
-* [DisjointSet UnionByRank Implementation.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03DisjointSetsUnionFindDSU.kt)
+* [DisjointSet UnionByRank Implementation.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03disjointSetsUnionFindUsingRank.kt)
 
 * [DisjointSet UnionBySize Implementation.kt](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03disjointSetsUnionFindUsingSize.kt)
 
