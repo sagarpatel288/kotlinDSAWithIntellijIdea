@@ -161,6 +161,62 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  *
  * ## Hints
  *
+ * ```markdown
+ * Each table contains either several rows with real data or a symbolic link to another table.
+ * ```
+ *
+ * * The `symbolic link` here is like a hyperlink, and it says something like:
+ * * "For more information, go to the symbolic link (destination)."
+ * * "For more information, ask my parent!"
+ *
+ * > Consider table number `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖`. Traverse the path of symbolic links to get to the data. That is:
+ * ```
+ * while 𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖 contains a symbolic link instead of real data `do`
+ * 𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖 ← symlink(𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖)
+ * ```
+ * > Consider the table number `𝑠𝑜𝑢𝑟𝑐𝑒_𝑖` and traverse the path of symbolic links from it in the same manner as for
+ * `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖`.
+ *
+ * > Traverse the path of symbolic links to get to the data
+ * * The `while ... do` asks us to travel upto the point when we get the real data instead of symbolic link.
+ * * This is similar to the `find` of `DSU`.
+ * * We keep going until we find the `root`.
+ *
+ * > Now, `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖` and `𝑠𝑜𝑢𝑟𝑐𝑒_𝑖` are the numbers of two tables with real data.
+ * If `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖 = 𝑠𝑜𝑢𝑟𝑐𝑒_𝑖`, copy all the rows from table `𝑠𝑜𝑢𝑟𝑐𝑒_𝑖` to table `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖`,
+ * then clear the table `𝑠𝑜𝑢𝑟𝑐𝑒_𝑖` and instead of real data, put a symbolic link to `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖` into it.
+ *
+ * > Now, `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖` and `𝑠𝑜𝑢𝑟𝑐𝑒_𝑖` are the numbers of two tables with real data.
+ *
+ * * We traveled two times.
+ * * We started with some `destination_i` and kept traveling until we found the `root`.
+ * * We did the same with `source_i`.
+ * * Now, we have the root of `destination_i` and the root of `source_i`.
+ *
+ * > If `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖 = 𝑠𝑜𝑢𝑟𝑐𝑒_𝑖`, copy all the rows from table `𝑠𝑜𝑢𝑟𝑐𝑒_𝑖` to table `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖`,
+ * then clear the table `𝑠𝑜𝑢𝑟𝑐𝑒_𝑖` and instead of real data, put a symbolic link to `𝑑𝑒𝑠𝑡𝑖𝑛𝑎𝑡𝑖𝑜𝑛_𝑖` into it.
+ *
+ * * Now, we need to modify the root `source_i` in such a way that it should point to the root `destination_i`.
+ * * In other words, the root `source_i` should say something like:
+ * * "My parent (root) is the root `destination_i`."
+ *
+ * * Similar things happen in a `DSU` when we want to `union` two nodes.
+ * * Suppose we want to union `destination` and `source`.
+ * * We find the root `source` and the root `destination`.
+ * * This is similar to traveling upto the point when we get real data instead of symbolic link.
+ * * Because the `root` will not transfer the request.
+ * * The `root` will not say something like: "Ask my parent!"
+ * * Because the `root` itself is the parent!
+ * * We stop there.
+ * * And if we find that their roots are different, we merge them using `union by size` or `union by rank`.
+ * * Suppose we find that the root `destination` is larger than the root `source`.
+ * * So, the root `source` will become the child of the root `destination`.
+ * * And then the root `source` will say something like:
+ * * "My parent (root) is the root `destination`."
+ * * It means that the root `source` transfers the request.
+ * * The root `source` says something like: "Ask my parent!"
+ * * That is, the root `source` gets the symbolic link that points to the root `destination`.
+ *
  * * `symlinks` and `merge` queries between two tables (even when both the tables are the same) suggest `DSU`.
  * * For example:
  *
@@ -187,6 +243,25 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * parent node size = parent node size + child node size
  * ```
  *
+ * > Print the maximum size among all 𝑛 tables (recall that size is the number of rows in the table).
+ * If the table contains only a symbolic link, its size is considered to be 0.
+ *
+ * * This is also similar to a `DSU`.
+ * * Initially, each Disjoint set has no child.
+ * * Hence, they get the same default size.
+ * * It can be `1` or `0` depending upon the perspective and requirements.
+ * * For example, `1` can suggest that the `size` of the `Disjoint Set` is `1`.
+ * * Whereas, `0` can suggest that the `size` of the total children (number of total children) is `0`.
+ * * Or `0` can suggest a `rank`.
+ * * The point is, initially they all get the same default value.
+ * * And then as we perform `union` operations between them, the `size` of these `Disjoint sets` starts getting changed.
+ * * Every time a particular root gets a new child or children, its size is increased.
+ * * This is when they start getting the difference in their `size`.
+ * * And it happens after we perform `union` operations.
+ * * So, we are asked that after performing a `union` operation, what will be the maximum size?
+ * * Note that we are not asked to find the table (set) that has the maximum size.
+ * * We are asked to print only the maximum size itself.
+ * * It means that we can maintain a variable and update it after each union operation.
  *
  * ### How do we find whether a table contains real data or a symlink?
  *
