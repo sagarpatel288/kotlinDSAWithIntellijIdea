@@ -171,6 +171,13 @@
 
 ![065unionPart03.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/065unionPart03.png)
 
+---
+
+* It means that the underlying logical structure of a `DSU` is `Tree`.
+* But the underlying physical structure of the `DSU` is `array`.
+
+---
+
 ### Union By Rank
 
 * Now, if we want to perform the union operation between `(0, 4)`, the rule says that `4` must be a child of `0` because `0` is a taller tree than `4`.
