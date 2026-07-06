@@ -265,11 +265,11 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  *
  * ### Critical description
  *
- * > Initially, all tables contain data, and 𝑖-th table has 𝑟𝑖 rows.
+ * > Initially, all tables contain data, and 𝑖-th table has `𝑟_𝑖` rows.
  * * And:
  * > (recall that size is the number of rows in the table).
  * * And the input:
- * > The second line of the input contains 𝑛 integers 𝑟𝑖 — the number of rows in the 𝑖-th table.
+ * > The second line of the input contains 𝑛 integers `𝑟_𝑖` — the number of rows in the 𝑖-th table.
  *
  * * All of this scattered information suggests that:
  * * We get the actual set data (space separated) in the second line,
@@ -280,6 +280,20 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * * It means that it is not necessary that all the disjoint set tables will have the same default size!
  * * Because we are getting their initial size, for each disjoint set table, in the second line of the input.
  * * This is very important, and it changes the game!
+ *
+ * * Also:
+ *
+ * > Initially, all tables contain data, and 𝑖-th table has `𝑟_𝑖` rows.
+ *
+ * * It suggests that initially, no table is a child that contains the symbolic link towards its parent.
+ * * In other words, initially, each table is a parent!
+ *
+ * * And the fact that:
+ *
+ * > Each item of the second line of the input represents initial size of that `ith` table.
+ *
+ * * These two facts suggest that we have a forest of individual (separate, disjoint) trees.
+ * * And this affordance shouts for (suggests) and models a `DSU` pattern and structure.
  *
  * ### How do we find whether a table contains real data or a symlink?
  *
