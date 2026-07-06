@@ -7,27 +7,42 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  *
  * [GitHub: DSU](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/e6201bad2968159c293b35f003f3a18228cd8248/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsNaiveImplementation/disjointSets02implementation.md)
  *
- * Implement DisjointSet (Union-Find Set) using `Union By Rank` and `Path Compression` heuristics.
- * The [rank] array shows the upper bound of the height for a particular `index` of the [rank] array.
- * We use that information to perform [unionByRank] operation.
- * We hang a shorter tree on the larger tree to keep the tree height shallow.
- * If both the trees are of the same height, we hang any one tree on another tree and increase the rank of the root.
+ * * Implement DisjointSet (Union-Find Set) using `Union By Rank` and `Path Compression` heuristics.
+ * * The [rank] array shows the upper bound of the height for a particular `index` of the [rank] array.
+ * * We use that information to perform [unionByRank] operation.
+ * * We hang a shorter tree on the larger tree to keep the tree height shallow.
+ * * If both the trees are of the same height, we hang any one tree on another tree and increase the rank of the root.
  *
  * # Time Complexity
- * According to Robert Tarjan's Analysis, the realistic running time of `m` operations in `DSU` is:
+ *
+ * * According to Robert Tarjan's Analysis, the realistic running time of `m` operations in `DSU` is:
  * $m * log^{*}(n)$ where `n` is the total number of nodes.
+ * * We write the `log⭐️` function as `⍺(n)` and it is known as the Inverse Ackerman function.
+ * * So, we can write the time complexity as `O(m ⍺(n))`.
+ * * But `⍺(n)` grows so slow that it is almost constant.
+ * * So, `m` operations on a `DSU` is almost `O(m)`.
  *
  * # Space Complexity
- * We use two arrays of the given [size] to maintain `parent` and `upper bound of the height`.
- * So, if [size] = `n`, then the space complexity is `O(n)`.
+ *
+ * * We use two arrays of the given [size] to maintain `parent` and `upper bound of the height`.
+ * * So, if [size] = `n`, then the space complexity is `O(n)`.
  *
  * # Note
- * Please note that in practical use, we use `size` instead of `height` to perform the `union` operation.
- * The `size` represents the number of nodes.
- * The reason is that we can get the `size` of any subtree in `O(1)`.
+ *
+ * * Please note that in practical use, we use `size` instead of `height` to perform the `union` operation.
+ * * The `size` represents the number of nodes.
+ * * The reason is that we can get the `size` of any subtree in `O(1)`.
+ *
+ * # How to remember that we need to take `2` arrays?
+ *
+ * * The `Union By Size` or `Union By Rank` heuristic clearly uses the separate array.
+ *
+ * * `DSU` = `DP` `Size` = `DP` for `parent` array + `Size` array
+ * * `DSU` = `D` for `Double` = `D` --> `P`arent + `Double = 2` Heuristics --> `Union By `S`ize`
+ * * So: 1. `Parent` array 2. `Size` array
  *
  * So, please check the alternative implementation also:
- * [DisjointSetBySize]
+ * [DisjointSetBySize](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8a4d5cf0f8eb45ccc72b2ae23906bb580524eff1/src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/03disjointSetsUnionFindUsingSize.kt)
  *
  */
 class DisjointSet(private val size: Int) {
