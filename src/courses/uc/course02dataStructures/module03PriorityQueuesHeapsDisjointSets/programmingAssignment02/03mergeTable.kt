@@ -325,6 +325,10 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * where `n` is the number of tables in our case, and `m` is the number of `merge` queries.
  * * So, the overall time complexity becomes `O(n + (m * log^{*}(n)))`.
  * * Note that, we often use `alpha(n)` instead of `log^{*}(n)`.
+ * * Hence, the total time complexity becomes: `O(n + ( m * ⍺(n) ) )`.
+ * * Here, `⍺(n)` is known as the Inverse Ackermann function.
+ * * It grows so slow, that we can consider it almost constant.
+ * * So, the total time complexity becomes: `O(n + m)`.
  *
  * ## Space Complexity
  *
