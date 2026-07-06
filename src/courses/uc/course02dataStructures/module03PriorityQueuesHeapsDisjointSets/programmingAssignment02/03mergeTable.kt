@@ -263,6 +263,24 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * * We are asked to print only the maximum size itself.
  * * It means that we can maintain a variable and update it after each union operation.
  *
+ * ### Critical description
+ *
+ * > Initially, all tables contain data, and 𝑖-th table has 𝑟𝑖 rows.
+ * * And:
+ * > (recall that size is the number of rows in the table).
+ * * And the input:
+ * > The second line of the input contains 𝑛 integers 𝑟𝑖 — the number of rows in the 𝑖-th table.
+ *
+ * * All of this scattered information suggests that:
+ * * We get the actual set data (space separated) in the second line,
+ * where the `ith` item represents `r_i` which is the number of rows in the `ith` table (disjoint set).
+ * * And as the number of rows represent the table size, we can say that:
+ * * The second line of the input gives us the actual disjoint set data (space separated),
+ * and each item represents the size of that disjoint set table!
+ * * It means that it is not necessary that all the disjoint set tables will have the same default size!
+ * * Because we are getting their initial size, for each disjoint set table, in the second line of the input.
+ * * This is very important, and it changes the game!
+ *
  * ### How do we find whether a table contains real data or a symlink?
  *
  * * Initially, each table is the parent of itself only.
