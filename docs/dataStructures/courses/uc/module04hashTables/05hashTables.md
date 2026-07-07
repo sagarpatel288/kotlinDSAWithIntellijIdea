@@ -89,9 +89,20 @@
 
 ## Problem/Requirement
 
-* Faster search. 
-* Faster insertion and deletion.
-* Storing key-value pairs.
+* If we ask an array to get us an arbitrary item and if we know the index, it takes `O(1)`.
+* So, getting an arbitrary item using the known index is `O(1)` in arrays.
+* In other words, finding or getting the item using the index is `O(1)` in arrays.
+* But if we don't know the index, then it will take `O(n)` time.
+* However, if we treat the item as an index itself, then getting the item is `O(1)`.
+* Treating an item as an index is known as **Direct Addressing**.
+* But direct addressing uses a huge memory, and it can waste a huge memory.
+* For example, suppose that we have only two items: 0 and 100000.
+* To store these two items only, we will have to take an array of size 100000.
+* It is a huge size to store only two items!
+* Also, it fills only two slots: 0 and 100000.
+* All the other slots remain unused.
+* That is a lot of waste of memory!
+* The `Hash Table` solves this problem!
 
 ## ToDo
 
@@ -138,7 +149,7 @@
 
 * And suppose we only have $100$ values.
 * Then, we waste a lot of memory.
-* On the other hand, if we use a dynamic array, we cannot find the value (key lookup) in $O(1)$ time
+* On the other hand, if we use a dynamic array, we cannot find the value (key lookup) in $O(1)$ time.
 * Because in a dynamic array, unique ID is not the index.
 * A hash table solves this problem.
 * We don't waste huge memory, and we can still find the value in $O(1)$ on average.
