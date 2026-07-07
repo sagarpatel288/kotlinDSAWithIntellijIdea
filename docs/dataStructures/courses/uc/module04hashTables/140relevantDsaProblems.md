@@ -39,14 +39,14 @@
 
 ## Prerequisites For Easy Problems
 
-* [05hashTables.md](10hashTables.md)  
-* [10universalFamilyOfHashFunctions.md](20universalFamilyOfHashFunctions.md)  
-* [15loadFactorAndRehashing.md](30loadFactorAndRehashing.md)  
-* [20formulaOfUniversalFamilyOfHashFunctions.md](40formulaOfUniversalFamilyOfHashFunctions.md)  
-* [25stringHashing.md](50stringHashing.md)  
-* [30findSubstring.md](70findSubstring.md)  
-* [35hashQuestions.md](80hashQuestions.md)  
-* [40hashingInBlockchain.md](90hashingInBlockchain.md)  
+* [05hashTables.md](010hashTables.md)  
+* [10universalFamilyOfHashFunctions.md](020universalFamilyOfHashFunctions.md)  
+* [15loadFactorAndRehashing.md](030loadFactorAndRehashing.md)  
+* [20formulaOfUniversalFamilyOfHashFunctions.md](040formulaOfUniversalFamilyOfHashFunctions.md)  
+* [25stringHashing.md](050stringHashing.md)  
+* [30findSubstring.md](070findSubstring.md)  
+* [35hashQuestions.md](080hashQuestions.md)  
+* [40hashingInBlockchain.md](090hashingInBlockchain.md)  
 * [45precomputedPrefixHashes.md](100precomputedPrefixHashes.md)  
 * [50stringHashingRevision.md](120stringHashingRevision.md)  
 

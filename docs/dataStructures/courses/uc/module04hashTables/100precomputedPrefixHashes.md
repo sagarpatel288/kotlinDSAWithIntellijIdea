@@ -16,19 +16,19 @@
 
 ## Prerequisites
 
-* [Hash Tables](10hashTables.md)
-* [Universal Family Of Hash Functions](20universalFamilyOfHashFunctions.md)
-* [Load Factor And Rehashing](30loadFactorAndRehashing.md)
-* [Formula Of Universal Family Of Hash Functions](40formulaOfUniversalFamilyOfHashFunctions.md)
-* [String Hashing](50stringHashing.md)
-* [Find A Substring](70findSubstring.md)
-* [Hash Questions](80hashQuestions.md)
-* [Hashing In Blockchain](90hashingInBlockchain.md)
+* [Hash Tables](010hashTables.md)
+* [Universal Family Of Hash Functions](020universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](030loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](040formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](050stringHashing.md)
+* [Find A Substring](070findSubstring.md)
+* [Hash Questions](080hashQuestions.md)
+* [Hashing In Blockchain](090hashingInBlockchain.md)
 
 ## Problem
 
 * The Rabin-Karp's fixed-window rolling hashing technique relies on the fact that the length of the substring (`l`) is fixed.
-  * Reference: [Rabin-Karp's fixed-window rolling hashing](70findSubstring.md).
+  * Reference: [Rabin-Karp's fixed-window rolling hashing](070findSubstring.md).
 * Whereas, the `prefixedHash` array allows us to retrieve the hash code of any substring of any length in $O(1)$ time.
 * If we only use the Rabin-Karp's fixed-window rolling hashing technique in such a case, we will have to re-roll for each substring that has a different length.
 * The Rabin-karp's fixed-window rolling hashing technique is useful when we have a string (text) that we need to compare with a fixed-length substring or pattern.
@@ -93,7 +93,7 @@
 * We take an array, called `prehash`.
 * We treat each index of the `prehash` as a length.
 * So, `prehash[0] = length 0`, `prehash[1] = length 1`, `prehash[2] = length 2`, and so on...
-* And as we have seen in the [Find Substring](70findSubstring.md#recurrence-of-a-polynomial-hash-function-of-a-string), the power of base plays a vital role in string hashing.
+* And as we have seen in the [Find Substring](070findSubstring.md#recurrence-of-a-polynomial-hash-function-of-a-string), the power of base plays a vital role in string hashing.
 * So, we take a separate array called `powersOfBase`.
 * Here, we treat each index as a power of the base.
 * So, `powersOfBase[0] = x^0`, `powersOfBase[1] = x^1`, `powersOfBase[2] = x^2`, and so on...
@@ -115,7 +115,7 @@ $$
 * It means that `prefixHash[a + l] = prefixHash[3 + 4] = prefixHash[ 7 ]`.
 * As we know, the index of `prefixHash` represents the length of the substring starting from index `0`.
 * It means that `prefixHash[7] = abacaba`.
-* We know the [String Hashing](50stringHashing.md).
+* We know the [String Hashing](050stringHashing.md).
 * So, the polynomial hashing of "`abacaba`" looks like below:
 
 $$
@@ -151,7 +151,7 @@ $$
 
 ## Double Hashing
 
-* We have seen in the [Rabin-Karp Find-Match Pattern](70findSubstring.md) that after the hash codes of two substrings match, we double-check by the manual `areEqual` method to confirm if the substrings are truly a match or not.  
+* We have seen in the [Rabin-Karp Find-Match Pattern](070findSubstring.md) that after the hash codes of two substrings match, we double-check by the manual `areEqual` method to confirm if the substrings are truly a match or not.  
 * We have to do that manual check due to the collision probability.
 * We can reduce that collision probability even further and avoid the manual `areEqual` method.
 * We use two different `prime` numbers and calculate the hash code of each substring using both `prime` numbers.

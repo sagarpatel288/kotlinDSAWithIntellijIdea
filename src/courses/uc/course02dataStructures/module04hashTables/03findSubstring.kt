@@ -5,7 +5,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ## Prerequisites
  *
- * * [Local: Find substring](docs/dataStructures/courses/uc/module04hashTables/70findSubstring.md)
+ * * [Local: Find substring](docs/dataStructures/courses/uc/module04hashTables/070findSubstring.md)
  *
  * * [GitHub: Find substring](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/df05b865d6564aed6f196f0c5eeeb076d793bb2f/docs/dataStructures/courses/uc/module04hashTables/30findSubstring.md)
  *
