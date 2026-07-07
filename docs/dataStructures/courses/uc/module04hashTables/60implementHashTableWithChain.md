@@ -22,11 +22,11 @@
 
 ## Prerequisites
 
-* [05hashTables.md](05hashTables.md)
-* [10universalFamilyOfHashFunctions.md](10universalFamilyOfHashFunctions.md)
-* [15loadFactorAndRehashing.md](15loadFactorAndRehashing.md)
-* [20formulaOfUniversalFamilyOfHashFunctions.md](20formulaOfUniversalFamilyOfHashFunctions.md)
-* [25stringHashing.md](25stringHashing.md)
+* [05hashTables.md](10hashTables.md)
+* [10universalFamilyOfHashFunctions.md](20universalFamilyOfHashFunctions.md)
+* [15loadFactorAndRehashing.md](30loadFactorAndRehashing.md)
+* [20formulaOfUniversalFamilyOfHashFunctions.md](40formulaOfUniversalFamilyOfHashFunctions.md)
+* [25stringHashing.md](50stringHashing.md)
 
 ## Introduction
 

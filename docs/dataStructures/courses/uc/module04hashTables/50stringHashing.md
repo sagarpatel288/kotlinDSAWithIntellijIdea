@@ -24,16 +24,16 @@
 
 ## Previously/Prerequisites/References
 
-* [Hash Tables](05hashTables.md)
-* [Universal Family Of Hash Functions](10universalFamilyOfHashFunctions.md)
-* [Load Factor And Rehashing](15loadFactorAndRehashing.md)
-* [Formula Of The Universal Hash Family](20formulaOfUniversalFamilyOfHashFunctions.md)
+* [Hash Tables](10hashTables.md)
+* [Universal Family Of Hash Functions](20universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](30loadFactorAndRehashing.md)
+* [Formula Of The Universal Hash Family](40formulaOfUniversalFamilyOfHashFunctions.md)
 
 ## Problem Description
 
 * We have learned how to convert an input key `x` into a hash code and then map it to an `index` of a hash table.
 * But we have seen only the examples where the input key `x` is a number.
-* So, we use the [formula of the universal hash family](20formulaOfUniversalFamilyOfHashFunctions.md).
+* So, we use the [formula of the universal hash family](40formulaOfUniversalFamilyOfHashFunctions.md).
 * But what if the input key `x` is a string?
 * How do we process it in the formula: $((ax + b) \mod p) \mod m$, where all the other notations (symbols) are numeric except `x`?
 * That's what we are going to learn about in this section.
@@ -188,7 +188,7 @@ $$
 ## Collision Probability 
 
 * The probability that two different input strings would generate the same output of the [polynomial hashing](#expression-the-polynomial-family-of-hash-functions) is $\frac{L}{p}$, where `L` is the length of the string, and `p` is a large prime number.
-* We have already seen that the probability of collision in the [universal family of hash functions](10universalFamilyOfHashFunctions.md#universal-family-of-hash-functions) is $\frac{1}{m}$. 
+* We have already seen that the probability of collision in the [universal family of hash functions](20universalFamilyOfHashFunctions.md#universal-family-of-hash-functions) is $\frac{1}{m}$. 
 * So, the total probability becomes:
 
 $$
@@ -216,7 +216,7 @@ $$
 
 ## Running Time
 
-* In the [Load Factor](15loadFactorAndRehashing.md#explanation) section, we have learned that the running time of a hash table is directly proportional to the longest chain.
+* In the [Load Factor](30loadFactorAndRehashing.md#explanation) section, we have learned that the running time of a hash table is directly proportional to the longest chain.
 * The longest chain is clearly greater than or equal to the average chain.
 * If we have `n` keys, then the average chain length is $\frac{n}{m}$.
 * We then consider some constant amount of work that we have to perform anyway, regardless of the input size.
@@ -270,9 +270,9 @@ $$
 
 ## Next
 
-* [Find A Substring](30findSubstring.md)
-* [Hash Questions](35hashQuestions.md)
-* [Hashing In Blockchain](40hashingInBlockchain.md)
-* [Precomputed Prefixed Hashes](45precomputedPrefixHashes.md)
-* [String Hashing Revision](50stringHashingRevision.md)
-* [Relevant DSA Problems](60relevantDsaProblems.md)
+* [Find A Substring](70findSubstring.md)
+* [Hash Questions](80hashQuestions.md)
+* [Hashing In Blockchain](90hashingInBlockchain.md)
+* [Precomputed Prefixed Hashes](100precomputedPrefixHashes.md)
+* [String Hashing Revision](120stringHashingRevision.md)
+* [Relevant DSA Problems](140relevantDsaProblems.md)

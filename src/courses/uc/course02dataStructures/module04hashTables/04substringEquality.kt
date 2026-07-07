@@ -5,7 +5,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ## Prerequisites
  *
- * * [Local: Prefix Hashing](docs/dataStructures/courses/uc/module04hashTables/45precomputedPrefixHashes.md)
+ * * [Local: Prefix Hashing](docs/dataStructures/courses/uc/module04hashTables/100precomputedPrefixHashes.md)
  *
  * * [GitHub: Prefix Hashing](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/afc6e5e49049b2bb69e22ae5656278cf630c226e/docs/dataStructures/courses/uc/module04hashTables/45precomputedPrefixHashes.md)
  *
@@ -79,7 +79,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ## Solution
  *
- * * Reference: [Local: Precomputed Prefixed Hashes](docs/dataStructures/courses/uc/module04hashTables/45precomputedPrefixHashes.md)
+ * * Reference: [Local: Precomputed Prefixed Hashes](docs/dataStructures/courses/uc/module04hashTables/100precomputedPrefixHashes.md)
  * * Reference: [GitHub: Precomputed Prefixed Hashes](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/917ab5c533a37698b912a02a20322ab4409e4ba3/docs/dataStructures/courses/uc/module04hashTables/45precomputedPrefixHashes.md)
  *
  * ## Time Complexity

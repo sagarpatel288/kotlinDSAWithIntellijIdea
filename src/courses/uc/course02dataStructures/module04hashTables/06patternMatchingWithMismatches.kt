@@ -72,7 +72,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * ## Solution
  *
- * * [Local: Pattern Matching With Mismatches](docs/dataStructures/courses/uc/module04hashTables/53patternMatchingWithMismatches.md)
+ * * [Local: Pattern Matching With Mismatches](docs/dataStructures/courses/uc/module04hashTables/130patternMatchingWithMismatches.md)
  *
  * * [GitHub: Pattern Matching With Mismatches](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/c6b76cd2b64002e0997ac9e95f25af3546f9e03b/docs/dataStructures/courses/uc/module04hashTables/53patternMatchingWithMismatches.md)
  *

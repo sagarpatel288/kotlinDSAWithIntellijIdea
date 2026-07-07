@@ -19,11 +19,11 @@
 
 ## Prerequisites
 
-* [Hash Tables](05hashTables.md)
-* [Universal Family Of Hash Functions](10universalFamilyOfHashFunctions.md)
-* [Load Factor And Rehashing](15loadFactorAndRehashing.md)
-* [Formula Of Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
-* [String Hashing](25stringHashing.md)
+* [Hash Tables](10hashTables.md)
+* [Universal Family Of Hash Functions](20universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](30loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](40formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](50stringHashing.md)
 
 ## Problem Statement
 
@@ -87,7 +87,7 @@ private fun areEqual(sub: String, p: String): Boolean {
 
 * The idea is to use **string hashing** to compare each substring `S'` of the given string `S` with the pattern, `P`.
 * Because we know that the collision probability of two different strings in string hashing is very low, if we take the prime number $p \geq (m * L)$, where `m` is the cardinality, and `L` is the length of the string.
-* Reference: [String Hashing](25stringHashing.md#collision-probability-).
+* Reference: [String Hashing](50stringHashing.md#collision-probability-).
 * So, we can reduce at least the number of false alarms.
 
 ### Initial Implementation (Without optimization)
@@ -379,8 +379,8 @@ for (i in 0 .. text.length - pattern.length) {
 
 ## Next
 
-* [Hash Questions](35hashQuestions.md)
-* [Hashing In Blockchain](40hashingInBlockchain.md)
-* [Precomputed Prefixed Hashes](45precomputedPrefixHashes.md)
-* [String Hashing Revision](50stringHashingRevision.md)
-* [Relevant DSA Problems](60relevantDsaProblems.md)
+* [Hash Questions](80hashQuestions.md)
+* [Hashing In Blockchain](90hashingInBlockchain.md)
+* [Precomputed Prefixed Hashes](100precomputedPrefixHashes.md)
+* [String Hashing Revision](120stringHashingRevision.md)
+* [Relevant DSA Problems](140relevantDsaProblems.md)

@@ -39,16 +39,16 @@
 
 ## Prerequisites For Easy Problems
 
-* [05hashTables.md](05hashTables.md)  
-* [10universalFamilyOfHashFunctions.md](10universalFamilyOfHashFunctions.md)  
-* [15loadFactorAndRehashing.md](15loadFactorAndRehashing.md)  
-* [20formulaOfUniversalFamilyOfHashFunctions.md](20formulaOfUniversalFamilyOfHashFunctions.md)  
-* [25stringHashing.md](25stringHashing.md)  
-* [30findSubstring.md](30findSubstring.md)  
-* [35hashQuestions.md](35hashQuestions.md)  
-* [40hashingInBlockchain.md](40hashingInBlockchain.md)  
-* [45precomputedPrefixHashes.md](45precomputedPrefixHashes.md)  
-* [50stringHashingRevision.md](50stringHashingRevision.md)  
+* [05hashTables.md](10hashTables.md)  
+* [10universalFamilyOfHashFunctions.md](20universalFamilyOfHashFunctions.md)  
+* [15loadFactorAndRehashing.md](30loadFactorAndRehashing.md)  
+* [20formulaOfUniversalFamilyOfHashFunctions.md](40formulaOfUniversalFamilyOfHashFunctions.md)  
+* [25stringHashing.md](50stringHashing.md)  
+* [30findSubstring.md](70findSubstring.md)  
+* [35hashQuestions.md](80hashQuestions.md)  
+* [40hashingInBlockchain.md](90hashingInBlockchain.md)  
+* [45precomputedPrefixHashes.md](100precomputedPrefixHashes.md)  
+* [50stringHashingRevision.md](120stringHashingRevision.md)  
 
 ## Designing A Phonebook (Key-Value Pair)
 

@@ -2,28 +2,28 @@
 
 ## Prerequisites
 
-* [Hash Tables](05hashTables.md)
-* [Universal Family Of Hash Functions](10universalFamilyOfHashFunctions.md)
-* [Load Factor And Rehashing](15loadFactorAndRehashing.md)
-* [Formula Of Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
-* [String Hashing](25stringHashing.md)
-* [Find A Substring](30findSubstring.md)
-* [Hash Questions](35hashQuestions.md)
-* [Hashing In Blockchain](40hashingInBlockchain.md)
-* [Precomputed Prefix Hashes](45precomputedPrefixHashes.md)
+* [Hash Tables](10hashTables.md)
+* [Universal Family Of Hash Functions](20universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](30loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](40formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](50stringHashing.md)
+* [Find A Substring](70findSubstring.md)
+* [Hash Questions](80hashQuestions.md)
+* [Hashing In Blockchain](90hashingInBlockchain.md)
+* [Precomputed Prefix Hashes](100precomputedPrefixHashes.md)
 
 ## Problem
 
-**[Match Substring](30findSubstring.md)**
+**[Match Substring](70findSubstring.md)**
 
-* In the [Match Substring](30findSubstring.md) problem, we had a separate pattern and text.
+* In the [Match Substring](70findSubstring.md) problem, we had a separate pattern and text.
 * And we were asked to find the number of times the pattern appears in the text.
 * In that case, we first computed the hash of the pattern.
 * Then, we used the rolling hash to compute the hash of the substrings of the text.
 
-**[Precomputed Prefix Hashes](45precomputedPrefixHashes.md)**
+**[Precomputed Prefix Hashes](100precomputedPrefixHashes.md)**
 
-* In the [Precomputed Prefix Hashes](45precomputedPrefixHashes.md) problem, we had a text.
+* In the [Precomputed Prefix Hashes](100precomputedPrefixHashes.md) problem, we had a text.
 * We were given starting index of a substring 1, starting index of a substring 2, and the length of the substring.
 * And we were asked to find if the two substrings are equal.
 * In that case, we could get different lengths in different queries.

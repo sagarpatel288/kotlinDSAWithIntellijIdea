@@ -14,14 +14,14 @@
 
 ## Prerequisites
 
-* [Hash Tables](05hashTables.md)
-* [Universal Family Of Hash Functions](10universalFamilyOfHashFunctions.md)
-* [Load Factor And Rehashing](15loadFactorAndRehashing.md)
-* [Formula Of Universal Family Of Hash Functions](20formulaOfUniversalFamilyOfHashFunctions.md)
-* [String Hashing](25stringHashing.md)
-* [Find A Substring](30findSubstring.md)
-* [Hash Questions](35hashQuestions.md)
-* [Hashing In Blockchain](40hashingInBlockchain.md)
+* [Hash Tables](10hashTables.md)
+* [Universal Family Of Hash Functions](20universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](30loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](40formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](50stringHashing.md)
+* [Find A Substring](70findSubstring.md)
+* [Hash Questions](80hashQuestions.md)
+* [Hashing In Blockchain](90hashingInBlockchain.md)
 
 ## Trade-off: Which trade-off does a hash table make to achieve performance?
 
@@ -67,7 +67,7 @@
 
 ## Next
 
-* [Hashing In Blockchain](40hashingInBlockchain.md)
-* [Precomputed Prefixed Hashes](45precomputedPrefixHashes.md)
-* [String Hashing Revision](50stringHashingRevision.md)
-* [Relevant DSA Problems](60relevantDsaProblems.md)
+* [Hashing In Blockchain](90hashingInBlockchain.md)
+* [Precomputed Prefixed Hashes](100precomputedPrefixHashes.md)
+* [String Hashing Revision](120stringHashingRevision.md)
+* [Relevant DSA Problems](140relevantDsaProblems.md)
