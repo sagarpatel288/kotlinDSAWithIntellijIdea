@@ -373,6 +373,15 @@ class DisjointSetUnion(private val listOfEachTableSize: List<Int>) {
         private set
 
     init {
+        // Caution! Possible point of mistake!
+        // This is critical!
+        // If we don't find the existing `max`, then trying to print `max` after trying to `merge` two same tables,
+        // will give us the default `max` value which is `Long.MIN_VALUE`.
+        // Because when we try to `merge` two same tables, it will not happen.
+        // And when the `merge` does not happen, we do not change the `max`.
+        // And if we have not found and set the existing and real `max` value before such a case,
+        // when we try to print the `max`, we get the `default max` (placeholder) value.
+        // Hence, it is crucial to first find the existing and real `max` among all the tables.
         for (sizeOfTable in listOfEachTableSize) {
             maxSize = maxOf(maxSize, sizeOfTable.toLong())
         }
