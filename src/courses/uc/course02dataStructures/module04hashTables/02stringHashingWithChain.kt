@@ -187,7 +187,7 @@ import java.util.LinkedList
  *
  * ## Solution
  *
- * * [Reference: Local: Hash Table Module](docs/dataStructures/courses/uc/module04hashTables/05hashTables.md)
+ * * [Reference: Local: Hash Table Module](docs/dataStructures/courses/uc/module04hashTables/10hashTables.md)
  * * [Reference: GitHub: Hash Table Module](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/0eca71edafe63bbfc83d0aaaca40ff9312a9cdd4/docs/dataStructures/courses/uc/module04hashTables/05hashTables.md)
  *
  * ### Data Structure

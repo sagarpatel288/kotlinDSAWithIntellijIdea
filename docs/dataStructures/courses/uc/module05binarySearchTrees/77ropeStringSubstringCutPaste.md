@@ -1705,8 +1705,8 @@ O((n + q) log n)
 
 * We saw the "cut-and-paste" operation of a string.
 * Recall that we have seen the "search-and-match" operation of a string using hashing.
-  * [String Hashing](../module04hashTables/25stringHashing.md)
-  * [Find Substring](../module04hashTables/30findSubstring.md)
+  * [String Hashing](../module04hashTables/50stringHashing.md)
+  * [Find Substring](../module04hashTables/70findSubstring.md)
   * 
 
 ## ToDos:
