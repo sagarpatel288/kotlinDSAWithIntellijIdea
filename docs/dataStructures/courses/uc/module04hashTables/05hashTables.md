@@ -103,6 +103,7 @@
 * All the other slots remain unused.
 * That is a lot of waste of memory!
 * The `Hash Table` solves this problem!
+* We get the arbitrary item in almost `O(1)` time without wasting too much memory. 
 
 ## ToDo
 
