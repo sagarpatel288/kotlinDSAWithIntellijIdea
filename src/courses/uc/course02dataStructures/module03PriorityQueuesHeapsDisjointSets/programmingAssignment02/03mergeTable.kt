@@ -365,6 +365,9 @@ class DisjointSetUnion(private val listOfEachTableSize: List<Int>) {
     // So, don't just create a new empty collection with default size 0!
     // Also, during the "merge(union)" operation, we add size.
     // So, to prevent overflow, we use "Long" instead of "Int".
+    // So, 1. First we convert the `int list` into the `long list`.
+    // And then, 2. We convert the `long list` into the `mutable list`.
+    // Because after each `merge (union)` operation, we also update the size of the `destination` table.
     private val sizeOfTables = listOfEachTableSize.map { it.toLong() }.toMutableList()
     var maxSize = 0L
         private set
