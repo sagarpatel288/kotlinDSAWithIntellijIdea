@@ -770,13 +770,13 @@ fun <T> remove(key: T): Boolean {
 
 ## Next
 
-* [Universal Family Of Hash Functions](20universalFamilyOfHashFunctions.md)
-* [Load Factor And Rehashing](30loadFactorAndRehashing.md)
-* [Formula Of Universal Family Of Hash Functions](40formulaOfUniversalFamilyOfHashFunctions.md)
-* [String Hashing](50stringHashing.md)
-* [Find A Substring](70findSubstring.md)
-* [Hash Questions](80hashQuestions.md)
-* [Hashing In Blockchain](90hashingInBlockchain.md)
+* [Universal Family Of Hash Functions](020universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](030loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](040formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](050stringHashing.md)
+* [Find A Substring](070findSubstring.md)
+* [Hash Questions](080hashQuestions.md)
+* [Hashing In Blockchain](090hashingInBlockchain.md)
 * [Precomputed Prefixed Hashes](100precomputedPrefixHashes.md)
 * [String Hashing Revision](120stringHashingRevision.md)
 * [Relevant DSA Problems](140relevantDsaProblems.md)

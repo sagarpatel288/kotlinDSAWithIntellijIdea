@@ -2,21 +2,21 @@
 
 ## Prerequisites
 
-* [Hash Tables](10hashTables.md)
-* [Universal Family Of Hash Functions](20universalFamilyOfHashFunctions.md)
-* [Load Factor And Rehashing](30loadFactorAndRehashing.md)
-* [Formula Of Universal Family Of Hash Functions](40formulaOfUniversalFamilyOfHashFunctions.md)
-* [String Hashing](50stringHashing.md)
-* [Find A Substring](70findSubstring.md)
-* [Hash Questions](80hashQuestions.md)
-* [Hashing In Blockchain](90hashingInBlockchain.md)
+* [Hash Tables](010hashTables.md)
+* [Universal Family Of Hash Functions](020universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](030loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](040formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](050stringHashing.md)
+* [Find A Substring](070findSubstring.md)
+* [Hash Questions](080hashQuestions.md)
+* [Hashing In Blockchain](090hashingInBlockchain.md)
 * [Precomputed Prefix Hashes](100precomputedPrefixHashes.md)
 
 ## Problem
 
-**[Match Substring](70findSubstring.md)**
+**[Match Substring](070findSubstring.md)**
 
-* In the [Match Substring](70findSubstring.md) problem, we had a separate pattern and text.
+* In the [Match Substring](070findSubstring.md) problem, we had a separate pattern and text.
 * And we were asked to find the number of times the pattern appears in the text.
 * In that case, we first computed the hash of the pattern.
 * Then, we used the rolling hash to compute the hash of the substrings of the text.

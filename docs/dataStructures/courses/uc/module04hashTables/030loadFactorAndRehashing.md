@@ -14,13 +14,13 @@
 
 ## Previously, prerequisites, and references
 
-* [Hash Tables](10hashTables.md)
-* [Universal Family Of Hash Functions](20universalFamilyOfHashFunctions.md)
+* [Hash Tables](010hashTables.md)
+* [Universal Family Of Hash Functions](020universalFamilyOfHashFunctions.md)
 
 ## Load Factor
 
-* We have seen the role of a [hash function](10hashTables.md) in a hash table.
-* We have also seen the [universal family of hash functions](20universalFamilyOfHashFunctions.md).
+* We have seen the role of a [hash function](010hashTables.md) in a hash table.
+* We have also seen the [universal family of hash functions](020universalFamilyOfHashFunctions.md).
 * Now, we are going to discuss another important property of a hash table.
 * This is the property we use to measure and maintain the performance of a hash table.
 * Let us understand it with an example.
@@ -86,11 +86,11 @@
 
 ## Next
 
-* [Formula Of Universal Family Of Hash Functions](40formulaOfUniversalFamilyOfHashFunctions.md)
-* [String Hashing](50stringHashing.md)
-* [Find A Substring](70findSubstring.md)
-* [Hash Questions](80hashQuestions.md)
-* [Hashing In Blockchain](90hashingInBlockchain.md)
+* [Formula Of Universal Family Of Hash Functions](040formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](050stringHashing.md)
+* [Find A Substring](070findSubstring.md)
+* [Hash Questions](080hashQuestions.md)
+* [Hashing In Blockchain](090hashingInBlockchain.md)
 * [Precomputed Prefixed Hashes](100precomputedPrefixHashes.md)
 * [String Hashing Revision](120stringHashingRevision.md)
 * [Relevant DSA Problems](140relevantDsaProblems.md)
