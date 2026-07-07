@@ -437,6 +437,7 @@ fun main() {
         // The problem uses 1-based-index.
         // Our solution uses 0-based-index.
         // So, we must pass and handle the proper value.
+        // Hence, convert 1-based-index queries into the 0-based-index queries before we send (pass) them to the 0-based-index function.
         dsu.union(destination - 1, source - 1)
         stringBuilder.append("${dsu.maxSize}\n")
     }
