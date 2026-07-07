@@ -34,10 +34,16 @@
 * Universal family of hash functions and `Treefication`.
 * Instead of using the same predictable hash function, we use a universal family of hash functions.
 * It is: h(x) = ((ax + b) mod p ) mod m
-* Here, `a` ranges between `1` to `p`.
+* Here, `x` is the input key.
+* And `a` ranges between `1` to `p`.
 * So, `a` has a total of `p - 1` choices.
 * And `b` ranges between `0` to `p`.
 * So, `b` has a total of `p` choices.
 * It generates approximately p(p - 1) possible hash functions.
 * And we can't know which hash function is responsible to place an item at a particular index.
 * If we try to apply the **Hash DoS Attack**, we might get a different hash function that will ultimately place the item at different index. 
+* Also, on top of that, for the worst condition, we still have a few thresholds.
+* In any case, if we ever find that the threshold crosses `8` collisions, we convert the linked list into a self-balancing tree like a splay tree.
+* This way, we reduce the worst-case search time from `O(n)` to `O(log n)`.
+* Ok, all of these when the input key is a number.
+* But what if the input key is a string?
