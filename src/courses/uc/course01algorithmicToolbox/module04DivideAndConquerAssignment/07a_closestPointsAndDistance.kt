@@ -158,6 +158,13 @@ fun main() {
             // If we use `..<` instead of `until`, we may get the below error:
             // error: this declaration needs opt-in. Its usage must be marked with '@kotlin.ExperimentalStdlibApi' or '@OptIn(kotlin.ExperimentalStdlibApi::class)'
             // So, either update the language version or use until.
+            // Caution! Possible point of mistake!
+            // It is `i + 1` and not the `start + 1`!
+            // If we use `start + 1`, `i` and `j` will be equal at some point.
+            // And the distance between the same (single) point (itself) is always 0!
+            // So, again: The inner loop starts from `i + 1`.
+            // It is like the outer loop picks up one point at `i`,
+            // and then the inner loop picks up all the other, surrounding points, starting from `i + 1`.
             for (j in i + 1..end) {
                 minDistance = min(minDistance, euclideanDistanceOfPoints(sortedPoints[i], sortedPoints[j]))
             }
