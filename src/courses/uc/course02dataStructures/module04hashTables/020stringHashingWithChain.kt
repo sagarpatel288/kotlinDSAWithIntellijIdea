@@ -303,9 +303,11 @@ import java.util.LinkedList
  * index = hash % m
  * ```
  *
- * ## Note:
+ * ## Note
+ *
  * * For better code, check:
- * * [022stringHashingWithChain]()
+ * * [022stringHashingWithChain](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/9a1040836fc599c06cbb0ab3cb37fc1bdcedbe57/src/courses/uc/course02dataStructures/module04hashTables/022stringHashingWithChain.kt)
+ *
  *
  */
 class HashTable {
