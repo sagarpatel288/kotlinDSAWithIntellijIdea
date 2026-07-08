@@ -2,6 +2,12 @@ package courses.uc.course02dataStructures.module04hashTables
 
 import java.util.LinkedList
 
+/**
+ * # Reference
+ *
+ * * [020stringHashingWithChain](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/9a1040836fc599c06cbb0ab3cb37fc1bdcedbe57/src/courses/uc/course02dataStructures/module04hashTables/020stringHashingWithChain.kt)
+ *
+ */
 class StringHashingWithChain(private val m: Int) {
     // It has been explicitly informed in the problem statement to take 1_000_000_007L only to match their answer!
     private val prime = 1_000_000_007L

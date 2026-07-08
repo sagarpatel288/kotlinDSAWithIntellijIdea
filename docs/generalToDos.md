@@ -43,6 +43,16 @@
   * Reference: In a linked list: To detect a cycle, to find the start of the cycle, to break the cycle, and to find the middle point.
 * Formulas of: Binary heap tree to get parent and children.
 * Heap Sort Trick: We start from `n/2` and go down to `0`. Can you explain why?
+* Horner's Polynomial String Hashing: $hash = ( (hash * x) + input[i].code.toLong() ) \mod p$
+* Rabin-Karp's Rolling Hashing:
+  * Subtraction: $input[i] * baseX^{Highest Power}$
+  * Current = current - subtraction
+  * Multiplication: $current * baseX$
+  * Addition: $current = current + input[i + length].code.toLong()$
+  * Modulus: $(current \mod p + p) \mod p$ to prevent overflow and limit.
+* Prefix Hashing:
+  * $hash[i] = hash[i - 1] * baseX + input[i - 1].code.toLong()$ 
+  * $h(a, l) = ph[a + l] - (ph[a] * baseX^{l})$
 * 
 
 ## Edge Cases

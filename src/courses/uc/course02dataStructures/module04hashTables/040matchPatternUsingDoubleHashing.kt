@@ -37,6 +37,7 @@ class MatchPatternUsingDoubleHashing {
         // Does it work if we take the initial hash value as 1 instead of 0?
         // It does not work if we take the initial hash value as 1 instead of 0!
         // Can you explain why?
+        // Because it destroys the polynomial property.
         var hashP1 = 0L
         var hashP2 = 0L
         var hashT1 = 0L
