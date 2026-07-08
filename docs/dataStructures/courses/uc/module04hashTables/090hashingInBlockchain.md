@@ -36,8 +36,8 @@
 
 ## Programming Problems
 
-* [01phoneBook.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/01phoneBook.kt)
-* [02stringHashingWithChain.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/02stringHashingWithChain.kt)
+* [01phoneBook.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/010phoneBook.kt)
+* [02stringHashingWithChain.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/020stringHashingWithChain.kt)
 
 ## Next
 
