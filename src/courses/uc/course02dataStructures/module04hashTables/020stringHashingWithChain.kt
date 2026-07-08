@@ -283,8 +283,12 @@ import java.util.LinkedList
  * Good job! (Max time used: 0.57/2.00, max memory used: 88514560/536870912.)
  * ```
  *
- * ##TODO:
+ * ## How to remember?
  *
+ * * A `Hash Table` uses a `Hash function`.
+ * * A `Hash function` uses a `prime` number and a `random` number.
+ * * The prime number is `p = 1_000_000_007L` and the random number is `x = 263L`.
+ * * To store the key-values, the table uses an array where each index (slot) is a linked list.
  * *
  *
  */

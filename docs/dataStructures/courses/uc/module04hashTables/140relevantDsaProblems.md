@@ -52,9 +52,9 @@
 
 ## Designing A Phonebook (Key-Value Pair)
 
-* [PhoneBook.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/01phoneBook.kt)
+* [PhoneBook.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/010phoneBook.kt)
   * LeetCode Version
-* [ImplementHashTableWithChaining.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/02stringHashingWithChain.kt)
+* [ImplementHashTableWithChaining.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/020stringHashingWithChain.kt)
   * LeetCode Version
 
 ## Two Sum

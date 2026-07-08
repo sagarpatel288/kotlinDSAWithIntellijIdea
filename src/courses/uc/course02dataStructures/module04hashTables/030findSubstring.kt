@@ -195,7 +195,7 @@ package courses.uc.course02dataStructures.module04hashTables
  *
  * * We can solve this problem using the "Double Hashing" technique also, as below:
  *
- * * [Local: Match Pattern](src/courses/uc/course02dataStructures/module04hashTables/03matchPatternUsingDoubleHashing.kt)
+ * * [Local: Match Pattern](src/courses/uc/course02dataStructures/module04hashTables/040matchPatternUsingDoubleHashing.kt)
  *
  * * [GitHub: Match Pattern](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/fe22624a4650e7cd97491eb676914aa9a30824cc/src/courses/uc/course02dataStructures/module04hashTables/03matchPatternUsingDoubleHashing.kt)
  *

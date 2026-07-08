@@ -8,7 +8,7 @@ import java.io.InputStreamReader
  *
  * * This is the same problem as:
  *
- * * [Local: Find Substring](src/courses/uc/course02dataStructures/module04hashTables/03findSubstring.kt)
+ * * [Local: Find Substring](src/courses/uc/course02dataStructures/module04hashTables/030findSubstring.kt)
  *
  * * [GitHub: Find Substring](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/29e897950fe432d27bdf9d541c9adb8f13110fe7/src/courses/uc/course02dataStructures/module04hashTables/03findSubstring.kt)
  *

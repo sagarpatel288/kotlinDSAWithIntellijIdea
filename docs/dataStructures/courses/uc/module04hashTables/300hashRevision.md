@@ -35,6 +35,7 @@
 * Instead of using the same predictable hash function, we use a universal family of hash functions.
 * It is: h(x) = ((ax + b) mod p ) mod m
 * Here, `x` is the input key.
+* `p` is a prime number where $p > x$.
 * And `a` ranges between `1` to `p`.
 * So, `a` has a total of `p - 1` choices.
 * And `b` ranges between `0` to `p`.
@@ -47,3 +48,5 @@
 * This way, we reduce the worst-case search time from `O(n)` to `O(log n)`.
 * Ok, all of these when the input key is a number.
 * But what if the input key is a string?
+* To convert an input string into a numerical key, we use Horner's polynomial representation of the string.
+* 

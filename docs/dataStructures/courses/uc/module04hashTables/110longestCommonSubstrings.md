@@ -34,7 +34,7 @@
 
 **Longest Common Substrings**
 
-* Reference: [05longestCommonSubstring03.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/05longestCommonSubstring03.kt)
+* Reference: [05longestCommonSubstring03.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/060longestCommonSubstring03.kt)
 * In this problem, we are given two strings.
 * And we are asked to find the longest common substring.
 * A common substring is a substring that appears in both the strings.
