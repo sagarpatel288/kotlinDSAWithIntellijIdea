@@ -225,6 +225,10 @@ fun main() {
         for (i in 0 until pattern.length) {
             // We need to remember this formula.
             // Common Mistake: Don't forget to prevent the overflow after multiplication, addition, or even subtraction.
+            // Also, the parenthesis matterns.
+            // If we don't apply `prime` to the entire `ax + b`, it gets precendense and applies to only the `code`.
+            // As a result, we may get overflow!
+            // So, take care of the brackets too!
             patternWindowHash = ((patternWindowHash * xBase) + pattern[i].code.toLong()) % prime
             textWindowHash = ((textWindowHash * xBase) + text[i].code.toLong()) % prime
         }
