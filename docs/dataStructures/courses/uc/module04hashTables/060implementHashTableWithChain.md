@@ -197,7 +197,7 @@ println(result)
 
 ## Implementation
 
-* [02stringHashingWithChain.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/02stringHashingWithChain.kt)
+* [02stringHashingWithChain.kt](../../../../../src/courses/uc/course02dataStructures/module04hashTables/020stringHashingWithChain.kt)
 
 ```kotlin
 

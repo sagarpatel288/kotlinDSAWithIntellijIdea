@@ -289,7 +289,23 @@ import java.util.LinkedList
  * * A `Hash function` uses a `prime` number and a `random` number.
  * * The prime number is `p = 1_000_000_007L` and the random number is `x = 263L`.
  * * To store the key-values, the table uses an array where each index (slot) is a linked list.
- * *
+ * * The hash function is similar to `(ax + b) mod m`.
+ * * It is:
+ * ```
+ * hash = ( (hash * x) + code ) mod p
+ * ```
+ * * To ensure the positive value:
+ * ```
+ * hash = (hash % p + p) % p
+ * ```
+ * * To allocate the index:
+ * ```
+ * index = hash % m
+ * ```
+ *
+ * ## Note:
+ * * For better code, check:
+ * * [022stringHashingWithChain]()
  *
  */
 class HashTable {
