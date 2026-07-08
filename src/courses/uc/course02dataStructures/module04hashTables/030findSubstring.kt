@@ -255,6 +255,28 @@ fun main() {
 
         // Comparison and rolling hash (sliding window)
         // Common Mistake: Understand and remember the range. It is from 0 to (text length - pattern length) inclusive.
+        // This range is because of our code structure inside this for loop.
+        // For example, suppose that the pattern is xyz.
+        // The pattern length is 3, and the last index is 2.
+        // And the text is: abcdef.
+        // The text length is 6, and the last index is 5.
+        // The last window should contain the indices: [3, 4, 5].
+        // Currently, the end-boundary (inclusive) is (text.length - pattern.length) = (6 - 3) = 3.
+        // Now, we may think that if we go up to the index `3`, the `i + length` part will crash the program.
+        // There are a couple of things to consider here.
+        // Suppose that we keep the end-boundary index as `<3` instead of `<=3`.
+        // Now, when `i = 2`, we will add the character at `i + length` = `2 + 3` = `5`th index.
+        // And it will calculate the text hashing for [3, 4, 5] = [def].
+        // But will we get the chance to compare this text hashing?
+        // Because before we reach to the comparison block, we get this `for loop` check.
+        // It will stop us there because after finishing `i = 2`, it has been incremented to `i = 3`!
+        // And our condition `<3` will not allow us to compare the final window [def] with the pattern!
+        // So, that's why we take `<=3` as an end-index inclusive boundary.
+        // That is, we take `(text.length - pattern.length)` as an end-index-inclusive boundary.
+        // But the point of getting index out of bounds during `i + length` step is also valid.
+        // So, to prevent that, we proceed only if `i < (text.length - pattern.length)`.
+        // Yes (right), we don't want to perform `i + length` if `i >= (text.length - pattern.length)`.
+        // So, we use that condition just before we perform those `i + length` steps.
         for (i in 0..text.length - pattern.length) {
             // Check if the hash matches
             if (textWindowHash == patternWindowHash) {
@@ -278,6 +300,11 @@ fun main() {
             // So, the current window is `820 + 7 = 827`.
             // Common Mistake: Understand and remember the check.
             // The "i" must be less than (text length - pattern length).
+            // We can also use single line check here instead of using the complete `if` block.
+            // We can say:
+            // if (i >= text.length - pattern.length) break
+            // Because when `i >= text.length - pattern.length`, we don't want to perform `i + length` step.
+            // Otherwise, it will give us: `IndexOutOfBoundsException`.
             if (i < text.length - pattern.length) {
                 // We are rolling the window from left to right.
                 // So, the outgoing character is at the left end of the window.

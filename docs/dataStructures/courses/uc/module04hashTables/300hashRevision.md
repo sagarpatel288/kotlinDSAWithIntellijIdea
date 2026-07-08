@@ -49,4 +49,53 @@
 * Ok, all of these when the input key is a number.
 * But what if the input key is a string?
 * To convert an input string into a numerical key, we use Horner's polynomial representation of the string.
-* 
+* Now, we know that a hash function is a deterministic function.
+* It means that each unique string must get unique hash code.
+* If the hash codes of two strings are equal, it would mean that both the strings are equal.
+* So, we use string hashing to find equal strings or substrings.
+* And we don't have to iterate through all the characters of all the substrings every time.
+* Hashing of substrings use sliding window.
+* It is one character in and one character out.
+* So, only the hashing of the first substring takes longer time.
+* The hashing of all the other consecutive substrings takes almost a constant time.
+* This algorithm is known as **Rabin-Karp Algorithm**.
+* It is also known as **Rolling Hash**.
+* Because we re-use the values of previous substring to calculate the next substring.
+* It goes something like:
+* **Subtraction:**
+
+$current = current - (outgoingCharacter * {base}^{Highest Power})$
+
+* **Multiplication:**
+
+$current = current * base$
+
+* **Addition:**
+
+$current = current + incomingCharacter.code$ 
+
+* Note that the Rabin-Karp's Algorithm of Rolling Hashing relies on a fact that the length of each substring is fixed.
+* Otherwise, we use **Prefixed Hashing**.
+* It allows us to get the hash code of any substring of any length.
+* First, we store the hash code of each length starting from `0` to `input.length`.
+* We use the Horner's Polynomial Hashing.
+* The formula is:
+
+$hash[i] = hash[i - 1] * baseX + string[i - 1].code.toLong()$
+
+* And the formula to get the hash code of a substring that starts from `a` and has length `l` is:
+
+$h(a, l) = ph[a + l] - (ph[a] * x^l)$
+
+* To remember, the subtraction part is similar to the Rabin-Karp's Rolling Hashing.
+
+* **Subtraction:**
+
+$- outgoingCharacter[a] * baseWithPower^l$
+
+* Here, we use $x^l$ instead of $x^{Highest Power}$.
+
+* And to remember, the first part is all about:
+
+$\text{The substring that starts with `a` and has a length of `l`} = pH[a + l]$
+
