@@ -104,7 +104,7 @@ fun hashCode(cat: String, p: Int, x: Int): Int {
 * When `i = 2`, we get:
 
 $$
-(0 * x^0) + t.code = 0 + t.code = t.code = 116
+(0 * x^1) + t.code = 0 + t.code = t.code = 116
 $$
 
 * When `i = 1`, we get:
