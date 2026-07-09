@@ -23,6 +23,10 @@ import java.io.InputStreamReader
  */
 class MatchPatternUsingDoubleHashing {
 
+    // Caution! Possible point of mistake!
+    // For double hashing, we need two primes and two different highest base power.
+    // If we use the same single highest base power, it might not work for certain cases.
+    // It will be Okay to use a single base in that case.
     // We need to remember these values.
     private val p1 = 1_000_000_007L
     private val p2 = 1_000_000_263L
