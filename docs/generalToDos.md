@@ -53,6 +53,7 @@
 * Prefix Hashing:
   * $hash[i] = hash[i - 1] * baseX + input[i - 1].code.toLong()$ 
   * $h(a, l) = ph[a + l] - (ph[a] * baseX^{l})$
+  * Converting two hashes into one 64-bit hashes using `hash1 shl 32 or hash2`.
 * 
 
 ## Edge Cases

@@ -207,11 +207,14 @@ class LongestCommonSubstring03(private val string1: String, private val string2:
         // But in that case, we will have to recalculate the first window for every new length.
         // That's why, prefix hashing is recommended.
         for (i in 0..string1.length - length) {
+            // Formula of getting the prefix hash of length `l` that starts from index `a`
+            // h(a, l) = (h[a + l] - (h[a] * x[l])) % prime
             val long1 = hashesA1[i + length]
             val short1 = hashesA1[i]
             val base1 = basePowersA1[length]
             val sub1 = (short1 * base1) % prime1
             var hash1 = (long1 - sub1) % prime1
+            // Normalization ensures positive value within the limit of the prime number
             hash1 = (hash1 % prime1 + prime1) % prime1
 
             val long2 = hashesA2[i + length]
@@ -219,9 +222,13 @@ class LongestCommonSubstring03(private val string1: String, private val string2:
             val base2 = basePowersA2[length]
             val sub2 = (short2 * base2) % prime2
             var hash2 = (long2 - sub2) % prime2
+            // Normalization ensures positive value within the limit of the prime number
             hash2 = (hash2 % prime2 + prime2) % prime2
 
-            // Packing two 31-bit hashes into one 64-bit Long.
+            // 2^30 = 1,073,741,824
+            // Both prime one and prime two are less than 2^30.
+            // It means, both hashes are below 2^30 for the chosen moduli.
+            // Pack hash1 into the upper 32 bits and hash2 into the lower 32 bits.
             val combined = (hash1 shl 32) or hash2
             // It is impossible to have the same key for the two different strings that have two different lengths.
             hashes1[combined] = i
