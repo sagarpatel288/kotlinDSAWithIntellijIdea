@@ -201,20 +201,31 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
     fun findPatternMatchingWithMismatches(kAllowedMismatches: Int): Pair<Int, List<Int>> {
         val startingIndices = mutableListOf<Int>()
         // Sliding Window
+        // The window starts from `i`
         // The starting index of the last window cannot go beyond: (text.length - pattern.length)
         for (i in 0..(text.length - pattern.length)) {
             // Text pointer (index)
+            // The text pointer represents the number of characters of the text we have checked
+            // The text pointer for each window starts from `i` and moves within the window
             var t = i
             // Pattern pointer (index)
+            // The pattern pointer represents the number of characters of the pattern we have checked
             var p = 0
             // Number of mismatches found
             var mismatches = 0
+            // Comparison with the pattern
+            // When `p` becomes `>= pattern.length`, it would mean that we checked all the characters of the pattern
+            // The process of comparison continues as long as `p < pattern.length`
             while (p < pattern.length) {
                 // Matching length for this window
+                // For every new binary search, `matchLen` is reset to `0`
+                // Before we start a new binary search, `matchLen` is reset to `0`
                 var matchLen = 0
-                // We can take `minLength = 0` or `minLength = 1`, both works as long as `matchLen` is `0` before binary search
+                // We can take `minLength = 0` or `minLength = 1`, both works as long as `matchLen` is `0` before the binary search
                 var minLength = 1
+                // Subtract already visited `p` characters from the `maxLength`
                 var maxLength = pattern.length - p
+                // Binary search to jump over the match length
                 while (minLength <= maxLength) {
                     println("i: $i, t: $t, p: $p")
                     val mid = minLength + (maxLength - minLength) / 2
@@ -248,13 +259,19 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                     mismatches++
                     println("After: mismatches: $mismatches")
                     if (mismatches > kAllowedMismatches) {
+                        // For the text window that starts from `i`, we have crossed the `kAllowedMismatches`
+                        // So, there is no point in checking the remaining `p`
+                        // We change the `i` (We change the text window)
+                        // Abort the comparison of the current text window with the pattern
                         break
                     }
                     // Move past the mismatched character
                     t++
+                    // At this point, if `p` is `>= pattern.length`, it will be handled by the `while` condition
                     p++
                     println("After mismatches: $mismatches t: $t and p: $p")
                 } else {
+                    // If we have already finished the `pattern length`, change the text window
                     break
                 }
             }
