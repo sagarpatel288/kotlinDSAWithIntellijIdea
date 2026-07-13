@@ -233,6 +233,15 @@ class PatternMatchingWithMismatches(private val text: String, private val patter
                     // Use the given sample inputs to understand the dry run
                     // Understand how it compares (the pattern) and how it moves ahead (proceeds)
                     println("text substring: ${text.substring(t, t + mid)} pattern: ${pattern.substring(p, p + mid)}")
+                    // It is important to understand that we try different lengths that always start from `t` only.
+                    // Imagine that we have a rubber band in our hand.
+                    // We hold the left-end in our left hand and right-end in our right hand.
+                    // Now, our left hand is fixed. It does not move.
+                    // But we move (stretch) the right hand as far as possible.
+                    // We move (increase or decrease, moving far away or bring it near/close) only the right hand.
+                    // We move the right hand until we find the size that fits (fixes) the rubber band to somewhere.
+                    // Inside the binary search, we have a fixed starting index until we finish the iteration.
+                    // Inside the binary search, we don't perform the sliding window.
                     val (textHash1, textHash2) = textHashes(t, mid)
                     val (patternHash1, patternHash2) = patternHashes(p, mid)
                     if (textHash1 == patternHash1 && textHash2 == patternHash2) {
