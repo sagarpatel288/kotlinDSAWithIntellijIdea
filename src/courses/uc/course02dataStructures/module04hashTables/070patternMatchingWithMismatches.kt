@@ -105,6 +105,16 @@ package courses.uc.course02dataStructures.module04hashTables
  * ```
  * O(|T| * log(|P|))
  * ```
+ * * However, if `k == pattern.length`, then the total time degrades than the worst-case brute force!
+ * * In that case, we have the outermost for-loop that runs `|T| - |P| + 1 ≈ |T|` times.
+ * * Then, we have the inner while-loop, that runs for `|P|`.
+ * * And then we have the innermost while-loop that takes `log |P|` time.
+ * * So, it becomes:
+ * ```
+ * O(|T| * |P| * log |P|)
+ * ```
+ * * Hence, the constraint of `k` is critical here.
+ * * If `k` is large, we can use `suffix trees with lowest common ancestors` which would take `O(|T| * k)` time.
  *
  * ## Space Complexity
  *
