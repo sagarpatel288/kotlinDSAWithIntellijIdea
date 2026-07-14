@@ -286,6 +286,11 @@ class BuildAndTravelBst {
         if (nodes.isEmpty()) return emptyList()
         // Can you explain why did we take the type `Int` instead of `Node`?
         // To keep it light.
+        // Otherwise, we can also take a stack of nodes as we have used in:
+        // src/practice/courses/dataStructures/uc/module05binarySearchTrees/BstPrintDfsOrders.kt
+        // That makes the `stack` heavy!
+        // The difference is, one stack contains only `Int` and the other `stack` contains a custom `data class`.
+        // The stack that contains `Int` type is a lightweight compared to the stack that contains a `data class` type.
         val result = mutableListOf<Int>()
         val stack = ArrayDeque<Int>()
         stack.addLast(0)
