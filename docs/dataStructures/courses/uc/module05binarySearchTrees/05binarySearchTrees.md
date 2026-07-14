@@ -3,6 +3,7 @@
 <!-- TOC -->
 * [Binary Search Trees](#binary-search-trees)
   * [Prerequisites/References](#prerequisitesreferences)
+  * [Need Of A Binary Search Tree (How does it help? What problem does it solve?)](#need-of-a-binary-search-tree-how-does-it-help-what-problem-does-it-solve)
   * [Introduction](#introduction)
   * [Examples](#examples)
     * [Why `BST`?](#why-bst)
@@ -32,6 +33,45 @@
 * [Complete Binary Tree](../module03priorityQueuesHeapsDisjointSets/section02priorityQueuesUsingHeaps/topic03CompleteBinaryTrees/completeBinaryTrees.md)
 * [Heap Sort](../module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
 
+
+## Need Of A Binary Search Tree (How does it help? What problem does it solve?)
+
+**Arrays/Dynamic Arrays**
+
+* Random access in O(1), but shifting cost is O(n).
+
+**Linked Lists**
+
+* No shifting cost, but no random access in O(1).
+* Finding an element is O(n).
+
+**Stack**
+
+* Only to follow LIFO.
+* We cannot remove an arbitrary element.
+* We cannot retrive (access) an arbitrary element.
+
+**Queue**
+
+* Only to follow FIFO.
+* We cannot remove an arbitrary element.
+* We cannot retrive (access) an arbitrary element.
+
+**Priority Queue**
+
+* Get the extremum in O(1), but finding an element is still O(n).
+
+**Hash Table**
+
+* Solves the direct addressing problem, but no sorting, no range search, no idea about the neighbor lookup.
+* Finding an element is still O(n).
+
+**Binary Search Tree**
+
+* Find an element in O(log n)
+* Range search in O(log n)
+* Find neighbor in O(log n)
+* Insert and delete in O(log n)
 
 ## Introduction
 
