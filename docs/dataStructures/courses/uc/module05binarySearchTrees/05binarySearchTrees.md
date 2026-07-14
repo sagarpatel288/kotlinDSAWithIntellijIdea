@@ -60,7 +60,11 @@
 **Priority Queue**
 
 * Get the extremum in O(1), but finding an element is still O(n).
-* We can build a heap in O(n), sort the data in O(n log n), and then find an element in O(log n) time.
+* We can build a heap in O(n), sort the data in O(n log n), but finding an arbitrary element still takes O(n).
+* Because there is no predictable order between children.
+* So, we cannot know it in advance about which direction we should follow to find the target element.
+* As a result, we may have to check both the directions.
+* Hence, finding an arbitrary element is still O(n) in a heap. 
 
 **Hash Table**
 
