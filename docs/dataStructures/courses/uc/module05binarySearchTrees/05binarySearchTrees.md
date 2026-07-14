@@ -60,6 +60,7 @@
 **Priority Queue**
 
 * Get the extremum in O(1), but finding an element is still O(n).
+* We can build a heap in O(n), sort the data in O(n log n), and then find an element in O(log n) time.
 
 **Hash Table**
 
