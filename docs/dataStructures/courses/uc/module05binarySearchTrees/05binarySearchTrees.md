@@ -66,6 +66,35 @@
 * As a result, we may have to check both the directions.
 * Hence, finding an arbitrary element is still O(n) in a heap. 
 
+| Requirement               | Heap                                   | Balanced BST                     |
+|---------------------------|----------------------------------------|----------------------------------|
+| Build from unsorted data  | O(n)                                   | O(n log n) normally              |
+| Find min/max              | O(1)                                   | O(log n)                         |
+| Search arbitrary x        | O(n)                                   | O(log n)                         |
+| Insert                    | O(log n)                               | O(log n)                         |
+| Delete known root/min/max | O(log n)                               | O(log n)                         |
+| Delete arbitrary value x  | O(n) search + O(log n) repair          | O(log n)                         |
+| Predecessor/successor     | O(n) generally                         | O(log n)                         |
+| Range search              | O(n) generally                         | O(log n + k)                     |
+| Sorted traversal          | O(n log n) if destructively extracting | O(n)                             |
+| Priority access           | Excellent                              | Possible, but not its speciality |
+
+---
+
+| Question                   | Heap                  | Balanced BST        |
+|----------------------------|-----------------------|---------------------|
+| "Give me minimum"          | O(1)                  | O(log n)            |
+| "Give me maximum"          | O(n) in min heap      | O(log n)            |
+| "Find 73"                  | O(n)                  | O(log n)            |
+| "Insert 73"                | O(log n)              | O(log n)            |
+| "Delete minimum"           | O(log n)              | O(log n)            |
+| "Delete 73"                | O(n) normally         | O(log n)            |
+| "Value just below 73?"     | O(n)                  | O(log n)            |
+| "Value just above 73?"     | O(n)                  | O(log n)            |
+| "Values from 50 to 100?"   | O(n) generally        | O(log n + k)        |
+| "Give all in sorted order" | O(n log n) extraction | O(n) traversal      |
+| Build from unsorted values | O(n)                  | O(n log n) normally |
+
 **Hash Table**
 
 * Solves the direct addressing problem, but no sorting, no range search, no idea about the neighbor lookup.
