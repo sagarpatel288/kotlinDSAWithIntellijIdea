@@ -463,7 +463,10 @@ flowchart TD
 
 ## Next
 
+* [Binary Search Tree And Stack](07binarySearchTreeAndStack.md)
+* [Binary Search Tree With Stack Boundaries](09binarySearchTreeWithStackBoundaries.md)
 * [Basic Operations Of A Binary Search Tree (BST)](10binarySearchTreesBSTsBasicOperations.md)
+* [Binary Search Trees BST Balance.md](15binarySearchTreesBSTBalance.md)
 * [Binary Tree Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
 * [BST: Self-Balancing = AVLTree](15binarySearchTreesBSTBalance.md)
 * [AVLTree: Insert Operation](20avlTreeInsertOperation.md)
