@@ -663,9 +663,45 @@ while (currentNode != null || stack.isNotEmpty()) {
 
 ##### How to remember?
 
+> Layman Sentence → Code Translation
+
 * Keep pushing the left children as log as it is possible.
+
+```kotlin
+
+while (cn != null) {
+    stack.push(cn)
+    cn = cn.left
+}
+
+```
+
 * When there is no more left child, pop and add the right child.
-* Repeat.
+
+```kotlin
+
+val pop = stack.pop()
+cn = pop.right
+
+```
+
+* Repeat as long as either there is a non-null node or the stack is not empty.
+
+```kotlin
+
+while (cn != null || stack.isNotEmpty) {
+    
+    while (cn != null) {
+        stack.push(cn)
+        cn = cn.left
+    }
+  
+    val pop = stack.pop()
+    cn = pop.right
+}
+
+```
+
 
 ##### How is it possible that the stack is empty, but we still have a valid `currentNode` to proceed, or the `currentNode` is invalid, but the stack is not empty?
 
