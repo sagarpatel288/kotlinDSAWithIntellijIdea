@@ -97,8 +97,30 @@
 
 **Hash Table**
 
-* Solves the direct addressing problem, but no sorting, no range search, no idea about the neighbor lookup.
-* Finding an element is still O(n).
+* Solves the direct addressing problem.
+* Finding an element is excellent O(1) in the best/average case, and O(n) in the worst-case.
+* But no order, no sorting, no range search, no idea about the neighbor or extremum (min or max).
+
+| Operation                    | Hash Table               | Balanced BST                |
+|------------------------------|--------------------------|-----------------------------|
+| Exact search                 | O(1) expected            | O(log n)                    |
+| Insert                       | O(1) expected            | O(log n)                    |
+| Delete                       | O(1) expected            | O(log n)                    |
+| Min                          | O(n)                     | O(log n)*                   |
+| Max                          | O(n)                     | O(log n)*                   |
+| Predecessor                  | O(n)                     | O(log n)                    |
+| Successor                    | O(n)                     | O(log n)                    |
+| Floor/Ceiling                | O(n)                     | O(log n)                    |
+| Range query                  | O(n)                     | O(log n + k)                |
+| Sorted traversal             | O(n log n) after sorting | O(n)                        |
+| k-th smallest                | O(n) normally            | O(log n) with augmented BST |
+| Guaranteed worst-case lookup | O(n) standard hash table | O(log n) balanced BST       |
+
+---
+
+* ⋆O(1)⋆ if the tree maintains the pointers to the min/max.
+* The key phrase is `Order`.
+* A `Binary Search Tree` constantly maintains the `Order` for the `Dynamic Data`.
 
 **Binary Search Tree**
 
