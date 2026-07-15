@@ -16,6 +16,7 @@
     * [Summary](#summary)
     * [Pseudocode](#pseudocode)
     * [Beads](#beads)
+    * [How to remember](#how-to-remember)
   * [Time Complexity](#time-complexity)
   * [Space Complexity](#space-complexity)
   * [Questions](#questions)
@@ -714,6 +715,47 @@ fun isValidBst(nodes: Array<Node>): Boolean {
 * The `min <= key` part indicates that the `key` is a right child, and the `min` is the `parent.key`. Essentially, it translates into: "The right child must be greater than or equal to the parent."
 * The `key < max` part indicates that the `key` is a left child, and the `max` is the `parent.key`. It translates into: "The left child must be strictly smaller than the parent."
 * 
+
+### How to remember
+
+* The rule is:
+> left < parent <= right
+* We start our understanding from the `left` to `right`.
+* We replace `left` and `right` with `key` and (to) compare it with its `parent`.
+* So, it becomes: `key < parent <= key`.
+* Imagine that we are playing the **Tug Of War** game. 
+* We have two teams: Team `left` and team `right`.
+* And they are trying to pull (drag) the `parent` towards them with the help of a rope.
+* Imagine that both the `left` and the `right` keys are trying to pull (stretch, drag) the `parent` through a rope.
+* As a result, the `parent` gets split into two parts: `parent = max | min`.
+* Both the `key`s stick to their positions.
+* So, each `key` gets one part of the `parent`.
+* The `left` part gets the left part of the parent.
+* The `right` part gets the right part of the parent.
+* So, it becomes:
+* `key < max` and `min <= key`.
+* For better readability, we can re-write the `right` part as:
+* `key >= min`.
+* Hence, the condition becomes:
+* `key < max` and `key >= min`.
+---
+* For the `left` part, `key < parent`
+* Here, the `parent` is an upper limit (`maximum`).
+* It says that the `key` must be (strictly) less than the parent.
+* We can represent the upper limit as `maximum`.
+* So, the rule is: `key < maximum`.
+* If we write `maximum` in short, it becomes: `key < max`.
+* If `key < max`, it is valid.
+* If `key >= max`, it is invalid.
+---
+* For the `right` part, `parent <= key`.
+* It says that the `key` must be greater than or equal to the `parent`.
+* Here, the `parent` represents the `minimum` value the `key` should have to pass the validation.
+* So, we can re-write it as:
+* `minimum <= key`.
+* In short, it is: `min <= key`.
+* So, if the `key >= min`, it is valid.
+* If the `key < min`, it is invalid.
 
 ## Time Complexity
 
