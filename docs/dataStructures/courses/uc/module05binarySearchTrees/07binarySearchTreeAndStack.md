@@ -525,6 +525,41 @@ while (stack.isNotEmpty()) {
 
 ##### How to remember?
 
+```markdown
+
+                                +---->>>>>>>---->
+                                |                
+                                ^                
+                                ^                
+                          |     ^     |          
+                          |     |     |          
+                          |           |          
+BST DFS Pre-Order Stack   |   parent  |          
+                          |           |          
+                          |-----------|          
+                          |           |          
+                          |   left    |          
+                          |           |          
+                          |-----------|          
+                          |           |          
+                          |   right   |          
+                          |           |          
+                          -------------          
+                                                 
+                     BST DFS Pre-Order Stack     
+
+```
+
+* `pre-order` means `parent-left-right`.
+* We first eagerly push the `parent`.
+* Then, we want to pop `left`.
+* So, `left` should be on top of `right`.
+* Hence, we push `right`.
+* And then we push `left`.
+* So that when we pop, we first get `left`.
+
+---
+
 * `pre-order` means eagerly push the root.
 * Then, inside the while loop:
   * pop
@@ -662,6 +697,43 @@ while (currentNode != null || stack.isNotEmpty()) {
 ```
 
 ##### How to remember?
+
+```markdown
+
+                                +---->>>>>>>---->
+                                |                
+                                ^                
+                                ^                
+                          |     ^     |          
+                          |     |     |          
+                          |           |          
+BST DFS In-Order Stack    |   left    |          
+                          |           |          
+                          |-----------|          
+                          |           |          
+                          |   parent  |          
+                          |           |          
+                          |-----------|          
+                          |           |          
+                          |   right   |          
+                          |           |          
+                          -------------          
+                                                 
+                      BST DFS In-Order Stack     
+
+```
+
+* We want to pop all the left children first.
+* So, we keep pushing all the left children as long as we have them.
+* Once we are done with pushing all the left children, we want to pop parent before the right children.
+* It means parent should be on top of the right child.
+* So, after we pop the left child, we push the right child first.
+* But this right child can have a left subtree.
+* So, we repeat the process.
+* The process ensures that a parent stays on top of the right child in the stack.
+* So that when we pop, we get the parent before its right subtree.
+
+---
 
 > Layman Sentence → Code Translation
 
@@ -839,6 +911,12 @@ return result.reverse()
 ```
 
 ##### How to remember?
+
+* **Pre-Order:** `Parent-left-right`
+* **Modify:** `Parent-right-left`
+* **Reverse:** `Left-right-parent` = **Post-Order**!
+
+---
 
 * `p` of `post-order` starts with `p` of `pre-order`.
 * `pre-order` is `parent (root) -> left -> right`.
