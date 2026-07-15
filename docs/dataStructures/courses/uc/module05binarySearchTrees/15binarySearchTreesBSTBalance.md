@@ -34,6 +34,7 @@
   * [Final pseudocode for the RL-Rotation](#final-pseudocode-for-the-rl-rotation)
   * [Rotation summary](#rotation-summary)
   * [Conclusion](#conclusion)
+  * [TL;DR](#tldr)
   * [What is the difference between a binary heap tree and a binary search tree?](#what-is-the-difference-between-a-binary-heap-tree-and-a-binary-search-tree)
   * [ToDo](#todo)
   * [Next](#next)
@@ -836,6 +837,37 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 * The rebalance must happen immediately after the moment of imbalance.
 * We must not accumulate the imbalance weight (score). Otherwise, it becomes chaos.
 
+## TL;DR
+
+* A binary search tree can become a degenerated, linear, tall, thin, and an unbalanced tree.
+* To keep it balanced, we perform rotations.
+* Every time we insert or delete a node, we check the height and the balance of the parent node.
+* If `bf < -1`, we perform either the left rotation or the RL-rotation.
+* If `bf > 1`, we perform either the right rotation or the LR-rotation.
+* We perform rotation primarily on the unbalanced node.
+* But in case of RL-rotation, first we rotate the right child of the unbalanced node to the right side.
+* Then we rotate the unbalanced node to the left side.
+* Similarly, in LR-rotation, first we rotate the left child of the unbalanced node to the left side.
+* Then we rotate the unbalanced node to the right side.
+
+**How do we find (distinguish) whether it is a left rotation or RL-rotation?**
+
+* When do we perform the left rotation on an unbalanced node?
+* When the balance factor of the unbalanced node is `< -1`.
+* If it is a pure left-rotation, then the balance factor of the right child will also be `< = 0`.
+* Otherwise, it is a RL-rotation.
+* In RL-rotation, first we rotate the right child to the right direction.
+* And then we rotate the unbalanced node to the left direction.
+
+**How do we find (distinguish) whether it is a right rotation or LR-rotation?**
+
+* When do we perform the right rotation?
+* When the balance factor of the unbalanced node is `bf > 1`.
+* If it is a pure right-rotation, then the balance factor of the left child will also be `>= 0`.
+* Otherwise, it is LR-rotation.
+* In LR-rotation, we first rotate the left child in the left direction.
+* And then we rotate the unbalanced node towards the right direction.
+
 ## What is the difference between a binary heap tree and a binary search tree?
 
 * The binary heap tree is not a sorted tree.
@@ -868,7 +900,7 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 
 ## ToDo
 
-* Under each rotation theory -> Pseudocode
+* Under each rotation theory → Pseudocode
   * Add step-by-step progress along with those 4 properties: Parent, left, right, and height.
 * When and how do we recalculate the balance factor? Do we have to recalculate the balance factor of each node after each insert or delete operation? How does that work? 
 * Why does the height update order matter?
