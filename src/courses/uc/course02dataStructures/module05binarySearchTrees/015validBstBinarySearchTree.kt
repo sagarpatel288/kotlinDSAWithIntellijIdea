@@ -7,6 +7,14 @@ import java.util.StringTokenizer
 import courses.uc.course02dataStructures.module05binarySearchTrees.ValidateBinarySearchTree.Node
 
 /**
+ * # Caution!
+ *
+ * * This is not an optimal solution, but a foundation for the optimal solution.
+ * * The optimal solution to validate a binary search tree is:
+ * * [Local: Validate a BST using Boundaries](src/courses/uc/course02dataStructures/module05binarySearchTrees/017validateBstUsingBoundaries.kt)
+ *
+ * * [GitHub: Validate a BST using Boundaries](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/efd8539538a85c77cfd6e20ca94607594f05597a/src/courses/uc/course02dataStructures/module05binarySearchTrees/017validateBstUsingBoundaries.kt)
+ *
  * # Prerequisites:
  *
  * * [Local: Print BinarySearchTree DFS Traversals](src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
@@ -101,6 +109,15 @@ import courses.uc.course02dataStructures.module05binarySearchTrees.ValidateBinar
  * ```
  * Good job! (Max time used: 0.26/3.00, max memory used: 71426048/2147483648.)
  * ```
+ *
+ * * # Caution!
+ *  *
+ *  * * This is not an optimal solution, but a foundation for the optimal solution.
+ *  * * The optimal solution to validate a binary search tree is:
+ *  * * [Local: Validate a BST using Boundaries](src/courses/uc/course02dataStructures/module05binarySearchTrees/017validateBstUsingBoundaries.kt)
+ *  *
+ *  * * [GitHub: Validate a BST using Boundaries](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/efd8539538a85c77cfd6e20ca94607594f05597a/src/courses/uc/course02dataStructures/module05binarySearchTrees/017validateBstUsingBoundaries.kt)
+ *
  */
 class ValidateBinarySearchTree {
 
