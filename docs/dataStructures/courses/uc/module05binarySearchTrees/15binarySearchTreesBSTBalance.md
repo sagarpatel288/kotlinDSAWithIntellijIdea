@@ -113,7 +113,7 @@
 
 ## Rotation of a binary search tree
 
-* It is possible to change the structure of a binary search tree without violating the rules that define the binary search tree.
+* It is possible to change the structure of a binary search tree without violating the rules (invariants) that define the binary search tree.
 * For example, as shown in the image below: 
 
 ![150bstRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/150bstRotation.png)
@@ -137,11 +137,22 @@ val heightOfNode = 1 + maxOf(Node.left.height, Node.right.height)
 
 ```
 
+* So, the node of the tree will look something like below:
+
+```kotlin
+
+class Node(var key: Int, var left: Node? = null, var right: Node? = null) {
+    val height: Int
+      get() = 1 + maxOf(left?.height ?: 0, right?.height ?: 0)
+}
+
+```
+
 ## A balanced binary search tree
 
 ![190balancedBst.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/190balancedBst.png)
 
-* If the height of a left sub-tree is equal to the height of a right sub-tree, we call it a perfectly balanced tree.
+* If the height of a left subtree is equal to the height of a right subtree, we call it a perfectly balanced tree.
 * It means that, we need to add another field, "height" to the node structure.
 * So that we can measure and keep track of the "balance".
 * And when a tree is balanced:
@@ -183,6 +194,21 @@ $$
 ## A node structure for balance
 
 ![180bstAvlNodeStructure.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/180bstAvlNodeStructure.png)
+
+
+* So, the node of the tree and the code to check whether the node is balanced, will look something like below:
+
+```kotlin
+
+class Node(var key: Int, var left: Node? = null, var right: Node? = null) {
+    val height: Int
+      get() = 1 + maxOf(left?.height ?: 0, right?.height ?: 0)
+  
+    val isBalanced: Boolean
+        get() = abs((left?.height ?: 0) - (right?.height ?: 0)) <= 1
+}
+
+```
 
 ## AVL Claim: AVL Properties
 
@@ -317,7 +343,30 @@ $$
 \text{Balance Factor} = \text{Height Of A Left-Subtree} - \text{Height Of A Right-Subtree}
 $$
 
-* And we want to ensure that:
+* Now, if the tree is right-sided, the value of the `right height` will be more than the `left height`.
+* So, the result will be `negative`.
+* When this negative value is less than `-1`, we cay say that the tree is unbalanced by the right side.
+* For example:
+* Suppose that the `left.height` is `1` and the `right.height` is `3`.
+* So, the balance factor will be:
+* `left.height - right.height` = `1 - 3` = `-2` and it is less than `-1`.
+* If it is less than `-1`, we can say that the tree is heavy on the right side.
+* To make the tree balanced, we need to pull a few nodes to the left side.
+* That will be the `left rotation`.
+* 
+---
+* Similarly, if `left.height - right.height > 1`, we can say that the tree is heavy at the left-side.
+* For example:
+* Suppose that the `left.height` is `3` and `right.height` is `1`.
+* Then, the balance factor will be:
+* `left.height - right.height` = `3 - 1` = `2`, which is more than `1`.
+* This tree is heavy on the left side.
+* To make the tree balanced, we need to pull a few nodes to the right side.
+* That will be the `right rotation`.
+* 
+---
+
+* To keep the tree balanced, we want to ensure that:
 
 $$
 | \text{Balance Factor} | <= 1
@@ -325,6 +374,15 @@ $$
 
 ## AVL-Tree Basic Left Rotation Idea
 
+* A tree can become unbalanced after an insert or a delete operation.
+* Each node of the tree has the `height` and the `balance` properties.
+* Assume that we are performing the `insert` operation.
+* To ensure the binary search tree invariants, we perform the typical binary search.
+* We find the right position (spot) to `insert` this new node.
+* A particular node will get a new child.
+* We increase the height of the node that has got this new child.
+* Assume that this new insertion has made the tree right-sided.
+* It means that the `balance` property of one or more nodes is `< - 1`.
 * When we have an excessive right-subtree, we perform the left-rotation.
 * It is also known as "RR-Rotation (Right of right rotation)".
 * Because it happens when the right of right node causes the imbalance.

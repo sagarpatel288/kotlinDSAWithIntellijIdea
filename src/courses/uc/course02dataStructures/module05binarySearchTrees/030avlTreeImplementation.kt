@@ -15,7 +15,7 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * * `find` uses [keyValue] to decide the direction,
  * * `rebalancing` uses [height], etc.
  *
- * @param keyValue: The value of the node. This must be [Comparable].
+ * @param keyValue The value of the node. This must be [Comparable].
  * @property left: The left child of this node.
  * @property right: The right child of this node.
  * @property height: Height of this node. Height is the longest path from this node to the leaf node.
@@ -25,6 +25,8 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * * So, the height of the leaf node is 1.
  *
  * **ToDo:**
+ * * Critical! If the properties are mutable, we must not use the `data class`.
+ * * Please use a normal class instead of the `data class` because the properties are mutable.
  * * Explain time and space complexity for each function.
  * * Add and maintain one more field, called `size`.
  * * The `size` field is useful for problems like: Find the $K^{th}$ smallest element (key).
