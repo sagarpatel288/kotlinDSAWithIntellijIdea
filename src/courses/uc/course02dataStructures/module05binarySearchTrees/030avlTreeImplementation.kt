@@ -25,8 +25,6 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * * So, the height of the leaf node is 1.
  *
  * **ToDo:**
- * * Critical! If the properties are mutable, we must not use the `data class`.
- * * Please use a normal class instead of the `data class` because the properties are mutable.
  * * Explain time and space complexity for each function.
  * * Add and maintain one more field, called `size`.
  * * The `size` field is useful for problems like: Find the $K^{th}$ smallest element (key).
@@ -35,7 +33,7 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * * Every time we update the [height], we need to update the [size] also.
  *
  */
-data class AvlNode(
+class AvlNode(
     // Why do we have it as a `var`?
     // Because, for example, we replace the node key with the key of the next larger (successor) node in `delete`,
     // where the node that we want to delete has two children.
@@ -49,7 +47,14 @@ data class AvlNode(
     // The height of a null node is 0.
     // So, the height of the leaf node is 1.
     // The default value `1` indicates that the height of a single node is `1`.
+    // `height` is `1 + maxOf(left.height, right.height)`
     var height: Int = 1,
+    // `size` is `1 + left.size + right.size`
+    // Notice that the formulas of `height` and `size` are different.
+    // They look like the same or similar, but they are different!
+    // The `height` uses `maxOf`.
+    // It means that the `height` uses either `left.height` or `right.height`, and not both.
+    // Whereas, the `size` uses both: `left.size` + `right.size`.
     var size: Int = 1
 )
 
