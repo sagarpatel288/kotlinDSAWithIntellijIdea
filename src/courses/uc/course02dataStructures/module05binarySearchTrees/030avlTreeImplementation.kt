@@ -560,7 +560,7 @@ class AvlTree {
                 // In that case, we are interested in the `nextLarger` child of the `nodeToDelete`.
                 // We replace the `nodeToDelete.key` with `nextLarger.key`.
                 // And then, we delete the `nextLarger`.
-                // It means, we call this [delete] function, and pass `node.right` and `nextToLarger.key`.
+                // It means, we call this [delete] function and pass `node.right` and `nextToLarger.key`.
                 // But that can change the structure of the AVL-Tree.
                 // The deletion can cause a rotation and can bring a different node than the original node.
                 // We need to ensure the correct and proper link between this node and that other node.

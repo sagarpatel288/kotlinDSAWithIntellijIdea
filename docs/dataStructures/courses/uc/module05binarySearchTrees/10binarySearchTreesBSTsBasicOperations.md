@@ -22,6 +22,7 @@
     * [What is the difference between a binary search tree and a complete binary tree? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-binary-search-tree-and-a-complete-binary-tree-explain-the-overall-difference-and-the-difference-for-each-operation)
     * [What are the few cases where we would use a binary tree instead of a binary search tree? Why?](#what-are-the-few-cases-where-we-would-use-a-binary-tree-instead-of-a-binary-search-tree-why)
     * [What are the few cases where we would use a complete binary tree instead of a binary search tree? Why?](#what-are-the-few-cases-where-we-would-use-a-complete-binary-tree-instead-of-a-binary-search-tree-why)
+  * [ToDo](#todo)
   * [Next](#next)
 <!-- TOC -->
 
@@ -727,6 +728,15 @@ fun delete(nodeToDelete: Node?) {
 ### What are the few cases where we would use a complete binary tree instead of a binary search tree? Why?
 
 
+
+## ToDo
+
+* Implement a binary search tree (Kotlin) with essential operations
+  * Insert, delete, find, rangeSearch, nextLarger, etc.
+  * Include a validation function (maybe using boundaries) to validate the BST at any point.
+  * Ok, maybe we already have the implementation, and it is `AvlTreeImplementation` - A self-balancing BST.
+  * [AvlTreeImplementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
+  * [AvlTreeImplementation.kt](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/87c319a8829c56b2daafb2b27df07a655d859569/src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
 ## Next
 
