@@ -863,6 +863,49 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 * 
 * ![325denseAvlTreeLeftRightRotationProcess1.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/325denseAvlTreeLeftRightRotationProcess1.png)
 
+**How to remember?**
+
+* Remember this pair: **Right rotation Vs. Left-Right rotation**
+* The pair that starts with "Right" ends with "Right".
+* To distinguish, check the opposite, which is "Left".
+* For the right rotation, `main.bf > 1`.
+* If `left.bf >= 0`, then it is the pure (single) right rotation.
+* See the common relational comparator in the case of the pure (single) rotation.
+* Otherwise, if `left.bf < 0`, it is LR rotation.
+* In the LR rotation, first we perform the left rotation on the left child.
+* Then we perform the right rotation on the main unbalanced node.
+
+```markdown
+
++--------------------------------------------------------+
+|                                                        |
+|                                                        |
+|               (1) Right rotation (bf > 1)              |
+|                    |                                   |
+|                    |                                   |
+|                    |         left.bf >= 0              |
+|   left.bf >= 0     +------+                            |
+|              <-------+    |                            |
+|                      |    |                            |
++----------------------+----+----------------------------+
+|                      |    |                            |
+|                      |    v                            |
+|               (2)  Left-Right rotation                 |
+|                      ^                                 |
+|                      |       left                      |
+|                      |                                 |
+|                      |                                 |
+|                                                        |
+|                      Check left to distinguish         |
+|                                                        |
+|                      left.bf < 0                       |
+|                                                        |
++--------------------------------------------------------+
+
+```
+
+---
+
 **Left Rotation**
 
 * The phrase "Left Rotation" should bring one of the below or both the images to our mind:
@@ -883,6 +926,49 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 * 
 * ![345denseAvlTreeRightLeftRotationProcess.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/345denseAvlTreeRightLeftRotationProcess.png)
 
+**How to remember?**
+
+* Remember this pair: **Left rotation Vs. Right-Left rotation**
+* The pair that starts with "Left" ends with "Left".
+* To distinguish, check the opposite, which is "Right".
+* For the left rotation, `main.bf < -1`.
+* If `right.bf <= 0`, then it is the pure (single) left rotation.
+* See the common relational comparator in the case of the pure (single) rotation.
+* Otherwise, if `right.bf > 0`, it is RL rotation.
+* In the RL rotation, first we perform the right rotation on the right child.
+* Then we perform the left rotation on the main unbalanced node.
+
+```markdown
+
++--------------------------------------------------------+
+|                                                        |
+|                                                        |
+|               (1) Left rotation (bf < -1)              |
+|                    |                                   |
+|                    |                                   |
+|                    |         right.bf <= 0             |
+|  right.bf <= 0     +------+                            |
+|              <-------+    |                            |
+|                      |    |                            |
++----------------------+----+----------------------------+
+|                      |    |                            |
+|                      |    v                            |
+|               (2)  Right-Left rotation                 |
+|                      ^                                 |
+|                      |       right.bf > 0              |
+|                      |                                 |
+|                      |                                 |
+|                                                        |
+|                      Check right to distinguish        |
+|                                                        |
+|                      right.bf > 0                      |
+|                                                        |
++--------------------------------------------------------+
+
+```
+
+---
+
 * Every time we insert or delete a node, we check the height and the balance of the parent node.
 * If `bf < -1`, we perform either the left rotation or the RL-rotation.
   * If `bf < -1` and `right.bf <= 0`, then left rotation.
@@ -900,10 +986,10 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 
 * When do we perform the left rotation on an unbalanced node?
 * When the balance factor of the unbalanced node is `< -1`.
-* If it is a pure left-rotation, then the balance factor of the right child will also be `< = 0`.
+* If it is a pure (single) left-rotation, then the balance factor of the right child will also be `< = 0`.
 * Otherwise, it is a RL rotation.
-* In RL rotation, first we rotate the right child to the right direction.
-* And then we rotate the unbalanced node to the left direction.
+* In RL rotation, first we rotate the right child in the right direction.
+* And then we rotate the unbalanced node in the left direction.
 
 **How do we find (distinguish) whether it is a right rotation or LR-rotation?**
 
@@ -918,7 +1004,7 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 
 * The binary heap tree is not a sorted tree.
 * The binary search tree is sorted for `In-Order(Left-Parent-Right)` traversal.
-* For almost every other operations, we need to consider two variations of a binary search tree: (1) A balanced binary search tree (2) A skewed binary search tree.
+* For almost every other operation, we need to consider two variations of a binary search tree: (1) A balanced binary search tree (2) A skewed binary search tree.
 * `Insert` is `O(log n)` in a heap.
 * In a heap, we perform the `swiftUp` operation to maintain the properties.
 * It takes `O(log n)` time (Tree height).
