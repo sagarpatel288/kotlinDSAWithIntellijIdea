@@ -69,7 +69,7 @@
 * For example, while trying to find `6`.
 * Similarly, if the node has a lower depth, we take less time.
 * For example, `3`.
-* If you remember, we have associated the well analogy with `depth` in [Trees](../module01BasicDataStructures/section03trees/010trees.md).
+* If you remember, we have associated the well (a deep hole) analogy with `depth` in [Trees](../module01BasicDataStructures/section03trees/010trees.md).
 * So, it is like a node that we want to find is in a well.
 * It is looking upside waiting for someone to descend into the well.
 
@@ -90,7 +90,7 @@
 * The key observation here is that the efficiency depends on the height of the tree.
 * And the height of a tree depends on the height of subtrees.
 * So, if we maintain the height of subtrees, we can maintain the height of the tree.
-* If the distribution (structure) of the subtrees is unbalanced, then the tree becomes taller, unbalanced and inefficient.
+* If the distribution (structure) of the subtrees is unbalanced, then the tree becomes taller, unbalanced, and inefficient.
 * So, if we control and maintain the distribution (structure) of the subtree, we can control the efficiency of the tree.
 * To control and maintain the distribution (structure) of a subtree, we need a way to define, and measure it.
 * We already know that "height" is the defining property.
@@ -688,7 +688,7 @@ if (bf < -1) {
 * If it is a pure (straight) left-sided tree, then the left child of the unbalanced node must have `balanceFactor(unbalancedNode.left) >= 0`.
 * So, the left child of the unbalanced node also belongs to the `positive` family, or at least the neutral (zero) family.
 * However, if `balanceFactor(unbalancedNode.left) < 0`, then it is zigzag and it is LR-Rotation.
-* So, when the balance factor of the unbalanced node belongs the positive family, but the balance factor of the left child of the unbalanced node belongs to the negative family, it is LR-Rotation.  
+* So, when the balance factor of the unbalanced node belongs to the positive family, but the balance factor linked to the left child of the unbalanced node belongs to the negative family, it is LR-Rotation.  
 * For example:
 
 ![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
@@ -839,15 +839,61 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 
 ## TL;DR
 
-* A binary search tree can become a degenerated, linear, tall, thin, and an unbalanced tree.
+* A binary search tree can become a degenerated, linear, tall, thin, and unbalanced tree.
 * To keep it balanced, we perform rotations.
+* The following are the main four rotations that we need to remember:
+
+**Right Rotation**
+
+* The phrase "Right Rotation" should bring one of the below or both the images to our mind:
+* 
+* ![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
+* 
+* OR
+* 
+* ![285denseAvlTreeRightRotationPulleyAnalogy.webp](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/285denseAvlTreeRightRotationPulleyAnalogy.webp)
+
+**Left-Right Rotation**
+
+* The phrase "Left-Right Rotation" or "LR Rotation" should bring one of the below or both the images to our mind:
+* 
+* ![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
+* 
+* OR
+* 
+* ![325denseAvlTreeLeftRightRotationProcess1.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/325denseAvlTreeLeftRightRotationProcess1.png)
+
+**Left Rotation**
+
+* The phrase "Left Rotation" should bring one of the below or both the images to our mind:
+* 
+* ![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
+* 
+* OR
+* 
+* ![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
+
+**Right-Left Rotation**
+
+* The phrase "Right-Left Rotation" or "RL Rotation" should bring one of the below or both the images to our mind:
+* 
+* ![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
+* 
+* OR
+* 
+* ![345denseAvlTreeRightLeftRotationProcess.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/345denseAvlTreeRightLeftRotationProcess.png)
+
 * Every time we insert or delete a node, we check the height and the balance of the parent node.
 * If `bf < -1`, we perform either the left rotation or the RL-rotation.
+  * If `bf < -1` and `right.bf <= 0`, then left rotation.
+  * If `bf < - 1` but `right.bf > 0`, then LR rotation.
 * If `bf > 1`, we perform either the right rotation or the LR-rotation.
+  * If `bf > 1` and `left.bf >= 0`, it is right rotation.
+  * If `bf > 1` but `left.bf < 0`, it is LR rotation.
 * We perform rotation primarily on the unbalanced node.
-* But in case of RL-rotation, first we rotate the right child of the unbalanced node to the right side.
+* But in the case of RL rotation, first we rotate the right child of the unbalanced node to the right side.
 * Then we rotate the unbalanced node to the left side.
-* Similarly, in LR-rotation, first we rotate the left child of the unbalanced node to the left side.
+* Similarly, in LR rotation, first we rotate the left child of the unbalanced node to the left side.
 * Then we rotate the unbalanced node to the right side.
 
 **How do we find (distinguish) whether it is a left rotation or RL-rotation?**
@@ -855,8 +901,8 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 * When do we perform the left rotation on an unbalanced node?
 * When the balance factor of the unbalanced node is `< -1`.
 * If it is a pure left-rotation, then the balance factor of the right child will also be `< = 0`.
-* Otherwise, it is a RL-rotation.
-* In RL-rotation, first we rotate the right child to the right direction.
+* Otherwise, it is a RL rotation.
+* In RL rotation, first we rotate the right child to the right direction.
 * And then we rotate the unbalanced node to the left direction.
 
 **How do we find (distinguish) whether it is a right rotation or LR-rotation?**
@@ -864,8 +910,8 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 * When do we perform the right rotation?
 * When the balance factor of the unbalanced node is `bf > 1`.
 * If it is a pure right-rotation, then the balance factor of the left child will also be `>= 0`.
-* Otherwise, it is LR-rotation.
-* In LR-rotation, we first rotate the left child in the left direction.
+* Otherwise, it is LR rotation.
+* In LR rotation, we first rotate the left child in the left direction.
 * And then we rotate the unbalanced node towards the right direction.
 
 ## What is the difference between a binary heap tree and a binary search tree?
