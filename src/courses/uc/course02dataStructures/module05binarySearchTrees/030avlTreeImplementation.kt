@@ -86,7 +86,7 @@ class AvlTree {
     // So, [root] is the single entry point of this data structure.
     // Why is it `var` and `nullable`?
     // Because in an empty `AvlTree`, there is no `root` node, hence `nullable`.
-    // And we may change the `root` value during various operations such as rotation,
+    // And we may change the `root` value during various operations such as rotation.
     var root: AvlNode? = null
 
     /**
@@ -96,6 +96,12 @@ class AvlTree {
      *
      * **WHAT:**
      * * A safe helper function to get the height of an [AvlNode].
+     * * This is not a recursive function or a function that calculates the height of the node.
+     * * It simply reads and returns the existing height of the nullable node with a non-null value.
+     * * This function is just a non-null safety wrapper of a nullable node to get (read) its height property.
+     * * The real-time (runtime?) calculation (update?) happens right after we perform the relevant operation.
+     * * Such as [insert], [delete], etc.
+     * * To calculate and update the height of a node, we use [updateHeightAndSize].
      *
      * **PURPOSE:**
      * * We use and compare the height of the left and right subtrees to [rebalance] the [AvlTree].
