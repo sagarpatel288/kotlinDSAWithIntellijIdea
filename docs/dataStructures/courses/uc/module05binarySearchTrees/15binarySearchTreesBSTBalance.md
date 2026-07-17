@@ -584,28 +584,32 @@ if (bf > 1) {
 
 ![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
 
-* We might get a question that focuses on the old and original parent of the unbalanced node.
-* How do we take care of the old and original parent of the unbalanced node? 
+* We might get a question that focuses on the old parent of the unbalanced node.
+* How do we take care of the old parent of the unbalanced node? 
 * How do we update its child?
 * Why don't we have any parent pointer?  
 * Because when we rotate the unbalanced node, the old parent of it gets the new child that was originally the grandchild. 
 * In the code, we change the parent of the unbalanced node, but not the child of the unbalanced node's old parent.
+* Does the old parent of the unbalanced node point to the unbalanced node even after the rotation?
 * The answer is:
 * We don't walk, we shift (move) the ground!
 * We don't change the parent pointers, the child takes the place!
 * Imagine that your left hand is on top of your right hand.
 * The left hand is steady, but we rotate the right hand.
-* The unbalanced node's old and original parent gets the new child as we rotate the unbalanced node.
+* The unbalanced node's old parent gets the new child as we rotate the unbalanced node.
 * For example, in the given image, we first rotate `1` to the left side.
 * Before we rotate `1`, `1` is the left child of `3`.
 * If we ask `3.left`, we get `1`.
-* As we rotate `1` to the left side, the old and original parent of `1`, which was `3`, gets the new child `2`.
+* As we rotate `1` to the left side, the old parent of `1`, which was `3`, gets the new child `2`.
 * We did not need the parent pointer.
-* The old and original parent of `1`, that is `3`, gets the new child (that was originally its grandchild) `2`.
+* The old parent of `1`, that is `3`, gets the new child (that was originally its grandchild) `2`.
 * We don't have a parent pointer.
 * But now if we ask `3.left`, we get `2`.
 * That's how rotating the unbalanced node also updates its old parent.
-
+* So, after the rotation, the unbalanced node is no more the child of its old parent.
+* The old parent of the unbalanced node points to a different node.
+* The old grandchild takes the place of the unbalanced node.
+* Hence, the old parent of the unbalanced node now points to this new node who was once a grandchild, but now a child.
 ---
 
 * We can do the Left-Right Rotation in two steps also, as shown in the image below.
