@@ -914,8 +914,17 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 * If `left.bf >= 0`, then it is the pure (single) right rotation.
 * See the common relational comparator in the case of the pure (single) rotation.
 * Otherwise, if `left.bf < 0`, it is LR rotation.
+* LR rotation means the cause is: "Right Of Left".
+  * Read it from right to left.
+  * So, LR becomes: Right Of Left.
+  * Draw it.
 * In the LR rotation, first we perform the left rotation on the left child.
 * Then we perform the right rotation on the main unbalanced node.
+* Remember it like this:
+  * Left-Right Rotation.
+  * "Left" comes first.
+  * So, Rotate "Left" on the "Left" side!
+  * Then, rotate the main unbalanced node on the "Right" side!
 
 ```markdown
 
@@ -923,8 +932,8 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 |                                                        |
 |                                                        |
 |               (1) Right rotation (bf > 1)              |
-|                    |                                   |
-|                    |                                   |
+|                    |                 |                 |
+|                    |                 |                 |
 |                    |         left.bf >= 0              |
 |   left.bf >= 0     +------+                            |
 |              <-------+    |                            |
@@ -934,13 +943,17 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 |                      |    v                            |
 |               (2)  Left-Right rotation                 |
 |                      ^                                 |
-|                      |       left                      |
+|                      |       left.bf < 0               |
 |                      |                                 |
 |                      |                                 |
 |                                                        |
 |                      Check left to distinguish         |
 |                                                        |
 |                      left.bf < 0                       |
+|                                                        |
+|               First, rotate left on the left side      |
+|                                                        |
+|        Then the unbalanced node on the right side      |
 |                                                        |
 +--------------------------------------------------------+
 
@@ -979,8 +992,17 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 * If `right.bf <= 0`, then it is the pure (single) left rotation.
 * See the common relational comparator in the case of the pure (single) rotation.
 * Otherwise, if `right.bf > 0`, it is RL rotation.
+* RL rotation is caused by: "Left Of Right"
+  * Read it from right to left.
+  * So, RL becomes "Left Of Right".
+  * Draw it.
 * In the RL rotation, first we perform the right rotation on the right child.
 * Then we perform the left rotation on the main unbalanced node.
+* We can remember it like this:
+  * Right-Left Rotation.
+  * "Right" comes first.
+  * So, we first rotate "Right" on the "Right" side.
+  * Then, we rotate the main unbalanced node on the "Left" side.
 
 ```markdown
 
@@ -988,9 +1010,9 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 |                                                        |
 |                                                        |
 |               (1) Left rotation (bf < -1)              |
-|                    |                                   |
-|                    |                                   |
-|                    |         right.bf <= 0             |
+|                    |                |                  |
+|                    |                |                  |
+|                    |       right.bf <= 0               |
 |  right.bf <= 0     +------+                            |
 |              <-------+    |                            |
 |                      |    |                            |
@@ -1007,6 +1029,10 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 |                                                        |
 |                      right.bf > 0                      |
 |                                                        |
+|             First, rotate right on the right side      |
+|                                                        |
+|         Then the unbalanced node on the left side      |
+|                                                        |
 +--------------------------------------------------------+
 
 ```
@@ -1018,7 +1044,7 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
   * If `bf < -1` and `right.bf <= 0`, then left rotation.
   * If `bf < - 1` but `right.bf > 0`, then LR rotation.
 * If `bf > 1`, we perform either the right rotation or the LR-rotation.
-  * If `bf > 1` and `left.bf >= 0`, it is right rotation.
+  * If `bf > 1` and `left.bf >= 0`, it is the right rotation.
   * If `bf > 1` but `left.bf < 0`, it is LR rotation.
 * We perform rotation primarily on the unbalanced node.
 * But in the case of RL rotation, first we rotate the right child of the unbalanced node to the right side.
