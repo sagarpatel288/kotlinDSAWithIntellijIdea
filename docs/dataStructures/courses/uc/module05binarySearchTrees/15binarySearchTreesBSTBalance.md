@@ -378,7 +378,7 @@ $$
 * A tree can become unbalanced after an insert or a delete operation.
 * Each node of the tree has the `height` and the `balance` properties.
 * Assume that we are performing the `insert` operation.
-* To ensure the binary search tree invariants, we perform the typical binary search.
+* Following the binary search tree invariant, we perform the typical binary search.
 * We find the right position (spot) to `insert` this new node.
 * A particular node will get a new child.
 * We increase the height of the node that has got this new child.
@@ -397,9 +397,9 @@ $$
 ### Code Consideration: Thought Process
 
 * Identify the cause and decide the rotation. 
-  * For example, if (bf < -1), then it is right-sided tree.
+  * For example, if (bf < -1), then it is a right-sided tree.
   * It means we need to perform either left rotation or RL-rotation.
-  * Similarly, if (bf > 1), then it is left-sided tree.
+  * Similarly, if (bf > 1), then it is a left-sided tree.
   * So, we need to perform either right rotation or LR-rotation.
   * LL-Cause leads right rotation, RR-Cause leads left rotation, LR-Cause leads LR-Rotation, and RL-Cause leads RL-Rotation. 
   * Decide the rotation based on the cause and effect.
@@ -410,7 +410,7 @@ $$
   * It will become the right child of the unbalanced node.
   * Think about this for the rotation that we perform.
 * Think about the affected nodes.
-* Consider 4 properties: Parent, left, right, and height (including the relevant edge cases).
+* Consider four properties: Parent, left, right, and height (including the relevant edge cases).
   * Consider the edge cases. 
   * For example, the upcoming (new, future) parent might not have all the children.
 * Take required references before the rotation. 
@@ -461,7 +461,7 @@ if (bf < -1) {
 
 ![290denseAvlTreeLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/290denseAvlTreeLeftRotation.png)
 
-* We can see that no matter how dense the tree is, we need to change the parents of only few nodes (3 to 4) to balance the entire tree.
+* We can see that no matter how dense the tree is, we need to change only a few nodes to re-balance the entire tree.
 
 ```kotlin
 
@@ -494,11 +494,13 @@ if (bf < -1) {
 
 ![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
 
+* When we rotate a grandparent to the left side, the left grandchild goes with them and becomes their right grandchild.
+
 ## AVL-Tree Basic Right Rotation Idea: (LL-Cause)
 
 * When we have an excessive left-subtree, we perform the right-rotation.
 * We also call it "LL-Rotation."
-* Because it happens when the left of left node causes the imbalance.
+* Because it happens when the left of the left node causes the imbalance.
 * So, remember that the name "LLR" is based upon the root cause of the imbalance.
 * And to fix it, we perform "Right Rotation."
 
@@ -563,6 +565,8 @@ if (bf > 1) {
 
 ![280denseAvlTreeRightRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/280denseAvlTreeRightRotationPulleyAnalogy.png)
 
+* If we rotate the grandparent to the right side, the right grandchild goes with them and becomes their left child.
+
 ## AVL-Tree Basic Left-Right Rotation Idea
 
 * Sometimes, we need to perform multiple rotations to balance the tree.
@@ -573,6 +577,37 @@ if (bf > 1) {
 * First, we perform the left rotation on the "**unbalancedNode.left**".
 * It establishes a different "left" child to the "**unbalancedNode**".
 * And then, we perform the right rotation on the "**unbalancedNode**".
+
+---
+
+* If we ever get a question about the original old parent of the unbalanced node, this is the right place to learn it.
+
+![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
+
+* We might get a question that focuses on the old and original parent of the unbalanced node.
+* How do we take care of the old and original parent of the unbalanced node? 
+* How do we update its child?
+* Why don't we have any parent pointer?  
+* Because when we rotate the unbalanced node, the old parent of it gets the new child that was originally the grandchild. 
+* In the code, we change the parent of the unbalanced node, but not the child of the unbalanced node's old parent.
+* The answer is:
+* We don't walk, we shift (move) the ground!
+* We don't change the parent pointers, the child takes the place!
+* Imagine that your left hand is on top of your right hand.
+* The left hand is steady, but we rotate the right hand.
+* The unbalanced node's old and original parent gets the new child as we rotate the unbalanced node.
+* For example, in the given image, we first rotate `1` to the left side.
+* Before we rotate `1`, `1` is the left child of `3`.
+* If we ask `3.left`, we get `1`.
+* As we rotate `1` to the left side, the old and original parent of `1`, which was `3`, gets the new child `2`.
+* We did not need the parent pointer.
+* The old and original parent of `1`, that is `3`, gets the new child (that was originally its grandchild) `2`.
+* We don't have a parent pointer.
+* But now if we ask `3.left`, we get `2`.
+* That's how rotating the unbalanced node also updates its old parent.
+
+---
+
 * We can do the Left-Right Rotation in two steps also, as shown in the image below.
 
 ![310avlTreeLeftRightRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/310avlTreeLeftRightRotationTwoSteps.png)
@@ -846,21 +881,24 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 **Right Rotation**
 
 * The phrase "Right Rotation" should bring one of the below or both the images to our mind:
-* 
+ 
 * ![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
-* 
+
 * OR
-* 
+ 
 * ![285denseAvlTreeRightRotationPulleyAnalogy.webp](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/285denseAvlTreeRightRotationPulleyAnalogy.webp)
+ 
+* When a grandparent moves to the right side, the right grandchild moves with them.
+* When we rotate the grandparent to the right side, the old right grandchild becomes their new left child.
 
 **Left-Right Rotation**
 
 * The phrase "Left-Right Rotation" or "LR Rotation" should bring one of the below or both the images to our mind:
-* 
+
 * ![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
-* 
+ 
 * OR
-* 
+ 
 * ![325denseAvlTreeLeftRightRotationProcess1.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/325denseAvlTreeLeftRightRotationProcess1.png)
 
 **How to remember?**
@@ -909,12 +947,14 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 **Left Rotation**
 
 * The phrase "Left Rotation" should bring one of the below or both the images to our mind:
-* 
+
 * ![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
-* 
+ 
 * OR
-* 
+ 
 * ![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
+
+* When we rotate the grandparent to the left side, the old left grandchild becomes their new right child.
 
 **Right-Left Rotation**
 
