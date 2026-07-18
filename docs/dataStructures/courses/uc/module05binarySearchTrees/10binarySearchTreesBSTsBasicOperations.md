@@ -122,6 +122,10 @@ fun find(key: Int, rootNode: Node?): Node? {
 
 ## Next (Adjacent Element, Next Largest)
 
+* //ToDo: Add explanation and pseudocode that does not use any parent pointer.
+* Check:
+* [Avl Tree Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
+
 * We want to find the **next largest** key than the given node.
 * Now, there are two possibilities:
   * Either the subject node has a right subtree.
@@ -230,6 +234,10 @@ fun nextLargerParent(node: Node?): Node? {
 }
 
 ```
+
+* //ToDo: Add explanation and pseudocode that does not use a parent pointer.
+* Check:
+* [Avl Tree Implementation.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
 ## Range Search
 
@@ -351,6 +359,10 @@ fun rangeSearch(xLeftLimit: Int, yRightLimit: Int): List<Int> {
 
 ## Insert
 
+* //ToDo: Add explanation and pseudocode that does not use any parent pointer.
+* Check:
+* [Avl Tree Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
+
 ![70bstInsert.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/70bstInsert.png)
 
 * Suppose, we want to insert a node with key `4`.
@@ -450,7 +462,15 @@ fun insert(key: Int, rootNode: Node?) {
 }
 ```
 
+* //ToDo: Add explanation and pseudocode that does not use any parent pointer.
+* Check:
+* [Avl Tree Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
+
 ## Delete
+
+* //ToDo: Add explanation and pseudocode that does not use any parent pointer.
+* Check:
+* [Avl Tree Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
 * While performing the `delete` operation, we need to ensure and keep the tree a valid BST.
 * We can keep the tree a valid binary search tree by taking care of (by handling):
@@ -644,6 +664,10 @@ fun delete(nodeToDelete: Node?) {
 }
 
 ```
+
+* //ToDo: Add explanation and pseudocode that does not use any parent pointer.
+* Check:
+* [Avl Tree Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
 ## Summary
 
