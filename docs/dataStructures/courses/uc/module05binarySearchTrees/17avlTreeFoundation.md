@@ -10,6 +10,7 @@
   * [UpdateHeightAndSize (The function that updates the height and size)](#updateheightandsize-the-function-that-updates-the-height-and-size)
   * [BalanceFactor](#balancefactor)
   * [Rotations](#rotations)
+    * [Critical](#critical)
     * [How to remember?](#how-to-remember)
   * [Other Functions](#other-functions)
 <!-- TOC -->
@@ -139,6 +140,18 @@ val balanceFactor: Int
 ---
 * When we rotate a node on the right side, the right grandchild becomes their left child.
 * And their old left child becomes their parent.
+
+### Critical
+
+* It is not only about the rotations.
+* We perform one or more rotations to rebalance one or more nodes.
+* Every time we insert or delete a node, it can cause one or multiple rotations.
+* Each rotation can change the root, connections (like `left` or `right`), height, and size of one or multiple nodes.
+* So, it is critical that we update the root, connection, height, and size of one or multiple nodes after every rotation.
+* That's why every rotation returns a `node`.
+* We can use this returned node to update the root or to attach it as a new child to its parent.
+* The process has the potential to propagate these changes upto the root.
+* Hence, when applicable, we also ensure to update the root.
 
 ### How to remember?
 
