@@ -466,6 +466,10 @@ fun insert(key: Int, rootNode: Node?) {
 * What are the edge cases?
   * Maybe, the `nodeToDelete` is `null`. 
   * Maybe, the `nodeToDelete` is the `rootNode`!
+  * Maybe, there is no left child of the `nodeToDelete`!
+  * Maybe, there is no right child of the `nodeToDelete`!
+  * Maybe, `nodeToDelete` does not have any child at all!
+  * Maybe, `nodeToDelete` has both the children!
 
 **How do we manage the pointers?**
 
