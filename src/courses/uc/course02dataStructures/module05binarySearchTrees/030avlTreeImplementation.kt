@@ -25,6 +25,11 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * * So, the height of the leaf node is 1.
  *
  * **ToDo:**
+ * * There is no `nextLarger` function! Why?
+ * * I believe that we can find `nextLarger` without the `parent` pointer by a simple binary search!
+ * * We may take 3 variables: `prev`, `cur`, and `next`.
+ * * If we ever find that there is no more right child, we can return the `prev` value as the `nextLarger`.
+ * * I believe there must be equally efficient way to find the `nextLarger` without the `parent` pointer.
  * * Explain time and space complexity for each function.
  * * Add and maintain one more field, called `size`.
  * * The `size` field is useful for problems like: Find the $K^{th}$ smallest element (key).
@@ -158,8 +163,8 @@ class AvlTree {
         // The `maxOf` function does not accept a nullable value.
         // But, our helper function [height] handles it.
         // So, this is the reason (purpose) of that helper function [height].
-        avlNode?.height = 1 + maxOf(height(avlNode?.left), height(avlNode?.right))
-        avlNode?.size = 1 + (avlNode?.left?.size ?: 0) + (avlNode?.right?.size ?: 0)
+        avlNode?.height = 1 + maxOf(height(avlNode.left), height(avlNode.right))
+        avlNode?.size = 1 + (avlNode.left?.size ?: 0) + (avlNode.right?.size ?: 0)
     }
 
     /**
@@ -224,14 +229,18 @@ class AvlTree {
      * * In the [rotateRight] operation, we update some pointers and [updateHeightAndSize] for a couple of [AvlNode]s.
      * * It is `O(1)` time operation.
      */
-    private fun rotateRight(node: AvlNode): AvlNode {
+    private fun rotateRight(node: AvlNode?): AvlNode? {
         // Left cannot be null, because we are doing `rotateRight` on the `node`.
         // It means that the `node` is left-heavy!
         // Does it sound like a code-smell?
         // Does it tell us that the type signature is not as tight as it should be?
         // Just let me know if we can do this in a better way.
-        val left = node.left!!
-        // No null-safe operator on the `left` because we have used `!!` before.
+        // If it does not have the left child, we cannot rotate it.
+        // In that case, we can't proceed further.
+        // So the moment we find that it does not have the left child, we return!
+        val left = node?.left ?: return node
+        // No null-safe operator on the `left` because if `left` was null, we would have returned earlier.
+        // If `left` was null, we would have not reached to this line.
         val rightOfleft = left.right
         left.right = node
         node.left = rightOfleft
@@ -266,19 +275,23 @@ class AvlTree {
      * * It changes a few pointers and updates the height of a couple of [AvlNode]s.
      * * It is `O(1)` time operation.
      */
-    private fun rotateLeft(node: AvlNode): AvlNode {
+    private fun rotateLeft(node: AvlNode?): AvlNode? {
         // We are rotating the incoming `node` on the left side.
         // It means that the incoming `node` is heavy on the right side.
         // So, we can safely expect that the right side of this incoming `node` is not null.
         // Does it sound like a code-smell?
         // Does it tell us that the type signature is not as tight as it should be?
         // Just let me know if we can do this in a better way.
-        val right = node.right!!
-        // We don't need to use the null-safe operator on the `right` node, because we have already used `!!` before.
+        // If the node does not have the right child, we cannot rotate the node!
+        // In that case, we don't continue the process.
+        // If the node does not have the right child, we abort the process and return the node!
+        val right = node?.right ?: return node
+        // We don't need to use the null-safe operator on the `right` node
+        // because if it was null, we would have returned earlier and we would not have reached to this line!
         val leftOfRight = right.left
         right.left = node
         node.right = leftOfRight
-        // Update the height and size from children to parent order
+        // Update the height and size in the order of children to parent.
         // The children of `leftOfRight` are unaffected.
         // So, there is no change in the height and size of the `leftOfRight`.
         updateHeightAndSize(node)
@@ -309,33 +322,34 @@ class AvlTree {
      * * All the rotation methods, such as [rotateRight] and [rotateLeft], also take `O(1)` time.
      * * So, the entire [rebalance] operation is `O(1)` time operation, which is wonderful!
      */
-    private fun rebalance(node: AvlNode): AvlNode {
+    private fun rebalance(node: AvlNode): AvlNode? {
         updateHeightAndSize(node)
         val bf = balanceFactor(node)
         when {
             // This `node` is heavy on the left side. So, we need to `rotateRight`.
             bf > 1 && balanceFactor(node.left) >= 0 -> return rotateRight(node)
             bf > 1 && balanceFactor(node.left) < 0 -> {
-                // This is ultimately a left-sided tree only, but there is an LR-imbalance.
+                // This is ultimately a left-sided tree only, but there is an LR imbalance.
+                // Cause: Right of Left
                 // So, we need to perform the double rotation: LR-Rotation.
                 // We can safely expect a non-null left child when the node is LR-imbalanced.
-                // In an LR-imbalance, first we rotate the `node.left` towards the left side.
+                // In an LR imbalance, first we rotate the `node.left` towards the left side.
                 // The resultant node of the rotation becomes the `node.left`.
                 // Then we rotate the unbalanced `node` towards the right side.
-                node.left = rotateLeft(node.left!!)
+                node.left = rotateLeft(node.left)
                 return rotateRight(node)
             }
             // The node is heavy on the right side. So, we need to rotate it towards the left side.
             bf < -1 && balanceFactor(node.right) <= 0 -> return rotateLeft(node)
             bf < -1 && balanceFactor(node.right) > 0 -> {
-                // The tree is right-sided, but there is an RL-imbalance.
+                // The tree is right-sided, but there is an RL imbalance.
                 // So, we need to perform the double rotation: RL-Rotation.
                 // So, first we rotate the `node.right` towards the right side.
-                // It is an RL-imbalance.
+                // It is an RL imbalance.
                 // So, we can safely expect a non-null right child of the unbalanced node.
                 // The resultant node of the rotation becomes the `node.right`.
                 // And then we rotate the unbalanced `node` towards the left side.
-                node.right = rotateRight(node.right!!)
+                node.right = rotateRight(node.right)
                 return rotateLeft(node)
             }
             // The `node` is already balanced. No need to do anything. We return the already balanced node as it is.
@@ -418,7 +432,7 @@ class AvlTree {
      * @param key The [AvlNode.keyValue] property of the new [AvlNode] that we want to insert as a child of [node].
      * @return The updated [root]. Because inserting a new node can change the height of the [root].
      */
-    private fun insert(node: AvlNode?, key: Int): AvlNode {
+    private fun insert(node: AvlNode?, key: Int): AvlNode? {
         // Standard BST insert.
         // Base case.
         // We found a vacant place.
@@ -430,8 +444,10 @@ class AvlTree {
         }
         // We don't need to use the null safe operator `?` because we have already checked the null node case before.
         if (key > node.keyValue) {
+            // The ancestor `node` is getting the right child!
             node.right = insert(node.right, key)
         } else if (key < node.keyValue) {
+            // The ancestor `node` is getting a left child!
             node.left = insert(node.left, key)
         } else {
             // We don't allow duplicate nodes/keys.
@@ -723,6 +739,40 @@ class AvlTree {
     }
 
     /**
+     * There are various variations of this [nextLarger] problem.
+     * Here, it must be strictly greater.
+     * If there is no greater key than the given [key], then return the equal [AvlNode] that has the same [key].
+     * If there is no [AvlNode] that has the [AvlNode.keyValue] that is equal to or greater than the given [key],
+     * then return null.
+     */
+    fun nextLarger(key: Int): AvlNode? {
+        if (root == null) return null
+        var curr = root
+        var successor: AvlNode? = null
+        var equal: AvlNode? = null
+        while (curr != null) {
+            when {
+                key > curr.keyValue -> {
+                    curr = curr.right
+                }
+                key < curr.keyValue -> {
+                    // This could be the next larger value, but we might find a smaller value that is still larger
+                    // than the key by going to the left side
+                    successor = curr
+                    curr = curr.left
+                }
+                else -> {
+                    equal = curr
+                    // We know that from this point, if we go to the left side, we will find a smaller value
+                    // So, we try to find it on the right side
+                    curr = curr.right
+                }
+            }
+        }
+        return successor ?: equal
+    }
+
+    /**
      * * None of the parameters of this function [mergeTwoAvlTrees] is nullable.
      * * //ToDo: After adding the [split], we may need to adjust this `nullable` thing.
      * * Because, before we call this function from the [mergeTwoAvlTrees], we already check if any node is null.
@@ -735,7 +785,7 @@ class AvlTree {
      * * This is a recursive function.
      * * And the call stack cannot be more than `O(log n)`.
      */
-    private fun mergeTwoAvlTrees(leftTreeNode: AvlNode?, rightTreeNode: AvlNode?, pivot: AvlNode): AvlNode {
+    private fun mergeTwoAvlTrees(leftTreeNode: AvlNode?, rightTreeNode: AvlNode?, pivot: AvlNode): AvlNode? {
         val leftTreeHeight = height(leftTreeNode)
         val rightTreeHeight = height(rightTreeNode)
         return when {
@@ -764,7 +814,7 @@ class AvlTree {
                 // It is technically true that an [AvlNode] can have a null right child, but not in this case.
                 // So, we have to use the non-null assertion.
                 // I don't know if we can do it in a better way (tight signature, and no code-smell).
-                leftTreeNode?.right = mergeTwoAvlTrees(leftTreeNode?.right!!, rightTreeNode, pivot)
+                leftTreeNode?.right = mergeTwoAvlTrees(leftTreeNode.right, rightTreeNode, pivot)
                 // Clearly, the children and hence, the height of the `leftTreeNode` might have been changed.
                 // So, before we return the `leftTreeNode`, we need to rebalance it.
                 rebalance(leftTreeNode!!)
@@ -780,7 +830,7 @@ class AvlTree {
                 // It returns us the root (pivot) of that merged tree.
                 // We get it here and re-attach via the assignment:
                 // `rightTreeNode.left = ...`
-                rightTreeNode?.left = mergeTwoAvlTrees(leftTreeNode, rightTreeNode?.left!!, pivot)
+                rightTreeNode?.left = mergeTwoAvlTrees(leftTreeNode, rightTreeNode.left, pivot)
                 // The children and hence the height of the `rightTreeNode` might have been changed.
                 // We must rebalance it.
                 rebalance(rightTreeNode!!)
