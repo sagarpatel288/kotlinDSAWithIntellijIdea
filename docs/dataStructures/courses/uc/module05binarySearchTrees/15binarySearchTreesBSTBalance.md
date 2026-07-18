@@ -4,6 +4,7 @@
 * [Balancing A Binary Search Tree (BST)](#balancing-a-binary-search-tree-bst)
   * [Prerequisites/References](#prerequisitesreferences)
   * [Objectives](#objectives)
+  * [Caution](#caution)
   * [Understanding the basic runtime of a binary search tree operation](#understanding-the-basic-runtime-of-a-binary-search-tree-operation)
   * [The depth problem](#the-depth-problem)
   * [How does the re-balancing solve the depth problem?](#how-does-the-re-balancing-solve-the-depth-problem)
@@ -59,6 +60,16 @@
 * Understand the basic runtime of a binary search tree operation.
 * Understand the motivation behind the binary search tree balancing.
 * Implement rotation.
+
+## Caution
+
+> [!WARNING]
+> Before moving forward to understand the problem and rotations, ensure that...
+
+* You understand: [Binary Search Tree BST Basic Operations](10binarySearchTreesBSTsBasicOperations.md).
+* If you skip that part, it might become difficult to connect the dots.
+* So, ensure that you understand:
+* [Binary Search Tree BST Basic Operations](10binarySearchTreesBSTsBasicOperations.md).
 
 ## Understanding the basic runtime of a binary search tree operation
 
