@@ -244,7 +244,16 @@ class AvlTree {
         val rightOfleft = left.right
         left.right = node
         node.left = rightOfleft
-        // Update height and size from children to parent order
+        // Caution! Possible point of mistake!
+        // Don't forget to update height and size of parents and children.
+        // A rotation can change the height and size of the node, to rebalance it.
+        // That's the whole purpose of the rotation!
+        // A rotation rebalances a node by changing its height and size!
+        // After each rotation, we must update height and size of the affected nodes.
+        // Children gets the priority, followed by the parent.
+        // Update the height and size in the order of children to parent.
+        // We are talking about the current child and parent.
+        // The incoming unbalanced node is now a child.
         // The children of `rightOfLeft` are unaffected.
         // So, there is no change in the height and size of the `rightOfLeft`.
         updateHeightAndSize(node)
@@ -287,11 +296,20 @@ class AvlTree {
         // If the node does not have the right child, we abort the process and return the node!
         val right = node?.right ?: return node
         // We don't need to use the null-safe operator on the `right` node
-        // because if it was null, we would have returned earlier and we would not have reached to this line!
+        // because if it was null, we would have returned earlier, and we would not have reached to this line!
         val leftOfRight = right.left
         right.left = node
         node.right = leftOfRight
+        // Caution! Possible point of mistake!
+        // Don't forget to update height and size of parents and children.
+        // A rotation can change the height and size of the node, to rebalance it.
+        // That's the whole purpose of the rotation!
+        // A rotation rebalances a node by changing its height and size!
+        // After each rotation, we must update height and size of the affected nodes.
+        // Children gets the priority, followed by the parent.
         // Update the height and size in the order of children to parent.
+        // We are talking about the current child and parent.
+        // The incoming unbalanced node is now a child.
         // The children of `leftOfRight` are unaffected.
         // So, there is no change in the height and size of the `leftOfRight`.
         updateHeightAndSize(node)
@@ -327,6 +345,9 @@ class AvlTree {
         val bf = balanceFactor(node)
         when {
             // This `node` is heavy on the left side. So, we need to `rotateRight`.
+            // Caution! Possible point of mistake!
+            // There is no assignment for the single rotation!
+            // Because the caller of this function takes care of it!
             bf > 1 && balanceFactor(node.left) >= 0 -> return rotateRight(node)
             bf > 1 && balanceFactor(node.left) < 0 -> {
                 // This is ultimately a left-sided tree only, but there is an LR imbalance.
@@ -336,10 +357,19 @@ class AvlTree {
                 // In an LR imbalance, first we rotate the `node.left` towards the left side.
                 // The resultant node of the rotation becomes the `node.left`.
                 // Then we rotate the unbalanced `node` towards the right side.
+                // Caution! Possible point of mistake!
+                // Don't forget to assign the return type before the second rotation!
+                // If you find it difficult to understand, draw the simple LR rotation.
+                // Here, `node` is the parent and we are rotating its left child `node.left`.
+                // So, it is obvious that the parent `node` will possibly get a different left child.
+                // Hence, `node.left = rotateLeft...`
                 node.left = rotateLeft(node.left)
                 return rotateRight(node)
             }
             // The node is heavy on the right side. So, we need to rotate it towards the left side.
+            // Caution! Possible point of mistake!
+            // There is no assignment for the single rotation!
+            // Because the caller of this function takes care of it!
             bf < -1 && balanceFactor(node.right) <= 0 -> return rotateLeft(node)
             bf < -1 && balanceFactor(node.right) > 0 -> {
                 // The tree is right-sided, but there is an RL imbalance.
@@ -349,6 +379,12 @@ class AvlTree {
                 // So, we can safely expect a non-null right child of the unbalanced node.
                 // The resultant node of the rotation becomes the `node.right`.
                 // And then we rotate the unbalanced `node` towards the left side.
+                // Caution! Possible point of mistake!
+                // Don't forget to assign the return type before the second rotation!
+                // If you find it difficult to understand, draw the simple RL rotation.
+                // Here, `node` is the parent and we are rotating its right child `node.right`.
+                // So, it is obvious that the parent `node` will possibly get a different right child.
+                // Hence, `node.right = rotateRight...`
                 node.right = rotateRight(node.right)
                 return rotateLeft(node)
             }
@@ -380,6 +416,14 @@ class AvlTree {
      * * The private helper function [insert] gives the [root] node with the updated height and ensures the balance.
      */
     fun insert(key: Int) {
+        // Caution! Possible point of mistake!
+        // Don't forget to assign/update: `root = insert...`
+        // Why do we update root? Why do we assign the return of `insert` to `root`?
+        // Remember, `insert` is `O(log n)` operation in an `AVLTree`.
+        // It is not `O(1)` operation.
+        // Because `insert` is a recursive function.
+        // It starts with `root`.
+        // Hence, it ends with `root`.
         root = insert(root, key)
     }
 
@@ -444,9 +488,13 @@ class AvlTree {
         }
         // We don't need to use the null safe operator `?` because we have already checked the null node case before.
         if (key > node.keyValue) {
+            // Caution! Possible point of mistake!
+            // Don't forget the assignment: `node.right = insert...`
             // The ancestor `node` is getting the right child!
             node.right = insert(node.right, key)
         } else if (key < node.keyValue) {
+            // Caution! Possible point of mistake!
+            // Don't forget the assignment: `node.left = insert...`
             // The ancestor `node` is getting a left child!
             node.left = insert(node.left, key)
         } else {
@@ -456,12 +504,14 @@ class AvlTree {
             return node
         }
 
-        // Update the height and size of this ancestor node as it has a new child
-        updateHeightAndSize(node)
-
+        // Caution! Possible point of mistake!
+        // Don't forget to `rebalance` the `node`.
+        // The `rebalance` function will also `updateHeightAndSize` before calculating the balance factor.
         // Ensure the balance and return the balanced node.
         // At this point, we are sure that the `node` is not null.
         // Hence, the `rebalance` cannot return a `null` value.
+        // The returned `node` of this `rebalance` call will be propagated and attached to the above
+        // `node.right = insert...` or `node.left = insert...`
         return rebalance(node)
     }
 
@@ -481,6 +531,14 @@ class AvlTree {
      * * It uses a private helper function [delete].
      */
     fun delete(key: Int) {
+        // Caution! Possible point of mistake!
+        // Don't forget to assign/update the `root = delete...`
+        // Why do we update root? Why do we assign the return of `delete` to `root`?
+        // Remember, `delete` is `O(log n)` operation in an `AVLTree`.
+        // It is not `O(1)` operation.
+        // Because `delete` is a recursive function.
+        // It starts with `root`.
+        // Hence, it ends with `root`.
         root = delete(root, key)
     }
 
@@ -619,6 +677,8 @@ class AvlTree {
             }
         }
         // Ensure the balance. Return the balanced node.
+        // The returned `node` of this `rebalance` call will be propagated and attached to the above
+        // `node.right = delete...` or `node.left = delete...`
         return rebalance(node)
     }
 
@@ -735,6 +795,8 @@ class AvlTree {
         // This is a balance journey from children to the root, from successors to ancestors.
         // When the recursion function finally returns the actual and balanced `root` node,
         // we are sure that the `root` node, successors, and the AvlTree are balanced.
+        // The returned `node` of this `rebalance` call will be propagated and attached to the above
+        // `node.right = deleteMax...`
         return rebalance(rootNode)
     }
 
@@ -817,6 +879,7 @@ class AvlTree {
                 leftTreeNode?.right = mergeTwoAvlTrees(leftTreeNode.right, rightTreeNode, pivot)
                 // Clearly, the children and hence, the height of the `leftTreeNode` might have been changed.
                 // So, before we return the `leftTreeNode`, we need to rebalance it.
+                // The returned `node` of this `rebalance` call will be propagated and attached.
                 rebalance(leftTreeNode!!)
             }
 
@@ -833,6 +896,7 @@ class AvlTree {
                 rightTreeNode?.left = mergeTwoAvlTrees(leftTreeNode, rightTreeNode.left, pivot)
                 // The children and hence the height of the `rightTreeNode` might have been changed.
                 // We must rebalance it.
+                // The returned `node` of this `rebalance` call will be propagated and attached.
                 rebalance(rightTreeNode!!)
             }
         }
@@ -883,6 +947,7 @@ class AvlTree {
             pivot.right = rightTreeRoot
             // If the leftTree has become null because it had only one node and we made it the pivot,
             // we need to rebalance the `pivot` after we attach the `rightTree` to its right side.
+            // The returned `node` of this `rebalance` call will be propagated and attached.
             val mergedRoot = rebalance(pivot)
             mergedTree.root = mergedRoot
             return mergedTree
