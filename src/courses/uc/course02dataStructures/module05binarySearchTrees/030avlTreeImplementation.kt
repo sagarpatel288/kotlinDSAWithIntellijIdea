@@ -232,12 +232,12 @@ class AvlTree {
     private fun rotateRight(node: AvlNode?): AvlNode? {
         // Left cannot be null, because we are doing `rotateRight` on the `node`.
         // It means that the `node` is left-heavy!
-        // Does it sound like a code-smell?
-        // Does it tell us that the type signature is not as tight as it should be?
-        // Just let me know if we can do this in a better way.
+        // But if we use non-null assertion `!!`, then it is a code-smell.
+        // It tells us that the type signature is not as tight as it should be!
         // If it does not have the left child, we cannot rotate it.
         // In that case, we can't proceed further.
         // So the moment we find that it does not have the left child, we return!
+        // So, instead of the non-null assertion `!!`, we use elvis operator.
         val left = node?.left ?: return node
         // No null-safe operator on the `left` because if `left` was null, we would have returned earlier.
         // If `left` was null, we would have not reached to this line.
