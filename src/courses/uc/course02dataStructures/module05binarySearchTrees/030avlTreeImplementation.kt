@@ -229,7 +229,7 @@ class AvlTree {
      * * In the [rotateRight] operation, we update some pointers and [updateHeightAndSize] for a couple of [AvlNode]s.
      * * It is `O(1)` time operation.
      */
-    private fun rotateRight(node: AvlNode?): AvlNode? {
+    private fun rotateRight(node: AvlNode): AvlNode {
         // Left cannot be null, because we are doing `rotateRight` on the `node`.
         // It means that the `node` is left-heavy!
         // But if we use non-null assertion `!!`, then it is a code-smell.
@@ -238,7 +238,7 @@ class AvlTree {
         // In that case, we can't proceed further.
         // So the moment we find that it does not have the left child, we return!
         // So, instead of the non-null assertion `!!`, we use elvis operator.
-        val left = node?.left ?: return node
+        val left = node.left ?: return node
         // No null-safe operator on the `left` because if `left` was null, we would have returned earlier.
         // If `left` was null, we would have not reached to this line.
         val rightOfleft = left.right
@@ -284,7 +284,7 @@ class AvlTree {
      * * It changes a few pointers and updates the height of a couple of [AvlNode]s.
      * * It is `O(1)` time operation.
      */
-    private fun rotateLeft(node: AvlNode?): AvlNode? {
+    private fun rotateLeft(node: AvlNode): AvlNode {
         // We are rotating the incoming `node` on the left side.
         // It means that the incoming `node` is heavy on the right side.
         // So, we can safely expect that the right side of this incoming `node` is not null.
@@ -294,7 +294,7 @@ class AvlTree {
         // If the node does not have the right child, we cannot rotate the node!
         // In that case, we don't continue the process.
         // If the node does not have the right child, we abort the process and return the node!
-        val right = node?.right ?: return node
+        val right = node.right ?: return node
         // We don't need to use the null-safe operator on the `right` node
         // because if it was null, we would have returned earlier, and we would not have reached to this line!
         val leftOfRight = right.left
@@ -319,6 +319,9 @@ class AvlTree {
     }
 
     /**
+     * **About the non-null argument**
+     * * We cannot "rebalance" a "null" node!
+     *
      * **Why does it (the [rebalance] function) expect a non-null argument?**
      * * It depends on who uses (calls) it (the [rebalance] function).
      * * [insert], [delete], [deleteMax], and [mergeTwoAvlTrees].
@@ -340,7 +343,7 @@ class AvlTree {
      * * All the rotation methods, such as [rotateRight] and [rotateLeft], also take `O(1)` time.
      * * So, the entire [rebalance] operation is `O(1)` time operation, which is wonderful!
      */
-    private fun rebalance(node: AvlNode): AvlNode? {
+    private fun rebalance(node: AvlNode): AvlNode {
         updateHeightAndSize(node)
         val bf = balanceFactor(node)
         when {
@@ -358,12 +361,12 @@ class AvlTree {
                 // The resultant node of the rotation becomes the `node.left`.
                 // Then we rotate the unbalanced `node` towards the right side.
                 // Caution! Possible point of mistake!
-                // Don't forget to assign the return type before the second rotation!
+                // Remember to assign the return type before the second rotation!
                 // If you find it difficult to understand, draw the simple LR rotation.
-                // Here, `node` is the parent and we are rotating its left child `node.left`.
+                // Here, `node` is the parent, and we are rotating its left child `node.left`.
                 // So, it is obvious that the parent `node` will possibly get a different left child.
                 // Hence, `node.left = rotateLeft...`
-                node.left = rotateLeft(node.left)
+                node.left = rotateLeft(requireNotNull(node.left) {"LR imbalance requires non-null left child"})
                 return rotateRight(node)
             }
             // The node is heavy on the right side. So, we need to rotate it towards the left side.
@@ -380,12 +383,12 @@ class AvlTree {
                 // The resultant node of the rotation becomes the `node.right`.
                 // And then we rotate the unbalanced `node` towards the left side.
                 // Caution! Possible point of mistake!
-                // Don't forget to assign the return type before the second rotation!
+                // Remember to assign the return type before the second rotation!
                 // If you find it difficult to understand, draw the simple RL rotation.
-                // Here, `node` is the parent and we are rotating its right child `node.right`.
+                // Here, `node` is the parent, and we are rotating its right child `node.right`.
                 // So, it is obvious that the parent `node` will possibly get a different right child.
                 // Hence, `node.right = rotateRight...`
-                node.right = rotateRight(node.right)
+                node.right = rotateRight(requireNotNull(node.right) {"RL rotation requires non-null right child"})
                 return rotateLeft(node)
             }
             // The `node` is already balanced. No need to do anything. We return the already balanced node as it is.
@@ -453,6 +456,20 @@ class AvlTree {
      * * We repeat this process of updating the height, checking the balance factor, and rebalancing if required.
      * * We do it from the parent [node] of the new node of [key] all the way up to the [root] node.
      * * Finally, we return the updated [root].
+     *
+     * **About the nullable arguments**
+     * * To insert a new node we find the available spot.
+     * * We use the standard BST Traversal to find the available spot.
+     * * And the way we determine the available spot is when the child node is null.
+     * * When `key > node.key`, we go to the right side and to go to the right side, we use: `node.right`.
+     * * So, it becomes: `node.right = insert(node.right, key)`
+     * * If `node.right` is null, we attach (insert) the node and it becomes: `node.right = Node(key)`.
+     * * Similarly, when `key < node.key`, we go to the left side by using `node.left`.
+     * * So, it becomes `node.left = insert(node.left, key)`.
+     * * If `node.left` is null, we attach (insert) the node and it becomes: `node.left = Node(key)`.
+     * * The point is, `nullability` is the deterministic factor using which we attach and insert the new node.
+     * * Hence, `insert` has the nullable argument.
+     *
      *
      * **Time Complexity:**
      * * To insert an [AvlNode], we use the typical binary search tree approach.
