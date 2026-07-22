@@ -501,17 +501,18 @@ class AvlTree {
         if (node == null) {
             // The default height of the [AvlNode] is `1` only. So, we don't need to do anything else.
             // Hence, we return.
+            // Commonly, this node is going to attach with the below `node.right = ` or `node.left = `.
             return AvlNode(key)
         }
         // We don't need to use the null safe operator `?` because we have already checked the null node case before.
         if (key > node.keyValue) {
             // Caution! Possible point of mistake!
-            // Don't forget the assignment: `node.right = insert...`
+            // Remember the assignment: `node.right = insert...`
             // The ancestor `node` is getting the right child!
             node.right = insert(node.right, key)
         } else if (key < node.keyValue) {
             // Caution! Possible point of mistake!
-            // Don't forget the assignment: `node.left = insert...`
+            // Remember the assignment: `node.left = insert...`
             // The ancestor `node` is getting a left child!
             node.left = insert(node.left, key)
         } else {
@@ -522,7 +523,8 @@ class AvlTree {
         }
 
         // Caution! Possible point of mistake!
-        // Don't forget to `rebalance` the `node`.
+        // Remember to `rebalance` the `node`.
+        // This is for the `node.right = ...` or `node.left = ...` ancestors.
         // The `rebalance` function will also `updateHeightAndSize` before calculating the balance factor.
         // Ensure the balance and return the balanced node.
         // At this point, we are sure that the `node` is not null.
@@ -549,10 +551,10 @@ class AvlTree {
      */
     fun delete(key: Int) {
         // Caution! Possible point of mistake!
-        // Don't forget to assign/update the `root = delete...`
+        // Remember to assign/update the `root = delete...`
         // Why do we update root? Why do we assign the return of `delete` to `root`?
-        // Remember, `delete` is `O(log n)` operation in an `AVLTree`.
-        // It is not `O(1)` operation.
+        // Remember, `delete` is the `O(log n)` operation in an `AVLTree`.
+        // It is not the `O(1)` operation.
         // Because `delete` is a recursive function.
         // It starts with `root`.
         // Hence, it ends with `root`.
@@ -589,6 +591,27 @@ class AvlTree {
      * * If it finds any unbalanced node, it rebalances it using the relevant rotation.
      * * Finally, it returns the updated [root].
      *
+     * **Function Arguments**
+     * * We keep trying to find the node that we want to delete until we fell off the tree.
+     * * This traversal is a standard binary search tree traversal.
+     * * We start with the root and we keep going until we find the node that we want to delete.
+     * * We start with `cur = root`.
+     * * If `cur.key > key`, we go to the left side: `cur = cur.left`.
+     * * If `cur.key < key`, we go to the right sdie: `cur = cur.right`.
+     * * If `cur.key == key`, we found the node that we want to delete.
+     * * But it is also possible that we finish the entire BST and fell off the tree, but can't find the node.
+     * * How do we detect and translate that into the code?
+     * * So, we call this `delete` function recursively and pass either `cur.left` or `cur.right` as explained above.
+     * * At some point, either `cur.left` or `cur.right` will be null.
+     * * If the `cur.left` is `null`, it indicates that there is no left child for the `cur` node.
+     * * If the `cur.right` is `null`, it indicates that there is no right child for the `cur` node.
+     * * It means that the delete function might face a `null` value.
+     * * Hence, the [node] parameter is nullable.
+     * * We can think of it like below also:
+     * * When we delete a particular node, it becomes `null`.
+     * * So, the parent node gets a `null` child.
+     * * So, `parent.left` or `parent.right` becomes `null`.
+     *
      * **Time Complexity:**
      * * Similar to the [insert] operation, we use the binary search tree approach to find the [AvlNode] to delete it.
      * * Finding the [AvlNode] that we want to delete takes `O(log n)` time.
@@ -610,7 +633,7 @@ class AvlTree {
      * Otherwise, returns the updated [root] from where we started the journey of finding and deleting the [key]
      */
     private fun delete(node: AvlNode?, key: Int): AvlNode? {
-        // If the node is null, it means that we finished travelling the entire tree,
+        // If the node is null, it means that we finished traveling the entire tree,
         // and we couldn't find any [AvlNode] having the given [key].
         // In other words, we fell off the tree, and we couldn't find the [AvlNode] having the given [key].
         // So, in that case, we return `null`.
