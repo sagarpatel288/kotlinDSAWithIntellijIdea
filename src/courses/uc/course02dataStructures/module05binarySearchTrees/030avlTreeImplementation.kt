@@ -612,6 +612,15 @@ class AvlTree {
      * * So, the parent node gets a `null` child.
      * * So, `parent.left` or `parent.right` becomes `null`.
      *
+     * **Return type**
+     * * Suppose that the node that we want to delete is `subjectNode`.
+     * * And the parent of the `subjectNode` is `parent`.
+     * * And the child of the `subjectNode` is `child` (left or right or both).
+     * * The main approach of the delete function is to bypass the `subjectNode`, and connect `parent` and the `child`.
+     * * Now, it is possible that the `subjectNode` does not have any child.
+     * * In that case, we connect `parent` with the `null` value.
+     *
+     *
      * **Time Complexity:**
      * * Similar to the [insert] operation, we use the binary search tree approach to find the [AvlNode] to delete it.
      * * Finding the [AvlNode] that we want to delete takes `O(log n)` time.
@@ -647,16 +656,23 @@ class AvlTree {
         if (key > node.keyValue) {
             // If the given [key] is greater than the current node's key, find from `node.right`, and delete the [key].
             // The resultant parent node will be assigned to `node.right`.
+            // `node.right` can be end up as `node.right = null`.
+            // Hence, the return type of the function is nullable.
             node.right = delete(node.right, key)
         } else if (key < node.keyValue) {
             // If the given [key] is less than the current node's key, find from `node.left`, and delete the [key].
             // The resultant parent node will be assigned to `node.left`.
+            // `node.left` can end up as `node.left = null`.
+            // Hence, the return type of the function is nullable.
             node.left = delete(node.left, key)
         } else {
             // We found the node to delete.
             // Recall the 3 cases: 0 child, 1 child, and 3 children.
             // Here, `node` is the [AvlNode] we want to delete.
             // To understand, we will call it `nodeToDelete`.
+            // The parent of the `nodeToDelete` is `parent`.
+            // Now, suppose that `nodeToDelete` has only `right` child.
+            // So, this is the moment when we bypass `nodeToDelete` and connect `parent` with the `right` child.
             if (node.left == null) {
                 // The node that we want to delete does not have a left child.
                 // So, we return the right child.
@@ -667,6 +683,9 @@ class AvlTree {
                 // So, it will be garbage-collected.
                 return node.right
             } else if (node.right == null) {
+                // Suppose that the `nodeToDelete` does not have any right child.
+                // The `nodeToDelete` has only a `left` child.
+                // This is the moment when we connect `parent` with the `left` child of the `nodeToDelete`.
                 // If the node that we want to delete does not have a right child,
                 // we return its left child.
                 // The `nodeToDelete.left` is attached to one of the two previous assignments:
