@@ -4,6 +4,7 @@
 * [AVLTree: Find $K^{th}$ small key](#avltree-find-kth-small-key)
   * [Prerequisites/References](#prerequisitesreferences)
   * [Thought Process](#thought-process)
+    * [Story (Mental Model)](#story-mental-model)
     * [Dry run when k = 7](#dry-run-when-k--7)
     * [Dry run when k = 9](#dry-run-when-k--9)
   * [Caution](#caution)
@@ -33,6 +34,7 @@
 ## Thought Process
 
 ![500avlTreeFindKthSmallKey.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/500avlTreeFindKthSmallKey.svg)
+![1055bstKthSmallestKey.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1055bstKthSmallestKey.png)
 
 ```mermaid
 ---
@@ -85,6 +87,36 @@ fun findKthSmallestKey(node: AvlNode, k: Int): AvlNode {
 
 ```
 
+### Story (Mental Model)
+
+* This is the story of a simple mathematical game.
+* Assume that we have two sides: Left and right.
+* For the convenient, we can also assume that the kids are divided by a line on the floor or a separator (divider).
+* On each side, we have arranged the kids by their age, from younger to older.
+* The arrangement starts from left and continues till the end of the right side.
+* We do not have multiple kids having the same age.
+* Each age is unique.
+* Now, suppose that the left side has 3 kids.
+* And if I ask you, on which side do we have the kid who is the 4th youngest kid?
+* The number `4` is a mathematical variable and we can denote it as `k = 4`.
+* Observe how the brain works, how it processes this simple mathematical problem.
+* And this happens very quickly.
+* We quickly set the number `4` as a mathematical variable.
+* We know that the left side has only 3 kids.
+* So, we immediately consider the left side as checked based on the total kids.
+* We did not have to check each kid one by one on the left side.
+* We simply and quickly consider the entire left side as checked based on the total kids on the left side.
+* The left side has a total of 3 kids.
+* So, we immediately conclude that we have checked all the 3 kids, and now we are going to check the right side.
+* But before we start checking the kids on the right side, we reduce the original number.
+* We reduce it from `4th youngest kid` to `1st youngest kid on the right side`.
+* In the mathematical language, we just did: `k - leftSize`.
+* Because we know that we have already checked 3 kids.
+* And kids are already in the ascending order.
+* We start with the right side.
+* And the `1st youngest kid of the right side` becomes our answer.
+* We are going to use the same mental model (approach) to solve the `kth smallest` in a binary search tree.
+
 ### Dry run when k = 7
 
 `(node = 50, k = 7)`
@@ -97,7 +129,18 @@ fun findKthSmallestKey(node: AvlNode, k: Int): AvlNode {
 `(node = 40, k = 7)`
 
 * `sizeOfLeft` = `40.left.size` = `30.size` = `3`
-* `k > sizeOfLeft + 1`
+* `k > sizeOfLeft + 1` = `7 > 4`
+* This relation says that there are a total of `3` nodes to the left side.
+* And we are standing on the 4th node.
+* We are finding the 7th node.
+* So, it is clear that the 7th node cannot be on the left side.
+* And it is also clear that the node we are standing upon is the 4th node, not the 7th node.
+* So, we conclude that we have checked all these 4 nodes.
+* 3 nodes on the left side and 1 node is the current node upon which we are currently standing.
+* Now, out of 7 nodes, we need to check the remaining 3 nodes.
+* The mathematical way of saying it is:
+* `k - (sizeOfLeft + 1)` = `k - sizeOfLeft - 1`.
+* When we change the side, from left to right, we pass the same message:
 * Call: `(node.right, k - sizeOfLeft - 1)` = `(40.right, 7 - 3 - 1)` = `(45, 3)`
 
 `(node = 45, k = 3)`
