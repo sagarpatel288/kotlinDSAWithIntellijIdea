@@ -301,12 +301,12 @@ class AvlTree {
         right.left = node
         node.right = leftOfRight
         // Caution! Possible point of mistake!
-        // Don't forget to update height and size of parents and children.
-        // A rotation can change the height and size of the node, to rebalance it.
+        // Remember to update the height, and size of parents and children.
+        // A rotation can change the height and the size of the node to rebalance it.
         // That's the whole purpose of the rotation!
         // A rotation rebalances a node by changing its height and size!
-        // After each rotation, we must update height and size of the affected nodes.
-        // Children gets the priority, followed by the parent.
+        // After each rotation, we must update the height and size of the affected nodes.
+        // Children get the priority, followed by the parent.
         // Update the height and size in the order of children to parent.
         // We are talking about the current child and parent.
         // The incoming unbalanced node is now a child.
@@ -366,6 +366,22 @@ class AvlTree {
                 // Here, `node` is the parent, and we are rotating its left child `node.left`.
                 // So, it is obvious that the parent `node` will possibly get a different left child.
                 // Hence, `node.left = rotateLeft...`
+                // The reason we are not using the scope function `let` here as:
+                // ```
+                // node.left = node.left?.let { rotateLeft(it) }
+                // ```
+                // Because when we use the `let` function here, we convey that having a null left child is legit in LR.
+                // But in reality, it should not be possible at all!
+                // Another reason is that `let` will fail it silently, and it will violate the fail-fast principle.
+                // Failing the legit condition here means facing the impossible.
+                // If such a legit condition fails, we don't want to fail it silently.
+                // When the impossible state happens, we want to scream it out loud.
+                // If we still use the `let` function and if the structure is corrupted, we make it worse.
+                // Because `node.left = ` will become `node.left = null`.
+                // And having `node.left = null` means we broke the tree!
+                // Ultimately, we suppressed the failure by using the `let`, and then we broke the structure!
+                // We must not do that!
+                // Hence, using the `requireNotNull` or `checkNotNull` is a valid and better decision in this case.
                 node.left = rotateLeft(requireNotNull(node.left) {"LR imbalance requires non-null left child"})
                 return rotateRight(node)
             }

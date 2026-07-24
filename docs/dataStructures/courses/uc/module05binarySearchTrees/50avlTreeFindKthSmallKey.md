@@ -91,14 +91,14 @@ fun findKthSmallestKey(node: AvlNode, k: Int): AvlNode {
 
 * This is the story of a simple mathematical game.
 * Assume that we have two sides: Left and right.
-* For the convenient, we can also assume that the kids are divided by a line on the floor or a separator (divider).
+* For convenience, we can also assume that the kids are divided by a line on the floor or a separator (divider).
 * On each side, we have arranged the kids by their age, from younger to older.
-* The arrangement starts from left and continues till the end of the right side.
+* The arrangement starts from the left and continues till the end of the right side.
 * We do not have multiple kids having the same age.
 * Each age is unique.
 * Now, suppose that the left side has 3 kids.
 * And if I ask you, on which side do we have the kid who is the 4th youngest kid?
-* The number `4` is a mathematical variable and we can denote it as `k = 4`.
+* The number `4` is a mathematical variable, and we can denote it as `k = 4`.
 * Observe how the brain works, how it processes this simple mathematical problem.
 * And this happens very quickly.
 * We quickly set the number `4` as a mathematical variable.
@@ -107,12 +107,12 @@ fun findKthSmallestKey(node: AvlNode, k: Int): AvlNode {
 * We did not have to check each kid one by one on the left side.
 * We simply and quickly consider the entire left side as checked based on the total kids on the left side.
 * The left side has a total of 3 kids.
-* So, we immediately conclude that we have checked all the 3 kids, and now we are going to check the right side.
+* So, we immediately conclude that we have checked all 3 kids, and now we are going to check the right side.
 * But before we start checking the kids on the right side, we reduce the original number.
 * We reduce it from `4th youngest kid` to `1st youngest kid on the right side`.
-* In the mathematical language, we just did: `k - leftSize`.
+* In mathematical language, we just did: `k - leftSize`.
 * Because we know that we have already checked 3 kids.
-* And kids are already in the ascending order.
+* And kids are already in ascending order.
 * We start with the right side.
 * And the `1st youngest kid of the right side` becomes our answer.
 * We are going to use the same mental model (approach) to solve the `kth smallest` in a binary search tree.
