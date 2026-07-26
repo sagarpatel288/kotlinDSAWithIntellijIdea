@@ -1040,6 +1040,9 @@ class AvlTree {
      * * The entire process of merging two AVLTrees is asymptotically `O(log n)`, which is an amazing efficiency.
      * * It uses a recursive function.
      * * And the maximum memory is also asymptotically `O(log n)`.
+     * * All the keys of [leftTreeRoot] are strictly smaller than the keys of [rightTreeRoot].
+     * * In that sense, we call [leftTreeRoot] a light tree and [rightTreeRoot] a heavy tree.
+     * * Either both the trees have almost the same height or one of them is taller than the other.
      */
     fun mergeTwoAvlTrees(leftTreeRoot: AvlNode?, rightTreeRoot: AvlNode?): AvlTree {
         val mergedTree = AvlTree()
@@ -1061,6 +1064,9 @@ class AvlTree {
         // I am unsure if we can do it in a better way.
         // The `findMax` function takes `O(log n)` time.
         val leftMax = findMax(leftTreeRoot)!!
+        // The returned value of the `findMax` can have active connection with the parent and children.
+        // So, we extract only the key from the returned value of the `findMax`, and create a `pivot` using it.
+        // Once we create the pivot, we delete the `max`.
         val pivot = AvlNode(leftMax.keyValue)
         // This is the new balanced root of the left tree after deleting the max node from it.
         // The `deleteMax` function also takes `O(log n)` time.
@@ -1072,7 +1078,7 @@ class AvlTree {
         // That's why it becomes important to understand when to take or return a nullable value.
         if (leftRoot == null) {
             pivot.right = rightTreeRoot
-            // If the leftTree has become null because it had only one node and we made it the pivot,
+            // If the leftTree has become null because it had only one node, and we made it the pivot,
             // we need to rebalance the `pivot` after we attach the `rightTree` to its right side.
             // The returned `node` of this `rebalance` call will be propagated and attached.
             val mergedRoot = rebalance(pivot)
