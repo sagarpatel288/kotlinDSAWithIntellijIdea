@@ -67,7 +67,9 @@ $$T_2 > x$$
 
 ### Approach, idea
 
-![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
+* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
+* ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
 ```mermaid
 ---
@@ -142,7 +144,7 @@ fun split(node: AvlNode?, target: AvlNode) {
         // We are sure that `node.left` also belongs to $T_1$. 
         // So, we travel towards the remaining uncertain side, which is `node.right`.
         // Note that at this point, this is just a traversal.
-        // There is no way to store the classification information at the moment.
+        // There is no way to store the classification at the moment.
         // We will build the entire solution gradually, brick by brick, step by step.
         split(node.right)
     } else {
@@ -182,10 +184,16 @@ fun split(node: AvlNode?, target: AvlNode) {
 ```
 
 * Now, at some point, we will be at the leaf node.
-* //ToDo: It feels like a few things (dots, links, explanation) are missing between these two (above and below) lines. It feels like a disconnection and a missing information. It doesn't feel like fluid and connected. Something is missing in between here.
+---
+* ToDo: It feels like a few things (dots, links, explanation) are missing between these two (above and below) lines. 
+* It feels like a disconnection and might be missing some information. 
+* It doesn't feel like fluid, smooth, straightforward, and connected. 
+* It feels like something is missing in between here.
+---
 * A tree is always built from the bottom.
 * So, we need to build the tree from the bottom.
-* And to build a tree, we need 3 data: The parent node, left subtree (a.k.a. left tree or left child), and the right subtree (a.k.a. right tree or right child).
+* And to build a tree, we need 3 data: 
+* The parent node, left subtree (a.k.a. left tree or left child), and the right subtree (a.k.a. right tree or right child).
 * Now, when we reach the leaf node, we need to have the references of the parent node, so that we can merge them.
 * And this merged tree will be a subtree for a particular parent node.
 * And this process keeps going on.
@@ -201,7 +209,9 @@ fun split(node: AvlNode?, target: AvlNode) {
 
 ### Building the function
 
-![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
+* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
+* ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
 ```mermaid
 ---
@@ -268,7 +278,21 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
         // There is no way to store the classification information at the moment.
         // We will build the entire solution gradually, brick by brick, step by step.
         // We will also clarify and justify the names and order of the properties soon.
-        val (t1LeftTree, t2RightTree) = split(node.right)
+        // The layman translation of this recursion process is:
+        // Hey recursion, the right subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Here, the node is saying:
+        // "I and my entire LEFT subtree belong to T1. 
+        // My RIGHT subtree is uncertain. 
+        // Split my right subtree for me. 
+        // Give me its T1 portion, attach that portion back to me, and pass its T2 portion upward unchanged."
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `<= target` and its leftChild which is also `<= target`.
+        // We know that the entire left subtree of this `node` is `<= target`.
+        // But we are not sure about the entire subtree of the `rightChild`.
+        // So, we split and extract the relevant parts from the `rightChild`.
+        val (t1LeftTree, t2RightTree) = split(node.right, target)
     } else {
         // We are sure that `node.right` also belongs to $T_2$.
         // So, we travel towards the remaining uncertain side, which is `node.left`.
@@ -276,7 +300,21 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
         // There is no way to store the classification information at the moment.
         // We will build the entire solution gradually, brick by brick, step by step.
         // We will also clarify and justify the names and order of the properties soon.
-        val (t1LeftTree, t2RightTree) = split(node.left)
+        // The layman translation of this recursion process is:
+        // Hey recursion, the left subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Here, the node is saying:
+        // "I and my entire RIGHT subtree belong to T2. 
+        // My LEFT subtree is uncertain. 
+        // Split my left subtree for me. 
+        // Give me its T2 portion, attach that portion back to me, and pass its T1 portion upward unchanged."                
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `> target` and its rightChild which is also `> target`.
+        // We know that the entire right subtree of this `node` is `> target`.
+        // But we are not sure about the entire subtree of the `leftChild`.
+        // So, we split and extract the relevant parts from the `leftChild`.                
+        val (t1LeftTree, t2RightTree) = split(node.left, target)
     }
 }
 
@@ -288,7 +326,9 @@ split(root, target)
 
 ### Break and Merge (Break and build)
 
-![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
+* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
+* ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
 ```mermaid
 ---
@@ -324,6 +364,25 @@ node.height = 1
 
 * So, the `split` function might look like this:
 
+```markdown
+
+                   rightChild of left
+                       |
+                       | "Please split this uncertainty."
+                       v
+                +-------------+
+                |   split()   |
+                +-------------+
+                  /         \
+                 v           v
+
+       part <= target       part > target
+              |                   |
+              v                   v
+        t1LeftTree          t2RightTree
+
+```
+
 ```kotlin
 
 fun split(node: AvlNode?, target: AvlNode): SplitResult {
@@ -336,9 +395,43 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
     node.height = 1
     if (node.key <= target) {
         // We will also clarify and justify the names and order of the properties soon.
+        // The layman translation of this recursion process is:
+        // Hey recursion, the right subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Here, the node is saying:
+        // "I and my entire LEFT subtree belong to T1. 
+        // My RIGHT subtree is uncertain. 
+        // Split my right subtree for me. 
+        // Give me its T1 portion, attach that portion back to me, and pass its T2 portion upward unchanged."        
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `<= target` and its leftChild which is also `<= target`.
+        // We know that the entire left subtree of this `node` is `<= target`.
+        // But we are not sure about the entire subtree of the `rightChild`.
+        // So, we split and extract the relevant parts from the `rightChild`.
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key <= target`, we concluded that `leftChild <= target`.
+        // Now, we want to repeat the same process for the `rightChild`.
         val (t1LeftTree, t2RightTree) = split(rightChild, target)
     } else {
         // We will also clarify and justify the names and order of the properties soon.
+        // The layman translation of this recursion process is:
+        // Hey recursion, the left subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Here, the node is saying:
+        // "I and my entire RIGHT subtree belong to T2. 
+        // My LEFT subtree is uncertain. 
+        // Split my left subtree for me. 
+        // Give me its T2 portion, attach that portion back to me, and pass its T1 portion upward unchanged."                
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `> target` and its rightChild which is also `> target`.
+        // We know that the entire right subtree of this `node` is `> target`.
+        // But we are not sure about the entire subtree of the `leftChild`.
+        // So, we split and extract the relevant parts from the `leftChild`.
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key > target`, we concluded that `rightChild > target`.
+        // Now, we want to repeat the same process for the `leftChild`.        
         val (t1LeftTree, t2RightTree) = split(leftChild, target)
     }
 }
@@ -387,10 +480,44 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
     node.height = 1
     if (node.key <= target) {
         // We will also clarify and justify the names and order of the properties soon.
+        // The layman translation of this recursion process is:
+        // Hey recursion, the right subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2. 
+        // Here, the node is saying:
+        // "I and my entire LEFT subtree belong to T1. 
+        // My RIGHT subtree is uncertain. 
+        // Split my right subtree for me. 
+        // Give me its T1 portion, attach that portion back to me, and pass its T2 portion upward unchanged."        
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `<= target` and its leftChild which is also `<= target`.
+        // We know that the entire left subtree of this `node` is `<= target`.
+        // But we are not sure about the entire subtree of the `rightChild`.
+        // So, we split and extract the relevant parts from the `rightChild`.        
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key <= target`, we concluded that `leftChild <= target`.
+        // Now, we want to repeat the same process for the `rightChild`.        
         val (t1LeftTree, t2RightTree) = split(rightChild, target)
         val mergedTree = mergeTwoAvlTrees(whatDoWePassHere, whatDoWePassHere, whatDoWePassHere)
     } else {
         // We will also clarify and justify the names and order of the properties soon.
+        // The layman translation of this recursion process is:
+        // Hey recursion, the left subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Here, the node is saying:
+        // "I and my entire RIGHT subtree belong to T2. 
+        // My LEFT subtree is uncertain. 
+        // Split my left subtree for me. 
+        // Give me its T2 portion, attach that portion back to me, and pass its T1 portion upward unchanged."                
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `> target` and its rightChild which is also `> target`.
+        // We know that the entire right subtree of this `node` is `> target`.
+        // But we are not sure about the entire subtree of the `leftChild`.
+        // So, we split and extract the relevant parts from the `leftChild`.
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key > target`, we concluded that `rightChild > target`.
+        // Now, we want to repeat the same process for the `leftChild`.        
         val (t1LeftTree, t2RightTree) = split(leftChild, target)
         val mergedTree = mergeTwoAvlTrees(whatDoWePassHere, whatDoWePassHere, whatDoWePassHere)
     }
@@ -426,9 +553,56 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
     node.right = null
     node.height = 1
     if (node.key <= target) {
+        // The layman translation of this recursion process is:
+        // Hey recursion, the right subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Once we get two parts, we want to merge the relevant parts.
+        // We are already in the `if` condition that belongs to the nodes for which `key <= target`.
+        // The relevant parts are: leftChild, t1LeftTree, and the node (because its `key <= target`. 
+        // Here, the node is saying:
+        // "I and my entire LEFT subtree belong to T1. 
+        // My RIGHT subtree is uncertain. 
+        // Split my right subtree for me. 
+        // Give me its T1 portion, attach that portion back to me, and pass its T2 portion upward unchanged."        
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `<= target` and its leftChild which is also `<= target`.
+        // We know that the entire left subtree of this `node` is `<= target`.
+        // But we are not sure about the entire subtree of the `rightChild`.
+        // So, we split and extract the relevant parts from the `rightChild`.
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key <= target`, we concluded that `leftChild <= target`.
+        // Now, we want to repeat the same process for the `rightChild`.
         val (t1LeftTree, t2RightTree) = split(rightChild, target)
+        // Now, if you ever wonder about the order "leftChild, t1LeftTree, and then the node",
+        // then the answer is: 
+        // We had the `node`. 
+        // And it is obvious that `leftChild < node`.
+        // And we know that we are getting the `t1LeftTree` from the `rightChild`.
+        // So, it is also obvious that `node < t1LeftTree` because `node < rightChild`.
+        // So, the order becomes: leftChild < node < t1LeftTree
         val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
     } else {
+        // The layman translation of this recursion process is:
+        // Hey recursion, the left subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Once we get two parts, we want to merge the relevant parts.
+        // We are already in the `else` condition that belongs to the nodes for which `key > target`.
+        // The relevant parts are: rightChild, t2RightTree, and the node (because its `key > target`. 
+        // Here, the node is saying:
+        // "I and my entire RIGHT subtree belong to T2. 
+        // My LEFT subtree is uncertain. 
+        // Split my left subtree for me. 
+        // Give me its T2 portion, attach that portion back to me, and pass its T1 portion upward unchanged."        
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `> target` and its rightChild which is also `> target`.
+        // We know that the entire right subtree of this `node` is `> target`.
+        // But we are not sure about the entire subtree of the `leftChild`.
+        // So, we split and extract the relevant parts from the `leftChild`.        
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key > target`, we concluded that `rightChild > target`.
+        // Now, we want to repeat the same process for the `leftChild`.        
         val (t1LeftTree, t2RightTree) = split(leftChild, target)
         val mergedTree = mergeTwoAvlTrees(whatDoWePassHere, whatDoWePassHere, whatDoWePassHere)
     }
@@ -436,6 +610,26 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
 ```
 
 `else` (which means when `node.key > x`):
+
+```markdown
+
+                   leftChild of right
+                       |
+                       | "Please split this uncertainty."
+                       v
+                +-------------+
+                |   split()   |
+                +-------------+
+                  /         \
+                 v           v
+
+       part <= target       part > target
+              |                   |
+              v                   v
+        t1LeftTree          t2RightTree
+
+```
+
 * The `rightChild` that we read and stored earlier belongs to the $T_2$ tree.
 * The `node` belongs to the $T_2$ because its `key > x`.
 * And the `t2RightTree` belongs to the $T_2$. 
@@ -457,12 +651,70 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
     node.height = 1
     if (node.key <= target) {
         // We will also clarify and justify the names and order of the properties soon.
+        // The layman translation of this recursion process is:
+        // Hey recursion, the right subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Here, the node is saying:
+        // "I and my entire LEFT subtree belong to T1. 
+        // My RIGHT subtree is uncertain. 
+        // Split my right subtree for me. 
+        // Give me its T1 portion, attach that portion back to me, and pass its T2 portion upward unchanged."        
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `<= target` and its leftChild which is also `<= target`.
+        // We know that the entire left subtree of this `node` is `<= target`.
+        // But we are not sure about the entire subtree of the `rightChild`.
+        // So, we split and extract the relevant parts from the `rightChild`.        
+        // Once we get two parts, we want to merge the relevant parts.
+        // We are already in the `if` condition that belongs to the nodes for which `key <= target`.
+        // The relevant parts are: leftChild, t1LeftTree, and the node (because its `key <= target`. 
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key <= target`, we concluded that `leftChild <= target`.
+        // Now, we want to repeat the same process for the `rightChild`.
         val (t1LeftTree, t2RightTree) = split(rightChild, target)
+        // Now, if you ever wonder about the order "leftChild, t1LeftTree, and then the node",
+        // then the answer is: 
+        // We had the `node`. 
+        // And it is obvious that `leftChild < node`.
+        // And we know that we are getting the `t1LeftTree` from the `rightChild`.
+        // So, it is also obvious that `node < t1LeftTree` because `node < rightChild`.
+        // So, the order becomes: leftChild < node < t1LeftTree      
         val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
     } else {
         // We will also clarify and justify the names and order of the properties soon.
+        // The layman translation of this recursion process is:
+        // Hey recursion, the left subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Here, the node is saying:
+        // "I and my entire RIGHT subtree belong to T2. 
+        // My LEFT subtree is uncertain. 
+        // Split my left subtree for me. 
+        // Give me its T2 portion, attach that portion back to me, and pass its T1 portion upward unchanged."
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `> target` and its rightChild which is also `> target`.
+        // We know that the entire right subtree of this `node` is `> target`.
+        // But we are not sure about the entire subtree of the `leftChild`.
+        // So, we split and extract the relevant parts from the `leftChild`.                
+        // Once we get two parts, we want to merge the relevant parts.
+        // We are already in the `else` condition that belongs to the nodes for which `key > target`.
+        // The relevant parts are: rightChild, t2RightTree, and the node (because its `key > target`.         
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key > target`, we concluded that `rightChild > target`.
+        // Now, we want to repeat the same process for the `leftChild`.        
         val (t1LeftTree, t2RightTree) = split(leftChild, target)
-        val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
+        // Now, if you ever wonder about the order "rightChild, t2RightTree, and then the node",
+        // then the answer is: 
+        // We had the `node`. 
+        // And it is obvious that `node < rightChild`.
+        // And we were sure that the entire `right` subtree of the `node` must be `> target`.
+        // So, we explored the `node.left = leftChild` branch to find each `key` which is `> target`.
+        // So, it is obvious that when we get such keys/subtrees `t2RightTree`, it will be `< node`.
+        // Because they are all subtrees of the `node.left`.
+        // So, the relation becomes: `t2RightChild < node`.
+        // And we know that `node < rightChild`.
+        // So, the entire relationship becomes: `t2RightChild < node < rightChild`.
+        val mergedTree = mergeTwoAvlTrees(t2RightTree, rightChild, node)
     }
 }
 ```
@@ -495,12 +747,70 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
     node.right = null
     node.height = 1
     if (node.key <= target) {
+        // The layman translation of this recursion process is:
+        // Hey recursion, the right subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Once we get two parts, we want to merge the relevant parts.
+        // Here, the node is saying:
+        // "I and my entire LEFT subtree belong to T1. 
+        // My RIGHT subtree is uncertain. 
+        // Split my right subtree for me. 
+        // Give me its T1 portion, attach that portion back to me, and pass its T2 portion upward unchanged."        
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `<= target` and its leftChild which is also `<= target`.
+        // We know that the entire left subtree of this `node` is `<= target`.
+        // But we are not sure about the entire subtree of the `rightChild`.
+        // So, we split and extract the relevant parts from the `rightChild`.        
+        // We are already in the `if` condition that belongs to the nodes for which `key <= target`.
+        // The relevant parts are: leftChild, t1LeftTree, and the node (because its `key <= target`.   
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key <= target`, we concluded that `leftChild <= target`.
+        // Now, we want to repeat the same process for the `rightChild`.
         val (t1LeftTree, t2RightTree) = split(node.right, target)
+        // Now, if you ever wonder about the order "leftChild, t1LeftTree, and then the node",
+        // then the answer is: 
+        // We had the `node`. 
+        // And it is obvious that `leftChild < node`.
+        // And we know that we are getting the `t1LeftTree` from the `rightChild`.
+        // So, it is also obvious that `node < t1LeftTree` because `node < rightChild`.
+        // So, the order becomes: leftChild < node < t1LeftTree            
         val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
         return SplitResult(mergedTree, t2RightTree)
     } else {
+        // The layman translation of this recursion process is:
+        // Hey recursion, the left subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Here, the node is saying:
+        // "I and my entire RIGHT subtree belong to T2. 
+        // My LEFT subtree is uncertain. 
+        // Split my left subtree for me. 
+        // Give me its T2 portion, attach that portion back to me, and pass its T1 portion upward unchanged."        
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `> target` and its rightChild which is also `> target`.
+        // We know that the entire right subtree of this `node` is `> target`.
+        // But we are not sure about the entire subtree of the `leftChild`.
+        // So, we split and extract the relevant parts from the `leftChild`.                
+        // Once we get two parts, we want to merge the relevant parts.
+        // We are already in the `else` condition that belongs to the nodes for which `key > target`.
+        // The relevant parts are: rightChild, t2RightTree, and the node (because its `key > target`. 
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key > target`, we concluded that `rightChild > target`.
+        // Now, we want to repeat the same process for the `leftChild`.        
         val (t1LeftTree, t2RightTree) = split(node.left, target)
-        val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
+        // Now, if you ever wonder about the order "rightChild, t2RightTree, and then the node",
+        // then the answer is: 
+        // We had the `node`. 
+        // And it is obvious that `node < rightChild`.
+        // And we were sure that the entire `right` subtree of the `node` must be `> target`.
+        // So, we explored the `node.left = leftChild` branch to find each `key` which is `> target`.
+        // So, it is obvious that when we get such keys/subtrees `t2RightTree`, it will be `< node`.
+        // Because they are all subtrees of the `node.left`.
+        // So, the relation becomes: `t2RightChild < node`.
+        // And we know that `node < rightChild`.
+        // So, the entire relationship becomes: `t2RightChild < node < rightChild`.
+        val mergedTree = mergeTwoAvlTrees(t2RightTree, rightChild, node)
         return SplitResult(t1LeftTree, mergedTree)
     }
 }
@@ -556,7 +866,9 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
 * We start the traversal from the root of the given `AvlTree`.
 * Now, the beautiful and magical part of the recursion is that as we return, we know the path we have taken.
 
-![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
+* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
+* ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
 ```mermaid
 ---
@@ -589,12 +901,70 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
     node.right = null
     node.height = 1
     if (node.key <= target) {
+        // The layman translation of this recursion process is:
+        // Hey recursion, the right subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Once we get two parts, we want to merge the relevant parts.
+        // Here, the node is saying:
+        // "I and my entire LEFT subtree belong to T1. 
+        // My RIGHT subtree is uncertain. 
+        // Split my right subtree for me. 
+        // Give me its T1 portion, attach that portion back to me, and pass its T2 portion upward unchanged."        
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `<= target` and its leftChild which is also `<= target`.
+        // We know that the entire left subtree of this `node` is `<= target`.
+        // But we are not sure about the entire subtree of the `rightChild`.
+        // So, we split and extract the relevant parts from the `rightChild`.        
+        // We are already in the `if` condition that belongs to the nodes for which `key <= target`.
+        // The relevant parts are: leftChild, t1LeftTree, and the node (because its `key <= target`. 
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key <= target`, we concluded that `leftChild <= target`.
+        // Now, we want to repeat the same process for the `rightChild`.
         val (t1LeftTree, t2RightTree) = split(node.right, target)
+        // Now, if you ever wonder about the order "leftChild, t1LeftTree, and then the node",
+        // then the answer is: 
+        // We had the `node`. 
+        // And it is obvious that `leftChild < node`.
+        // And we know that we are getting the `t1LeftTree` from the `rightChild`.
+        // So, it is also obvious that `node < t1LeftTree` because `node < rightChild`.
+        // So, the order becomes: leftChild < node < t1LeftTree            
         val mergedTree = mergeTwoAvlTrees(leftChild, t1LeftTree, node)
         return SplitResult(mergedTree, t2RightTree)
     } else {
+        // The layman translation of this recursion process is:
+        // Hey recursion, the left subtree is the only uncertain part. 
+        // Please classify it for me and give me back TWO trees: 
+        // The part of it that belongs to T1 and the part that belongs to T2.
+        // Here, the node is saying:
+        // "I and my entire RIGHT subtree belong to T2. 
+        // My LEFT subtree is uncertain. 
+        // Split my left subtree for me. 
+        // Give me its T2 portion, attach that portion back to me, and pass its T1 portion upward unchanged."
+        // Another way to think about it is:
+        // We have two known parts: `node` whose key is `> target` and its rightChild which is also `> target`.
+        // We know that the entire right subtree of this `node` is `> target`.
+        // But we are not sure about the entire subtree of the `leftChild`.
+        // So, we split and extract the relevant parts from the `leftChild`.                
+        // Once we get two parts, we want to merge the relevant parts.
+        // We are already in the `else` condition that belongs to the nodes for which `key > target`.
+        // The relevant parts are: rightChild, t2RightTree, and the node (because its `key > target`.
+        // Or we can also think about this line as:
+        // We had `node`, we found that the `node.key > target`, we concluded that `rightChild > target`.
+        // Now, we want to repeat the same process for the `leftChild`.        
         val (t1LeftTree, t2RightTree) = split(node.left, target)
-        val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
+        // Now, if you ever wonder about the order "rightChild, t2RightTree, and then the node",
+        // then the answer is: 
+        // We had the `node`. 
+        // And it is obvious that `node < rightChild`.
+        // And we were sure that the entire `right` subtree of the `node` must be `> target`.
+        // So, we explored the `node.left = leftChild` branch to find each `key` which is `> target`.
+        // So, it is obvious that when we get such keys/subtrees `t2RightTree`, it will be `< node`.
+        // Because they are all subtrees of the `node.left`.
+        // So, the relation becomes: `t2RightChild < node`.
+        // And we know that `node < rightChild`.
+        // So, the entire relationship becomes: `t2RightChild < node < rightChild`.
+        val mergedTree = mergeTwoAvlTrees(t2RightTree, rightChild, node)
         return SplitResult(t1LeftTree, mergedTree)
     }
 }

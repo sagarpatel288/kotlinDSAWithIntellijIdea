@@ -961,7 +961,7 @@ class AvlTree {
      * * Because, before we call this function from the [mergeTwoAvlTrees], we already check if any node is null.
      * * And this is the reason it returns a non-null [AvlNode].
      * * The maximum traveling to find the subtree where `| height difference | is <= 1`, cannot be more than `O(log n)`.
-     * * The merge process between a subtree and a tree is `O(1)`.
+     * * The merge process between a subtree and a tree where we change the pointers is `O(1)` (excludes traversal).
      * * Each rebalance operation takes `O(1)`.
      * * And we cannot have more than `log n` rebalance operations.
      * * So, the total rebalance operation is also `O(log n)`.
