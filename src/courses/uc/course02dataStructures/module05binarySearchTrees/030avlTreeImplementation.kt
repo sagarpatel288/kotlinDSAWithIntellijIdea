@@ -1112,9 +1112,10 @@ class AvlTree {
         // Isolate the current node from its children.
         val leftChild = node.left
         val rightChild = node.right
+        // We will use this isolated node as the pivot.
         node.left = null
         node.right = null
-        node.height = 1 // Why not to update the size?
+        updateHeightAndSize(node)
         // Recursively split the appropriate child and merge subtrees to form the result.
         if (node.keyValue <= target) {
             val (t1LeftTree, t2RightTree) = split(rightChild, target)
@@ -1122,7 +1123,7 @@ class AvlTree {
             return SplitResult(mergedTree, t2RightTree)
         } else {
             val (t1LeftTree, t2RightTree) = split(leftChild, target)
-            val mergedTree = mergeTwoAvlTrees(rightChild, t2RightTree, node)
+            val mergedTree = mergeTwoAvlTrees(t2RightTree, rightChild, node)
             return SplitResult(t1LeftTree, mergedTree)
         }
     }
