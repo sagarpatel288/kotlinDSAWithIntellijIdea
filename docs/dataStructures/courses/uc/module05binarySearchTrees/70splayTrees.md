@@ -98,8 +98,9 @@
 ## Purpose
 
 * To reduce the time of the search operation.
-* We make the recently accessed node the root.
+* We make the last accessed node the root.
 * Next time, it takes `O(1)` only.
+* As a consequence, all the recently accessed nodes remain close to the root.
 * That is the reason we use it for `caches`.
 
 ## Rotations And Terminologies
@@ -401,24 +402,24 @@ fun rotate(target: Node<T>) {
   are strictly balanced binary search trees.
 * Splay trees are roughly balanced binary search trees.
 * //ToDo: Elaborate
-* In a splay tree, the recently accessed node becomes the root.
+* In a splay tree, the last accessed node becomes the root.
 * The search or insert operation follows the splay operation.
 * It means that after every search or insert operation, we have to rearrange the tree.
 * The resultant tree may not be perfectly (strictly) balanced.
 * But it still maintains the amortized cost as `O(log n)`.
-* Because we reduce the access time of the recent node to `O(1)`.
+* Because we reduce the access time of the last accessed node to `O(1)`.
 * That's the reason we use `Splay Trees` for `Caches`.
 
 ## Splay
 
 * After `search(find)`, `insert`, or `delete` operation, we perform the `splay` operation on the node.
-* The purpose of the `splay` operation is to make the recently accessed node the root node.
-* Now, depending upon the position of the recently accessed node, we might perform various (one or multiple and
+* The purpose of the `splay` operation is to make the last accessed node the root node.
+* Now, depending upon the position of the last accessed node, we might perform various (one or multiple and
   different) rotations on the node to make it the root node.
 * We have already seen various [rotations](#rotations-and-terminologies).
 * If we find that the node has no grandparent, then we perform one of the `zig rotations`.
 * Otherwise, we perform either one of the `zig-zig` or one of the `zig-zag` rotations.
-* We keep performing these rotations until the node becomes the root.
+* We keep performing these rotations until the last accessed node becomes the root.
 
 ### Pseudocode Of Splay
 
