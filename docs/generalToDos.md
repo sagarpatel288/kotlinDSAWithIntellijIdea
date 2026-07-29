@@ -60,6 +60,11 @@
   * Remembering them is also another thing.
   * Quickly recalling them is yet another thing.
   * And their correct implementation and use are also critical things.
+  * Find kth node/key/element: The left size of the current index/position 
+  * Delete: 3 Cases
+  * Merge: findMax, deleteMax, pivot, and recursion
+  * Split: From certain to uncertain recursion and merge
+
 
 ## Edge Cases
 

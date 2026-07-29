@@ -26,7 +26,10 @@ data class Node<T : Comparable<T>>(
         // If this key is smaller than the other key, it will produce the negative result.
         // If this key is greater than the other key, it will produce the positive result.
         // The contract says that negative result goes left, positive result goes right.
+        // If it is a negative result, then this key goes left and the other key goes right.
         // This gives an ascending order.
+        // If it is a positive result, then this key goes right and the other key goes left.
+        // It will give descending order.
         return key.compareTo(other.key)
     }
 }
@@ -43,7 +46,7 @@ class SplayTree<T : Comparable<T>> {
         private set
 
     /**
-     * ToDo: We have to different functions for the rotation, with almost the same logic.
+     * ToDo: We have two different functions for the rotation, with almost the same logic.
      * We can combine them into a single function.
      * ToDo: Combine the logic of [rotateRight] and [rotateLeft] into a single function.
      *
@@ -71,7 +74,7 @@ class SplayTree<T : Comparable<T>> {
     }
 
     /**
-     * ToDo: We have to different functions for the rotation, with almost the same logic.
+     * ToDo: We have two different functions for the rotation, with almost the same logic.
      * We can combine them into a single function.
      * ToDo: Combine the logic of [rotateRight] and [rotateLeft] into a single function.
      */
