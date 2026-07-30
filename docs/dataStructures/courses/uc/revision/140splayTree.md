@@ -52,7 +52,28 @@
 
 ## What
 
-*
+* The main objective of a splay tree is to optimize the find (search) operation of the last accessed, recently accessed, frequently accessed, and neighbor nodes.
+* It gives better caching.
+* It makes the last accessed node the root node.
+* As a consequence, all the recent, frequent, and neighbor nodes remain close to the root.  
+* It uses various rotations to achieve the same.
+* Zig-Rotations: Right or left rotation
+  * Also: 
+  * Zig-rotation is the right rotation and zag rotation is the left rotation.
+  * We perform it when we don't have a grandparent of the target.
+  * Because the parent of the target is the root.
+* Zig-Zig Rotation: Right-right rotation or Left-left rotation
+  * Also:
+  * Zig-Zig Rotation is the Right-Right Rotation, And
+  * Zag-Zag Rotation is the Left-Left Rotation
+  * We perform it when both the parent and the target are on the same side of the grandparent.
+* Zig-Zag Rotation: Right-left or Left-right rotation
+  * Also:
+  * Zig-Zag Rotation is the Right-left rotation, And
+  * Zag-Zig Rotation is the Left-right rotation
+  * We perform it when both the parent and the target are on the opposite (different) sides of the grandparent.
+* Insert, delete, find - all these operations are followed by the splay operation where we perform the rotations to make the last accessed node the root node.
+* 
 
 ## Solves
 
