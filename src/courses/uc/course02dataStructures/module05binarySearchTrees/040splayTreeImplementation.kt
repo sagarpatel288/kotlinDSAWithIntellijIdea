@@ -168,16 +168,26 @@ class SplayTree<T : Comparable<T>> {
         var curr = root
         var parent = curr
         while (curr != null) {
+            // Before we move/change `curr`, we save its position
+            // We save the non-null value of the `curr` as `parent`
             parent = curr
-            if (key < curr.key) {
-                curr = curr.left
+            curr = if (key < curr.key) {
+                // If the `curr.left` is null, the loop will break (exit) in the next run
+                curr.left
             } else if (key > curr.key) {
-                curr = curr.right
+                // If the `curr.right` is null, the loop will break (exit) in the next run
+                curr.right
             } else {
+                // The key already exists in the tree.
+                // We splay it.
                 splay(curr)
                 return
             }
         }
+        // Once we exit the while loop, `curr` must be null
+        // But inside the while loop, we have assigned a non-null `curr` value
+        // And inside the while loop, `parent` points to the non-null `curr` value
+        // It conveys that this `parent` is the leaf node
         if (parent != null) {
             if (key < parent.key) {
                 parent.left = node
