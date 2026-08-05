@@ -66,6 +66,7 @@
     * [What will be the time complexity?](#what-will-be-the-time-complexity)
     * [Can a particular operation take `O(n)` time?](#can-a-particular-operation-take-on-time)
     * [What if the range was based on the indices instead of the values?](#what-if-the-range-was-based-on-the-indices-instead-of-the-values)
+    * [Explain the difference between the Split operation of an AVLTree Vs. Splay Tree](#explain-the-difference-between-the-split-operation-of-an-avltree-vs-splay-tree)
   * [Relevant DSA Variants](#relevant-dsa-variants)
 <!-- TOC -->
 
@@ -807,6 +808,10 @@ fun rangeSum(startInclusive: Long, endInclusive: Long): Long {
 * To understand how we manage and process "**index and count based queries**", please refer to the following file:
   * [implicitIndicesWithSplayTree.md](75implicitIndicesWithSplayTree.md)
   * [ropeStringSubstringCutPaste.md](77ropeStringSubstringCutPaste.md)
+
+### Explain the difference between the Split operation of an AVLTree Vs. Splay Tree
+
+* //ToDo: 
 
 ## Relevant DSA Variants
 
