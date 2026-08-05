@@ -25,6 +25,8 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
  * * So, the height of the leaf node is 1.
  *
  * **ToDo:**
+ * * Why is it that an [AvlNode] of an [AvlTree] does not require the `parent` pointer,
+ * but a node of a [SplayTree] requires the parent pointer?
  * * There is no `nextLarger` function! Why?
  * * I believe that we can find `nextLarger` without the `parent` pointer by a simple binary search!
  * * We may take 3 variables: `prev`, `cur`, and `next`.
@@ -523,6 +525,9 @@ class AvlTree {
      * **Space Complexity:**
      * * This is a recursive function.
      * * So, we use `O(log n)` operation memory.
+     *
+     * **TODO: Question-Answers**
+     * * Isn't it possible to use an iterative approach than the recursion here?
      *
      * @param node The [AvlNode] under which we insert a new [AvlNode] of [key].
      * @param key The [AvlNode.keyValue] property of the new [AvlNode] that we want to insert as a child of [node].
@@ -1099,7 +1104,8 @@ class AvlTree {
      *
      * **Time Complexity:**
      *
-     * `O(log n)` mainly due to the tree traversal.
+     * * `O(log n)` mainly due to the tree traversal.
+     * * Note that it is not `O(n)` because of the `Pruned Tree Approach` where we discard/conclude an entire subtree.
      *
      * **Space Complexity:**
      *
