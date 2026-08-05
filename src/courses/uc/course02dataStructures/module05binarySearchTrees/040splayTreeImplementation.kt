@@ -135,6 +135,8 @@ class SplayTree<T : Comparable<T>> {
     }
 
     /**
+     * **Question:**
+     * * What is the benefit of splaying the last accessed node even when we don't find the target key?
      *
      */
     fun search(key: T): Node<T>? {
@@ -180,6 +182,8 @@ class SplayTree<T : Comparable<T>> {
             } else {
                 // The key already exists in the tree.
                 // We splay it.
+                // The splay operation will make the `curr` node the root node.
+                // Splay takes care of updating the root.
                 splay(curr)
                 return
             }
@@ -196,6 +200,8 @@ class SplayTree<T : Comparable<T>> {
             }
         }
         node.parent = parent
+        // The splay operation makes the `node` the root.
+        // Splay takes care of updating the root.
         splay(node)
     }
 

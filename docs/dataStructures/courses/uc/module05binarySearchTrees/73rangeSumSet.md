@@ -65,6 +65,7 @@
     * [Why do we have this strange `(+ x) % Mod` condition?](#why-do-we-have-this-strange--x--mod-condition)
     * [What will be the time complexity?](#what-will-be-the-time-complexity)
     * [Can a particular operation take `O(n)` time?](#can-a-particular-operation-take-on-time)
+    * [What if the range was based on the indices instead of the values?](#what-if-the-range-was-based-on-the-indices-instead-of-the-values)
   * [Relevant DSA Variants](#relevant-dsa-variants)
 <!-- TOC -->
 
