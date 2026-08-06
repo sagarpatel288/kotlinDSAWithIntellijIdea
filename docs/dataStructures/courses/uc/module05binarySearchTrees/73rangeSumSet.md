@@ -409,7 +409,8 @@ fun rotate(target: Node) {
 > How does the `split` function work?
 
 * We call the `find` function on the `split key`.
-* It will make the `split key` the root of the tree.
+* The root key may or may not be the split key.
+* But it will be near (close) to the split key.
 * Then, we cut the tree into two parts.
 * The `split key` (now the root) becomes the part of either the left or the right tree.
 
