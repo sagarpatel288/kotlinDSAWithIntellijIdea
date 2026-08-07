@@ -35,6 +35,14 @@
 
 *
 
+## Classes And Functions
+
+* What does it take? (Parameters/Arguments)
+* What does it give? (Return type)
+* What does it do? (Body)
+* How does it do? (Logic)
+* 
+
 ## Problem/s
 
 *
