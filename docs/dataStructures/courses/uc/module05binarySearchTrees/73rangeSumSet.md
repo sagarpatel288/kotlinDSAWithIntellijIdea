@@ -66,7 +66,8 @@
     * [What will be the time complexity?](#what-will-be-the-time-complexity)
     * [Can a particular operation take `O(n)` time?](#can-a-particular-operation-take-on-time)
     * [What if the range was based on the indices instead of the values?](#what-if-the-range-was-based-on-the-indices-instead-of-the-values)
-    * [Explain the difference between the Split operation of an AVLTree Vs. Splay Tree](#explain-the-difference-between-the-split-operation-of-an-avltree-vs-splay-tree)
+    * [Explain the difference between the Split and merge operations of an AVLTree Vs. Splay Tree](#explain-the-difference-between-the-split-and-merge-operations-of-an-avltree-vs-splay-tree)
+    * [Why split and merge operations are simple and straightforward in a splay tree compared to an AVL tree?](#why-split-and-merge-operations-are-simple-and-straightforward-in-a-splay-tree-compared-to-an-avl-tree)
   * [Relevant DSA Variants](#relevant-dsa-variants)
 <!-- TOC -->
 
@@ -409,7 +410,8 @@ fun rotate(target: Node) {
 > How does the `split` function work?
 
 * We call the `find` function on the `split key`.
-* It will make the `split key` the root of the tree.
+* The root key may or may not be the split key.
+* But it will be near (close) to the split key.
 * Then, we cut the tree into two parts.
 * The `split key` (now the root) becomes the part of either the left or the right tree.
 
@@ -809,9 +811,22 @@ fun rangeSum(startInclusive: Long, endInclusive: Long): Long {
   * [implicitIndicesWithSplayTree.md](75implicitIndicesWithSplayTree.md)
   * [ropeStringSubstringCutPaste.md](77ropeStringSubstringCutPaste.md)
 
-### Explain the difference between the Split operation of an AVLTree Vs. Splay Tree
+### Explain the difference between the Split and merge operations of an AVLTree Vs. Splay Tree
+
+**The difference**
 
 * //ToDo: 
+
+### Why split and merge operations are simple and straightforward in a splay tree compared to an AVL tree?
+
+* AVLTree is a strictly balanced binary search tree.
+* It has to satisfy the balance factor (|BF| <= 1) all the time.
+* We cannot simply have an uneven and unbalanced left and right subtrees.
+* Whereas a splay tree does not store and care about height, size, and balance.
+* The splay tree rule is: Splay the last accessed node. Make it the root node.
+* It is a roughly balanced binary search tree.
+* So, even if at some point, a splay tree might be an unbalanced binary search tree.
+* However, the subsequent operations and the splay rule ensure that `m` operations take `O(m log n)` time only.
 
 ## Relevant DSA Variants
 

@@ -351,15 +351,23 @@ class RangeSumUsingSplayTree {
         if (root == null) return SplitResult(null, null)
         val partition = findAndSplay(root, splitKey) ?: return SplitResult(null, null)
         if (partition.key < splitKey) {
+            // The root key is less than the split key.
+            // So, we make it a part of the left subtree.
+            // So, we detach only the right subtree.
             val right = partition.rightChild
             right?.parent = null
             partition.rightChild = null
+            // We just detached the right subtree.
+            // Hence, we need to update the sum/height/size of the root.
             update(partition)
             return SplitResult(partition, right)
         } else {
+            // The root key is equal to or greater than the split key.
+            // So, we detach the left part.
             val left = partition.leftChild
             left?.parent = null
             partition.leftChild = null
+            // After detaching the left subtree, we need to update the sum/height/size of the root.
             update(partition)
             return SplitResult(left, partition)
         }
