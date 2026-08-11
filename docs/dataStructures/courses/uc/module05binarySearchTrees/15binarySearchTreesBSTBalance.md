@@ -405,6 +405,8 @@ $$
 
 ![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
 
+![307denseAvlTreeLeftRotation.webp](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/307denseAvlTreeLeftRotation.webp)
+
 ### Code Consideration: Thought Process
 
 * Identify the cause and decide the rotation. 
@@ -518,6 +520,8 @@ if (bf < -1) {
 ![220avlBasicRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/220avlBasicRightRotation.png)
 
 ![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
+
+![283denseAvlTreeRightRotation.webp](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/283denseAvlTreeRightRotation.webp)
 
 ```kotlin
 val bf = balanceFactor(unbalancedNode)
