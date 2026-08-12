@@ -44,6 +44,29 @@
 * A successful merge operation also follows the splay operation as we find and splay the max of the left subtree.
 * 
 
+**Rotation Determination**
+
+* An AVL Tree uses the balance factor.
+* If the balance factor is < -1, it is either left or RL rotation.
+* If the right child is <= 0, it is left rotation. Otherwise, RL rotation.
+* RL rotation is caused by left-of-right.
+* So, first we rotate the right child on the right side.
+* Then we rotate the node on the left side.
+* Similarly, if the balance factor is > 1, it is either right or LR rotation.
+* If the left child is >= 0, it is right rotation. Otherwise, LR rotation.
+* LR rotation is caused by right-of-left.
+* So, first we rotate the left child on the left side.
+* Then we rotate the node on the right side.
+---
+* A Splay Tree uses grandparent, parent, and child.
+* If the grandparent is null, it is either right or left rotation.
+* If the node is a left child, we rotate the parent on the right side (zig).
+* Otherwise, we rotate the parent on the left side to move the child upward (zag).
+* If the parent and the child are on the same side of the grandparent, it is either zig-zig or zag-zag.
+* First we rotate the grandparent and then parent on the same side.
+* If the parent and the child are on different sides of the grandparent, it is either zig-zag or zag-zig.
+* First we rotate the parent and then the grandparent.
+
 **Insert**
 
 * 
