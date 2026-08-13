@@ -1,5 +1,20 @@
 # AVLTree Vs. Splay Tree
 
+**The node class and members**
+
+* var vs. val properties
+* Do we ever change the key?
+* Nullable or non-nullable?
+* What does the function take?
+* Does the function take nullable or non-null arguments?
+* What does the function return?
+* Does the function return nullable or non-null type?
+* Is the function recursive or iterative or a combination of both or something else?
+* The answers depend upon the implementation, the problems we solve, and the approach we take to solve the problems.
+* For example, an AVLTree might have a `var key` because we replace it during the `delete` operation.
+* Especially, it is for the case when the target that we want to delete has left and right children.
+* To be continued... 
+
 **Parent pointer**
 
 * AVLTree is a strictly balanced binary search tree.
@@ -69,4 +84,28 @@
 
 **Insert**
 
-* 
+**Delete**
+
+* In an AVL Tree, delete is a recursive function.
+* It follows the typical binary search with the base condition.
+* The parent gets replacement.
+* So, it returns a nullable node.
+* It returns a nullable node because it is possible that the target has no child (successor)!
+* When we find the target, we have 3 cases:
+* The target has 0, 1, or 2 children.
+* If the target has 0 child, the base condition returns null and the parent gets it.
+* If the target has 1 child, left or right, it takes the place of the target.
+* Otherwise, we replace the target key with the successor key (next larger).
+* Then, we delete the successor to avoid the duplicate keys in the tree.
+* We rebalance the parent and return.
+* Every insert and delete operation updates the root node!
+---
+* In case of a splay tree, it is straightforward.
+* We use split and merge.
+* We find the target and splay it.
+* The target becomes the root.
+* If the root key does not match, we return.
+* Otherwise, we disconnect the children.
+* If the root has only 1 child, we return it.
+* Otherwise, we find the max on the left and splay it.
+* And then we connect the right child with the left max.
