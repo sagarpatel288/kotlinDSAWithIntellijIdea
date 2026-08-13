@@ -25,6 +25,13 @@
 
 ## Delete Example
 
+**Random**
+
+* Do you know that whether we insert or delete, we always update the root node!
+* Someone takes the place of the node that we are going to delete.
+* If we call that node the `replacement` node, then it will be either left or right child of the parent.
+* It means that the assignment operation will be there to connect the `replacement`.
+
 ### No Child
 
 ![80bstDelete01.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete01.png)
