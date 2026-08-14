@@ -533,7 +533,7 @@ class AvlTree {
      * @param key The [AvlNode.keyValue] property of the new [AvlNode] that we want to insert as a child of [node].
      * @return The updated [root]. Because inserting a new node can change the height of the [root].
      */
-    private fun insert(node: AvlNode?, key: Int): AvlNode? {
+    private fun insert(node: AvlNode?, key: Int): AvlNode {
         // Standard BST insert.
         // Base case.
         // We found a vacant place.
@@ -541,7 +541,7 @@ class AvlTree {
         if (node == null) {
             // The default height of the [AvlNode] is `1` only. So, we don't need to do anything else.
             // Hence, we return.
-            // Commonly, this node is going to attach with the below `node.right = ` or `node.left = `.
+            // Commonly, this node is going to be attached with the below `node.right = ` or `node.left = `.
             return AvlNode(key)
         }
         // Recursively find the insertion point based on the key comparison.
