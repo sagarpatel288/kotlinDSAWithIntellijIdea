@@ -84,6 +84,19 @@
 
 **Insert**
 
+* In an AVL Tree, insert is a recursive function.
+* The new node is an adoption.
+* It gets parents.
+* We attach it to the parents via binary search.
+---
+* In a splay tree, insert is a split and merge operation.
+* The key that we want to insert acts as a split point.
+* We get a left subtree and a right subtree.
+* If the root of these subtrees is equal to the new key, we don't add the duplicate key, we merge the subtrees back again, and return.
+* Otherwise, we attach these subtrees to this new node (now root).
+* We update the new node.
+* The new node becomes the root.
+
 **Delete**
 
 * In an AVL Tree, delete is a recursive function.
