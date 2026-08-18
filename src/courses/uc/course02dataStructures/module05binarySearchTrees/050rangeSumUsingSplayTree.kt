@@ -497,6 +497,8 @@ class RangeSumUsingSplayTree {
 
     fun add(key: Long) {
         val (left, right) = split(root, key)
+        // Caution! Possible point of mistake!
+        // Don't forget this case: The key already exists!
         // Do you understand why are we sure that if the "key" exist, it must be the root of the "right" subtree?
         if (right?.key == key) {
             // The key already exists in the tree.
@@ -538,8 +540,12 @@ class RangeSumUsingSplayTree {
         if (target?.key != key) return false
         val left = target.leftChild
         val right = target.rightChild
+        // Caution! Possible point of mistake!
+        // Don't forget to nullify the parent pointers!
         left?.parent = null
         right?.parent = null
+        // Caution! Possible point of mistake!
+        // Don't forget to nullify the children pointers as well!
         target.leftChild = null
         target.rightChild = null
         root = merge(left, right)
