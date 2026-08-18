@@ -545,6 +545,14 @@ class RangeSumUsingSplayTree {
         return rangeSum
     }
 
+    /**
+     * * Why did we use the [update] function instead of using the computational property?
+     * * Because if we use the computational property, it will always calculate the sum of the many subtrees.
+     * * But if we use the [update] function, we only update the sum of the subject (target) node.
+     * * The [update] function reads (and does not calculate) the properties of the left and right subtrees.
+     * * But if we use the computational property, it will calculate the properties of the left and right subtrees.
+     * * The computational property will increase the cost.
+     */
     private fun update(node: Node?) {
         if (node == null) return
         node.subtreeSum = node.key + (node.leftChild?.subtreeSum ?: 0L) + (node.rightChild?.subtreeSum ?: 0L)
