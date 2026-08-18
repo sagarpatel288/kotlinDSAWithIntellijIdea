@@ -262,6 +262,10 @@ class RangeSumUsingSplayTree {
             // Rotate right
             // Rotating the right side changes the right child of the target.
             // It becomes a left child of the parent.
+            // How to remember?
+            // "Rotate right" means right child of the target becomes the left child of the parent.
+            // And then we update the parent of that child.
+            // And then parent takes that empty space (place, replaces) as a child for the target.
             parent.leftChild = target.rightChild
             // Then we also change its parent.
             // We also change the parent pointer of the target's child, because it has got a new parent.
@@ -273,6 +277,10 @@ class RangeSumUsingSplayTree {
             // If the target is a right child, we rotate the parent to the left side.
             // Rotate left
             // Rotating the parent to the left side takes the left child of the target and attaches it as a right child.
+            // How to remember?
+            // "Rotate left" means left child of the target becomes the right child of the parent.
+            // And then we update the parent of that child.
+            // And then parent takes that empty space (place, replaces) as a child for the target.
             parent.rightChild = target.leftChild
             target.leftChild?.parent = parent
             // And ultimately, the old parent becomes the left child of the target.
