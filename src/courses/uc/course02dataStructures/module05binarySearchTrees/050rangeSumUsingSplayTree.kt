@@ -228,6 +228,7 @@ class RangeSumUsingSplayTree {
         var parent: Node? = null
         var leftChild: Node? = null
         var rightChild: Node? = null
+
         // Do you understand why don't we apply the "update" formula here?
         // Because that can create a false impression that the "subtreeSum" will always give us the correct value.
         // However, the truth is, we need to update it manually, every time we change the pointers of the node.
@@ -241,6 +242,14 @@ class RangeSumUsingSplayTree {
 
     private data class SplitResult(val left: Node?, val right: Node?)
 
+    /**
+     * * The [rotate] function depends on the definition of the [target] that we pass.
+     * * We can pass the target node that we want to promote (move up),
+     * or we can pass the parent or grandparent node that we want to rotate.
+     * * The logic will change accordingly, depending upon the definition of the argument.
+     * * Currently, this [rotate] function expects the node that we want to promote (move up).
+     * * Normally, we prefer this "promote" mental model for the splay tree.
+     */
     private fun rotate(target: Node?) {
         if (target == null) return
         val parent = target.parent ?: return
@@ -271,6 +280,72 @@ class RangeSumUsingSplayTree {
     }
 
     /**
+     * * This [rotateLeft] function is to show how the expected definition changes the rotation logic.
+     * * Here, we expect that the [node] is the parent node that we want to downgrade.
+     * * Ultimately, downgrading the parent upgrades (pulls/moves up) the child node.
+     * * However, normally we prefer the promote mental model for the splay tree rotations, like [rotate].
+     */
+    private fun rotateLeft(node: Node) {
+        val parent = node.parent
+        // This is the safety net.
+        // If the caller accidentally pass the "child" instead of the "parent,"
+        // we want to ensure that we don't assign a null value to the root.
+        // For example, suppose `node.parent = null`.
+        // It means that `node.parent` is the root.
+        // Now, suppose that `node` does not have any child.
+        // So, `node.rightChild` will be null.
+        // Now, eventually, the code performs: `node.parent = child`.
+        // Given that, `node.parent` is `root` and `child` is null, we end up with:
+        // `root = null`, something that we must avoid.
+        // Otherwise, it would destroy the tree!
+        val child = requireNotNull(node.rightChild) {
+            "Demoting the $node via rotating it to the left side requires a right child!"
+        }
+        val gc = child.leftChild
+        node.rightChild = gc
+        child.leftChild = node
+        gc?.parent = node
+        node.parent = child
+        if (parent == null) {
+            root = child
+        } else if (parent.leftChild == node) {
+            parent.leftChild = child
+        } else if (parent.rightChild == node) {
+            parent.rightChild = child
+        }
+        child.parent = parent
+        update(node)
+        update(child)
+    }
+
+    /**
+     * * Same as [rotateLeft], the expected definition of the [node] is `parent` here.
+     * * We downgrade the parent to upgrade the target child.
+     * * However, normally we prefer the promote mental model for the splay tree rotations, like [rotate].
+     */
+    private fun rotateRight(node: Node) {
+        val parent = node.parent
+        val child = requireNotNull(node.leftChild) {
+            "Demoting the $node via rotating it to the right side requires a left child!"
+        }
+        val gc = child.rightChild
+        node.leftChild = gc
+        child.rightChild = node
+        gc?.parent = node
+        node.parent = child
+        if (parent == null) {
+            root = child
+        } else if (parent.leftChild == node) {
+            parent.leftChild = child
+        } else if (parent.rightChild == node) {
+            parent.rightChild = child
+        }
+        child.parent = parent
+        update(node)
+        update(child)
+    }
+
+    /**
      * Should [update] be a responsibility of this [splay] function to avoid manual calls?
      * On one hand, it seems like an "error-proof" design where we get rid of the case where a developer might forget
      * to call the [update] function manually after every a particular operation.
@@ -294,11 +369,15 @@ class RangeSumUsingSplayTree {
             val parent = node.parent
             val grandParent = parent?.parent
             if (grandParent == null) {
+                // Promote the target node
                 rotate(node)
             } else if ((parent.leftChild == node) == (grandParent.leftChild == parent)) {
+                // First, promote the parent
+                // And then, promote the target node
                 rotate(parent)
                 rotate(node)
             } else {
+                // Promote the target node two times consecutively/subsequently.
                 rotate(node)
                 rotate(node)
             }
