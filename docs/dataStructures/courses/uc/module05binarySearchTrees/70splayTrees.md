@@ -116,6 +116,10 @@
 * And then we need to place it appropriately, either as a left or as a right child of the grandparent.
 * Those are the consequences.
 * The main mental model is: We promote the node.
+* That's why we check parent and grandparent.
+* Because if the parent is null, the node is already the root.
+* And if the grandparent is null, we don't need to take care of the child pointers (left or right) of the grandparent.
+* And if the grandparent is null, it also makes the node the root node.
 
 **The invariant**
 
