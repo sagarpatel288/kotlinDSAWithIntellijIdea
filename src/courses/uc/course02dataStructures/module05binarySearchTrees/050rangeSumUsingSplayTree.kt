@@ -354,6 +354,8 @@ class RangeSumUsingSplayTree {
             // The root key is less than the split key.
             // So, we make it a part of the left subtree.
             // So, we detach only the right subtree.
+            // How to remember?
+            // We always ensure that the split point remains on the right side.
             val right = partition.rightChild
             right?.parent = null
             partition.rightChild = null
@@ -364,6 +366,8 @@ class RangeSumUsingSplayTree {
         } else {
             // The root key is equal to or greater than the split key.
             // So, we detach the left part.
+            // How to remember?
+            // We always ensure that the split point remains on the right side.
             val left = partition.leftChild
             left?.parent = null
             partition.leftChild = null
