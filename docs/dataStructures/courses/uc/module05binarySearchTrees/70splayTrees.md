@@ -105,6 +105,20 @@
 
 ## Rotations And Terminologies
 
+**What is the mental model for the rotation in a splay tree?**
+
+* When do we splay and rotate a node?
+* When we want to promote it.
+* That's it.
+* That's the mental model.
+* Promoting a node might require demotion of a parent.
+* And it might make the target node the parent.
+* And then we need to place it appropriately, either as a left or as a right child of the grandparent.
+* Those are the consequences.
+* The main mental model is: We promote the node.
+
+**The invariant**
+
 * Each rotation preserves the BST properties (invariant).
 * `keys (left) < node.key < keys (right)`
 
