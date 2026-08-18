@@ -252,22 +252,48 @@ class RangeSumUsingSplayTree {
      */
     private fun rotate(target: Node?) {
         if (target == null) return
+        // If the parent is null, it means that the target is already the root.
+        // In that case, we don't need to perform any rotation/s.
+        // So, when the parent is null, we safely abort and return.
         val parent = target.parent ?: return
         val grandParent = parent.parent
         if (parent.leftChild == target) {
+            // If the target is the left child, then we rotate the parent to the right side.
             // Rotate right
+            // Rotating the right side changes the right child of the target.
+            // It becomes a left child of the parent.
+            // How to remember?
+            // "Rotate right" means right child of the target becomes the left child of the parent.
+            // And then we update the parent of that child.
+            // And then parent takes that empty space (place, replaces) as a child for the target.
             parent.leftChild = target.rightChild
+            // Then we also change its parent.
+            // We also change the parent pointer of the target's child, because it has got a new parent.
             target.rightChild?.parent = parent
+            // And ultimately, the old parent becomes the child of the target node that we want to promote.
+            // In other words, the parent replaces the child of the target.
             target.rightChild = parent
         } else {
+            // If the target is a right child, we rotate the parent to the left side.
             // Rotate left
+            // Rotating the parent to the left side takes the left child of the target and attaches it as a right child.
+            // How to remember?
+            // "Rotate left" means left child of the target becomes the right child of the parent.
+            // And then we update the parent of that child.
+            // And then parent takes that empty space (place, replaces) as a child for the target.
             parent.rightChild = target.leftChild
             target.leftChild?.parent = parent
+            // And ultimately, the old parent becomes the left child of the target.
+            // In other words, the parent replaces the child of the target.
             target.leftChild = parent
         }
+        // In any case, the target becomes the parent of its old parent
         parent.parent = target
+        // And the original grandparent becomes the parent of the target
         target.parent = grandParent
+        // But if the grandparent was null, target is the root
         if (grandParent == null) root = target
+        // Otherwise, the target replaces the old parent
         if (grandParent != null) {
             if (grandParent.leftChild == parent) {
                 grandParent.leftChild = target
@@ -275,7 +301,9 @@ class RangeSumUsingSplayTree {
                 grandParent.rightChild = target
             }
         }
+        // First, update the child (the old parent is now a child of the target)
         update(parent)
+        // Then, update the target (the target is now a parent)
         update(target)
     }
 
@@ -517,6 +545,14 @@ class RangeSumUsingSplayTree {
         return rangeSum
     }
 
+    /**
+     * * Why did we use the [update] function instead of using the computational property?
+     * * Because if we use the computational property, it will always calculate the sum of the many subtrees.
+     * * But if we use the [update] function, we only update the sum of the subject (target) node.
+     * * The [update] function reads (and does not calculate) the properties of the left and right subtrees.
+     * * But if we use the computational property, it will calculate the properties of the left and right subtrees.
+     * * The computational property will increase the cost.
+     */
     private fun update(node: Node?) {
         if (node == null) return
         node.subtreeSum = node.key + (node.leftChild?.subtreeSum ?: 0L) + (node.rightChild?.subtreeSum ?: 0L)
