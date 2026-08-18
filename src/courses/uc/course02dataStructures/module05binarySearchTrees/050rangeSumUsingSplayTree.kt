@@ -399,12 +399,23 @@ class RangeSumUsingSplayTree {
             if (grandParent == null) {
                 // Promote the target node
                 rotate(node)
+                // Are these two relationship the same?
+                // A = node is a left child of the parent.
+                // B = parent is a left child of the grandparent.
+                // And then, we have A == B.
+                // Now, if A is true and B is also true, then A == B.
+                // If A is false and B is also false, then also A == B.
+                // So, we cover two conditions in one conditional statement!
+                // If both the parent and the child are on the same side,
+                // we first promote the parent followed by the node.
+                // The remaining condition is covered by the last conditional statement!
             } else if ((parent.leftChild == node) == (grandParent.leftChild == parent)) {
                 // First, promote the parent
                 // And then, promote the target node
                 rotate(parent)
                 rotate(node)
             } else {
+                // If the parent and node are on the opposite side, we promote the node two times.
                 // Promote the target node two times consecutively/subsequently.
                 rotate(node)
                 rotate(node)
