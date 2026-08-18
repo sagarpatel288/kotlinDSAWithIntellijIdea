@@ -113,6 +113,15 @@ val balanceFactor: Int
 
 ## Rotations
 
+**What is the mental model of a rotation?**
+
+* When do we rotate a node?
+* When we find that the node is imbalanced.
+* It means that the balance factor is higher than expected.
+* So, we demote the node.
+* So, we check and take care of the child and the grandchild.
+* Because demoting the node promotes the child and changes the parent of the grandchild.
+
 **What are the things that we need to take care of when we rotate a node?**
 
 * Mainly two things: The child and the grandchild.

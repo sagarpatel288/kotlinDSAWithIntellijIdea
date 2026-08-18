@@ -217,6 +217,10 @@ class AvlTree {
      *
      * **WHAT:**
      * * Performs `Right Rotation` on the given [node].
+     * * Consequently, it might pull the child.
+     * * But the target is the [node].
+     * * We demote the [node].
+     * * And it promotes the child.
      *
      * **PURPOSE:**
      * * We perform the right rotation on the [node] when the [node] is heavy on the left side.
@@ -281,7 +285,12 @@ class AvlTree {
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
      * **WHAT:**
+     * * Performs `Left rotation` on the given [node].
      * * Rotates the given [node] left side to rebalance it.
+     * * Consequently, it might pull the child.
+     * * But the target is the [node].
+     * * We demote the [node].
+     * * And it promotes the child.
      *
      * **PURPOSE:**
      * * We perform the left rotation on the given [node] when it is heavy on the right side.
