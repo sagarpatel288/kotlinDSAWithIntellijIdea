@@ -399,12 +399,23 @@ class RangeSumUsingSplayTree {
             if (grandParent == null) {
                 // Promote the target node
                 rotate(node)
+                // Are these two relationship the same?
+                // A = node is a left child of the parent.
+                // B = parent is a left child of the grandparent.
+                // And then, we have A == B.
+                // Now, if A is true and B is also true, then A == B.
+                // If A is false and B is also false, then also A == B.
+                // So, we cover two conditions in one conditional statement!
+                // If both the parent and the child are on the same side,
+                // we first promote the parent followed by the node.
+                // The remaining condition is covered by the last conditional statement!
             } else if ((parent.leftChild == node) == (grandParent.leftChild == parent)) {
                 // First, promote the parent
                 // And then, promote the target node
                 rotate(parent)
                 rotate(node)
             } else {
+                // If the parent and node are on the opposite side, we promote the node two times.
                 // Promote the target node two times consecutively/subsequently.
                 rotate(node)
                 rotate(node)
@@ -486,6 +497,8 @@ class RangeSumUsingSplayTree {
 
     fun add(key: Long) {
         val (left, right) = split(root, key)
+        // Caution! Possible point of mistake!
+        // Don't forget this case: The key already exists!
         // Do you understand why are we sure that if the "key" exist, it must be the root of the "right" subtree?
         if (right?.key == key) {
             // The key already exists in the tree.
@@ -527,8 +540,12 @@ class RangeSumUsingSplayTree {
         if (target?.key != key) return false
         val left = target.leftChild
         val right = target.rightChild
+        // Caution! Possible point of mistake!
+        // Don't forget to nullify the parent pointers!
         left?.parent = null
         right?.parent = null
+        // Caution! Possible point of mistake!
+        // Don't forget to nullify the children pointers as well!
         target.leftChild = null
         target.rightChild = null
         root = merge(left, right)
