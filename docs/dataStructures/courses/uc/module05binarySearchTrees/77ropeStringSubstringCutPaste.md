@@ -1299,7 +1299,7 @@ Left size    |   |   |   |    |    |   |    |
 * The split key is `i` and the split key always becomes the part of the right subtree.
 * So, the function and arguments become: `split(root, i)`
 * It splits the original string into two parts: `ab` and `cdefg`.
-* We denote `ab` as `A` and `cdefg` as `BC`.
+* We denote `ab` as `a` and `cdefg` as `bc`.
 * Now, we again split the substring `cdefg`.
 * But notice that it is not the original whole length string.
 * It is the part (substring) of the original whole length string.
@@ -1310,7 +1310,7 @@ Left size    |   |   |   |    |    |   |    |
 * But this substring has `i` indices less (reduced) compared to the original string.
 * So, we reduce the `j + 1` by `i` and it becomes `j - i + 1`.
 * It means that we can call the `split` function again on the right subtree as:
-* `split(BC, j - i + 1)`.
+* `split(bc, j - i + 1)`.
 
 ```kotlin
 
@@ -1318,7 +1318,12 @@ val (b, c) = split(bc, j - i + 1)
 
 ```
 
-* Now, we `merge` the `a` and `c` subtrees to get the final result that represents the original string after the cut. 
+* Now, we `merge` the `a` and `c` subtrees to get the final result that represents the original string after the cut.
+* Why do we merge `a` and `c`?
+* Because the `k` is based upon `ac`.
+* The value of `k` considers the string `abc` without `b` as `ac`.
+* So, before we use `k`, we merge `a` and `c`.
+* And then, we use `k` for `ac`.
 
 ```kotlin
 
