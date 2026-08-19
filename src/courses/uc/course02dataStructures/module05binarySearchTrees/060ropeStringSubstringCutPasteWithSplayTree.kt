@@ -277,6 +277,10 @@ class RopeStringSubstringCutPaste {
         // Common mistake: Don't forget to first "findByIndex" and "splay" before we "split".
         val target = findByIndex(root, splitKeyAsCount)
         val newRoot = splay(target)
+        // Did you understand why did we detach the left part and not the right part?
+        // Because `splitKeyAsCount` indicates the number of nodes (characters) we want to keep on the left subtree.
+        // The left subtree will have a total of `splitKeyAsCount` nodes (count perspective).
+        // And the right subtree will start from the index `splitKeyAsCount` (index perspective).
         val left = newRoot?.left
         left?.parent = null
         newRoot?.left = null
