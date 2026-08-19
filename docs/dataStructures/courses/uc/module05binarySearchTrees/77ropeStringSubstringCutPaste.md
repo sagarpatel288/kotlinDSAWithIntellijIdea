@@ -1288,7 +1288,29 @@ Left size    |   |   |   |    |    |   |    |
 
 * We can see that the second split also creates two subtrees.
 * The right subtree starts at index 3, which is `j - i + 1 = 4 - 2 + 1 = 2 + 1 = 3`.
+* See, we cannot use `j` as it is.
+* Let us understand why and how.
+* Consider the original string is `abcdefg`.
+* The part that we want to cut starts from `i = 2` and ends at `j = 4`.
+* Now, these `i` and `j` index values (indices) are relevant and respective (based upon) the original string.
+* We cut the part `cde` using two splits.
+* We first split the string into two parts: 
+* The part that starts before `i`, and the part that starts from `i`.
+* The split key is `i` and the split key always becomes the part of the right subtree.
+* So, the function and arguments become: `split(root, i)`
+* It splits the original string into two parts: `ab` and `cdefg`.
+* We denote `ab` as `A` and `cdefg` as `BC`.
+* Now, we again split the substring `cdefg`.
+* But notice that it is not the original whole length string.
+* It is the part (substring) of the original whole length string.
+* However, the split key `j` was based on the original string.
+* So, how can we apply it (the split key `j`) on this substring?
+* We know that the split key always becomes the part of the right subtree.
+* Now, if we had the original string, the right subtree would start from `j + 1`.
+* But this substring has `i` indices less (reduced) compared to the original string.
+* So, we reduce the `j + 1` by `i` and it becomes `j - i + 1`.
 * It means that we can call the `split` function again on the right subtree as:
+* `split(BC, j - i + 1)`.
 
 ```kotlin
 
