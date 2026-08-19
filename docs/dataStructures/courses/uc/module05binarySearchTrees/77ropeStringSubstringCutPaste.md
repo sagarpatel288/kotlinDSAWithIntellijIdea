@@ -1290,27 +1290,54 @@ Left size    |   |   |   |    |    |   |    |
 * The right subtree starts at index 3, which is `j - i + 1 = 4 - 2 + 1 = 2 + 1 = 3`.
 * See, we cannot use `j` as it is.
 * Let us understand why and how.
-* Consider the original string is `abcdefg`.
+* We use 3 different perspectives for `i`, `j`, and `split`.
+* Indices, left size, and count.
+* An index also represents the left size, which is the number of nodes (count) on its left side.
+* We can see the `split key` as **the number of nodes we want to keep on the left side**.
+* And we can see the `split key` as **the starting index of the right subtree** as well.
+* Now, consider the original string is `abcdefg`.
 * The part that we want to cut starts from `i = 2` and ends at `j = 4`.
-* Now, these `i` and `j` index values (indices) are relevant and respective (based upon) the original string.
+* Now, these `i` and `j` index values (indices) are based upon the original string.
 * We cut the part `cde` using two splits.
 * We first split the string into two parts: 
-* The part that starts before `i`, and the part that starts from `i`.
-* The split key is `i` and the split key always becomes the part of the right subtree.
+* The part that starts before `i`, and the part that starts from `i` (The index perspective).
+* The index also represents `left size`.
+* So, we can also say:
+* We want to split the original string into two parts where the left part will have first `i` characters (node).
+* The split key is `i` and the split key always becomes the part of the right subtree (The index perspective).
 * So, the function and arguments become: `split(root, i)`
-* It splits the original string into two parts: `ab` and `cdefg`.
+* Here, `i` represents the number of nodes on the left tree (The count perspective).
+* So, for `i = 2`, we get two nodes `ab` on the left side.
+* And the same `i` also conveys that the index `i` will be the part of the right subtree.
+* So, the right subtree starts from `i = 2`.
+* They both end up with the same result, but uses different perspectives.
+* So, the split operation splits the original string into two parts: `ab` and `cdefg`.
 * We denote `ab` as `a` and `cdefg` as `bc`.
 * Now, we again split the substring `cdefg`.
 * But notice that it is not the original whole length string.
 * It is the part (substring) of the original whole length string.
 * However, the split key `j` was based on the original string.
 * So, how can we apply it (the split key `j`) on this substring?
-* We know that the split key always becomes the part of the right subtree.
+* We know that the split key always becomes the part of the right subtree. (The index perspective).
 * Now, if we had the original string, the right subtree would start from `j + 1`.
 * But this substring has `i` indices less (reduced) compared to the original string.
 * So, we reduce the `j + 1` by `i` and it becomes `j - i + 1`.
 * It means that we can call the `split` function again on the right subtree as:
 * `split(bc, j - i + 1)`.
+* And we can think of it in a different way also.
+* We have a substring `bc = cdefg` that starts from `i`.
+* Now, we know that the `split key` also represents the number of nodes (count) we want to keep on the left side.
+* So, what will be the length (number of characters) of the substring that we want to cut? 
+* How do we find the length of a substring when we already know its starting index and end index?
+* Originally, we had given two indices: `i` and `j`.
+* So, the length will be: `j - i + 1`.
+* That's the formula of finding the length of a string using the start and the end indices.
+* The length is the count for the number of characters.
+* So, for the next split, we are going to say: The number of characters (count) we want to keep on the left part.
+* If we notice the `split` function, it represents the number of nodes (characters) we want to keep on the left side.
+* We want to keep "the length of the substring that we want to cut" on the left side.
+* And it is `j - i + 1`.
+* So, we pass: `split(bc, j - i + 1)`.
 
 ```kotlin
 
