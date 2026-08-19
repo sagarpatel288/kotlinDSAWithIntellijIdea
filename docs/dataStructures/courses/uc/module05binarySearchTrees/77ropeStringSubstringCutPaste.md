@@ -1338,6 +1338,8 @@ Left size    |   |   |   |    |    |   |    |
 * We want to keep "the length of the substring that we want to cut" on the left side.
 * And it is `j - i + 1`.
 * So, we pass: `split(bc, j - i + 1)`.
+* So, the total characters (nodes) on the left subtree will be: `j - i + 1`.
+* And the starting index of the right subtree will be: `j - i + 1`.
 
 ```kotlin
 
