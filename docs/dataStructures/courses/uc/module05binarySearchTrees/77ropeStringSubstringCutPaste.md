@@ -55,6 +55,7 @@
       * [But what do we compare and how do we compare to traverse the Splay Tree?](#but-what-do-we-compare-and-how-do-we-compare-to-traverse-the-splay-tree)
       * [Why did we store `size` instead of `index` in the Splay Tree?](#why-did-we-store-size-instead-of-index-in-the-splay-tree)
   * [Step-11: Mental Model](#step-11-mental-model)
+  * [Implementation](#implementation)
   * [Real-World Application](#real-world-application)
   * [Notes](#notes)
   * [ToDos:](#todos)
@@ -208,7 +209,7 @@ efcabd
 * We remove (delete) this substring from the original string.
 * And then, we paste (insert) the substring at the given position.
 * The delete and insert operations change the order of the characters.
-* We can say that we are keep changing the order of the characters.
+* We can say that we keep changing the order of the characters.
 * We keep manipulating the order of the characters.
 * So, it is a sequence or order manipulation problem.
 * We keep re-ordering the characters.
@@ -315,6 +316,28 @@ Left size    |    |   |   |   |   |   |    |
 > 4. Which means, `characters before me on my left side + 1`.
 > 5. Which means, `left.size + 1`.
 > 6. So, if `left.size + 1 == k`, then the current node is the target node that we are looking for.
+
+```
+
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Indices      |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+             |  a | b | c | d | e | f | g  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+             |    |   |   |   |   |   |    |
+Left size    |  0 | 1 | 2 | 3 | 4 | 5 | 6  |
+             |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+Left size    |    |   |   |   |   |   |    |
+    +        |  1 | 2 | 3 | 4 | 5 | 6 | 7  |
+1 (My size)  |    |   |   |   |   |   |    |
+             +----+---+---+---+---+---+----+
+
+```
 
 * Now, suppose that we want to find the `2nd` character.
 * Note that `2nd` is a `1-based-index` here.
@@ -1697,6 +1720,10 @@ O((n + q) log n)
 
 ## Step-11: Mental Model
 
+## Implementation
+
+* [Rope String Substring Cut Paste With SplayTree.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/060ropeStringSubstringCutPasteWithSplayTree.kt)
+
 ## Real-World Application
 
 * Text editor.
@@ -1704,10 +1731,12 @@ O((n + q) log n)
 ## Notes
 
 * We saw the "cut-and-paste" operation of a string.
+* Recall that we have seen the "find kth smallest" problem using a splay tree and a heap.
 * Recall that we have seen the "search-and-match" operation of a string using hashing.
   * [String Hashing](../module04hashTables/050stringHashing.md)
   * [Find Substring](../module04hashTables/070findSubstring.md)
   * 
+* Recall that we have seen "string edit distance" problems. 
 
 ## ToDos:
 
