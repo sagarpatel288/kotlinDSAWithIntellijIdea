@@ -905,7 +905,9 @@ fun splay(target: Node?): Node? {
 ## Pseudocode: Find the `K-th` Node (Element, Item)
 
 * The `split` function treats the `split key` as `count` in a sense that the total number of nodes in the left subtree should be equal to the `split key`.
+* The `split` function treats the `split key` as `count` - the total number of nodes we want to keep on the left side.
 * The `find` function treats the same `split key` as `left size` and `left size` is identical with the `index`.
+* Because when we find and splay the node whose `left size` is equal to the `split key`, we get the total `split key` number of nodes on the left side.
 * In a binary search tree, we do not have explicit index system - something that we get in an array.
 * But we get an implicit index system using the `left size` model.
 * For example, if we want to find a node at index `3`, then it is the node for which `left.size` is `3`.
