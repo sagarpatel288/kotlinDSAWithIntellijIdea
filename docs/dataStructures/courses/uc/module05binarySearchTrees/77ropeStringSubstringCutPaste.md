@@ -335,7 +335,9 @@ fun buildBst(input: String, start: Int, end: Int): Node? {
 * We have seen it earlier during the `kth smallest` problem that we solved using a splay tree.
 * In that sense, if we treat `i` as `size` or `count`, and use it as a split key, the left subtree gets `i` nodes.
 * The right subtree starts from the `i + 1`th node.
-* For example, let us give each character the `size` property. 
+* We will use this understanding during the `split` function.
+* First, let us understand more about the `size` perspective.
+* Let us give each character the `size` property. 
 
 ```
 
@@ -968,6 +970,11 @@ fun findKthNode(root: Node?, kth: Int): Node? {
 
 ## Pseudocode: The `split` function
 
+* This is the place where we use the `split key` as the `count`.
+* Why? Because we are getting `k` as the `count`.
+* So, we design the logic in such a way that we get `i` nodes on the left side.
+* We use this perspective when we detach the left and the right children.
+* It will help us decide who will be the part of the left and the right subtree.
 * To split the splay tree, we need a `splitKey`.
 * We `find` the `splitKey` in the splay tree.
 * To `find` the `splitKey`, we need to traverse the splay tree.
@@ -1084,7 +1091,8 @@ if (k == root.size) return SplitResult(root, null)
 
 * After applying the base conditions on the `root` and the `k`, we call `findAndSplay`.
 * The `findAndSplay` function finds and splays a node, and makes it the root.
-* The root becomes the part of the `right subtree,` and the `left child` becomes the part of the `left subtree`.
+* The `findAndSplay` function treats `k` as an index, so that we get `k` nodes on the left side.
+* So, the root becomes the part of the `right subtree,` and the `left child` becomes the part of the `left subtree`.
 * The root loses its `left child`.
 * So, we need to update the `root` before we return the result.
 
@@ -1106,7 +1114,9 @@ fun split(root: Node?, k: Int): SplitResult {
     if (root == null) return SplitResult(null, null)
     if (k == 0) return SplitResult(null, root)
     if (k == root.size) return SplitResult(root, null)
-  
+    // The `findAndSplay` function treats `k` as an index.
+    // So, we get `k` children on the left side.
+    // And the right subtree starts from `k` index (or `k + 1`th node).
     val root = findAndSplay(root, k)
     val leftChild = root.left
     leftChild?.parent = null
