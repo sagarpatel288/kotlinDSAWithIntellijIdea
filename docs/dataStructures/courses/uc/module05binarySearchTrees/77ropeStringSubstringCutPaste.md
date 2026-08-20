@@ -483,7 +483,7 @@ Left size    |    |   |   |   |   |   |    |
 
 **Perspective**
 
-* We can consider cut-and-paste as the split-and-merge operation.
+* Using these two perspectives of `i` and `j`, we can model cut-and-paste work as the split-and-merge operation.
 
 **How cut-and-paste of a string is split-and-merge in a splay tree?**
 
