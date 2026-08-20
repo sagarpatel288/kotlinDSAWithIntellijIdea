@@ -195,9 +195,57 @@ efcabd
 ### Perspective
 
 * In the previous lecture, we saw that we cannot use a contiguous data structure.  
-* 
+*
 **What else can we use?**  
-* 
+
+* We can say that in a string, characters are having a particular order.
+* We can say that the original given string has the correct order of characters.
+* And we can model a correct order of anything using the `in-order` arrangement in a binary search tree.
+* So, we arrange and model the given original string as a binary search tree using the `in-order` arrangement.
+
+**How?**
+
+* We create all the essential properties and members of a binary search tree to replicate the given original string.
+* Now, we don't simply create the typical binary search tree structure.
+* Because it can be skewed.
+* We want to keep it balanced to perform various operations on it efficiently.
+* So, we go with the self-balancing BST.
+* An AVL Tree is a strict self-balancing BST.
+* So, we get rotation overhead and complexity.
+* So, we go with the roughly-balanced splay tree, which also maintains the `O(log n)` amortized cost per operation. 
+* Once we have the splay tree structure, we use the given original input string to model the valid BST.
+* We read each character of the string, but not in a linear fashion.
+* Because it would take `O(n)` time.
+* We can do it in `O(log n)` time using the `divide-and-conquer` approach.
+* We know that for the balanced splay tree (BST), the root will have almost equal children on the left and the right side.
+* So, we take the middle character.
+* To find the middle character, we need start and end indices.
+* And then we attach the remaining left part as the left children and remaining right part as the right children.
+* We repeat this process for each character.
+* So, it would roughly look like:
+
+```kotlin
+
+fun buildBst(input: String, start: Int, end: Int): Node? {
+    if (start > end) return null
+    val mid = start + (end - start)/2
+    val ch = input[mid]
+    val parent = Node(ch)
+    val left = buildBst(input, start, mid - 1)
+    parent?.left = left
+    left?.parent = parent
+    val right = buildBst(input, mid + 1, end)
+    parent.right = right
+    right?.parent = parent
+    update(parent) // Because the parent might have got new children
+    return parent
+}
+
+```
+---
+
+**What about the cut-and-paste operations? How do we model and integrate them using the splay tree?**
+
 * What are we doing here? What operations do we perform here?
 * Cut and paste. 
 * How are we supposed to do it? What process can do it?
@@ -415,6 +463,8 @@ Left size    |    |   |   |   |   |   |    |
 ---
 
 **Perspective**
+
+* We can consider cut-and-paste as the split-and-merge operation.
 
 **How cut-and-paste of a string is split-and-merge in a splay tree?**
 
