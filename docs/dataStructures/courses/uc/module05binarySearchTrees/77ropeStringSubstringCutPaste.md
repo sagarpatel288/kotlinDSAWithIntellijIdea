@@ -315,7 +315,26 @@ fun buildBst(input: String, start: Int, end: Int): Node? {
 ```
 
 * We compare the `key` value to find the target node.
-* But we can do it in a different way as well using an additional property called `size`.
+* But in our case, how do we compare?
+* But the question is, do we even need to compare?
+* For example, to cut a substring, we are given `i` and `j`.
+* Now, suppose the original string is `abcdefg`.
+* And we are given `i = 2`, `j = 4`, and `k = 3`.
+* It is clear that `i` and `j` are indices.
+* And we need to use them to cut the substring.
+* But before we use them, we need to understand different perspectives associated with it.
+* It will allow us to treat them differently.
+* We will learn that we can use `size` (instead of the `key`) to find the target node.
+
+**The two perspectives of the range `i` and `j`**
+
+* The first perspective is something that we already know: `index`.
+* And we have seen it earlier during the AVL Tree and splay tree, that the split key becomes the part of the right subtree.
+* So, if we treat `i` as an `index` and use it as a split key, it becomes the part of the right subtree.
+* The second perspective is `size` or `count`.
+* We have seen it earlier during the `kth smallest` problem that we solved using a splay tree.
+* In that sense, if we treat `i` as `size` or `count`, and use it as a split key, the left subtree gets `i` nodes.
+* The right subtree starts from the `i + 1`th node.
 * For example, let us give each character the `size` property. 
 
 ```
