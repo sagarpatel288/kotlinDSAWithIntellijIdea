@@ -1,12 +1,39 @@
 # Graph: Basic introduction
 
+<!-- TOC -->
+* [Graph: Basic introduction](#graph-basic-introduction)
+  * [Prerequisites](#prerequisites)
+  * [References](#references)
+  * [Definition](#definition)
+  * [Runtime measurement](#runtime-measurement)
+    * [Representation](#representation)
+      * [Runtime of different representations for different operations](#runtime-of-different-representations-for-different-operations)
+    * [Density](#density)
+  * [Next](#next)
+<!-- TOC -->
+
+## Prerequisites
+
+* 
+
+## References
+
+* 
+* [Khan Academy](https://www.khanacademy.org/computing/computer-science/algorithms/graph-representation/a/describing-graphs)
+* 
+
 ## Definition
 
 ![010graphIntro.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010graphIntro.png)
 
 * An undirected graph has a collection of V for vertices and a collection of E for edges.
 * An edge connects a pair of vertices.
+* We denote an edge using a pair of vertices it connects.
+* An edge is an incident on the two vertices it connects.
 * A vertex is a node.
+* Two vertices connected via an edge are adjacent (neighbor).
+* The number of edge incidents on a vertex is the degree of the vertex.
+* In simple terms, degree of vertex means the number of neighbors the vertex have. 
 
 ---
 
@@ -40,7 +67,10 @@
 
 ![030adjacencyList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/030adjacencyList.png)
 
----
+#### Runtime of different representations for different operations
+
+![040operationRuntimeTable.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/040operationRuntimeTable.png)
+
 * Each representation has its efficient vs. inefficient use case.
 * So, we use a particular representation depending upon our requirements.
 
@@ -86,8 +116,17 @@
 ### Density
 
 * The runtime does not only depend on the representation, but it also depends on the density of the graph.
+* We don't just see `O(E)`, but we also see how `E` relates to `V` - the relationship between the two.
 * For example, we get different values of E for a dense graph compared to a sparse graph.
 
 ![060denseGraph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/060denseGraph.png)
 
 ![065sparseGraph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/065sparseGraph.png)
+
+* So, for a dense graph, `E` can be expensive.
+* In simple terms, if we have more (so many) edges, `E` can become worse.
+* On the other hand, if we have a fewer edges, `E` is good.
+
+## Next
+
+* 
