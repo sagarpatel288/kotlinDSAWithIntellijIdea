@@ -53,3 +53,9 @@
 * And we repeat this until we find the pair or when we find that the neighbor list of one vertex does not include the other vertex we are looking for.
 * So, the runtime of adjacency list depends on the number of neighbors a particular vertex has or in other words, the connectivity (distribution, range, reach, network) of the vertex.
 * We call it "the degree of the vertex".
+* **Degree** means **Number of neighbors**.
+* **Degree of a vertex** reveals **the number of neighbors (connections)** of the vertex.
+
+![030adjacencyList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/030adjacencyList.png)
+
+* For example, in the given image of the adjacency list, the degree of the vertex A is 3.
