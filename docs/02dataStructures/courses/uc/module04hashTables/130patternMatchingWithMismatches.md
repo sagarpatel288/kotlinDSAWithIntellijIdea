@@ -149,7 +149,7 @@ k (Allowed mismatches) = 1
 
 ```
 
-![189patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/189patternMatchingWithMismatchesWindow00.webp)
+![189patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/189patternMatchingWithMismatchesWindow00.webp)
 
 * Now, it is given that the text length is greater than or equal to the pattern.
 * In other words, pattern length is less than or equal to the text.
@@ -165,10 +165,10 @@ k (Allowed mismatches) = 1
 * The variable `p` always starts from `0`, because `0` is the starting index of the pattern.
 * So, it looks like below:
 
-![189patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/189patternMatchingWithMismatchesWindow00.webp)
+![189patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/189patternMatchingWithMismatchesWindow00.webp)
 
 
-![190patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/190patternMatchingWithMismatchesWindow00.webp)
+![190patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/190patternMatchingWithMismatchesWindow00.webp)
 
 > i = 0; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.   
 > t = 0; p = 0; Text[0] Vs. Pattern[0] = a Vs. a = Match!  
@@ -186,7 +186,7 @@ k (Allowed mismatches) = 1
 * We finished the iteration over the pattern.
 * So, let us see the next text window that starts from `i = 1`.
 
-![192patternMatchingWithMismatchesWindowPointer01.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/192patternMatchingWithMismatchesWindowPointer01.webp)
+![192patternMatchingWithMismatchesWindowPointer01.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/192patternMatchingWithMismatchesWindowPointer01.webp)
 
 > i = 1; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.      
 > t = 1; Text[1] Vs. Pattern[0] = a Vs. a = Match!    
@@ -198,7 +198,7 @@ k (Allowed mismatches) = 1
 
 * Now, `i = 2`:
 
-![194patternMatchingWithMismatchesWindowPointer02.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/194patternMatchingWithMismatchesWindowPointer02.webp)
+![194patternMatchingWithMismatchesWindowPointer02.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/194patternMatchingWithMismatchesWindowPointer02.webp)
 
 > i = 2; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.    
 > t = 2; Text[2] Vs. Pattern[0] = b Vs. a = Mismatch!  
@@ -209,7 +209,7 @@ k (Allowed mismatches) = 1
 
 * Now, `i = 3`:
 
-![196patternMatchingWithMismatchesWindowPointer03.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/196patternMatchingWithMismatchesWindowPointer03.webp)
+![196patternMatchingWithMismatchesWindowPointer03.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/196patternMatchingWithMismatchesWindowPointer03.webp)
 
 > i = 3; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.    
 > t = 3; Text[3] Vs. Pattern[0] = b Vs. a = Mismatch!  
@@ -221,7 +221,7 @@ k (Allowed mismatches) = 1
 
 * Now, `i = 4`:
 
-![198patternMatchingWithMismatchesWindowPointer04.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/198patternMatchingWithMismatchesWindowPointer04.webp)
+![198patternMatchingWithMismatchesWindowPointer04.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/198patternMatchingWithMismatchesWindowPointer04.webp)
 
 > i = 4; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.    
 > t = 4; Text[4] Vs. Pattern[0] = a Vs. a = Match!  
@@ -234,7 +234,7 @@ k (Allowed mismatches) = 1
 
 * Now, `i = 5`:
 
-![200patternMatchingWithMismatchesWindowPointer05.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/200patternMatchingWithMismatchesWindowPointer05.webp)
+![200patternMatchingWithMismatchesWindowPointer05.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/200patternMatchingWithMismatchesWindowPointer05.webp)
 
 > i = 5; `t` for the text window starts from `i`, but `p` for the pattern always starts from `0`.      
 > t = 5; Text[5] Vs. Pattern[0] = b Vs. a = Mismatch!    
@@ -251,12 +251,12 @@ k (Allowed mismatches) = 1
 * Similarly, we cannot take `i = 8`, because that will give us the text window `b` whose length is less than the pattern.
 * It means that the last point `i` can go for a text window is `5` for the text whose length is `9` when the pattern length is `4`.
 
-![185patternMatchingWithMismatchesLastWindowPosition.png](../../../../../assets/images/dataStructures/uc/module04HashTables/185patternMatchingWithMismatchesLastWindowPosition.png)
+![185patternMatchingWithMismatchesLastWindowPosition.png](../../../../../assets/images/02dataStructures/uc/module04HashTables/185patternMatchingWithMismatchesLastWindowPosition.png)
 
 * If we do the math, it is `text.length - pattern.length = 9 - 4 = 5`.
 * So, `i` can only go from `0` to `text.length - pattern.length`.
 
-![187patternMatchingWithMismatchesAllWindows.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/187patternMatchingWithMismatchesAllWindows.webp)
+![187patternMatchingWithMismatchesAllWindows.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/187patternMatchingWithMismatchesAllWindows.webp)
 
 ```
 // This outer loop increments the starting index of the text window
@@ -446,7 +446,7 @@ for (i in 0 .. (text.length - pattern.length)) {
 
 ```
 
-![187patternMatchingWithMismatchesAllWindows.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/187patternMatchingWithMismatchesAllWindows.webp)
+![187patternMatchingWithMismatchesAllWindows.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/187patternMatchingWithMismatchesAllWindows.webp)
 
 ---
 
@@ -1936,13 +1936,13 @@ Good job! (Max time used: 2.50/5.00, max memory used: 147873792/536870912.)
 
 * Visualization:
 
-![187patternMatchingWithMismatchesAllWindows.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/187patternMatchingWithMismatchesAllWindows.webp)
+![187patternMatchingWithMismatchesAllWindows.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/187patternMatchingWithMismatchesAllWindows.webp)
 
 
-![189patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/189patternMatchingWithMismatchesWindow00.webp)
+![189patternMatchingWithMismatchesWindow00.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/189patternMatchingWithMismatchesWindow00.webp)
 
 
-![210patternMatchingWithMismatchesAllInOne.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/210patternMatchingWithMismatchesAllInOne.webp)
+![210patternMatchingWithMismatchesAllInOne.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/210patternMatchingWithMismatchesAllInOne.webp)
 
 * We have two substrings to compare.
 * Each substring of the text is known as a text window that we compare with the given pattern.

@@ -183,7 +183,7 @@ flowchart TB
 * However, there is a definite pattern in a valid binary search tree.
 * For example:
 
-![09bstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
+![09bstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
 
 * There is an interesting pattern here.
 * We can see that each node has certain lower and upper boundaries.
@@ -265,11 +265,11 @@ flowchart TB
 * It is aligned with the `Pre-Order` traversal.
 * For example, suppose we have the below tree to validate.
 
-![09bstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
+![09bstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
 
 * We start with the root node.
 
-![810validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/810validateBstBinarySearchTree.png)
+![810validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/810validateBstBinarySearchTree.png)
 
 > Push 50 (key = 50, min = Long.MIN_VALUE, max = Long.MAX_VALUE)
 * Initially, `min = Long.MIN_VALUE` and `max = Long.MAX_VALUE`.
@@ -288,7 +288,7 @@ flowchart TB
 * So, we first push the right child, and then the left child.
 * Now, when we push the right child, we attach the associative boundaries with it.
 
-![820validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/820validateBstBinarySearchTree.png)
+![820validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/820validateBstBinarySearchTree.png)
 
 * For example, the current boundaries we have from `50` is:
 > `min = Long.MIN_VALUE`, and `max = Long.MAX_VALUE`.
@@ -315,7 +315,7 @@ flowchart TB
 ---
 * After pushing the right child followed by the left child, we perform the pop operation.
 
-![830validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/830validateBstBinarySearchTree.png)
+![830validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/830validateBstBinarySearchTree.png)
 
 ---
 > **Pop 40 (key = 40, min = Long.MIN_VALUE, max = 50)**
@@ -348,7 +348,7 @@ flowchart TB
 ---
 > **Pop 30 (key = 30, min = Long.MIN_VALUE, max = 40)**
 
-![840validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/840validateBstBinarySearchTree.png)
+![840validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/840validateBstBinarySearchTree.png)
 
 * When we pop, we get `30`.
 * We check it against its attached boundaries.
@@ -379,7 +379,7 @@ flowchart TB
 ---
 > **Pop 25 (key = 25, min = Long.MIN_VALUE, max = 30)**
 
-![850validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/850validateBstBinarySearchTree.png)
+![850validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/850validateBstBinarySearchTree.png)
 
 * When we pop, we get `25`.
 * We check it against its attached boundaries.
@@ -396,7 +396,7 @@ flowchart TB
 ---
 > **Pop 35 (key = 35, min = 30, max = 40)**
 
-![860validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/860validateBstBinarySearchTree.png)
+![860validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/860validateBstBinarySearchTree.png)
 
 * When we pop, we get `35`.
 * We check it against its attached boundaries.
@@ -413,7 +413,7 @@ flowchart TB
 ---
 > **Pop 45 (key = 45, min = 40, max = 50)**
 
-![870validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/870validateBstBinarySearchTree.png)
+![870validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/870validateBstBinarySearchTree.png)
 
 * When we pop, we get `45`.
 * We check it against its attached boundaries.
@@ -444,7 +444,7 @@ flowchart TB
 ---
 > **Pop 43 (key = 43, min = 40, max = 45)**
 
-![880validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/880validateBstBinarySearchTree.png)
+![880validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/880validateBstBinarySearchTree.png)
 
 * When we pop, we get `43`.
 * We check it against its attached boundaries.
@@ -461,7 +461,7 @@ flowchart TB
 ---
 > **Pop 47 (key = 47, min = 45, max = 50)**
 
-![890validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/890validateBstBinarySearchTree.png)
+![890validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/890validateBstBinarySearchTree.png)
 
 * When we pop, we get `47`.
 * We check it against its attached boundaries.
@@ -478,7 +478,7 @@ flowchart TB
 ---
 > **Pop 60 (key = 60, min = 50, max = Long.MAX_VALUE)**
 
-![900validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/900validateBstBinarySearchTree.png)
+![900validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/900validateBstBinarySearchTree.png)
 
 * When we pop, we get `60`.
 * We check it against its attached boundaries.
@@ -509,7 +509,7 @@ flowchart TB
 ---
 > **Pop 55 (key = 55, min = 50, max = 60)**
 
-![910validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/910validateBstBinarySearchTree.png)
+![910validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/910validateBstBinarySearchTree.png)
 
 * When we pop, we get `55`.
 * We check it against its attached boundaries.
@@ -540,7 +540,7 @@ flowchart TB
 ---
 > **Pop 53 (key = 53, min = 50, max = 55)**
 
-![920validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/920validateBstBinarySearchTree.png)
+![920validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/920validateBstBinarySearchTree.png)
 
 * When we pop, we get `53`.
 * We check it against its attached boundaries.
@@ -557,7 +557,7 @@ flowchart TB
 ---
 > **Pop 57 (key = 57, min = 55, max = 60)**
 
-![930validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/930validateBstBinarySearchTree.png)
+![930validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/930validateBstBinarySearchTree.png)
 
 * When we pop, we get `57`.
 * We check it against its attached boundaries.
@@ -574,7 +574,7 @@ flowchart TB
 ---
 > **Pop 70 (key = 70, min = 60, max = Long.MAX_VALUE)**
 
-![940validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/940validateBstBinarySearchTree.png)
+![940validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/940validateBstBinarySearchTree.png)
 
 * When we pop, we get `70`.
 * We check it against its attached boundaries.
@@ -605,7 +605,7 @@ flowchart TB
 ---
 > **Pop 65 (key = 65, min = 60, max = 70)** 
 
-![950validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/950validateBstBinarySearchTree.png)
+![950validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/950validateBstBinarySearchTree.png)
 
 * When we pop, we get `65`.
 * We check it against its attached boundaries.
@@ -622,7 +622,7 @@ flowchart TB
 ---
 > **Pop 80 (key = 80, min = 70, max = Long.MAX_VALUE)**
 
-![960validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/960validateBstBinarySearchTree.png)
+![960validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/960validateBstBinarySearchTree.png)
 
 * When we pop, we get `80`.
 * We check it against its attached boundaries.
@@ -639,7 +639,7 @@ flowchart TB
 ---
 > Pop: The Stack Is Empty!
 
-![970validateBstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/970validateBstBinarySearchTree.png)
+![970validateBstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/970validateBstBinarySearchTree.png)
 
 * We have covered (traveled) the entire tree.
 * And we found that each node is a valid node.
@@ -779,7 +779,7 @@ fun isValidBst(nodes: Array<Node>): Boolean {
 * Because, in the `pre-order`, we don't have to wait to validate the node that we visit.
 * For example, if we use `in-order`, we have to go deep down to cover the left leaf child first. 
 
-![09bstBinarySearchTree.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
+![09bstBinarySearchTree.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/09bstBinarySearchTree.png)
 
 * For the given image, we have to validate `25` first before `40`.
 * This process forces us to delay the validation of all the other (previous) nodes (ancestors) we visited (came across) while reaching the last left leaf, `25`.

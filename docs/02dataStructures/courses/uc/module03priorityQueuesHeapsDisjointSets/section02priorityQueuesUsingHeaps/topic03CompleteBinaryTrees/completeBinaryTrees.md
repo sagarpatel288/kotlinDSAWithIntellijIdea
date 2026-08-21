@@ -49,7 +49,7 @@
 * And a [binary heap tree](../topic02BinaryHeapTrees/binaryHeapTrees.md) uses a complete binary tree.
 * So, let us understand the complete binary tree.
 
-![01definitionCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/01definitionCompleteBinaryTree.png)
+![01definitionCompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/01definitionCompleteBinaryTree.png)
 
 * A complete binary tree is a binary tree where all the levels are completely filled, except maybe the last level.
 * The last level can be partially filled. (If the last level is also completely filled, it becomes a perfect binary tree.)
@@ -63,23 +63,23 @@
 
 ### Example 01
 
-![02exampleCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/02exampleCompleteBinaryTree.png)
+![02exampleCompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/02exampleCompleteBinaryTree.png)
 
 ### Example 02
 
-![03exampleCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/03exampleCompleteBinaryTree.png)
+![03exampleCompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/03exampleCompleteBinaryTree.png)
 
 ### Example 03
 
-![04exampleCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/04exampleCompleteBinaryTree.png)
+![04exampleCompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/04exampleCompleteBinaryTree.png)
 
 ### Example 04
 
-![05exampleCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/05exampleCompleteBinaryTree.png)
+![05exampleCompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/05exampleCompleteBinaryTree.png)
 
 ### Example 05
 
-![06exampleCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/06exampleCompleteBinaryTree.png)
+![06exampleCompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/06exampleCompleteBinaryTree.png)
 
 * It is fine for the last level to be empty, partially filled, or completely filled.
 * However, it must follow the left-to-right filling order.
@@ -87,21 +87,21 @@
 
 ### Example 06
 
-![07exampleCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/07exampleCompleteBinaryTree.png)
+![07exampleCompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/07exampleCompleteBinaryTree.png)
 
 ### Example 07
 
-![08exampleCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/08exampleCompleteBinaryTree.png)
+![08exampleCompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/08exampleCompleteBinaryTree.png)
 
 ### Example 08
 
-![09exampleCompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/09exampleCompleteBinaryTree.png)
+![09exampleCompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/09exampleCompleteBinaryTree.png)
 
 ## Benefits Of A Complete Binary Tree
 
 ### Height is at most O(log n) 
 
-![10benefitOfACompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/10benefitOfACompleteBinaryTree.png)
+![10benefitOfACompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/10benefitOfACompleteBinaryTree.png)
 
 * The height of a complete binary tree is shallow.
 * So, we get the minimum height for a given number of nodes when we use a complete binary tree to arrange the nodes.
@@ -110,7 +110,7 @@
 
 #### Proof: Method#01
 
-![12sampleBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/12sampleBinaryTree.png)
+![12sampleBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/12sampleBinaryTree.png)
 
 * Let us assume that we have `n` nodes. 
 * And let us assume that `n = 10` to form a complete binary tree.
@@ -199,7 +199,7 @@ $h = \lfloor\log_2(n)\rfloor$
 
 #### Proof: Method#02
 
-![12sampleBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/13heightOfACompleteBinaryTree.png)
+![12sampleBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/13heightOfACompleteBinaryTree.png)
 
 * If a complete binary tree has `n` nodes, then for a perfect binary tree that has `n'` nodes, `n' >= n`.
 * For example, if we take `n = 10`, then for a perfect binary tree, `n' = 15`.
@@ -228,7 +228,7 @@ $h = \lfloor\log_2(n)\rfloor$
 * It means all the nodes are one after another, level by level, from left to right, without any gap.
 * This characteristic allows us to cleverly represent (or translate, form, express) a complete binary tree as an array.
 
-![14secondBenefitOfACompleteBinaryTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/14secondBenefitOfACompleteBinaryTree.png)
+![14secondBenefitOfACompleteBinaryTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/14secondBenefitOfACompleteBinaryTree.png)
 
 * For example, we can store the value of each node, from top to bottom, left to right, level by level, in an array.
 * Suppose we want to find a relationship of an element at index, `i`.
@@ -282,7 +282,7 @@ $h = \lfloor\log_2(n)\rfloor$
 
 #### Insert (or add): To the Left-most vacant position in the last level
 
-![16insertAndKeepTreeComplete.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/16insertAndKeepTreeComplete.png)
+![16insertAndKeepTreeComplete.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/16insertAndKeepTreeComplete.png)
 
 * We just need to ensure that whenever we insert (or add) a new element, we first place it in the immediately next available position, considering the left-to-right sequence in the last level.
 * In other words, we place it (or insert it, add it) to the left-most vacant position of the last level.
@@ -292,7 +292,7 @@ $h = \lfloor\log_2(n)\rfloor$
 
 #### ExtractMax: With the last leaf of the last level
 
-![17extractMaxKeepCompleteTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/17extractMaxKeepCompleteTree.png)
+![17extractMaxKeepCompleteTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/17extractMaxKeepCompleteTree.png)
 
 * We know that in the [extractMax](../topic02BinaryHeapTrees/binaryHeapTrees.md#extractmax-or-poll--siftdown-) operation, we replace (swap) the root node (with the highest priority or value) with the leaf node.
   * We just need to ensure that the leaf node is the last leaf node of the tree.

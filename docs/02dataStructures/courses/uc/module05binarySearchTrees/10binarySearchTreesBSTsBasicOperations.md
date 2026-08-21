@@ -42,7 +42,7 @@
 * Find and return the node that has the given key value.
 * 
 
-![10bstFindIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/12bstFindIntro.png)
+![10bstFindIntro.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/12bstFindIntro.png)
 
 * If the key we want to find is equal to the root key, we return the root.
 * Otherwise, we start with the root node. 
@@ -134,15 +134,15 @@ fun find(key: Int, rootNode: Node?): Node? {
   * We go to the right side of the subject once.
   * And then we keep going to the left side until we hit the end.
 
-![35bstNextLargerAdjacent01.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/35bstNextLargerAdjacent01.png)
+![35bstNextLargerAdjacent01.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/35bstNextLargerAdjacent01.png)
 
-![40bstNextLargerAdjacent02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/40bstNextLargerAdjacent02.png)
+![40bstNextLargerAdjacent02.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/40bstNextLargerAdjacent02.png)
 
 **We go to the right side once and then to the left side. But what if there is no left subtree?**
 
 * In that case, the right side node is the **next largest** node.
 
-![40bstNextLargerAdjacent02b.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/40bstNextLargerAdjacent02b.png)
+![40bstNextLargerAdjacent02b.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/40bstNextLargerAdjacent02b.png)
 
 **Code Translation**
 
@@ -166,7 +166,7 @@ if (subjectNode.right != null) {
 * If the subject does not have a right subtree:
   * We travel upwards via parents until we find the next larger node.
 
-![45bstNextLargerAdjacent03.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/45bstNextLargerAdjacent03.png)
+![45bstNextLargerAdjacent03.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/45bstNextLargerAdjacent03.png)
 
 **When will we find the next larger parent?**
 
@@ -194,7 +194,7 @@ if (subjectNode.right == null) {
 
 * Now, when we travel upwards via parents, we may or may not find the next larger node.
 
-![50bstNextLargerAdjacent04.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/50bstNextLargerAdjacent04.png)
+![50bstNextLargerAdjacent04.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/50bstNextLargerAdjacent04.png)
 
 * Suppose we want to find `nextLarger(N)`.
 * If we reach the root and do not find any larger key than `N`, then:
@@ -241,7 +241,7 @@ fun nextLargerParent(node: Node?): Node? {
 
 ## Range Search
 
-![60bstRangeSearch.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/60bstRangeSearch.png)
+![60bstRangeSearch.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/60bstRangeSearch.png)
 
 ```mermaid
 ---
@@ -363,7 +363,7 @@ fun rangeSearch(xLeftLimit: Int, yRightLimit: Int): List<Int> {
 * Check:
 * [Avl Tree Implementation](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/030avlTreeImplementation.kt)
 
-![70bstInsert.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/70bstInsert.png)
+![70bstInsert.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/70bstInsert.png)
 
 * Suppose, we want to insert a node with key `4`.
 * We want to insert a new node.
@@ -509,7 +509,7 @@ if (nodeToDelete.parent == null) {
 
 **Case: 01: `nodeToDelete` does not have any children** 
 
-![80bstDelete01.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete01.png)
+![80bstDelete01.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/80bstDelete01.png)
 
 * In this case, we just disconnect `nodeToDelete` and its parent.
 * So, it becomes:
@@ -531,7 +531,7 @@ if (nodeToDelete.left == null && nodeToDelete.right == null) {
 
 **Case: 02: `nodeToDelete` has a single child**
 
-![80bstDelete02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete02.png)
+![80bstDelete02.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/80bstDelete02.png)
 
 * In this case, the child of `nodeToDelete` takes the place of `nodeToDelete`.
 * Now, either the `nodeToDelete` is a left-child or a right-child of the parent.
@@ -600,7 +600,7 @@ fun replaceNode(nodeToDelete: Node?, childOfNodeToDelete: Node?) {
 
 **Case: 03: `nodeToDelete` has two children**
 
-![80bstDelete03.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete03.png)
+![80bstDelete03.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/80bstDelete03.png)
 
 * Suppose, we want to delete `13`.
 * Then, we would first replace `13` with its `nextLarger` node. (`nodeToDelete = nextLargerNode`)

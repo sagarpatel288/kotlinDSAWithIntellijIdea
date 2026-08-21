@@ -135,7 +135,7 @@ val heap = mutableListOf<T>()
 
 #### But arrays usually follow the 0-based index, right? How do we manage it?
 
-![010parentChildrenRelationFormula.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/010parentChildrenRelationFormula.webp)
+![010parentChildrenRelationFormula.webp](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/010parentChildrenRelationFormula.webp)
 
 * For 0-based index, the formulas are:
 * Parent of index `i` is `⌊(i - 1)/2⌋` 
@@ -203,7 +203,7 @@ fun insert(newElement: Int) {
 
 ##### And what about the `siftUp` or the `heapifyUp` process? How do we do that?
 
-![020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp)
+![020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp)
 
 * In `SiftUp`, we compare (that's why the `data type` must be `comparable`) the newly inserted element with the parent.
 * We get the parent index, and use it to get the element at that parent index.
@@ -227,7 +227,7 @@ private fun siftUp(childIndex: Int) {
 
 #### extractMax
 
-![030peekExtractMaxInABinaryMaxHeap.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/030peekExtractMaxInABinaryMaxHeap.webp)
+![030peekExtractMaxInABinaryMaxHeap.webp](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/030peekExtractMaxInABinaryMaxHeap.webp)
 
 * We replace the root node with the last node.
 * And then, we follow the `SiftDown` procedure.

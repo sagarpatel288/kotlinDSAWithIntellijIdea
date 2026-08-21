@@ -116,7 +116,7 @@
 * While array, linked list, stack, queue, and deque takes `O(1)` for the `offer (or add, insert)`, a priority queue takes `O(log n)`.
 * Big-O Chart:
 
-![050bigOComplexityChart.png](../../../../../../assets/images/algorithmToolbox/module01basics/050bigOComplexityChart.png)
+![050bigOComplexityChart.png](../../../../../../assets/images/01algorithmToolbox/module01basics/050bigOComplexityChart.png)
 
 * Reference/Resource/Origin: https://www.bigocheatsheet.com/
 

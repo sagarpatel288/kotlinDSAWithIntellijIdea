@@ -129,7 +129,7 @@ val balanceFactor: Int
   * The unbalanced node becomes the child of its one of the children.
 * Importantly, the process can move the grandchild of the unbalanced node.
 * For example:
-* ![Left Rotation](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
+* ![Left Rotation](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
 * We can see that the unbalanced node is `10`, and its immediate right child is `20`.
 * The node `20` is a right child of the unbalanced node `10`.
 * The node `20` has a left child `15` and a right child `30`.
@@ -142,7 +142,7 @@ val balanceFactor: Int
 * And their old right child becomes their parent.
 ---
 * Similarly:
-* ![Right Rotation](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/280denseAvlTreeRightRotationPulleyAnalogy.png)
+* ![Right Rotation](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/280denseAvlTreeRightRotationPulleyAnalogy.png)
 * The grandparent is `30`, left child is `20`, left grandchild is `10`, and right grandchild is `25`.
 * When we rotate the grandparent `30` to the right side, the right grandchild `25` goes with the grandparent.
 * And the old parent of `25` takes care of both!

@@ -299,7 +299,7 @@ $$
 
 * Collision is an incident when we get the same `index` for different unique `keys`.
 
-![Collision](../../../../../assets/images/dataStructures/uc/module04HashTables/080collision.png)
+![Collision](../../../../../assets/images/02dataStructures/uc/module04HashTables/080collision.png)
 
 * It happens because we map a larger set of keys to a smaller set of indices.
 * The domain and size of the key are almost infinite.
@@ -317,11 +317,11 @@ $$
 
 ## Closed Hashing (Open Addressing)
 
-![074openAddressingClosedHashing.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/074openAddressingClosedHashing.webp)
+![074openAddressingClosedHashing.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/074openAddressingClosedHashing.webp)
 
 ## Closed Addressing (Open Hashing)
 
-![078closedAddressingOpenHashing.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/078closedAddressingOpenHashing.webp)
+![078closedAddressingOpenHashing.webp](../../../../../assets/images/02dataStructures/uc/module04HashTables/078closedAddressingOpenHashing.webp)
 
 ## Separate Chaining (Closed Addressing, Open Hashing)
 
@@ -329,7 +329,7 @@ $$
 * We have already learned in the [hash function](#hash-function) how a `key` becomes an `index`.
 * In this section, we will be storing the `value`, and handling the `collision`.
 
-![Chaining](../../../../../assets/images/dataStructures/uc/module04HashTables/090separateChainingClosedAddressing.png)
+![Chaining](../../../../../assets/images/02dataStructures/uc/module04HashTables/090separateChainingClosedAddressing.png)
 
 * Let us assume that we have a phone number, `1122334455` as a key.
 * We use the [hash function](#hash-function) to get the corresponding `index` to save the `value`.
@@ -340,14 +340,14 @@ $$
 * As a chaining solution, we expand the capacity of each index in such a way that it can contain more than one value.
 * So, instead of storing a single value, each index stores a list.
 
-![085collisionSimpleList.png](../../../../../assets/images/dataStructures/uc/module04HashTables/085collisionSimpleList.png)
+![085collisionSimpleList.png](../../../../../assets/images/02dataStructures/uc/module04HashTables/085collisionSimpleList.png)
 
 * But if we use a simple list of values for each index, we still have a problem.
 * Suppose, at index `2`, we have multiple values.
 * Now, for a `key` that maps to index `2`, which value will we return?
 * So, we use a list of pairs.
 
-![090separateChainingClosedAddressing.png](../../../../../assets/images/dataStructures/uc/module04HashTables/090separateChainingClosedAddressing.png)
+![090separateChainingClosedAddressing.png](../../../../../assets/images/02dataStructures/uc/module04HashTables/090separateChainingClosedAddressing.png)
 
 * Each index stores a list of pairs.
 * To avoid the `shifting` problem, we use a `linked list` instead of a simple `list`.

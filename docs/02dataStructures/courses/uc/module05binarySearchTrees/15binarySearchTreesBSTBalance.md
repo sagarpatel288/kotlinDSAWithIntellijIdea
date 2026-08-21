@@ -73,7 +73,7 @@
 
 ## Understanding the basic runtime of a binary search tree operation
 
-![90bstFindIntroRuntime.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/90bstFindIntroRuntime.png)
+![90bstFindIntroRuntime.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/90bstFindIntroRuntime.png)
 
 * The `find` operation depends on the `depth` of the tree.
 * If a node has a higher depth, then we take more time.
@@ -86,15 +86,15 @@
 
 ## The depth problem
 
-![100bstDepthProblemExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/100bstDepthProblemExample.png)
+![100bstDepthProblemExample.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/100bstDepthProblemExample.png)
 
-![120bstDepthProblemExample3.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/120bstDepthProblemExample3.png)
+![120bstDepthProblemExample3.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/120bstDepthProblemExample3.png)
 
 * If a binary search tree is not balanced, we might take `O(n)` time for the `find` operation. 
 
 ## How does the re-balancing solve the depth problem?
 
-![130bstBalancingExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/130bstBalancingExample.png)
+![130bstBalancingExample.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/130bstBalancingExample.png)
 
 * Re-balancing reduces the depth and keeps the `in-order (LPR)` sorted.
 * Hence, the `find` operation becomes faster (efficient).
@@ -115,7 +115,7 @@
 
 ## What can create an unbalanced tree?
 
-![140bstInsertDeleteProblem.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/140bstInsertDeleteProblem.png)
+![140bstInsertDeleteProblem.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/140bstInsertDeleteProblem.png)
 
 * Insert and delete operations.
 
@@ -128,7 +128,7 @@
 * It is possible to change the structure of a binary search tree without violating the rules (invariants) that define the binary search tree.
 * For example, as shown in the image below: 
 
-![150bstRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/150bstRotation.png)
+![150bstRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/150bstRotation.png)
 
 ## Balancing Thought Process
 
@@ -137,9 +137,9 @@
 
 ## Height of a node
 
-![160nodeHeight.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/160nodeHeight.png)
+![160nodeHeight.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/160nodeHeight.png)
 
-![170nodeHeight2.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/170nodeHeight2.png)
+![170nodeHeight2.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/170nodeHeight2.png)
 
 * The longest path from the node to the leaf
 
@@ -162,7 +162,7 @@ class Node(var key: Int, var left: Node? = null, var right: Node? = null) {
 
 ## A balanced binary search tree
 
-![190balancedBst.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/190balancedBst.png)
+![190balancedBst.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/190balancedBst.png)
 
 * If the height of a left subtree is equal to the height of a right subtree, we call it a perfectly balanced tree.
 * It means that, we need to add another field, "height" to the node structure.
@@ -205,7 +205,7 @@ $$
 
 ## A node structure for balance
 
-![180bstAvlNodeStructure.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/180bstAvlNodeStructure.png)
+![180bstAvlNodeStructure.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/180bstAvlNodeStructure.png)
 
 
 * So, the node of the tree and the code to check whether the node is balanced, will look something like below:
@@ -234,13 +234,13 @@ class Node(var key: Int, var left: Node? = null, var right: Node? = null) {
 * As per the AVL property, the difference between the height of two children should be less than or equal to 1.
 * We can have such an AVL tree as shown in the below image:
 
-![200heightAndNodesRelation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/200heightAndNodesRelation.png)
+![200heightAndNodesRelation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/200heightAndNodesRelation.png)
 
 * Now, the subtree of height `h - 1` must have at least `N(h - 1)` nodes under the AVL-Tree constraint (properties).
 * Let us denote it as `N(h - 1)` that says the minimum nodes in an AVL-Tree of height `h - 1`.
 * And the subtree of height `h - 2` must have at least `N(h - 2)` nodes.
 * So, `N(h - 2)` says the minimum nodes in an AVL-Tree of height `h - 2`.
-* Now, if we add `+1(the root node)` to `N(h - 1) + N(h - 2)`, we get the minimum nodes in an AVL-Tree of height `h` (Refer the above [image](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/200heightAndNodesRelation.png) to get the idea).
+* Now, if we add `+1(the root node)` to `N(h - 1) + N(h - 2)`, we get the minimum nodes in an AVL-Tree of height `h` (Refer the above [image](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/200heightAndNodesRelation.png) to get the idea).
 * So, it is:
 
 $$
@@ -401,11 +401,11 @@ $$
 * So, the name "RRR" is based upon the root cause of the rotation.
 * And to fix that, we perform the "Left Rotation."
 
-![210avlBasicLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/210avlBasicLeftRotation.png)
+![210avlBasicLeftRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/210avlBasicLeftRotation.png)
 
-![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
+![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
 
-![307denseAvlTreeLeftRotation.webp](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/307denseAvlTreeLeftRotation.webp)
+![307denseAvlTreeLeftRotation.webp](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/307denseAvlTreeLeftRotation.webp)
 
 ### Code Consideration: Thought Process
 
@@ -464,15 +464,15 @@ if (bf < -1) {
 
 * We can understand this with an analogy of a pulley.
 
-![230avlTreeLeftRotaionAnalogyPulley.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/230avlTreeLeftRotaionAnalogyPulley.png)
+![230avlTreeLeftRotaionAnalogyPulley.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/230avlTreeLeftRotaionAnalogyPulley.png)
 
 * When the right-side is more weighted, we pull the left-side to maintain the balance.
 
-![235avlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/235avlTreeLeftRotationPulleyAnalogy.png)
+![235avlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/235avlTreeLeftRotationPulleyAnalogy.png)
 
 * Now, we can take an example of a dense tree.
 
-![290denseAvlTreeLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/290denseAvlTreeLeftRotation.png)
+![290denseAvlTreeLeftRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/290denseAvlTreeLeftRotation.png)
 
 * We can see that no matter how dense the tree is, we need to change only a few nodes to re-balance the entire tree.
 
@@ -505,7 +505,7 @@ if (bf < -1) {
 
 * We can understand this with the pulley example also.
 
-![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
+![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
 
 * When we rotate a grandparent to the left side, the left grandchild goes with them and becomes their right grandchild.
 
@@ -517,11 +517,11 @@ if (bf < -1) {
 * So, remember that the name "LLR" is based upon the root cause of the imbalance.
 * And to fix it, we perform "Right Rotation."
 
-![220avlBasicRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/220avlBasicRightRotation.png)
+![220avlBasicRightRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/220avlBasicRightRotation.png)
 
-![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
+![225avlBasicRightRotationWithBf.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
 
-![283denseAvlTreeRightRotation.webp](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/283denseAvlTreeRightRotation.webp)
+![283denseAvlTreeRightRotation.webp](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/283denseAvlTreeRightRotation.webp)
 
 ```kotlin
 val bf = balanceFactor(unbalancedNode)
@@ -542,15 +542,15 @@ if (bf > 1) {
 
 * We can understand this with an analogy of a pulley.
 
-![240avlTreeRightRotaionAnalogyPulley.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/240avlTreeRightRotaionAnalogyPulley.png)
+![240avlTreeRightRotaionAnalogyPulley.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/240avlTreeRightRotaionAnalogyPulley.png)
 
 * When the left-side is more weighted, we pull the right-side to maintain the balance.
 
-![245avlTreeRightRotaionAnalogyPulley.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/245avlTreeRightRotaionAnalogyPulley.png)
+![245avlTreeRightRotaionAnalogyPulley.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/245avlTreeRightRotaionAnalogyPulley.png)
 
 * Now, we can take an example of a dense tree.
 
-![270avlTreeRightRotationDenseExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/270avlTreeRightRotationDenseExample.png)
+![270avlTreeRightRotationDenseExample.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/270avlTreeRightRotationDenseExample.png)
 
 ```kotlin
 
@@ -578,7 +578,7 @@ if (bf > 1) {
 
 * Again, we can visualize and understand it better with the pulley analogy. 
 
-![280denseAvlTreeRightRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/280denseAvlTreeRightRotationPulleyAnalogy.png)
+![280denseAvlTreeRightRotationPulleyAnalogy.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/280denseAvlTreeRightRotationPulleyAnalogy.png)
 
 * If we rotate the grandparent to the right side, the right grandchild goes with them and becomes their left child.
 
@@ -587,7 +587,7 @@ if (bf > 1) {
 * Sometimes, we need to perform multiple rotations to balance the tree.
 * The below image shows a left-rotation followed by the right-rotation. 
 
-![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
+![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
 
 * First, we perform the left rotation on the "**unbalancedNode.left**".
 * It establishes a different "left" child to the "**unbalancedNode**".
@@ -597,7 +597,7 @@ if (bf > 1) {
 
 * If we ever get a question about the original old parent of the unbalanced node, this is the right place to learn it.
 
-![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
+![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
 
 * We might get a question that focuses on the old parent of the unbalanced node.
 * How do we take care of the old parent of the unbalanced node? 
@@ -629,13 +629,13 @@ if (bf > 1) {
 
 * We can do the Left-Right Rotation in two steps also, as shown in the image below.
 
-![310avlTreeLeftRightRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/310avlTreeLeftRightRotationTwoSteps.png)
+![310avlTreeLeftRightRotationTwoSteps.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/310avlTreeLeftRightRotationTwoSteps.png)
 
 * Now, we can take an example of a dense tree, as shown in the image below.
 
-![320denseAvlTreeLeftRightRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/320denseAvlTreeLeftRightRotationTwoSteps.png)
+![320denseAvlTreeLeftRightRotationTwoSteps.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/320denseAvlTreeLeftRightRotationTwoSteps.png)
 
-![325denseAvlTreeLeftRightRotationProcess1.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/325denseAvlTreeLeftRightRotationProcess1.png)
+![325denseAvlTreeLeftRightRotationProcess1.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/325denseAvlTreeLeftRightRotationProcess1.png)
 
 ### Pseudocode of Left-Right Rotation
 
@@ -661,20 +661,20 @@ if (bf > 1) {
 
 * Similarly, the below image shows a right-rotation followed by the left-rotation.
 
-![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
+![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
 
 * First, we perform the right rotation on the "**unbalancedNode.right**".
 * It establishes a different right child to the "**unbalancedNode**".
 * Then, we perform the left rotation on the "**unbalancedNode**".
 * Right-Left Rotation in two steps, as shown in the image below:
 
-![330avlTreeRightLeftRotationInTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/330avlTreeRightLeftRotationInTwoSteps.png)
+![330avlTreeRightLeftRotationInTwoSteps.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/330avlTreeRightLeftRotationInTwoSteps.png)
 
 * An example of a dense tree, as shown in the image below:
 
-![340denseAvlTreeRightLeftRotationTwoSteps.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/340denseAvlTreeRightLeftRotationTwoSteps.png)
+![340denseAvlTreeRightLeftRotationTwoSteps.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/340denseAvlTreeRightLeftRotationTwoSteps.png)
 
-![345denseAvlTreeRightLeftRotationProcess.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/345denseAvlTreeRightLeftRotationProcess.png)
+![345denseAvlTreeRightLeftRotationProcess.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/345denseAvlTreeRightLeftRotationProcess.png)
 
 ```kotlin
 
@@ -696,13 +696,13 @@ if (bf < -1) {
 
 ### Insert example
 
-![349avlInsertionProcessCodeExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/349avlInsertionProcessCodeExample.png)
+![349avlInsertionProcessCodeExample.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/349avlInsertionProcessCodeExample.png)
 
-![350avlImbalancedInsertionFixExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/350avlImbalancedInsertionFixExample.png)
+![350avlImbalancedInsertionFixExample.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/350avlImbalancedInsertionFixExample.png)
 
 * Now, if we insert 22:
 
-![360avlImbalancedInsertionFixExample2.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/360avlImbalancedInsertionFixExample2.png)
+![360avlImbalancedInsertionFixExample2.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/360avlImbalancedInsertionFixExample2.png)
 
 * Inserting `22` made the node `20` unbalanced.
 * `20` is the first and only unbalanced ancestor node.
@@ -719,13 +719,13 @@ if (bf < -1) {
 * Because, the direction of the first two nodes from the first unbalanced ancestor to the root-cause node is enough to decide the rotation and balance the tree.
 * For example, if we had inserted `27` instead of `22`:
 
-![370avlImbalancedInsertionFixExample3.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/370avlImbalancedInsertionFixExample3.png)
+![370avlImbalancedInsertionFixExample3.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/370avlImbalancedInsertionFixExample3.png)
 
 ---
 
 * Now, insert `50` (after inserting `22`):
 
-![380avlImbalancedInsertionFixExample4.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/380avlImbalancedInsertionFixExample4.png)
+![380avlImbalancedInsertionFixExample4.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/380avlImbalancedInsertionFixExample4.png)
 
 ## How to distinguish between the right rotation and the LR-Rotation?
 
@@ -736,7 +736,7 @@ if (bf < -1) {
 * So, the balance factor of the unbalanced node belongs to the `positive` family.
 * For example:
 
-![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
+![225avlBasicRightRotationWithBf.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
 
 * For the left-sided tree, we also check the left child of the unbalanced node.
 * If it is a pure (straight) left-sided tree, then the left child of the unbalanced node must have `balanceFactor(unbalancedNode.left) >= 0`.
@@ -745,7 +745,7 @@ if (bf < -1) {
 * So, when the balance factor of the unbalanced node belongs to the positive family, but the balance factor linked to the left child of the unbalanced node belongs to the negative family, it is LR-Rotation.  
 * For example:
 
-![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
+![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
 
 **How to remember?**
 
@@ -823,12 +823,12 @@ if (bf > 1 && balanceFactor(node.left) < 0) {
 * If the balance factor of the right child of the unbalanced node also belongs to the negative family or to the neutral family (zero), it is only the **single left rotation**.
 * For example:
 
-![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
+![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
 
 * However, when the unbalanced node belongs to the negative family, but the right child of the unbalanced node belongs to the positive family, it is the case of the double rotation: RL-Rotation.
 * For example:
 
-![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
+![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
 
 ## Final pseudocode for the left rotation
 
@@ -901,11 +901,11 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 
 * The phrase "Right Rotation" should bring one of the below or both the images to our mind:
  
-* ![225avlBasicRightRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
+* ![225avlBasicRightRotationWithBf.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/225avlBasicRightRotationWithBf.png)
 
 * OR
  
-* ![285denseAvlTreeRightRotationPulleyAnalogy.webp](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/285denseAvlTreeRightRotationPulleyAnalogy.webp)
+* ![285denseAvlTreeRightRotationPulleyAnalogy.webp](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/285denseAvlTreeRightRotationPulleyAnalogy.webp)
  
 * When a grandparent moves to the right side, the right grandchild moves with them.
 * When we rotate the grandparent to the right side, the old right grandchild becomes their new left child.
@@ -914,11 +914,11 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 
 * The phrase "Left-Right Rotation" or "LR Rotation" should bring one of the below or both the images to our mind:
 
-* ![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
+* ![250avlTreeLeftThenRightRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/250avlTreeLeftThenRightRotation.png)
  
 * OR
  
-* ![325denseAvlTreeLeftRightRotationProcess1.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/325denseAvlTreeLeftRightRotationProcess1.png)
+* ![325denseAvlTreeLeftRightRotationProcess1.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/325denseAvlTreeLeftRightRotationProcess1.png)
 
 **How to remember?**
 
@@ -980,11 +980,11 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 
 * The phrase "Left Rotation" should bring one of the below or both the images to our mind:
 
-* ![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
+* ![215avlBasicLeftRotationWithBf.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/215avlBasicLeftRotationWithBf.png)
  
 * OR
  
-* ![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
+* ![300denseAvlTreeLeftRotationPulleyAnalogy.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/300denseAvlTreeLeftRotationPulleyAnalogy.png)
 
 * When we rotate the grandparent to the left side, the old left grandchild becomes their new right child.
 
@@ -992,11 +992,11 @@ if (bf < -1 && balanceFactor(node.right > 0)) {
 
 * The phrase "Right-Left Rotation" or "RL Rotation" should bring one of the below or both the images to our mind:
 * 
-* ![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
+* ![260avlTreeRightThenLeftRotation.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/260avlTreeRightThenLeftRotation.png)
 * 
 * OR
 * 
-* ![345denseAvlTreeRightLeftRotationProcess.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/345denseAvlTreeRightLeftRotationProcess.png)
+* ![345denseAvlTreeRightLeftRotationProcess.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/345denseAvlTreeRightLeftRotationProcess.png)
 
 **How to remember?**
 

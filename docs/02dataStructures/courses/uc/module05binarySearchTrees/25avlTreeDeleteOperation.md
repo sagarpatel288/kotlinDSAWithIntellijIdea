@@ -34,15 +34,15 @@
 
 ### No Child
 
-![80bstDelete01.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete01.png)
+![80bstDelete01.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/80bstDelete01.png)
 
 ### 1 Child
 
-![80bstDelete02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete02.png)
+![80bstDelete02.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/80bstDelete02.png)
 
 ### 2 Children
 
-![390avlTreeDelete.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/390avlTreeDelete.svg)
+![390avlTreeDelete.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/390avlTreeDelete.svg)
 
 * When the node that we want to delete has 2 children (left and right), we replace "**nodeToDelete.key**" with "**nextLarger.key**".
 * At this moment, we have two duplicate keys (`nodeToDelete.key == nextLarger.key`).

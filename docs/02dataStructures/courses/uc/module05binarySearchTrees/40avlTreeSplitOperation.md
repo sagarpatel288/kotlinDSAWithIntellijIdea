@@ -67,9 +67,9 @@ $$T_2 > x$$
 
 ### Approach, idea
 
-* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
-* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
-* ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
+* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
+* ![450avlTreeSplit.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
 ```mermaid
 ---
@@ -209,9 +209,9 @@ fun split(node: AvlNode?, target: AvlNode) {
 
 ### Building the function
 
-* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
-* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
-* ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
+* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
+* ![450avlTreeSplit.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
 ```mermaid
 ---
@@ -326,9 +326,9 @@ split(root, target)
 
 ### Break and Merge (Break and build)
 
-* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
-* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
-* ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
+* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
+* ![450avlTreeSplit.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
 ```mermaid
 ---
@@ -866,9 +866,9 @@ fun split(node: AvlNode?, target: AvlNode): SplitResult {
 * We start the traversal from the root of the given `AvlTree`.
 * Now, the beautiful and magical part of the recursion is that as we return, we know the path we have taken.
 
-* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
-* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
-* ![450avlTreeSplit.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
+* ![440avlTreeSplitT1LeftTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/440avlTreeSplitT1LeftTree.svg)
+* ![445avlTreeSplitT2RightTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/445avlTreeSplitT2RightTree.svg)
+* ![450avlTreeSplit.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/450avlTreeSplit.svg)
 
 ```mermaid
 ---

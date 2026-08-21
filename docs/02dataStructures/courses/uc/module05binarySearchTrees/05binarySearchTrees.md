@@ -131,9 +131,9 @@
 
 ## Introduction
 
-![30bstStructure.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/30bstStructure.png)
+![30bstStructure.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/30bstStructure.png)
 
-![05binarySearchTreesBSTIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/05binarySearchTreesBSTIntro.png)
+![05binarySearchTreesBSTIntro.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/05binarySearchTreesBSTIntro.png)
 
 * Left child < Parent < Right Child.
 * Left child is less than the parent.
@@ -153,7 +153,7 @@ data class TreeNode(
 
 ## Examples
 
-![25bstExamples.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/25bstExamples.png)
+![25bstExamples.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/25bstExamples.png)
 
 * A and C are not proper binary search trees.
 * In `C`, `4` is at the right subtree of the node `5`.
@@ -164,7 +164,7 @@ data class TreeNode(
 
 #### Post-sorted Operations
 
-![15rangeSearchExample.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/15rangeSearchExample.png)
+![15rangeSearchExample.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/15rangeSearchExample.png)
 
 * **Any operation that works faster on a pre-sorted data.** 
 * We might want to get the list of all the students with marks between **a particular range.**
@@ -176,7 +176,7 @@ data class TreeNode(
 
 * Reference: [Priority Queue](../module03priorityQueuesHeapsDisjointSets/section01priorityQueuesIntroduction/priorityQueues.md)
 
-![20bstNeedPurposeIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/20bstNeedPurposeIntro.png)
+![20bstNeedPurposeIntro.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/20bstNeedPurposeIntro.png)
 
 ##### Arrays
 
@@ -202,7 +202,7 @@ data class TreeNode(
 * Reference: [Trees](../module01BasicDataStructures/section03trees/010trees.md).
 * Whereas, a BST takes `O(Tree Height) = O(log n)` for searching.
 
-![10bstFindIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/12bstFindIntro.png)
+![10bstFindIntro.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/12bstFindIntro.png)
 
 * For example, in the given image, we want to find `6`.
 * We may start with the root node: `3`.
@@ -221,7 +221,7 @@ data class TreeNode(
 
 ### `In-Order(Left-Parent-Right)` Traversal is sorted
 
-![05binarySearchTreesBSTIntro.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/05binarySearchTreesBSTIntro.png)
+![05binarySearchTreesBSTIntro.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/05binarySearchTreesBSTIntro.png)
 
 * We may start the traversal with the root (parent) node `3`.
 * The `In-order` traversal follows `Left-Parent-Right` order.

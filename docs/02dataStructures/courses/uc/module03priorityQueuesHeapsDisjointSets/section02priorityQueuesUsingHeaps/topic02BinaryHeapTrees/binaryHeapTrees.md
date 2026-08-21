@@ -47,9 +47,9 @@
 
 ### Definition
 
-![010maxHeapBinaryTreeExample.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/010maxHeapBinaryTreeExample.png)
+![010maxHeapBinaryTreeExample.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/010maxHeapBinaryTreeExample.png)
 
-![020nonBinaryMaxHeapTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/020nonBinaryMaxHeapTree.png)
+![020nonBinaryMaxHeapTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/020nonBinaryMaxHeapTree.png)
 
 * A **binary max heap tree** must satisfy the following two properties.
   * Heap Property
@@ -71,7 +71,7 @@
 
 #### Peek (or getMax, or max)
 
-![030getMaxOfBinaryMaxHeapTree.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/030getMaxOfBinaryMaxHeapTree.png)
+![030getMaxOfBinaryMaxHeapTree.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/030getMaxOfBinaryMaxHeapTree.png)
 
 * For a binary max heap tree, as per the definition, the root node has the highest value.
 * So, we simply return the root node.
@@ -79,9 +79,9 @@
 
 #### Offer (or add or insert) = `SiftUp` 
 
-![040insertOfBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/040insertOfBinaryMaxHeap.png)
+![040insertOfBinaryMaxHeap.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/040insertOfBinaryMaxHeap.png)
 
-![020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp)
+![020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/020insertAndSiftUpHeapifyUpInABinaryMaxHeap.webp)
 
 * We insert a new element as a leaf.
 * It may violate the binary max heap [structure (rules)](#definition).
@@ -108,9 +108,9 @@
 
 **Removing the `max` element from the binary max heap.**
 
-![060extractMaxOfBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/060extractMaxOfBinaryMaxHeap.png)
+![060extractMaxOfBinaryMaxHeap.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/060extractMaxOfBinaryMaxHeap.png)
 
-![030peekExtractMaxInABinaryMaxHeap.webp](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/030peekExtractMaxInABinaryMaxHeap.webp)
+![030peekExtractMaxInABinaryMaxHeap.webp](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic05heapMiscellaneous/030peekExtractMaxInABinaryMaxHeap.webp)
 
 ##### How to remember? The story: Story Time
 
@@ -154,7 +154,7 @@
 
 #### changePriority: Increase = `SiftUp`, Decrease = `SiftDown`.
 
-![070changePriorityBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/070changePriorityBinaryMaxHeap.png)
+![070changePriorityBinaryMaxHeap.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/070changePriorityBinaryMaxHeap.png)
 
 * Increasing the priority is like inserting an element. So, we follow the `SiftUp` process.
   * In the `SiftUp` process, we compare the element with the parent node.
@@ -170,7 +170,7 @@
 
 #### Poll (or remove, delete)
 
-![080removeBinaryMaxHeap.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/080removeBinaryMaxHeap.png)
+![080removeBinaryMaxHeap.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/080removeBinaryMaxHeap.png)
 
 **Don't get confused with the [ExtractMax](#extractmax-or-poll--siftdown-).**
 
@@ -206,7 +206,7 @@
 
 ### Question: Binary Max Heap Tree Height
 
-![050questionBinaryMaxHeapHeight.png](../../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/050questionBinaryMaxHeapHeight.png)
+![050questionBinaryMaxHeapHeight.png](../../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic03binaryMaxHeapTree/050questionBinaryMaxHeapHeight.png)
 
 ## Next
 
