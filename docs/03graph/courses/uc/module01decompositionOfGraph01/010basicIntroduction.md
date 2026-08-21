@@ -24,7 +24,7 @@
 * Similarly, another approach might be more friendly with the Vertices, but inefficient for the Edges.
 * Which approach we should use depends upon our requirements: Whether we need efficient Edges or efficient Vertices.  
 
-## Representation
+### Representation
 
 * There are at least 3 different ways to represent a graph.
 
@@ -82,3 +82,12 @@
 * And if we do it using the adjacency matrix, we will have to go through each cell.
 * And if we do it using the edge list, it is better than the adjacency matrix, but slightly slower than the adjacency list.
 * Because we have to inspect each edge pair.
+
+### Density
+
+* The runtime does not only depend on the representation, but it also depends on the density of the graph.
+* For example, we get different values of E for a dense graph compared to a sparse graph.
+
+![060denseGraph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/060denseGraph.png)
+
+![065sparseGraph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/065sparseGraph.png)
