@@ -204,9 +204,9 @@ $$
 
 #### Recurrence Of A Polynomial Hash Function Of A String
 
-![150recurringPolynomialHashFunctions.png](../../../../../assets/images/dataStructures/uc/module04HashTables/150recurringPolynomialHashFunctions.png)
+![150recurringPolynomialHashFunctions.png](../../../../../assets/images/02dataStructures/uc/module04HashTables/150recurringPolynomialHashFunctions.png)
 
-![155recurringPolynomialHashFunctions.png](../../../../../assets/images/dataStructures/uc/module04HashTables/155recurringPolynomialHashFunctions.png)
+![155recurringPolynomialHashFunctions.png](../../../../../assets/images/02dataStructures/uc/module04HashTables/155recurringPolynomialHashFunctions.png)
 
 * Let us take a mathematical example.
 * Suppose we have the number `582793`, and the pattern length is `3`.

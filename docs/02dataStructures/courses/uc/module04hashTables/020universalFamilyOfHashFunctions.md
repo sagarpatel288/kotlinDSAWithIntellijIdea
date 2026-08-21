@@ -63,7 +63,7 @@
 * And then we can prepend or append the new items (that keep coming at the same index) to the list.
 * However, the longer the list, more the time we take to perform various operations such as find(contains), insert(put), delete, etc.
 
-![110hashFunctionImplications.png](../../../../../assets/images/dataStructures/uc/module04HashTables/110hashFunctionImplications.png)
+![110hashFunctionImplications.png](../../../../../assets/images/02dataStructures/uc/module04HashTables/110hashFunctionImplications.png)
 
 * On the other hand, if the hash function uniformly distributes the input objects (keys), we get a fewer collisions.
 * It means that we don't have to travel through a long chain to perform various operations such as find(contains), insert(put), delete, etc.
@@ -93,7 +93,7 @@ $$
 * The longest chain must be greater than or equal to the size of an average chain.
 * For any hash function, there can be an input that can produce the worst-case collision. 
 
-![110hashFunctionImplications.png](../../../../../assets/images/dataStructures/uc/module04HashTables/110hashFunctionImplications.png)
+![110hashFunctionImplications.png](../../../../../assets/images/02dataStructures/uc/module04HashTables/110hashFunctionImplications.png)
 
 * For example as shown in the image, the hash function uniformly distributes the keys `[k1, k2,...,k6]`, where the longest chain, `c = 3` for `n = 6`.
 * However, we know that certain bad input always collides, for example `k3, k4, and k6`.

@@ -70,9 +70,9 @@
 * Why?
 * Because $\frac{n}{2}$ is the last parent node.
 
-![01heapSortLastParentPosition.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/01heapSortLastParentPosition.png)
+![01heapSortLastParentPosition.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/01heapSortLastParentPosition.png)
 
-![050heapSort.webp](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/050heapSort.webp)
+![050heapSort.webp](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/050heapSort.webp)
 
 * All the other nodes will be at the last level without any children!
 * So, this is the advantage of this algorithm. We reduce (cut, ignore) many nodes at once in this process.
@@ -96,7 +96,7 @@
 * We perform the `siftDown` operation for at least $\frac{n}{2}$ elements.
 * We know that the height of a complete binary tree that we use for the heap tree is `log n`.
 
-![13heightOfACompleteBinaryTree.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/13heightOfACompleteBinaryTree.png)
+![13heightOfACompleteBinaryTree.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic04CompleteBinaryTree/13heightOfACompleteBinaryTree.png)
 
 * So, we know that each `siftDown` call gets `log n` time complexity.
 * And for $\frac{n}{2}$ elements, it becomes $\frac{n}{2} * \log n$.
@@ -104,18 +104,18 @@
 
 ## Realistic Analysis Of Building A Heap
 
-![03realisticAnalysisOfBuildHeap.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/03realisticAnalysisOfBuildHeap.png)
+![03realisticAnalysisOfBuildHeap.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/03realisticAnalysisOfBuildHeap.png)
 
 * If we notice, only when a node travels top-to-bottom or bottom-to-top do we travel `log n` distance.
 
-![05buildHeapAnalysis.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/05buildHeapAnalysis.png)
+![05buildHeapAnalysis.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/05buildHeapAnalysis.png)
 
 * In all the other cases, it is always less than `log n`.
 * So, what is the realistic time complexity of the **buildHeap** process?
 
 ### Mathematical Calculation
 
-![05buildHeapAnalysis.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/05buildHeapAnalysis.png)
+![05buildHeapAnalysis.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/05buildHeapAnalysis.png)
 
 * We can see in the image that:
 * A total of around $\frac{n}{2}$ nodes require 0 swaps. Let us be a bit more generous and consider that they require at least 1 swap. (Well, the reason behind being generous here is actually to get a proper geometric series!)
@@ -128,7 +128,7 @@
   * So, the total swaps for $\frac{n}{16}$ are $4 * \frac{n}{16}$.
 * And so on...
 
-![06buildHeapMathPart01.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/06buildHeapMathPart01.png)
+![06buildHeapMathPart01.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/06buildHeapMathPart01.png)
 
 * If we want to find the total number of swaps, it is clearly:
 
@@ -144,7 +144,7 @@ $$
 
 * Now, we know the answer of the sum of $\frac{1}{2^i}$.
 
-![07buildHeapMathPart02KnownSeries.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/07buildHeapMathPart02KnownSeries.png)
+![07buildHeapMathPart02KnownSeries.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/07buildHeapMathPart02KnownSeries.png)
 
 * So, the answer of the sum of $\frac{1}{2^i}$ is 1 as we can see in the image.
 * However, we have a bit of a different series, which looks like below:
@@ -162,9 +162,9 @@ $$
 
 * If we try to represent this concept in an image (heads up! It will be a complicated one!), it looks like follows:
 
-![08buildHeapMathPart03SegmentRepresentation.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/08buildHeapMathPart03SegmentRepresentation.png)
+![08buildHeapMathPart03SegmentRepresentation.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/08buildHeapMathPart03SegmentRepresentation.png)
 
-![09buildHeapMathPart03.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/09buildHeapMathPart03.png)
+![09buildHeapMathPart03.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/09buildHeapMathPart03.png)
 
 * So, it turns out that the answer to the sum of our series is **2**.
 * It means that the expression becomes:
@@ -177,7 +177,7 @@ $$
 
 ### Benefits of realistic `buildHeap` analysis
 
-![11buildHeapApplicationFindKMaxElementsOfN.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/11buildHeapApplicationFindKMaxElementsOfN.png)
+![11buildHeapApplicationFindKMaxElementsOfN.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/11buildHeapApplicationFindKMaxElementsOfN.png)
 
 * We have seen `buildHeap` as a part of our **Heap Sort** algorithm.
 * We know that the **heap sort** algorithm also includes the `extractMax` process. 
@@ -200,9 +200,9 @@ $$
 
 ## Recap: Heap Sort Algorithm
 
-![01heapSortLastParentPosition.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/01heapSortLastParentPosition.png)
+![01heapSortLastParentPosition.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/01heapSortLastParentPosition.png)
 
-![050heapSort.webp](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/050heapSort.webp)
+![050heapSort.webp](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section02PriorityQueuesHeaps/topic10heapSort/050heapSort.webp)
 
 * We get an unsorted array.
 * We build a heap out of it.

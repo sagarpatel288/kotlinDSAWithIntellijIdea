@@ -49,7 +49,7 @@
 
 ## How
 
-![010timeComplexityOfCommonOperations.png](../../../../../assets/images/dataStructures/uc/module01basicDataStructures/030linkedList/010singlyLinkedListTimeComplexity.png)
+![010timeComplexityOfCommonOperations.png](../../../../../assets/images/02dataStructures/uc/module01basicDataStructures/030linkedList/010singlyLinkedListTimeComplexity.png)
 
 * Whenever we insert or remove an element, we change the pointers of a couple of nodes.
 * And changing the pointers is $O(1)$ time operation only.

@@ -182,7 +182,7 @@ efcabd
 * To cut a substring, and to paste a substring, it travels through the array.
 * To cut a substring, it travels from the start index to the end index.
 
-![1050ropeStringCutPasteNaive.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1050ropeStringCutPasteNaive.png)
+![1050ropeStringCutPasteNaive.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1050ropeStringCutPasteNaive.png)
 
 * So, it is `O(length of the substring)` operation.
 * To cut the substring, we need to perform the `remove` operation that removes the substring from the original string.
@@ -420,13 +420,13 @@ Left size    |    |   |   |   |   |   |    |
 * So, if `left.size + 1` is less than the target position, then we go to the right side of the current node.
 * So, the conclusion is that if we know the `size` property of each node, then we can find the `kth` character using the `left.size` formula.
 
-![1055bstKthSmallestKey.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1055bstKthSmallestKey.png)
+![1055bstKthSmallestKey.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1055bstKthSmallestKey.png)
 
 
-![1065ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1065ropeStringCutPasteSplayTree.webp)
+![1065ropeStringCutPasteSplayTree.webp](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1065ropeStringCutPasteSplayTree.webp)
 
 
-![1067ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1067ropeStringCutPasteSplayTree.webp)
+![1067ropeStringCutPasteSplayTree.webp](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1067ropeStringCutPasteSplayTree.webp)
 
 * The formula for the `size` property is `size = 1 + leftSize + rightSize`.
 * This is something we have learned in the previous module:
@@ -471,7 +471,7 @@ Left size    |    |   |   |   |   |   |    |
 * But, we can know how many characters are in left side of a particular character using the `size` property.
 * This gives us implicit index behavior (as a by-product) that we can use to find a character.
 
-![1067ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1067ropeStringCutPasteSplayTree.webp)
+![1067ropeStringCutPasteSplayTree.webp](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1067ropeStringCutPasteSplayTree.webp)
 
 * The number of characters before a particular character in a string is equal to the `node.left.size` (the number of nodes in its left subtree) in the `in-order` traversal of the binary search tree.
 * If it is a leaf node or a right node, then we consider and include ancestors.
@@ -656,7 +656,7 @@ Left size   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 
 * We treat the given original string structure as a valid binary search tree.
 
-![1090ropeStringCutPasteSplayTree.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1090ropeStringCutPasteSplayTree.webp)
+![1090ropeStringCutPasteSplayTree.webp](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1090ropeStringCutPasteSplayTree.webp)
 
 * Once we set up the binary search tree, the cut-and-paste operations become "split" and "merge" operations of a splay tree.
 * In this way, we take less time to find a node, or multiple nodes in the given range.
@@ -1013,7 +1013,7 @@ fun split(root:Node?, splitKey: Int): SplitResult {
 * Consequently, we treat `k` as `count` for the `split` function.
 * So, `splitKey` parameter of the `split` function is `k`, and we treat it as `count`.
 
-![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
+![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
 
 **Why do we treat `k` as `count` for the `split` function, but as `index` for the `findAndSplay` function?**
 
@@ -1037,7 +1037,7 @@ fun split(root:Node?, splitKey: Int): SplitResult {
 
 **How does treating `k` as `count` for the `split` function and as `index` for the `findAndSplay` function work?**
 
-![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
+![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
 
 * The `split` function treats `k` as `count`.
 * If the split key, `k`, is `2`, it means that the first `2` characters will be the part of the `left subtree`, and the remaining characters will be the part of the `right subtree`.
@@ -1053,7 +1053,7 @@ fun split(root:Node?, splitKey: Int): SplitResult {
 
 **Whose part is the node before which there are `k` characters?**
 
-![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
+![1075ropeStringSubstringCutPasteSplitKey.webp](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1075ropeStringSubstringCutPasteSplitKey.webp)
 
 * If a node has `k` characters before it, then the node itself has the `k + 1` character.
 * So, the node itself becomes the part of the right subtree.

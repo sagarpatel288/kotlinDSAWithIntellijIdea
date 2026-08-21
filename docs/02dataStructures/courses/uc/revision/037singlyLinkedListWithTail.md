@@ -52,7 +52,7 @@
 
 ## Solves
 
-![010singlyLinkedListTimeComplexity.png](../../../../../assets/images/dataStructures/uc/module01basicDataStructures/030linkedList/010singlyLinkedListTimeComplexity.png)
+![010singlyLinkedListTimeComplexity.png](../../../../../assets/images/02dataStructures/uc/module01basicDataStructures/030linkedList/010singlyLinkedListTimeComplexity.png)
 
 * To get the last element, we don't have to travel from the head down to the last element.
 * We already have the "tail", that represents the last element.

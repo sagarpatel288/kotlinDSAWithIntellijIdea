@@ -128,15 +128,15 @@
 
 ### Zig Rotations (Terminal Step)
 
-![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
+![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
 
 #### Zig Rotation (Zig-Right)
 
-![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
+![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
 
-![605splayTreeZigRightWithChildren.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/605splayTreeZigRightWithChildren02.png)
+![605splayTreeZigRightWithChildren.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/605splayTreeZigRightWithChildren02.png)
 
-![1010splayTreesZigRightWithChildCommonFun.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1010splayTreesZigRightWithChildCommonFun.png)
+![1010splayTreesZigRightWithChildCommonFun.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1010splayTreesZigRightWithChildCommonFun.png)
 
 **General Overview: Understanding The Right Rotation**
 
@@ -199,11 +199,11 @@ fun rotateRight(parent: Node<T>) {
 
 #### Zag Rotation (Zig-Left)
 
-![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
+![600splayTreesZigRightAndZagLeft.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/600splayTreesZigRightAndZagLeft.svg)
 
-![610splayTreesZagLeftWithChildren02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/610splayTreesZagLeftWithChildren02.png)
+![610splayTreesZagLeftWithChildren02.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/610splayTreesZagLeftWithChildren02.png)
 
-![1020splayTreesZagLeftWithChildCommonFun.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1020splayTreesZagLeftWithChildCommonFun.png)
+![1020splayTreesZagLeftWithChildCommonFun.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1020splayTreesZagLeftWithChildCommonFun.png)
 
 **General Overview: Understanding The Left Rotation**
 
@@ -318,7 +318,7 @@ fun rotate(target: Node<T>) {
 
 #### Zig-Zig Rotation (Zig-Zig Right)
 
-![620splayTreesZigZigRightTwice.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/620splayTreesZigZigRightTwice.svg)
+![620splayTreesZigZigRightTwice.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/620splayTreesZigZigRightTwice.svg)
 
 * Right-Right Rotation.
 * It is also known as **Zig-Zig Right Rotations**.
@@ -341,7 +341,7 @@ fun rotate(target: Node<T>) {
 
 #### Zag-Zag Rotation (Zig-Zig Left)
 
-![640splayTreesZagZagLeftTwice.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/640splayTreesZagZagLeftTwice.svg)
+![640splayTreesZagZagLeftTwice.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/640splayTreesZagZagLeftTwice.svg)
 
 * Left-Left Rotation.
 * It is also known as **Zig-Zig Left Rotations**.
@@ -366,7 +366,7 @@ fun rotate(target: Node<T>) {
 
 #### Zig-Zag Rotation
 
-![660splayTreesZigZagRightLeft.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/660splayTreesZigZagRightLeft.svg)
+![660splayTreesZigZagRightLeft.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/660splayTreesZigZagRightLeft.svg)
 
 * Right-Left Rotation.
 * The node on which we perform the rotation(s), has grandparent.
@@ -391,7 +391,7 @@ fun rotate(target: Node<T>) {
 
 #### Zag-Zig Rotation
 
-![680splayTreesZagZigLeftRight.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/680splayTreesZagZigLeftRight.svg)
+![680splayTreesZagZigLeftRight.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/680splayTreesZagZigLeftRight.svg)
 
 * Left-Right Rotation.
 * The node on which we perform the rotation(s), has grandparent.
@@ -520,7 +520,7 @@ fun splay(target: Node): Node {
 
 ## Insert
 
-![700splayTreeInsertOperation.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/700splayTreeInsertOperation.svg)
+![700splayTreeInsertOperation.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/700splayTreeInsertOperation.svg)
 
 ### Steps
 
@@ -611,7 +611,7 @@ fun search(key: T): Node? {
 
 ### Bottom-Up Delete
 
-![720splayTreeDeleteOperation.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/720splayTreeDeleteOperation.svg)
+![720splayTreeDeleteOperation.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/720splayTreeDeleteOperation.svg)
 
 * Delete the target node and perform the splay operation on the parent node.
 * If we don't find the target node, we still perform the splay operation on the parent node for which the target node
@@ -624,7 +624,7 @@ fun search(key: T): Node? {
 
 ### Splay-To-Root-Delete-Join
 
-![740splayTreeDeleteUsingJoin.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/740splayTreeDeleteUsingJoin.svg)
+![740splayTreeDeleteUsingJoin.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/740splayTreeDeleteUsingJoin.svg)
 
 #### Found The Subject?
 
@@ -886,7 +886,7 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 
 ### What if we don't involve the grandparent and perform the splay (rotate-to-root) operation using the parent node only?
 
-![800rotateToRootVsSplaying.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/800rotateToRootVsSplaying.png)
+![800rotateToRootVsSplaying.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/800rotateToRootVsSplaying.png)
 
 * The unbalanced tree remains unbalanced.
 * It might make a balanced tree unbalanced beyond the acceptable range.
@@ -906,9 +906,9 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 
 #### Can a single operation (e.g., `find`) take `O(n)` time in a `splay tree`? If yes, why do we use the `splay tree`?
 
-![810splayTreesJustification.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/810splayTreesJustification.png)
+![810splayTreesJustification.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/810splayTreesJustification.png)
 
-![815splayTreeJustification3.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/815splayTreeJustification3.png)
+![815splayTreeJustification3.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/815splayTreeJustification3.png)
 
 * Yes, a splay operation can temporary produce an unbalanced tree.
 * And a single operation (for example, `find`) can take `O(n)` time.
@@ -923,7 +923,7 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 * To maintain the amortized cost at `O(log n)`.
 * For example, suppose that we have the below splay tree.
 
-![840splayFindJustification.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/840splayFindJustification.png)
+![840splayFindJustification.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/840splayFindJustification.png)
 
 * Now, we try to find `1`.
 * We start with `10`. 
@@ -942,7 +942,7 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 
 ### What happens when we splay on the smallest key?
 
-![840splayFindJustification.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/840splayFindJustification.png)
+![840splayFindJustification.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/840splayFindJustification.png)
 
 * The smallest key becomes the root.
 * Because it is the smallest key, all the other nodes will be on the right side of it.
@@ -950,7 +950,7 @@ fun merge(left: Node<T>, right: Node<T>): Node<T> {
 
 ### What happens when we splay on the predecessor first, and then on the node?
 
-![900splayPredecessorThenNode.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/900splayPredecessorThenNode.png)
+![900splayPredecessorThenNode.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/900splayPredecessorThenNode.png)
 
 * The node becomes the root, and the predecessor (old and original predecessor) will be the left child of the root, and it will not have any right child.
 * This happens because of the fact that predecessor is smaller than the node.

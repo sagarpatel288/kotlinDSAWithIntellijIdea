@@ -109,14 +109,14 @@ flowchart TB
 4. If the current node has a left child, we push it to the stack.
 5. Repeat the steps from 2 to 4 until the stack becomes empty.
 
-![010buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/010buildBstUsingStack.png)
+![010buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/010buildBstUsingStack.png)
 
 * A stack follows LIFO.
 * So, the node we want to process (output, print, etc.) first, should be added last in the stack.
 * We start our journey with the root.
 * We add it to the stack.
 
-![020buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/020buildBstUsingStack.png)
+![020buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/020buildBstUsingStack.png)
 
 ```ascii
 
@@ -135,7 +135,7 @@ flowchart TB
 
 * But after we pop it, we add its right child first, followed by the left child.
 
-![030buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/030buildBstUsingStack.png)
+![030buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/030buildBstUsingStack.png)
 
 ```ascii
 
@@ -155,7 +155,7 @@ flowchart TB
 
 * After we pop it, we add its right child, and then its left child.
 
-![040buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/040buildBstUsingStack.png)
+![040buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/040buildBstUsingStack.png)
 
 ```ascii
 
@@ -177,7 +177,7 @@ flowchart TB
 
 * Then, we add its right child followed by the left child.
 
-![050buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/050buildBstUsingStack.png)
+![050buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/050buildBstUsingStack.png)
 
 ```ascii
 
@@ -203,7 +203,7 @@ flowchart TB
 * It doesn't have any child.
 * So, we pop the next element.
 
-![060buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/060buildBstUsingStack.png)
+![060buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/060buildBstUsingStack.png)
 
 ```ascii
 
@@ -229,7 +229,7 @@ flowchart TB
 * But it doesn't have any child.
 * So, we pop the next element.
 
-![070buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/070buildBstUsingStack.png)
+![070buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/070buildBstUsingStack.png)
 
 ```ascii
 
@@ -250,7 +250,7 @@ flowchart TB
 
 * Then, we add its right child followed by its left child.
 
-![080buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/080buildBstUsingStack.png)
+![080buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/080buildBstUsingStack.png)
 
 ```ascii
 
@@ -276,7 +276,7 @@ flowchart TB
 * But it doesn't have any child.
 * So, we pop the next element.
 
-![090buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/090buildBstUsingStack.png)
+![090buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/090buildBstUsingStack.png)
 
 ```ascii
 
@@ -300,7 +300,7 @@ flowchart TB
 * But, it doesn't have any child.
 * So, we pop the next element.
 
-![100buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/100buildBstUsingStack.png)
+![100buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/100buildBstUsingStack.png)
 
 ```ascii
 
@@ -319,7 +319,7 @@ flowchart TB
 
 * Then, we add its right child, followed by the left child.
 
-![110buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/110buildBstUsingStack.png)
+![110buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/110buildBstUsingStack.png)
 
 ```ascii
 
@@ -341,7 +341,7 @@ flowchart TB
 
 * Then, we add its right child, followed by the left child.
 
-![120buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/120buildBstUsingStack.png)
+![120buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/120buildBstUsingStack.png)
 
 ```ascii
 
@@ -367,7 +367,7 @@ flowchart TB
 * But, it doesn't have any child.
 * So, we pop the next element.
 
-![130buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/130buildBstUsingStack.png)
+![130buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/130buildBstUsingStack.png)
 
 ```ascii
 
@@ -391,7 +391,7 @@ flowchart TB
 * But, it doesn't have any child.
 * So, we pop the next element.
 
-![140buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/140buildBstUsingStack.png)
+![140buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/140buildBstUsingStack.png)
 
 ```ascii
 
@@ -411,7 +411,7 @@ flowchart TB
 
 * Then, we add its right child, followed by the left child.
 
-![150buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/150buildBstUsingStack.png)
+![150buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/150buildBstUsingStack.png)
 
 ```ascii
 
@@ -435,7 +435,7 @@ flowchart TB
 * But, it doesn't have any child.
 * So, we pop the next element.
 
-![160buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/160buildBstUsingStack.png)
+![160buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/160buildBstUsingStack.png)
 
 ```ascii
 
@@ -453,13 +453,13 @@ flowchart TB
 
 > 50, 40, 30, 25, 35, 45, 43, 47, 60, 55, 53, 57, 70, 65, 80
 
-![170buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/170buildBstUsingStack.png)
+![170buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/170buildBstUsingStack.png)
 
 * Then, we add its right child, followed by the left child.
 * But, it doesn't have any child.
 * So, we pop the next element.
 
-![180buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/180buildBstUsingStack.png)
+![180buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/180buildBstUsingStack.png)
 
 * But, the stack is empty.
 * So, we are done.
@@ -603,69 +603,69 @@ BST DFS Pre-Order Stack   |   parent  |
 
 * The below is the step-by-step visual presentation (illustration).
 
-![200bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/200bstInOrderUsingStack.png)
+![200bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/200bstInOrderUsingStack.png)
 
-![210bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/210bstInOrderUsingStack.png)
+![210bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/210bstInOrderUsingStack.png)
 
-![220bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/220bstInOrderUsingStack.png)
+![220bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/220bstInOrderUsingStack.png)
 
-![230bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/230bstInOrderUsingStack.png)
+![230bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/230bstInOrderUsingStack.png)
 
-![240bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/240bstInOrderUsingStack.png)
+![240bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/240bstInOrderUsingStack.png)
 
-![250bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/250bstInOrderUsingStack.png)
+![250bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/250bstInOrderUsingStack.png)
 
-![260bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/260bstInOrderUsingStack.png)
+![260bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/260bstInOrderUsingStack.png)
 
-![270bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/270bstInOrderUsingStack.png)
+![270bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/270bstInOrderUsingStack.png)
 
-![280bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/280bstInOrderUsingStack.png)
+![280bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/280bstInOrderUsingStack.png)
 
-![290bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/290bstInOrderUsingStack.png)
+![290bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/290bstInOrderUsingStack.png)
 
-![300bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/300bstInOrderUsingStack.png)
+![300bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/300bstInOrderUsingStack.png)
 
-![310bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/310bstInOrderUsingStack.png)
+![310bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/310bstInOrderUsingStack.png)
 
-![320bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/320bstInOrderUsingStack.png)
+![320bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/320bstInOrderUsingStack.png)
 
-![330bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/330bstInOrderUsingStack.png)
+![330bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/330bstInOrderUsingStack.png)
 
-![340bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/340bstInOrderUsingStack.png)
+![340bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/340bstInOrderUsingStack.png)
 
-![350bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/350bstInOrderUsingStack.png)
+![350bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/350bstInOrderUsingStack.png)
 
-![360bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/360bstInOrderUsingStack.png)
+![360bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/360bstInOrderUsingStack.png)
 
-![370bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/370bstInOrderUsingStack.png)
+![370bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/370bstInOrderUsingStack.png)
 
-![380bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/380bstInOrderUsingStack.png)
+![380bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/380bstInOrderUsingStack.png)
 
-![390bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/390bstInOrderUsingStack.png)
+![390bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/390bstInOrderUsingStack.png)
 
-![400bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/400bstInOrderUsingStack.png)
+![400bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/400bstInOrderUsingStack.png)
 
-![410bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/410bstInOrderUsingStack.png)
+![410bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/410bstInOrderUsingStack.png)
 
-![420bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/420bstInOrderUsingStack.png)
+![420bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/420bstInOrderUsingStack.png)
 
-![430bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/430bstInOrderUsingStack.png)
+![430bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/430bstInOrderUsingStack.png)
 
-![440bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/440bstInOrderUsingStack.png)
+![440bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/440bstInOrderUsingStack.png)
 
-![450bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/450bstInOrderUsingStack.png)
+![450bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/450bstInOrderUsingStack.png)
 
-![460bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/460bstInOrderUsingStack.png)
+![460bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/460bstInOrderUsingStack.png)
 
-![470bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/470bstInOrderUsingStack.png)
+![470bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/470bstInOrderUsingStack.png)
 
-![480bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/480bstInOrderUsingStack.png)
+![480bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/480bstInOrderUsingStack.png)
 
-![490bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/490bstInOrderUsingStack.png)
+![490bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/490bstInOrderUsingStack.png)
 
-![500bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/500bstInOrderUsingStack.png)
+![500bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/500bstInOrderUsingStack.png)
 
-![510bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/510bstInOrderUsingStack.png)
+![510bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/510bstInOrderUsingStack.png)
 
 ##### Pseudocode Of BST-In-Order Using A Stack
 
@@ -779,38 +779,38 @@ while (cn != null || stack.isNotEmpty) {
 
 * For example:
 
-![430bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/430bstInOrderUsingStack.png)
+![430bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/430bstInOrderUsingStack.png)
 
 * After we pop the node `57`, the `currentNode` points to `null`, but the stack is not empty.
 * It means that the `currentNode` is invalid, but the stack is not empty.
 * We can see the same pattern for all the leaf nodes as below:
 
-![250bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/250bstInOrderUsingStack.png)
+![250bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/250bstInOrderUsingStack.png)
 
-![280bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/280bstInOrderUsingStack.png)
+![280bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/280bstInOrderUsingStack.png)
 
-![320bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/320bstInOrderUsingStack.png)
+![320bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/320bstInOrderUsingStack.png)
 
-![350bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/350bstInOrderUsingStack.png)
+![350bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/350bstInOrderUsingStack.png)
 
-![400bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/400bstInOrderUsingStack.png)
+![400bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/400bstInOrderUsingStack.png)
 
-![430bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/430bstInOrderUsingStack.png)
+![430bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/430bstInOrderUsingStack.png)
 
-![470bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/470bstInOrderUsingStack.png)
+![470bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/470bstInOrderUsingStack.png)
 
 * On the other hand, we can also see the pattern where the stack is empty, but we still have the `currentNode` to proceed.
 * For example:
 
-![360bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/360bstInOrderUsingStack.png)
+![360bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/360bstInOrderUsingStack.png)
 
 * After we pop the node `50`, the stack is empty, but the `currentNode` points to the right child of `50`, which is `60`.
 * So, the stack is empty, but we still have a valid `currentNode` to proceed.
 * We can see the same pattern again as shown below:
 
-![440bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/440bstInOrderUsingStack.png)
+![440bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/440bstInOrderUsingStack.png)
 
-![480bstInOrderUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/480bstInOrderUsingStack.png)
+![480bstInOrderUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/480bstInOrderUsingStack.png)
 
 #### Depth-First-Search: Post-Order: Left-Right-Parent(Root)
 
@@ -853,41 +853,41 @@ while (cn != null || stack.isNotEmpty) {
 * The reversed list is exactly the **BST-Post-Order-Traversal**.
 * Below is the step-by-step visual presentation (illustration).
 
-![610buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/610buildBstUsingStack.png)
+![610buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/610buildBstUsingStack.png)
 
-![620buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/620buildBstUsingStack.png)
+![620buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/620buildBstUsingStack.png)
 
-![630buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/630buildBstUsingStack.png)
+![630buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/630buildBstUsingStack.png)
 
-![640buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/640buildBstUsingStack.png)
+![640buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/640buildBstUsingStack.png)
 
-![650buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/650buildBstUsingStack.png)
+![650buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/650buildBstUsingStack.png)
 
-![660buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/660buildBstUsingStack.png)
+![660buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/660buildBstUsingStack.png)
 
-![670buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/670buildBstUsingStack.png)
+![670buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/670buildBstUsingStack.png)
 
-![690buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/690buildBstUsingStack.png)
+![690buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/690buildBstUsingStack.png)
 
-![700buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/700buildBstUsingStack.png)
+![700buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/700buildBstUsingStack.png)
 
-![710buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/710buildBstUsingStack.png)
+![710buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/710buildBstUsingStack.png)
 
-![720buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/720buildBstUsingStack.png)
+![720buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/720buildBstUsingStack.png)
 
-![730buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/730buildBstUsingStack.png)
+![730buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/730buildBstUsingStack.png)
 
-![740buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/740buildBstUsingStack.png)
+![740buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/740buildBstUsingStack.png)
 
-![750buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/750buildBstUsingStack.png)
+![750buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/750buildBstUsingStack.png)
 
-![760buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/760buildBstUsingStack.png)
+![760buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/760buildBstUsingStack.png)
 
-![770buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/770buildBstUsingStack.png)
+![770buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/770buildBstUsingStack.png)
 
-![780buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/780buildBstUsingStack.png)
+![780buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/780buildBstUsingStack.png)
 
-![790buildBstUsingStack.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/790buildBstUsingStack.png)
+![790buildBstUsingStack.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/790buildBstUsingStack.png)
 
 ##### Pseudocode Of Post-Order Traversal Using A Stack
 
@@ -1002,7 +1002,7 @@ return result.reverse()
 > 3 -1 -1
 >
 
-![05buildBst.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/05buildBst.png)
+![05buildBst.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/05buildBst.png)
 
 #### Output
 
@@ -1029,7 +1029,7 @@ return result.reverse()
 > 90 -1 -1
 >
 
-![07buildBst.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/07buildBst.png)
+![07buildBst.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/07buildBst.png)
 
 #### Output
 

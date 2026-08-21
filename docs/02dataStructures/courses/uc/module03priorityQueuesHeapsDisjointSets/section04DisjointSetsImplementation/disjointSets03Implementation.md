@@ -94,14 +94,14 @@ fun find(x: Int): Int {
 
 * Now, we want to store the root value to every node we visit.
 
-![392disjointSetTreePathCompression.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/392disjointSetTreePathCompression.png)
+![392disjointSetTreePathCompression.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/392disjointSetTreePathCompression.png)
 
 * So that the next time we try to find the root of these nodes, we can get it in less time.
 * This is called `path compression`.
 
 ## Union By Rank (Height)
 
-![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/340disjointSetTreeUnionByRankAnalysis.png)
+![340disjointSetTreeUnionByRankAnalysis.png](../../../../../../assets/images/02dataStructures/uc/module03priorityQueuesHeapsDisjointSets/section03disjointSetsUnionFind/lessons01explanation/340disjointSetTreeUnionByRankAnalysis.png)
 
 * The [rank] array shows the upper bound of the height for a particular `index` of the [rank] array.
 * We use that information to perform [unionByRank] operation.

@@ -38,7 +38,7 @@
 
 ## Problem Statement
 
-![550flipReplaceWithAvlTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/550flipReplaceWithAvlTree.svg)
+![550flipReplaceWithAvlTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/550flipReplaceWithAvlTree.svg)
 
 * For a given list, flip (replace) the value (in this case, color) from the given index (till the end of the list).
 
@@ -54,11 +54,11 @@
 
 * The idea is that we can represent a list using an `AVL Tree` as below:
 
-![560arrayAsAnAvlTree.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/560arrayAsAnAvlTree.svg)
+![560arrayAsAnAvlTree.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/560arrayAsAnAvlTree.svg)
 
 * Now, we take another flipped version of the original `AVL Tree` as below:
 
-![570flipUsingTwoAvlTrees.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/570flipUsingTwoAvlTrees.svg)
+![570flipUsingTwoAvlTrees.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/570flipUsingTwoAvlTrees.svg)
 
 * Then, we split both the trees from the given start-flip index.
 * So, $T_1$ becomes $L_1$ and $R_1$.
@@ -67,7 +67,7 @@
 * And then, we merge $L_2$ and $R_1$.
 * So, it becomes:
 
-![580flipUsingTwoAvlTreesSplitMerge.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/580flipUsingTwoAvlTreesSplitMerge.svg)
+![580flipUsingTwoAvlTreesSplitMerge.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/580flipUsingTwoAvlTreesSplitMerge.svg)
 
 ## Questions
 

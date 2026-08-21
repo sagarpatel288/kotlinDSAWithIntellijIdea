@@ -33,8 +33,8 @@
 
 ## Thought Process
 
-![500avlTreeFindKthSmallKey.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/500avlTreeFindKthSmallKey.svg)
-![1055bstKthSmallestKey.png](../../../../../assets/images/dataStructures/uc/module06programmingAssignments/1055bstKthSmallestKey.png)
+![500avlTreeFindKthSmallKey.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/500avlTreeFindKthSmallKey.svg)
+![1055bstKthSmallestKey.png](../../../../../assets/images/02dataStructures/uc/module06programmingAssignments/1055bstKthSmallestKey.png)
 
 ```mermaid
 ---

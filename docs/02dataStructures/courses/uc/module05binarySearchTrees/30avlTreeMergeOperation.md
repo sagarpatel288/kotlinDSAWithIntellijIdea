@@ -32,13 +32,13 @@
 
 ## Having almost the same height
 
-![410avlTreeMerge.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/410avlTreeMerge.svg)
+![410avlTreeMerge.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/410avlTreeMerge.svg)
 
 ## One tree has more height than the other
 
-![420avlTreeMergeCase02.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/420avlTreeMergeCase02.svg)
+![420avlTreeMergeCase02.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/420avlTreeMergeCase02.svg)
 
-![430avlTreeMergeCase03.svg](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/430avlTreeMergeCase03.svg)
+![430avlTreeMergeCase03.svg](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/430avlTreeMergeCase03.svg)
 
 ## Process
 
@@ -106,7 +106,7 @@ private fun findMax(node: AvlNode?): AvlNode? {
 * Recall the `delete` operation we have seen earlier in a BST (Binary Search Tree).
 * The `delete` operation where the node has 1 child.
 
-![80bstDelete02.png](../../../../../assets/images/dataStructures/uc/module05binarySearchTreesBST/80bstDelete02.png)
+![80bstDelete02.png](../../../../../assets/images/02dataStructures/uc/module05binarySearchTreesBST/80bstDelete02.png)
 
 * The image shows a `delete` operation in a binary search tree.
 * And here, we have a balanced binary search tree: An AVLTree.

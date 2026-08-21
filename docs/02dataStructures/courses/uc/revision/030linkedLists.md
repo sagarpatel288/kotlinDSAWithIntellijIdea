@@ -31,7 +31,7 @@
 * But when we abandon the contiguous structure, we also lose the math that gives us random access in $O(1)$.
 * So, to access the data, we rely on the pointers of the head, node, and tail.
 
-![07detailedStructure.png](../../../../../assets/images/dataStructures/uc/module01basicDataStructures/030linkedList/07detailedStructure.png)
+![07detailedStructure.png](../../../../../assets/images/02dataStructures/uc/module01basicDataStructures/030linkedList/07detailedStructure.png)
 
 * The data itself must hold the memory address of the next data.
 * Such a data structure is called a linked list.
