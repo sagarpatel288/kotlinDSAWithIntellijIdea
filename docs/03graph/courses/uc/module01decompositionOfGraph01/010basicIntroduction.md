@@ -43,6 +43,9 @@
 ---
 * Each representation has its efficient vs. inefficient use case.
 * So, we use a particular representation depending upon our requirements.
+
+**Are these two vertices connected?**
+
 * For example, if we want to determine whether two vertices are connected or not, the adjacency matrix is very fast.
 * It will be a simple straightforward look up and a constant runtime.
 * However, the same operation would take linear time if we use the edge list representation.
@@ -59,3 +62,23 @@
 ![030adjacencyList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/030adjacencyList.png)
 
 * For example, in the given image of the adjacency list, the degree of the vertex A is 3.
+
+**List all the edges**
+
+* Now, if we want to list all the edges, we already have the edge list representation.
+* It will take linear time.
+* But if we use the adjacency matrix for the same problem, it will be polynomial (quadratic, squared).
+* Because we will have to check each cell.
+* And if we take the adjacency list, it will also take linear time, but maybe with slightly more complexity than the edge list representation. 
+* We might count the same edges twice.
+* For example from A to B and then B to A.
+* But it is just a constant factor.
+* So, it is better than the adjacency matrix, but maybe slightly slow than the edge list.
+
+**Find all the neighbors**
+
+* That's what the adjacency list do!
+* So, it depends on the degree.
+* And if we do it using the adjacency matrix, we will have to go through each cell.
+* And if we do it using the edge list, it is better than the adjacency matrix, but slightly slower than the adjacency list.
+* Because we have to inspect each edge pair.
