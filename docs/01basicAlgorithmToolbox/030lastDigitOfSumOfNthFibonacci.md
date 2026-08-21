@@ -9,7 +9,7 @@ F(0) + F(1) + F(2) + .. + F(n)
 
 F(n + 2) - 1
 
-![030sumOfNFibonacci.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/030sumOfNFibonacci.png)
+![030sumOfNFibonacci.png](../../assets/images/01algorithmToolbox/module02AlgorithmWarmUp/030sumOfNFibonacci.png)
 
 * So, instead of doing `{ F(0) + F(1) + F(2) + .. + F(n) } % 10`, we do `{ F(n + 2) - 1 } % 10`.
 * Here, we can take `F(n + 2) = a` and `1 = b`.
@@ -38,11 +38,11 @@ F(n + 2) - F(m + 1)
 
 **How?**
 
-![050partial_sum_of_fibonacci_start_end.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/050partial_sum_of_fibonacci_start_end.png)
+![050partial_sum_of_fibonacci_start_end.png](../../assets/images/01algorithmToolbox/module02AlgorithmWarmUp/050partial_sum_of_fibonacci_start_end.png)
 
-![055partial_sum_of_fibonacci_start_end_steps.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/055partial_sum_of_fibonacci_start_end_steps.png)
+![055partial_sum_of_fibonacci_start_end_steps.png](../../assets/images/01algorithmToolbox/module02AlgorithmWarmUp/055partial_sum_of_fibonacci_start_end_steps.png)
 
-![060partialSumOfFibonacci.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/060partialSumOfFibonacci.png)
+![060partialSumOfFibonacci.png](../../assets/images/01algorithmToolbox/module02AlgorithmWarmUp/060partialSumOfFibonacci.png)
 ---
 
 **How to remember?**
@@ -302,7 +302,7 @@ Rectangle n               Rectangle n + 1
 
 ```
 
-![070sum_of_squares_of_n_fibonacci.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/070sum_of_squares_of_n_fibonacci.png)
+![070sum_of_squares_of_n_fibonacci.png](../../assets/images/01algorithmToolbox/module02AlgorithmWarmUp/070sum_of_squares_of_n_fibonacci.png)
 
 
 $$F_0^2 +F_1^2 +···+F_n^2$$
@@ -314,4 +314,4 @@ F(n) * F(n + 1)
 
 * Visual Proof:
 
-![075sum_of_squares_of_n_fibonacci.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/075sum_of_squares_of_n_fibonacci.png)
+![075sum_of_squares_of_n_fibonacci.png](../../assets/images/01algorithmToolbox/module02AlgorithmWarmUp/075sum_of_squares_of_n_fibonacci.png)

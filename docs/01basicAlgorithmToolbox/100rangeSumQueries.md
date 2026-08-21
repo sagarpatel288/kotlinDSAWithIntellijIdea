@@ -2,9 +2,9 @@
 
 ## Explanation
 
-* ![Range Sum: In-place 0-indexed queries](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/080rangeSumInPlaced0basedIndexedQueries.png)
+* ![Range Sum: In-place 0-indexed queries](../../assets/images/01algorithmToolbox/module02AlgorithmWarmUp/080rangeSumInPlaced0basedIndexedQueries.png)
 * [Range Sum: A separate (n + 1) sized prefixed array and 1-indexed queries]()
-* ![090rangeSumSeparateArray0basedIndexedQueries.png](../../assets/images/algorithmToolbox/module02AlgorithmWarmUp/090rangeSumSeparateArray0basedIndexedQueries.png)
+* ![090rangeSumSeparateArray0basedIndexedQueries.png](../../assets/images/01algorithmToolbox/module02AlgorithmWarmUp/090rangeSumSeparateArray0basedIndexedQueries.png)
 
 ## Implementation
 
