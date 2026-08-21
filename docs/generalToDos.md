@@ -22,7 +22,7 @@
   * Small changes and big impact.
   * Document these small tweaks.
   * Start from the original and progressively, step-by-step move forward.
-* Connecting a row problem like [Merge Table.kt](../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/03mergeTable.kt) with [Disjoint Sets Dissection.md](dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsImplementation/disjointSets02dissection.md) is fascinating.
+* Connecting a row problem like [Merge Table.kt](../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment02/03mergeTable.kt) with [Disjoint Sets Dissection.md](02dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section04DisjointSetsImplementation/disjointSets02dissection.md) is fascinating.
   * This kind of imagination, connection, simulation, relation, conversion, translation, transformation, mapping and modeling, reduction, and immersion of pattern and behavior matching is fascinating.
   * This is a fascinating example of pattern recognition, and problem reduction (mapping and modeling) skill.
 

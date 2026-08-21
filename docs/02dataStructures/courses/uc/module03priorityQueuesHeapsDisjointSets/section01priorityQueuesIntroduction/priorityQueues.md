@@ -1,0 +1,505 @@
+# Priority Queues
+
+<!-- TOC -->
+* [Priority Queues](#priority-queues)
+  * [Resources / References](#resources--references)
+  * [Learning Objectives](#learning-objectives)
+  * [Problem](#problem)
+  * [Definition](#definition)
+  * [How is it different from a queue or a stack?](#how-is-it-different-from-a-queue-or-a-stack)
+  * [Common Operations](#common-operations)
+  * [When to use?](#when-to-use)
+  * [Examples](#examples)
+  * [Does a priority queue have to have the Comparable rule?](#does-a-priority-queue-have-to-have-the-comparable-rule-)
+  * [What is the difference between the comparable interface and the comparator?](#what-is-the-difference-between-the-comparable-interface-and-the-comparator)
+  * [What is the problem if we implement a priority queue using an array?](#what-is-the-problem-if-we-implement-a-priority-queue-using-an-array)
+    * [Using an unsorted array](#using-an-unsorted-array)
+    * [Using a sorted array](#using-a-sorted-array)
+      * [Linear insertion](#linear-insertion)
+      * [Binary Search](#binary-search)
+      * [Conclusion for the Sorted Array](#conclusion-for-the-sorted-array)
+    * [Conclusion for the Array](#conclusion-for-the-array)
+  * [What is the problem if we implement a priority queue using a linked list?](#what-is-the-problem-if-we-implement-a-priority-queue-using-a-linked-list)
+    * [Using an Unsorted Linked List](#using-an-unsorted-linked-list)
+    * [Using a Sorted Linked List](#using-a-sorted-linked-list)
+    * [Conclusion](#conclusion)
+  * [Can't we use binary search to find the right position to insert a new element in a sorted linked list?](#cant-we-use-binary-search-to-find-the-right-position-to-insert-a-new-element-in-a-sorted-linked-list)
+  * [Which data structure is most commonly used to implement a priority queue?](#which-data-structure-is-most-commonly-used-to-implement-a-priority-queue)
+  * [Explain a binary heap tree.](#explain-a-binary-heap-tree)
+  * [Summary: Priority Queue](#summary-priority-queue)
+  * [Next](#next)
+  * [Application Summary: Purpose And Reason](#application-summary-purpose-and-reason)
+  * [Data Structures: Problems And Solutions](#data-structures-problems-and-solutions)
+  * [Questions:](#questions)
+    * [What problem does a priority queue solve?](#what-problem-does-a-priority-queue-solve)
+    * [What are the pros and cons of a priority queue?](#what-are-the-pros-and-cons-of-a-priority-queue)
+    * [How does a priority queue work?](#how-does-a-priority-queue-work)
+    * [Can we use any other data structure than `Heaps` to build the priority queue?](#can-we-use-any-other-data-structure-than-heaps-to-build-the-priority-queue)
+    * [What are the invariants (rules) of the priority queue?](#what-are-the-invariants-rules-of-the-priority-queue-)
+    * [What is the difference between a priority queue and a regular queue? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-priority-queue-and-a-regular-queue-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What are the few cases where we might prefer a regular queue over a priority queue? Why?](#what-are-the-few-cases-where-we-might-prefer-a-regular-queue-over-a-priority-queue-why)
+    * [Why does a min stack need only O(1) extra information per element?](#why-does-a-min-stack-need-only-o1-extra-information-per-element)
+    * [Why can't a single maxIndex variable make a priority queue efficient?](#why-cant-a-single-maxindex-variable-make-a-priority-queue-efficient)
+    * [What property does a heap maintain that a sorted array maintains more strongly?](#what-property-does-a-heap-maintain-that-a-sorted-array-maintains-more-strongly)
+    * [Why is a heap only partially ordered?](#why-is-a-heap-only-partially-ordered)
+    * [Why does partial ordering lead to O(log n) operations?](#why-does-partial-ordering-lead-to-olog-n-operations)
+    * [Why is a complete binary tree important?](#why-is-a-complete-binary-tree-important)
+    * [Could a linked list implement a priority queue? What trade-offs would it make?](#could-a-linked-list-implement-a-priority-queue-what-trade-offs-would-it-make)
+    * [Why do heaps use arrays instead of explicit tree nodes?](#why-do-heaps-use-arrays-instead-of-explicit-tree-nodes)
+    * [What operations become inefficient if a heap is not complete?](#what-operations-become-inefficient-if-a-heap-is-not-complete)
+    * [What additional data structures would you need to support both findMin() and findMax() in O(1)?](#what-additional-data-structures-would-you-need-to-support-both-findmin-and-findmax-in-o1)
+    * [Can't we use the combination of min/max stack, and a dynamic array deque that uses two pointers (read index and write index) etc., to implement (construct) a priority queue instead of using a binary heap? Is there any problem in doing that? What are the pros and cons?](#cant-we-use-the-combination-of-minmax-stack-and-a-dynamic-array-deque-that-uses-two-pointers-read-index-and-write-index-etc-to-implement-construct-a-priority-queue-instead-of-using-a-binary-heap-is-there-any-problem-in-doing-that-what-are-the-pros-and-cons)
+<!-- TOC -->
+
+## Resources / References
+
+* [ADT - Abstract Data Type](../../module01BasicDataStructures/section01arraysAndLinkedLists/01abstractDataType.md)
+* [William Fiset](https://youtu.be/wptevk0bshY?si=Erkcz-IKL_O2JsQa)
+* [Coursera: UC San Diego: Data Structures](https://www.coursera.org/learn/data-structures)
+
+## Learning Objectives
+
+* To understand what a priority queue is.
+* How to implement a priority queue.
+* To understand what is going on in a built-in priority queue.
+* To be aware of the priority queue applications (usages).
+  * To be aware of the famous algorithms that use priority queues.
+  * To be aware of the problems where we should use priority queues.
+
+## Problem
+
+* //ToDo: A table showing the purpose of an array, a linked list, a stack, and a queue.
+* What problem they solve in one sentence.
+* After the table: The problem we still have.
+* A system that uses priority, importance, urgency, extremum (highest, lowest, greatest, least, largest, smallest, earliest, etc.).
+* Dynamic structure: Items are not static. The system or process adds and removes items.
+* Some kind of order that is not strictly LIFO or FIFO.
+* Logarithmic Complexity.
+* 
+
+---
+
+**Need: Efficient poll**
+
+* In a stack, we can remove an item only from the top.
+* In a queue, we can remove an item only from the front.
+* Removing an item from an array, takes `O(n)` (finding and shifting).
+* If it is an unsorted array, finding an item takes `O(n)`, and it can cause the shifting cost of `O(n)`.
+* If it is a sorted array, finding an item might take `O(log n)`, but shifting can cost `O(n)`.
+* Removing an item from a linked list, also takes `O(n)` (finding takes `O(n)`).
+* In a priority queue, it is `O(log n)`.
+
+**Need: Efficient `changePriority`**
+
+**How can we change the value of an item?**
+
+* In an unsorted array, we access the item in `O(1)`, and change its value.
+* But then finding the extremum (max or min) takes `O(n)` in an unsorted array.
+* Whereas in a priority queue, changing the priority takes `O(log n)` time.
+* And we can find the extremum (max or min) in `O(1)` time.
+---
+* In a sorted array, we access the item in `O(1)`, and change its value.
+* But then we have to sort the array again, and it might take `O(n log n)` time.
+* If we change the values frequently, it can go up to `O(n * n log n)`.
+* Whereas in a priority queue, changing the priority takes `O(log n)` time.
+* And if we change the priority `n` times, it takes a total of `O(n log n)` time.
+* And whether we change the priority `n` times of `0` times, we always get the extremum in `O(1)` time.
+---
+* If we use a linked list, then finding the item that we want to change takes `O(n)` time.
+* If we change the values `n` times, then it becomes `O(n^2)`.
+* Stack, queue, and deque are not designed to access an arbitrary item.
+---
+
+**Trade Off**
+
+* To achieve `extractMax` (or `extractMin`) in `O(1)`, and `poll` and `changePriority` in `O(log n)`, we pay slightly more for the `offer`.
+* While array, linked list, stack, queue, and deque takes `O(1)` for the `offer (or add, insert)`, a priority queue takes `O(log n)`.
+* Big-O Chart:
+
+![050bigOComplexityChart.png](../../../../../../assets/images/algorithmToolbox/module01basics/050bigOComplexityChart.png)
+
+* Reference/Resource/Origin: https://www.bigocheatsheet.com/
+
+**What problem does a priority queue solve better than the other data structures?**
+
+* A priority queue finds the extremum in `O(1)` with efficient cost of adding or removing the data.
+* The max heap finds the item having the maximum value (weight, priority) in `O(1)`.
+* The min heap finds the item having the minimum value (weight, priority) in `O(1)`.
+* Adding an item takes `O(log n)` due to heapify-up (siftUp) process.
+* Removing an item takes `O(log n)` due to heapify-down (siftDown) process.
+* We can build a heap out of unsorted data in `O(n)`.
+
+## Definition
+
+```markdown
+
+         Container                         
+                                           
+┌────────────────────────┐                 
+│                        │     peek() = 7  
+│   5                7   │                 
+│                        │     remove() = 7
+│                        │                 
+│                        │     remove() = 5
+│           1            │                 
+│                        │     remove() = 4
+│                        │                 
+│                        │     remove() = 3
+│           3        4   │                 
+│                        │     remove() = 1
+└────────────────────────┘                 
+
+```
+
+* A `Priority Queue` is an abstract data type where each element has a priority.
+* We use this `priority` to perform various operations.
+* For example, when we call `remove`, the element with the highest priority is
+  removed first.
+* However, we can change the priority of the element.
+* Also, if the priorities of two elements are the same, then we follow the
+  `FIFO - First-In-First-Out` order.
+
+## How is it different from a queue or a stack?
+
+* A queue strictly follows `FIFO - First-In-First-Out` order.
+* A stack strictly follows `LIFO - Last-In-First-Out` order.
+* However, a priority queue follows a `priority` order.
+* For example, when we call `remove`, the element with the highest or the lowest priority is
+  removed first. 
+* Only if the priorities of two elements are the same, the priority queue
+  follows the `FIFO - First-In-First-Out` order.
+
+## Common Operations
+
+* Offer (or add), peek, poll (or remove), isEmpty, max (or findMax, getMax) or min (or findMin, getMin),
+  changePriority, etc.
+
+## When to use?
+
+**When we want to perform:**
+
+* Operations based on priority, importance, urgency, value, weight, etc., rather
+  than based on the arrival order.
+* Process the order based on priority.
+* Operations to frequently find the minimum and maximum elements.
+* Operations to find the shortest and the longest paths.
+* Operations to find the minimum or the maximum cost of the network.
+
+## Examples
+
+* Dijkstra's Algorithm uses a priority queue to find the shortest path from
+  point `a` to point `b` in a map or graph.
+* Prim's Algorithm uses a priority queue to find an optimum spanning tree in a
+  graph.
+  * For example, suppose we have a network of computers, and we want to
+      connect them with cables.
+  * The prim's algorithm (and hence, the priority queue) helps us find the
+      optimal length (and hence, minimum cost) of cables.
+* Huffman's algorithm to find the optimal prefix-free encoding of a string or
+  file.
+  * For example, MP3 audio format encoding.
+* The heap sort algorithm to sort `n` objects.
+
+## Does a priority queue have to have the Comparable rule? 
+
+* Either the comparable interface or the external comparator.
+* So, either the underlying data must implement the comparable interface, or
+  we must provide the external comparator to the priority queue.
+* Because the priority queue needs to understand how to compare two objects,
+  and how to find (or distinguish) the priorities of two objects.
+
+## What is the difference between the comparable interface and the comparator?
+
+* It is natural for a class to implement the Comparable interface for the natural order.
+* For example, `Int`, `String`, `Double`, `Long`, etc.
+* So that numbers can be ordered or compared numerically, and strings can be ordered or compared alphabetically.
+* However, we can also provide a custom rule externally.
+* For example, for a custom data class, we can provide a custom, external comparator to the priority queue.
+* We can also provide this custom, external comparator for the classes that implement the Comparable interface.
+* In that case, the custom, external comparator takes priority as it conveys that we want to overwrite the default, implemented Comparable interface.
+
+## What is the problem if we implement a priority queue using an array?
+
+* There are two ways to implement a priority queue using an array.
+  * Using an unsorted array.
+  * Using a sorted array.
+  
+### Using an unsorted array
+
+* Inserting an element takes `O(1)`.
+
+```markdown
+┌─────┌─────┌─────┌─────┌─────┌─────┐
+│  3  │  9  │  16 │  10 │  2  │  7  │
+└─────└─────└─────└─────└─────└─────┘
+```
+
+* But, finding the maximum takes `O(n)`, because we have to scan through the entire array.
+* And we cannot even use the binary search here, because the array is not sorted.
+* So, finding the element with maximum priority takes `O(n)` time. 
+
+### Using a sorted array
+
+```markdown
+
+Indices       0     1     2     3     4
+
+           ┌─────┐─────┌─────┌─────┐─────┐            
+           │  2  │  3  │  9  │  10 │  16 │            
+           └─────┘─────└─────└─────┘─────┘            
+                          \      \     \              
+                           \      \     \             
+                            \      \     \            
+                             \      \     \           
+                              \      \     \          
+                               ▼      ▼     ▼         
+
+Indices       0     1     2     3     4     5
+
+           ┌─────┐─────┌─────┐─────┌─────┐─────┐      
+           │  2  │  3  │  7  │  9  │  10 │  16 │      
+           └─────┘─────└─────┘─────└─────┘─────┘      
+                                                      
+              \      \     \    \     \      \        
+               \      \     \    \     \      \       
+                \      \     \    \     \      \      
+                 \      \     \    \     \      \     
+                  \      \     \    \     \      \    
+                   ▼      ▼     ▼    ▼     ▼      ▼   
+
+Indices       0     1     2     3     4     5     6
+
+           ┌─────┐─────┐─────┌─────┐─────┌─────┐─────┐
+           │  1  │  2  │  3  │  7  │  9  │  10 │  16 │
+           └─────┘─────┘─────└─────┘─────└─────┘─────┘
+
+```
+
+* If we use a sorted array, then we can get the maximum element, the element with the highest priority, in `O(1)`.
+* Because if it is in ascending order, the last element has the highest priority.
+* And if it is in descending order, the first element has the highest priority.
+* However, to insert an element, we have two options:
+
+#### Linear insertion
+
+* We scan through the array and find the right position to insert the new element.
+* However, it takes `O(n)`.
+
+#### Binary Search
+
+* This is a better option than the linear search and insertion. 
+* It takes `log n` time to find the right position to insert the new element.
+* However, just because this is an array, if the new element that we want to insert or remove is the smallest one, 
+  all the other elements will have to shift their positions.
+* And this shifting takes `O(n)` time in the worst-case.
+
+#### Conclusion for the Sorted Array
+
+* So, in one way or another, we get `O(n)` time complexity for the insertion.
+
+### Conclusion for the Array
+
+* If we use an unsorted array, we get `O(n)` time for finding the element with maximum priority.
+* If we use a sorted array, we get `O(n)` time for inserting an element due to the position shifting process of the 
+  array.
+
+## What is the problem if we implement a priority queue using a linked list?
+
+* Similar to an array implementation, we have two ways to use a linked list for a priority queue.
+
+### Using an Unsorted Linked List
+
+* If we use an unsorted linked list, inserting an element is `O(1)`. 
+* However, to find the element having maximum priority takes `O(n)` in the worst case, because we have to scan through the entire list.
+
+### Using a Sorted Linked List
+
+* Finding the element that has the maximum priority takes `O(1)`.
+* However, to insert an element at the right position takes `O(n)`, because we have to scan through the entire list 
+  to find the right position.
+
+### Conclusion
+
+* If we use an unsorted linked list, then finding the element with maximum priority takes `O(n)`.
+* If we use a sorted linked list, then inserting an element at the right position takes `O(n)`.
+
+## Can't we use binary search to find the right position to insert a new element in a sorted linked list?
+
+[Basic Data Structures](../../module01BasicDataStructures/questionsOnBasicDataStructures.md)
+
+* We cannot use binary search for a linked list, because a linked list does not give us random access in `O(1)`.
+* A linked list does not give us random access in `O(1)`, because it is not a contiguous data structure.
+* It means that the previous and the next elements are not neighbors in the memory.
+* The previous and next elements are scattered in the memory.
+* It means that we cannot use `index` to find any element in `O(1)`.
+* In a binary search, we use `indices` to get any element in `O(1)` time, and adjust our boundaries accordingly.
+* For example, we might have the `start` index and the `end` index. 
+* So, we might get the element at the `middle` index, and compare it with the element that we want to insert.
+* If the new element is higher than the `middle` element, the `middle` becomes the `start` index.
+* If the new element is lower than the `middle` element, the `middle` becomes the `end` index.
+* And so on...
+* But in a linked list, we can't have `indices`. 
+* So, we can't use the binary search in a linked list.
+
+## Which data structure is most commonly used to implement a priority queue?
+
+* Logically: A binary heap tree.
+* Physically: An array.
+
+## Explain a binary heap tree.
+
+* [binaryHeapTrees.md](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
+
+## Summary: Priority Queue
+
+* Core:
+  * A priority queue is an Abstract Data Type where each element is associated with a priority.
+  * It uses a binary heap tree as a logical structure and an array as a physical structure.
+  * A binary heap tree uses a complete binary tree.
+  * The complete binary tree keeps the tree height compact `O(log n)`.
+  * Because in a complete binary tree, the nodes are filled from left-to-right without any gaps.
+  * It allows us to represent the data structure using an array.
+  * So, we get all the benefits of an array with the reduced shifting cost of `O(log n)` instead of `O(n)`.
+  * Also, the heap property allows us to access the extremum in `O(1)`.
+* Operations:
+  * It mainly performs `offer (add, insert)`, `peek`, `poll (remove)`, and `changePriority` operations.
+* Operation specific:
+  * The elements are removed based on their priorities instead of their arrival orders.
+* Implementation:
+  * We use a [Binary Heap](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md) for the implementation.
+* Time Complexity:
+* Space Complexity:
+* Applications:
+
+## Next
+
+* [Binary Heap Theory](../section02priorityQueuesUsingHeaps/topic02BinaryHeapTrees/binaryHeapTrees.md)
+* [Complete Binary Tree Theory](../section02priorityQueuesUsingHeaps/topic03CompleteBinaryTrees/completeBinaryTrees.md)
+* [Binary Max Heap Implementation](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/01binaryMaxHeap.kt)
+* [Heap Sort Theory](../section03HeapSort/heapSort.md)
+* [Heap Sort Implementation](../../../../../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/02heapSort.kt)
+
+## Application Summary: Purpose And Reason
+
+* Once we understand the [entire priority queue material](#next), the purpose of the priority queue becomes clearer.
+* We use the priority queue to perform:
+  * If we get unorganized data, we can `build a heap` in `O(n)` time. And then:
+    * `insert` in `O(log n)` time.
+    * `peekMax,` or `peekMin` in `O(1)` time.
+    * `extractMax,` or `extractMin` in `O(log n)` time.
+    * `changePriority` in `O(log n)` time.
+    * `sort` the data in `O(n log n)` time.
+
+## Data Structures: Problems And Solutions
+
+* //ToDo: A table to show which problem a particular data structure solves.
+* Problem, Data Structure, But... (A problem that the next data structure solves)
+* Array, linked list, stack, queue, priority queue
+* Fill the problem column only for the next data structure that solves it.
+  
+## Questions:
+
+### What problem does a priority queue solve?
+* When do we use a priority queue?
+
+* 
+
+### What are the pros and cons of a priority queue?
+
+* 
+
+### How does a priority queue work?
+
+* How do we implement a priority queue?
+* What underlying data structure do we use to implement a priority queue?
+* How do we perform various operations on a priority queue?
+* What is the time complexity of various operations on a priority queue? How?
+* What is the space complexity of various operations on a priority queue? How?
+
+* 
+
+### Can we use any other data structure than `Heaps` to build the priority queue?
+
+* Yes. A priority queue is an ADT (Abstract Data Type).
+* It means that we can build it using any other data structure as long as it maintains the invariants.
+
+### What are the invariants (rules) of the priority queue? 
+
+* 
+
+### What is the difference between a priority queue and a regular queue? Explain the overall difference and the difference for each operation.
+
+* 
+
+### What are the few cases where we might prefer a regular queue over a priority queue? Why?
+
+* 
+
+### Why does a min stack need only O(1) extra information per element?
+
+* 
+ 
+### Why can't a single maxIndex variable make a priority queue efficient?
+
+*  
+
+### What property does a heap maintain that a sorted array maintains more strongly?
+
+*  
+
+### Why is a heap only partially ordered?
+
+*  
+
+### Why does partial ordering lead to O(log n) operations?
+
+*  
+
+### Why is a complete binary tree important?
+
+*  
+
+### Could a linked list implement a priority queue? What trade-offs would it make?
+
+* 
+
+### Why do heaps use arrays instead of explicit tree nodes?
+
+* 
+
+### What operations become inefficient if a heap is not complete?
+
+*  
+
+### What additional data structures would you need to support both findMin() and findMax() in O(1)?
+
+*  
+
+### Can't we use the combination of min/max stack, and a dynamic array deque that uses two pointers (read index and write index) etc., to implement (construct) a priority queue instead of using a binary heap? Is there any problem in doing that? What are the pros and cons?
+
+>---
+
+* If we want to remove the min/max that is not the `top` element, the `array deque` will have to scan the entire database (items) to find it, and it takes `O(n)` time.
+* However, the conventional priority queue (that logically uses a binary heap tree and physically uses an array) takes `O(log n)` for the same operation.
+* The priority queue guarantees that the `poll` operation always removes (deletes) the extremum.
+* Whereas the suggested combination cannot guarantee that!
+
+>---
+
+* Similarly, if we want to remove any arbitrary item using its value, it will take `O(n)` time in the suggested combination.
+* Whereas, it will be `O(log n)` time in the conventional priority queue.
+
+>---
+ 
+* Priority change is `O(log n)` in the conventional priority queue.
+* Whereas changing the priority in the suggested combination completely destroys the structure of historically saved extremum!
+
+>---
+
+* The conventional priority queue holds and sustains: `parent >= children.`
+* Whereas there is no such order in the suggested combination.
+
+>---
+
+
+ 

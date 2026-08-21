@@ -1,0 +1,785 @@
+# Hash Tables
+
+<!-- TOC -->
+* [Hash Tables](#hash-tables)
+  * [Resources / References](#resources--references)
+  * [Time complexity in various data structures](#time-complexity-in-various-data-structures)
+  * [Problem/Requirement](#problemrequirement)
+  * [ToDo](#todo)
+  * [Direct Addressing](#direct-addressing)
+  * [Hash Function](#hash-function)
+    * [Introduction](#introduction)
+    * [Technical Definition](#technical-definition)
+      * [Formula](#formula)
+      * [Definition](#definition)
+    * [Load Factor](#load-factor)
+    * [Properties](#properties)
+  * [Map](#map)
+    * [Methods](#methods)
+    * [Technical Definition](#technical-definition-1)
+    * [Examples](#examples)
+  * [Collision](#collision)
+  * [Closed Hashing (Open Addressing)](#closed-hashing-open-addressing)
+  * [Closed Addressing (Open Hashing)](#closed-addressing-open-hashing)
+  * [Separate Chaining (Closed Addressing, Open Hashing)](#separate-chaining-closed-addressing-open-hashing)
+  * [Methods And Asymptotic Analysis with Pseudocode](#methods-and-asymptotic-analysis-with-pseudocode)
+    * [containsKey(key)](#containskeykey)
+    * [get(key)](#getkey)
+    * [put(key, value)](#putkey-value)
+    * [Analysis](#analysis)
+    * [ToDo](#todo-1)
+  * [Set](#set)
+    * [ToDo](#todo-2)
+    * [Problem examples](#problem-examples)
+    * [Idea](#idea)
+    * [Technical Definition](#technical-definition-2)
+    * [Methods](#methods-1)
+      * [contains(key)](#containskey)
+      * [add(key)](#addkey)
+      * [remove(key)](#removekey)
+  * [Applications: Where do we use hashing in real life? Explain in short (one to five sentences) how we use hashing for each application.](#applications-where-do-we-use-hashing-in-real-life-explain-in-short-one-to-five-sentences-how-we-use-hashing-for-each-application)
+  * [Interview Questions](#interview-questions)
+    * [Why don't we get $O(n)$ time complexity when we delete a key due to shifting?](#why-dont-we-get-on-time-complexity-when-we-delete-a-key-due-to-shifting)
+    * [If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?](#if-we-have-integer-keys-up-to-8-digits-what-will-be-the-size-of-an-array-in-the-direct-addressing-method)
+    * [What problem does a hash table (map) solve?](#what-problem-does-a-hash-table-map-solve)
+    * [What are the pros and cons of a hash table?](#what-are-the-pros-and-cons-of-a-hash-table)
+      * [Pros](#pros)
+      * [Cons](#cons)
+    * [Why do we call it a hash table when the underlying data structure is a dynamic array?](#why-do-we-call-it-a-hash-table-when-the-underlying-data-structure-is-a-dynamic-array)
+    * [How does a hash table work?](#how-does-a-hash-table-work)
+    * [Are the keys in a hash table mutable? Why?](#are-the-keys-in-a-hash-table-mutable-why)
+    * [Why is $α = n/m$ important?](#why-is-α--nm-important)
+    * [Why is expected chain length equal to α?](#why-is-expected-chain-length-equal-to-α)
+    * [Why does doubling table size give amortized O(1)?](#why-does-doubling-table-size-give-amortized-o1)
+    * [Why is collision unavoidable mathematically?](#why-is-collision-unavoidable-mathematically)
+    * [What is irreversibility?](#what-is-irreversibility)
+    * [Why does resizing change indices?](#why-does-resizing-change-indices)
+    * [Why does treeification improve worst-case?](#why-does-treeification-improve-worst-case)
+    * [What happens if hash function always returns 1?](#what-happens-if-hash-function-always-returns-1)
+    * [Why does open addressing and separate chaining degrade when α → 1?](#why-does-open-addressing-and-separate-chaining-degrade-when-α--1)
+    * [Why is separate chaining called closed addressing?](#why-is-separate-chaining-called-closed-addressing)
+    * [Which one is cache-friendly: Open addressing or separate chaining? How?](#which-one-is-cache-friendly-open-addressing-or-separate-chaining-how)
+    * [What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.](#what-is-the-difference-between-a-hash-table-map-and-a-disjoint-set-data-structure-explain-the-overall-difference-and-the-difference-for-each-operation)
+    * [What are the few cases where we would use a set instead of a map? Why?](#what-are-the-few-cases-where-we-would-use-a-set-instead-of-a-map-why)
+    * [Comparison of different data structures](#comparison-of-different-data-structures)
+  * [Next](#next)
+  * [Relevant DSA Questions](#relevant-dsa-questions)
+<!-- TOC -->
+
+## Resources / References
+
+**Overview**
+* Very good overview - short and sweet - clear and concise: Gate Smashers
+* [Gate Smashers](https://youtu.be/W5q0xgxmRd8?si=3rhBhehtPSW5O-7w)
+
+**Application**
+* [Monis Yousuf](https://youtu.be/pMM9cIAFAug?si=4dtGaEEywYDxLPiP)
+* [Simplilearn](https://youtu.be/jmtzX-NPFDc?si=dCNRHOF93cFlI4w7)
+
+**Internals**
+* [Inside Code: Hashing, Hash Tables](https://youtu.be/xdr2Y1P2H1U?si=QXukzX_BzRJofQ6N)
+* [Arpit Bhayani: Hashing, Collision, etc.](https://youtube.com/playlist?list=PLsdq-3Z1EPT2UnueESBLReaVSLIo_BuAc&si=mbgu-ku-Zw5_9nil)
+* [Inside Code: Set](https://youtu.be/XGaN3jRTlGA?si=9b5lMAF-seUrOY5u)
+
+## Time complexity in various data structures
+
+* ToDo: A table to show various time complexities for various data structures for various operations like insert, search(access, get), update, delete, etc.  
+* Maybe in the form of tables? with notes?
+* [WIP - Comparison](../revision/comparison.md)
+
+## Problem/Requirement
+
+* If we ask an array to get us an arbitrary item and if we know the index, it takes `O(1)`.
+* So, getting an arbitrary item using the known index is `O(1)` in arrays.
+* In other words, finding or getting the item using the index is `O(1)` in arrays.
+* But if we don't know the index, then it will take `O(n)` time.
+* However, if we treat the item as an index itself, then getting the item is `O(1)`.
+* Treating an item as an index is known as **Direct Addressing**.
+* But direct addressing uses a huge memory, and it can waste a huge memory.
+* For example, suppose that we have only two items: 0 and 100000.
+* To store these two items only, we will have to take an array of size 100000.
+* It is a huge size to store only two items!
+* Also, it fills only two slots: 0 and 100000.
+* All the other slots remain unused.
+* That is a lot of waste of memory!
+* The `Hash Table` solves this problem!
+* We get the arbitrary item in almost `O(1)` time without wasting too much memory. 
+
+## ToDo
+
+* Problem example: linear search, insertion, and deletion in a phone book, library, bank account details, etc.
+* Distinct definition of: Hashing (the process), hash (the output code), HashMap, HashSet, and Hashtable.
+* We need to ensure that this document does not introduce `disconnection`.
+* What problem does it solve? (Why do we need it? Benefits?)
+* How? (How does it work? Implementation. Analysis.)
+* When to use it?
+* Doesn't it sound like a simple array? What is the difference?
+* Why do we call it a "Hash Table" when it is actually an array?
+* Comparison.
+* Completeness of this document as per our defined standard.
+* The order of sections.
+* Should we split the document into smaller, distinct, dedicated topic?
+* Common interview questions relevant to this document.
+* Correctness of this document.
+
+## Direct Addressing
+
+* ToDo: Explain the problem with an example.
+* Add approximate size to store $2^{32}$ values!
+* Explain the memory waste problem. 
+---
+* Suppose we have $2^{32}$ possible values.
+* It can be unique ID or something like that.
+* Now, we want to find value of a particular ID in $O(1)$ time.
+* We can use an array, and treat each ID as an index.
+* So, to find the value of a particular ID, we would pass the ID as an index to the array.
+* It works, but it requires an array of size $2^{32}$.
+
+
+* $2^{32} \text{ integers} * 4 \text{ bytes} \approx 16GB$  
+
+
+* If we use `Long`:  
+
+
+* $2^{32} \text{ long} * 8 \text{ bytes} \approx 32GB$
+
+
+* And if we have unique IP addresses of IPV6, we need to store $2^{128}$ keys, which is physically impossible.  
+
+
+* And suppose we only have $100$ values.
+* Then, we waste a lot of memory.
+* On the other hand, if we use a dynamic array, we cannot find the value (key lookup) in $O(1)$ time.
+* Because in a dynamic array, unique ID is not the index.
+* A hash table solves this problem.
+* We don't waste huge memory, and we can still find the value in $O(1)$ on average.
+* Under the hood, it uses a dynamic array.
+* Mostly, unique ID gets unique index via a hash function.
+* However, while trying to balance time and space, some IDs might get the same index.
+* We call it a collision, and there are various ways to handle it.
+* When we resize the array to store more values, we relocate all the values, and this process is known as rehashing.
+* Old values might get different indices, but the implementation ensures that we do not lose any values, and we can still find the value in $O(1)$ time on average.
+* Each element is rehashed $log (n)$ times maximum.
+---
+
+## Hash Function
+
+### Introduction
+
+* A `hash function` takes a `key` as an argument, and generates a **deterministic** `hash code` to store the given key at a particular index.
+```
+Key → Hash Function → Hash Code → Index.
+```
+* This process is known as `hashing`.
+* The `hash function` is a **deterministic function**. 
+* It means that it always generates the same `hash code` for the same key.
+* Also, the type and size of the input key can be anything.
+* So, the domain and size of the input key can be anything.
+* This is the reason we often call the domain of the key a `universe`.
+* But the domain and size (i.e., type, e.g., a 32-bit `Int`) of the `hash code` remain the same.
+* A `hash code` is always a `whole number`.
+* And the size (i.e., type, e.g., a 32-bit `Int`) of the `hash code` remains the same for all the different keys.
+* We then compress this `hash code` to produce an index from `[0,..,m-1]`, where `m` is the size of the `hash table`.  
+* To compress the `hash code`, we use `hashCode % size of the hash table`.
+* So, `index = hashCode % m,` where `m` is the size of the hash table.
+* So, this is how the given `key` becomes an `index`.
+* The range size of this index is called **cardinality**.
+* It means that the total number of possible unique outputs.
+* We know that this range is limited. `R = [0,..,m-1]`, where `m` is the size of the hash table. 
+* But the domain and size of the input `key` are almost infinite.
+* It means that we might end up getting the same `index` for different `keys`.
+* This incident is called `collision`.
+* Technically, if more than one `keys` get the same `index` value, we call it `collision`.
+* For example, we have only two seats, but we have sold them to 10 different people.
+* Clearly, more than one person will try to claim the seat.
+* So, we have limited seats for an unlimited number of people. 
+* We will be learning more about the `collision` a bit later.
+* We will also see that it should be impossible to produce the input `key` from the output.
+* It means that the `hash function` should be `irreversible`.
+* It is a must for `cryptography`, and a good property to have for general-purpose hash tables.  
+* But for now, let us see the technical definition of the `hash function`.
+
+### Technical Definition
+
+#### Formula
+
+$$
+h: U \to [0, \dots, m - 1]
+$$
+
+* `h` The hash function.
+* `:` Read as: "is a function that maps".
+* `U` The domain, the universe of all possible keys.
+* `->` Read as `to`
+* `[0,..,m - 1]` The range, the set of all possible array indices.
+
+#### Definition
+
+* A hash function `h` is a **deterministic function** that maps an input key `k` of arbitrary size from a large domain `U` (the universe of keys) to a fixed-size (i.e., type, e.g., 32-bit `Int`) output `h(k)` (also known as a `hash code`), which is then compressed to a smaller index within the range `R = [0,..,m - 1]`, where `m` is the size of the `hash table`. 
+
+### Load Factor
+
+* We might think that if we have a large hash table (so, a higher cardinality), we might get fewer collisions.
+* But then we spend more memory. Right?
+* And if we have a smaller cardinality, we increase the possibility of collision, right?
+* So, how do we manage this? Is there a standard ratio or measurement?
+* Yes. We call it a **load factor**.
+
+$$
+\text{Load factor } \alpha = \frac{n}{m}, \text{ where n is the number of items, and m is the hash table size}
+$$
+
+* We try to maintain this ratio at around `0.75`.
+* Here, the expected chain length is $\alpha$.
+* And the expected time per operation is $O(1 + \alpha)$.
+* Let us understand this with an example.
+* Suppose, we have 10 apples, and we want to store them across 100 buckets.
+* If we place all 10 apples across 100 buckets, then the expected items per bucket is 10/100 = 0.1.
+* That means, on average, each bucket will have 0.1 apple/s.
+* We will also learn more about it.
+
+### Properties
+
+* A hash function should be deterministic.
+* It means that the same input should produce the same output.
+* The output must be of fixed size (i.e., type, e.g., a 32-bit `Int`).
+* The hash function must be irreversible for cryptography.
+* For general-purpose hash tables, uniform distribution is critical.
+* It means that it should be impossible to get the input key from the output.
+* The hash function should be fast enough. 
+* So that we can perform various operations, such as find, insert, update, delete, etc., fast enough.
+* The possibility of collision should be minimized.
+
+## Map
+
+* A [hash function](#hash-function) ultimately leads us to an `index` where we can save the data.
+* But, how do we save the data?
+* We save the data as a pair of key and value.
+* To store data in a key-value pair, we use a `Map`.
+* A `Map` is an abstract data structure that maps (connects) two sets: A set of `keys` to a set of `values`.
+* Let us say the set of `keys` is `S`, and the set of `values` is `V`.
+* Then, a `Map` is an abstract data structure that maps (connects) from set `S` of objects (keys) to set `V` of values.
+* If there is a `map` from set `S` to `V`, the objects of the set `S` are called `keys` and the objects of the set `V` are called `values`.
+* Duplicate `keys` are not allowed. 
+* Hence, each possible `key` appears at most once.
+* There can be multiple `key-value` pairs.
+* Hence, the `map` stores a collection of such `key-value` pairs.
+* The intent (purpose) of a `map` is to look up a `value` associated with a `key`. 
+
+### Methods
+
+**containsKey(object)**
+
+* Checks whether there is any value corresponding to the given object (key).
+
+**get(object)**
+
+* Returns the value corresponding to the given object (key) if any.
+
+**put(object, value)**
+
+* It takes two arguments: `object` (key) and `value`.
+* And sets the `value` corresponding to the given `object` (key) in the `map`.
+
+### Technical Definition
+
+* A `Map` is an Abstract Data Type (ADT) that stores a collection of key-value pairs, where a duplicate key is not allowed, and it offers various operations such as `hasKey (or containsKey)`, `get`, `set (or put)`, etc.
+
+### Examples
+
+* A phone number is a key, and a name is a value.
+* A roll number is a key, and a student name is a value.
+* An account number is a key, and the account balance is a value.
+* A word in a dictionary is a key, and the definition is a value.
+* An item ID is a key, and the item price is a value.
+* Etc.
+
+## Collision
+
+* Collision is an incident when we get the same `index` for different unique `keys`.
+
+![Collision](../../../../../assets/images/dataStructures/uc/module04HashTables/080collision.png)
+
+* It happens because we map a larger set of keys to a smaller set of indices.
+* The domain and size of the key are almost infinite.
+* But the size of our `hash table` is limited to achieve better performance than the [direct addressing](#direct-addressing).
+* If we have more pigeons than the pigeonholes, then at least one pigeonhole will share more than one pigeon.
+* This is known as the pigeonhole principle.
+* If we have more `keys` than `indices`, then at least one `index` will share more than one `key`.
+* When multiple `keys` share the same `index`, we want to ensure we don't unintentionally overwrite the old value. 
+* We don't want to lose any value during such an incident.
+* We want to adjust and fit multiple values during such an incident.
+* So, how do we do that?
+* We categorize the collision resolution techniques into two categories:
+  * Open Addressing (Closed Hashing)
+  * Closed Addressing (Open Hashing)
+
+## Closed Hashing (Open Addressing)
+
+![074openAddressingClosedHashing.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/074openAddressingClosedHashing.webp)
+
+## Closed Addressing (Open Hashing)
+
+![078closedAddressingOpenHashing.webp](../../../../../assets/images/dataStructures/uc/module04HashTables/078closedAddressingOpenHashing.webp)
+
+## Separate Chaining (Closed Addressing, Open Hashing)
+
+* It falls under the category of [Closed Addressing](#closed-addressing-open-hashing).
+* We have already learned in the [hash function](#hash-function) how a `key` becomes an `index`.
+* In this section, we will be storing the `value`, and handling the `collision`.
+
+![Chaining](../../../../../assets/images/dataStructures/uc/module04HashTables/090separateChainingClosedAddressing.png)
+
+* Let us assume that we have a phone number, `1122334455` as a key.
+* We use the [hash function](#hash-function) to get the corresponding `index` to save the `value`.
+* Suppose we got the index `1`.
+* Without considering the [collision](#collision), we might directly insert the `value` at the generated `index`.
+* But when [collision](#collision) happens, it might overwrite the old value.
+* So, we need a better structure.
+* As a chaining solution, we expand the capacity of each index in such a way that it can contain more than one value.
+* So, instead of storing a single value, each index stores a list.
+
+![085collisionSimpleList.png](../../../../../assets/images/dataStructures/uc/module04HashTables/085collisionSimpleList.png)
+
+* But if we use a simple list of values for each index, we still have a problem.
+* Suppose, at index `2`, we have multiple values.
+* Now, for a `key` that maps to index `2`, which value will we return?
+* So, we use a list of pairs.
+
+![090separateChainingClosedAddressing.png](../../../../../assets/images/dataStructures/uc/module04HashTables/090separateChainingClosedAddressing.png)
+
+* Each index stores a list of pairs.
+* To avoid the `shifting` problem, we use a `linked list` instead of a simple `list`.
+* And to avoid the worst-case search time of the `linked list`, that is `O(n)`, we switch to a `balanced binary tree` (For example, a Red-Black Tree) when we hit a threshold.
+* Before we perform `treeification,` we consider two things:
+  * The collision size.
+  * The hash table size.
+* We compare which one is a better option.
+* Sometimes, we resize the hash table instead of `treeification`.
+* And sometimes, we perform `treeification`.
+* After `treeification`, the worst-case search time becomes `O(log n)`.
+* And we also perform `untreefication`.
+* This `treeification` and `untreefication` are there in `HashMap` of Java 8+.
+  * There, `TREEIFY_THRESHOLD` is `8`.
+  * And `UNTREEIFY_THRESHOLD` is `6`.
+  * And `MIN_TREEIFY_CAPACITY` is `64`.
+* Why does the `TREEIFY_THRESHOLD` is `8`? Because the probability of more than `8` collisions is 1 in 10 million if we are using a good hash function. 
+* And when we touch this threshold, it means that either the hash function is failing, or we are under the **Hash DoS attack**.  
+
+## Methods And Asymptotic Analysis with Pseudocode
+
+* If the array is `chains`, then at any particular `index`, it gives us a `chain` of a linked list.
+
+### containsKey(key)
+
+```kotlin
+fun <T> containsKey(key: T): Boolean {
+    //The index of the `chains` array gives us a linked list at that position
+    val chain = chains[hash(key)]
+    // We iterate through the entire linked list `chain` to find the `key-value`
+    for ((_key, value) in chain) {
+        if (key == _key) {
+            return true
+        }
+    }
+    return false
+}
+```
+
+### get(key)
+
+```kotlin
+
+fun <T, V> get(key: T): V? {
+    val chain = chains[hash(key)]
+    for ((_key, value) in chain) {
+        if (key == _key) {
+            return value
+        }
+    }
+    return null
+}
+```
+
+### put(key, value)
+
+```kotlin
+
+fun <T, V> put(key: T, value: V) {
+    val chain = chains[hash(key)]
+    // If we already have this `key`, we replace the value.
+    for (pair in chain) {
+        if (pair.first == key) {
+            pair.second = value
+            return
+        }
+    }
+    // Otherwise, we add this new key-value pair.
+    chain.add(key to value)
+}
+```
+
+### Analysis
+
+**Time Complexity**
+
+* If we have `n` keys, the size of a particular `chain` can be `n` in the worst-case, where all the `keys` go at the same `index`.
+* So, the worst-case time complexity is `O(n)`.
+
+**Space Complexity**
+
+* We take `key-value` pairs.
+* Hence, if we have `n` keys, then we would have `n` key-value pairs.
+* Also, we use an array of size, `m`, where each index contains a linked list.
+* The maximum size of any linked list can be at most `n` in a array of size `m`.
+* Hence, the space complexity is `O(n + m)`.
+
+### ToDo
+
+* `pair` is an immutable object.
+* It does not support `pair.second` in [put](#putkey-value) method of the [map](#map).
+
+## Set
+
+### ToDo
+
+* Problem examples.
+* Introduction: The "Hero" that solves the above problems. 
+* Answers: Why do we need a "Set"? What problems does it solve?
+* Technical Definition.
+* How does it solve those problems? How does it work?
+* What are the differences between a map, a set, an array, and a hash table?
+* Why don't we use a simple list for a set?
+* Hash Table = Either HashSet or HashMap
+* Hash table uses hashing.
+
+### Problem examples
+
+* We want to pursue uniqueness.
+* For example, unique characters in a string.
+* Unique elements in a collection.
+* Unique phone numbers.
+* Unique IDs.
+* To mark already visited places.
+
+### Idea
+
+* We use [map](#map).
+* Instead of storing a key-value pair in a linked list, we simply store only a key.
+* If we get the same index for different keys, we simply use one of the many [collision](#collision) resolution techniques.
+* For example, one of the [collision](#collision) resolution techniques is [chaining](#chaining).
+* When we get the same `key` again, we don't perform the `put` operation.
+* And we can't have the `get` operation here. 
+* We may not need the `get(key)` function to get the associated `value`.
+* Because we don't store any associated `value` here.
+* It is just to store `keys`.
+* The intent (purpose) of a `Set` is to look up the existence of a `key`.
+
+### Technical Definition
+
+* A `Set` is an "Abstract Data Structure (ADT)" that stores a collection of unique elements.
+* It does not store duplicate keys.
+* It mainly offers `add(key)`, `contains(key)`, and `remove(key)` operations.
+
+### Methods
+
+#### contains(key)
+
+```kotlin
+
+fun <T> contains(key: T): Boolean {
+    // The chain at the hash (index) of this key
+    val chain = chains[hash(key)]
+    for (_key in chain) {
+        if (key == _key) {
+            return true
+        }
+    }
+    return false
+}
+
+```
+
+#### add(key)
+
+```kotlin
+
+fun <T> add(key: T): Boolean {
+    // The chain at the hash (index) of the key
+    val chain = chains[hash(key)]
+    // If the chain already has the key, we don't add duplicate keys.
+    if (chain.contains(key)) return false
+    // Otherwise, we add the key to the chain.
+    chain.add(key)
+    return true
+}
+
+```
+
+#### remove(key)
+
+```kotlin
+
+fun <T> remove(key: T): Boolean {
+    // The chain at the hash (index) of this key 
+    val chain = chains[hash(key)]
+    for (_key in chain) {
+        if (key == _key) {
+            chain.remove(_key)
+            return true
+        }
+    }
+    return false
+}
+
+```
+
+## Applications: Where do we use hashing in real life? Explain in short (one to five sentences) how we use hashing for each application.
+
+* Blockchain.
+* In programming languages. For example, `dict` in Python, `Map` (Interface) or `HashMap` (Implementation) in Java, `Set` (Interface) or `HashSet` (Implementation) in Java.
+* Sparser, compiler, or interpreter of programming languages. For example, a programming language's symbol table. A programming language needs to quickly retrieve reserved keywords like `if`, `else`, `for`, `while`, etc.
+* A programming language needs to quickly determine whether a variable name is a reserved keyword.
+* File systems. For example, mapping of a human-readable path to a file or directory.
+* Digital signatures. For example, in cheque verification.
+* 
+* 
+
+## Interview Questions
+
+### Why don't we get $O(n)$ time complexity when we delete a key due to shifting?
+
+* When we delete a key in a hash table, we don't resize the underlying array.
+* So, there is zero shifting.
+* All the indices maintain their original positions.
+* Separate Chaining:
+  * When we delete a key, we delete a node from the linked list.
+  * If the key we are deleting is the only node in the linked list, then deleting the key makes the head of the linked list `null`.
+  * So, there is no shifting.
+* Open Addressing:
+  * When we delete a key, we use the `Tombstones marker` to mark the deleted key.
+  * The `Tombstones marker` helps continue the search operation for some keys.
+  * We can also use the `Tombstones marker` to insert a new key.
+  * So, there is no shifting.
+
+### If we have integer keys up to 8 digits, what will be the size of an array in the direct addressing method?
+
+* $10^8$, because in the direct addressing, we treat the integer key as the index of the array.
+
+### What problem does a hash table (map) solve?
+**When do we use a hash table (map) compared to other data structures? Why?**
+
+* A hash table solves dictionary problems.
+* A hash table provides $O(1 + \alpha)$ time complexity for insertion, deletion, and lookup operations.
+* Here, $\alpha$ is the load factor, which is the ratio of the number of elements (`n`) in the hash table to the size of the hash table (`m`).
+* The maximum chain length in a hash table is $\alpha$.
+
+### What are the pros and cons of a hash table?
+
+#### Pros
+
+* A hash table uses a hash function, and it is a deterministic function. It means that the same key will always map to the same index. 
+  * It means that if we have a key, we can quickly and easily find its value in $O(1)$ time when there is no collision. 
+  * Even if there is a collision, finding a value takes $O(1 + \alpha)$ time, where $\alpha$ is the load factor, which is the ratio of the number of elements (`n`) in the hash table to the size of the hash table (`m`).
+  * Normally, we maintain a load factor of `0.75`.
+
+
+#### Cons
+
+* No value-based order.
+  * For example, binary search trees are value-based ordered data structures.
+* It means that it is hard or almost impossible to perform value-based operations like range queries, sorting, etc.
+  * For example, we can perform binary search on a binary search tree to find a key in $O(log (n))$ time.
+* It is almost impossible to maintain recency due to cache locality differences. 
+  * For example, suppose we access a key whose value is `2`. We don't get any benefit of this last operation if the next operation is to access a key whose value is `1,` `2,` or `3`.
+  * On the other hand, a splay tree (a self-balancing binary search tree) maintains recency. We can quickly and easily access the most recently accessed key and their neighbors. Because it brings the most recently accessed key to the root of the tree via rotations. So, it takes only $O(1)$ time the next time we access the same key.
+  * Reference: [splayTrees.md](../module05binarySearchTrees/70splayTrees.md).
+* We might still waste a small amount of memory to reduce the number of collisions. So, we might use a different data structure if memory is a strict concern over time complexity to find a value.
+
+### Why do we call it a hash table when the underlying data structure is a dynamic array?
+
+* **Table:** Because it maps a key to a value.
+* **Hash:** Because it uses hashing to map a key to an index.
+
+### How does a hash table work?
+
+**How do we implement a hash table?**  
+**What underlying data structure do we use to implement a hash table?**  
+**What is the internal system of a hash table?**  
+
+* We use a dynamic array to implement a hash table.
+* A hash table treats the object that we want to store in the hash table as a key.
+* It gives the key to a hash function.
+* A hash function is a deterministic function that maps a key to an index.  
+* A hash function converts a key to a hash code, and then we compress the hash code to an index.
+* The domain size of the key is universe $U$, and the domain size of the table is $m$.
+* $U >> m$. The universe is much larger than the table.
+* It means that if we keep adding keys to the hash table, we will face collisions.
+* A collision occurs when two or more keys map to the same index.
+* We have two main approaches to handle collisions: Open addressing and Separate chaining.
+* Open addressing does not use any additional data structure.
+* When a collision occurs, we look for the next available slot in the hash table.
+* The system to look for the next available slot is called probing, and it has to be deterministic.
+* There are three types of probing: Linear probing, Quadratic probing, and Double hashing.
+* Separate chaining uses a linked list to handle collisions.
+* Each bucket in the hash table contains a linked list.
+* When a collision occurs, we add the key to the linked list.
+* To maintain time and space complexity, we use load factor.
+* If the hash table size is $m$, and the number of keys is $n$, then the load factor is $α = n/m$.
+* That is the expected chain length per bucket.
+* For example, suppose that we have `10 apples (n)` and `100 buckets (m)`.
+* If we place all the 100 apples across all the 100 buckets, then the expected number of apples per bucket is `10(n)/100(m) = 0.1`.
+* We resize the hash table when the load factor exceeds a certain threshold (e.g. $0.75$).
+* Because it indicates that the hash table is getting congested due to collisions.
+* In other words, expected apples (items) per bucket is getting high.
+* But we don't resize the hash table frequently.
+* The resize process is similar to the dynamic array's resize process.
+* So, the amortized time complexity of resizing is $O(1)$.
+* The cost of resizing is spread across all the other operations.
+* So, the amortized cost of resizing becomes constant.
+---
+**How do we perform various operations on a hash table?**  
+**What is the time complexity of various operations on a hash table? How?**  
+**What is the space complexity of various operations on a hash table? How?**  
+
+* The main operations on a hash table are: Insertion (put), Deletion (delete), and Search (find, get).
+* If the load factor is $α = n/m$, then the average chain length is $α$.
+* So, the time complexity of insertion, deletion, and search is $O(1 + α)$.
+* The space complexity of a hash table is $O(n + m)$, where $n$ is the number of keys, and $m$ is the size of the hash table.
+* We can understand this with an example.
+* Suppose that we have 10 apples (n), and 100 large buckets (m).
+* Each large bucket contains a small bucket per apple.
+* So, the total number of buckets (space) is 100 large buckets (m) + 10 small buckets (n) = 110 buckets (m + n).
+
+### Are the keys in a hash table mutable? Why?
+
+* The keys in a hash table are immutable.
+* Because we use a hash function to map the keys to indices in the hash table.
+* The hash function is a deterministic function.
+* It means that the same key always maps to the same index.
+* If we change the key after storing it in the hash table, then the next time we try to access it, we will get a different index.
+
+### Why is $α = n/m$ important?
+
+* $α$ is the load factor.
+* If $α$ is too high, it means that the hash table is congested.
+* It means that we are getting more collisions.
+* More collisions means that we spend more time to perform various operations.
+* If $α$ is too low, it means that the hash table is mostly empty.
+* It means that we waste space.
+* That's why a balanced $α$ is important.
+
+### Why is expected chain length equal to α?
+
+* If the number of keys is $n$, and the size of the hash table is $m$, then each bucket has $n/m$ keys on average.
+* That is why the expected chain length is $α = n/m$.
+* We can understand this with an example.
+* Suppose that we have `10 apples (n)`, and `100 buckets (m)`.
+* If we place all the 10 apples across all the 100 buckets, then the expected number of apples in each bucket is `10(n)/100(m) = 0.1`.
+
+### Why does doubling table size give amortized O(1)?
+
+* Before resizing, the time complexity of various operations is $O(1)$.
+* The resizing operation takes $O(n)$ time.
+* But, we don't resize the hash table (the underlying dynamic array) frequently.
+* So, if we spread the cost of resizing over all the operations, then the amortized time complexity of resizing is $O(1)$.
+
+### Why is collision unavoidable mathematically?
+
+* Because the number of possible keys is infinite.
+* But, the number of possible indices is finite.
+* So, according to the pigeonhole principle, if we have more pigeons than holes, then at least one hole must contain more than one pigeon.
+* That is why collisions are unavoidable.
+
+### What is irreversibility?
+
+* Irreversibility means that we can't get the original key (input) from the hash value (output).
+
+### Why does resizing change indices?
+
+* When we resize the hash table, we change the size of the underlying dynamic array, $m$.
+* A hash function depends on $m$.
+* So, when we change $m$, we get a different index for the same key.
+
+### Why does treeification improve worst-case?
+
+* Treeification means that we convert a linked list into a self-balanced binary search tree.
+* A self-balanced binary search tree has a height of $O(\log n)$.
+* So, the worst-case time complexity of search, insert, and delete operations is $O(\log n)$.
+* Without treeification, if we continue using the linked list, the worst-case time complexity is $O(n)$.
+* That is why and how treeification improves the worst-case time complexity.
+
+### What happens if hash function always returns 1?
+
+* If the hash function always returns 1, then all the keys will be mapped to the same index.
+* It means that we get a worst-case scenario.
+* So, we get $O(n)$ time complexity.
+
+### Why does open addressing and separate chaining degrade when α → 1?
+
+* When α → 1, it means that the hash table is almost full.
+* It means that whenever we try to insert a new key, we have to probe a lot of indices before we find an empty slot.
+* The number of attempts to find an empty slot depends on α.
+* If $α \approx 0.99$, then we have to scan almost the entire table to find an empty slot.
+* It means we have to do more traversals.
+* It means we have to spend more time.
+* This applies to separate chaining as well.
+* When α → 1, it means that the hash table size is very small compared to the number of keys.
+* So, we get more collisions.
+* It means that the chain length becomes longer.
+* It means that we have to traverse more nodes in the linked list.
+* It means that we spend more time.
+* However, the performance of open addressing becomes worse than that of separate chaining when α → 1.
+* When α → 1, open addressing degrades hyperbolically.
+* For the separate chaining, $\alpha$ is an expected (average) chain length.
+* So, when α → 1, separate chaining degrades linearly.
+
+### Why is separate chaining called closed addressing?
+
+* Because in a separate chaining, we don't find the next available empty slot.
+* Each slot in the hash table is a linked list.
+* The index that we get from the hash function for a particular key is final, fixed, and remains open for that key.
+* Other slots (indices) get closed for that key.
+* We store the associated key-value pair at the same index only.
+* If a particular slot has a key, it means that we add another key to the linked list on the same slot.
+* That is why it is called closed addressing.
+
+### Which one is cache-friendly: Open addressing or separate chaining? How?
+
+* //ToDO: Contiguous memory, cache lines, 64 bytes, neighbors, etc.
+
+### What is the difference between a hash table (map) and a disjoint set data structure? Explain the overall difference and the difference for each operation.
+
+* **HashMap:** It is an associative lookup data structure.
+* **Disjoint Set:** It focuses on union (merge) and find operations.
+* **Intersection:** We use a hash table to implement a disjoint set data structure.
+
+### What are the few cases where we would use a set instead of a map? Why?
+
+* 
+
+### Comparison of different data structures
+
+|  Structure 	  |  Search 	  |   Insert 	    |     Ordered? 	      | Memory 	 |
+|:-------------:|:----------:|:-------------:|:-------------------:|:--------:|
+|    Array 	    |   O(n) 	   | O(1) append 	 | Yes (index order) 	 |  O(n) 	  |
+| Linked List 	 |   O(n) 	   |    O(1) 	     |        Yes 	        |  O(n) 	  |
+|     BST 	     | O(log n) 	 |  O(log n) 	   |   Yes (sorted) 	    |  O(n) 	  |
+| Hash Table 	  | O(1) avg 	 |  O(1) avg 	   |        No 	         |  O(n) 	  |
+
+## Next
+
+* [Universal Family Of Hash Functions](020universalFamilyOfHashFunctions.md)
+* [Load Factor And Rehashing](030loadFactorAndRehashing.md)
+* [Formula Of Universal Family Of Hash Functions](040formulaOfUniversalFamilyOfHashFunctions.md)
+* [String Hashing](050stringHashing.md)
+* [Find A Substring](070findSubstring.md)
+* [Hash Questions](080hashQuestions.md)
+* [Hashing In Blockchain](090hashingInBlockchain.md)
+* [Precomputed Prefixed Hashes](100precomputedPrefixHashes.md)
+* [String Hashing Revision](120stringHashingRevision.md)
+* [Relevant DSA Problems](140relevantDsaProblems.md)
+
+## Relevant DSA Questions
+
