@@ -27,6 +27,9 @@
 ![010graphIntro.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/010graphIntro.png)
 
 * An undirected graph has a collection of V for vertices and a collection of E for edges.
+* There is no hierarchy in a graph (something that we get in a binary search tree).
+* So, there are no parents-children concept here.
+* However, we get edges and vertices.
 * An edge connects a pair of vertices.
 * We denote an edge using a pair of vertices it connects.
 * An edge is an incident on the two vertices it connects.
@@ -36,6 +39,7 @@
 * In simple terms, degree of vertex means the number of neighbors the vertex have.
 * Connected vertices create a path.
 * A path is a sequence of vertices where for all `i`, $(v_i, v_{i + 1})$ are connected via an edge within the graph.
+* In summary, a graph is a network (web) of vertices.
 
 ---
 
@@ -130,6 +134,37 @@
 * So, for a dense graph, `E` can be expensive.
 * In simple terms, if we have more (so many) edges, `E` can become worse.
 * On the other hand, if we have a fewer edges, `E` is good.
+
+## Types (Classification)
+
+* There are mainly two types of graphs.
+* Undirected (undirectional, bi-directional) and directed (directional, unidirectional).
+* In a directional (unidirectional) graph, edges get directions.
+* For example, an edge might go from A to B.
+* Whereas in an undirectional graph, edges do not have any direction.
+* For example, an edge that connects A and B.
+* Here, we don't say whether it is from A to B or B to A.
+* That's the reason we sometimes call it "Bi-directional graph" also.
+* If it connects A and B, it means we can go from A to B and B to A.
+---
+* We can also give **weight** to the edges.
+* Based on this, we can classify graphs into two categories.
+* Weighted and unweighted.
+* Now, the term **weight** represents a **value** that is associated with a particular edge.
+* The value can be anything, positive, or negative.
+---
+* So, in total, we can have the following types of graphs:
+* Undirected and unweighted
+* Undirected but weighted
+* Directed and weighted
+* Directed but unweighted
+---
+* There are two unpopular types of the graph as well.
+* We can classify a graph into two types as:
+* Connected graph and a disconnected graph.
+* In a connected graph, all the components are connected to each other, directly or indirectly (via).
+* Whereas in a disconnected graph, we can have one or more components that might be not connected with anyone.
+* We mostly use and talk about the connected graph, but it is good to know that we can have a disconnected graph, too.
 
 ## Next
 
