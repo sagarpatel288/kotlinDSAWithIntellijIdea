@@ -41,7 +41,7 @@
 
 * Suppose that we have a graph as shown in the image, and we want to find all the (reachable-) paths of the vertex, A. 
 
-
+![070reachablePaths.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/02exploringGraph/040reachablePaths.png)
 
 * We use the adjacent list.
 * We start with a particular vertext (which is in our case, A).
