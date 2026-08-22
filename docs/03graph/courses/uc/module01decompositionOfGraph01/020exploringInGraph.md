@@ -27,6 +27,27 @@
 * We can also do it with B instead of A.
 * Because in the end, we want to find the connectivity between them.
 * The objective (emphasized, weight, focus) is to **find all the paths** that can connect A and B. 
+* The use case is, we want to find all the routes (paths) that can help us connect (or reach) from point A to point B.
+
+**So, the point is, how can we explore all the paths and how can we conclude that we have visited (covered) them all?** 
+
+## Intuition (Idea)
+
+### Prerequisites
+
+* [BST Traversal](../../../../02dataStructures/courses/uc/module05binarySearchTrees/07binarySearchTreeAndStack.md)
+
+---
+
+* We use the adjacent list.
+* We start with a particular vertext (which is in our case, A).
+* We mark it as visited and add it to a stack.
+* Then, we visit its neighbor, mark it as visited, and add it to the stack.
+* We repeat this process as long as we have a non-null vertex.
+* Once we hit the end, we pop the vertex from the stack.
+* And we visit the neighbor of this popped vertex.
+* We mark it as visited, and add it to the stack.
+* We repeat this process to cover all the paths that are connected with the vertex, A.
 
 ## Next
 
