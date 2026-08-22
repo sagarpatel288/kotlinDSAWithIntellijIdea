@@ -9,6 +9,7 @@
     * [Representation](#representation)
       * [Runtime of different representations for different operations](#runtime-of-different-representations-for-different-operations)
     * [Density](#density)
+  * [Types (Classification)](#types-classification)
   * [Next](#next)
 <!-- TOC -->
 
@@ -18,7 +19,7 @@
 
 ## References
 
-* 
+* [Shradha Madam](https://youtu.be/RpgyCJBbl5E?si=iatSEyZ_AKuL1qLT)
 * [Khan Academy](https://www.khanacademy.org/computing/computer-science/algorithms/graph-representation/a/describing-graphs)
 * 
 
@@ -34,7 +35,8 @@
 * We denote an edge using a pair of vertices it connects.
 * An edge is an incident on the two vertices it connects.
 * A vertex is a node.
-* Two vertices connected via an edge are adjacent (neighbor).
+* Two vertices directly connected via an edge are adjacent (neighbor).
+* Two vertices are neighbors if they are directly connected with an edge. 
 * The number of edge incidents on a vertex is the degree of the vertex.
 * In simple terms, degree of vertex means the number of neighbors the vertex have.
 * Connected vertices create a path.
@@ -72,6 +74,13 @@
 **Adjacency List**
 
 ![030adjacencyList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/030adjacencyList.png)
+
+* In an adjacency list, we store the neighbors of each vertex.
+* For example, we can say (and store that) A has 3 neighbors: B, C, D.
+* It also indicates that A has 3 edges.
+* So, when we say **A adjacent to B, C, D**, we also implicitly declare the **edges of A**.
+* And it also indicates that A is directly connected with 3 vertices.
+* Or 3 vertices are directly connected with A.
 
 #### Runtime of different representations for different operations
 
