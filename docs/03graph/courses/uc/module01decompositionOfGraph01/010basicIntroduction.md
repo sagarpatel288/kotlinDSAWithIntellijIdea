@@ -33,7 +33,9 @@
 * A vertex is a node.
 * Two vertices connected via an edge are adjacent (neighbor).
 * The number of edge incidents on a vertex is the degree of the vertex.
-* In simple terms, degree of vertex means the number of neighbors the vertex have. 
+* In simple terms, degree of vertex means the number of neighbors the vertex have.
+* Connected vertices create a path.
+* A path is a sequence of vertices where for all `i`, $(v_i, v_{i + 1})$ are connected via an edge within the graph.
 
 ---
 
