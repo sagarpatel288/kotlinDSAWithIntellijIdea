@@ -937,6 +937,8 @@ return result.reverse()
 
 ### Breadth-First-Search (Level-By-Level-Top-To-Bottom-Left-To-Right)
 
+* BFS says cover the immediate neighbor first.
+
 > 50, 40, 60, 30, 45, 55, 70, 25, 35, 43, 47, 53, 57, 65, 80
 
 ---
@@ -1040,7 +1042,9 @@ return result.reverse()
 
 ## Code
 
-[010binarySearchTree.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
+//ToDO: We might not have BFS code for a BST yet. We need to implement BFS traversal of a BST.
+* [Tree Traversals.md](../module01BasicDataStructures/section03trees/020treeTraversals.md)
+* [binarySearchTree.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
 
 ## Complexity Analysis
 

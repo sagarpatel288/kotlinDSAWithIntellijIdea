@@ -251,7 +251,7 @@ class BuildAndTravelBst {
         // Also, imagine a BST with only two nodes: Root and the right child.
         // After we pop the root node from the stack, the current node index points to the right child.
         // But the stack is empty.
-        // So, if we had only one condition: `stack.isNotEmpty()`, we could not have processed the right sub-tree.
+        // So, if we had only one condition: `stack.isNotEmpty()`, we could not have processed the right subtree.
         while (currentNodeIndex != -1 || stack.isNotEmpty()) {
             while (currentNodeIndex != -1) {
                 stack.addLast(currentNodeIndex)
