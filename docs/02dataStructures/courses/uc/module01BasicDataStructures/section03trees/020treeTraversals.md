@@ -30,7 +30,7 @@
         * [Which tree traversal technique is useful to get a binary tree in a sorted order?](#which-tree-traversal-technique-is-useful-to-get-a-binary-tree-in-a-sorted-order)
         * [Can we use the `In-Order` traversal for a generic tree?](#can-we-use-the-in-order-traversal-for-a-generic-tree)
         * [How `Pre-Order` and `Post-Order` tree traversal techniques can be applied to a generic tree, and not only to a binary tree?](#how-pre-order-and-post-order-tree-traversal-techniques-can-be-applied-to-a-generic-tree-and-not-only-to-a-binary-tree)
-    * [Breadth-First-Search (Lever-Order Traversal):](#breadth-first-search-lever-order-traversal)
+    * [Breadth-First-Search (Level-Order Traversal):](#breadth-first-search-level-order-traversal)
       * [Pseudocode](#pseudocode)
       * [Complexity Analysis](#complexity-analysis)
     * [Complexity Analysis Of A Tree Traversal](#complexity-analysis-of-a-tree-traversal)
@@ -610,26 +610,26 @@ Reference / Resources:
 
 ##### How `Pre-Order` and `Post-Order` tree traversal techniques can be applied to a generic tree, and not only to a binary tree?
 
-Reference / Resources:
+* Reference / Resources:
 
-[Coursera's UC San Diego Course: Data Structures: Module 01: Section 03: Trees: Video 02: Timestamp: 04:28](https://coursera.org/share/e9f19723cdd15d5e4f0abe3c8c87fe34)
+* [Coursera's UC San Diego Course: Data Structures: Module 01: Section 03: Trees: Video 02: Timestamp: 04:28](https://coursera.org/share/e9f19723cdd15d5e4f0abe3c8c87fe34)
 
 * The `Pre-Order` (`Root-Let-Right`) conveys that: Process the node itself first, before the children.
 * This definite place of the node process makes it suitable for any tree.
 * Similarly, the `Post-Order` (`Left-Right-Root`) conveys that: Process the node itself after the children.
 * Again, this definite place of the node process makes it suitable for any tree.
 
-### Breadth-First-Search (Lever-Order Traversal):
+### Breadth-First-Search (Level-Order Traversal):
 
-References / Resources:
+* References / Resources:
 
-An animation to understand how BFS uses a queue concept:
+* An animation to understand how BFS uses a queue concept:
 
-[Breadth-First-Search Queue Animation](https://youtube.com/shorts/umHJzlKFGlU?si=aEBY41jPpuoiGYEh)
+* [Breadth-First-Search Queue Animation](https://youtube.com/shorts/umHJzlKFGlU?si=aEBY41jPpuoiGYEh)
 
-Also, as always, Shraddha explains the queue concept for BFS (Breadth First Search) very well.
+* Also, as always, Shraddha explains the queue concept for BFS (Breadth First Search) very well.
 
-[Tree Concept, Tree Traversals, Queue in BFS](https://youtu.be/eKJrXBCRuNQ?si=ORJK-Y4y9DTP7S59&t=3477)
+* [Tree Concept, Tree Traversals, Queue in BFS](https://youtu.be/eKJrXBCRuNQ?si=ORJK-Y4y9DTP7S59&t=3477)
 
 ```
 Level-1
@@ -649,10 +649,11 @@ Level-4                                    /      \
 Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 ```
 
-```{image} res/courses/ucSanDiego/course02dataStructures/module01/section03trees/080breadthFirstSearchPseudocode.png
+```{image} /assets/images/02dataStructures/uc/module01basicDataStructures/060trees/080breadthFirstSearchPseudocode.png
  :align: center
 ```
 
+* `Breadth-First-Search(BFS)` says cover the immediate neighbor first.
 * In a `Breadth-First-Search`, we travel level-by-level, from left to right.
 * Hence, we also call it `Level-Order Traversal.`
 * The `BFS` uses a `queue` concept to travel level-by-level.
@@ -688,6 +689,24 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 ```
 
 ```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
+
+
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
+
+```
                  ┌───────────┐───────────┐───────────┐───────────┌───────────┐───────────┌───────────┐───────────┌───────────┐                   
      Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
 ◀──────────────  │    Les    │           │           │           │           │           │           │           │           │  ◀────────────────
@@ -716,6 +735,24 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 * And we will also enqueue the right side of the popped item.
 * So, if the dequeued item, `Les` has a right node, we will enqueue it.
 * So, we enqueue `Sam`.
+
+```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
+
+
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
 
 ```
                  ┌───────────┐───────────┐───────────┐───────────┌───────────┐───────────┌───────────┐───────────┌───────────┐                   
@@ -750,6 +787,24 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 * So, we enqueue `Frank`.
 * Notice how `Alex` and `Frank` go behind `Sam`.
 
+```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
+
+
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
+
 ```                                                                                                                                                 
                                                                                                                                                  
                  ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
@@ -767,6 +822,23 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 * If the dequeued item, `Sam` has a right node, we enqueue it.
 * So, we enqueue `Violet`.
 
+```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
+
+
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
 
 ```
                                                                                                                                                  
@@ -793,6 +865,24 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 * But there is no left node of `Alex`.
 * If the dequeued item, `Alex` has a right node, we enqueue it.
 * But there is no right node of `Alex`.
+
+```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
+
+
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
 
 ```
                                                                                                                                                  
@@ -822,6 +912,24 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 * `Frank` does not have a right node.
 
 ```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
+
+
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
+
+```
 
                                                                                                                                                 
                  ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
@@ -849,6 +957,24 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 * `Nancy` does not have a right node.
 
 ```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
+
+
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
+
+```
 
                                                                                                                                                  
                  ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
@@ -871,6 +997,24 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 * So, we enqueue `Wendy`.
 
 ```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
+
+
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
+
+```
                                                                                                                                                  
                  ┌───────────┐───────────┌───────────┐───────────┌───────────┐───────────┐───────────┐───────────┌───────────┐                   
      Dequeue     │           │           │           │           │           │           │           │           │           │        Enqueue    
@@ -887,6 +1031,24 @@ Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
 * `Tony` does not have a left node.
 * If the dequeued item, `Tony` has a right node, we enqueue it.
 * `Tony` does not have a right node.
+
+```
+Level-1
+-------------->                  Les
+                                /   \
+                               /     \
+Level-2                       /       \
+-------------->          Cathy         Sam
+                         /   \         /   \
+Level-3                 /     \       /     \
+-------------->     Alex    Frank  Nancy   Violet
+                                            /    \
+Level-4                                    /      \
+-------------->                         Tony     Wendy
+
+
+Output: Les, Cathy, Sam, Alex, Frank, Nancy, Violet, Tony, Wendy
+```
 
 ```
                                                                                                                                                  
