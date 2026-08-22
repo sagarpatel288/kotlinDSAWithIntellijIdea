@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* 
+* [010basicIntroduction.md](010basicIntroduction.md)
 
 ## References
 
@@ -55,4 +55,4 @@
 
 ## Next
 
-* 
+* [Connectivity in a graph.md](030connectivity.md)
