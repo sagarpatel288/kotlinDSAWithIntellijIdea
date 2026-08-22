@@ -3,7 +3,7 @@
 ## Prerequisites
 
 * [Basic Introduction.md](010basicIntroduction.md)
-* [Exploring a graph.md](020exploringInGraph.md)
+* [Exploring a graph.md](020exploringGraphTraversal.md)
 
 ## Concept
 

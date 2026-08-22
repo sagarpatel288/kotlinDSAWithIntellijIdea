@@ -177,5 +177,5 @@
 
 ## Next
 
-* [Exploring a graph.md](020exploringInGraph.md)
+* [Exploring a graph.md](020exploringGraphTraversal.md)
 * [Connectivity in a graph.md](030connectivity.md)
