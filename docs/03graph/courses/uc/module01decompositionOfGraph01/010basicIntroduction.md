@@ -14,7 +14,7 @@
 
 ## Prerequisites
 
-* 
+* [Binary Search Trees.md](../../../../02dataStructures/courses/uc/module05binarySearchTrees/05binarySearchTrees.md)
 
 ## References
 
@@ -133,4 +133,5 @@
 
 ## Next
 
-* 
+* [Exploring a graph.md](020exploringInGraph.md)
+* [Connectivity in a graph.md](030connectivity.md)
