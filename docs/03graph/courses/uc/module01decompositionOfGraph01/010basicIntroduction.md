@@ -96,6 +96,7 @@
 **List all the edges**
 
 * Now, if we want to list all the edges, we already have the edge list representation.
+* The time it takes is directly proportional to the number of edges. 
 * It will take linear time.
 * But if we use the adjacency matrix for the same problem, it will be polynomial (quadratic, squared).
 * Because we will have to check each cell.
@@ -108,6 +109,7 @@
 **Find all the neighbors**
 
 * That's what the adjacency list do!
+* The time it takes depends on the number of neighbors - how many neighbors each vertex has.
 * So, it depends on the degree.
 * And if we do it using the adjacency matrix, we will have to go through each cell.
 * And if we do it using the edge list, it is better than the adjacency matrix, but slightly slower than the adjacency list.
