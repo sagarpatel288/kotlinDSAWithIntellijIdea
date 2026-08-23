@@ -12,9 +12,9 @@ class Graph(val size: Int) {
     fun printAdjacencyList() {
         val stringBuilder = StringBuilder()
         for ((index, neighbors) in adjacencyList.withIndex()) {
-            stringBuilder.append("Vertex is $index: ")
+            stringBuilder.append("Vertex is $index: Neighbors are: ")
             neighbors.forEach {
-                stringBuilder.append(": $it ")
+                stringBuilder.append(" $it, ")
             }
             stringBuilder.append("\n")
         }
