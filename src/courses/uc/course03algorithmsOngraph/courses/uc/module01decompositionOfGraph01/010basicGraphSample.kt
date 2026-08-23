@@ -20,6 +20,11 @@ class Graph(val size: Int) {
      * * To populate the neighbor list of a particular vertex, we need to find the vertex location.
      * * To find the vertex location, we treat the vertex as an index.
      * * That index is the vertex location where we can populate its neighbor list.
+     * * Another thing to notice is that we consider both the vertices neighbor of each other.
+     * * In other words, we add each vertex to the neighbor list of the other incoming vertex.
+     * * And the reason is that we are modeling an undirected graph, which is also known as the bidirectional graph.
+     * * If it was a unidirectional (directed) graph, we would only add [b] as the neighbor of [a], not the other way around.
+     * * So, for a unidirectional graph, we would only populate the neighbor list of [a], not for the [b].
      */
     fun addEdges(a: Int, b: Int) {
         if (a !in adjacencyList.indices || b !in adjacencyList.indices) return
