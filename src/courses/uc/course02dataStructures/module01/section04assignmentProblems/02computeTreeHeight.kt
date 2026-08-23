@@ -828,7 +828,7 @@ fun computeTreeHeight(totalNodes: Int, parentList: List<Int>): Int {
         // The `repeat` loop indicates adding all the children of the same level.
         // Increasing the `height` inside the `repeat` loop would show the number of times we added children.
         // Every time we add children of each node, it would increase the height!
-        // It would count each node tha we process.
+        // It would count each node that we process.
         // And we process all the nodes!
         // So, the counting will be equal to the number of nodes!
         // How many times do we add children? It will be equal to the number of children!
