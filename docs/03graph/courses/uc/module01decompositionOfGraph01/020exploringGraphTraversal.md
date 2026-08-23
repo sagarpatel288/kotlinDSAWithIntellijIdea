@@ -36,6 +36,8 @@
 
 ### Prerequisites
 
+* [Tree Traversals.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/020treeTraversals.md)
+* [Compute Tree Height Using BFS.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
 * [BST Traversal](../../../../02dataStructures/courses/uc/module05binarySearchTrees/07binarySearchTreeAndStack.md)
 
 ---
