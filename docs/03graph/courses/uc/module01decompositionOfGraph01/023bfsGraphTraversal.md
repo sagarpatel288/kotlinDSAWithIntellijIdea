@@ -5,6 +5,7 @@
 * [Tree Traversals.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/020treeTraversals.md)
 * [Compute Tree Height Using BFS.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
 * [Basic Introduction.md](010basicIntroduction.md)
+* [Simple Graph Ops.md](012simpleGraphOps.md)
 * [Exploring Graph Traversal.md](020exploringGraphTraversal.md)
 
 ## References
