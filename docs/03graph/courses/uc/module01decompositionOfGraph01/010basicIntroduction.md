@@ -177,5 +177,6 @@
 
 ## Next
 
+* [Simple Graph Ops.md](012simpleGraphOps.md)
 * [Exploring a graph.md](020exploringGraphTraversal.md)
-* [Connectivity in a graph.md](030connectivity.md)
+* [Connectivity in a graph.md](035connectivity.md)
