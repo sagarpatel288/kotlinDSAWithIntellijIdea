@@ -3,6 +3,7 @@
 ## Prerequisites
 
 * [Basic Introduction.md](010basicIntroduction.md)
+* [Simple Graph Ops.md](012simpleGraphOps.md)
 
 ## References
 
@@ -55,4 +56,5 @@
 
 ## Next
 
-* [Connectivity in a graph.md](030connectivity.md)
+* [Bfs Graph Traversal.md](023bfsGraphTraversal.md)
+* [Connectivity in a graph.md](035connectivity.md)
