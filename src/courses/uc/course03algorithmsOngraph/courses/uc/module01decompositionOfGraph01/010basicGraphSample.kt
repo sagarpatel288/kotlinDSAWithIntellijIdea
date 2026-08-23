@@ -1,16 +1,36 @@
 package courses.uc.course03algorithmsOngraph.courses.uc.module01decompositionOfGraph01
 
+/**
+ * * It assumes that (or this is when) we have a fixed number of vertices.
+ * * This is just a warmup to get basic idea about the graph.
+ */
 class Graph(val size: Int) {
 
+    // It is a list of list.
+    // Each element has a list of neighbors.
     val adjacencyList = List(size) { mutableListOf<Int>() }
 
+    /**
+     * * We use direct addressing.
+     * * We treat the incoming arguments [a] and [b] as indices of the [adjacencyList].
+     * * It implies that we are adding (populating) the neighbor list of [a] and [b] in the [adjacencyList].
+     * * This approach is the reason we take the fixed size of [adjacencyList], which is equal to the [size].
+     * * The [size] property indicates the total number of vertices.
+     * * The vertex value becomes the vertex index.
+     * * To populate the neighbor list of a particular vertex, we need to find the vertex location.
+     * * To find the vertex location, we treat the vertex as an index.
+     * * That index is the vertex location where we can populate its neighbor list.
+     */
     fun addEdges(a: Int, b: Int) {
+        if (a !in adjacencyList.indices || b !in adjacencyList.indices) return
         adjacencyList[a].add(b)
         adjacencyList[b].add(a)
     }
 
     fun printAdjacencyList() {
         val stringBuilder = StringBuilder()
+        // An adjacency list is a list of list.
+        // Each element has a neighbor list.
         for ((index, neighbors) in adjacencyList.withIndex()) {
             stringBuilder.append("Vertex is $index: Neighbors are: ")
             neighbors.forEach {
