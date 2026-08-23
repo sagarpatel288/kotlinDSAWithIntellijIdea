@@ -769,9 +769,13 @@ Parent of ith node: 4 -1 4 1 1
 * }
 * return height
 * ```
-*
-# Time Complexity:
-*
+
+## Kotlin implementation
+
+* [Compute Tree Height Using BST.kt](../../../../../../src/courses/uc/course02dataStructures/module01/section04assignmentProblems/02computeTreeHeight.kt)
+
+## Time Complexity:
+
 * We travel the parent list once. The size of the parent list is `n`, where `n` is the total number of nodes.
 * So, it is `O(n)`.
 * Then, we have this while loop, that also runs `n` times by covering each node at each level.
@@ -780,9 +784,9 @@ Parent of ith node: 4 -1 4 1 1
 * But, we drop (ignore) the constants in complexity analysis.
 * Why? Because the constant becomes insignificant as `n` grows larger.
 * So, the net total time complexity is `O(n)`.
-*
-# Space Complexity:
-*
+
+## Space Complexity:
+
 * We have a parent list of size `n`, where `n` is the total number of nodes.
 * We have a `parentChildrenList` of size `n`.
 * We have a `queue` of size `n`.
@@ -790,9 +794,9 @@ Parent of ith node: 4 -1 4 1 1
 * But again, we drop (ignore) the constants in complexity analysis.
 * Why? Because the constant becomes insignificant as `n` grows larger.
 * So, the net total space complexity is `O(n)`.
-*
-# Grader Output:
-*
+
+## Grader Output:
+
 * ```
 * Good job! (Max time used: 0.47/2.00, max memory used: 87289856/536870912.)
 * ```

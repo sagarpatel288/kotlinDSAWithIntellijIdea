@@ -1106,6 +1106,10 @@ fun <T> levelOrderTraversal(key: T) {
 }
 ```
 
+* //ToDo: We need to have a concrete kotlin implementation of this concept: BFS Traversal in a BST/Tree.
+* Currently, the closest one is:
+* [Compute Tree Height Using BST.kt](../../../../../../src/courses/uc/course02dataStructures/module01/section04assignmentProblems/02computeTreeHeight.kt)
+
 #### Complexity Analysis
 
 * The time complexity of `BFS` is `O(n)` as we visit each node once.

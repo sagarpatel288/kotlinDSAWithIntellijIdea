@@ -1043,6 +1043,9 @@ return result.reverse()
 ## Code
 
 //ToDO: We might not have BFS code for a BST yet. We need to implement BFS traversal of a BST.
+* Currently, the closest one is:
+* [Compute Tree Height Using BST.kt](../../../../../src/courses/uc/course02dataStructures/module01/section04assignmentProblems/02computeTreeHeight.kt)
+* Other relevant and supporting references:
 * [Tree Traversals.md](../module01BasicDataStructures/section03trees/020treeTraversals.md)
 * [binarySearchTree.kt](../../../../../src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
 
