@@ -27,6 +27,18 @@ class BfsTraversalInGraph(val size: Int) {
      * * The thumb rule is that we first cover the immediate neighbor, no vertex should be repeated, and that no vertex should be left unattended.
      * * The BFS Traversal uses the [adjacencyList].
      * * So, ensure to have the [adjacencyList] before we can perform the BFS Traversal.
+     *
+     * # Time Complexity
+     *
+     * * We check each vertex and all the neighbors of the vertex.
+     * * To check all the neighbors of the vertex, we use edges.
+     * * We use all the edges to cover the entire graph.
+     * * So, it is `O(V + E)`.
+     *
+     * # Space Complexity
+     *
+     * * We use the [adjacencyList] and the `visited boolean array` - each of size [size] = number of vertices.
+     * * Hence, the space complexity is `O(V)`.
      */
     fun bfsTraversal(start: Int) {
         // We want to start from a particular vertex.
@@ -91,6 +103,18 @@ class BfsTraversalInGraph(val size: Int) {
      * * Either we check in the beginning, or we check within the neighbor list loop.
      * * If we keep it only in the neighbor list loop, the caller of this function needs to take care that it passes only unvisited [start].
      * * Otherwise, if the caller of this function passes the visited [start], and we don't check it using the `if` condition before we print it, then we get false output.
+     *
+     * # Time Complexity
+     *
+     * * We check each vertex.
+     * * To check each vertex, we travel through the edges.
+     * * To cover the entire graph, we cover all the edges.
+     * * So, the time complexity is `O(V + E)`.
+     *
+     * # Space Complexity
+     *
+     * * We use the [adjacencyList] and a `visited boolean array` of [size], which is equal to toal vertices.
+     * * So, the space complexity is `O(V)`, and it also considers the call stack.
      */
     fun dfsTraversalHelper(start: Int, visited: BooleanArray) {
         if (!visited[start]) {
@@ -105,6 +129,18 @@ class BfsTraversalInGraph(val size: Int) {
         }
     }
 
+
+    /**
+     * # Time Complexity
+     *
+     * * To cover the graph, we visit each vertex and each edge.
+     * * Hence, it is `O(V + E)`.
+     *
+     * # Space Complexity
+     *
+     * * We use [adjacencyList] and a `visited boolean array` - each of size [size] = total vertices.
+     * * So, the space complexity is `O(V)`.
+     */
     fun dfsTraversal() {
         val visited = BooleanArray(size) { false }
         // We check all the vertices.
