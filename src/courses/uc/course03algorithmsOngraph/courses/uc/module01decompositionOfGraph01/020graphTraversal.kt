@@ -269,5 +269,6 @@ fun main() {
     graph.addEdges(2, 4)
     graph.printAdjacencyList()
     graph.bfsTraversal(0)
+    graph.bfsAll()
     graph.dfsTraversal()
 }
