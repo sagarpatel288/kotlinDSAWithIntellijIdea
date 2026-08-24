@@ -27,6 +27,16 @@ class BfsTraversalInGraph(val size: Int) {
      * * The thumb rule is that we first cover the immediate neighbor, no vertex should be repeated, and that no vertex should be left unattended.
      * * The BFS Traversal uses the [adjacencyList].
      * * So, ensure to have the [adjacencyList] before we can perform the BFS Traversal.
+     * ---
+     * * BFS Traversal from the given [start] vertex indicates and includes the connected components of [start].
+     * * In other words, it prints all the vertices that are connected with [start], including [start].
+     * * Sometimes, we also say that it prints all the reachable vertices for [start].
+     * * And [start] is always reachable from itself, which is the reason we include it when we print.
+     * * So, we use BFS or DFS Traversal whenever we want to explore the complete graph.
+     * * And we use this specific logic whenever we want to find all the connections, all the paths, all the vertices
+     * that are connected to and reachable from [start] using the BFS Traversal.
+     * * We also use BFS and DFS Traversal to find a particular vertex.
+     * ---
      *
      * # Time Complexity
      *
@@ -34,16 +44,31 @@ class BfsTraversalInGraph(val size: Int) {
      * * To check all the neighbors of the vertex, we use edges.
      * * We use all the edges to cover the entire graph.
      * * So, it is `O(V + E)`.
+     * ---
+     * * Another way to look at it is that we visite each vertex exactly once.
+     * * We visit and explore the vertex only if we find that it is not visited.
+     * * Finding the visit value is a constant time operation.
+     * * So, we confirm that we visit each vertex exactly once.
+     * * That's `V`.
+     * * For every visited vertex, we scan the corresponding adjacency list.
+     * * Total adjacency list entries for an undirected (bidirectional) graph is `2E`.
+     * * And for a unidirectional graph, it is `E`.
+     * * Since we drop the constant, it becomes `E`.
+     * * So, the total becomes: `O(V + E)`.
      *
      * # Space Complexity
      *
      * * We use the [adjacencyList] and the `visited boolean array`.
      * * The [adjacencyList] is a part of the structure.
-     * * For the undirected (bidirectional) graph, it takes roughly `2E` space.
+     * * It stores vertices and edges.
+     * * So, it is `O(V + E)`.
+     * * For the undirected (bidirectional) graph, `E ≈ V`.
+     * * So, it takes roughly `2E` space.
      * * Because when we add an edge (a, b), it populates the neighbor list of each.
      * * In other words, the size of the [adjacencyList] depends on the `degree`.
-     * * However, the extra memory that we use solely for the [bfsTraversal], is coming from the visited boolean array.
-     * * It's size is [size], which is the total number of vertices.
+     * * However, the extra memory that we use solely for the [bfsTraversal], is counted for the space complexity.
+     * * The auxialary space is coming from the `visited boolean array` and the `queue`.
+     * * Their size is [size], which is the total number of vertices.
      * * Hence, the space complexity is `O(V)`.
      */
     fun bfsTraversal(start: Int, visited_: BooleanArray? = null) {
@@ -61,16 +86,16 @@ class BfsTraversalInGraph(val size: Int) {
         // We have to take a visited boolean array, because a graph can have a cycle.
         // And we don't want to print a vertex more than once.
         // And we don't want to keep running the program infinitely.
-        // That's why, we take this boolean array, and we mark the vertex as visited once we push it to the queue.
+        // That's why, we take this boolean array, and we mark the vertex as visited once we enqueue it to the queue.
         if (visited == null) {
             visited = BooleanArray(size) { false }
         }
         if (!visited[start]) {
             // We use a queue for the BFS Traversal.
             val queue = ArrayDeque<Int>()
-            // We eagerly add (enqueue, push) one starting vertex to the queue, and mark it as visited.
+            // We eagerly add (enqueue, ) one starting vertex to the queue, and mark it as visited.
             queue.addLast(start)
-            // Once we add (enqueue, push) the vertex to the queue, we mark the vertex as visited.
+            // Once we add (enqueue, ) the vertex to the queue, we mark the vertex as visited.
             // Add --> mark. (EdMark)
             visited[start] = true
             while (queue.isNotEmpty()) {
@@ -85,7 +110,7 @@ class BfsTraversalInGraph(val size: Int) {
                     // Add only if the element is not visited.
                     if (!visited[neighbor]) {
                         queue.addLast(neighbor)
-                        // Once we add (enqueue, push) the vertex to the queue, we mark the vertex as visited.
+                        // Once we add (enqueue, ) the vertex to the queue, we mark the vertex as visited.
                         visited[neighbor] = true
                     }
                 }
@@ -100,6 +125,38 @@ class BfsTraversalInGraph(val size: Int) {
      * * We reuse it for each unvisited vertex of the [adjacencyList].
      * * We pass only unvisited vertex.
      * * So, we define the `visited boolean array` here, and pass it to the [bfsTraversal].
+     * ---
+     * * We use this approach whenever we want to explore the complete graph (whether connected or disconnected).
+     * * This works for both the connected graph and the disconnected graph.
+     * * For the connected graph, the for-loop will run only once.
+     * * Because a connected graph has only one component.
+     * * So, it doesn't matter from where we start.
+     * * It will cover the entire component - the only component of the graph - and hence, the entire graph.
+     * * For the disconnected graph, the number of times the for-loop run is based on the number of components.
+     * * For example, if we have 3 components, then the for-loop will run 3 times.
+     * * In any case, it doesn't change the time complexity.
+     * * Because the time complexity is based on the vertices and edges, and not on the components.
+     * ---
+     *
+     * # Time Complexity
+     *
+     * * We visit each vertex exactly once.
+     * * And we cover each edge exactly once to visit each vertex.
+     * * So, it is `O(V + E)`.
+     * * We might think that we are doing it inside a for-loop, for each vertex.
+     * * But the point is we are not visiting every other vertex and every edge for each vertex.
+     * * We are not scanning all the edges for each vertex.
+     * * We are using the `visited boolean array`.
+     * * That's the reason we take at most `O(V + E)` time.
+     *
+     * # Space Complexity
+     *
+     * * We visit each vertex exactly once.
+     * * To visit each vertex, we use the associated edge exactly once.
+     * * If that's already given in the form of [adjacencyList], we are left with the auxialary space.
+     * * We use the `visited boolean array` and the `queue`.
+     * * Their size is [size], which is equal to the number of total vertices.
+     * * So, the space complexity is `O(V)`.
      */
     fun bfsAll() {
         val visited = BooleanArray(size)
@@ -127,6 +184,8 @@ class BfsTraversalInGraph(val size: Int) {
      * * Either we check in the beginning, or we check within the neighbor list loop.
      * * If we keep it only in the neighbor list loop, the caller of this function needs to take care that it passes only unvisited [start].
      * * Otherwise, if the caller of this function passes the visited [start], and we don't check it using the `if` condition before we print it, then we get false output.
+     * * Here, it is the responsibility of the caller function to pass only unvisited vertices.
+     * * So, the parameter [start] must represent the unvisited vertex to make the function work correctly.
      *
      * # Time Complexity
      *
@@ -141,15 +200,18 @@ class BfsTraversalInGraph(val size: Int) {
      * * The [adjacencyList] is a part of the structure.
      * * It takes roughly `2E` space for the undirected (bidirectional) graph.
      * * But it is the part of the structure.
-     * * However, the `visited boolean array` is the auxialary space we use solely for the [dfsTraversal].
+     * * However, the `visited boolean array` and the `call stack` are the auxialary space.
      * * The size of the `visited boolean array` is [size], which is the total number of vertices.
+     * * And the call stack is also at most `O(V)`, even for the degenerated (linear) graph.
+     * * Because a call stack represents visiting/exploring a vertex.
+     * * The call stack is related to and directly proportional to visiting a vertex.
+     * * And we are not visiting any vertex more than once.
+     * * So, the call stack is at most `O(V)`.
      * * So, the space complexity is `O(V)`, and it also considers the call stack.
      */
     fun dfsTraversalHelper(start: Int, visited: BooleanArray) {
-        if (!visited[start]) {
-            println(start)
-            visited[start] = true
-        }
+        println(start)
+        visited[start] = true
         val neighbors = adjacencyList[start]
         neighbors.forEach {
             if (!visited[it]) {
@@ -176,8 +238,11 @@ class BfsTraversalInGraph(val size: Int) {
     fun dfsTraversal() {
         val visited = BooleanArray(size) { false }
         // We check all the vertices.
+        // We are using the direct addressing method.
+        // So, vertices are stored as indices.
+        // We get the vertices from the `adjacencyList`.
         // This is useful for the disconnected graph.
-        for ((vertex, neighbors) in adjacencyList.withIndex()) {
+        for (vertex in adjacencyList.indices) {
             if (!visited[vertex]) {
                 dfsTraversalHelper(vertex, visited)
             }
