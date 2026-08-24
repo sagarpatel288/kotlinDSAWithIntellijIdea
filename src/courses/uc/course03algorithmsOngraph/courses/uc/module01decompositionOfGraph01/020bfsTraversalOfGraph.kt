@@ -37,7 +37,13 @@ class BfsTraversalInGraph(val size: Int) {
      *
      * # Space Complexity
      *
-     * * We use the [adjacencyList] and the `visited boolean array` - each of size [size] = number of vertices.
+     * * We use the [adjacencyList] and the `visited boolean array`.
+     * * The [adjacencyList] is a part of the structure.
+     * * For the undirected (bidirectional) graph, it takes roughly `2E` space.
+     * * Because when we add an edge (a, b), it populates the neighbor list of each.
+     * * In other words, the size of the [adjacencyList] depends on the `degree`.
+     * * However, the extra memory that we use solely for the [bfsTraversal], is coming from the visited boolean array.
+     * * It's size is [size], which is the total number of vertices.
      * * Hence, the space complexity is `O(V)`.
      */
     fun bfsTraversal(start: Int) {
@@ -113,7 +119,12 @@ class BfsTraversalInGraph(val size: Int) {
      *
      * # Space Complexity
      *
-     * * We use the [adjacencyList] and a `visited boolean array` of [size], which is equal to toal vertices.
+     * * We use the [adjacencyList] and a `visited boolean array`.
+     * * The [adjacencyList] is a part of the structure.
+     * * It takes roughly `2E` space for the undirected (bidirectional) graph.
+     * * But it is the part of the structure.
+     * * However, the `visited boolean array` is the auxialary space we use solely for the [dfsTraversal].
+     * * The size of the `visited boolean array` is [size], which is the total number of vertices.
      * * So, the space complexity is `O(V)`, and it also considers the call stack.
      */
     fun dfsTraversalHelper(start: Int, visited: BooleanArray) {
@@ -138,7 +149,10 @@ class BfsTraversalInGraph(val size: Int) {
      *
      * # Space Complexity
      *
-     * * We use [adjacencyList] and a `visited boolean array` - each of size [size] = total vertices.
+     * * We use [adjacencyList] and a `visited boolean array`.
+     * * The [adjacencyList] is a part of the structure.
+     * * The `visited boolean array` is the auxilary space we use solely for the [dfsTraversal].
+     * * The size of the `visited boolean array` is [size], which is equal to the total vertices.
      * * So, the space complexity is `O(V)`.
      */
     fun dfsTraversal() {
