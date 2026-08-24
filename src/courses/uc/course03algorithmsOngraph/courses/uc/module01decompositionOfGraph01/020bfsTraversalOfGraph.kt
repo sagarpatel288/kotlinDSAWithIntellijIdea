@@ -44,27 +44,33 @@ class BfsTraversalInGraph(val size: Int) {
         // And we don't want to keep running the program infinitely.
         // That's why, we take this boolean array, and we mark the vertex as visited once we push it to the queue.
         val visited = BooleanArray(size) { false }
-        // We use a queue for the BFS Traversal.
-        val queue = ArrayDeque<Int>()
-        // We eagerly add (enqueue, push) one starting vertex to the queue, and mark it as visited.
-        queue.addLast(start)
-        // Once we add (enqueue, push) the vertex to the queue, we mark the vertex as visited.
-        // Add --> mark. (EdMark)
-        visited[start] = true
-        while (queue.isNotEmpty()) {
-            val pop = queue.removeFirst()
-            // After we pop, we print. pop --> print.
-            stringBuilder.append("$pop ")
-            // Add (enqueue) the neighbor list of the popped vertex.
-            // pop --> print --> neighbor list from the adjacency list.
-            val neighborList = adjacencyList[pop]
-            for (neighbor in neighborList) {
-                // Add (enqueue) only the unvisited vertices.
-                // Add only if the element is not visited.
-                if (!visited[neighbor]) {
-                    queue.addLast(neighbor)
-                    // Once we add (enqueue, push) the vertex to the queue, we mark the vertex as visited.
-                    visited[neighbor] = true
+        // We check all the vertices of the adjacency list one by one.
+        // This is helpful when we have a disconnected graph.
+        for ((vertex, neighbors) in adjacencyList.withIndex()) {
+            if (!visited[vertex]) {
+                // We use a queue for the BFS Traversal.
+                val queue = ArrayDeque<Int>()
+                // We eagerly add (enqueue, push) one starting vertex to the queue, and mark it as visited.
+                queue.addLast(start)
+                // Once we add (enqueue, push) the vertex to the queue, we mark the vertex as visited.
+                // Add --> mark. (EdMark)
+                visited[start] = true
+                while (queue.isNotEmpty()) {
+                    val pop = queue.removeFirst()
+                    // After we pop, we print. pop --> print.
+                    stringBuilder.append("$pop ")
+                    // Add (enqueue) the neighbor list of the popped vertex.
+                    // pop --> print --> neighbor list from the adjacency list.
+                    val neighborList = adjacencyList[pop]
+                    for (neighbor in neighborList) {
+                        // Add (enqueue) only the unvisited vertices.
+                        // Add only if the element is not visited.
+                        if (!visited[neighbor]) {
+                            queue.addLast(neighbor)
+                            // Once we add (enqueue, push) the vertex to the queue, we mark the vertex as visited.
+                            visited[neighbor] = true
+                        }
+                    }
                 }
             }
         }
