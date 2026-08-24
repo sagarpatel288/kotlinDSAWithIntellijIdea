@@ -169,7 +169,7 @@ fun bfsTraversal(start: Int, visited_: BooleanArray? = null) {
 
 ## Implementation 
 
-* [Graph Traversal.kt](../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/020bfsTraversalOfGraph.kt)
+* [Graph Traversal.kt](../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/020graphTraversal.kt)
 
 ## Next
 

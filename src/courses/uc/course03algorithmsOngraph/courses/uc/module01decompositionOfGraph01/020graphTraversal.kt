@@ -1,6 +1,6 @@
 package courses.uc.course03algorithmsOngraph.courses.uc.module01decompositionOfGraph01
 
-class BfsTraversalInGraph(val size: Int) {
+class GraphTraversal(val size: Int) {
     val adjacencyList = List(size) { mutableListOf<Int>() }
 
     fun addEdges(a: Int, b: Int) {
@@ -251,7 +251,7 @@ class BfsTraversalInGraph(val size: Int) {
 }
 
 fun main() {
-    val graph = BfsTraversalInGraph(5)
+    val graph = GraphTraversal(5)
     graph.addEdges(0, 1)
     graph.addEdges(1, 2)
     graph.addEdges(1, 3)
