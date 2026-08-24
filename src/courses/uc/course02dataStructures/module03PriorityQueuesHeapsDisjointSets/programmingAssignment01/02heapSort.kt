@@ -3,8 +3,8 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
 /**
  * # References / Resources
  *
- * * [Local heapSort.md](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
- * * [Local heapSort.md](../../../../../docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [Local heapSort.md](docs/coursera02dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [Local heapSort.md](../../../../../docs/coursera02dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  * * [GitHub heapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b4deae7cce5798fd22bdc82b3b81222cc4c18527/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
  *

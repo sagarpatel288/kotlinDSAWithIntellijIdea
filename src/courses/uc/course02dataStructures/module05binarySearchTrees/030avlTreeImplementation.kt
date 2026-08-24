@@ -2,7 +2,7 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
 
 /**
  * **Prerequisites/References:**
- * * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+ * * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
  * * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
  *
  * **WHAT**:
@@ -74,7 +74,7 @@ data class SplitResult(val t1LeftTree: AvlNode?, val t2RightTree: AvlNode?)
 
 /**
  * **Prerequisites/References:**
- * * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+ * * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
  * * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
  *
  * **WHAT:**
@@ -98,7 +98,7 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
      * **WHAT:**
@@ -137,7 +137,7 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
      * **WHAT:**
@@ -176,7 +176,7 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
      * **WHAT:**
@@ -212,7 +212,7 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
      * **WHAT:**
@@ -281,7 +281,7 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
      * **WHAT:**
@@ -444,7 +444,7 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
      * **WHAT:**
@@ -478,7 +478,7 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
      * **WHAT:**
@@ -588,7 +588,7 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
      * **WHAT:**
@@ -615,10 +615,10 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
+     * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/d140df22a9b3f47aba79591122f399f67ea211c3/docs/dataStructures/courses/uc/module05binarySearchTrees/15binarySearchTreesBSTBalance.md)
      *
-     * [Local: BST Basic Operations](docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
+     * [Local: BST Basic Operations](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
      * [GitHub: BST Basic Operations](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/68ba000c11a35863c194531eca2f277eb7d6f984/docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
      *
      * **IMPORTANT:**
@@ -1108,7 +1108,7 @@ class AvlTree {
 
     /**
      * **Prerequisites/References:**
-     * [Local: Split an AvlTree](docs/dataStructures/courses/uc/module05binarySearchTrees/40avlTreeSplitOperation.md)
+     * [Local: Split an AvlTree](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/40avlTreeSplitOperation.md)
      * [GitHub: Split an AvlTree](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b4b1fb255743fdca41c04b0216da8a953e374cc3/docs/dataStructures/courses/uc/module05binarySearchTrees/40avlTreeSplitOperation.md)
      *
      * **Time Complexity:**

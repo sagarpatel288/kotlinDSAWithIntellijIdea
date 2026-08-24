@@ -2,7 +2,7 @@ package courses.uc.course02dataStructures.module05binarySearchTrees
 
 /**
  * # Prerequisites/References
- * * [Local File](docs/dataStructures/courses/uc/module05binarySearchTrees/70splayTrees.md)
+ * * [Local File](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/70splayTrees.md)
  * * [GitHub File](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/5a2e8434fe79b140afedf34d5fd6542b3152451e/docs/dataStructures/courses/uc/module05binarySearchTrees/70splayTrees.md)
  *
  * # Problem Statement

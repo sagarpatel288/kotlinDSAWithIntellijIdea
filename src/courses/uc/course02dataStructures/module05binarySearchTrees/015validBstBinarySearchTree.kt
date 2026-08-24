@@ -20,13 +20,13 @@ import courses.uc.course02dataStructures.module05binarySearchTrees.ValidateBinar
  * * [Local: Print BinarySearchTree DFS Traversals](src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
  * * [GitHub: Print BinarySearchTree DFS Traversal](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/f150828e7a09cfea8949def8c0955ca04cb8a4a3/src/courses/uc/course02dataStructures/module05binarySearchTrees/010binarySearchTree.kt)
  *
- * * [Local: BinarySearchTrees](docs/dataStructures/courses/uc/module05binarySearchTrees/05binarySearchTrees.md)
+ * * [Local: BinarySearchTrees](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/05binarySearchTrees.md)
  * * [GitHub: BinarySearchTrees](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/2d175b2a51c2afa9d21f57a15e5400561d270962/docs/dataStructures/courses/uc/module05binarySearchTrees/05binarySearchTrees.md)
  *
- * * [Local: BinarySearchTreeAndStack](docs/dataStructures/courses/uc/module05binarySearchTrees/07binarySearchTreeAndStack.md)
+ * * [Local: BinarySearchTreeAndStack](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/07binarySearchTreeAndStack.md)
  * * [GitHub: BinarySearchTreeAndStack](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/fb5a7ac7d88eb8973de93b05330de3a3111c2bd0/docs/dataStructures/courses/uc/module05binarySearchTrees/07binarySearchTreeAndStack.md)
  *
- * * [Local: BinarySearchTreeOperations](docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
+ * * [Local: BinarySearchTreeOperations](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
  * * [GitHub: BinarySearchTreeOperations](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/2d175b2a51c2afa9d21f57a15e5400561d270962/docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
  *
  * # Problem: Is it a binary search tree?
