@@ -25,6 +25,8 @@ class BfsTraversalInGraph(val size: Int) {
      * * But in a graph, we can start the BFS Traversal from any vertex.
      * * That's the reason, we have [start] as an argument/parameter.
      * * The thumb rule is that we first cover the immediate neighbor, no vertex should be repeated, and that no vertex should be left unattended.
+     * * The BFS Traversal uses the [adjacencyList].
+     * * So, ensure to have the [adjacencyList] before we can perform the BFS Traversal.
      */
     fun bfsTraversal(start: Int) {
         // We want to start from a particular vertex.
