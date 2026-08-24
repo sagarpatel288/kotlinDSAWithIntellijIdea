@@ -220,7 +220,7 @@ class GraphTraversal(val size: Int) {
      * * So, the call stack is at most `O(V)`.
      * * So, the space complexity is `O(V)`, and it also considers the call stack.
      */
-    fun dfsTraversalHelper(start: Int, visited: BooleanArray) {
+    private fun dfsTraversalHelper(start: Int, visited: BooleanArray) {
         println(start)
         visited[start] = true
         val neighbors = adjacencyList[start]
@@ -269,5 +269,6 @@ fun main() {
     graph.addEdges(2, 4)
     graph.printAdjacencyList()
     graph.bfsTraversal(0)
+    graph.bfsAll()
     graph.dfsTraversal()
 }
