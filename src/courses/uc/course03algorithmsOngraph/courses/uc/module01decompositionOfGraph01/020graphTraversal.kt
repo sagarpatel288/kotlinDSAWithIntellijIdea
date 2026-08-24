@@ -32,9 +32,9 @@ class GraphTraversal(val size: Int) {
      * * In other words, it prints all the vertices that are connected with [start], including [start].
      * * Sometimes, we also say that it prints all the reachable vertices for [start].
      * * And [start] is always reachable from itself, which is the reason we include it when we print.
-     * * So, we use BFS or DFS Traversal whenever we want to explore the complete graph.
-     * * And we use this specific logic whenever we want to find all the connections, all the paths, all the vertices
-     * that are connected to and reachable from [start] using the BFS Traversal.
+     * * So, we use BFS or DFS Traversal whenever we want to explore the entire graph.
+     * * And we use this specific logic whenever we want to find all the connections (vertices), that are connected
+     * to and reachable from [start] using the BFS Traversal.
      * * We also use BFS and DFS Traversal to find a particular vertex.
      * ---
      *
@@ -62,10 +62,14 @@ class GraphTraversal(val size: Int) {
      * * The [adjacencyList] is a part of the structure.
      * * It stores vertices and edges.
      * * So, it is `O(V + E)`.
-     * * For the undirected (bidirectional) graph, `E ≈ V`.
+     * * For the undirected (bidirectional) graph, an edge is stored twice.
+     * * For example, if there is a connection (edge) between A and B, then the adjacency list will have:
+     * ```
+     * A : B
+     * B : A
+     * ```
      * * So, it takes roughly `2E` space.
      * * Because when we add an edge (a, b), it populates the neighbor list of each.
-     * * In other words, the size of the [adjacencyList] depends on the `degree`.
      * * However, the extra memory that we use solely for the [bfsTraversal], is counted for the space complexity.
      * * The auxialary space is coming from the `visited boolean array` and the `queue`.
      * * Their size is [size], which is the total number of vertices.
@@ -126,7 +130,7 @@ class GraphTraversal(val size: Int) {
      * * We pass only unvisited vertex.
      * * So, we define the `visited boolean array` here, and pass it to the [bfsTraversal].
      * ---
-     * * We use this approach whenever we want to explore the complete graph (whether connected or disconnected).
+     * * We use this approach whenever we want to explore the entire graph (whether connected or disconnected).
      * * This works for both the connected graph and the disconnected graph.
      * * For the connected graph, the for-loop will run only once.
      * * Because a connected graph has only one component.
@@ -141,7 +145,8 @@ class GraphTraversal(val size: Int) {
      * # Time Complexity
      *
      * * We visit each vertex exactly once.
-     * * And we cover each edge exactly once to visit each vertex.
+     * * And we use edges to visit the vertex.
+     * * In an undirected (bidirectional) graph, there are a total of `2E` edges.
      * * So, it is `O(V + E)`.
      * * We might think that we are doing it inside a for-loop, for each vertex.
      * * But the point is we are not visiting every other vertex and every edge for each vertex.
@@ -152,7 +157,8 @@ class GraphTraversal(val size: Int) {
      * # Space Complexity
      *
      * * We visit each vertex exactly once.
-     * * To visit each vertex, we use the associated edge exactly once.
+     * * To visit each vertex, we use edges.
+     * * For an undirected (bidirectional) graph, there are `2E` edges.
      * * If that's already given in the form of [adjacencyList], we are left with the auxialary space.
      * * We use the `visited boolean array` and the `queue`.
      * * Their size is [size], which is equal to the number of total vertices.
@@ -204,8 +210,13 @@ class GraphTraversal(val size: Int) {
      * * The size of the `visited boolean array` is [size], which is the total number of vertices.
      * * And the call stack is also at most `O(V)`, even for the degenerated (linear) graph.
      * * Because a call stack represents visiting/exploring a vertex.
-     * * The call stack is related to and directly proportional to visiting a vertex.
-     * * And we are not visiting any vertex more than once.
+     * * The call stack represents the current depth, current DFS path.
+     * * So, the call stack depends on the DFS path.
+     * * In the worst case, we can have only one path for all the vertices.
+     * * In other words, all the vertices are connected through exactly one path in a linear line.
+     * * The single path that contains all the vertices.
+     * * So, if the total vertices are `V`, we get a total of `V` call stack.
+     * * And that would make it `O(V)`.
      * * So, the call stack is at most `O(V)`.
      * * So, the space complexity is `O(V)`, and it also considers the call stack.
      */
