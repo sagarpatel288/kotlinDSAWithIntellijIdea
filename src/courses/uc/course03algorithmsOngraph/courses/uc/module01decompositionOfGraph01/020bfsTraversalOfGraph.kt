@@ -76,6 +76,45 @@ class BfsTraversalInGraph(val size: Int) {
         }
         println(stringBuilder)
     }
+
+    /**
+     * * For the [dfsTraversal], we use the recursion approach.
+     * * It has two parameters: [start] and [visited].
+     * * We check whether [start] is visited or not.
+     * * If [start] is visited, we don't simply return.
+     * * We need to check the neighbor list of the [start].
+     * * We need to check each neighbor from the neighbor list of the [start].
+     * * If [start] is not visited, we print it, and mark it as visited.
+     * * Then, we get the neighbor list of the [start].
+     * * And for each neighbor, if it is not visited, we pass it to this [dfsTraversalHelper] recursively.
+     * * We don't need to check `is visited` two times, though.
+     * * Either we check in the beginning, or we check within the neighbor list loop.
+     * * If we keep it only in the neighbor list loop, the caller of this function needs to take care that it passes only unvisited [start].
+     * * Otherwise, if the caller of this function passes the visited [start], and we don't check it using the `if` condition before we print it, then we get false output.
+     */
+    fun dfsTraversalHelper(start: Int, visited: BooleanArray) {
+        if (!visited[start]) {
+            println(start)
+            visited[start] = true
+        }
+        val neighbors = adjacencyList[start]
+        neighbors.forEach {
+            if (!visited[it]) {
+                dfsTraversalHelper(it, visited)
+            }
+        }
+    }
+
+    fun dfsTraversal() {
+        val visited = BooleanArray(size) { false }
+        // We check all the vertices.
+        // This is useful for the disconnected graph.
+        for ((vertex, neighbors) in adjacencyList.withIndex()) {
+            if (!visited[vertex]) {
+                dfsTraversalHelper(vertex, visited)
+            }
+        }
+    }
 }
 
 fun main() {
@@ -83,8 +122,8 @@ fun main() {
     graph.addEdges(0, 1)
     graph.addEdges(1, 2)
     graph.addEdges(1, 3)
-    graph.addEdges(2, 3)
     graph.addEdges(2, 4)
     graph.printAdjacencyList()
     graph.bfsTraversal(0)
+    graph.dfsTraversal()
 }
