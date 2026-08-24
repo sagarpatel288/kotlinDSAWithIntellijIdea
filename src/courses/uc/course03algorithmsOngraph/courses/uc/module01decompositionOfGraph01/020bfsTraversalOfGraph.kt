@@ -23,9 +23,18 @@ class BfsTraversalInGraph(val size: Int) {
     /**
      * * In a BST, we always start the BFS traversal from the root.
      * * But in a graph, we can start the BFS Traversal from any vertex.
+     * * That's the reason, we have [start] as an argument/parameter.
      * * The thumb rule is that we first cover the immediate neighbor, no vertex should be repeated, and that no vertex should be left unattended.
      */
     fun bfsTraversal(start: Int) {
+        // We want to start from a particular vertex.
+        // That vertex must be a part of the graph.
+        // In other words, it must exist in the graph.
+        // How do we check whether the vertex exist or not.
+        // Before we can determine whether the vertex exist, we need to understand how we store the vertex.
+        // We use the direct addressing method.
+        // So, the vertx value becomes the index.
+        // It means, if the given vertex value is not within the range of the available indices, it doesn't exist.
         if (start !in adjacencyList.indices) return
         val stringBuilder = StringBuilder()
         // We have to take a visited boolean array, because a graph can have a cycle.
@@ -38,14 +47,18 @@ class BfsTraversalInGraph(val size: Int) {
         // We eagerly add (enqueue, push) one starting vertex to the queue, and mark it as visited.
         queue.addLast(start)
         // Once we add (enqueue, push) the vertex to the queue, we mark the vertex as visited.
+        // Add --> mark. (EdMark)
         visited[start] = true
         while (queue.isNotEmpty()) {
             val pop = queue.removeFirst()
+            // After we pop, we print. pop --> print.
             stringBuilder.append("$pop ")
             // Add (enqueue) the neighbor list of the popped vertex.
+            // pop --> print --> neighbor list from the adjacency list.
             val neighborList = adjacencyList[pop]
             for (neighbor in neighborList) {
                 // Add (enqueue) only the unvisited vertices.
+                // Add only if the element is not visited.
                 if (!visited[neighbor]) {
                     queue.addLast(neighbor)
                     // Once we add (enqueue, push) the vertex to the queue, we mark the vertex as visited.

@@ -9,7 +9,7 @@ package courses.uc.course02dataStructures.module01.section04assignmentProblems
  * structure on your computer.
  * * They are also used in data analysis and machine learning both for hierarchical clustering
  * and building complex predictive models, including some of the best-performing in practice
- * algorithms like Gradient Boosting over Decision Trees and Random Forests.
+ * coursera01algorithms like Gradient Boosting over Decision Trees and Random Forests.
  * * In the later modules of this course, we will introduce balanced binary search trees (BST) —
  * a special kind of trees that allows to very efficiently store, manipulate and retrieve data.
  * * Balanced BSTs are thus used in databases for efficient storage and actually in virtually any non-trivial programs,

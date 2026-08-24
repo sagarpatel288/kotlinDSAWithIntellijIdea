@@ -8,7 +8,7 @@ import java.util.StringTokenizer
 
 /**
  * # References:
- * [Local 77ropeStringSubstringCutPaste.md](docs/dataStructures/courses/uc/module05binarySearchTrees/77ropeStringSubstringCutPaste.md)
+ * [Local 77ropeStringSubstringCutPaste.md](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/77ropeStringSubstringCutPaste.md)
  *
  * [GitHub 77ropeStringSubstringCutPaste.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/7d7068b771370be9b44c6a135ce1ce6257b9c25f/docs/dataStructures/courses/uc/module05binarySearchTrees/77ropeStringSubstringCutPaste.md)
  *

@@ -4,7 +4,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  *
  * # References / Resources / Prerequisites
  *
- * [Local: heapSort.md](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * [Local: heapSort.md](docs/coursera02dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
  * [GitHub: heapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a244469d45534a60ac027a4925e07ac3f1d256e3/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
@@ -21,7 +21,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * ## Task
  *
  * The first step of the HeapSort algorithm is to create a heap from the array you want to sort. By the
- * way, did you know that algorithms based on Heaps are widely used for external sort, when you need
+ * way, did you know that coursera01algorithms based on Heaps are widely used for external sort, when you need
  * to sort huge files that don’t fit into the memory of a computer?
  *
  * Your task is to implement this first step and convert a given array of integers into a heap. You will
@@ -103,7 +103,7 @@ package courses.uc.course02dataStructures.module03PriorityQueuesHeapsDisjointSet
  * * However, the realistic analysis reveals that it is `O(n)` only.
  * * Please check the `heapSort.md` file for more details.
  *
- * * [Local: heapSort.md](docs/dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
+ * * [Local: heapSort.md](docs/coursera02dataStructures/courses/uc/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *
  * * [GitHub: heapSort.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a244469d45534a60ac027a4925e07ac3f1d256e3/docs/dataStructures/coursera/ucSanDiego/module03priorityQueuesHeapsDisjointSets/section03HeapSort/heapSort.md)
  *

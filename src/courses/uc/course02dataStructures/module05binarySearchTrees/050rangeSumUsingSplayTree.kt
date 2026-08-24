@@ -7,7 +7,7 @@ import java.util.StringTokenizer
 /**
  * # Prerequisites/References
  *
- * * [Local: rangeSumSet.md](docs/dataStructures/courses/uc/module05binarySearchTrees/73rangeSumSet.md)
+ * * [Local: rangeSumSet.md](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/73rangeSumSet.md)
  *
  * * [GitHub: rangeSumSet.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/b6594eeccd88271f5898b9e3eecd1bcb26a6bcc0/docs/dataStructures/courses/uc/module05binarySearchTrees/73rangeSumSet.md)
  *

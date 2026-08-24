@@ -9,10 +9,10 @@ import java.util.ArrayDeque
 /**
  * # Prerequisites
  *
- * [Local: binarySearchTrees.md](docs/dataStructures/courses/uc/module05binarySearchTrees/05binarySearchTrees.md)
+ * [Local: binarySearchTrees.md](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/05binarySearchTrees.md)
  * [GitHub: binarySearchTrees.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/f08de016ccea24454b55ed81b429634c55e180ca/docs/dataStructures/courses/uc/module05binarySearchTrees/05binarySearchTrees.md)
  *
- * [Local: bstOperations.md](docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
+ * [Local: bstOperations.md](docs/coursera02dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
  * [GitHub: bstOperations.md](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/f08de016ccea24454b55ed81b429634c55e180ca/docs/dataStructures/courses/uc/module05binarySearchTrees/10binarySearchTreesBSTsBasicOperations.md)
  *
  * [Tushar Roy: Binary Search Tree-BST: Pre-Order Traversal Using A Stack](https://youtu.be/elQcrJrfObg?si=0mJhLS3Z-k05a6O0)
@@ -21,7 +21,7 @@ import java.util.ArrayDeque
  *
  * # Problem Statement
  *
- * [Local image](assets/images/dataStructures/uc/module05binarySearchTreesBST/05buildBst.png)
+ * [Local image](assets/images/coursera02dataStructures/uc/module05binarySearchTreesBST/05buildBst.png)
  * [GitHub image](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/a4f1ca3d080af04712c68ac061a80fdaab78789e/assets/images/dataStructures/uc/module05binarySearchTreesBST/1010buildBst.png)
  *
  * ## Binary tree traversals
@@ -287,7 +287,7 @@ class BuildAndTravelBst {
         // Can you explain why did we take the type `Int` instead of `Node`?
         // To keep it light.
         // Otherwise, we can also take a stack of nodes as we have used in:
-        // src/practice/courses/dataStructures/uc/module05binarySearchTrees/BstPrintDfsOrders.kt
+        // src/practice/courses/coursera02dataStructures/uc/module05binarySearchTrees/BstPrintDfsOrders.kt
         // That makes the `stack` heavy!
         // The difference is, one stack contains only `Int` and the other `stack` contains a custom `data class`.
         // The stack that contains `Int` type is a lightweight compared to the stack that contains a `data class` type.

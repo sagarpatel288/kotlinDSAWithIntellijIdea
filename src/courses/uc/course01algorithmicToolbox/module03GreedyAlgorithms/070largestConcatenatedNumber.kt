@@ -62,7 +62,7 @@ fun main() {
      * Output:
      * 923923
      * The (incorrect) LargestNumber algorithm nevertheless produces the correct answer in this case,
-     * another reminder to always prove the correctness of your greedy algorithms!
+     * another reminder to always prove the correctness of your greedy coursera01algorithms!
      *
      * Understanding the problem:
      *

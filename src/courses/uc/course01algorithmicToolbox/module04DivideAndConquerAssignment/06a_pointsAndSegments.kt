@@ -159,7 +159,7 @@ package courses.uc.course01algorithmicToolbox.module04DivideAndConquerAssignment
  *
  *
  * Note: For the priority order, the easy and straightforward way is:
- * src/practice/courses/algorithms/uc/module04DivideAndConquerAssignment/sweepLineSeg.kt
+ * src/practice/courses/coursera01algorithms/uc/module04DivideAndConquerAssignment/sweepLineSeg.kt
  *
  * There:
  * If the point is at the start of the segment, we consider it as a part of the segment.
