@@ -18,6 +18,10 @@
 * Combinatorial Game Theory 
 * Statistics
 
+## Functions
+
+* Do you know that in kotlin, a function parameter is a `val` (immutable)? 
+
 ## Time Complexity
 
 * Logarithmic
