@@ -133,9 +133,43 @@ while (queue.isNotEmpty()) {
 ```
 
 * And finally, we print the BFS order.
-* So, the complete code looks like:
 
-* [Bfs Traversal Of A Graph.kt](../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/020bfsTraversalOfGraph.kt)
+## Disconnected graph
+
+* A disconnected graph might look like below:
+
+* ![Disconnected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/02exploringGraph/045disconnectedGraph.png)
+
+* To cover all the vertices, including the disconnected, we wrap/call the normal `BFS` function in a loop like below:
+
+```kotlin
+
+val visited = BooleanArray(size) { false }
+for (vertex in adjacencyList) {
+    if (!visited[vertex]) {
+        bfs(vertex, visited)
+    }
+}
+
+```
+
+* For that, we may need to modify the existing `BFS` function slightly to accept the incoming `visited boolean array`.
+* So, it becomes something like below: 
+
+```kotlin
+
+fun bfsTraversal(start: Int, visited_: BooleanArray? = null) {
+    var visited = visited_
+    if (visited == null) {
+        visited = BooleanArray(size) { false }
+    }
+}
+
+```
+
+## Implementation 
+
+* [Graph Traversal.kt](../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/020bfsTraversalOfGraph.kt)
 
 ## Next
 
