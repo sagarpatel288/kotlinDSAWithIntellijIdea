@@ -413,6 +413,43 @@ fun dfsAll() {
 }
 ```
 
+## TL;DR
+
+* We define the `visited boolean array`.
+* And we iterate through the given adjacency list.
+* For each unvisited vertex, we pass it to the `dfsTraversal`.
+
+```kotlin
+
+fun dfsAll() {
+    val visited = BooleanArray(size) { false }
+    for (vertex in adjacencyList.indices) {
+        if (!visited[vertex]) {
+            dfsTraversal(vertex, visited)
+        }
+    }
+}
+
+```
+
+* The `dfsTraversal` function is a recursive function.
+* What it does?
+* Directly prints the incoming `vertex`, gets the neighbor from the adjacency list, and recursively call itself for each unvisited vertex.
+
+```kotlin
+
+fun dfsTraversal(vertex: Int, visited: BooleanArray) {
+    println(vertex)
+    val neighbors = adjacencyList[vertex]
+    neighbors.forEach {
+        if (!visited[it]) {
+            dfsTraversal(it, visited)
+        }
+    }
+}
+
+```
+
 ## Exercise
 
 * Dry run for:
