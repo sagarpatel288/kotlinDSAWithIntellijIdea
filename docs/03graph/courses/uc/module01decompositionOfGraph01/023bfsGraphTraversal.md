@@ -49,7 +49,7 @@ class Graph(val size: Int) {
 * The important point is that once we visit a node, we should mark it as visited.
 * Because, a graph can have a cycle, and we do not want to keep traveling infinitely in a loop.
 * And the size of this boolean array will be equivalent to the size of the vertex list, which is equivalent to the adjacency list.
-* But we already have the `size` property from the constructor.
+* We already have the `size` property from the constructor.
 * So, we will use it.
 * It is shared by the adjacency list and the boolean array.
 * So, this will look something like below:
@@ -165,6 +165,526 @@ fun bfsTraversal(start: Int, visited_: BooleanArray? = null) {
     }
 }
 
+```
+
+## Dry Run
+
+### Connected Graph
+
+* ![Connected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/02exploringGraph/047disconnectedGraph.png)
+
+* Now remember, we first need the `adjacencyList` for the BFS Traversal (and for the DFS Traversal as well).
+* So, the adjacency list will be like:
+
+```markdown
+
+| Vertex | Neighbors |
+|--------|-----------|
+| 0      | 1, 2      |
+| 1      | 0         |
+| 2      | 0, 3, 4   |
+| 3      | 2         |
+| 4      | 2, 5, 6   |
+| 5      | 4         |
+| 6      | 4         |
+| 7      | 8         |
+| 8      | 7         |
+
+```
+
+* Notice that the size of the adjacency list is equal to the total number of vertices.
+* Now, we are doing this process for each vertex.
+* And we get each vertex from the adjacency list.
+* How do we get a vertex from the adjacency list?
+* Which index do we pass? From where and how do we get the index? 
+* Well, we are using the direct addressing method.
+* So, each index of the adjacency list is a vertex.
+* So, it will be like:
+
+```kotlin
+
+val visited = BooleanArray(size) { false }
+for (vertex in adjacencyList.indices) {
+    // 0
+    if (!visited[vertex]) {
+        bfsTraversal(vertex, visited) // 0
+    }
+}
+
+```
+
+* First, we get the vertex `0`.
+* We check whether we have already visited.
+* We have not visited it.
+* So, we add (enqueue) it to the queue.
+
+```kotlin
+
+queue.addLast(0)
+
+```
+
+* And we mark it as visited.
+
+```kotlin
+
+visited[0] = true
+
+```
+
+* Then, we run a while loop.
+* As long as the queue is not empty, we repeat the process.
+
+```kotlin
+
+while (queue.isNotEmpty()) {
+    
+}
+
+```
+
+* And what do we repeat? What is the process?
+* We pop the vertex from the queue and print it.
+
+```kotlin
+
+val pop = queue.removeFirst() // 0
+println(pop) // 0
+
+```
+
+* Next, we get the neighbor list of the popped vertex from the adjacency list.
+
+```kotlin
+
+val neighbors = adjacencyList[0] // 1, 2
+
+```
+
+* So, we get the neighbor list of the vertex, 0 as:
+
+```markdown
+
+1, 2
+```
+
+* Once we get the neighbor list, we iterate through it.
+
+```kotlin
+
+neighbors.forEach {
+    
+}
+
+```
+
+* And we enqueue (add, push) only those vertices to the queue that are not already visited.
+* And once we add (enqueue, push) the vertex to the queue, we mark it as visited.
+
+```kotlin
+
+neighbors.forEach {
+    // 1, 2
+    if (!visited[it]) {
+        queue.addLast(it) // 1, 2
+        visited[it] = true
+    }
+}
+
+```
+
+* So, first we get `1`.
+* It is not already visited.
+* So, we enqueue it to the queue.
+* We mark it as visited.
+* So, the queue has:
+
+```markdown
+
+1
+```
+
+* Next, we get `2`.
+* It is not already visited.
+* So, we enqueue it to the queue.
+* We mark it as visited.
+* Now, the queue has:
+
+```markdown
+
+1, 2
+```
+
+* The queue is not empty.
+* So, we pop the vertex and print it.
+* We get `1`.
+* We print it.
+* So, our print order becomes: 
+
+```markdown
+
+0, 1
+```
+
+* Once we pop and print the vertex, we get the neighbor list.
+* So, we get the neighbor list of the popped vertex, `1`.
+* So, it will be like:
+
+```kotlin
+
+val neighbors = adjacencyList[1] // 0
+
+```
+
+* We get the neighbor list of the popped vertex, `1` as:
+
+```markdown
+
+0
+```
+
+* Next, we iterate through this neighbor list.
+* And for each neighbor, if it is not already visited, we enqueue it to the queue.
+
+```kotlin
+
+neighbors.forEach {
+    // 0, which is already visited
+    if (!visited[it]) {
+        // So, we don't enqueue it to the queue.
+    }
+}
+
+```
+
+* Again, the queue is not empty.
+* The queue has:
+
+```markdown
+2
+```
+
+* So, we pop and print.
+* So, the print order becomes:
+
+```markdown
+
+0, 1, 2
+```
+
+* And now, we get the neighbor list of the popped vertex, `2`.
+
+```kotlin
+
+val neighbors = adjacencyList[2] // 0, 3, 4
+
+```
+
+* For each neighbor, if it is not already visited, we add (enqueue, push) it to the queue.
+
+```kotlin
+
+neighbors.forEach {
+    // 0, 3, 4
+    // 0 is already visited.
+    // So, only 3 and 4 will pass the condition.
+    if (!visited[it]) {
+        queue.addLast(it) // 3, 4
+    }
+}
+
+```
+
+* `0` is already visited.
+* So, we enqueue `3` and `4`.
+* Now, the queue has:
+
+```markdown
+
+3, 4
+```
+
+* The queue is not empty.
+* So, we pop and print.
+* So, the print order becomes:
+
+```markdown
+
+0, 1, 2, 3
+```
+
+* We get the neighbor list of the popped vertex, `3`.
+* So, it wil be like:
+
+```kotlin
+
+val neighbors = adjacencyList[3] // 2
+```
+
+* We iterate through it, and for each neighbor, if it is not already visited, we enqueue it.
+
+```kotlin
+
+neighbors.forEach {
+    // 2
+    // `2` is already visited.
+    // So, it does not pass the condition.
+    if (!visited[it]) {
+        
+    }
+}
+
+```
+
+* We get `2` and it is already visited.
+* So, we don't enqueue it.
+* Now, the queue has:
+
+```markdown
+
+4
+```
+
+* The queue is not empty.
+* So, we pop, print, get the neighbor, and enqueue the unvisited neighbors.
+* And the print order becomes:
+
+```markdown
+
+0, 1, 2, 3, 4
+```
+
+* So, it will be like:
+
+```kotlin
+
+val pop = queue.removeFirst() // Gives 4
+val neighbors = adjacencyList[pop] // Gives 2, 5, 6
+neighbors.forEach {
+    // 2, 5, 6
+    // But `2` is already visited.
+    // So, only 5 and 6 pass the condition.
+    if (!visited[it]) {
+        queue.addLast(it) // Now, the queue has 5, 6
+    }
+}
+```
+
+* The queue has:
+
+```markdown
+
+5, 6
+```
+
+* The queue is not empty.
+* So, we pop, print, get the neighbors, and enqueue the unvisited neighbors.
+* And the print order becomes:
+
+```markdown
+
+0, 1, 2, 3, 4, 5
+```
+
+* The last popped vertex is `5`.
+* We get the neighbor list of `5`.
+* We get `4`.
+* For each neighbor, if it is not already visited, we enqueue (add, push) it to the queue.
+* But `4` is already visited.
+* So, it will be like:
+
+```kotlin
+
+val pop = queue.removeFirst() // 5  
+val neighbors = adjacencyList[pop] // 4
+neighbors.forEach {
+    // 4
+    // `4` is already visited.
+    // So, it does not pass the condition.
+    // So, it does not go through the `if` condition.
+    if (!visited[it]) {
+        
+    }
+}
+```
+
+* Now, the queue has:
+
+```markdown
+
+6
+```
+
+* The queue is not empty.
+* So, we pop, print, get the neighbor, and enqueue each unvisited neighbor.
+* So, the print order becomes:
+
+```markdown
+
+0, 1, 2, 3, 4, 5, 6
+```
+
+* We get the neighbor list of the popped vertex, `6`.
+
+```kotlin
+
+val pop = queue.removeFirst() // 6
+val neighbors = adjacencyList[pop] // 4
+neighbors.forEach {
+    // 4
+    // `4` is already visited.
+    // So, it does not pass the condition.
+    // So, it will not go through the `if` condtion.
+    if (!visited[it]) {
+        
+    }
+}
+```
+
+* Now the queue is empty.
+* So, the control goes back to the outer for-loop of the graph that covers all the vertices using the adjacency list.
+
+```kotlin
+
+val visited = BooleanArray(size) { false }
+for (vertex in adjacencyList.indices) {
+    // We started from `0`
+    // The `bfsTraversal` of `0` marked all the vertices of that connected component, where `0` is one of the vertices of the connected component.
+    // So, 1, 2, 3, 4, 5, 6 do not pass the condition.
+    // However, `7` is not the part of the same connected component that of `0`.
+    // `7` is a part of another isolated component.
+    // So, 7 will pass the condition.
+    if (!visited[vertex]) {
+        bfsTraversal(vertex, visited)
+    }
+}
+
+```
+
+* Now, the control goes to the `bfsTraversal`.
+* We eagerly enqueue the incoming vertex and mark it as visited.
+* So, it becomes:
+
+```kotlin
+
+queue.addLast(7)
+visited[7] = true
+
+```
+
+* Now, the queue is not empty.
+* So, as long as the queue is not empty, we pop, print, get the neighbor, and enqueue the unvisited neighbors.
+* When we pop, we get `7` and we print it.
+* So, the print order becomes:
+
+```markdown
+
+0, 1, 2, 3, 4, 5, 6, 7
+```
+
+* So, it becomes something like:
+
+```kotlin
+
+while (queue.isNotEmpty()) {
+    // Yes, the queue has `7`
+    val pop = queue.removeFirst() // 7
+    println(pop) // Prints 7
+    val neighbors = adjacencyList[pop] // Gives 8
+    neighbors.forEach {
+        // 8
+        // `8` is not visited, yet.
+        // So, it passes the `if` condition.
+        if (!visited[it]) {
+            queue.addLast(it) // Now, the queue has `8`.
+        }
+    }
+}
+
+```
+
+* The queue is not empty.
+* So, we pop, print, get the neighbors, and enqueue unvisited neighbors.
+* When we pop, we get `8`.
+* So, we print it.
+* So, the print order becomes:
+
+```markdown
+
+0, 1, 2, 3, 4, 5, 6, 7, 8
+```
+
+* After pop and print, we get the neighbor list.
+* And we enqueue each unvisited neighbors.
+* So, it becomes something like:
+
+```kotlin
+
+val pop = queue.removeFirst() // Gives 8
+println(pop) // Prints 8
+val neighbors = adjacencyList(pop) // Gives 7
+neighbors.forEach {
+    // `7` is already visited.
+    // So, it does not pass the `if` condition.
+    if (!visited[it]) {
+        
+    }
+}
+```
+
+* At this point the queue is empty.
+* So, the control goes back to the outer for-loop.
+
+```kotlin
+
+val visited = BooleanArray(size) { false }
+for (vertex in adjacencyList.indices) {
+    // Last time, we passed `7`.
+    // And it also marked `8` as visited.
+    // So `8` does not pass the `if` condition.
+    // And the for-loop exhausts.
+    if (!visited[vertex]) {
+        
+    }
+}
+
+```
+
+## TL;DR
+
+* Define `val visited = BooleanArray(size) { false }`.
+* Iterate through each vertex:
+```kotlin
+// Vertex is an index of the adjacencyList
+for (vertex in adjacencyList.indices) {
+    // If not visited, pass it to the `bfsTraversal` along with the `visited` boolean array 
+    if (!visited[vertex]) {
+        bfsTraversal(vertex, visited)
+    }
+}
+```
+* `bfsTraversal` eagerly adds the incoming argument and marks it as visited.
+```kotlin
+fun bfsTraversal(vertex, visited) {
+    val queue = ArrayDeque<Int>()
+    queue.addLast(vertex)
+    visited[vertex] = true
+}
+```
+* The queue is not empty.
+* As long as the queue is not empty, we pop, print, get the neighbor list, and enqueue only the unvisited neighbors.
+```kotlin
+while (queue.isNotEmpty()) {
+    val pop = queue.removeFirst()
+    println(pop)
+    // We get the neighbors from the adjacency list
+    val neighbors = adjacencyList[pop]
+    neighbors.forEach {
+        if (!visited[it]) {
+            queue.addLast(it)
+        }
+    }
+}
 ```
 
 ## Implementation 
