@@ -693,6 +693,15 @@ while (queue.isNotEmpty()) {
 }
 ```
 
+## Exercise
+
+* Dry run for:
+
+* ![Bfs Dfs For A Connected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/02exploringGraph/049bfsDfsForConnectedGraph.png)
+
+* BFS: 0, 1, 2, 3, 4
+* DFS: 0, 1, 2, 4, 3
+
 ## Implementation 
 
 * [Graph Traversal.kt](../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/020graphTraversal.kt)
