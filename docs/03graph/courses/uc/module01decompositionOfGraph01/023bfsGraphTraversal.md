@@ -191,6 +191,7 @@ fun bfsTraversal(start: Int, visited_: BooleanArray? = null) {
 ```
 
 * Notice that the size of the adjacency list is equal to the total number of vertices.
+* Once we have the adjacency list, we define a `visited boolean array`.
 * Now, we are doing this process for each vertex.
 * And we get each vertex from the adjacency list.
 * How do we get a vertex from the adjacency list?
@@ -228,7 +229,7 @@ queue.addLast(0)
 
 ```kotlin
 
-visited[0] = true
+visited[0] = true // Marks `0` as visited
 
 ```
 
