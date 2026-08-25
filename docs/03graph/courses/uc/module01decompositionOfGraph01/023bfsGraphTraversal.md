@@ -169,8 +169,6 @@ fun bfsTraversal(start: Int, visited_: BooleanArray? = null) {
 
 ## Dry Run
 
-### Connected Graph
-
 * ![Connected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/02exploringGraph/047disconnectedGraph.png)
 
 * Now remember, we first need the `adjacencyList` for the BFS Traversal (and for the DFS Traversal as well).
@@ -205,7 +203,8 @@ fun bfsTraversal(start: Int, visited_: BooleanArray? = null) {
 
 val visited = BooleanArray(size) { false }
 for (vertex in adjacencyList.indices) {
-    // 0
+    // 0, 1, 2, 3, 4, 5, 6, 7, 8
+    // First, we get `0`
     if (!visited[vertex]) {
         bfsTraversal(vertex, visited) // 0
     }
@@ -216,7 +215,8 @@ for (vertex in adjacencyList.indices) {
 * First, we get the vertex `0`.
 * We check whether we have already visited.
 * We have not visited it.
-* So, we add (enqueue) it to the queue.
+* So, we pass it to the `bfsTraversal(vertex, visited)` along with the `visited` boolean array.
+* The `bfsTraversal` eagerly add (enqueue) the incoming argument to the queue.
 
 ```kotlin
 
@@ -244,6 +244,7 @@ while (queue.isNotEmpty()) {
 ```
 
 * And what do we repeat? What is the process?
+* The process is: pop, print, get the neighbors, enqueue back each unvisited neighbor.
 * We pop the vertex from the queue and print it.
 
 ```kotlin
@@ -257,7 +258,8 @@ println(pop) // 0
 
 ```kotlin
 
-val neighbors = adjacencyList[0] // 1, 2
+// The popped vertex is `0`
+val neighbors = adjacencyList[pop] // 1, 2
 
 ```
 
@@ -332,7 +334,8 @@ neighbors.forEach {
 
 ```kotlin
 
-val neighbors = adjacencyList[1] // 0
+// The popped vertex is `1`
+val neighbors = adjacencyList[pop] // 0
 
 ```
 
@@ -376,7 +379,8 @@ neighbors.forEach {
 
 ```kotlin
 
-val neighbors = adjacencyList[2] // 0, 3, 4
+// The popped vertex is `2`
+val neighbors = adjacencyList[pop] // 0, 3, 4
 
 ```
 
@@ -418,7 +422,8 @@ neighbors.forEach {
 
 ```kotlin
 
-val neighbors = adjacencyList[3] // 2
+// The popped vertex is `3`
+val neighbors = adjacencyList[pop] // 2
 ```
 
 * We iterate through it, and for each neighbor, if it is not already visited, we enqueue it.
@@ -555,7 +560,7 @@ for (vertex in adjacencyList.indices) {
     // `7` is a part of another isolated component.
     // So, 7 will pass the condition.
     if (!visited[vertex]) {
-        bfsTraversal(vertex, visited)
+        bfsTraversal(vertex, visited) // 7, visited
     }
 }
 
@@ -663,7 +668,7 @@ for (vertex in adjacencyList.indices) {
     }
 }
 ```
-* `bfsTraversal` eagerly adds the incoming argument and marks it as visited.
+* `bfsTraversal` defines a queue, eagerly adds the incoming argument, and marks it as visited.
 ```kotlin
 fun bfsTraversal(vertex, visited) {
     val queue = ArrayDeque<Int>()
