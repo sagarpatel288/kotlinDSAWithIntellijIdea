@@ -37,6 +37,12 @@ class GraphTraversal(val size: Int) {
      * to and reachable from [start] using the BFS Traversal.
      * * We also use BFS and DFS Traversal to find a particular vertex.
      * ---
+     * # TL;DR
+     * * Enqueue and mark it as visited.
+     * * As long as the queue is not empty, repeat:
+     * * pop and print.
+     * * Get the neighbor list.
+     * * And enqueue each unvisited neighbor.
      *
      * # Time Complexity
      *
@@ -141,6 +147,12 @@ class GraphTraversal(val size: Int) {
      * * In any case, it doesn't change the time complexity.
      * * Because the time complexity is based on the vertices and edges, and not on the components.
      * ---
+     * # TL;DR
+     *
+     * * Define the `visited boolean array`.
+     * * Iterate through the adjacency list (indices).
+     * * An index of the adjacency list represents a vertex (direct addressing).
+     * * Pass each unvisited vertex to the [bfsTraversal]
      *
      * # Time Complexity
      *
@@ -192,6 +204,12 @@ class GraphTraversal(val size: Int) {
      * * Otherwise, if the caller of this function passes the visited [start], and we don't check it using the `if` condition before we print it, then we get false output.
      * * Here, it is the responsibility of the caller function to pass only unvisited vertices.
      * * So, the parameter [start] must represent the unvisited vertex to make the function work correctly.
+     * ---
+     * # TL;DR
+     * * Eagery print the incoming vertex.
+     * * Mark it as visited.
+     * * Get neighbors.
+     * * Recursively call the function itself for each unvisited neighbor.
      *
      * # Time Complexity
      *
@@ -233,6 +251,13 @@ class GraphTraversal(val size: Int) {
 
 
     /**
+     * # TL;DR
+     *
+     * * Define the `visited boolean array`.
+     * * Iterate through the adjacency list (indices).
+     * * Each index represents a vertex (Direct addressing).
+     * * For each unvisited vertex, call [dfsTraversalHelper].
+     *
      * # Time Complexity
      *
      * * To cover the graph, we visit each vertex and each edge.
@@ -262,6 +287,7 @@ class GraphTraversal(val size: Int) {
 }
 
 fun main() {
+    // Using the `size` and the `addEdges` function, we can create and test various connected and disconnected graphs.
     val graph = GraphTraversal(9)
     graph.addEdges(0, 1)
     graph.addEdges(0, 2)
