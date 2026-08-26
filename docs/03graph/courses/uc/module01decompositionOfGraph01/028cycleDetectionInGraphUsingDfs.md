@@ -1,4 +1,4 @@
-# Cycle detection in a graph (Undirected, bidirectional)
+# Cycle detection in a graph (Undirected, bidirectional) using DFS
 
 ## Prerequisite
 
