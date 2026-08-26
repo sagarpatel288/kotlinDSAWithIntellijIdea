@@ -155,7 +155,10 @@ fun hasCycleUsingDfs(vertex: Int, parent: Int, visited: BooleanArray): Boolean {
 
 ```
 
+## Implementation
+
+* [Cycle detection in a graph](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/9ebecde9affadc011bd586c35c0d7c1801181472/src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/030cycleInUndirectedGraph.kt)
 
 ## Next
 
-* 
+* [Cycle Detection In Graph Using Bfs.md](030cycleDetectionInGraphUsingBfs.md)
