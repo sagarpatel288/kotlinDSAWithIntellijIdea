@@ -2,7 +2,10 @@ package courses.uc.course03algorithmsOngraph.courses.uc.module01decompositionOfG
 
 /**
  * # Reference
- * * []()
+ *
+ * * [Cycle Detection In An Undirected Graph Using DFS](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/154e06d75822919c502c4069c4e439cdf111c52f/docs/03graph/courses/uc/module01decompositionOfGraph01/028cycleDetectionInGraph.md)
+ *
+ *
  */
 class CycleDetectionUndirectedGraph(val size: Int) {
     val adjacencyList = List(size) { mutableListOf<Int>() }
