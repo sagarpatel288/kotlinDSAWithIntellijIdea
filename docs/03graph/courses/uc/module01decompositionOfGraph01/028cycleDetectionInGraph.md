@@ -116,11 +116,22 @@
 
 ```kotlin
 
-fun hasCycle() {
+fun hasCycle(): Boolean {
     val visited = BooleanArray(size) { false }
+    var hasCycle = false
     for (vertex in adjacencyList.indices) {
-        hasCycleUsingDfs(vertex, -1, visited)
+        if (!visited[vertex]) {
+            // When we start traveling from the `vertex`, there is no parent of it.
+            // It is like we are going to start exploring an independent component of the graph.
+            // And we have chosen to start with the `vertex`.
+            // So, it is the starting point.
+            // So, there is no parent.
+            // So, we pass `-1` as a parent.
+            hasCycle = hasCycleUsingDfs(vertex, -1, visited)
+            if (hasCycle) return true
+        }
     }
+    return hasCycle
 }
 
 fun hasCycleUsingDfs(vertex: Int, parent: Int, visited: BooleanArray): Boolean {
@@ -129,6 +140,9 @@ fun hasCycleUsingDfs(vertex: Int, parent: Int, visited: BooleanArray): Boolean {
     val neighbors = adjacencyList[vertex]
     neighbors.forEach {
         if (!visited[it]) {
+            // For this neighbor `it`, the `vertex` is the parent.
+            // Because we are moving from the `vertex` to `it`.
+            // So, we pass `vertex` as the parent.
             if (hasCycleUsingDfs(it, vertex, visited)) return true
         } else if (it != parent) {
             // This neighbor is already visited, but it is not the parent
@@ -136,6 +150,7 @@ fun hasCycleUsingDfs(vertex: Int, parent: Int, visited: BooleanArray): Boolean {
             return true
         }
     }
+    return false
 }
 
 ```
