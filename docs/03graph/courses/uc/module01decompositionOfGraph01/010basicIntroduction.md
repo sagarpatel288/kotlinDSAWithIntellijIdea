@@ -25,7 +25,7 @@
 
 ## Definition
 
-![010graphIntro.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/010graphIntro.png)
+![010graphIntro.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/010graphIntro.png)
 
 * An undirected graph has a collection of V for vertices and a collection of E for edges.
 * There is no hierarchy in a graph (something that we get in a binary search tree).
@@ -45,7 +45,7 @@
 
 ---
 
-![015graphLoopMultipleEdges.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/015graphLoopMultipleEdges.png)
+![015graphLoopMultipleEdges.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/015graphLoopMultipleEdges.png)
 
 * A graph can have a loop or/and multiple edges.
 
@@ -65,15 +65,15 @@
 
 **Edge List**
 
-![020edgeList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/020edgeList.png)
+![020edgeList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/020edgeList.png)
 
 **Adjacency Matrix**
 
-![025adjacencyMatrix.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/025adjacencyMatrix.png)
+![025adjacencyMatrix.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/025adjacencyMatrix.png)
 
 **Adjacency List**
 
-![030adjacencyList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/030adjacencyList.png)
+![030adjacencyList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/030adjacencyList.png)
 
 * In an adjacency list, we store the neighbors of each vertex.
 * For example, we can say (and store that) A has 3 neighbors: B, C, D.
@@ -84,7 +84,7 @@
 
 #### Runtime of different representations for different operations
 
-![040operationRuntimeTable.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/040operationRuntimeTable.png)
+![040operationRuntimeTable.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/040operationRuntimeTable.png)
 
 * Each representation has its efficient vs. inefficient use case.
 * So, we use a particular representation depending upon our requirements.
@@ -104,7 +104,7 @@
 * **Degree** means **Number of neighbors**.
 * **Degree of a vertex** reveals **the number of neighbors (connections)** of the vertex.
 
-![030adjacencyList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/030adjacencyList.png)
+![030adjacencyList.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/030adjacencyList.png)
 
 * For example, in the given image of the adjacency list, the degree of the vertex A is 3.
 
@@ -136,9 +136,9 @@
 * We don't just see `O(E)`, but we also see how `E` relates to `V` - the relationship between the two.
 * For example, we get different values of E for a dense graph compared to a sparse graph.
 
-![060denseGraph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/060denseGraph.png)
+![060denseGraph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/060denseGraph.png)
 
-![065sparseGraph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/01basicIntroduction/065sparseGraph.png)
+![065sparseGraph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/065sparseGraph.png)
 
 * So, for a dense graph, `E` can be expensive.
 * In simple terms, if we have more (so many) edges, `E` can become worse.
