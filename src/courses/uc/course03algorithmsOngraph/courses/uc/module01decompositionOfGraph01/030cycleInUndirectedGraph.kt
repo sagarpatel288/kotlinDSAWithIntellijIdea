@@ -44,6 +44,41 @@ class CycleDetectionUndirectedGraph(val size: Int) {
         }
         return false
     }
+
+    fun hasCycleWithBfs(): Boolean {
+        val visited = BooleanArray(size) { false }
+        var hasCycle = false
+        for (vertex in adjacencyList.indices) {
+            if (!visited[vertex]) {
+                hasCycle = hasCycleUsingBfs(vertex, -1, visited)
+                if (hasCycle) return true
+            }
+        }
+        return hasCycle
+    }
+
+    private fun hasCycleUsingBfs(vertex: Int, parent: Int, visited: BooleanArray): Boolean {
+        val queue = ArrayDeque<Pair<Int, Int>>()
+        queue.addLast(Pair(vertex, parent))
+        visited[vertex] = true
+        while (queue.isNotEmpty()) {
+            val pop = queue.removeFirst()
+            val source = pop.first
+            println(source) // Optional
+            val parent = pop.second
+            val neighbors = adjacencyList[source]
+            neighbors.forEach {
+                if (!visited[it]) {
+                    queue.addLast(Pair(it, source))
+                    visited[it] = true
+                } else if (it != parent) {
+                    println(it) // Optional
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }
 
 fun main() {
@@ -53,5 +88,6 @@ fun main() {
     graph.addEdge(0, 3)
     graph.addEdge(1, 2)
     graph.addEdge(3, 4)
-    println(if (graph.hasCycle()) "Has cycle" else "No cycle")
+    println(if (graph.hasCycle()) "Has cycle: Used DFS" else "No cycle: Used DFS")
+    println(if (graph.hasCycleWithBfs()) "Has cycle: Used BFS" else "No cycle: Used BFS")
 }
