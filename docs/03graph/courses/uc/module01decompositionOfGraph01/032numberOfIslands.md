@@ -31,16 +31,35 @@
 * And we have given the definition of an island.
 * `1` indicates land.
 * `0` indicates water.
-* An island is a land surrounded by water.
+* An island is a group of adjacent `1`s.
 * We need to find the number of islands.
 
 ---
 
 ## Perspective, Understanding, Intuition
 
+
 * We will model this problem as if we are going to find the total connected components of a graph.
+* Consider the given grid as an adjacency matrix representation of an undirected graph.
 * We have already seen the concept of connected components in a graph.
 * And we know that a disconnected graph can have multiple connected (but independent) components.
+---
+
+```markdown
+
+| Grid concept                                    | Graph concept                 |
+| ----------------------------------------------- | ----------------------------- |
+| A land cell `(i,j)`                             | Vertex                        |
+| Two horizontally/vertically adjacent land cells | Edge                          |
+| Connected group of land cells                   | Connected component           |
+| Island                                          | Connected component           |
+| `visited[i][j]`                                 | `visited[vertex]`             |
+| Four directions                                 | Possible neighbors            |
+| DFS/BFS                                         | Connected-component traversal |
+
+
+```
+
 ---
 * Let us understand how.
 * Let us take a small portion from the given problem.
@@ -51,6 +70,13 @@
 |---|---|---|
 | 1 | 1 | 0 |
 | 0 | 0 | 1 |
+
+---
+
+(0,0) ---- (0,1)
+|           |
+|           |
+(1,0) ---- (1,1)
 
 ```
 
@@ -132,8 +158,7 @@
 * We repeat this process for all the cells.
 ---
 * If we notice the pattern, we keep exploring the connected neighbors until we exhaust for each component.
-* This is the same pattern we have used during DFS and BFS traversal of an undirected graph.
-* And this is the same pattern we have used during cycle detection of an undirected graph using DFS and BFS.
+* This is the same mechanism we have used during DFS and BFS traversal of an undirected graph.
 ---
 * Now, the question is, how do we model this into code?
 * Let us start with the four sides.
@@ -163,7 +188,7 @@ dfs(i, j - 1) // left
 
 ```kotlin
 
-if (i !in 0..(n - 1) || j !in 0..(m - 1) || grid[i][j] == `0` || visited[i][j]) {
+if (i !in 0..<grid.size || j !in 0..<(grid[0].size) || grid[i][j] == '0' || visited[i][j]) {
     return
 }
 ``` 
@@ -173,31 +198,36 @@ if (i !in 0..(n - 1) || j !in 0..(m - 1) || grid[i][j] == `0` || visited[i][j]) 
 
 ```kotlin
 
-fun dfs(i: Int, j: Int, n: Int, m: Int, grid: Array<CharArray>, visited: List<BooleanArray>) {
-    if (i !in 0..(n - 1) || j !in 0..(m - 1) || grid[i][j] == 0 || visited[i][j]) {
+fun dfs(i: Int, j: Int, grid: Array<CharArray>, visited: List<BooleanArray>) {
+    if (i !in 0..<grid.size || j !in 0..<(grid[0].size) || grid[i][j] == '0' || visited[i][j]) {
         return
     }
-    dfs(i - 1, j) // top
-    dfs(i, j + 1) // right
-    dfs(i + 1, j) // bottom
-    dfs(i, j - 1) // left
+    visited[i][j] = true
+    dfs(i - 1, j, grid, visited) // top
+    dfs(i, j + 1, grid, visited) // right
+    dfs(i + 1, j, grid, visited) // bottom
+    dfs(i, j - 1, grid, visited) // left
 }
 
 ```
 
-* We repeat this process for each unvisited cell.
-* Every time the function call is finished, the control goes back to the parent function.
-* Every time the parent function starts this recursive call, it indicates that we are exploring a new component. 
+* We repeat this process for each unvisited cell, and we only explore a land `1`.
+* In other words, if it is a land, and if we have not marked it as visited, we explore it via the `dfs` function.
+* The `dfs` function covers all the vertices of the connected component and marks them visited.
+* In other words, the `dfs` function covers the entire island.
+* Every time the call stack becomes empty, the control goes back to the parent function.
+* Every time the outer loop calls the `dfs` function, it means that we are going to explore an unvisited land.
+* In other words, we are going to explore another connected component, which means another island.
 
 ```kotlin
 
 fun countIslands(val grid: Array<CharArray>) {
-    val visited = List(n) { BooleanArray(m) { false } }
+    val visited = List(grid.size) { BooleanArray(grid[0].size) { false } }
     var islands = 0
-    for (i in 0..<n) {
-        for (j in 0..<m) {
-            if (!visited[i][j]) {
-                dfs(i, j, n, m, grid, visited)
+    for (i in 0..<grid.size) {
+        for (j in 0..<(grid[0].size)) {
+            if (grid[i][j] == '1' && !visited[i][j]) {
+                dfs(i, j, grid, visited)
                 islands++
             }
         }
@@ -205,6 +235,14 @@ fun countIslands(val grid: Array<CharArray>) {
 }
 
 ```
+
+## Time Complexity
+
+* `O(rows * columns)` from the two nested for-loops
+
+## Space Complexity
+
+* `O(rows * columns)` by the visited boolean array
 
 ## Next
 
