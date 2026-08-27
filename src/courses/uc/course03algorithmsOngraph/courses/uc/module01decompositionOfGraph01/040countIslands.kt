@@ -16,10 +16,12 @@ package courses.uc.course03algorithmsOngraph.courses.uc.module01decompositionOfG
 class CountIslands {
 
     fun countIslands(grid: Array<CharArray>): Int {
+        if (grid.isEmpty()) return 0
         // grid.size gives rows and grid[0].size gives columns
         val visited = Array(grid.size) { BooleanArray(grid[0].size) { false } }
         var islands = 0
         for (i in 0..<grid.size) {
+            if (grid[i].isEmpty()) continue
             for (j in 0..<grid[0].size) {
                 if (!visited[i][j] && grid[i][j] == '1') {
                     dfs(i, j, grid, visited)
