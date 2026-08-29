@@ -92,7 +92,8 @@ fun dfsTraversal(vertex: Int, visited: BooleanArray) {
 * So, there is no connection between `2` and `3`.
 * `3` starts after `4` finishes.
 * So, there is no connection between `3` and `4`.
-* But `1` covers `3` entirely.
+* The **smallest containing timeline** (but larger than the subject vertex, `3`) comes from `1`.
+* `1` covers `3` entirely.
 * So, `3` is a direct child of `1`.
 ---
 * Based on the timestamps and timelines, we can also determine islands (isolated/independent connected components of a disconnected graph).
