@@ -99,6 +99,12 @@ fun dfsTraversal(vertex: Int, visited: BooleanArray) {
 * Based on the timestamps and timelines, we can also determine islands (isolated/independent connected components of a disconnected graph).
 ---
 * In fact, timestamps has more significance when we use it for a directed graph.
+---
+* Note that we can have multiple, unique, and still valid DFS orders based on which neighbor we select firs.
+* Similarly, we cannot have a complete graph reconstruction from the timestamps alone.
+* In other words, a graph reconstructed from timestamps alone, might not have all the edges.
+* For example, we might miss the edge that causes a cycle.
+* However, we still cover the minimum required edges of the graph.
 
 ## Next
 
