@@ -288,14 +288,11 @@ class GraphTraversal(val size: Int) {
 
 fun main() {
     // Using the `size` and the `addEdges` function, we can create and test various connected and disconnected graphs.
-    val graph = GraphTraversal(9)
+    val graph = GraphTraversal(5)
     graph.addEdges(0, 1)
-    graph.addEdges(0, 2)
-    graph.addEdges(2, 3)
+    graph.addEdges(1, 2)
+    graph.addEdges(1, 3)
     graph.addEdges(2, 4)
-    graph.addEdges(4, 5)
-    graph.addEdges(4, 6)
-    graph.addEdges(7, 8)
     graph.printAdjacencyList()
     graph.bfsTraversal(0)
     graph.bfsAll()
