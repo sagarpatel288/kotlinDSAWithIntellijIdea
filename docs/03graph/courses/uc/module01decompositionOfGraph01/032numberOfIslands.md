@@ -244,6 +244,11 @@ fun countIslands(val grid: Array<CharArray>) {
 
 * `O(rows * columns)` by the visited boolean array
 
+## Remember
+
+* We are interested in land (`grid[i][j] == 1`).
+* We process only land (`grid[i][j] == 1`).
+
 ## Implementation
 
 * [Count islands using DFS of an undirected graph](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/0db0bee5172de800ada2ca73d318ba4966155280/src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/040countIslands.kt)

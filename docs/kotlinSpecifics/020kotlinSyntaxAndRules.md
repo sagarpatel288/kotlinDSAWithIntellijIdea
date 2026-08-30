@@ -65,6 +65,33 @@
   * Local: [04dynamicDsuWithRank.kt](../../src/courses/uc/course02dataStructures/module03PriorityQueuesHeapsDisjointSets/programmingAssignment01/04dynamicDsuWithRank.kt)
 *   
 
+```markdown
+
+| Situation                            | Recommended           |
+| ------------------------------------ | --------------------- |
+| Known data/content                   | `arrayOf(...)`        |
+| Need an empty/default-sized 2D array | `Array(rows) { ... }` |
+| Need a mutable character row         | `CharArray(...)`      |
+| Need a mutable Boolean row           | `BooleanArray(...)`   |
+
+
+```
+
+* For example, suppose we have a fixed set of `Array<CharArray>`, then it would look like:
+
+```kotlin
+
+val grid = arrayOf(
+    charArrayOf('1', '1', '0', '0', '0'),
+  charArrayOf('1', '1', '0', '0', '0'),
+  charArrayOf('0', '0', '1', '0', '0'),
+  charArrayOf('0', '0', '0', '1', '1')
+)
+
+```
+
+* Reference: [PreVisit and PostVisit DFS Timestamps Of An Undirected Graph]()
+
 ## Generics
 
 * 
@@ -79,6 +106,9 @@
 * How to get the character code?
 * Various operators and operations on a string
 * String formats (Decimal, date, time, etc.)
+* Do you know that `println(stringBuilder)` works. 
+  * We don't have to do: `println(stringBuilder.toString())`!
+* 
 
 ## Interfaces and other things
 
