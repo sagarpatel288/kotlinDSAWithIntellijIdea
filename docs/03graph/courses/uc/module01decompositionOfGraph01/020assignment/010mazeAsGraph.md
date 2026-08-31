@@ -211,7 +211,11 @@ fun hasPathUsingDfs(a: Int, b: Int, visited: BooleanArray): Boolean {
 }
 
 ```
- 
+
+## Implementation
+
+* [Path In Maze.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/060pathInMaze.kt)
+
 ## Next
 
 * 
