@@ -2,16 +2,16 @@
 
 ## Prerequisites
 
-* [Tree Traversals.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/020treeTraversals.md)
-* [Compute Tree Height Using BFS.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
+* [Tree Traversals.md](../../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/020treeTraversals.md)
+* [Compute Tree Height Using BFS.md](../../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
 * [Basic Introduction.md](010basicIntroduction.md)
 * [Simple Graph Ops.md](012simpleGraphOps.md)
 * [Exploring Graph Traversal.md](020exploringGraphTraversal.md)
 
 ## References
 
-* [Tree Traversals.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/020treeTraversals.md)
-* [Compute Tree Height Using BFS.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
+* [Tree Traversals.md](../../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/020treeTraversals.md)
+* [Compute Tree Height Using BFS.md](../../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
 * [Shradha Madam](https://youtu.be/scQITTLgFJo?si=K-HBG0PKY3-Ta6He)
 
 ## Concept
@@ -71,7 +71,7 @@ fun bfsTraversalOfGraph(start: Int) {
 ---
 * Now, we use almost the same concept of **BFS Traversal in a Tree/BST**.
 * References:
-* [Compute Tree Height Using BFS.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
+* [Compute Tree Height Using BFS.md](../../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
 * So, we use a queue as below:
 
 ```kotlin
@@ -138,7 +138,7 @@ while (queue.isNotEmpty()) {
 
 * A disconnected graph might look like below:
 
-* ![Disconnected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/045disconnectedGraph.png)
+* ![Disconnected Graph.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/045disconnectedGraph.png)
 
 * To cover all the vertices, including the disconnected, we wrap/call the normal `BFS` function in a loop like below:
 
@@ -169,7 +169,7 @@ fun bfsTraversal(start: Int, visited_: BooleanArray? = null) {
 
 ## Dry Run
 
-* ![Connected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/047disconnectedGraph.png)
+* ![Connected Graph.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/047disconnectedGraph.png)
 
 * Now remember, we first need the `adjacencyList` for the BFS Traversal (and for the DFS Traversal as well).
 * So, the adjacency list will be like:
@@ -697,14 +697,14 @@ while (queue.isNotEmpty()) {
 
 * Dry run for:
 
-* ![Bfs Dfs For A Connected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/049bfsDfsForConnectedGraph.png)
+* ![Bfs Dfs For A Connected Graph.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/049bfsDfsForConnectedGraph.png)
 
 * BFS: 0, 1, 2, 3, 4
 * DFS: 0, 1, 2, 4, 3
 
 ## Implementation 
 
-* [Graph Traversal.kt](../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/020graphTraversal.kt)
+* [Graph Traversal.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/020graphTraversal.kt)
 
 ## Next
 

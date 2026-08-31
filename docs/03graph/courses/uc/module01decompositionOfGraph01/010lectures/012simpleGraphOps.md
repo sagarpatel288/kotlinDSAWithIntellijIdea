@@ -12,7 +12,7 @@
 
 * Suppose that we have the following graph:
 
-* ![Graph Sample.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/012graphSample.png)
+* ![Graph Sample.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/010basicIntroduction/012graphSample.png)
 
 * We will treat the vertex value as indices.
 * The graph will have a fixed size.

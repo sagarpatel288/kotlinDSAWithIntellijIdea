@@ -51,7 +51,7 @@ fun dfsTraversal(vertex: Int, visited: BooleanArray) {
 
 * Suppose that we have the following disconnected graph (this works for a connected graph, too).
 
-* ![Disconnected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/047disconnectedGraph.png)
+* ![Disconnected Graph.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/047disconnectedGraph.png)
 
 * We need the adjacency list for the `DFS Traversal` (as well as for the `BFS Traversal`).
 * The adjacency list is:
@@ -454,14 +454,14 @@ fun dfsTraversal(vertex: Int, visited: BooleanArray) {
 
 * Dry run for:
 
-* ![Bfs Dfs For A Connected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/049bfsDfsForConnectedGraph.png)
+* ![Bfs Dfs For A Connected Graph.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/049bfsDfsForConnectedGraph.png)
 
 * BFS: 0, 1, 2, 3, 4
 * DFS: 0, 1, 2, 4, 3
 
 ## Implementation
 
-* [Graph Traversal.kt](../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/020graphTraversal.kt)
+* [Graph Traversal.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/020graphTraversal.kt)
 
 ## Next
 

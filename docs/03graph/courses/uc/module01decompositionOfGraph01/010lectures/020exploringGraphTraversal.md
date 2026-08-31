@@ -36,15 +36,15 @@
 
 ### Prerequisites
 
-* [Tree Traversals.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/020treeTraversals.md)
-* [Compute Tree Height Using BFS.md](../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
-* [BST Traversal](../../../../02dataStructures/courses/uc/module05binarySearchTrees/07binarySearchTreeAndStack.md)
+* [Tree Traversals.md](../../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/020treeTraversals.md)
+* [Compute Tree Height Using BFS.md](../../../../../02dataStructures/courses/uc/module01BasicDataStructures/section03trees/050computeTreeHeight.md)
+* [BST Traversal](../../../../../02dataStructures/courses/uc/module05binarySearchTrees/07binarySearchTreeAndStack.md)
 
 ---
 
 * Suppose that we have a graph as shown in the image, and we want to find all the (reachable-) paths of the vertex, A. 
 
-![070reachablePaths.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/040reachablePaths.png)
+![070reachablePaths.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/040reachablePaths.png)
 
 * We use the adjacent list.
 * We start with a particular vertext (which is in our case, A).

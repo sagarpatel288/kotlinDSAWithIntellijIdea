@@ -20,7 +20,7 @@
 
 * BFS and DFS traversal give us a certain order.
 
-![Bfs Dfs Traversal Of Undirected Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/50bfsDfsTraversalOfUndirectedGraph.png)
+![Bfs Dfs Traversal Of Undirected Graph.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/020exploringGraph/50bfsDfsTraversalOfUndirectedGraph.png)
 
 * But can the order alone give us the following answers?
 ---
@@ -55,7 +55,7 @@ fun dfsTraversal(vertex: Int, visited: BooleanArray) {
 * Once we set (attach) the time, we increment the time value by 1.
 * So, we end up with the result something like below:
 
-* ![Previsit Postvisit Timestamps Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/035preVisitPostVisitTimeOfGraph/020preVisitPostVisitTimestamps.png)
+* ![Previsit Postvisit Timestamps Graph.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/035preVisitPostVisitTimeOfGraph/020preVisitPostVisitTimestamps.png)
 
 * We have a total of `5` vertices.
 * For each vertex, we set `Pre-Visit` and `Post-Visit` time.

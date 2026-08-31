@@ -16,7 +16,7 @@
 
 **Cycle in a graph**
 
-* ![Cycle In A Graph.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/014simpleGraphSample.png)
+* ![Cycle In A Graph.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/014simpleGraphSample.png)
 
 * We can see that if we start traveling the given graph without any exit condition, hoping that we will get a dead-end where there will be no next vertex to visit, we keep running in a loop.
 * For example, if we start from `0`, it will be an infinite loop like `0, 1, 2, 0, 1, 2, 0, 1, 2, 0...` and so on.
@@ -34,7 +34,7 @@
 * But that's not true.
 * For example, suppose we have the following simple graph:
 
-* ![Simple Graph Sample.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/010simpleGraphSample.png)
+* ![Simple Graph Sample.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/010simpleGraphSample.png)
 
 * And suppose we start the traversal from the vertex `0`.
 * We mark it as visited.
@@ -64,7 +64,7 @@
 
 * Let us understand this with an example.
 
-* ![Simple Graph Cycle Sample.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/014simpleGraphSample.png)
+* ![Simple Graph Cycle Sample.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/014simpleGraphSample.png)
 
 * We start from `0`.
 * We move to `1`.
@@ -88,7 +88,7 @@
 
 * We can check the logic for an undirected graph that has no cycle.
 
-* ![Simple Graph Sample.png](../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/012simpleGraphSample.png)
+* ![Simple Graph Sample.png](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/012simpleGraphSample.png)
 
 * We start from `0`.
 * We mark it as visited.
