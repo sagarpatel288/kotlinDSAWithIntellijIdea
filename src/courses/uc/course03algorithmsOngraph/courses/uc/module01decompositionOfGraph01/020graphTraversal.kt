@@ -61,6 +61,10 @@ class GraphTraversal(val size: Int) {
      * * And for a unidirectional graph, it is `E`.
      * * Since we drop the constant, it becomes `E`.
      * * So, the total becomes: `O(V + E)`.
+     * ---
+     * * In the worst case, we touch and visit each vertex.
+     * * In the worst case, we process each edge from the `adjacencyList`.
+     * * So, the time complexity is: `O(V + E)`.
      *
      * # Space Complexity
      *
@@ -165,6 +169,10 @@ class GraphTraversal(val size: Int) {
      * * We are not scanning all the edges for each vertex.
      * * We are using the `visited boolean array`.
      * * That's the reason we take at most `O(V + E)` time.
+     * ---
+     * * In the worst case, we touch and visit each vertex.
+     * * In the worst case, we check and process each edge from the `adjacencyList`.
+     * * So, the time complexity is: `O(V + E)`.
      *
      * # Space Complexity
      *
@@ -213,9 +221,13 @@ class GraphTraversal(val size: Int) {
      *
      * # Time Complexity
      *
+     * ---
      * * We check each vertex.
      * * To check each vertex, we travel through the edges.
      * * To cover the entire graph, we cover all the edges.
+     * ---
+     * * In the worst case, we touch and visit each vertex.
+     * * In the worst case, we read and process all the edges from the `adjacencyList`.
      * * So, the time complexity is `O(V + E)`.
      *
      * # Space Complexity
@@ -261,6 +273,8 @@ class GraphTraversal(val size: Int) {
      * # Time Complexity
      *
      * * To cover the graph, we visit each vertex and each edge.
+     * * In the worst case, we touch and visit each vertex.
+     * * In the worst case, we read and process each edge from the `adjacencyList`.
      * * Hence, it is `O(V + E)`.
      *
      * # Space Complexity
