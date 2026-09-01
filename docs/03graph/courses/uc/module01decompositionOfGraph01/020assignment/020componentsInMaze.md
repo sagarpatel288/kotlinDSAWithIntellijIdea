@@ -81,3 +81,7 @@ Output the number of connected components.
 * The problem and the required output are not aligned.
 * If we focus on the required output, this problem is similar to:
 * [Number of islands](../010lectures/032numberOfIslands.md)
+
+## Implementation
+
+* [Components In Maze.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module01decompositionOfGraph01/070componentsInMaze.kt)
