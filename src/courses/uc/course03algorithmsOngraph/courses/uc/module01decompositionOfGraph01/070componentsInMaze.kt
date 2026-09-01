@@ -7,12 +7,14 @@ import java.util.StringTokenizer
 /**
  * # Reference
  *
- * * []()
+ * * [Components in maze](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob
+ * /e3dc5c22165eeab6b7a0c861643e4c93b300e647/docs/03graph/courses/uc/module01decompositionOfGraph01/020assignment/020componentsInMaze.md)
  *
  * # Count islands
  *
  * * This problem is similar to:
- * * []()
+ * * [Count islands](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob
+ * /6c6fc328efb9cc83507fab5ad7b071dbbe19d26e/docs/03graph/courses/uc/module01decompositionOfGraph01/010lectures/032numberOfIslands.md)
  *
  */
 class ComponentsInMaze(val vertices: Int) {
@@ -24,6 +26,21 @@ class ComponentsInMaze(val vertices: Int) {
         adjacencyList[b].add(a)
     }
 
+    /**
+     * # Time Complexity
+     *
+     * * In the worst case, we touch, visit, and process each vertex.
+     * * In the worst case, we process each edge from the `adjacencyList`.
+     * * So, the total time complexity is: `O(V + E)`
+     *
+     * # Space Complexity
+     *
+     * * If we consider that `adjacencyList` is given, and it is a part of the problem memory,
+     * then the auxiliary memory (space) that we use to solve the problem comes from the `visited boolean array`.
+     * * The size of the `visited boolean array` is as per the given value of total number of `vertices`.
+     * * And the maximum stack depth cannot be more than `vertices`.
+     * * So, the total space complexity is: `O(V)`.
+     */
     fun ensureExit(): Int {
         val visited = BooleanArray(vertices)
         var islands = 0
