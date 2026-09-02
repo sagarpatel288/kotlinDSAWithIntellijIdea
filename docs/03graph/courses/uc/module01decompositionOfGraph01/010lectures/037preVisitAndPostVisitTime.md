@@ -100,11 +100,13 @@ fun dfsTraversal(vertex: Int, visited: BooleanArray) {
 ---
 * In fact, timestamps has more significance when we use it for a directed graph.
 ---
-* Note that we can have multiple, unique, and still valid DFS orders based on which neighbor we select firs.
+* Note that we can have multiple, unique, and still valid DFS orders based on which neighbor we select first.
 * Similarly, we cannot have a complete graph reconstruction from the timestamps alone.
 * In other words, a graph reconstructed from timestamps alone, might not have all the edges.
 * For example, we might miss the edge that causes a cycle.
 * However, we still cover the minimum required edges of the graph.
+---
+* Another observation is that the vertex that we finish exploring the first (post-time), will be the last vertex in our linear order.
 
 ## Next
 
