@@ -51,6 +51,20 @@
 * We can have a linear order for any DAG.
 * In other words, in order to get the linear order, the directed graph must be a **DAG**.
 
+## Topological Sort
+
+* ![Topological Sort Order.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/020topologicalSort/010dagSinkLinearOrder.webp)
+
+* As we can see in the image, if we keep disconnecting the sink vertex, we can arrange a DAG in a linear order.
+* Sink is a vertex that does not have any outward edge - it does not point or go towards any other vertex.
+* And if we compare the linear order that we are getting in the end with the pre-visit and post-visit concept, we can say that it is the order sorted in descending order by post-visit time.
+* Reference: [PreVisit And PostVisit Time.md](../../module01decompositionOfGraph01/010lectures/037preVisitAndPostVisitTime.md)
+
+### How do we find the sink?
+
+* Sink is a vertex whose exploration we finish the first.
+* In other words, it takes minimum (shortest) post-visit time.
+
 ## Next
 
 * 
