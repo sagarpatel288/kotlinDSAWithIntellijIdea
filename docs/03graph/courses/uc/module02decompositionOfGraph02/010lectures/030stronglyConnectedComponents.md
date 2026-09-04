@@ -28,7 +28,7 @@
 * And in an undirected graph, if we can reach from A to B, it means that we can reach from B to A.
 * Because an undirected graph is a bidirectional graph.
 
-![Strongly Connected Components.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/030stronglyConnectedComponents/030stronglyConnectedComponents.webp)
+* ![Strongly Connected Components.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/030stronglyConnectedComponents/030stronglyConnectedComponents.webp)
 
 * However, in a directed graph, the notion of "Strongly Connected Component" is slightly different.
 * The idea is that we can classify a single connected component of a directed graph into two categories.
@@ -48,7 +48,11 @@
 * And if there are `>= 2` vertices as a strongly connected component, then there must be a cycle.
 * But not every cycle represents a strongly connected component.
 
-![Strongly Connected Components As DAG.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/030stronglyConnectedComponents/040stronglyConnectedComponentsAsDAG.webp)
+* ![Strongly Connected Components Vs. Cycle.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/030stronglyConnectedComponents/035stronglyConnectedComponentsVsCycle.webp)
+
+* So, if a few vertices are part of a cycle, it doesn't mean that they are all also equally part of the same SCC. 
+
+* ![Strongly Connected Components As DAG.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/030stronglyConnectedComponents/040stronglyConnectedComponentsAsDAG.webp)
 
 * And if we group these strongly connected components and maintain their connections to other SCCs, we get a DAG!
 * So, a metagraph of strongly connected components is always a DAG!
