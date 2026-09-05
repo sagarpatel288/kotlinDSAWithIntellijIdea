@@ -57,5 +57,6 @@
 * And if we group these strongly connected components and maintain their connections to other SCCs, we get a DAG!
 * So, a metagraph of strongly connected components is always a DAG!
 * It means that we can form such a directed graph into a DAG!
+* Sometimes, we call it a "Condensation Graph" or "Metagraph".
 
 ## Next
