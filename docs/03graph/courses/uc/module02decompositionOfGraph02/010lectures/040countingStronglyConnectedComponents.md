@@ -34,24 +34,65 @@
   * [Topological Sort On Dag.md](020topologicalSortOnDag.md)
   * [Strongly Connected Components.md](030stronglyConnectedComponents.md)
 ---
-* Now, the problem with the normal DFS for this problem is that we keep moving from one SSC to another SSC.
-* But an SSC has a relevant important property.
-* Once we leave an SSC, we can't go back.
+
+* ![Strongly Connected Components.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/040countingSCCs/010stronglyConnectedComponents.webp)
+
+---
+* According to the definition of an SCC, if we can reach from `v` to `u` and back from `u` to `v`, then it is an SCC.
+* So, the naive approach would be to find all the neighbors of `v` first.
+* And then for each such neighbor, we try to find that if we can reach back to `v`.
+* And if we can reach back to `v`, then that neighbor is part of the SCC of `v`.
+* And we not only do this for one `v`, we do it for all the vertices of the entire graph.
+* The graph can have multiple SCCs.
+* It means that while trying to figure out one SCC, for example the SCC of `v`, we visit vertices of other SCCs as well.
+* And it happens for each vertex.
+* It works, but it takes $O(V^2 + VE)$.
+* //ToDo: Explain why/how it is: $O(V^2 + VE)$
+* We want to improve it.
+---
+* Now, the problem with the normal DFS for this problem is that we keep moving from one SCC to another SCC.
+* We can't get an idea when we leave one SCC or when we enter to a new SCC.
+* And we need to know that to restrict ourselves for one particular SCC at a time to improve the time complexity.
+* So, it turns out that an SCC has a relevant important property.
+* Once we leave an SCC, we can't go back.
 * What if we block this direction?
 * How can we block it?
-* The path that leaves an SSC goes outward and connects with another SSC.
-* So, we reverse this direction!
+* The path that leaves an SCC goes outward and connects with another SCC.
+* So, we reverse this direction and block (trap) the SCC!
+* Where and how do we reverse the direction?
+* We need to reverse the direction exactly at the point where one SCC connects with the other SCC.
+* But how do we get to know when that happens?
+* We don't get to know it yet.
+* So, instead of trying to figure it out to reverse only a few edges, we reverse all the edges!
+* So, instead of reversing only the edges that connect one SCC to another SCC, we reverse all the edges!
+
+* ![Strongly Connected Components Transposed Graph.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/040countingSCCs/020stronglyConnectedComponentsTransposed.webp)
+
 * When we reverse the directions of the original graph, we call it a transposed graph.
-* Now, the SSC is self-contained, quarantined.
-* But then how do we even explore other vertices?
-* And isn't it true that this part solves the problem only for the first SCC?
-* If we can't leave the first SCC, how do we even count all the SCCs?
-* Fair point.
+* Now, if we start from `0`, we get `1`, we get `2`, we get back to `0`.
+* It is a cycle, and we conclude that we finished and covered one SCC.
+* So, the SCC looks self-contained, quarantined.
+* We take the other unvisited vertex from the adjacency list.
+* We get `1` and `2` as already visited.
+* So, we start with `3` and it goes to `0` which is already visited.
+* So, `3` is the second SCC.
+* We again take the remaining unvisited vertex from the adjacency list.
+* We get `4` and it points to `3` which is already visited.
+* So, `4` is the third SCC.
+* So, we got a total of 3 SCCs, and it looks like it works.
+* But what if we had started from `4` instead of `0`?
+* Then we would have ended up in the same dilemma that we are trying to solve, and we thought that we have solved it!
+* So, if we start counting the SCCs from `4`, we get `3`, `0`, `1`, `2`, get back to `0`, which is already visited, but we already stepped out of one SCC to other SCC.
+* We already visited vertices of other SCCs.
+* So, it works only if we start from the "correct" vertex.
+* So now, the problem is, how do we determine the "correct" vertex?
+---
+* The sink concept.
 ---
 * So, to explore all the other vertices and determine their corresponding SCC, we have the adjacency list.
 * But if we directly iterate through the adjacency list, we again get a problem.
 * We have reversed the directions (edges).
-* But one SSC is still connected (although in reverse direction) with another SCC.
+* But one SCC is still connected (although in reverse direction) with another SCC.
 * Or, we might miss the original sink.
 * Because the second last SCC does not go to the original sink.
 * The original sink goes to the second last SCC in the transposed graph.
@@ -79,13 +120,13 @@
 ---
 * Now, we have already learned about the pre-visit and post-visit timestamps.
 * It is clear that a subroutine will always finish first.
-* For example, if we start from $SSC_1$, we might get $SCC_2$ along the way.
+* For example, if we start from $SCC_1$, we might get $SCC_2$ along the way.
 * And in this case, it is accurately true to say that $SCC_2$ will finish first before we finish $SCC_1$. 
 ---
 * Now, we observe the topological sort.
-* The interesting part of the topological sort is that it gives a single vertex per SSC first.
+* The interesting part of the topological sort is that it gives a single vertex per SCC first.
 * And the rest of the associated vertices sit at the end.
-* It is like first row is reserved for a leader per SSC and the other team members of the same SSC sit in the end.
+* It is like first row is reserved for a leader per SCC and the other team members of the same SCC sit in the end.
 ---
 * The intuition is that we first use the topological sort on the given graph.
 * It will give us a particular order of vertices.
