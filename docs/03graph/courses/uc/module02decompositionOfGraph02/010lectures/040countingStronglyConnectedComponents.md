@@ -112,58 +112,24 @@
 * Every time we start a new exploration with the unvisited vertex, it indicates a new SCC.
 * The count logic is a little bit similar to the count island problem we have seen earlier.
 ---
-* ToDo://
-* The problem with the adjacency list if we follow it.
-* If we just follow the adjacency list, it could be in any order.
-* We cannot say that
-* The problem with the normal DFS order if we follow it.
-* The sink concept.
-* The problem that the topological order solves.
+* What is the problem if we use (iterate) the adjacency list to explore each unvisited vertex of the transposed graph instead of using the topological sort?
+* There is no guarantee that we will always start with the sink vertex.
+* We might start with the source vertex, and we will end-up with exploring the entire graph, going from one SCC to another, without any feedback, realization, or acknowledgement.
 ---
-* So, to explore all the other vertices and determine their corresponding SCC, we have the adjacency list.
-* But if we directly iterate through the adjacency list, we again get a problem.
-* We have reversed the directions (edges).
-* But one SCC is still connected (although in reverse direction) with another SCC.
-* Or, we might miss the original sink.
-* Because the second last SCC does not go to the original sink.
-* The original sink goes to the second last SCC in the transposed graph.
-* It means that we need to start with the original sink then.
-* But if we start with the sink, we get the same problem in the transposed graph, too.
-* We keep moving from one SCC to another SCC and we can't determine when that happens.
-* Fair point.
+* What is the problem if we use a normal DFS order, store it, and use it on the transposed graph to explore each unvisited vertex instead of using the topological sort order?
+* Can't we use pre-visit time sort in descending order - because doesn't it convey the same - the sink vertex is the vertex we visited the last?
+* And the answer is:
+* ![Strongly Connected Components - Only Post Order Works.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/040countingSCCs/040stronglyConnectedComponentsOnlyPostOrderWorks.webp)
+* If we use any other order, for example, maybe the pre-visit time sorted by ascending or descending order, it doesn't reliably determine the sink vertex.
 ---
-* Let us take a small example.
-* A --> B
-* It is a DAG.
-* If we have a vertex (or an SCC) from A to B and if we start from A, we might unnecessarily cover B.
-* We can't determine when that happens.
-* But if we start from B, it works.
-* Because "B" is a sink vertex. 
-* It is a quarantined (self-contained) vertex.
-* There is no outward direction from it.
-* And when "A" gets its turn, "B" is already visited!
-* So, the question is:
-* In which order can we start exploring the vertices such that:
-  * As soon as we finish the exploration, it would imply that we have covered an SCC - same as the island problem.
-  * And we should be able to cover all the SCCs.
-* And if we start from the sink, it seems possible.
-* How do we find the sink?
+* We could have applied this logic to the original graph as well. Why to use a transposed graph then?
+* And the answer is:
+* ![Topological Sort On The Original Vs. Transposed Graph To Count Strongly Connected Components.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/040countingSCCs/030stronglyConnectedComponents.webp)
+* Until and unless we trap each SCC, it doesn't work.
+* We need two things to make it work:
+  * Correct order
+  * Trapped SCC
 ---
-* Now, we have already learned about the pre-visit and post-visit timestamps.
-* It is clear that a subroutine will always finish first.
-* For example, if we start from $SCC_1$, we might get $SCC_2$ along the way.
-* And in this case, it is accurately true to say that $SCC_2$ will finish first before we finish $SCC_1$. 
----
-* Now, we observe the topological sort.
-* The interesting part of the topological sort is that it gives a single vertex per SCC first.
-* And the rest of the associated vertices sit at the end.
-* It is like first row is reserved for a leader per SCC and the other team members of the same SCC sit in the end.
----
-* The intuition is that we first use the topological sort on the given graph.
-* It will give us a particular order of vertices.
-* The sort by post-visit time in descending order puts the sink vertex last. 
----
-* Now, the 
 
 ## Next
 
