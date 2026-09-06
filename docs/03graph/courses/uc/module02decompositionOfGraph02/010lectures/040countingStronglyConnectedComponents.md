@@ -87,7 +87,38 @@
 * So, it works only if we start from the "correct" vertex.
 * So now, the problem is, how do we determine the "correct" vertex?
 ---
+* First of all, let us define the "correct" vertex here.
+* We saw that when we started with the sink SCC, it worked.
+* Otherwise, it did not work.
+* So, we want to ensure that we always start with the sink vertex.
+---
+* Now, what is a sink vertex?
+* It is the vertex that does not have any outward edge.
+* A graph can have many sink vertices.
+* How do we find the sink vertex?
+* We find it based on its property.
+* A sink vertex will have the shortest post-visit time than its sources/parents/ancestors.
+* There is no concept of parents or ancestors or successors in the graph. 
+* But we use these terms to indicate the relation between the two vertices or to distinguish or to convey which vertex we visited earlier.
+* So, how do we arrange and sort the vertices by post-visit time?
+* We use the topological sort.
+---
+* Ok. So, to identify from which vertex we should start our exploration, we use the topological sort.
+* And to trap each SCC, we use the transposed graph.
+* And once we have the topological sort order and the transposed graph, we finally apply the DFS on the transposed graph.
+* We start with the unvisited vertex, and it will cover all the vertices that belong to that particular SCC.
+* Because each SCC is trapped, we get out of the loop, and get the unvisited vertex from the topological sort order.
+* We repeat the process.
+* Every time we start a new exploration with the unvisited vertex, it indicates a new SCC.
+* The count logic is a little bit similar to the count island problem we have seen earlier.
+---
+* ToDo://
+* The problem with the adjacency list if we follow it.
+* If we just follow the adjacency list, it could be in any order.
+* We cannot say that
+* The problem with the normal DFS order if we follow it.
 * The sink concept.
+* The problem that the topological order solves.
 ---
 * So, to explore all the other vertices and determine their corresponding SCC, we have the adjacency list.
 * But if we directly iterate through the adjacency list, we again get a problem.
