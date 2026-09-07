@@ -40,13 +40,10 @@ class CountStronglyConnectedComponents(val vertices: Int) {
 
     private fun transposedGraph(): List<MutableList<Int>> {
         val transposedAdjacency = List(vertices) { mutableListOf<Int>()}
-        val visited = BooleanArray(vertices)
         for (vertex in adjacencyList.indices) {
-            if (!visited[vertex]) {
-                val neighbors = adjacencyList[vertex]
-                neighbors.forEach {
-                    transposedAdjacency[it].add(vertex)
-                }
+            val neighbors = adjacencyList[vertex]
+            neighbors.forEach {
+                transposedAdjacency[it].add(vertex)
             }
         }
         return transposedAdjacency
@@ -58,9 +55,9 @@ class CountStronglyConnectedComponents(val vertices: Int) {
         val visited = BooleanArray(vertices)
         var count = 0
         while (stack.isNotEmpty()) {
-            val pop = stack.removeFirst()
-            if (!visited[pop]) {
-                dfs(pop, transposedAdjacency, visited)
+            val vertex = stack.removeFirst()
+            if (!visited[vertex]) {
+                dfs(vertex, transposedAdjacency, visited)
                 count++
             }
         }
