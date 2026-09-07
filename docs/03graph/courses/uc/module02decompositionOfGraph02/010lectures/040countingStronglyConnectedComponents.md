@@ -47,7 +47,8 @@
 * It means that while trying to figure out one SCC, for example the SCC of `v`, we visit vertices of other SCCs as well.
 * And it happens for each vertex.
 * It works, but it takes $O(V^2 + VE)$.
-* //ToDo: Explain why/how it is: $O(V^2 + VE)$
+* Because we know that a normal full exploration like we do in DFS, takes $O(V + E)$.
+* And if we do it (repeat) for each vertex, it becomes: $O(V * (V + E)$, which is $O(V^2 + VE)$.
 * We want to improve it.
 ---
 * Now, the problem with the normal DFS for this problem is that we keep moving from one SCC to another SCC.
@@ -131,11 +132,44 @@
   * Trapped SCC
 ---
 
-## Implementation
+## Notes
 
-* Topological sort of the given original graph to get the right order for the exploration
-* Create a transposed graph to trap each SCC
+* Conceptually, we can't have a topological sort on the directed graph due to possible one or more cycles.
+* So, the "Topological sort" of a DAG, is "DFS in finish-order-sorted-descending" for a directed graph.
+---
+* A sink vertex and a sink SCC are conceptually the same, but physically (or at whole) they are different.
+* It is true (same) that none of them can have outward edge.
+* But a sink vertex represents a single vertex, whereas a sink SCC represents an SCC component.
+* Although an SCC can have a single vertex, it can also include multiple vertices.
+* So, it is a group of vertices and we have already learned about it earlier.
+* Reference: [Strongly Connected Components Intro](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8ed3ed68521817db6b99fcf09d1836d9b95e1fb3/docs/03graph/courses/uc/module02decompositionOfGraph02/010lectures/030stronglyConnectedComponents.md)
+* An SCC is a group of vertices where each vertex can reach any other vertex of the same group (SCC).
+* And if there are `>= 2` vertices in an SCC, then there must be a cycle to make it possible.
+* But a single vertex is always a single vertex.
+* When we say a sink SCC, it means that the sink SCC does not have any outward edge that connects with another SCC.
+* When we say a sink vertex, it means that the sink vertex does not have any outward edge that connects with another vertex.
+* When we use the word "sink" in the graph, we are talking about the subject that does not have any outward edge.
+---
+* And we have also learned that we can group these SCCs, maintain their connections with other SCCs, and in this way, we can transform the directed graph into a directed acyclic graph.
+* [Strongly Connected Components Intro](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/8ed3ed68521817db6b99fcf09d1836d9b95e1fb3/docs/03graph/courses/uc/module02decompositionOfGraph02/010lectures/030stronglyConnectedComponents.md)
+* So, the interesting thing we have done here by using the transposed graph to solve this "Count SCCs" problem, is that we convert the source SCC into the sink SCC!
+* In other words, the source SCC of the original graph becomes sink SCC in the transposed graph.
+---
+
+## Implementation and complexity analysis
+
+* Topological sort of the given original graph to get the right order for the exploration.
+  * Time Complexity: $O(V + E)$ (Because it is almost the same DFS exploration).
+  * Space Complexity: $O(V + E)$ for the stack.
+* Create a transposed graph to trap each SCC.
+  * Time Complexity: $O(V + E)$ because we iterate through the adjacency list.
+  * Space complexity: $O(V + E)$ for the transposed adjacency list.
 * DFS to count each SCC
+  * Time Complexity: $O(V + E)$
+  * Space Complexity: $O(V)$ for the visited boolean array.
+* Total time and space complexity:
+  * Time Complexity: $O(V + E)$
+  * Space Complexity: $O(V + E)$
 ---
 * 
 
