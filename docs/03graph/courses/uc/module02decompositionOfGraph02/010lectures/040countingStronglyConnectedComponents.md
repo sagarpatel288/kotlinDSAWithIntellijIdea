@@ -69,8 +69,8 @@
 * ![Strongly Connected Components Transposed Graph.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/040countingSCCs/020stronglyConnectedComponentsTransposed.webp)
 
 * When we reverse the directions of the original graph, we call it a transposed graph.
-* Now, if we start from `0`, we get `1`, we get `2`, we get back to `0`.
-* It is a cycle, and we conclude that we finished and covered one SCC.
+* Now, in the transposed graph, if we start from `0`, we get `1`, we get `2`, we get back to `0`.
+* It is a cycle, the SCC is trapped, the SCC is covered, and so we conclude that we finished and covered one SCC.
 * So, the SCC looks self-contained, quarantined.
 * We take the other unvisited vertex from the adjacency list.
 * We get `1` and `2` as already visited.
@@ -88,9 +88,9 @@
 * So now, the problem is, how do we determine the "correct" vertex?
 ---
 * First of all, let us define the "correct" vertex here.
-* We saw that when we started with the sink SCC, it worked.
+* We saw that when we started with the sink SCC (in a transposed graph), it worked.
 * Otherwise, it did not work.
-* So, we want to ensure that we always start with the sink vertex.
+* So, we want to ensure that we always start with the sink vertex of the transposed graph.
 ---
 * Now, what is a sink vertex?
 * It is the vertex that does not have any outward edge.
@@ -106,8 +106,8 @@
 * Ok. So, to identify from which vertex we should start our exploration, we use the topological sort.
 * And to trap each SCC, we use the transposed graph.
 * And once we have the topological sort order and the transposed graph, we finally apply the DFS on the transposed graph.
-* We start with the unvisited vertex, and it will cover all the vertices that belong to that particular SCC.
-* Because each SCC is trapped, we get out of the loop, and get the unvisited vertex from the topological sort order.
+* We start with the unvisited vertex from the topological sort, and it will cover all the vertices that belong to that particular SCC.
+* Because each SCC is trapped, we get out of the loop, and get another unvisited vertex from the topological sort order.
 * We repeat the process.
 * Every time we start a new exploration with the unvisited vertex, it indicates a new SCC.
 * The count logic is a little bit similar to the count island problem we have seen earlier.
@@ -130,6 +130,14 @@
   * Correct order
   * Trapped SCC
 ---
+
+## Implementation
+
+* Topological sort of the given original graph to get the right order for the exploration
+* Create a transposed graph to trap each SCC
+* DFS to count each SCC
+---
+* 
 
 ## Next
 
