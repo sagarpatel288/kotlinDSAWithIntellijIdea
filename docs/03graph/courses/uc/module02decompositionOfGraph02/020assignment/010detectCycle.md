@@ -82,3 +82,7 @@ $$
 **Output**
 
 * 0
+
+## Thought Process
+
+* ![Detect Cycle In A Directed Graph.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/050assignment/010cycleInDirectedGraph.webp)
