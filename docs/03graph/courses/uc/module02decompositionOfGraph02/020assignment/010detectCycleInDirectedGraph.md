@@ -170,7 +170,7 @@ fun dfs(vertex: Int, visited: BooleanArray, visitedPath: BooleanArray): Boolean 
 
 ## Implementation
 
-* 
+* [Detect Cycle In A Directed Graph.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module02decompositionOfGraph02/020detectCycleInDirectedGraph.kt)
 
 ## Next
 
