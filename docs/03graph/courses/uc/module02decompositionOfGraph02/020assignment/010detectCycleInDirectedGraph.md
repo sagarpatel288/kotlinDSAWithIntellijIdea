@@ -141,3 +141,37 @@ fun dfs(vertex: Int, visited: BooleanArray, visitedPath: BooleanArray) {
 * Every time we start a new exploration, we would have a brand new "visitedPath" with default "false" values.
 * Every time we visit a vertex inside the recursive "dfs" function, we would also mark it visited in our "visitedPath".
 * While exploring each neighbor, if we ever find that the vertex is already marked as "visited" in both "visited" boolean array and also in the "visitedPath", we declare it a cycle.
+---
+* Now, we have already seen that we can visit the same vertex multiple times while exploring a different vertex.
+* So, we must mark the vertex as unvisited as soon as we finish our exploration for a particular vertex.
+* So that the new exploration for a different vertex starts with the default "false" value.
+---
+```kotlin
+
+fun dfs(vertex: Int, visited: BooleanArray, visitedPath: BooleanArray): Boolean {
+    visited[vertex] = true
+    visitedPath[vertex] = true
+    val neighbors = adjacencyList[vertex]
+    neighbors.forEach {
+        if (!visited[it]) {
+            if (dfs(vertex, visited, visitedPath)) return true
+        } else if (visitedPath[it]) {
+            return true
+        }
+    }
+    // Reset for the fresh/new exploration
+    // It indicates that during the exploration of this vertex, we did not find any path that comes back to this vertex.
+    visitedPath[vertex] = false
+    return false
+}
+
+```
+---
+
+## Implementation
+
+* 
+
+## Next
+
+* 
