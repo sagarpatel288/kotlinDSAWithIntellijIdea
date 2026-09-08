@@ -86,3 +86,27 @@ $$
 ## Thought Process
 
 * ![Detect Cycle In A Directed Graph.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/050assignment/010cycleInDirectedGraph.webp)
+
+* Earlier, we learned about detecting a cycle in an undirected graph.
+* [Cycle Detection In Graph Using Dfs.md](../../module01decompositionOfGraph01/010lectures/028cycleDetectionInGraphUsingDfs.md)
+* While detecting a cycle in an undirected graph, we had used the parent concept.
+* Reference: [Cycle Detection In An Undirected Graph Using Dfs.md](../../module01decompositionOfGraph01/010lectures/028cycleDetectionInGraphUsingDfs.md)
+* The definition or criteria for the cycle in an undirected graph is: "If there are multiple ways to reach from "A" to "B", then there is a cycle in the undirected graph."
+* However, it is completely normal in a directed graph and it does not indicate a cycle.
+* For example:
+* ![Detect Cycle In A Directed Graph.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/050assignment/010cycleInDirectedGraph.webp)
+* In the image, we can see that we can reach "2" from "0 → 1 → 2" as well from "0 → 2".
+* But that is not a cycle in the directed graph!
+* So, what is cycle in a directed graph?
+
+---
+
+* Let us observe the cycle in a directed graph.
+ 
+* ![Cycle In A Directed Graph 2.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/050assignment/020cycleInDirectedGraph.webp)
+
+* Now, it might be completely normal in a bidirectional graph that if we can go from "A" to "B", then it inherently means we can go from "B" back to "A".
+* That is why we call it a bidirectional graph.
+* However, it is not normal in a directed graph.
+* If we can go from "A" to "B" and then somehow, "B" can also reach back to "A", then there is a cycle in the directed graph.
+* But "B" is a result of our exploration of "A".
