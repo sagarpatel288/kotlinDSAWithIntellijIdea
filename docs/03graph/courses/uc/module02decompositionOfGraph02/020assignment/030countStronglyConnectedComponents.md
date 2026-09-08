@@ -95,7 +95,7 @@ $$
 
 ## Implementation
 
-* 
+* [Count Strongly Connected Components.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module02decompositionOfGraph02/040countStronglyConnectedComponents.kt)
 
 ## Next
 
