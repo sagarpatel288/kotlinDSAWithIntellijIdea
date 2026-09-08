@@ -110,3 +110,34 @@ $$
 * However, it is not normal in a directed graph.
 * If we can go from "A" to "B" and then somehow, "B" can also reach back to "A", then there is a cycle in the directed graph.
 * But "B" is a result of our exploration of "A".
+* So, it is like during the exploration, within the same exploration, if we visit a particular vertex again, it indicates a cycle.
+* Note that we might visit the same vertex multiple times while exploring a completely different vertex, and it doesn't necessarily indicate the cycle.
+* For example:
+* ![Cycle In A Directed Graph 3.webp](../../../../../../assets/images/03graph/courses/uc/module02decompositionOfGraph02/050assignment/030cycleInDirectedGraph.webp)
+* In the third image, we can see that we visit "1" while exploring "0", and we visit "1" again while exploring "2".
+* So, we visit "1" multiple times, but that doesn't indicate a cycle.
+* Because we visit "1" during a complete separate exploration.
+* So, let us lock this conclusion:
+* If we visit the same vertex twice within the same exploration in a directed graph, there is a cycle.
+---
+* Ok. How do we translate this into a code?
+* Exploration indicates our standard DFS or BFS traversal.
+* How and where do we fit our logic to detect the cycle?
+* For that, "Within the same exploration" becomes important.
+* Especially, "Visit twice within the same exploration" or "Second visit within the same exploration".
+* We are already using the "visited boolean array", but it is for the overall exploration of the entire graph.
+* And we already know where the exploration of one particular vertex at a time happens.
+* It happens in our "recursive dfs" function.
+* So, we use another "visited boolean array" dedicated to the single exploration at a time.
+* Let us call it something like "explored" or "visitedPath".
+* So, our recursive function might look like:
+```kotlin
+
+fun dfs(vertex: Int, visited: BooleanArray, visitedPath: BooleanArray) {
+    
+}
+
+```
+* Every time we start a new exploration, we would have a brand new "visitedPath" with default "false" values.
+* Every time we visit a vertex inside the recursive "dfs" function, we would also mark it visited in our "visitedPath".
+* While exploring each neighbor, if we ever find that the vertex is already marked as "visited" in both "visited" boolean array and also in the "visitedPath", we declare it a cycle.
