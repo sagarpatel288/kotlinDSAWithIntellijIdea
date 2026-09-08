@@ -24,6 +24,75 @@
 * And we want to determine whether there is a cycle or not.
 * So, how do we detect that?
 
+**Observation**
+
+* What is cycle?
+
+* ![Cycle.webp](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/002cycle.webp)
+
+* We might think that if we can go from "A" to "B" and also from "B" to "A", then there is a cycle between "A" and "B".
+* But it is normal in an undirected graph.
+* That's why we call it "bidirectional graph".
+* In an undirected graph, if there is an edge between "A" and "B", it means that we can go from "A" to "B" and we can also go from "B" to "A".
+* And it is not a cycle in an undirected (bidirectional) graph.
+
+---
+* So, what is the cycle in an undirected graph?
+
+![Cycle In An Undirected Graph.webp](../../../../../../assets/images/03graph/courses/uc/module01decompositionOfGraph01/022cycleDetection/020cycleInUndirectedGraph.webp)
+
+* If there are multiple ways to reach from "A" to "B", then there is a cycle.
+* For example, in the given image, we can see that the last image has a cycle.
+* We can observe that "0" can reach "2" as "0 → 1 → 2".
+* And "0" can reach "2" as "0 → 2" as well.
+* So, there is a cycle.
+* Now, although there is no "parent" or "child" concept in a graph, for the sake of understanding purpose only, we use it here.
+* Informally, we would say if we reach from "A" to "B" as A → B, then "A" is the parent of "B".
+* And as we are going from "A" to "B" as A → B, it means that first we visit "A" and then we visit "B".
+* So, it is normal to say that the parent vertex is the visited vertex.
+* Or we might say it the other way:
+* The visited vertex is the parent vertex.
+* And if we get a vertex which is already visited, but not the parent, we will pay special attention.
+* With that in mind, "2" has multiple parents.
+* When we follow "0 → 1 → 2", "1" is the parent of "2".
+* And when we follow "0 → 2", "0" is the parent.
+* A vertex can have multiple parents, and it doesn't indicate a cycle.
+* For example, in the second image, we can see that "1" has two parents: "0" and "2".
+* Similarly, in the third image, we can see that "2" has two parents: "0" and "1".
+* So, having multiple parents is fine, and it does not indicate a cycle in an undirected graph.
+* Now, let us observe what happens when there is a cycle in an undirected graph.
+* We take the last image to follow.
+* Suppose we start with "0".
+* For the vertex "0", there is no parent because we started the exploration from it. 
+* We get "0", then we get "1".
+* "1" is unvisited.
+* For "1", the parent is "0".
+* From "1", we get "2".
+* "2" is unvisited.
+* For "2", the parent is "1".
+* From "2", we get "0".
+* "0" is already visited, but it is not the parent!
+* And this is the point that indicates that there is a cycle!
+* So, if exploration of a particular vertex reveals a neighbor which is already visited, but it is not the parent, then it indicates the cycle.
+---
+* Now, we already know how to explore a vertex or a graph.
+* We have already learned about DFS and BFS to explore a vertex or a graph.
+* But how do we model our conclusion about the cycle detection of an undirected graph into the explore logic?
+---
+* We know that the vertex from which we start exploration gets no parent.
+* And then as we move forward, we may find a neighbor or neighbors, and then we explore each neighbor.
+* So, while exploring the neighbor, how about attaching the parent information there?
+* In DFS, we already send the vertex that we want to explore, and the visited boolean array.
+* Along with that, we would also send the parent information for the vertex that we are about to explore.
+* So, it becomes:
+```kotlin
+
+fun dfs(vertex: Int, visited: BooleanArray, parent: Int) {
+    
+}
+
+```
+
 **DFS Logic**
 
 * [Dfs Graph Traversal.md](026dfsGraphTraversal.md)
