@@ -131,7 +131,33 @@
 * So, G goes to level 2.
 * So the rule is: A vertex from the lower level can connect with any previous level vertex. But a vertex from the top level can connect only with the vertex at the adjacent (next) level.
 * Here, between 2 and 3, 3 is the lower (bottom) level and 2 is the higher, upper, top level.
-* 
+
+## TL;DR
+
+**Path Length**
+
+* Number of edges in that path
+
+**Distance**
+
+* Shortest path
+
+**Distance-level Representation**
+
+> What changes the distance-level structure?
+
+* Any edge that reduces the distance with the root node.
+
+> When that happens (what makes it) for an undirected graph?
+
+* Whenever we get a direct edge across the distance levels whose gap is more than |1|.
+
+> When that happens (what makes it) for a directed graph?
+
+* Whenever there is a direct edge from the previous (top) level towards any next (bottom) level where the gap is more than |1|.
+* The condition is that it must be the edge, the direction from the previous (top) level towards the bottom (next) level.
+* Otherwise, we can have any edge from the bottom level towards the top level and it does not change the distance-level structure.
+
 
 ## Next
 
