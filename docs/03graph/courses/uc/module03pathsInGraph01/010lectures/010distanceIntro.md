@@ -70,8 +70,6 @@
 * Because if we connect "G" from level 3 with "B" of level "1", then the path length between B → G is "1".
 * But as "B" is at level "1", then "G" should be on level "2".
 * So, we place "G" at level 2.
-* But what if we connect this newly added G with B?
-* Is it correct? Can we do that?
 * It means that a vertex adds a new direct connection with the new vertex only at the next level.
 * A vertex cannot add a new direct connection with a new vertex beyond the next level.
 
