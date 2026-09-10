@@ -39,9 +39,10 @@ fun bfs(root: Int, destination: Int) {
     prev[root] = -1 // There is no previous vertex of root
     while (queue.isNotEmpty()) {
         val vertex = queue.removeFirst()
+        if (vertex == destination) break
         val neighbors = adjacencyList[vertex]
         neighbors.forEach {
-            if (dist[it] != Int.MAX_VALUE) {
+            if (dist[it] == Int.MAX_VALUE) {
                 dist[it] = dist[vertex] + 1
                 prev[it] = vertex
             }
@@ -55,14 +56,16 @@ fun bfs(root: Int, destination: Int) {
 * If the root node is "A" and the destination node is "I", then the `prev` array gives us the shortest path from "A to I".
 * And to get the shortest path from "I to A", we just need to reverse the `prev` array. 
 
-## Doubts
+## Note
 
 * We are using the adjacency list for the BFS traversal.
-* But we may need to optimize it to remove any cycle first.
+* But we may think that we need to optimize it to remove any cycle first.
 * So, maybe we need to have the "cycleDetection" function, that first detects the cycle.
 * And then we break that cycle and create a new adjacency list that does not have any cycle.
 * And then we use this new adjacency list for our BFS traversal.
-* But I am unsure.
+* But we are already handling a cycle by using the `dist` check.
+* We don't process the same node twice.
+* So, we don't need to handle and break the cycle separately.
 
 ## Next
 
