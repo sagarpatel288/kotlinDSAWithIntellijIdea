@@ -58,6 +58,14 @@ class GraphTraversal(val size: Int) {
      * * That's `V`.
      * * For every visited vertex, we scan the corresponding adjacency list.
      * * Total adjacency list entries for an undirected (bidirectional) graph is `2E`.
+     * * Because we process each vertex and each vertex is connected with another vertex through an edge.
+     * * And for a bidirectional graph:
+     * * If there is an edge from A to B, then there is an edge from B to A.
+     * * So, when we process the vertex A, we get the neighbor B.
+     * * And when we process the vertex B, we get the neighbor A.
+     * * So, we might get the same edge to process at most two times:
+     * * When we process the vertex A, and when we process the vertex B.
+     * * So, for each vertex, the total edges becomes `2E`.
      * * And for a unidirectional graph, it is `E`.
      * * Since we drop the constant, it becomes `E`.
      * * So, the total becomes: `O(V + E)`.
