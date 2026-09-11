@@ -172,6 +172,40 @@ prev[destination]
 * And when we reverse it, we get our expected answer: `1, 0, 3`.
 * Which indicates that the shortest path is: `1 → 0 → 3`.
 ---
+* So, the code might look something like below:
+
+```kotlin
+
+fun bfs(start: Int, destination: Int, visited: BooleanArray) {
+    val queue = ArrayDeque<Int>()
+    val prev = IntArray(vertices)
+    queue.addLast(start)
+    visited[start] = true
+    prev[start] = -1
+    while (queue.isNotEmpty()) {
+        val vertex = queue.removeFirst()
+        val neighbors = adjacencyList[vertex]
+        neighbors.forEach {
+            if (!visited[it]) {
+                queue.addLast(it)
+                visited[it] = true
+                prev[it] = vertex
+            }
+        }
+    }
+    
+    val result = mutableListOf<Int>()
+    var vertex = destination
+    while (vertex != start) {
+        result.add(destination)
+        vertex = prev[vertex]
+    }
+    println(result.reverse())
+}
+
+```
+
+---
 * What about the distance?
 * We can find the distance in two ways.
 * By simply counting the vertices in the final result - 1.
@@ -216,7 +250,7 @@ val dist = IntArray(vertices) { -1 }
 
 ```kotlin
 
-fun bfs(start: Int, visited: BooleanArray) {
+fun bfs(start: Int, destination: Int, visited: BooleanArray) {
     val queue = ArrayDeque<Int>()
     val prev = IntArray(vertices) { -1 }
     val dist = IntArray(vertices) { -1 }
@@ -236,6 +270,15 @@ fun bfs(start: Int, visited: BooleanArray) {
             }
         }
     }
+    
+    val result = mutableListOf<Int>()
+    var vertex = destination
+    while (vertex != start) {
+        result.add(vertex)
+        vertex = prev[vertex]
+    }
+    val path = result.reversed()
+    val distance = dist[destination]
 }
 
 ```
@@ -244,10 +287,10 @@ fun bfs(start: Int, visited: BooleanArray) {
 * So, we apply BFS Traversal with a few more assignments to find the shortest path (Distance) between two nodes.
 * The idea is that we would use two arrays: `dist` and `prev`.
 * Each of size vertices.
-* Initially, all the values in the `dist` will be "infinite", because we have not visited any node yet.
+* Initially, all the values in the `dist` will be "infinite" or "-1", because we have not visited any node yet.
 * We update the actual distance as we visit each node.
 * And it will help us determine whether we have visited a particular node already.
-* For example, if the distance value of a particular node is `infinite`, it means that we have not visited it yet.
+* For example, if the distance value of a particular node is `infinite` or `-1`, it means that we have not visited it yet.
 * And we update the actual distance value only for the nodes that we are visiting for the first time.
 * And we update the value based on the "+1" theory.
 * For example, if we go from "A to B", then `dist[B] = dist[A] + 1`.
@@ -264,9 +307,11 @@ fun bfs(start: Int, visited: BooleanArray) {
 
 fun bfs(root: Int, destination: Int) {
     val queue = ArrayDeque<Int>()
+    val dist = IntArray(vertices) { -1 }
+    val prev = IntArray(vertices) { Int.MAX_VALUE }
     queue.addLast(root)
     dist[root] = 0 // The distance from the root to the root is 0
-    prev[root] = -1 // There is no previous vertex of root
+    prev[root] = -1 // or Int.MAX_VALUE: As there is no previous vertex of root
     while (queue.isNotEmpty()) {
         val vertex = queue.removeFirst()
         if (vertex == destination) break
@@ -278,13 +323,25 @@ fun bfs(root: Int, destination: Int) {
             }
         }
     }
+    val result = mutableListOf<Int>()
+    var vertex = destination
+    while (vertex != root) {
+        result.add(vertex)
+        vertex = prev[vertex]
+    }
+    val path = result.reversed()
+    val length = dist[destination]
 }
 
 ```
 
 * So, we start our BFS traversal from the root node.
 * If the root node is "A" and the destination node is "I", then the `prev` array gives us the shortest path from "A to I".
-* And to get the shortest path from "I to A", we just need to reverse the `prev` array. 
+* And to get the shortest path from "I to A", we start from the destination, "I".
+* We add it to the result list.
+* We find the parent of "I" from the `prev` array.
+* And add it to the result list.
+* We repeat this process until we find the root.
 
 ## Note
 
