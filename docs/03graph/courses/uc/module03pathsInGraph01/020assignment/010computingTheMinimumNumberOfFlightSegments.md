@@ -1,5 +1,9 @@
 # Computing the minimum number of flight segments
 
+## Prerequisites
+
+* [Shortest Path.md](../010lectures/020shortestPath.md)
+
 ## Problem Introduction
 
 * You would like to compute the minimum number of flight segments to get from one city to another one. 
