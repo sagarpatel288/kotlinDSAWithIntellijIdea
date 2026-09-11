@@ -26,19 +26,19 @@
 
 ## Path length
 
-* ![Path Length And Distance Intro.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/video02pathLengthAndDistance/010pathAndDistanceIntro.webp)
+* ![Path Length And Distance Intro.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/020video02pathLengthAndDistance/010pathAndDistanceIntro.webp)
 
 * Path length between A and B is the number of edges between A and B.
 
 ## Distance
 
-* ![Path Length And Distance Intro.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/video02pathLengthAndDistance/010pathAndDistanceIntro.webp)
+* ![Path Length And Distance Intro.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/020video02pathLengthAndDistance/010pathAndDistanceIntro.webp)
 
 * Distance between A and B is the length of the shortest path between A and B.
 
 ## Distance Layers (Distance Levels)
 
-* ![Distance Layers/Levels.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/video02pathLengthAndDistance/020distanceLayersLevels.webp)
+* ![Distance Layers/Levels.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/020video02pathLengthAndDistance/020distanceLayersLevels.webp)
 
 * We can convert or represent the given graph into somewhat or similar to tree levels.
 * For example, as shown in the image, suppose that we have an undirected graph.
@@ -66,7 +66,7 @@
 * Now, this representation reveals a few invariants.
 * For example, suppose that we want to add a new vertex (node) C → G at level 3.
 
-* ![Distance Levels Undirected Modification.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/video02pathLengthAndDistance/040distanceLayersUndirectedModification2.webp)
+* ![Distance Levels Undirected Modification.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/020video02pathLengthAndDistance/040distanceLayersUndirectedModification2.webp)
 
 * Is it correct? Can we do that? 
 * We can do that because it maintains the connections and also the levels.
@@ -100,7 +100,7 @@
 * But in a directed graph, it is only half the truth.
 * For example:
 
-* ![Distance Levels Directed Graph Modification.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/video02pathLengthAndDistance/050distanceLevelsDirectedModification.webp)
+* ![Distance Levels Directed Graph Modification.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/020video02pathLengthAndDistance/050distanceLevelsDirectedModification.webp)
 
 * We can see that we can add a new connection from C → G, and it will be on the level 3.
 * Because "C" is at level 2 and there is 1 edge between C and G.

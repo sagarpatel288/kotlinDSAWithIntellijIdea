@@ -6,7 +6,7 @@
 
 ## Concept
 
-* ![Shortest Path Using Distance Level Tree Without Cycle.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/video08shortestPathUsingDistanceLevelTreeWithoutCycle/010shortestPathUsingDistanceLevelTreeWithoutCycle.webp)
+* ![Shortest Path Using Distance Level Tree Without Cycle.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/080video08shortestPathUsingDistanceLevelTreeWithoutCycle/010shortestPathUsingDistanceLevelTreeWithoutCycle.webp)
 
 * Once we have the distance-level representation of a graph where the representation does not have any cycle, we can find the shortest path between two nodes.
 * Because the distance-level representation is based on the distance between two nodes, and distance means the shortest path.
