@@ -329,8 +329,11 @@ fun bfs(root: Int, destination: Int) {
         result.add(vertex)
         vertex = prev[vertex]
     }
+    result.add(root) 
     val path = result.reversed()
     val length = dist[destination]
+    println(length)
+    println(path)
 }
 
 ```
