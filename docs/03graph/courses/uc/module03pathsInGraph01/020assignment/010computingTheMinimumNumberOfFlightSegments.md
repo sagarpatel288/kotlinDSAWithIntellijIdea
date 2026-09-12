@@ -97,3 +97,7 @@ $$
 * ![Shortest Path Assignment Prob 02.webp](../../../../../../assets/images/03graph/courses/uc/module03pathsInGraph01/100assignments/020shortestPathAssignmentProb02.webp)
 
 * There is no path between vertices 3 and 5 in this graph.
+
+## Implementation
+
+* [Shortest Path Min Flight Segments.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module03pathsInGraph01/010shortestPathMinFlightSegments.kt)
