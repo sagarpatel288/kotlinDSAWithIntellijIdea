@@ -41,6 +41,7 @@
 * So, whether the path is the shortest or not really depends on the weight of the edges. 
 * Here, the weight is in the sense of some value.
 * It can represent distance, time, price, or anything.
+* It is a positive number associated with the edge.
 * All the edges represent the same measurement unit or measurement family or context.
 * And each value is positive.
 * It might represent the time we will take to travel from A to B, or the price we will spend by traveling from A to B, or the total traveling distance between A and B.
