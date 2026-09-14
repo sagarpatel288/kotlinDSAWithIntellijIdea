@@ -38,7 +38,7 @@
 
 * ![Fastest Path 02.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/01fastestRoute/020fastestPath02.webp)
 
-* So, whether the path is the shortest or not really depends on the weight of the edges.
+* So, whether the path is the shortest or not really depends on the weight of the edges. 
 * Here, the weight is in the sense of some value.
 * It can represent distance, time, or anything.
 * All the edges represent the same measurement unit or measurement family or context.
@@ -47,6 +47,13 @@
 * So, we don't want these values to be negative.
 * This is known as the case where edges have non-negative weights (values).
 * Sometimes we use these terms interchangeably: weights, length, distance, values.
+---
+* Notice that:
+* For the unweighted graphs, we count edges to determine the distance.
+* For the weighted graphs, we sum up weights to determine the distance.
+* In fact, even the meaning of "Distance" is different for the weighted graph than what it is for the unweighted graph.
+* For the unweighted graphs, the term "Distance" conveys "Minimum edges".
+* For the weighted graphs, the term "Distance" conveys "Minimum sum value of weights".
 ---
 * It means that we need to know the edge weight to determine the shortest path.
 * For example:
@@ -79,6 +86,8 @@
 * It can take more or fewer edges or transfers, but it does not matter for the goal.
 * The goal does not primarily depend on the number of edges at all.
 * The primary focus is on the weights of the edges.
+---
+* 
 
 ## Dijkstra's Algorithm
 
