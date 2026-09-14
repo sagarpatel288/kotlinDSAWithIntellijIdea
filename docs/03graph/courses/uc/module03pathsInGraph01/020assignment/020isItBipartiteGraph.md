@@ -231,6 +231,8 @@ private fun isBipartiteDfs(vertex: Int, colors: IntArray, color: Int): Boolean {
 
 ## Implementation
 
-* 
+* [Check Bipartite Graph.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module03pathsInGraph01/020isItBipartiteGraph.kt)
 
 ## Next
+
+* 
