@@ -40,10 +40,10 @@
 
 * So, whether the path is the shortest or not really depends on the weight of the edges. 
 * Here, the weight is in the sense of some value.
-* It can represent distance, time, or anything.
+* It can represent distance, time, price, or anything.
 * All the edges represent the same measurement unit or measurement family or context.
 * And each value is positive.
-* For example, we might want to convey how much time we will take to travel from A to B or what will be the total distance between A and B.
+* It might represent the time we will take to travel from A to B, or the price we will spend by traveling from A to B, or the total traveling distance between A and B.
 * So, we don't want these values to be negative.
 * This is known as the case where edges have non-negative weights (values).
 * Sometimes we use these terms interchangeably: weights, length, distance, values.
@@ -80,7 +80,7 @@
 * Notice the shift in the perspective compared to the graph lessons we have learned so far.
 * Here, we are not talking about minimum transfers while going from A to B.
 * We are not talking about the minimum number of edges to reach from A to B.
-* We are talking about the distance or time to reach from A to B.
+* We are talking about the distance or time or some other value to reach from A to B.
 * We are talking about the fastest path to reach from A to B.
 * The number of edges or transfers it take does not matter for the goal. 
 * It can take more or fewer edges or transfers, but it does not matter for the goal.
