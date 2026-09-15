@@ -87,6 +87,7 @@
 * It can take more or fewer edges or transfers, but it does not matter for the goal.
 * The goal does not primarily depend on the number of edges at all.
 * The primary focus is on the weights of the edges.
+* The primary goal is to get the minimum sum of the weights of the edges involved from the starting point to the destination point.
 ---
 * 
 
