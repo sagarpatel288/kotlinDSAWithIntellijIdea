@@ -27,6 +27,44 @@
 ## Concept
 
 * ![Naive Algorithm Edge Relaxation.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/02naiveAlgorithmEdgeRelaxation/01naiveAlgorithmEdgeRelaxation.webp)
+* Suppose that we have given the below edges and weights.
+
+```markdown
+A → B = 2
+A → C = 4
+B → C = 1
+```
+
+* We want to find the shortest distance from A → C.
+* Now, suppose that there is a direct edge between U → C.
+* If we know the shortest distance from A → U, then we also find the shortest distance from A → C.
+* Because then, it will be: `dist(A, C) = dis(A, U) + w(U, C)`.
+* Now, there can be many vertices between A and C.
+* And these vertices don't have to be connected in a linear fashion.
+* They form a complex graph.
+* The idea is, if we know the shortest distance for each vertex, we can ultimately find the shortest distance from A → C.
+* So, how do we find the shortest distance for each vertex?
+---
+* We start with the source node.
+* Suppose, we want to find the distance of all the other nodes from "A".
+* Then, "A" is the source node.
+* Initially, we don't know the distance of any other node except "A" - the source node itself.
+* The distance from "A" to "A" is "0".
+* So, we store this information to a `dist` array.
+* The size of this `dist` array is equal to the given vertices.
+* Because we are going to store the distance of each vertex.
+* And we will be using the direct addressing method.
+---
+* We want to cover each vertex.
+* But this is not simply about covering each vertex.
+* This is about finding the shortest path (and not just any path) for each vertex.
+---
+* Does the order in which we explore the vertices matter?
+* Do we have any particular pattern for that? Why? How does it help?
+---
+* So, mainly, the edge relaxation includes two things:
+  * Reduce the stored distance whenever we find a shorter distance
+  * Choose the next unexplored vertex that has the smallest distance so far
 
 ## Next
 
