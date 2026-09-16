@@ -142,52 +142,23 @@ if (dist[B] > dist[C] + weight(C, B)) {
 * So, we use the same technique we have used in the: [Shortest Path.md](../../module03pathsInGraph01/010lectures/020shortestPath.md).
 * So, the shortest path from A to D is: ACBD, and the distance is 4.
 ---
-
+* Story to Code:
+* 
 ---
-* We follow the greedy approach and repeat the edge relaxation process.
-* For example, suppose we have the below graph.
-* We want to find the shortest path between A and V.
-* We start with the source node, "A".
-* We check the direct edges and try to relax them.
-* Then, the vertex with the shortest distance becomes the source.
-* And we repeat the process until we reach the destination.
----
-* And to remember the distance for each vertex, we store the distance information.
-* To store the distance information, we take the `dist` array.
-* The size of the `dist` array will be equal to the total `vertices`.
----
-* Recall the syntax of the edge relaxation.
-* `dist[v]` represents the shortest known distance of node `v` from the source node.
-* `w(u, v)` represents the direct edge weight between the node `u` and `v`.
----
-* Now, when we start the process, the only thing that we know is the distance from the start node to the destination node.
-* So, if the source node is `A`, then `dist[A] = 0`.
-* And by default, all the other nodes get the distance `MAX_VALUE`.
-* We start with the neighbor nodes of the source.
-* Let us assume that the neighbor node is `B` and `C`.
-* Remember that by default, `dist[B] = MAX_VALUE` and `dist[C] = MAX_VALUE`.
-* But as we travel from the source node to the neighbor node via the provided edge and weight, we get some weight value.
-* For example, suppose we travel from A to B.
-* And assume that the given weight from A to B is `4`.
-* It means that we have a smaller value than the previous value of `dist[B]`.
-* Earlier, `dist[B]` was `MAX_VALUE`, and now it is `4`.
-* So, we update the `dist[B]` to `4`.
-* It represents that the shortest known path to reach B from A is `4`.
----
-* If we notice, the entire algorithm is based on:
-* What is the shortest path to reach from the source node to the next node (and not directly the original destination node)?
-* We reduced the problem into the smaller size.
-* We solved the problem incrementally using the extremum.
-* So, this algorithm is classified as the greedy algorithm.
+* If we notice, we broke the original large problem into a smaller version.
+* And when we got multiple options, we choose the extremum (minimum) first.
+* And we eventually tried all the options.
+* And we repeated the same process at each incremental stage.
+* And we gradually built the solution for the original, larger problem.
+* All these properties imply that this is a greedy approach.
+* So, this algorithm is classified as a greedy algorithm.
 ---
 * What is the concept of the known region in the Dijkstra's Algorithm?
 ---
 * Why does it use a priority queue instead of a normal queue?
 * To find the shortest path, we have to take the shortest path that is already known.
-* It means that we always want to explore the nodes in the ascending order of their distance from the source node.
-* And this is possible through the priority queue, as we can get the extremum (min or max) efficiently in `O(log n)` time.
-* In a normal queue, if the queue has "BC", then it will process "B" first and then "C".
-* It doesn't matter for the normal queue which distance is the shortest, which node is the closest to the source node. 
+* It means that we always want to explore the nodes in the ascending order of their distances from the source node.
+* And this is possible through the priority queue (min-heap), as we can maintain and get the extremum (min or max) efficiently in `O(n log n)` time. 
 ---
 * Does Dijkstra's Algorithm use BFS?
 * No. BFS uses a queue and a queue follows FIFO.
