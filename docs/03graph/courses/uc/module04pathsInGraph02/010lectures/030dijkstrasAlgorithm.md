@@ -143,7 +143,19 @@ if (dist[B] > dist[C] + weight(C, B)) {
 * So, the shortest path from A to D is: ACBD, and the distance is 4.
 ---
 * TL:DR
-* 
+* We take `dist` array to store the distance of all the nodes from the source node.
+* We also take the `prev` array to store the `previous` vertex information to understand through which (`previous`) vertex we reached.
+* The size of the `dist` and the `prev` are equal to the total number of `vertices`.
+* The default value in the `dist` is: `MAX_VALUE`.
+* The default value in the `prev` is: `-1`.
+* We start with the source node.
+* We pick up the closest neighbor first using the direct edge weight and min-heap.
+* We update (reduce) the distance of the neighbor. 
+* If `dist[v] > dist[u] + weight(u, v)`, then `dist[v] = dist[u] + weight(u, v)`.
+* Accordingly, we update `prev` based on the `prev/parent` vertex information.
+* Once we finish all the neighbors, we repeat the process for the closest neighbor.
+* To find and process the closest neighbor first, we use `min-heap`.
+* We repeat the process until we reach the destination.
 ---
 * Story to Code:
 * 
