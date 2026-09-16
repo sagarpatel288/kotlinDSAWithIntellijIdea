@@ -142,6 +142,9 @@ if (dist[B] > dist[C] + weight(C, B)) {
 * So, we use the same technique we have used in the: [Shortest Path.md](../../module03pathsInGraph01/010lectures/020shortestPath.md).
 * So, the shortest path from A to D is: ACBD, and the distance is 4.
 ---
+* TL:DR
+* 
+---
 * Story to Code:
 * 
 ---
