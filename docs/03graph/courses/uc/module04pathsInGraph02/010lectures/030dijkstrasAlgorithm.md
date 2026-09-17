@@ -67,7 +67,7 @@
 * Now, we explore the next vertex.
 * But which vertex will we pick up first between B and C?
 ---
-* ![Dijkstras Algorithm is Closest First.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/03dijkstrasAlgorithm/020DijkstrasAlgorithm02.webp)
+* ![Dijkstras Algorithm is Closest First.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/03dijkstrasAlgorithm/030DijkstrasAlgorithm03.webp)
 * As shown in the image, we know that the distance between A → B is 10.
 * And we know that the distance between A → C is 5.
 * We don't know anything else, yet.
@@ -82,6 +82,21 @@
 * We don't modify it.
 * And to decide which vertex is the closest one from the source node, he used a `min-heap`.
 * So, we will use a `min-heap` to decide and process the closest vertex first.
+---
+* Notice that this is neither BFS nor DFS.
+* It uses two steps:
+* Relax the neighbors + Select from the `min-heap`.
+* Every time we relax a vertex, we push (offer) it to the `min-heap`.
+* And to explore the next vertex, we use `poll` on the `min-heap`. 
+* Coincidentally, it can end up with BFS or DFS, but it is never the intention here.
+* In fact, the closer intention is to explore the closest (shortest) known path first (greedy).
+* The algorithm constantly follows and tries the tentative shortest known path first (greedy). 
+---
+* So, the pattern, the approach of the progress, the invariant, the steps of relaxing and exploring the vertices is:
+* Relax the neighbors.
+* Add relaxed neighbors to the `min-heap`.
+* Explore using the `min-heap`.
+* Repeat.
 ---
 * So, in our example, we will first explore `C` compared to `B`.
 * Because `C` is the closest vertex to the source node than `B`.
@@ -158,7 +173,12 @@ if (dist[B] > dist[C] + weight(C, B)) {
 * We repeat the process until we reach the destination.
 ---
 * Story to Code:
-* 
+* Arsenal / Tools to find the shortest path using the Dijkstra's Algorithm:
+* Two arrays: `dist`, `prev`.
+* Each of size: `vertices`.
+* Default values: `dist` = `MAX_VALUE`, `prev` = `-1`.
+* Exploration: Start from the source node, then choose the vertex with the smallest known distance. It doesn't have to be a neighbor.
+* How to choose the next vertex with the smallest distance? Using `min-heap`.
 ---
 * If we notice, we broke the original large problem into a smaller version.
 * And when we got multiple options, we choose the extremum (minimum) first.
