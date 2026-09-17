@@ -8,6 +8,7 @@
   * [Graph: Adjacency Matrix](#graph-adjacency-matrix)
   * [Which one to choose: When and Why](#which-one-to-choose-when-and-why)
 * [Which data structure to choose: When and why](#which-data-structure-to-choose-when-and-why)
+* [Common Functions](#common-functions)
 <!-- TOC -->
 
 
@@ -130,3 +131,35 @@
 | Fast prefix matching           | High memory usage           | Trie               |
 | Sparse graph representation    | Slower edge lookup          | Adjacency List     |
 | Constant-time edge checks      | O(V²) memory                | Adjacency Matrix   |
+
+# Common Functions
+
+```markdown
+
+| Interface | Model              | Functions                                                       |
+|-----------|--------------------|-----------------------------------------------------------------|
+| List      | Collection         | add, get, remove                                                |
+| Queue     | FIFO               | offer, peek, poll                                               |
+| Deque     | Double Ended Queue | offerFirst, offerLast, peekFirst, peekLast, pollFirst, pollLast |
+| Stack     | LIFO               | push, peek, pop                                                 |
+
+```
+
+```markdown
+
+| Action                       | Returns null or Boolean on failure | Throws an exception on failure |
+|------------------------------|------------------------------------|--------------------------------|
+| Inserts at Head              | offerFirst                         | addFirst, push                 |
+| Inserts at Tail              | offer, offerLast                   | add, addLast                   |
+| Reads the Head               | peek, peekFirst                    | element, getFirst              |
+| Reads the Tail               | peekLast                           | getLast                        |
+| Removes and returns the Head | poll, pollFirst                    | remove, removeFirst, pop       |
+| Removes and returns the Tail | pollLast                           | removeLast                     |
+
+```
+
+**`remove` overloads**
+
+* `remove` when used for a `queue` throws exception on failure.
+* `remove(int index)` throws `IndexOutOfBounds` for an invalid index.
+* `remove(object o)` returns `true` if the item was found and removed. Otherwise, it returns `false`.
