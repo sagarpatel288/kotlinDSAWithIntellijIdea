@@ -180,6 +180,85 @@ if (dist[B] > dist[C] + weight(C, B)) {
 * Default values: `dist` = `MAX_VALUE`, `prev` = `-1`.
 * Exploration: Start from the source node, then choose the vertex with the smallest known distance. It doesn't have to be a neighbor.
 * How to choose the next vertex with the smallest distance? Using `min-heap`.
+* To select it from the `min-heap`, we need to have distance and corresponding vertex in the `min-heap`.
+* When and how do we add (push, offer) them to the `min-heap`?
+* ![Dijkstras Algorithm Data Format.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/03dijkstrasAlgorithm/040dijkstrasAlgorithmDataFormat.webp)
+* Distance is the edge weight.
+* Unlike unweighted graphs, here we get weight along with the edges.
+* We are talking about the distance of all the nodes from the source node.
+* It means that if an edge is (vertex, distance), then it represents the distance of that vertex from the source node.
+* So, we can have a data class for edge.
+* It can be something like: `data class Edge(val vertex: Int, val distance: Int)`.
+* And we are expecting the distance and vertex values for each edge from the input.
+* Now, each vertex can have multiple edges, and it represents neighbors.
+* It means that each vertex can get a list of edges.
+* So, it becomes: `data class Vertex(val vertex: Int, val edges: List<Edge>)`.
+* And we can have multiple vertices.
+* So, it becomes: `List<Vertex>`.
+* And remember that we use the direct addressing method.
+* So, the size of this list of vertices is equal to the total vertices.
+* So, it becomes: `List(vertices) { mutableListOf<Edge>() }`.
+* Here, the index of the `List` represents the vertex.
+* And each vertex has the `mutableListOf<Edge>`.
+* Now, the distance-level layer is based on the source node.
+* So, we need to know the source node as well.
+* And it is something that we cannot create or assume on our own.
+* So, we are also expecting that the source node will be given in the input.
+* Now, we have all the required data to understand and process the edge, the distance, and the associated vertex.
+* Index `0` of the `List` will give us the list of edges of the vertex `0`.
+* And each edge will give us two things: Vertex and Distance.
+* It represents that `0` is directly connected to the `Vertex` and the weight/distance is `Distance`.
+* We derive the actual `vertex` and `distance` from each edge.
+* So, this is how we get the distance.
+* Once we get the vertex, we check if we can relax it.
+* If we can relax it, we add it to the `min-heap` along with the new, updated, reduced distance.
+* When and how do we relax the vertex?
+* Initially, we will add the `source` to the `min-heap`.
+* Then, we run a while loop.
+* We get the neighbors through the edges.
+* And if relax the vertex according to the formula, we add it to the `min-heap`.
+* The `min-heap` keeps the vertex with the shortest path on top.
+* To keep the vertex with the shortest path on top, we must give the (Distance, Vertex) to the `min-heap`.
+* So that it can compare and auto-sort based on the `distance`.
+* Otherwise, we can also provide a custom comparator.
+* The goal is to keep the shortest distance on top.
+* And if there are multiple similar distances, the vertex with the smallest index takes the priority and stays on top.
+* If the `min-heap` is not empty, we `poll` the top vertex.
+* And we repeat the same process until the `min-heap` is empty.
+* But when do we update the `prev` array?
+* The `prev` array stores the information of the previous/parent vertex through which we reached the current vertex.
+* And we can get this information when we get the neighbors from the vertex.
+* So, when we get the neighbors to relax them, we have the required information to update `prev`.
+* Now, let us use all these details, tools, information to model the story into the code:
+---
+```kotlin
+
+fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
+    val dist = Array<Int>(totalVertices) { Int.MAX_VALUE }
+    val prev = Array<Int>(totalVertices) { -1 }
+    val minHeap = PriorityQueue<Pair<Int, Int>>()
+    dist[source] = 0
+    minHeap.add(Pair(0, source))
+    while (minHeap.isNotEmpty()) {
+        val (distance, vertex) = minHeap.poll()
+        val vertexWithEdges = vertices[vertex]
+        for ((neighbor, distance) in vertexWithEdges.edges) {
+            if (dist[neighbor] > dist[vertex] + distance) {
+                dist[neighbor] = dist[vertex] + distance
+                minHeap.add(dist[neighbor], neighbor)
+            }
+            prev[neighbor] = vertex
+        }
+    }
+    // Shortest path from source to each node
+    val stringBuilder = StringBuilder()
+    dist.forEach {
+        stringBuilder.append("$it , ")
+    }
+    println(stringBuilder)
+}
+
+```
 ---
 * If we notice, we broke the original large problem into a smaller version.
 * And when we got multiple options, we choose the extremum (minimum) first.
