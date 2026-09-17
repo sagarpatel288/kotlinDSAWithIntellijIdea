@@ -99,6 +99,7 @@
 * Repeat.
 ---
 * So, in our example, we will first explore `C` compared to `B`.
+* ![Dijkstras Algorithm.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/03dijkstrasAlgorithm/010DijkstrasAlgorithm.webp)
 * Because `C` is the closest vertex to the source node than `B`.
 * Ok. So now, our current node is C. 
 * We repeat the same process that we did for the vertex, A.
@@ -164,13 +165,13 @@ if (dist[B] > dist[C] + weight(C, B)) {
 * The default value in the `dist` is: `MAX_VALUE`.
 * The default value in the `prev` is: `-1`.
 * We start with the source node.
-* We pick up the closest neighbor first using the direct edge weight and min-heap.
-* We update (reduce) the distance of the neighbor. 
+* We pick up the closest vertex first using the direct edge weight and min-heap.
+* We update (reduce) the distance of the vertex. 
 * If `dist[v] > dist[u] + weight(u, v)`, then `dist[v] = dist[u] + weight(u, v)`.
 * Accordingly, we update `prev` based on the `prev/parent` vertex information.
-* Once we finish all the neighbors, we repeat the process for the closest neighbor.
-* To find and process the closest neighbor first, we use `min-heap`.
-* We repeat the process until we reach the destination.
+* We add the relaxed vertex to the `min-heap`.
+* We explore the next vertex using `poll` on the `min-heap`.
+* We repeat the process until the `min-heap` is empty, we find the destination, or we hit the dead-end (finished entire graph).
 ---
 * Story to Code:
 * Arsenal / Tools to find the shortest path using the Dijkstra's Algorithm:
