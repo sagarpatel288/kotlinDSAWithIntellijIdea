@@ -502,6 +502,10 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * And as a result, we replace and reduce the upper bound from `MAX` to some other smaller value.
 * We do this whenever we find a shorter path to that node.
 ---
+* Sometimes, we use the term "Known Region" for the `min-heap`.
+* We say that the `min-heap` represents the "Known Region" where we add the vertices along with their distances from the source node.
+* When we add a vertex with the distance from the source, it implies that we know the distance of that vertex from the source node.
+---
 
 ## ToDo
 
