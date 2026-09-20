@@ -534,11 +534,12 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 
 **Extract Min**
 
-* Extract min depends on the total number of vertices.
-* We extract min at most O(V) times.
-* It implies that we may add each vertex to the priority queue.
-* And then for each vertex, the priority queue has to perform the extract min operation.
-* So, it becomes: O(V) * T (Extract Min)
+* Extract min depends on the total number of items we add to the min-heap.
+* With lazy deletion, it can be up to O(E).
+* With index-based replacement, it can be up to O(V).
+* For each item, we perform extract min when we call `poll`.
+* For each item, the priority queue has to perform the extract min operation.
+* So, it becomes: O(V) * T (Extract Min) or O(E) * T(Extract Min)
 ---
 
 **Change Priority**
@@ -584,7 +585,7 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * So, the overall time complexity becomes:
 * O(V) + O(V) * T(extractMin) + O(E) * T(changePriority)
 * $= O(V) + O(V^2) + O(E)$
-* Which is, $O(V^2)$. 
+* For a simple graph (and not for a dense graph), it simplifies to: $O(V^2)$. 
 
 ---
 
@@ -595,24 +596,25 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * So, it is:
 * O(V) + O(V) * T(extractMin) + O(E) * T(changePriority)
 * $= O(V) + O(V log V) + O(E log V)$
-* $= O(V + E) log V)$ 
+* $= O((V + E) log V)$
 
 ---
 
 **Which min-heap implementation to use?**
 
 * It depends on the graph structure.
-* A graph can have either $E <= V^2$ or $E >= V^2$.
-* If $E <= V^2$, we go with the binary-heap.
-* If the graph is full, we go with the min-heap that uses array.
+* A sparse graph has a fewer edges compared to $V^2$.
+* Whereas a dense graph can have edges close to $V^2$.
+* For a sparse graph, we go with the binary-heap.
+* If the graph is full (dense), we go with the min-heap that uses array implementation.
 
 ## Space Complexity
 
 * The `dist` array stores: O(V)
 * The `prev` array stores: O(V)
-* The `min-heap` can store either O(V) or O(E): O(E)
-* If we use lazy deletion, it stores: O(E)
-* If we use index based priority change, it stores: O(V)
+* The `min-heap` can store either O(V) or O(E).
+* If we use lazy deletion (multiple entries per vertex), it stores: O(E)
+* If we use index based priority change, it stores (at most one entry per vertex): O(V)
 * The adjacency list: O(V + E)
 * Exclude the adjacency list considering the given graph
 * So, if we use lazy deletion, it is: $O(V + E)$.
