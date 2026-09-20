@@ -12,7 +12,116 @@
 
 ## Concept
 
-* Suppose that we have the following graph:
+**Story**
+
+* Imagine that you are an explorer.
+* The king invited you to the palace for a task.
+* The king is proactive.
+* He has a list of places where he goes or may go frequently.
+* There are multiple ways to reach a particular place.
+* The king wants to find the shortest path to reach each place.
+* So that in case of any emergency, he can reach the destination faster.
+---
+* For example, let us assume that the palace is A and the destination is B.
+* Now, we can reach B directly from A and in that case, the path will be: A → B.
+* Or we can reach B via C and in that case, the path will be: A → C → B.
+* We need to find which path is the shortest path to reach B from A.
+---
+* Your job is to find the shortest distance (path) for each place from the palace.
+* You start from the palace.
+* Initially, you only have the direction and names of the places you need to explore.
+* You have the following graph (map):
+
+![Dijkstras Algorithm Initial.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/03dijkstrasAlgorithm/005DijkstrasAlgorithmInitial.webp)
+
+* Before you actually start the journey, you mark the distance of each place as infinite or MAX. 
+* However, we know one value: 
+* From the palace to the palace = From the source A to the source A = 0.
+* So, the table becomes:
+
+```markdown
+
+| From | To | Distance |
+|------|----|----------|
+| A    | A  | 0        |
+| A    | B  | MAX      |
+| A    | C  | MAX      |
+| A    | D  | MAX      |
+
+```
+
+* Your plan is that you would travel through all the outgoing paths from your current place.
+* You calculate the distance along the way while traveling.
+* If you find that the distance is shorter than what is in the table, you update the distance.
+* And you would always follow the shortest known path.
+* For example:
+
+![Dijkstras Algorithm Progress.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/03dijkstrasAlgorithm/007DijkstrasAlgorithmProgress.webp)
+
+**Current place: Palace (Source node A)**
+
+* Check all the outgoing paths = Check all the outgoing edges.
+* Current place has two outgoing edges: A → B and A → C. 
+* You start with: A → B. 
+* You find that the distance is 4, but it is MAX in the table.
+* So, you update the distance.
+* It concludes that the shortest known distance from A to B is 4.
+* Then, you travel through the next outgoing edge of A:
+* You travel A → C.
+* You find that the distance is 1, but it is MAX in the table.
+* So, you update the distance.
+* It concludes that the shortest known distance from A to C is 1.
+* Then, you follow the shortest known path.
+* So, you select and explore C first compared to B, because it is closer (shortest known path) to the source compared to B.
+* Now, you repeat the same process for the node C as well.
+---
+
+**Current place: C**
+
+---
+* Check all the outgoing edges.
+* It has two outgoing edges: C → B, and C → D.
+* You first check C → B.
+* Now, notice that this is the same place you have reached again, but this time via C.
+* Earlier, you concluded that A → B is 4.
+* But this time, you found that C → B is 2, and A → C is 1.
+* It means, if we take this route, A → C → B, we can reach B earlier.
+* Because A → C → B is shorter (3) compared to A → B which was 4. 
+* So, we update this information: A → B is 3 if we travel as A → C → B. 
+* Next, we have one more outgoing edge of C to cover: C → D.
+* In the original table, from A → D is MAX.
+* But as we travel from C to D, we find that the distance of C → D is 5.
+* And A → D = A → C + C → D = 1 + 5 = 6.
+* So, we update the distance for A → D as 6 in the table.
+* With this, we are done with all the outgoing edges of C.
+---
+* What will be the next place whose outgoing edges we will explore?
+* The shortest known path.
+* A → B is 4, A → C is covered, A → D is 1 + 5 = 6 (A → C + C → D).
+* So, the smallest known distance (for which we have not explored the outgoing edges, yet) points to A → B.
+* So, the next place will be: B
+---
+
+**Current Place: B**
+
+---
+* B has only one outgoing edge.
+* Let us check it.
+* It is B → D.
+* As we travel B → D, we find that it is 1.
+* So, A → B + B → D = 3 + 1 = 4.
+* But in the table, it is 6.
+* It means that we have found a shorter path.
+* So, we update the table.
+* We update the distance from A → D as 4.
+---
+* Now, node D does not have any outgoing edges.
+* And with this, we have covered the entire graph (map).
+* And our table has the information about the shortest path to any node from the source node.
+---
+* Now, we will see the same story in a little-bit more technical terms.
+---
+* So, we have the following graph:
 * ![Dijkstras Algorithm.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/03dijkstrasAlgorithm/010DijkstrasAlgorithm.webp)
 * We want to find the shortest distance from A → D.
 * Node "A" is our source node and node "D" is our destination node.
@@ -22,8 +131,8 @@
 * But if we try each route one by one, we would re-visit many nodes and path along the way.
 * And it will be very inefficient.
 * So, we break this large problem into a smaller problem.
-* We focus on the neighbors first because there is a direct edge for them.
-* And by neighbors, we are talking about the vertices that are connected through the outgoing edges.
+* We focus on the closest node from the source first.
+* And to know the closest node from the source, we start with the source and use its outgoing edges.
 * For example, in the given image, the vertex A has two outgoing edges.
 * So, we say that the vertex A has two neighbors.
 * And we repeat this for each neighbor.
