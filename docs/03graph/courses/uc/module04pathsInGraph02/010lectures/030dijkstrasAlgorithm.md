@@ -606,6 +606,18 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * If $E <= V^2$, we go with the binary-heap.
 * If the graph is full, we go with the min-heap that uses array.
 
+## Space Complexity
+
+* The `dist` array stores: O(V)
+* The `prev` array stores: O(V)
+* The `min-heap` can store either O(V) or O(E): O(E)
+* If we use lazy deletion, it stores: O(E)
+* If we use index based priority change, it stores: O(V)
+* The adjacency list: O(V + E)
+* Exclude the adjacency list considering the given graph
+* So, if we use lazy deletion, it is: $O(V + E)$.
+* If we use index based priority change, it is: $O(V)$.
+
 ## ToDo
 
 * Add time and space complexity analysis
