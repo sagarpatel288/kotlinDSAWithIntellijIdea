@@ -507,6 +507,105 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * When we add a vertex with the distance from the source, it implies that we know the distance of that vertex from the source node.
 ---
 
+## Time Complexity
+
+* What are the main areas where we spend more time?
+---
+
+**Initialization**
+
+* Initialization where we assign the `dist` and `prev` value to each vertex.
+* So, it is O(V).
+---
+
+**Make Priority Queue**
+
+* Then, when we make a priority queue.
+* We can make the priority queue in two different ways:
+* Either using the array or using the binary heap.
+* And we select the option based on the structure of the graph.
+* For example, if the number of edges are fewer, binary heap is efficient.
+* If the graph is full, array is efficient.
+* So, the next three major operations depend on the priority queue implementation.
+* These three major operations are:
+* Make priority queue, extract min, and change priority.
+* Out of these 3 operations, we have a known, fixed cost:
+---
+
+**Extract Min**
+
+* Extract min depends on the total number of vertices.
+* We extract min at most O(V) times.
+* It implies that we may add each vertex to the priority queue.
+* And then for each vertex, the priority queue has to perform the extract min operation.
+* So, it becomes: O(V) * T (Extract Min)
+---
+
+**Change Priority**
+
+* Changing the priority corresponds to edge relaxation.
+* We inspect each edge at most once.
+* It implies that we change the priority at most once per edge.
+* So, it becomes: O(E) * T(Change Priority)
+
+---
+
+**Total**
+
+* O(V) + O(V) * T(extractMin) + O(E) * T(changePriority)
+
+---
+
+* In other words, what do we do?
+* We add a vertex with the distance to the min heap.
+* The min heap has to perform and maintain the min invariant for that vertex.
+* So that when we extract min, we get the vertex having the smallest known distance.
+* Then what do we do?
+* We check all the outgoing edges of this polled vertex.
+* And if we find a smaller, shorter distance for any node, either we add it to the min heap or we change the priority of that node in the min heap.
+* Now, two things are happening here: 
+* The loop that inspects each edge: O(E)
+* And either adding the vertex to the min-heap or changing the priority to the corresponding vertex in the min-heap.
+* And that is why we relate (connect, map, correspond) T(changePriority) with O(E) as: O(E) * T(changePriority).
+* In other words, we may call the change priority function for each edge that we inspect.
+* And why/how do we relate the extract min function with O(V) as: O(V) * T(extractMin)?
+* Because either we can at most O(V) items in the min-heap or O(E) items.
+* And for each item, we call `poll` (so that we can process it, either to inspect its outgoing edges or to discard it if we already have found the shorter distance), the min-heap has to perform the extract min operation.
+* So, the extract min operation corresponds to either O(V) or O(E).
+* In other words, we call `poll` (or say, `extractMin`) for each vertex we add to the min-heap.
+* Now, it is up to us to avoid adding duplicate vertices to the min-heap.
+---
+
+**Min-heap using Array**
+
+* Now, if we use the array implementation, then extract min is linear.
+* So, O(V) * T(extractMin) becomes $O(v^2)$.
+* And change priority is O(1).
+* So, the overall time complexity becomes:
+* O(V) + O(V) * T(extractMin) + O(E) * T(changePriority)
+* $= O(V) + O(V^2) + O(E)$
+* Which is, $O(V^2)$. 
+
+---
+
+**Min-heap using Binary-Heap**
+
+* Building a binary heap is linear: O(V)
+* extractMin and changePriority are logarithmic.
+* So, it is:
+* O(V) + O(V) * T(extractMin) + O(E) * T(changePriority)
+* $= O(V) + O(V log V) + O(E log V)$
+* $= O(V + E) log V)$ 
+
+---
+
+**Which min-heap implementation to use?**
+
+* It depends on the graph structure.
+* A graph can have either $E <= V^2$ or $E >= V^2$.
+* If $E <= V^2$, we go with the binary-heap.
+* If the graph is full, we go with the min-heap that uses array.
+
 ## ToDo
 
 * Add time and space complexity analysis
