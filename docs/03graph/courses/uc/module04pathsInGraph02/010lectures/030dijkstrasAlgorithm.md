@@ -495,6 +495,13 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * No. BFS uses a queue and a queue follows FIFO.
 * Dijkstra's Algorithm uses min-heap.
 ---
+* Sometimes, we use the term "Upper Bound" for the values we set in the `dist`.
+* And we decrease this "Upper Bound" whenever we get the chance - whenever we find a shorter path.
+* For example, initially, the upper bound for each node is `MAX`.
+* But then as we explore, we may find a shorter path.
+* And as a result, we replace and reduce the upper bound from `MAX` to some other smaller value.
+* We do this whenever we find a shorter path to that node.
+---
 
 ## ToDo
 
