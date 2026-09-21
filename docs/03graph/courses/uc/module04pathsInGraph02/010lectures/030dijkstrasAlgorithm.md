@@ -507,6 +507,27 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * When we add a vertex with the distance from the source, it implies that we know the distance of that vertex from the source node.
 ---
 
+**Invariant**
+
+* When we add an item to the min-heap, it is a tentative shortest distance for that vertex (but not the final).
+* We might add the same vertex with multiple different distances into the min-heap.
+* For example, at some point in our example, our min-heap state was:
+> The min-heap had: (3, B), (4, B).
+* However, when we extract the same vertex, the distance associated with it becomes the final shortest distance for that vertex, and it doesn't get chance to decrease it further.
+* Because all the subsequent entries for the same vertex will have either the same or the higher distance due to the `min-heap` property.
+* And once we extract the min vertex, we inspect it's outgoing edges.
+* For example, if we have extracted A, we inspect it's outgoing edges, and it can be A → B and A → C.
+* Suppose we first check A → B.
+* We check the `dist[B]` and if we find that `dist[B] > dist[A] + weight(A, B)`, then we improve (reduce) the distance of `dist[B]`.
+* See, we don't get the chance to reduce the distance of "A".
+* If we consider "A" as the temporary source, and "B" as the temporary destination, then we only get the chance to improve this temporary destination, and not the source.
+* That's why the algorithm implies that once we extract the min vertex, the distance associated with it cannot be further reduced and this is the Dijkstra's Algorithm's invariant.  
+* In other terms, when we extract the min vertex from the `min-heap`, we say that the vertex is in the known region.
+* And then, we inspect the outgoing edges of the vertex from this known region to add the tentative shortest paths of other vertices that are still in the unknown region.
+* And as said and demonstrated earlier in this section, we might add multiple distance values for the same vertex to the `min-heap`.
+* But the `poll` moment stamps the distance as the final shortest distance. 
+---
+
 ## Time Complexity
 
 * What are the main areas where we spend more time?
