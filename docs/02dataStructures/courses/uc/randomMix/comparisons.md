@@ -163,3 +163,14 @@
 * `remove` when used for a `queue` throws exception on failure.
 * `remove(int index)` throws `IndexOutOfBounds` for an invalid index.
 * `remove(object o)` returns `true` if the item was found and removed. Otherwise, it returns `false`.
+
+## Algorithms
+
+**Greedy Algorithm**
+
+* Keep trying the extremum in ascending or descending order.
+* For example, currency exchange or Dijkstra's Algorithm.
+
+**Dynamic Programming**
+
+* Try all the solutions and then pick up the best solution.
