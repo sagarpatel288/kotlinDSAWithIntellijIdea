@@ -522,10 +522,11 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * See, we don't get the chance to reduce the distance of "A".
 * If we consider "A" as the temporary source, and "B" as the temporary destination, then we only get the chance to improve this temporary destination, and not the source.
 * That's why the algorithm implies that once we extract the min vertex, the distance associated with it cannot be further reduced and this is the Dijkstra's Algorithm's invariant.  
-* In other terms, when we extract the min vertex from the `min-heap`, we say that the vertex is in the known region.
-* And then, we inspect the outgoing edges of the vertex from this known region to add the tentative shortest paths of other vertices that are still in the unknown region.
+* In other terms, when we extract the min vertex from the `min-heap`, we say that the vertex is in the known/finalized region.
+* And then, we inspect the outgoing edges of the vertex from this known region to add the tentative shortest paths of other vertices that are still in the unknown/tentative region.
 * And as said and demonstrated earlier in this section, we might add multiple distance values for the same vertex to the `min-heap`.
-* But the `poll` moment stamps the distance as the final shortest distance. 
+* But the `poll` moment stamps the distance as the final shortest distance.
+* And once it is stamped by `poll`, it does not reduce further.
 ---
 
 ## Time Complexity
