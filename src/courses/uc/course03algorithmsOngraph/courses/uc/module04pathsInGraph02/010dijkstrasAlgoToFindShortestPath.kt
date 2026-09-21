@@ -32,6 +32,8 @@ class DijkstrasAlgoToFindShortestPath(val vertices: Int) {
             compareBy<Pair<Int, Int>> { it.first }.thenBy { it.second }
         )
         // From the source to the source, the distance is `0`
+        // And it is the shortest distance we know initially
+        // Notice what we add and in which sequence we add it to the min-heap: (distance, vertex)
         minHeap.add(Pair(0, source))
         while (minHeap.isNotEmpty()) {
             val (distance, vertex) = minHeap.poll()
