@@ -87,7 +87,111 @@
 ---
 * Why did we say that we need a maximum product? Product of what? Product of currencies? It was too fast for me. How did we conclude that in order to end-up having more money than we started, we need to find maximum product?
 ---
-* 
+* So, to solve the graph problems where an edge can have a negative weight, we use "Bellman-Ford" Algorithm.
+* Let us see how it works.
+---
+* Now, let us come back to the currency exchange problem.
+* We converted multiplication into summation using logarithm.
+* We converted maximization into minimization using negation.
+* Now, our goal is to produce the minimum result which will be in reality, the maximum result.
+* Now, suppose that we get the following graph:
+
+![020negativeCycle.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/020negativeCycle.webp)
+
+* We continue the usual process.
+* The source node is A.
+* Initially, A to A is 0.
+* So, `dist[A] = 0`.
+* So, we add `(0 to A)` to the `min-heap`.
+* We `poll`, and get `(0 to A)`.
+* We inspect the outgoing edges.
+* We get A → B.
+* We update `dist[B]` to `0 + 5 = 5`.
+* We add `(5 to B)` to the `min-heap`.
+* No other outgoing edges of `A`.
+* We `poll`, and get `(5 to B)`.
+* We inspect the outgoing edges.
+* We get B → C.
+* We update `dist[C]` to `5 + 10 = 15`.
+* We add `(15 to C)` to the `min-heap`.
+* No other outgoing edges of `B`.
+* We `poll`, and get `(15 to C)`.
+* We inspect the outgoing edges.
+* We get C → A.
+* We update `dist[A]` to `15 - 20 = -5`.
+* Notice something unusual.
+* The `dist[A]` got reduced.
+---
+* So, we add `(-5 to A)` to the `min-heap`.
+* We `poll`, and get `(-5 to A)`.
+* We inspect the outgoing edges.
+* We get A → B.
+* We update `dist[B]` to `-5 + 5 = 0`.
+* The `dist[B]` also got reduced!
+* We add `(0 to B)` to the `min-heap`.
+* No other outgoing edges of `A`.
+* We `poll`, and get `(0 to B)`.
+* We inspect the outgoing edges.
+* We get B → C.
+* We update `dist[C]` to `0 + 10 = 10`.
+* The `dist[C]` also got reduced!
+* We add `(10 to C)` to the `min-heap`.
+* No other outgoing edges of `B`.
+* We `poll`, and get `(10 to C)`.
+* We inspect the outgoing edges.
+* We get C → A.
+* We update `dist[A]` to `10 - 20 = -10`.
+* The `dist[A]` got reduced, again!
+---
+* If we continue, we get $-\infty$.
+* And if we remember, getting as minimum value as we can, is actually getting as much value as we can.
+* So, if we continue through such a loop, we get infinite profit.
+* And that would make us billionaire!
+---
+* Let us inspect when, why, and how that happens.
+* If we observe the cycle, the initial values are: 5 + 10 - 20 = -10.
+* This is called the negative cycle.
+* It means that whenever we get a negative cycle, we decrease the value in each turn.
+* And if we keep moving through such a cycle, we keep decreasing the value with each turn.
+* And that is how it becomes $- \infty$.
+* How do we prevent such an arbitrage opportunity?
+* To prevent it, we need to detect it first.
+* How do we detect it?
+---
+* The formula is:
+* If `n` is the total number of vertices, and if even after inspecting `n - 1` edges, if the value decreases, it means that there is a negative cycle.
+* We can start with any vertex, and it will still hold true.
+* For example, let us use the same graph that has the negative cycle.
+
+![020negativeCycle.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/020negativeCycle.webp)
+
+* There are a total of `n = 3` vertices.
+* The lemma states that even after inspecting `n - 1` edges, if we find that the value decreases, there is a negative cycle.
+* And we can start with any vertex.
+* So, let us start from `C`.
+* Initially, from `C to C` is `0`.
+* So, `dist[C] = 0`.
+* We add `(0 to C)` to the `min-heap`.
+* Then, we `poll` and get `(0 to C)`.
+* We inspect the outgoing edges. // n = 1.
+* We get C → A.
+* We update `dist[A] = 0 - 20 = - 20`.
+* We add `(-20 to A)` to the `min-heap`.
+* No other outgoing edges from `C`.
+* We `poll` and get `(-20 to A)`.
+* We inspect all the outgoing edges of `A`. // n = 2.
+* We get A → B.
+* We update `dist[B] = -20 + 5 = -15`.
+* We add `(-15 to B)` to the `min-heap`.
+* No other outgoing edges from `A`.
+* We `poll` and get `(-15 to B)`.
+* We inspect all the outgoing edges.
+* We get B → C.
+* We update `dist[C] = 15 + 10 = -5`.
+* Notice that after inspecting `n - 1 = 3 - 1 = 2` edges, the `dist[C]` is reduced!
+* That indicates the negative cycle!
+* So, we stop here.
+* We don't add it to the `min-heap`.
 
 ## Time Complexity
 
