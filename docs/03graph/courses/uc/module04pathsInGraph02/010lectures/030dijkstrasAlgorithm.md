@@ -529,6 +529,41 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * And once it is stamped by `poll`, it does not reduce further.
 ---
 
+**Invariant: Base Reason**
+
+* We saw that once we extract the min item (`poll`) from the `min-heap`, the distance associated with it is the final shortest distance for it and it cannot get any shorter distance than it.
+* Why and how is it?
+
+![Dijkstras Reason.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/03dijkstrasAlgorithm/045dijkstrasReason.webp)
+
+* Let us use this image to understand the reason.
+* Suppose that the source node is A.
+* We start from A.
+* We add `(0 to A)` to the `min-heap`.
+* We `poll` and get `(0 to A)`.
+* We check the outgoing edges: A → B and A → C.
+* Suppose that we first check, A → B.
+* The edge weight is 5, we update `dist[B]` to `5`.
+* We add it to the `min-heap`: `(5 to B)`.
+* B does not have any outgoing edges.
+* So, we check A → C.
+* The edge weight is 10, we update `dist[C]` to `10`.
+* We add it to the `min-heap`: `(10 to C)`.
+* Now, the `min-heap` has: `(5 to B), (10 to C)`.
+* We `poll` and get: `(5 to B)`.
+* The lemma states that once we `poll` the item, it cannot have a shorter distance than the associated distance.
+* But, let us assume that there must be another shorter path for B.
+* But if there was any other shorter path for B, it would have been on top in the `min-heap` instead of `(5 to B)`.
+* But we hope that maybe there can be some shorter path from `C`, the upcoming `poll` candidate.
+* We `poll` and get `(10 to C)`.
+* Now, if there is any shorter path that goes via `C` to `B`, then it must be `>= 10`, because `edge weight >= 0`.
+* It means that any edge that goes from `C` to `B`, directly or indirectly, will have the total cumulative distance from `A` as `>= 10`.
+* Because if `A → C` is `10` then anything that goes via `C` must have the total cumulative distance from `A` as `>= 10`.
+* And this is true because for any edge weight, it is always `edge weight >= 0`.
+---
+* The `Any edge weight >= 0` is the core (base) reason because of which we can say that once we `poll` the item, the associated distance is the final shortest distance for the item, and it cannot have any shorter distance in the future.
+---
+
 ## Time Complexity
 
 * What are the main areas where we spend more time?
