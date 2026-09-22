@@ -26,7 +26,15 @@
 
 * Let us take a real life example.
 * The currency exchange problem is the famous one.
+
+![005arbitrage.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/005arbitrage.webp)
+
 * So, the question is, is it possible to go through a certain currency exchange path using which we can actually end-up earning more than what we had when we started?
+* In the given image, we started with 1,000 in currency A. 
+* Then, we converted it into some other currency, called B, and got 880.
+* Then, we converted it again into yet other currency, called C, and got 1056.
+* And finally, we converted it again into the original currency from where we started, and we got 1584 in currency A!
+* This is known as "Arbitrage".
 * For example, suppose initially we have $1,000 USD.
 * And then maybe we can go through RUB, GBP, and some other currency exchange paths.
 * Now, is it possible that somehow we get more than $1,000 USD when we return to USD through a particular exchange rate route?
