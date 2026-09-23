@@ -168,7 +168,7 @@
 ---
 * The formula is:
 * If `V` is the total number of vertices, and if even after inspecting all the edges `V - 1` times, if we can still reduce the distance (and so, relax an edge), it means that there is a negative cycle.
-* We can start with any vertex, and it will still hold true.
+* We can start with any vertex, and it will still hold true as long as the negative cycle is reachable from the source.
 * For example, let us use the same graph that has the negative cycle.
 
 ![020negativeCycle.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/020negativeCycle.webp)
@@ -284,8 +284,10 @@
 ---
 * In our example, we could successfully relax all the possible edges in the first run only.
 * But when there is no negative cycle, it might take up to (inclusive) `V - 1` time.
-* In other words, when there is no negative cycle, all the possible edges get relaxed by `V - 1`th iteration (inclusive).
+* In other words, when there is no negative cycle, all the possible edges get enough opportunities for the relaxation by `V - 1`th iteration (inclusive).
+* When there is no negative cycle, if an edge has the best shortest distance, it settles, it gets that distance assigned in the `dist` array by `V - 1`th iteration (inclusive). 
 * If there is no negative cycle, we can't relax any edge after the `V - 1`th iteration.
+* If we can still relax an edge, if we can still decrease a value in the `dist`, even after `V - 1` iterations, it clearly means that there is a negative cycle.
 ---
 * At this point, we conclude that we have identified the shortest distance for all the nodes.
 * We conclude that we cannot reduce the shortest distance of any node now.
