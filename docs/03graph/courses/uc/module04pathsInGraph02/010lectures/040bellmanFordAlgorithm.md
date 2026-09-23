@@ -167,40 +167,89 @@
 * How do we detect it?
 ---
 * The formula is:
-* If `n` is the total number of vertices, and if even after inspecting `n - 1` edges, if the value decreases, it means that there is a negative cycle.
+* If `n` is the total number of vertices, and if even after inspecting all the edges `n - 1` times, if we can still reduce the distance (and so, relax an edge), it means that there is a negative cycle.
 * We can start with any vertex, and it will still hold true.
 * For example, let us use the same graph that has the negative cycle.
 
 ![020negativeCycle.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/020negativeCycle.webp)
 
 * There are a total of `n = 3` vertices.
-* The lemma states that even after inspecting `n - 1` edges, if we find that the value decreases, there is a negative cycle.
+* The lemma states that even after inspecting all the edges `n - 1` times, if we find that the value decreases, there is a negative cycle.
 * And we can start with any vertex.
+---
 * So, let us start from `C`.
+* This is the first round of inspecting all the edges.
+---
 * Initially, from `C to C` is `0`.
 * So, `dist[C] = 0`.
 * We add `(0 to C)` to the `min-heap`.
-* Then, we `poll` and get `(0 to C)`.
-* We inspect the outgoing edges. // n = 1.
-* We get C → A.
+* Now we can start the first round.
+---
+* We `poll` and get `(0 to C)`.
+* We inspect the outgoing edges. 
+* We get `C → A`.
 * We update `dist[A] = 0 - 20 = - 20`.
 * We add `(-20 to A)` to the `min-heap`.
 * No other outgoing edges from `C`.
 * We `poll` and get `(-20 to A)`.
-* We inspect all the outgoing edges of `A`. // n = 2.
-* We get A → B.
+* We inspect all the outgoing edges of `A`. 
+* We get `A → B`.
 * We update `dist[B] = -20 + 5 = -15`.
 * We add `(-15 to B)` to the `min-heap`.
 * No other outgoing edges from `A`.
-* We `poll` and get `(-15 to B)`. // n = 3.
+* We `poll` and get `(-15 to B)`. 
 * We inspect all the outgoing edges.
-* We get B → C.
+* We get `B → C`.
 * We update `dist[C] = 15 + 10 = -5`.
-* Notice that after inspecting `n - 1 = 3 - 1 = 2` edges, the `dist[C]` is reduced!
-* That indicates the negative cycle!
-* So, we stop here.
-* We don't add it to the `min-heap`.
-
+* Notice that the `dist[C]` is reduced!
+---
+* We are going to inspect all the edges again. 
+* This will be the `(n - 1) = 3 - 1 = 2`nd time and the last time.
+---
+* Initially, from `C to C` is `-5`.
+* So, `dist[C] = -5`.
+* And `(-5 to C)` is already in the `min-heap` from the last run.
+* Now, we start the second round:
+---
+* We `poll` and get `(-5 to C)`.
+* We inspect the outgoing edges.
+* We get `C → A`.
+* The `dist[A]` is `-20`.
+* We update `dist[A] = -5 - 20 = - 25`.
+* We add `(-25 to A)` to the `min-heap`.
+* No other outgoing edges from `C`.
+* We `poll` and get `(-25 to A)`.
+* We inspect all the outgoing edges of `A`.
+* We get `A → B`.
+* The `dist[B]` is `-15`.
+* We update `dist[B] = -25 + 5 = -20`.
+* We add `(-20 to B)` to the `min-heap`.
+* No other outgoing edges from `A`.
+* We `poll` and get `(-20 to B)`.
+* We inspect all the outgoing edges.
+* We get `B → C`.
+* The `dist[C]` is `-5`.
+* We update `dist[C] = -20 + 10 = -10`.
+* Notice that the `dist[C]` is reduced!
+---
+* Now, if we inspect all the edges one more time, and if we can relax any edge, it will conclude that there is a negative cycle.
+* And if the `dist` values remain as it is, there is no negative cycle, and we can conclude that `dist` values represent the shortest distance (path) for each node from the source.
+* Let us inspect all the edges `nth` time.
+---
+* Initially, from `C to C` is `-10`.
+* So, `dist[C] = -10`.
+* And `(-10 to C)` is already in the `min-heap` from the last run.
+* Now, we start the third (nth) round:
+---
+* We `poll` and get `(-10 to C)`.
+* We inspect the outgoing edges.
+* We get `C → A`.
+* The `dist[A]` is `-20`.
+* We can relax the edge: `dist[A] = -10 - 20 = - 30`.
+* We could relax the edge, reduce the `dist` value, and it indicates that there is a negative cycle.
+* This should not happen when there is no negative cycle.
+* When there is no negative cycle, when we inspect all the edges for the `nth` time, nothing changes.
+* We don't get the chance to reduce any of the `dist` values.
 ---
 
 * And now, we will see that when there is no negative cycle, this doesn't happen.
