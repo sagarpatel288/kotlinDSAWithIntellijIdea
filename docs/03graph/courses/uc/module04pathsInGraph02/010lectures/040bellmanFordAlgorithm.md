@@ -305,7 +305,39 @@
 * The `Bellman-Ford Algorithm` works even when there is no negative weight.
 ---
 * Pseudocode:
-* 
+* We want to repeat the edge relaxation process for (V - 1) times:
+
+```kotlin
+
+repeat(v - 1) {
+    for (edge in edges) {
+        val (from, to, weight) = edge
+        if (dist[to] > dist[from] + weight) {
+            dist[to] = dist[from] + weight
+        }
+    }
+}
+
+// One more pass and a flag to detect the change (edge relaxation)
+var changed = false
+
+for (edge in edges) {
+    val (from, to, weight) = edge
+    if (dist[to] > dist[from] + weight) {
+        dist[to] = dist[from] + weight
+        changed = true
+    }
+}
+
+if (changed) {
+    println("Negative cycle exists!")
+    return
+}
+
+println(dist.joinToString(" "))
+
+```
+
 
 
 ## Time Complexity
