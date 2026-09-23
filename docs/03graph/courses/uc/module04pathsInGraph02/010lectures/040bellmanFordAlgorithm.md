@@ -346,6 +346,9 @@ println(dist.joinToString(" "))
 * (V - 1) + 1 = Total: V times.
 * What do we do in each iteration?
 * Inspect each edge.
+* How many edges do we have? E.
+* So, one iteration inspects E edges.
+* V iterations inspects V * E edges.
 * So, it becomes: O(V * E).
 ---
 * Note that Dijkstra's Algorithm takes: 
