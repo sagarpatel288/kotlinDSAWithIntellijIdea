@@ -311,7 +311,19 @@
 ## Time Complexity
 
 * How many iterations do we perform?
+* (V - 1) + 1 = Total: V times.
+* What do we do in each iteration?
+* Inspect each edge.
+* So, it becomes: O(V * E).
+---
+* Note that Dijkstra's Algorithm takes: 
+  * Binary heap: $O((V + E) log V)$.
+  * Array: $O(V^2)$.
+
 
 ## Space Complexity
+
+* The `dist` array of size `V` to store the distance of each vertex.
+* So, it is: $O(V)$.
 
 ## Next
