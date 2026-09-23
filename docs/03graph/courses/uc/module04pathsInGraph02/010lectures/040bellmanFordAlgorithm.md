@@ -24,7 +24,7 @@
 
 ## Bellman-Ford Algorithm
 
-* Let us take a real life example.
+* Let us take a real life example where edges can have negative weights.
 * The currency exchange problem is the famous one.
 
 ![005arbitrage.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/005arbitrage.webp)
@@ -192,7 +192,7 @@
 * We update `dist[B] = -20 + 5 = -15`.
 * We add `(-15 to B)` to the `min-heap`.
 * No other outgoing edges from `A`.
-* We `poll` and get `(-15 to B)`.
+* We `poll` and get `(-15 to B)`. // n = 3.
 * We inspect all the outgoing edges.
 * We get B → C.
 * We update `dist[C] = 15 + 10 = -5`.
@@ -200,6 +200,54 @@
 * That indicates the negative cycle!
 * So, we stop here.
 * We don't add it to the `min-heap`.
+
+---
+
+* And now, we will see that when there is no negative cycle, this doesn't happen.
+
+![Positive Cycle.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/030positiveCycle.webp)
+
+* Total vertices, `n = 3`.
+* The source node is `A`, and we start from `A`.
+* From A to A is 0.
+* So, we add `(0 to A)` to the `min-heap`.
+* We `poll` and get `(0 to A)`. // n = 1.
+* We inspect all the outgoing edges.: A → B.
+* We update `dist[B]` from `MAX` to `(5 to B)`.
+* We add it to the `min-heap`: `(5 to B)`.
+* `A` does not have any other outgoing edge.
+* We `poll` and get `(5 to B)`. // n = 2.
+* We inspect all the outgoing edges.: B → C.
+* We update `dist[C]` from `MAX` to `(15 to C)`.
+* We add it to the `min-heap`: `(15 to C)`.
+* `B` does not have any other outgoing edge.
+* At this point, we conclude that we have identified the shortest distance for all the nodes.
+* We conclude that we cannot reduce the shortest distance of any node now.
+* But let us try to detect the negative cycle if there is any or let us see what happens if we continue even after the `(n - 1)` iterations of edge relaxation.
+* We `poll` and get `(15 to C)`.
+* We inspect all the outgoing edges.: C → A.
+* `dist[A]` is `0`. 
+* `dist[C]` is `15`, and `weight(C, A) = -15`.
+* So, `dist[C] + weight(C, A) = 15 + (-15) = 0`.
+* We can see that, it couldn't reduce the existing `dist[A]`.
+* It means that we could not successfully relax the edge.
+* It means that there is no negative cycle.
+---
+* So, when there is no negative cycle, we can't reduce the shortest distance of any vertex after the `(n - 1)` times of edge relaxation, where `n` is the total number of vertices.
+* 
+---
+* So, we can detect the negative cycle after the `(n - 1)`th iteration of edge relaxation.
+* Otherwise, as soon as we perform `(n - 1)` times edge relaxation, we can get the shortest distance even when edges have negative weights.
+---
+* So, the conclusion is: 
+* If edges have negative weight, we don't use Dijkstra's Algorithm.
+* But we keep performing edge relaxation `(n - 1)` times.
+* If we can relax any edge even after the `(n - 1)`th iteration, it confirms a negative cycle and we stop.
+* This algorithm is known as the `Bellman-Ford Algorithm.`
+---
+* Pseudocode:
+* 
+
 
 ## Time Complexity
 
