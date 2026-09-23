@@ -351,7 +351,7 @@ println(dist.joinToString(" "))
 * V iterations inspects V * E edges.
 * So, it becomes: O(V * E).
 ---
-* Note that Dijkstra's Algorithm takes: 
+* Note that if there are no negative weight, then Dijkstra's Algorithm takes: 
   * Binary heap: $O((V + E) log V)$.
   * Array: $O(V^2)$.
 
