@@ -167,14 +167,14 @@
 * How do we detect it?
 ---
 * The formula is:
-* If `n` is the total number of vertices, and if even after inspecting all the edges `n - 1` times, if we can still reduce the distance (and so, relax an edge), it means that there is a negative cycle.
+* If `V` is the total number of vertices, and if even after inspecting all the edges `V - 1` times, if we can still reduce the distance (and so, relax an edge), it means that there is a negative cycle.
 * We can start with any vertex, and it will still hold true.
 * For example, let us use the same graph that has the negative cycle.
 
 ![020negativeCycle.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/020negativeCycle.webp)
 
-* There are a total of `n = 3` vertices.
-* The lemma states that even after inspecting all the edges `n - 1` times, if we find that the value decreases, there is a negative cycle.
+* There are a total of `V = 3` vertices.
+* The lemma states that even after inspecting all the edges `V - 1` times, if we find that the value decreases, there is a negative cycle.
 * And we can start with any vertex.
 ---
 * So, let us start from `C`.
@@ -256,7 +256,7 @@
 
 ![Positive Cycle.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/030positiveCycle.webp)
 
-* Total vertices, `n = 3`.
+* Total vertices, `V = 3`.
 * The source node is `A`, and we start from `A`.
 * From A to A is 0.
 * So, we add `(0 to A)` to the `min-heap`.
@@ -283,14 +283,14 @@
 * It means that there is no negative cycle.
 ---
 * In our example, we could successfully relax all the possible edges in the first run only.
-* But when there is no negative cycle, it might take up to (inclusive) `n - 1` time.
-* In other words, when there is no negative cycle, all the possible edges get relaxed by `n - 1`th iteration (inclusive).
-* If there is no negative cycle, we can't relax any edge after the `n - 1`th iteration.
+* But when there is no negative cycle, it might take up to (inclusive) `V - 1` time.
+* In other words, when there is no negative cycle, all the possible edges get relaxed by `V - 1`th iteration (inclusive).
+* If there is no negative cycle, we can't relax any edge after the `V - 1`th iteration.
 ---
 * At this point, we conclude that we have identified the shortest distance for all the nodes.
 * We conclude that we cannot reduce the shortest distance of any node now.
 ---
-* So, when there is no negative cycle, we can't reduce the shortest distance of any vertex after the `(n - 1)` times iteration of edge relaxation, where `n` is the total number of vertices.
+* So, when there is no negative cycle, we can't reduce the shortest distance of any vertex after the `(V - 1)` times iteration of edge relaxation, where `V` is the total number of vertices.
 ---
 * However, we can perform the `nth` iteration of edge relaxation to detect if there is any negative cycle.
 * And if we detect any negative cycle (by observing that we can still relax an edge), we discard our `dist` values.
@@ -298,15 +298,19 @@
 ---
 * So, the conclusion is: 
 * If edges have negative weight, we don't use Dijkstra's Algorithm.
-* But we keep performing edge relaxation `(n - 1)` times.
-* If we can relax any edge even after the `(n - 1)`th iteration, it confirms a negative cycle and we stop.
+* But we keep performing edge relaxation `(V - 1)` times.
+* If we can relax any edge even after the `(V - 1)`th iteration, it confirms a negative cycle and we stop.
 * This algorithm is known as the `Bellman-Ford Algorithm.`
+---
+* The `Bellman-Ford Algorithm` works even when there is no negative weight.
 ---
 * Pseudocode:
 * 
 
 
 ## Time Complexity
+
+* How many iterations do we perform?
 
 ## Space Complexity
 
