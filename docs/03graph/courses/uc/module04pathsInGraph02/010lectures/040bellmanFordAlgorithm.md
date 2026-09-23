@@ -346,9 +346,12 @@ println(dist.joinToString(" "))
 * (V - 1) + 1 = Total: V times.
 * What do we do in each iteration?
 * Inspect each edge.
+* How many edges do we have? E.
+* So, one iteration inspects E edges.
+* V iterations inspects V * E edges.
 * So, it becomes: O(V * E).
 ---
-* Note that Dijkstra's Algorithm takes: 
+* Note that if there are no negative weight, then Dijkstra's Algorithm takes: 
   * Binary heap: $O((V + E) log V)$.
   * Array: $O(V^2)$.
 
