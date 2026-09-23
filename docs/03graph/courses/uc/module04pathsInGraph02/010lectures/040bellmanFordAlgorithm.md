@@ -159,7 +159,9 @@
 * Let us inspect when, why, and how that happens.
 * If we observe the cycle, the initial values are: 5 + 10 - 20 = -10.
 * This is called the negative cycle.
-* It means that whenever we get a negative cycle, we decrease the value in each turn.
+* More precisely, a reachable negative cycle, and not the isolated, separate, independent negative cycle.
+* We call it a reachable negative cycle because it indicates that we can reach this negative cycle from the source.
+* It means that whenever we get a reachable negative cycle, we decrease the value in each turn.
 * And if we keep moving through such a cycle, we keep decreasing the value with each turn.
 * And that is how it becomes $- \infty$.
 * How do we prevent such an arbitrage opportunity?
@@ -167,14 +169,14 @@
 * How do we detect it?
 ---
 * The formula is:
-* If `V` is the total number of vertices, and if even after inspecting all the edges `V - 1` times, if we can still reduce the distance (and so, relax an edge), it means that there is a negative cycle.
+* If `V` is the total number of vertices, and if even after inspecting all the edges `V - 1` times, if we can still reduce the distance (and so, relax an edge), it means that there is a reachable negative cycle.
 * We can start with any vertex, and it will still hold true as long as the negative cycle is reachable from the source.
-* For example, let us use the same graph that has the negative cycle.
+* For example, let us use the same graph that has the reachable negative cycle.
 
 ![020negativeCycle.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/020negativeCycle.webp)
 
 * There are a total of `V = 3` vertices.
-* The lemma states that even after inspecting all the edges `V - 1` times, if we find that the value decreases, there is a negative cycle.
+* The lemma states that even after inspecting all the edges `V - 1` times, if we find that the value decreases, there is a reachable negative cycle.
 * And we can start with any vertex.
 ---
 * So, let us start from `C`.
@@ -232,8 +234,8 @@
 * We update `dist[C] = -20 + 10 = -10`.
 * Notice that the `dist[C]` is reduced!
 ---
-* Now, if we inspect all the edges one more time, and if we can relax any edge, it will conclude that there is a negative cycle.
-* And if the `dist` values remain as it is, there is no negative cycle, and we can conclude that `dist` values represent the shortest distance (path) for each node from the source.
+* Now, if we inspect all the edges one more time, and if we can relax any edge, it will conclude that there is a reachable negative cycle.
+* And if the `dist` values remain as it is, there is no reachable negative cycle, and we can conclude that `dist` values represent the shortest distance (path) for each node from the source.
 * Let us inspect all the edges `nth` time.
 ---
 * Initially, from `C to C` is `-10`.
@@ -246,13 +248,13 @@
 * We get `C → A`.
 * The `dist[A]` is `-20`.
 * We can relax the edge: `dist[A] = -10 - 20 = - 30`.
-* We could relax the edge, reduce the `dist` value, and it indicates that there is a negative cycle.
-* This should not happen when there is no negative cycle.
-* When there is no negative cycle, when we inspect all the edges for the `nth` time, nothing changes.
+* We could relax the edge, reduce the `dist` value, and it indicates that there is a reachable negative cycle.
+* This should not happen when there is no reachable negative cycle.
+* When there is no reachable negative cycle, when we inspect all the edges for the `nth` time, nothing changes.
 * We don't get the chance to reduce any of the `dist` values.
 ---
 
-* And now, we will see that when there is no negative cycle, this doesn't happen.
+* And now, we will see that when there is no reachable negative cycle, this doesn't happen.
 
 ![Positive Cycle.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/030positiveCycle.webp)
 
@@ -280,28 +282,28 @@
 ---
 * We can see that, it couldn't reduce the existing `dist[A]`.
 * It means that we could not successfully relax the edge.
-* It means that there is no negative cycle.
+* It means that there is no reachable negative cycle.
 ---
 * In our example, we could successfully relax all the possible edges in the first run only.
-* But when there is no negative cycle, it might take up to (inclusive) `V - 1` time.
-* In other words, when there is no negative cycle, all the possible edges get enough opportunities for the relaxation by `V - 1`th iteration (inclusive).
-* When there is no negative cycle, if an edge has the best shortest distance, it settles, it gets that distance assigned in the `dist` array by `V - 1`th iteration (inclusive). 
-* If there is no negative cycle, we can't relax any edge after the `V - 1`th iteration.
-* If we can still relax an edge, if we can still decrease a value in the `dist`, even after `V - 1` iterations, it clearly means that there is a negative cycle.
+* But when there is no reachable negative cycle, it might take up to (inclusive) `V - 1` time.
+* In other words, when there is no reachable negative cycle, all the possible edges get enough opportunities for the relaxation by `V - 1`th iteration (inclusive).
+* When there is no reachable negative cycle, if an edge has the best shortest distance, it settles, it gets that distance assigned in the `dist` array by `V - 1`th iteration (inclusive). 
+* If there is no reachable negative cycle, we can't relax any edge after the `V - 1`th iteration.
+* If we can still relax an edge, if we can still decrease a value in the `dist`, even after `V - 1` iterations, it clearly means that there is a reachable negative cycle.
 ---
 * At this point, we conclude that we have identified the shortest distance for all the nodes.
 * We conclude that we cannot reduce the shortest distance of any node now.
 ---
-* So, when there is no negative cycle, we can't reduce the shortest distance of any vertex after the `(V - 1)` times iteration of edge relaxation, where `V` is the total number of vertices.
+* So, when there is no reachable negative cycle, we can't reduce the shortest distance of any vertex after the `(V - 1)` times iteration of edge relaxation, where `V` is the total number of vertices.
 ---
-* However, we can perform the `nth` iteration of edge relaxation to detect if there is any negative cycle.
-* And if we detect any negative cycle (by observing that we can still relax an edge), we discard our `dist` values.
-* Because those values are possibly contaminated by the negative cycle.
+* However, we can perform the `nth` iteration of edge relaxation to detect if there is any reachable negative cycle.
+* And if we detect any reachable negative cycle (by observing that we can still relax an edge), we discard our `dist` values.
+* Because those values are possibly contaminated by the reachable negative cycle.
 ---
 * So, the conclusion is: 
 * If edges have negative weight, we don't use Dijkstra's Algorithm.
 * But we keep performing edge relaxation `(V - 1)` times.
-* If we can relax any edge even after the `(V - 1)`th iteration, it confirms a negative cycle and we stop.
+* If we can relax any edge even after the `(V - 1)`th iteration, it confirms a reachable negative cycle and we stop.
 * This algorithm is known as the `Bellman-Ford Algorithm.`
 ---
 * The `Bellman-Ford Algorithm` works even when there is no negative weight.
