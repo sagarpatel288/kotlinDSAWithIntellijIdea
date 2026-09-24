@@ -342,7 +342,19 @@ println(dist.joinToString(" "))
 
 ```
 
+**Why inspecting all the edges `V - 1` times is enough?**
 
+* To understand why `V - 1` is enough, it is a prerequisite to know what we do in the Bellman-Ford Algorithm.
+* We inspect all the edges a total of `V - 1` times.
+
+![Bellman Ford Proof Of V-1.webp](../../../../../../assets/images/03graph/courses/uc/module04pathsInGraph02/04bellmanFordAlgorithmOfShortestPath/040bellmanFordProofOfV-1.webp)
+
+* Now, as we can see in the given image, when there is no reachable negative cycle, the `V - 1` iterations guarantee that we have covered all the possible paths.
+* And that includes some shortest path.
+* We can't miss that, and `V - 1` iterations guarantee that we don't miss that.
+---
+* In other words, when there is no negative edge, to cover all the possible (reachable) path, we need `V - 1` iterations.
+* `V - 1` iterations cover all the possible (reachable) path and hence, it also includes the shortest path as well as a part of one of these iterations.
 
 ## Time Complexity
 
