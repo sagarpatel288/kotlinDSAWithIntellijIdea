@@ -12,6 +12,7 @@ import java.util.StringTokenizer
  *
  */
 class ShortestPath(val vertices: Int) {
+    // To process a neighbor of a vertex
     private val adjacencyList = List(vertices) { mutableListOf<Int>() }
 
     fun addEdge(a: Int, b: Int) {

@@ -1,6 +1,7 @@
 package courses.uc.course03algorithmsOngraph.courses.uc.module01decompositionOfGraph01
 
 class PathInMaze(val vertices: Int) {
+    // To process each neighbor of each vertex
     private val adjacencyList = List(vertices) { mutableListOf<Int>() }
 
     fun addEdge(a: Int, b: Int) {

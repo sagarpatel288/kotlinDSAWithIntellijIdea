@@ -8,6 +8,7 @@ package courses.uc.course03algorithmsOngraph.courses.uc.module01decompositionOfG
  *
  */
 class CycleDetectionUndirectedGraph(val size: Int) {
+    // To process each neighbor of each vertex
     val adjacencyList = List(size) { mutableListOf<Int>() }
 
     fun addEdge(a: Int, b: Int) {

@@ -4,6 +4,7 @@ class UndirectedGraph(val vertices: Int = 0, val grid: Array<CharArray>? = null)
     init {
         if (grid == null && vertices <= 0) throw IllegalArgumentException("Total vertices must be greater than 0!")
     }
+    // To process each neighbor of each vertex
     val adjacencyList = List(vertices) { mutableListOf<Int>() }
 
     fun addEdges(a: Int, b: Int) {
