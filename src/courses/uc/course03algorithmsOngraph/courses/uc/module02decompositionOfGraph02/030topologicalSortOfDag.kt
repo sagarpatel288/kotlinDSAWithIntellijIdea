@@ -11,6 +11,7 @@ import java.util.StringTokenizer
  * /bc51cab1df11839ba126e828064dfb6370f9a5bc/docs/03graph/courses/uc/module02decompositionOfGraph02/020assignment/020topologicalSortInDirectedGraph.md)
  */
 class TopoSortOfDag(val vertices: Int) {
+    // To process each neighbor of each vertex
     private val adjacencyList = List(vertices) { mutableListOf<Int>() }
 
     fun addEdge(a: Int, b: Int) {

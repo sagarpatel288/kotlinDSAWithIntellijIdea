@@ -18,6 +18,7 @@ import java.util.StringTokenizer
  *
  */
 class ComponentsInMaze(val vertices: Int) {
+    // To process each neighbor of each vertex
     private val adjacencyList = List(vertices) { mutableListOf<Int>() }
 
     fun addEdge(a: Int, b: Int) {

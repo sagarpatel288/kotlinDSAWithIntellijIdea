@@ -11,6 +11,7 @@ import java.util.StringTokenizer
  * /4fe49a5f332702866cabe39f97e53c980c42dff8/docs/03graph/courses/uc/module02decompositionOfGraph02/020assignment/030countStronglyConnectedComponents.md)
  */
 class CountSccs(val vertices: Int) {
+    // To process each neighbor of each vertex
     private val adjacencyList = List(vertices) { mutableListOf<Int>() }
     
     fun addEdge(a: Int, b: Int) {

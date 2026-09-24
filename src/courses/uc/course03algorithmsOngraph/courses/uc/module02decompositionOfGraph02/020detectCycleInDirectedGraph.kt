@@ -10,6 +10,7 @@ import java.util.StringTokenizer
  * * [Detect cycle in a directed graph](https://github.com/sagarpatel288/kotlinDSAWithIntellijIdea/blob/fdf4ad833ddfae26ef6f89fd580d6cb1b4e97b44/docs/03graph/courses/uc/module02decompositionOfGraph02/020assignment/010detectCycleInDirectedGraph.md)
  */
 class DetectCycle(val vertices: Int) {
+    // To process each neighbor of each vertex
     private val adjacencyList = List(vertices) { mutableListOf<Int>() }
 
     fun addEdge(a: Int, b: Int) {

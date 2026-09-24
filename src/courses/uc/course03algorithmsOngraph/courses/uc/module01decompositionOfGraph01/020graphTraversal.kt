@@ -1,6 +1,7 @@
 package courses.uc.course03algorithmsOngraph.courses.uc.module01decompositionOfGraph01
 
 class GraphTraversal(val size: Int) {
+    // To process each neighbor of each vertex
     val adjacencyList = List(size) { mutableListOf<Int>() }
 
     fun addEdges(a: Int, b: Int) {

@@ -9,6 +9,7 @@ package courses.uc.course03algorithmsOngraph.courses.uc.module02decompositionOfG
  * # Count strongly connected components of a directed graph
  */
 class CountStronglyConnectedComponents(val vertices: Int) {
+    // To process each neighbor of each vertex
     private val adjacencyList = List(vertices) { mutableListOf<Int>() }
 
     fun addEdge(a: Int, b: Int) {
