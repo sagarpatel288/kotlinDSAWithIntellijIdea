@@ -116,3 +116,13 @@ $$
 
 ## Implementation
 
+* We can solve this problem using either Dijkstra's Algorithm or Bellman-Ford Algorithm.
+* Dijkstra's Algorithm works because there is no negative weight.
+---
+* Using Dijkstra's Algorithm:
+
+* [Min cost using Dijkstra's Algorithm](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module04pathsInGraph02/035minFlightCostUsingDijkstra.kt)
+
+* Using Bellman-Ford Algorithm:
+
+* [Min cost using Bellman-Ford Algorithm](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module04pathsInGraph02/040minFlightCostUsingBellmanFord.kt)
