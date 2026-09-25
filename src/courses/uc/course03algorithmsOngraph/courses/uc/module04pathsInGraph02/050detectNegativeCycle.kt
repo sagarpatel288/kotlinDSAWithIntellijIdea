@@ -28,19 +28,14 @@ class DetectNegCycle(val vertices: Int) {
                 }
             }
         }
-        var hasNegCycle = false
         for ((_, edges) in adjList.withIndex()) {
             for ((from, to, weight) in edges) {
                 if (dist[to] > dist[from] + weight) {
-                    hasNegCycle = true
-                    break
+                    return true
                 }
             }
-            if (hasNegCycle) {
-                break
-            }
         }
-        return hasNegCycle
+        return false
     }
 }
 
