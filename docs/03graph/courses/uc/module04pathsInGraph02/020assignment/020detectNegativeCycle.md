@@ -75,4 +75,4 @@ $$
 
 ## Implementation
 
-* 
+* [Detect A Negative Cycle.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module04pathsInGraph02/050detectNegativeCycle.kt)
