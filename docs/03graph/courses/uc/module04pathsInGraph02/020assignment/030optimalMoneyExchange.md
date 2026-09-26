@@ -109,5 +109,35 @@ $$
   that is reachable from 4. 
 * The distance from 4 to 4 is zero. There is no path from 4 to 5.
 
+## Thought Process
+
+* 3 Things:
+* 1: Vertices with the finite values (distance, number): With their corresponding values
+* 2: Vertices with infinite values (due to negative cycle! Does it say that explicitly?!): Marked as: "-"
+  * They said: The distance from S to u is $-\infty$
+* 3: Vertices that are not reachable: Marked as: "*"
+---
+* How do we find the distance when an edge can have negative weight? Using the Bellman-Ford Algorithm.
+* So, in the first phase, after we relax all the edges (V - 1) times, we have possible values.
+* And when we relax all the edges one more time, we may find a reachable negative cycle.
+* And if we find, we need to identify the affected (infected?) vertices and mark them as: $-\infty$. 
+---
+* How do we identify infected vertices?
+* During the negative cycle detection, we add all the infected vertices to a container.
+* And then for each infected vertex, we need to add their neighbors.
+* Because if a vertex is infected, then the connected neighbor is also infected (becomes $-\infty$).
+---
+* How do we find and cover all the neighbors of a vertex, and their neighbors, and so on?
+* We perform DFS or BFS on them.
+* We mark these vertices as infected.
+---
+* And now we have several useful details.
+* We get some finite values from the (V - 1) times edge relaxation.
+* And during that phase, we also get the vertices that are non-reachable.
+* They will remain "MAX" in the `dist`.
+* And during the negative cycle detection and DFS/BFS traversal, we replace some values in `dist` with: "-".  
+
 ## Implementation
+
+
 
