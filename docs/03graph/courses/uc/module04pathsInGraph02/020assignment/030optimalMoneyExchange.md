@@ -111,7 +111,7 @@ $$
 
 ## Thought Process
 
-* 3 Things:
+* Classify vertices into 3 categories:
 * 1: Vertices with the finite values (distance, number): With their corresponding values
 * 2: Vertices with infinite values (due to negative cycle! Does it say that explicitly?!): Marked as: "-"
   * They said: The distance from S to u is $-\infty$
@@ -125,7 +125,7 @@ $$
 * How do we identify infected vertices?
 * During the negative cycle detection, we add all the infected vertices to a container.
 * And then for each infected vertex, we need to add their neighbors.
-* Because if a vertex is infected, then the connected neighbor is also infected (becomes $-\infty$).
+* Because if a vertex is infected, then the neighbor which is connected directly via the outgoing edge of this infected vertex, is also infected (becomes $-\infty$).
 ---
 * How do we find and cover all the neighbors of a vertex, and their neighbors, and so on?
 * We perform DFS or BFS on them.
@@ -135,9 +135,31 @@ $$
 * We get some finite values from the (V - 1) times edge relaxation.
 * And during that phase, we also get the vertices that are non-reachable.
 * They will remain "MAX" in the `dist`.
-* And during the negative cycle detection and DFS/BFS traversal, we replace some values in `dist` with: "-".  
+* And during the negative cycle detection, identify infected seeds. 
+* Using the infected seeds and DFS/BFS traversal, identify other infected vertices.  
+
+## Time Complexity
+
+* Phase-1: Inspecting each edge (V - 1) times
+* Phase-2: Inspecting each edge one more time
+* Phase-1 and Phase-2: O(VE)
+* Phase-3: Inspecting infected vertices via BFS/DFS: O(V + E)
+* Building result: O(V)
+* Total time: O(VE)
+
+## Space Complexity
+
+* The `adjList`: O(V + E) 
+* The `dist` array: O(V)
+* The infected BooleanArray: O(V)
+* The queue: O(V)
+* Total space: O(V + E)  
 
 ## Implementation
+
+* [Classify Vertices.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module04pathsInGraph02/065classifyVertices.kt)
+
+
 
 
 
