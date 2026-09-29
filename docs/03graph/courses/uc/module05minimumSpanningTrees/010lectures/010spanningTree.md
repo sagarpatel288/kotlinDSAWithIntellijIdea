@@ -71,8 +71,9 @@
 * Initially, it might look disconnected (isolated) edges, but by the end of the algorithm, we get a proper tree with the minimum cost.
 
 ---
+* Selects the edge that has the least weight and doesn’t create a cycle.
 * Initially, imagine that we have a forest of trees where each tree is an individual set.
-* Then, we sort the edges in non-decreasing order.
+* Then, we sort the edges in non-decreasing order by their weights.
 * We process each edge one by one.
 * Each edge gives us two vertices.
 * We find the parent (leader) of each vertex.
