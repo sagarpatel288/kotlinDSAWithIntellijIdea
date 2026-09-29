@@ -70,6 +70,20 @@
 * So, it selects the next lightest edge that does not create a cycle.
 * Initially, it might look disconnected (isolated) edges, but by the end of the algorithm, we get a proper tree with the minimum cost.
 
+---
+* Initially, imagine that we have a forest of trees where each tree is an individual set.
+* Then, we sort the edges in non-decreasing order.
+* We process each edge one by one.
+* Each edge gives us two vertices.
+* We find the parent (leader) of each vertex.
+* If their parents (leaders) are different, they belong to a different set.
+* This is to avoid the cycle.
+* If they belong to a different set, we merge (union) them.
+* After the union, they share the same parent (leader).
+* They become part of the same set.
+* We repeat this process for `V - 1` times.
+---
+
 **Prims Algorithm**
 
 ![055primDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/055primDsuOverview.webp)
