@@ -12,6 +12,8 @@
 
 ![010homesBuildingRoads.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010homesBuildingRoads.webp)
 
+![022graphToMinSpanTreeProblemExample.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/022graphToMinSpanTreeProblemExample.webp)
+
 * We have some homes (or cities, machines, etc.), and we want to connect them with each other.
 * We are interested in connectivity and minimum cost.
 * We want to avoid cycles.
@@ -23,7 +25,7 @@
 
 ## Concept
 
-![Minimum Spanning Tree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/030minSpanTree.webp)
+![024whyNoCycleInMinSpanTree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/024whyNoCycleInMinSpanTree.webp)
 
 * The problem:
 * We have a few vertices, we want to connect them all, without any cycle, with minimum cost.
@@ -55,11 +57,29 @@
 * There are two popular algorithms to find the MST.
   * Kruskal's Algorithm
   * Prims Algorithm
-* Kruskal's Algorithm
-  * We always pick the edge with the least (minimum) weight as long as it does not create a cycle.
-* Prims Algorithm
-  * We always pick the edge with the least (minimum) weight as long as it connects the already covered vertices and does not create a cycle.
 
+**Kruskal's Algorithm**
 
+![035kruskalDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/035kruskalDsuOverview.webp)
+
+![Kruskal Mst.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/050kruskalMst02.webp)
+
+* We always pick the edge with the least (minimum) weight as long as it does not create a cycle.
+* In other words, we select the edge with the least available weight out of the entire graph even if it is not connected to the selected graph as long as it does not create any cycle.
+* It is like we start with one edge, and we keep adding more edges by selecting the edge with the least available weight without creating a cycle.
+* So, it selects the next lightest edge that does not create a cycle.
+* Initially, it might look disconnected (isolated) edges, but by the end of the algorithm, we get a proper tree with the minimum cost.
+
+**Prims Algorithm**
+
+![055primDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/055primDsuOverview.webp)
+
+![KruskalVsPrimMst.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/060primVsKruskalMst.webp)
+
+* We always pick the edge with the least (minimum) weight as long as it connects the already selected vertices and does not create a cycle.
+* We start with one vertex, check its outgoing edges, and select the edge with the least available weight that does not create any cycle, and we repeat this process as we add more vertices into the selected category.
+* We start with one vertex, and we keep adding more vertices by selecting the edge with the least available weight without losing the connection, and without creating a cycle.
+* In other words, we gradually grow the tree using the least available weight to attach a node, without losing the connection at any point, and without creating a cycle at any point.
+* So, it selects the next lightest edge that connects (attaches) a vertex without creating a cycle.
 
 ## Next
