@@ -12,8 +12,6 @@
 
 ![010homesBuildingRoads.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010homesBuildingRoads.webp)
 
-![022graphToMinSpanTreeProblemExample.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/022graphToMinSpanTreeProblemExample.webp)
-
 * We have some homes (or cities, machines, etc.), and we want to connect them with each other.
 * We are interested in connectivity and minimum cost.
 * We want to avoid cycles.
@@ -21,11 +19,15 @@
 
 ![020homesBuildingRoads.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/020homesBuildingRoads.webp)
 
-* A path that connects all the vertices (homes, machines, cities, etc.).
+* A path that connects all the vertices (homes, machines, cities, etc.) using the minimum cost.
+
+![022graphToMinSpanTreeProblemExample.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/022graphToMinSpanTreeProblemExample.webp)
+
+* When we have multiple objects, and we want to connect them all using the minimum cost, we use the minimum spanning tree concept.
 
 ## Concept
 
-![024whyNoCycleInMinSpanTree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/024whyNoCycleInMinSpanTree.webp)
+![Minimum Spanning Tree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/026whyNoCycleInMinSpanTree.webp)
 
 * The problem:
 * We have a few vertices, we want to connect them all, without any cycle, with minimum cost.
