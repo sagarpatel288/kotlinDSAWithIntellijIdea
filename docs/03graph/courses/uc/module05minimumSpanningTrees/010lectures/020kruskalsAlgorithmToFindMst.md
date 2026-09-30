@@ -65,7 +65,7 @@ val dsu = IntArray(vertices) { it }
 ---
 ```kotlin
 
-val sortedEdges = edges.sortBy { it.weight }
+val sortedEdges = edges.sortedBy { it.weight }
 
 ```
 ---
