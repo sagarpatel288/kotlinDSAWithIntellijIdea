@@ -159,4 +159,22 @@ private fun union(a: Int, b: Int): Boolean {
 * So, we avoid such edges.
 * And hence, the resultant minimum spanning tree does not contain any cycles.
 
+## Time Complexity
+
+* Sorting edges: O(E log E)
+* DSU: `m` operations take O(m log* m) where log* m is an inverse Ackerman function that grows almost linear.
+* We process (V - 1) edges (or at most E edges).
+* E edges take O(E log* E) time.
+* The dominating cost is: O(E log E)
+
+## Space Complexity
+
+* DSU: O(V)
+* Edges to store and sort: O(E)
+* Total: O(V + E)
+
+## Implementation
+
+* 
+
 ## Next
