@@ -98,3 +98,6 @@
 * So, it selects the next lightest edge that connects (attaches) a vertex without creating a cycle.
 
 ## Next
+
+* [Kruskal's Algorithm To Find Mst.md](020kruskalsAlgorithmToFindMst.md)
+* [Prim's Algorithm To Find Mst.md](030primsAlgorithmToFindMst.md)
