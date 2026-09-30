@@ -132,11 +132,11 @@ private fun union(a: Int, b: Int): Boolean {
     val aRank = rank[aParent]
     val bRank = rank[bParent]
     if (aRank > bRank) {
-        parent[b] = a
+        parent[bParent] = aParent
     } else if (bRank > aRank) {
-        parent[a] = b
+        parent[aParent] = bParent
     } else {
-        parent[b] = a
+        parent[bParent] = aParent
         rank[a]++
     }
     return true
