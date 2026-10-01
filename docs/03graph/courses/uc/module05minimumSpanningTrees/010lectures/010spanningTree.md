@@ -55,7 +55,13 @@
 * And to form the MST, the sum of the weight of these edges must be minimum.
 * The term spanning corresponds to the fact that the resulting tree is still a connected graph, and the term tree corresponds to the properties of a tree.
 * For example, the result is not cyclic, it is not directed, and it covers all the vertices of the original graph.
-* We use MST (Minimum Spanning Tree) only for an undirected and weighted graph where vertices are connected. 
+* We use MST (Minimum Spanning Tree) only for an undirected and weighted graph where vertices are connected.
+---
+* What if we get a disconnected graph where the graph can have multiple, isolated connected components?
+
+![032minSpanTree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/032minSpanTree.webp)
+
+---
 * There are two popular algorithms to find the MST.
   * Kruskal's Algorithm
   * Prims Algorithm
