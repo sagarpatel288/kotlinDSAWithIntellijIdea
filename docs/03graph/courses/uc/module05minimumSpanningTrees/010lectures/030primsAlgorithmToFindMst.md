@@ -24,7 +24,7 @@
 ---
 * What do we add to the `min-heap` and when?
 * We start with one vertex.
-* We eagerly add it to the `min-heap`.
+* We eagerly add all the outgoing edges of it as `(weight, to)` to the `min-heap`. 
 * Then, we run a loop.
 * As long as the `min-heap` is not empty:
 * We extract the vertex.
@@ -45,7 +45,7 @@
 * So, we need to keep track of the selected vertices.
 * And for that, we use the `selected Boolean Array`.
 ---
-* Eagerly add the starting vertex to the `min-heap`.
+* Eagerly add all the outgoing edges of the start vertex as `(weight, to)` to the `min-heap`.
 * Repeat as long as the `min-heap` is not empty or until we reach `V - 1` selected edges.
 * Poll.
 * Poll always gives the minimum weight (cost) to add the associated vertex.
@@ -66,7 +66,10 @@
 
 * We might add all the edges to the `min-heap`.
 * The `binary min-heap` takes: $O(E log E)$ time to maintain the heap properties and functionalities.
-* If we use an `array` for the `min-heap`, then finding the min is a linear operation (scan).
+* But if $E <= V^2$, then $log(E) <= log(V^2)$ = $log(E) = 2 log V$.
+* We drop the constant.
+* So, it becomes, $O(E log V)$.
+* If we use an `array` instead of a `min-heap`, then finding the min is a linear operation (scan).
 * So, it takes $O(E)$ time for each edge.
 * For E edges, it becomes $O(E^2)$ time.
 * But we exit early using `V - 1`, so it is $O(V^2)$ for an array based `min-heap`.
@@ -75,6 +78,7 @@
 
 * We use the adjacency list to get the edges of the vertex, which takes: $O(V + E)$.
 * We store the selected vertices, which takes: $O(V)$.
+* We add at most E edges to the `min-heap`, which takes: $O(E)$.
 * The dominant cost is: $O(V + E)$.
 
 ## Questions
@@ -88,7 +92,7 @@
 * If we start from a different vertex, we might get an MST with a different shape/structure. 
 * But the overall cost will always be the same for the same graph.
 ---
-* Does it work with the negative cycle?
+* Does it work with negative weights and/or the negative cycles?
 * Yes.
 * Because we focus on the `minimum weight` among all the available options to expand the current (existing) tree.
 * So, an edge with the negative weight does not create any problem.
@@ -105,6 +109,6 @@
 * This is again, similar to the Kruskal's Algorithm.
 * We select the cheapest edge among all the available options to expand the tree.
 * And once we mark the vertex as `selected`, we avoid all the future edges that connects to the already `selected` vertex.
-* So, the `selected` condition prevents the duplicate edge and cycles.
+* So, the `selected` condition prevents (avoids) cycles.
 
 ## Next
