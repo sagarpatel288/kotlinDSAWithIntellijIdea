@@ -218,6 +218,12 @@ private fun union(a: Int, b: Int): Boolean {
 * So, when we reach the point to select the remaining edge, DSU rejects it.
 * The same logic applies to the self-loop edges.
 ---
+* What is the core idea, intuition behind the Kruskal's Algorithm compared to Prim's Algorithm?
+* It grows multiple trees (components) in a forest and then merges them using DSU to avoid cycles.
+* DSU ensures that we don't merge already connected components (trees).
+* Whereas the Prim's algorithm focuses on one tree.
+* It grows one tree using the minimum weight.
+---
 
 ## Implementation
 
