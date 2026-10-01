@@ -220,9 +220,12 @@ private fun union(a: Int, b: Int): Boolean {
 ---
 * What is the core idea, intuition behind the Kruskal's Algorithm compared to Prim's Algorithm?
 * It grows multiple trees (components) in a forest and then merges them using DSU to avoid cycles.
+* It constantly looks for the cheapest safe edge to select from the entire graph.
 * DSU ensures that we don't merge already connected components (trees).
 * Whereas the Prim's algorithm focuses on one tree.
 * It grows one tree using the minimum weight.
+* It constantly looks for the cheapest safe edge to add one more vertex to the existing tree.
+* It keeps adding one after other vertex to the existing tree using the cheapest safe edge.
 ---
 
 ## Implementation
