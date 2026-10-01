@@ -66,45 +66,6 @@
   * Kruskal's Algorithm
   * Prims Algorithm
 
-**Kruskal's Algorithm**
-
-![035kruskalDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/035kruskalDsuOverview.webp)
-
-![Kruskal Mst.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/050kruskalMst02.webp)
-
-* We always pick the edge with the least (minimum) weight as long as it does not create a cycle.
-* In other words, we select the edge with the least available weight out of the entire graph even if it is not connected to the selected graph as long as it does not create any cycle.
-* It is like we start with one edge, and we keep adding more edges by selecting the edge with the least available weight without creating a cycle.
-* So, it selects the next lightest edge that does not create a cycle.
-* Initially, it might look disconnected (isolated) edges, but by the end of the algorithm, we get a proper tree with the minimum cost.
-
----
-* Selects the edge that has the least weight and doesn’t create a cycle.
-* Initially, imagine that we have a forest of trees where each tree is an individual set.
-* Then, we sort the edges in non-decreasing order by their weights.
-* We process each edge one by one.
-* Each edge gives us two vertices.
-* We find the parent (leader) of each vertex.
-* If their parents (leaders) are different, they belong to a different set.
-* This is to avoid the cycle.
-* If they belong to a different set, we merge (union) them.
-* After the union, they share the same parent (leader).
-* They become part of the same set.
-* We repeat this process for `V - 1` times.
----
-
-**Prims Algorithm**
-
-![055primDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/055primDsuOverview.webp)
-
-![KruskalVsPrimMst.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/060primVsKruskalMst.webp)
-
-* We always pick the edge with the least (minimum) weight as long as it connects the already selected vertices and does not create a cycle.
-* We start with one vertex, check its outgoing edges, and select the edge with the least available weight that does not create any cycle, and we repeat this process as we add more vertices into the selected category.
-* We start with one vertex, and we keep adding more vertices by selecting the edge with the least available weight without losing the connection, and without creating a cycle.
-* In other words, we gradually grow the tree using the least available weight to attach a node, without losing the connection at any point, and without creating a cycle at any point.
-* So, it selects the next lightest edge that connects (attaches) a vertex without creating a cycle.
-
 ## Next
 
 * [Kruskal's Algorithm To Find Mst.md](020kruskalsAlgorithmToFindMst.md)
