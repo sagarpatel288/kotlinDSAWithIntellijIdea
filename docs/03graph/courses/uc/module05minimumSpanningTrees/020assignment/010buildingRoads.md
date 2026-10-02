@@ -246,6 +246,6 @@ cost += minDistance[min]
 
 ## Implementation
 
-* 
+* [Connecting co-ordinates.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module05minimumSpanningTrees/part02assignments/010buildingRoads.kt)
 
 ## Next
