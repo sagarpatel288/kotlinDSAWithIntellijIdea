@@ -2,6 +2,13 @@
 
 ![055primDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/055primDsuOverview.webp)
 
+* Perspective:
+* In the context of an MST by Prim's Algorithm, we see connecting a vertex as the cost to bring in that vertex into the existing tree.
+* And a tree starts with a single vertex.
+* So, we start with a single vertex, consider it as a tree, and then look for the cheapest way (cost) to bring in (connect to) other unselected vertex.
+* We repeat this process until we connect all the vertices.
+* In other words, we gradually expand our tree.
+
 ![KruskalVsPrimMst.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/060primVsKruskalMst.webp)
 
 * The Prim's Algorithm constantly asks: 
