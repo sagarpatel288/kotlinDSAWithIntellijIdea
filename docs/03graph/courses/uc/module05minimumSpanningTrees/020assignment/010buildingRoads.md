@@ -132,10 +132,11 @@ $\sqrt{(𝑥1 − 𝑥2)^2 + (𝑦1 − 𝑦2)^2}$.
 * To find and get the `min` out of it, we use the standard linear search approach:
 ---
 ```kotlin
-var min = Int.MAX_VALUE
+var min = MAX_VALUE
 for (i in 0..<size) {
+    // Comparing the min value with the value at index i
     if (dist[i] < min) {
-        min = i // Min is the index at which we get the minimum value
+        min = dist[i] // Updating the min value
     }
 }
 ```
@@ -143,7 +144,7 @@ for (i in 0..<size) {
 ```kotlin
 var min = -1
 for (i in 0..<size) {
-    if (min != -1 && dist[i] < min) {
+    if (min == -1 || dist[i] < dist[min]) {
         min = i // Min is the index at which we get the minimum value
     }
 }
@@ -153,9 +154,9 @@ for (i in 0..<size) {
 * For example:
 ---
 ```kotlin
-var min = Int.MAX_VALUE
+var min = -1
 for (i in 0..<size) {
-    if (dist[i] < min) {
+    if (min == -1 || dist[i] < dist[min]) {
         min = i // Min is the index at which we get the minimum value
     }
 }
@@ -189,9 +190,9 @@ cost += minDistance[min]
 ---
 
 ```kotlin
-var min = Int.MAX_VALUE
+var min = -1
 for (i in 0..<size) {
-    if (!selected[i] && dist[i] < min) {
+    if (!selected[i] && (next == -1 || dist[i] < dist[min])) {
         min = i
     }
 }
