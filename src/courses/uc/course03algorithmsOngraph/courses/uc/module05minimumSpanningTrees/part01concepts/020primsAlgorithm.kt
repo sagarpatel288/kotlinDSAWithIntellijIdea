@@ -1,4 +1,4 @@
-package courses.uc.course03algorithmsOngraph.courses.uc.module05minimumSpanningTrees
+package courses.uc.course03algorithmsOngraph.courses.uc.module05minimumSpanningTrees.part01concepts
 
 import java.util.PriorityQueue
 

@@ -1,4 +1,4 @@
-package courses.uc.course03algorithmsOngraph.courses.uc.module05minimumSpanningTrees
+package courses.uc.course03algorithmsOngraph.courses.uc.module05minimumSpanningTrees.part01concepts
 
 /**
  * # Kruskal's Algorithm to find the minimum spanning tree cost

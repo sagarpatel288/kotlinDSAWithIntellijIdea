@@ -60,7 +60,7 @@
 
 ## Implementation
 
-* [020primsAlgorithm.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module05minimumSpanningTrees/020primsAlgorithm.kt)
+* [020primsAlgorithm.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module05minimumSpanningTrees/part01concepts/020primsAlgorithm.kt)
 
 ## Time Complexity
 
