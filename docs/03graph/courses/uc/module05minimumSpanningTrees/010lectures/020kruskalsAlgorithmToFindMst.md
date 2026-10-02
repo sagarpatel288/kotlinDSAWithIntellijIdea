@@ -6,9 +6,9 @@
 
 ## Concept
 
-![035kruskalDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/035kruskalDsuOverview.webp)
+![035kruskalDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/035kruskalDsuOverview.webp)
 
-![Kruskal Mst.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/050kruskalMst02.webp)
+![Kruskal Mst.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/050kruskalMst02.webp)
 
 * We always pick the edge with the least (minimum) weight as long as it does not create a cycle.
 * In other words, we select the edge with the least available weight out of the entire graph even if it is not connected to the selected graph as long as it does not create any cycle.
@@ -41,7 +41,7 @@
 
 * If DSU tells us that the root of two vertices is the same, then those two vertices are already connected, either directly or indirectly via some other vertex.
 
-![052dsuRoleInKruskal.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/052dsuRoleInKruskal.webp)
+![052dsuRoleInKruskal.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/052dsuRoleInKruskal.webp)
 
 * There is already a path between them.
 * Adding another edge between them will create a cycle.
