@@ -231,7 +231,7 @@ private fun union(a: Int, b: Int): Boolean {
 ## Implementation
 
 * The complete implementation is at:
-* [010kruskalAlgorithm.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module05minimumSpanningTrees/010kruskalAlgorithm.kt)
+* [010kruskalAlgorithm.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module05minimumSpanningTrees/part01concepts/010kruskalAlgorithm.kt)
 
 ## Time Complexity
 
