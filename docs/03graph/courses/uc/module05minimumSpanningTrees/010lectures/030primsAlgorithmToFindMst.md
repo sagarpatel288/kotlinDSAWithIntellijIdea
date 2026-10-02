@@ -1,8 +1,8 @@
 # Prims Algorithm
 
-![055primDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/055primDsuOverview.webp)
+![055primDsuOverview.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/055primDsuOverview.webp)
 
-![KruskalVsPrimMst.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/060primVsKruskalMst.webp)
+![KruskalVsPrimMst.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/060primVsKruskalMst.webp)
 
 * The Prim's Algorithm constantly asks: 
 * What is the cheapest safe edge that leaves the current tree and adds a new vertex?

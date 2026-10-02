@@ -10,24 +10,24 @@
 
 ## Problem
 
-![010homesBuildingRoads.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010homesBuildingRoads.webp)
+![010homesBuildingRoads.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/010homesBuildingRoads.webp)
 
 * We have some homes (or cities, machines, etc.), and we want to connect them with each other.
 * We are interested in connectivity and minimum cost.
 * We want to avoid cycles.
 * For example, the result might look like below:
 
-![020homesBuildingRoads.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/020homesBuildingRoads.webp)
+![020homesBuildingRoads.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/020homesBuildingRoads.webp)
 
 * A path that connects all the vertices (homes, machines, cities, etc.) using the minimum cost.
 
-![022graphToMinSpanTreeProblemExample.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/022graphToMinSpanTreeProblemExample.webp)
+![022graphToMinSpanTreeProblemExample.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/022graphToMinSpanTreeProblemExample.webp)
 
 * When we have multiple objects, and we want to connect them all using the minimum cost, we use the minimum spanning tree concept.
 
 ## Concept
 
-![Minimum Spanning Tree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/026whyNoCycleInMinSpanTree.webp)
+![Minimum Spanning Tree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/026whyNoCycleInMinSpanTree.webp)
 
 * The problem:
 * We have a few vertices, we want to connect them all, without any cycle, with minimum cost.
@@ -47,7 +47,7 @@
 * A spanning tree is a tree that covers (connects) all the vertices of a graph without any cycle by using `V - 1` edges.
 * For example:
 
-* ![Spanning Tree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/030minSpanTree.webp)
+* ![Spanning Tree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/030minSpanTree.webp)
 
 * A minimum spanning tree or a minimum cost spanning tree is a tree that connects all the vertices of the graph, without any cycle, with minimum cost, using `V - 1` edges. 
 * The term minimum corresponds to the minimum cost and minimum edges.
@@ -59,7 +59,7 @@
 ---
 * What if we get a disconnected graph where the graph can have multiple, isolated connected components?
 
-![032minSpanTree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/032minSpanTree.webp)
+![032minSpanTree.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/010concepts/032minSpanTree.webp)
 
 ---
 * There are two popular algorithms to find the MST.
