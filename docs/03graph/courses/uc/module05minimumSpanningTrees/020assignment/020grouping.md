@@ -1,0 +1,109 @@
+# Grouping (Classify, Organize, Assort): Clustering
+
+## Problem Introduction
+
+* Clustering is a fundamental problem in data mining. 
+* The goal is to partition a given set of objects into subsets (or clusters) in such a way that any two objects from the same subset are close (or similar) to each other, while any
+two objects from different subsets are far apart.
+
+## Problem Description
+
+### Task 
+
+* Given 𝑛 points on a plane and an integer 𝑘, compute the largest possible value of 𝑑 such that the given points can be partitioned into 𝑘 non-empty subsets in such a way that the distance between any two points from different subsets is at least 𝑑.
+
+### Input Format 
+
+* The first line contains the number 𝑛 of points. Each of the following 𝑛 lines defines a point (𝑥𝑖 , 𝑦𝑖). 
+* The last line contains the number 𝑘 of clusters.
+
+### Constraints 
+
+* $2 ≤ 𝑘 ≤ 𝑛 ≤ 200; −10^3 ≤ 𝑥𝑖 , 𝑦𝑖 ≤ 10^3$ are integers. 
+* All points are pairwise different.
+
+### Output Format 
+
+* Output the largest value of 𝑑. 
+* The absolute value of the difference between the answer of your program and the optimal value should be at most $10^{−6}$. 
+* To ensure this, output your answer with at least seven digits after the decimal point (otherwise your answer, while being computed correctly, can turn out to be wrong because of rounding issues).
+
+### Time Limit
+
+| Language   | C | C++ | Java | Python | C# | Haskell | JavaScript | Ruby | Scala |
+|------------|---|-----|------|--------|----|---------|------------|------|-------|
+| Time (Sec) | 2 | 2   | 3    | 10     | 3  | 4       | 10         | 10   | 6     |
+
+
+### Memory Limit
+
+* 512 MB
+
+### Sample 1
+
+**Input**
+
+```markdown
+12
+7 6
+4 3
+5 1
+1 7
+2 7
+5 7
+3 3
+7 8
+2 8
+4 4
+6 7
+2 6
+3
+```
+
+**Output**
+
+```markdown
+2.828427124746
+```
+
+**Explanation**
+
+* The answer is $\sqrt8$. 
+
+![030groupingAssortingClustering.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/100assignments/030groupingAssortingClustering.webp)
+
+* The corresponding partition of the set of points into three clusters is shown above.
+
+### Sample 2
+
+**Input**
+
+```markdown
+8
+3 1
+1 2
+4 6
+9 8
+9 9
+8 9
+3 11
+4 12
+4
+```
+
+**Output**
+
+```markdown
+5.000000000
+```
+
+**Explanation**
+
+![040groupingAssortingClusteringSample02.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/100assignments/040groupingAssortingClusteringSample02.webp)
+
+* The answer is 5. 
+* The corresponding partition of the set of points into four clusters is shown above.
+
+## Thought Process
+
+* 
