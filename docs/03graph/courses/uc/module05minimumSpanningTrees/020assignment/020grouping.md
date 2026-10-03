@@ -190,6 +190,8 @@ for (i in 0 until size) {
 * For example, AB is equal to BA.
 * So, when we start processing BA, we check if A is already selected.
 * If A is already selected, we skip calculating and storing the distance for this pair.
+* Similarly, we don't need to calculate the distance from the same vertex to the same vertex for each vertex.
+* For example, we don't need to calculate the distance from A to A, or B to B, or C to C, and so on...
 * So, it may look like below:
 
 ---
@@ -198,9 +200,11 @@ for (i in 0 until size) {
 
 for (i in 0 until size) {
     for (j in 0 until size) {
-        if (selected[i] && selected[j]) continue
+        if ((selected[i] && selected[j]) || (i == j))  continue
         val cost = euclideanDistance(i, j)
         edges.add(Edge(i, j, cost)) // Edge(val from: Int, val to: Int, val weight: Int)
+        selected[i] = true
+        selected[j] = true
     }
 }
 
@@ -208,4 +212,13 @@ for (i in 0 until size) {
 
 ---
 
-* 
+* Now, we follow the standard Kruskal's Algorithm.
+  * Reference: [020kruskalsAlgorithmToFindMst.md](../010lectures/020kruskalsAlgorithmToFindMst.md)
+* We sort the edges in order from smallest to largest weight.
+* Then, we process each edge.
+* Initially, each point is its own cluster.
+* Then, as we process each edge, we check the root of both the points (DSU find operation with path compression).
+* If their roots are the same, we skip.
+* Otherwise, we merge (union) them, and update corresponding roots/ranks as per DSU union by rank heuristic.
+* We mark the edge as selected.
+* We stop after processing `V - K` edges.
