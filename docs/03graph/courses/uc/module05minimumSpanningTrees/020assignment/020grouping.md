@@ -106,4 +106,106 @@ two objects from different subsets are far apart.
 
 ## Thought Process
 
+![060classificationGroupingClustering.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/100assignments/060classificationGroupingClustering.webp)
+
+* As shown in the above image, to get **K groups**, we need to **remove `K - 1` edges** in order from largest to smallest weight.
+* However, we are not getting the readily available MST.
+* We get coordinated points.
+* So, first we need to connect all the points.
+* And when it comes to connect all the objects, MST is a natural, sensible choice.
+* And we have already learned about how to connect coordinated points in the previous example.
+  * Reference: [010buildingRoads.md](010buildingRoads.md)
+
+### Overall Flow Diagram (Simple)
+
+* So, the overall flow becomes:
+
+```markdown
+              ALL POINTS
+                  │
+                  ▼
+         Build Minimum Spanning Tree
+                  │
+                  ▼
+            One connected tree
+                  │
+                  ▼
+       Need k connected components
+                  │
+                  ▼
+        Remove k - 1 largest edges
+                  │
+                  ▼
+              k clusters
+                  │
+                  ▼
+       Spacing = smallest remaining
+          cross-cluster distance
+```
+
+* And we stop after selecting `V - K` edges.
+* So, it becomes:
+
+```markdown
+
+Calculate all pairwise distances
+↓
+Sort all edges by distance
+↓
+Start with n separate components
+↓
+Kruskal merge
+↓
+Stop after successfully selecting (merging, connecting) `V - K` edges to get K groups
+↓
+Look at the next useful edge
+↓
+That edge's weight = answer
+
+```
+
+### What do we need for Kruskal's Algorithm?
+
+* Kruskal's Algorithm sorts, processes, and selects the **edges** in order from **smallest to largest weight**.
+* How do we get edges and corresponding weights?
+* We have points.
+* We calculate the distance of all the points from each other!
+* How do we do that?
+---
+
+```kotlin
+
+for (i in 0 until size) {
+    for (j in 0 until size) {
+        val cost = euclideanDistance(i, j)
+        edges.add(Edge(i, j, cost)) // Edge(val from: Int, val to: Int, val weight: Int)
+    }
+}
+
+```
+
+---
+
+* And to optimize it a little bit, we can avoid already selected vertices (points).
+* For example, AB is equal to BA.
+* So, when we start processing BA, we check if A is already selected.
+* If A is already selected, we skip calculating and storing the distance for this pair.
+* So, it may look like below:
+
+---
+
+```kotlin
+
+for (i in 0 until size) {
+    for (j in 0 until size) {
+        if (selected[i] && selected[j]) continue
+        val cost = euclideanDistance(i, j)
+        edges.add(Edge(i, j, cost)) // Edge(val from: Int, val to: Int, val weight: Int)
+    }
+}
+
+```
+
+---
+
 * 
