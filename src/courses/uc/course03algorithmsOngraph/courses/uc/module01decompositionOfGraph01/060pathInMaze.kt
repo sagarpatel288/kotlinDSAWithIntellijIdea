@@ -42,3 +42,30 @@ fun main() {
     val (a, b) = readln().split(" ").map { it.toInt() }
     println(if (graph.hasPath(a - 1, b - 1)) "1" else "0")
 }
+
+/*
+* Sample input 01:
+*
+4 4
+1 2
+3 2
+4 3
+1 4
+1 4
+*
+* Expected output:
+*
+* 1
+*
+* Sample input 02:
+*
+*
+4 2
+1 2
+3 2
+1 4
+*
+* Expected output:
+*
+0
+* */
