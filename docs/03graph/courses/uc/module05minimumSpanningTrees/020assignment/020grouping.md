@@ -106,7 +106,7 @@ two objects from different subsets are far apart.
 
 ## Thought Process
 
-![060classificationGroupingClustering.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/100assignments/060classificationGroupingClustering.webp)
+![070classificationGroupingClustering.webp](../../../../../../assets/images/03graph/courses/uc/module05minimumSpanningTrees/100assignments/070classificationGroupingClustering.webp)
 
 * As shown in the above image, to get **K groups**, we need to **remove `K - 1` edges** in order from largest to smallest weight.
 * However, we are not getting the readily available MST.
@@ -148,17 +148,15 @@ two objects from different subsets are far apart.
 
 ```markdown
 
-Calculate all pairwise distances
+Calculate all distances
 ↓
-Sort all edges by distance
-↓
-Start with n separate components
+Sort edges by distance
 ↓
 Kruskal merge
 ↓
-Stop after successfully selecting (merging, connecting) `V - K` edges to get K groups
+Wait after successfully selecting (using, merging) `V - K` edges to get K groups
 ↓
-Look at the next useful edge
+Look at the next useful edge (After `V - K`) that can connect two different groups
 ↓
 That edge's weight = answer
 
@@ -210,6 +208,17 @@ for (i in 0 until size) {
 
 ```
 
+```kotlin
+
+for (i in 0..<size) {
+    for (j in (i + 1)..<size) {
+        val cost = euclideanDistance(i, j)
+        edges.add(Edge(i, j, cost))
+    }
+}
+
+```
+
 ---
 
 * Now, we follow the standard Kruskal's Algorithm.
@@ -222,3 +231,32 @@ for (i in 0 until size) {
 * Otherwise, we merge (union) them, and update corresponding roots/ranks as per DSU union by rank heuristic.
 * We mark the edge as selected.
 * We stop after processing `V - K` edges.
+
+----
+* And what will be the answer?
+* After selecting `V - K` edges, we wait for the edge that can connect (merge) two different groups.
+* We don't consider such an edge as the selected edge, but we return its weight as the answer.
+
+## Time Complexity
+
+* Finding the distance of all the points from each other: $O(V^2)$
+* Then, we sort the edge list: $O(E \log E)$
+* Since, for a normal graph, E is at most $V^2$, it becomes: $O(V^2 \log V)$ 
+* And then, we iterate through the edge list and perform DSU for each edge.
+* So, each DSU is $O(⍺(E))$.
+* For E edges, it becomes: $O(E * ⍺(E))$.
+* But the Inverse Ackermann function $⍺(E)$ is almost linear (grows so slow).
+* So, we can consider it as: $O(E * ⍺(E)) = O(E)$.
+* So, the total cost becomes: $O(V^2 \log V + E)$.
+* And the dominant cost is: $O(V^2 \log V)$.
+
+## Space Complexity
+
+* To store points: $O(V)$
+* To store each edge: $O(V^2)$
+* DSU: O(V)
+* So, the dominant cost is: $O(V^2)$
+
+## Implementation 
+
+* [020groupingClustering.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module05minimumSpanningTrees/part02assignments/020groupingClustering.kt)
