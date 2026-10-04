@@ -1,6 +1,10 @@
 package courses.uc.course02dataStructures.module04hashTables
 
 /**
+ *
+ * # Try to solve it using Bitwise operators and Bitmask as documented here:
+ * * [Fuse Search](https://www.fusejs.io/fuzzy-search.html#how-it-works)
+ *
  * # Longest Common Substring
  *
  * ## Problem Introduction
@@ -136,6 +140,9 @@ package courses.uc.course02dataStructures.module04hashTables
  * ```
  * Good job! (Max time used: 2.27/5.40, max memory used: 201785344/536870912.)
  * ```
+ *
+ * # Try to solve it using Bitwise operators and Bitmask as documented here:
+ * * [Fuse Search](https://www.fusejs.io/fuzzy-search.html#how-it-works)
  *
  */
 class LongestCommonSubstring03(private val string1: String, private val string2: String) {
