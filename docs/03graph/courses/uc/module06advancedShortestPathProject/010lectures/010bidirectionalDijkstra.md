@@ -1,5 +1,13 @@
 # Bidirectional Dijkstra
 
+## Prerequisites
+
+## References
+
+* [Practical Visual Comparison By PhysicsFX](https://youtu.be/JHgk9ZgHXjY?si=GGQ_LUa716OMFUZM)
+
+## Concept
+
 * Assume that there are two friends: A and B.
 * They want to meet.
 * We have three options: 
@@ -49,12 +57,92 @@
 * This difference is enormous.
 ---
 * But how do we travel backward from the target vertex T to the source vertex S?
+* We use two graphs.
+* The original graph and the reversed graph.
+
+![030reversedGraph.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part01BidirectionalDijkstra/030reversedGraph.webp)
+
+* And then we perform normal Dijkstra on both the graphs.
+* In the original graph, we travel from the source vertex S to the target vertex T.
+* And in the reversed graph, we travel from the target vertex T to the source vertex S.
+* And when we find a common vertex from both the forward and the backward traversal, we stop.
+---
+* However, notice that meeting at the middle, or finding the common vertex point does not mean that the global shortest path goes through that vertex only.
+* For example:
+
+![040bidirectionalDijkstra.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part01BidirectionalDijkstra/040bidirectionalDijkstra.webp)
+
+* We need to understand what the `dist` array and the `priority queue` represent in the Dijkstra's algorithm.
+* So, let us recall some implications of them in the normal Dijkstra's algorithm.
+---
+* Initially, all the values in the `dist` is `MAX`.
+* Then, we start with the source and set its `dist` value to `0`.
+* Then, we add `(distance, vertex)` to the priority queue.
+* And then, as long as the priority queue is not empty, we repeat the below process:
+* We extract the vertex.
+* We inspect the outgoing edges.
+* Each outgoing edge gives us the ending (destination, target, to) vertex.
+* We call it discovery.
+* It is like as if we are saying "we discovered a path to this vertex".
+* The path doesn't have to be the final path.
+* This is just a discovery.
+* We check the `dist` value of that ending (destination, target, to) vertex.
+* If we find that `dist[to] > dist[from] + weight(from, to)`, then we relax the edge.
+* We update the corresponding `dist` for `to`.
+* And when we relax the edge, we add `(distance, to)` to the priority queue.
+* Now, adding `(distance, vertex)` to the priority queue does not mean that the `distance` is the final shortest distance for the `vertex`.
+* We might add the same or different `distance` values for the same `to` vertex in the priority queue due to different connections and paths.
+* So, a priority queue can have the same vertex with different values.
+* Each `(distance, vertex)` value in the priority queue says that "there is a path to this vertex, and it costs us the `distance` value."
+* We get the final shortest distance of a vertex only when we `poll` from the priority queue.
+---
+* The values in `dist` may decrease, but it cannot increase.
+* Whenever we store or update some value in `dist`, it is like as if we are saying **"the value cannot be more than this."**
+* So, it is like as if we are storing the **upper bound** in the `dist` and we keep decreasing this **upper bound** in the `dist` whenever we get the opportunity.
+* We get this opportunity through **edge relaxation**.
+* Similarly, the values of the `top` elements in our `min - heap priority queue` keep increasing.
+* It starts with `0` and then it increases.
+* Each `top` element conveys that "shortest path cannot be shorter than this".
+* In other words, each `top` element has the **lower bound** of the shortest path.
+* And as we make progress, this lower bound keeps increasing.
+* Also, once we `poll` from the priority queue, the corresponding `dist` value is final. 
+* It cannot decrease further.
+* So, the `poll` says something like "the value cannot be smaller than this".
+* The `poll` operation finalizes the corresponding `dist` value.
+* In terms of distance, for the `(distance, vertex)` we get from `poll`, we can say that the `vertex` cannot have any shorter (smaller) distance than this `distance`.  
+---
+* So, in short, each value in the `dist` is the "upper bound of the shortest path" that goes through the corresponding vertex.
+* In other words, it says that "the shortest path that goes through me cannot be larger than this value."
+* Each `top` element of the `min-heap priority queue` is the "lower bound of the shortest path".
+* In other words, it says that "the shortest path will be at least of this value."
+* The `poll` stamps (finalizes) the shortest path for the corresponding vertex.
+* In other words, it says that "the shortest distance to this vertex cannot be shorter/smaller than this value."
+---
+* So, we look for a vertex that both forward and backward search have finalized.
+* So, a vertex that they both have `polled`.
+* We take the corresponding `dist` value of such a vertex.
+* Using that value, we perform: `min = minOf(min, value)`.
+* Here, `min` represents the **upper bound**.
+* It says that "We are expecting a lower value than this".
+---
+* If we combine all these representatives and their implications (perspectives), we get:
+* Upper bound from `min`.
+* Lower bound from the `top` elements of the priority queue.
+* At any point, if we ever find that `lower bound >= upper bound`, it becomes our **stop condition**.
 * 
 
+## Fragmented Points To Resolve, Connect, Organize Later
+
+* `dist` gives `minimum lower bound`.
+* Poll on the `priority queue` gives final - The path that goes from this extracted vertex cannot be any smaller than this? Again, it looks like a lower bound only.
+* Observe the pattern of the values we poll from the priority queue. It keeps increasing.
+* Observe the pattern of the `dist`. It keeps decreasing.
+* So, saying "common vertex" is equal to saying "known complete path".
+* And then, we use `min` to find the cheapest path among all the known complete paths.
 
 ## Questions
 
 * Why is it so that Bidirectional Dijkstra is even faster in the case of social network than compared to the road network?
 * Why is this applicable to undirected and non-negative weighted graph only?
-* How is it possible that C1 has radius 2r, but its area is 4 pie r square instead of 2 pie r square?
-* 
+* How do we interpret the phrase "when we find a common vertex processed by forward and backward search"? Is it related to discovery or finalization? How and when do we conclude it?
+* How do we calculate, and conclude the complete path? When?
