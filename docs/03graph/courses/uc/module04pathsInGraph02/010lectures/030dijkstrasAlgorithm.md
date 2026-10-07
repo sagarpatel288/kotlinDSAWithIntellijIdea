@@ -513,6 +513,8 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * We might add the same vertex with multiple different distances into the min-heap.
 * For example, at some point in our example, our min-heap state was:
 > The min-heap had: (3, B), (4, B).
+* This vertex currently has a tentative distance that is not yet proven optimal. 
+* A different route discovered later may give the vertex a smaller distance.
 * However, when we extract the same vertex, the distance associated with it becomes the final shortest distance for that vertex, and it doesn't get chance to decrease it further.
 * Because all the subsequent entries for the same vertex will have either the same or the higher distance due to the `min-heap` property.
 * And once we extract the min vertex, we inspect it's outgoing edges.
@@ -677,9 +679,15 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 * So, if we use lazy deletion, it is: $O(V + E)$.
 * If we use index based priority change, it is: $O(V)$.
 
-## ToDo
+## Questions
 
-* Add time and space complexity analysis
+**Can we use Dijkstra's algorithm for undirected (bidirectional), but non-negative-weighted graphs?**
+
+* Yes. Dijkstra's algorithm works for both the directed and undirected graphs as long as the graph does not have any negative-weighted edge.
+
+**Can we use Dijkstra's algorithm for undirected and negative-weighted graphs?**
+
+* No. Dijkstra's algorithm does not work reliably when the graph has negative-weighted edge/s.
 
 ## Next
 
