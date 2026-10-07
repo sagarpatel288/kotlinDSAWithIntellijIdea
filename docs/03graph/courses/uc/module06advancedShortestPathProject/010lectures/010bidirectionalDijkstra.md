@@ -185,7 +185,7 @@ if (distOther[v] != MAX) {
 
 ```markdown
 if (lowerBound >= upperBound) {
-    stop, exit, no need to find the complete path for the remaining vertex
+    stop, exit, no need to find the complete path for the remaining vertex/vertices
 }
 ```
 
