@@ -109,26 +109,28 @@
 * And as we make progress, this lower bound keeps increasing.
 * Also, once we `poll` from the priority queue, the corresponding `dist` value is final. 
 * It cannot decrease further.
-* So, the `poll` says something like "the value cannot be smaller than this".
+* So, the `poll` says something like "the value cannot be smaller than this for the corresponding vertex".
 * The `poll` operation finalizes the corresponding `dist` value.
-* In terms of distance, for the `(distance, vertex)` we get from `poll`, we can say that the `vertex` cannot have any shorter (smaller) distance than this `distance`.  
+* In terms of distance, for the `(distance, vertex)` we get from `poll`, we can say that the `vertex` cannot have any shorter (smaller) distance (from the source) than this `distance`.  
 ---
 * So, in short, each value in the `dist` is the "upper bound of the shortest path" that goes through the corresponding vertex.
 * In other words, it says that "the shortest path that goes through me cannot be larger than this value."
 * Each `top` element of the `min-heap priority queue` is the "lower bound of the shortest path".
-* In other words, it says that "the shortest path will be at least of this value."
+* In other words, it says that "the shortest path that goes through me will be at least of this value."
 * The `poll` stamps (finalizes) the shortest path for the corresponding vertex.
-* In other words, it says that "the shortest distance to this vertex cannot be shorter/smaller than this value."
+* In other words, it says that "the shortest distance (from the source) to this vertex cannot be shorter/smaller than this value."
 ---
-* So, we look for a vertex that both forward and backward search have finalized.
-* So, a vertex that they both have `polled`.
+* So, we look for a vertex that either the forward or the backward search has finalized.
+* So, a vertex that one of them have `polled`.
 * We take the corresponding `dist` value of such a vertex.
 * Using that value, we perform: `min = minOf(min, value)`.
 * Here, `min` represents the **upper bound**.
 * It says that "We are expecting a lower value than this".
+* It waits for the next `min` value, but it does not wait forever.
+* It observes the stop condition.
 ---
 * If we combine all these representatives and their implications (perspectives), we get:
-* Upper bound from `min`.
+* Upper bound from `min` that expects lower values.
 * Lower bound from the `top` elements of the priority queue.
 * At any point, if we ever find that `lower bound >= upper bound`, it becomes our **stop condition**.
 ---
