@@ -164,6 +164,13 @@ if (distOther[v] != MAX) {
 }
 ```
 * This is how we maintain the total minimum distance among all the complete paths we find.
+* Until when do we keep finding the complete path and keep maintaining the minimum among them?
+* The stop condition is:
+```markdown
+if (lowerBound >= upperBound) {
+    stop, exit, no need to find the complete path for the remaining vertex
+}
+```
 
 ## Fragmented Points To Resolve, Connect, Organize Later
 
