@@ -141,6 +141,9 @@
 * Or: The shortest path doesn't have to go through the middle.
 * Then?
 * We track the complete path.
+* Why? Because we are trying to find the shortest complete path!
+* Ok. How do we track the complete path?
+* Or in other words, how do we find the shortest complete path among all the complete paths we find?
 ```kotlin
 var min = minOf(min, distance)
 ```
