@@ -404,6 +404,24 @@ if (nextForwardDistance + nextBackwardDistance >= min) {
 
 ---
 
+* Also, we know that the forward search and the backward search do not run simultaneously.
+* So, how does that work?
+* As we know that Dijkstra's algorithm is a greedy algorithm, we always look for the `minimum`.
+* So, at any moment, whether to iterate over the forward search or the backward search, depends on the answer to: Who gives the smallest tentative complete path?
+* How do we get the answer to that question? From where?
+* From the `top` elements - that we also use for the **exit early** condition.
+* So, it becomes:
+
+```kotlin
+
+if (nextForwardDistance <= nextBackwardDistance) {
+    // iterate over the forward search
+} else {
+    // iterate over the backward search
+}
+
+```
+
 ## Questions
 
 * Why is it so that Bidirectional Dijkstra is even faster in the case of social network than compared to the road network?
