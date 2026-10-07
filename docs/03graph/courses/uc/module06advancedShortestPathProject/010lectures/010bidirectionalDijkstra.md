@@ -172,18 +172,23 @@ if (lowerBound >= upperBound) {
 }
 ```
 
-## Fragmented Points To Resolve, Connect, Organize Later
-
-* `dist` gives `minimum lower bound`.
-* Poll on the `priority queue` gives final - The path that goes from this extracted vertex cannot be any smaller than this? Again, it looks like a lower bound only.
-* Observe the pattern of the values we poll from the priority queue. It keeps increasing.
-* Observe the pattern of the `dist`. It keeps decreasing.
-* So, saying "common vertex" is equal to saying "known complete path".
-* And then, we use `min` to find the cheapest path among all the known complete paths.
-
 ## Questions
 
 * Why is it so that Bidirectional Dijkstra is even faster in the case of social network than compared to the road network?
+  * Because the bigger (larger) the area, the larger the search space we save (cut).
 * Why is this applicable to undirected and non-negative weighted graph only?
+  * Because it is Dijkstra. We use Dijkstra only on non-negative-weighted graphs only.
+  * We can use Dijkstra's algorithm (and Bidirectional Dijkstra) on both directed and undirected graphs as long as the graph does not contain any negative-weighted edge/s.
 * How do we interpret the phrase "when we find a common vertex processed by forward and backward search"? Is it related to discovery or finalization? How and when do we conclude it?
+  * The common vertex is the vertex for which at least one of the searches has finalized the distance and the other search has at least some tentative value (instead of the default value).
 * How do we calculate, and conclude the complete path? When?
+  * Whenever we get the common vertex.
+  * See the definition, implication, interpretation of the "common vertex" in the above question.
+  * Once we have such a common vertex:
+  ```markdown
+  if (distOther[v] != MAX) {
+      val distance = distThis[v] + distOther[v]
+      min = minOf(min, distance)  
+  }
+  ``` 
+* 
