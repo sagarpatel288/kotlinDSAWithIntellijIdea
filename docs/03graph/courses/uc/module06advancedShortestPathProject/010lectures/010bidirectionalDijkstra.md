@@ -148,9 +148,11 @@
 * Why? Because we are trying to find the shortest complete path!
 * Ok. How do we track the complete path?
 * Or in other words, how do we find the shortest complete path among all the complete paths we find?
+
 ```kotlin
 var min = minOf(min, distance)
 ```
+
 * Every time we get a complete path, we maintain the `min` among them.
 * But how do we get the complete path?
 * When we get the final distance of a particular vertex.
@@ -161,6 +163,7 @@ var min = minOf(min, distance)
 * How do we use that to get the complete path?
 * Whenever we get the final distance for a vertex in any of the searches, we check the `dist` value of other search for the same vertex.
 * If it is not the default value in other search, then:
+
 ```kotlin
 if (distOther[v] != MAX) {
   val distance = distThis[v] + distOther[v]
@@ -170,6 +173,7 @@ if (distOther[v] != MAX) {
 * This is how we maintain the total minimum distance among all the complete paths we find.
 * Until when do we keep finding the complete path and keep maintaining the minimum among them?
 * The stop condition is:
+
 ```markdown
 if (lowerBound >= upperBound) {
     stop, exit, no need to find the complete path for the remaining vertex
@@ -185,14 +189,17 @@ if (lowerBound >= upperBound) {
 * We use direct-addressing.
 * So, we are expecting that `adjList[index]` gives us the corresponding list of edges.
 * So, the `adjList` becomes:
+
 ```kotlin
 private val adjList = List(totalVertices) { mutableListOf<Edge>() }
 ```
+
 * And to inspect each edge, we need the `Edge` data class.
 * When we inspect each edge, we are trying to find two things:
   * Where can we go using this edge? To which vertex do we reach using this edge?
   * How much does that cost to reach that vertex?
 * So, the edge data class becomes:
+
 ```kotlin
 data class Edge(val to: Int, val weight: Long)
 ```
@@ -200,6 +207,7 @@ data class Edge(val to: Int, val weight: Long)
 
 * We get the standard input in the form of `from, to, weight` using which we need to build the `adjList`.
 * So, it becomes:
+
 ```kotlin
 fun addEdge(from: Int, to: Int, weight: Int) {
     adjList[from].add(Edge(to, weight))
@@ -222,6 +230,23 @@ private val distBackward = IntArray(totalVertices) { Int.MAX_VALUE }
 
 ---
 
+* And to track and keep the minimum distance of the complete path, we maintain a variable:
+
+
+```kotlin
+
+var min = Long.MAX_VALUE
+```
+
+* We keep it `MAX` so that we can replace it with the real value of any complete path when we perform:
+
+```kotlin
+
+min = minOf(min, distance)
+```
+
+---
+
 * When we start, we know the distance from the source to the source is `0`.
 * Similarly, for the reversed graph, we start from the target, and move towards the source.
 * And we know the distance from the target to the target is `0`.
@@ -230,10 +255,9 @@ private val distBackward = IntArray(totalVertices) { Int.MAX_VALUE }
 
 ```kotlin
 
-```
-
 distForward[0] = 0
 distBackward[0] = 0
+```
 
 ---
 
@@ -248,6 +272,7 @@ distBackward[0] = 0
 
 * We use two Dijkstra here: Forward and backward.
 * So, we use two `priority queues` here.
+
 ```kotlin
 private val forwardPriorityQueue = PriorityQueue(
     compareBy<Pair<Int, Int>> { it.first }.thenBy { it.second }
@@ -257,8 +282,42 @@ private val backwardPriorityQueue = PriorityQueue(
     compareBy<Pair<Int, Int>> { it.first }.thenBy { it.second }
 )
 ```
+
 ---
 
+* Now, we repeat the standard Dijkstra process for each search.
+* As long as the queue is not empty, we repeat:
+* Poll.
+* `if (distance > dist[polledVertex]) continue` (skip).
+* Otherwise: 
+* `(distance, polledVertex)` indicates that this is the final `distance` of the associated `polledVertex`.
+* And at this point, we can check if the other search has also some tentative distance for the same vertex.
+* So, we check:
+
+```kotlin
+
+if (distOther[polledVertex] != Int.MAX_VALUE) {
+    val distance = distThis[polledVertex] + distOther[polledVertex]
+    min = minOf(min, distance)
+}
+```
+
+* Also, we get the outgoing edges of this vertex:
+* `val edges = adjList[polledVertex]`
+* For each edge:
+* `for ((to, weight) in edges)`
+* We check:
+* `if (dist[to] > dist[polledVertex] + weight)`
+* Then, we relax the edge:
+
+```kotlin
+
+val distance = dist[polledVertex] + weight
+dist[to] = distance
+queue.addLast(distance to to) // Enqueue only for the relaxed edges
+```
+
+* And we come back to the loop condition.
 
 ## Questions
 
