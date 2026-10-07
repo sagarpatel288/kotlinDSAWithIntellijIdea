@@ -246,7 +246,7 @@ fun addEdge(from: Int, to: Int, weight: Int) {
 private val revAdjList = List(totalVertices) { mutableListOf<Edge> }
 
 fun reverseGraph() {
-    for ((vertex, edges) in adjList) {
+    for ((vertex, edges) in adjList.withIndex()) {
         for ((to, weight) in edges) {
             revAdjList[to].add(Edge(vertex, weight))
         }
