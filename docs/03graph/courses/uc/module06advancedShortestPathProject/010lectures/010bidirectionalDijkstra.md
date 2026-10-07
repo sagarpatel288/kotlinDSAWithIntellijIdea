@@ -129,7 +129,38 @@
 * Upper bound from `min`.
 * Lower bound from the `top` elements of the priority queue.
 * At any point, if we ever find that `lower bound >= upper bound`, it becomes our **stop condition**.
-* 
+---
+**Recap:**
+
+* Bidirectional Dijkstra Search = Forward Search + Backward Search
+* Forward Search = Original graph = From S to T
+* Backward Search = Reversed graph = From T to S
+* When do we stop?
+* In the middle?
+* Nah! The middle doesn't have to be the shortest path!
+* Or: The shortest path doesn't have to go through the middle.
+* Then?
+* We track the complete path.
+```kotlin
+var min = minOf(min, distance)
+```
+* Every time we get a complete path, we maintain the `min` among them.
+* But how do we get the complete path?
+* When we get the final distance of a particular vertex.
+* When do we get the final distance for a particular vertex?
+* When we `poll`.
+* Ok. So, when we `poll`, we get the final distance for a particular vertex.
+* So what? Then what? What do we do with that? 
+* How do we use that to get the complete path?
+* Whenever we get the final distance for a vertex in any of the searches, we check the `dist` value of other search for the same vertex.
+* If it is not the default value in other search, then:
+```kotlin
+if (distOther[v] != MAX) {
+  val distance = distThis[v] + distOther[v]
+  min = minOf(min, distance)
+}
+```
+* This is how we maintain the total minimum distance among all the complete paths we find.
 
 ## Fragmented Points To Resolve, Connect, Organize Later
 
