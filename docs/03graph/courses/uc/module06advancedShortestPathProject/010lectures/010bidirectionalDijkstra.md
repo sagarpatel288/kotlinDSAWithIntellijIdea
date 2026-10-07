@@ -176,6 +176,90 @@ if (lowerBound >= upperBound) {
 }
 ```
 
+## Explanation to code
+
+* Dijkstra inspects all the outgoing edges of the polled vertex.
+* So, we need a vertex using which we can inspect its edges.
+* Clearly, we need an `adjacencyList`.
+* The `adjList` gives us the edges corresponding to a particular vertex.
+* We use direct-addressing.
+* So, we are expecting that `adjList[index]` gives us the corresponding list of edges.
+* So, the `adjList` becomes:
+```kotlin
+private val adjList = List(totalVertices) { mutableListOf<Edge>() }
+```
+* And to inspect each edge, we need the `Edge` data class.
+* When we inspect each edge, we are trying to find two things:
+  * Where can we go using this edge? To which vertex do we reach using this edge?
+  * How much does that cost to reach that vertex?
+* So, the edge data class becomes:
+```kotlin
+data class Edge(val to: Int, val weight: Long)
+```
+---
+
+* We get the standard input in the form of `from, to, weight` using which we need to build the `adjList`.
+* So, it becomes:
+```kotlin
+fun addEdge(from: Int, to: Int, weight: Int) {
+    adjList[from].add(Edge(to, weight))
+}
+```
+---
+
+* Dijkstra uses a `dist` array to store the distance for each vertex.
+* Again, we ues the direct-addressing method.
+* And initially, we don't know the distance of any vertex.
+* So, the default value becomes: `MAX`.
+* And we use two `dist`.
+* Because we have two Dijkstra: Forward and backward. 
+* So, it becomes:
+
+```kotlin
+private val distForward = IntArray(totalVertices) { Int.MAX_VALUE }
+private val distBackward = IntArray(totalVertices) { Int.MAX_VALUE }
+```
+
+---
+
+* When we start, we know the distance from the source to the source is `0`.
+* Similarly, for the reversed graph, we start from the target, and move towards the source.
+* And we know the distance from the target to the target is `0`.
+* So, we use these known values and add them to their corresponding `dist`.
+* So, it becomes:
+
+```kotlin
+
+```
+
+distForward[0] = 0
+distBackward[0] = 0
+
+---
+
+* Dijkstra uses a `priority queue` to get the minimum from the `top`.
+* For each item that we `pop`, Dijkstra uses (needs) two information:
+  * The popped vertex and the associated, corresponding distance.
+  * `(distance, vertex)`.
+  * And yes, we keep the `distance` parameter first due to the way our `priority queue` works.
+  * We want to sort by `distance` in the order of `min to max`.
+  * It means that our priority queue will have: `(distance, vertex)` pair.
+---
+
+* We use two Dijkstra here: Forward and backward.
+* So, we use two `priority queues` here.
+```kotlin
+private val forwardPriorityQueue = PriorityQueue(
+    compareBy<Pair<Int, Int>> { it.first }.thenBy { it.second }
+)
+
+private val backwardPriorityQueue = PriorityQueue(
+    compareBy<Pair<Int, Int>> { it.first }.thenBy { it.second }
+)
+```
+---
+
+
 ## Questions
 
 * Why is it so that Bidirectional Dijkstra is even faster in the case of social network than compared to the road network?
