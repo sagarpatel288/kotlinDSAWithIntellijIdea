@@ -399,7 +399,8 @@ if (nextForwardDistance + nextBackwardDistance >= min) {
 * Because all the subsequent total value will be either the same or the greater value than the previous values.
 * But `min` expects either the same or a lower one.
 * So, if we (the total) cannot give a lower value to `min`, we better exit.
-
+* Especially, the break (early exit) condition says that:
+* "The total value is either equal to the `min` or greater than the `min`. And this will be true for all the subsequent total value. So, neither current nor any future total value will produce a lower value than the current `min`. So, exit early with the current `min` value. The current `min` value is your answer to: Shortest complete path."
 
 ---
 
