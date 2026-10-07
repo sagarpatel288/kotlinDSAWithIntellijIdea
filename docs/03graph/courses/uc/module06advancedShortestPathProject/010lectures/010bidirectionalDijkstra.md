@@ -206,13 +206,47 @@ data class Edge(val to: Int, val weight: Long)
 ---
 
 * We get the standard input in the form of `from, to, weight` using which we need to build the `adjList`.
-* So, it becomes:
+* So, for a directed graph, it becomes:
 
 ```kotlin
 fun addEdge(from: Int, to: Int, weight: Int) {
     adjList[from].add(Edge(to, weight))
 }
 ```
+
+* And for an undirected graph, it becomes:
+
+
+```kotlin
+
+fun addEdge(from: Int, to: Int, weight: Int) {
+    adjList[from].add(Edge(to, weight))
+    adjList[to].add(Edge(from, weight))
+}
+
+```
+
+* If it is a directed graph, we need a reverse graph as well.
+* To reverse the graph, we iterate through the existing `adjList`.
+* And for each edge, we reverse the direction.
+* So, it might look something like below:
+
+
+```kotlin
+
+private val revAdjList = List(totalVertices) { mutableListOf<Edge> }
+
+fun reverseGraph() {
+    for ((vertex, edges) in adjList) {
+        for ((to, weight) in edges) {
+            revAdjList[to].add(Edge(vertex, weight))
+        }
+    }
+}
+
+```
+
+
 ---
 
 * Dijkstra uses a `dist` array to store the distance for each vertex.
