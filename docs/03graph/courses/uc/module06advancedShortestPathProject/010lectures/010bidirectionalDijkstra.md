@@ -318,6 +318,30 @@ queue.addLast(distance to to) // Enqueue only for the relaxed edges
 ```
 
 * And we come back to the loop condition.
+* But we don't want to check all the vertices and possible paths from Source to Target.
+* Similarly, we don't want to check all the vertices and possible paths from Target to Source.
+* So, as we have **early exit** condition in a normal Dijkstra, we have a **stop condition** in Bidirectional Dijkstra.
+
+```markdown
+
+lowerBound >= upperBound
+```
+
+* Which is:
+
+```kotlin
+
+
+val nextForwardDistance = forwardPriorityQueue.peek().distance
+val nextBackwardDistance = backwardPriorityQueue.peek().distance
+
+if (nextForwardDistance + nextBackwardDistance >= min) {
+    break
+}
+
+```
+
+---
 
 ## Questions
 
