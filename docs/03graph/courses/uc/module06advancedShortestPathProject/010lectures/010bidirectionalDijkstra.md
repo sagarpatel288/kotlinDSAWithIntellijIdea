@@ -2,6 +2,8 @@
 
 ## Prerequisites
 
+* [Dijkstra Algorithm.md](../../module04pathsInGraph02/010lectures/030dijkstrasAlgorithm.md)
+
 ## References
 
 * [Practical Visual Comparison By PhysicsFX](https://youtu.be/JHgk9ZgHXjY?si=GGQ_LUa716OMFUZM)
