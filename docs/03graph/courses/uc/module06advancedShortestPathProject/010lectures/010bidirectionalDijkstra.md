@@ -154,6 +154,15 @@ var min = minOf(min, distance)
 ```
 
 * Every time we get a complete path, we maintain the `min` among them.
+* The `min` says: "This is the minimum value of a complete path. I expect a lower value than this. The subsequent `min` value will be either equal to the immediate previous `min` or strictly lower than that. I better prefer that you call me only when you have a lower subsequent value. Otherwise, exit early." 
+* So, if the `min` changes, then the new value must be smaller than or equal to the previous `min` value.
+* It cannot expect a higher value than the previous `min` value.
+* So, it is strictly non-increasing.
+* So, either it stops changing or it keeps decreasing. 
+* In other words, the `min` value represents the `upper bound`.
+
+---
+
 * But how do we get the complete path?
 * When we get the final distance of a particular vertex.
 * When do we get the final distance for a particular vertex?
@@ -180,7 +189,7 @@ if (lowerBound >= upperBound) {
 }
 ```
 
-## Explanation to code
+## Explanation of code with implications (meaning)
 
 * Dijkstra inspects all the outgoing edges of the polled vertex.
 * So, we need a vertex using which we can inspect its edges.
@@ -374,6 +383,23 @@ if (nextForwardDistance + nextBackwardDistance >= min) {
 }
 
 ```
+
+* What does the `peek().distance` imply?
+* This is the `min-heap (priority queue)`.
+* And we have seen that each next `top` element will have a value greater than or equal to the current `top` element.
+* In other words, either it remains the same or it increases.
+* And to get the distance of the complete path, we add them together.
+* So, `nextForwardDistance + nextBackwardDistance` represents a value for a complete path.
+* It means that each subsequent total value will be either the same as the previous one or it will be higher than the previous one. 
+* The total says that: "I am the lowest complete path value. Get me or prepare for either the same value or the higher value."
+* On the other hand, recall that `min` expects: Either the same value or a lower one. 
+* So, either `min` remains the same or it decreases. 
+* It means once the total value becomes equal to or greater than `min`, it cannot produce any lower value than that in the future.
+* So, the moment the total value becomes equal to or greater than `min`, we can exit early.
+* Because all the subsequent total value will be either the same or the greater value than the previous values.
+* But `min` expects either the same or a lower one.
+* So, if we (the total) cannot give a lower value to `min`, we better exit.
+
 
 ---
 
