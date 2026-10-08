@@ -363,7 +363,13 @@ queue.addLast(distance to to) // Enqueue only for the relaxed edges
 * And we come back to the loop condition.
 * But we don't want to check all the vertices and possible paths from Source to Target.
 * Similarly, we don't want to check all the vertices and possible paths from Target to Source.
+* Otherwise, we would have used a normal Dijkstra.
 * So, as we have **early exit** condition in a normal Dijkstra, we have a **stop condition** in Bidirectional Dijkstra.
+* When do we stop? 
+* When we find the shortest complete path.
+* How do we conclude (finalize) the shortest complete path?
+* We keep the minimum among all the complete paths we find.
+* Ok. So, how do we decide that we cannot get a shorter path after certain point or value?
 
 ```markdown
 
@@ -421,6 +427,64 @@ if (nextForwardDistance <= nextBackwardDistance) {
 }
 
 ```
+
+---
+
+* And these `forwardQueue.peek` and `backwardQueue.peek` also help us define the loop condition.
+* They help us decide until when we keep running this process.
+* Inside the body, we use both `forwardQueue.peek` and `backwardQueue.peek`.
+* And we also use both `forwardQueue.poll` and `backwardQueue.poll`.
+* The stopping condition requires the `top` values from both the queues. 
+* So clearly, the loop body requires that both queues must be non-empty.
+* Also, when one of the queues is empty, it implies that it could not reach the other part.
+* It means that the other part will also not be able to reach it. 
+* It means that the graph is disconnected.
+* So, instead of waiting for the remaining queue to get exhausted (empty), we better conclude that the graph is disconnected.
+* Hence, to continue this process, we need both the queues non-empty.
+* In other words, we continue the process as long as both the queues are non-empty.
+* If one of the queue becomes empty, we have to terminate the process.
+
+```kotlin
+
+while (forwardQueue.isNotEmpty() && backwardQueue.isNotEmpty()) {
+    
+}
+
+```
+
+
+---
+
+* Reconstructing the path:
+* Prerequisites / References:
+* [Shortest Path.md](../../module03pathsInGraph01/010lectures/020shortestPath.md)
+* [Dijkstras Algorithm.md](../../module04pathsInGraph02/010lectures/030dijkstrasAlgorithm.md)
+* We use two `prev` arrays.
+* One for the forward search, and another for the backward search.
+* Every time we relax the edge, we update the corresponding `prev` value.
+* So, it might look something like below:
+
+
+```kotlin
+
+while (queue.isNotEmpty()) {
+    val (distance, vertex) = queue.poll()
+    if (distance > dist[vertex]) continue
+    val edges = adjList[vertex]
+    for ((to, weight) in edges) {
+        if (dist[to] > dist[vertex] + weight) {
+            val distance = dist[vertex] + weight
+            dist[to] = distance
+            prev[to] = vertex
+        }
+    }
+}
+
+```
+
+* However, it is important to note that in case of the reversed graph, we don't need to reverse the result as shown in the image below:
+
+![050bidirectionalPathReconstruction.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part01BidirectionalDijkstra/050bidirectionalPathReconstruction.webp)
 
 ## Questions
 
