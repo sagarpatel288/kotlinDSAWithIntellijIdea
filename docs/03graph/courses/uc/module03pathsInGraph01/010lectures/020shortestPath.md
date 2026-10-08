@@ -206,6 +206,7 @@ fun bfs(start: Int, destination: Int, visited: BooleanArray) {
 ```
 
 ---
+
 * What about the distance?
 * We can find the distance in two ways.
 * By simply counting the vertices in the final result - 1.
