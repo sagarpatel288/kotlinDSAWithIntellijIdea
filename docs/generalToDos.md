@@ -95,3 +95,15 @@
 * Questions and answers.
 * Relevant LeetCode problems.
 * Standard proofread and approval.
+
+## What to say during the interview? How to explain?
+
+* Don't narrate every line.
+* Instead, narrate the **invariants**.
+* For example:
+
+> ✅ "I'll run Dijkstra from both endpoints. `distS` stores the forward tentative distances, while `distT` stores distances toward the target. I'll maintain `bestDistance` as the cheapest complete path discovered so far. Whenever an edge connects the two reached regions, I'll evaluate `distS[u] + weight + distT[v]`. Once the sum of the minimum unsettled distances from both queues cannot beat `bestDistance`, I can stop. I'll maintain parent arrays so I can reconstruct the actual path."
+
+* That sounds much stronger than saying:
+
+> ❌ "Now I'm creating an array..."
