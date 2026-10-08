@@ -422,6 +422,39 @@ if (nextForwardDistance <= nextBackwardDistance) {
 
 ```
 
+---
+
+* Reconstructing the path:
+* Prerequisites / References:
+* [Shortest Path.md](../../module03pathsInGraph01/010lectures/020shortestPath.md)
+* [Dijkstras Algorithm.md](../../module04pathsInGraph02/010lectures/030dijkstrasAlgorithm.md)
+* We use two `prev` arrays.
+* One for the forward search, and another for the backward search.
+* Every time we relax the edge, we update the corresponding `prev` value.
+* So, it might look something like below:
+
+
+```kotlin
+
+while (queue.isNotEmpty()) {
+    val (distance, vertex) = queue.poll()
+    if (distance > dist[vertex]) continue
+    val edges = adjList[vertex]
+    for ((to, weight) in edges) {
+        if (dist[to] > dist[vertex] + weight) {
+            val distance = dist[vertex] + weight
+            dist[to] = distance
+            prev[to] = vertex
+        }
+    }
+}
+
+```
+
+* However, it is important to note that in case of the reversed graph, we don't need to reverse the result as shown in the image below:
+
+![050bidirectionalPathReconstruction.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part01BidirectionalDijkstra/050bidirectionalPathReconstruction.webp)
+
 ## Questions
 
 * Why is it so that Bidirectional Dijkstra is even faster in the case of social network than compared to the road network?
