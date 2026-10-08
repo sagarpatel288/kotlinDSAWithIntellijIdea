@@ -410,6 +410,52 @@ if (nextForwardDistance + nextBackwardDistance >= min) {
 
 ---
 
+* However, the `top` elements don't have to form the complete path as shown in the image below:
+
+![060bidirectionalCompletePath.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part01BidirectionalDijkstra/060bidirectionalCompletePath.webp)
+
+* So, a better formula and time is when we inspect an edge of a particular vertex.
+* As shown in the image, assume that we are inspecting an edge of A in the forward search.
+* The edge is (to, weight) = (B, 4).
+* Now, only if the backward search has some tentative distance for B, it can form the complete path.
+* So, the condition to calculate the complete path is:
+
+```markdown
+
+forwardDist[A] + weight(A, B) + backwardDist[B] = The Complete Path
+
+```
+
+* Once we have such a condition, we can calculate the complete path and compare it with the `min`.
+* So, it becomes:
+
+
+```kotlin
+
+val (polledDistance, polledVertex) = queue.poll()
+if (polledDistance > forwardDist[polledVertex]) continue
+val edges = forwardDist[polledVertex]
+for ((to, weight) in edges) {
+    val distance = polledDistance + weight
+    if (forwardDist[to] > distance) {
+        forwardDist[to] = distance
+        queue.add(distance to to)
+        prev[to] = polledVertex
+    }
+    if (backwardDist[to] != MAX) {
+        val completePathDistance = forwardDist[polledVertex] + weight + backwardDist[to]
+        if (completePathDistance < min) {
+            min = completePathDistance
+        }
+    }
+}
+
+
+```
+
+
+---
+
 * Also, we know that the forward search and the backward search do not run simultaneously.
 * So, how does that work?
 * As we know that Dijkstra's algorithm is a greedy algorithm, we always look for the `minimum`.
