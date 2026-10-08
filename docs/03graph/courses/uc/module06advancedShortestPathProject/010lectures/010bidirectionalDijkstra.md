@@ -453,6 +453,44 @@ for ((to, weight) in edges) {
 
 ```
 
+---
+
+* And once we get the complete path, we also maintain the record of the destination for each search to reconstruct the path as shown in the image below:
+
+![070bidirectionalDijkstraReconstructPath.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part01BidirectionalDijkstra/070bidirectionalDijkstraReconstructPath.webp)
+
+* For example, suppose that the shortest path is made by the `edge(B, C)`, where the forward search end-point is B and the backward search end-point is C.
+* Now, we need to remember these B and C to reconstruct the shortest path.
+* How do we get these two end-points? From where?
+* It is the same thing that we have seen in the previous section of "The formula of the complete path".
+* The moment we see a complete path, we compare it with the current `min`.
+* And if the latest complete path is shorter than the current `min`, we update the `min`.
+* This is the moment when (and where) we can also maintain the record of those two end-points.
+* So, it becomes something like below:
+
+```kotlin
+
+val (polledDistance, polledVertex) = queue.poll()
+if (polledDistance > forwardDist[polledVertex]) continue
+val edges = forwardDist[polledVertex]
+for ((to, weight) in edges) {
+    val distance = polledDistance + weight
+    if (forwardDist[to] > distance) {
+        forwardDist[to] = distance
+        queue.add(distance to to)
+        prev[to] = polledVertex
+    }
+    if (backwardDist[to] != MAX) {
+        val completePathDistance = forwardDist[polledVertex] + weight + backwardDist[to]
+        if (completePathDistance < min) {
+            min = completePathDistance
+            bestFrom = polledVertex
+            bestTo = to
+        }
+    }
+}
+
+```
 
 ---
 
