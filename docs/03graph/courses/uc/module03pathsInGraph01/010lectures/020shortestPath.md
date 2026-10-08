@@ -197,7 +197,7 @@ fun bfs(start: Int, destination: Int, visited: BooleanArray) {
     val result = mutableListOf<Int>()
     var vertex = destination
     while (vertex != start) {
-        result.add(destination)
+        result.add(vertex)
         vertex = prev[vertex]
     }
     println(result.reverse())
