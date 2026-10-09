@@ -570,6 +570,23 @@ while (queue.isNotEmpty()) {
 
 ![050bidirectionalPathReconstruction.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part01BidirectionalDijkstra/050bidirectionalPathReconstruction.webp)
 
+## Time Complexity
+
+* Reference: [Dijkstras Algorithm.md](../../module04pathsInGraph02/010lectures/030dijkstrasAlgorithm.md)
+* Same as the normal Dijkstra: $O((V + E)\ log\ V)$.
+
+## Space Complexity
+
+* Same as: [Dijkstras Algorithm.md](../../module04pathsInGraph02/010lectures/030dijkstrasAlgorithm.md)
+* We use 2 `dist`, `priority queues`, `parents`, etc.
+* But we don't count the constants during the complexity analysis.
+* We drop the constants during the complexity analysis.
+* So, it is: $O(V + E)$.
+
+## Implementation
+
+* [010bidirectionalDijkstraUndirected.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module06advancedShortestPathProject/part01concepts/010bidirectionalDijkstraUndirected.kt)
+
 ## Questions
 
 * Why is it so that Bidirectional Dijkstra is even faster in the case of social network than compared to the road network?
