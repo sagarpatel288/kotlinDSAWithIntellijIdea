@@ -18,6 +18,15 @@ class ShortestPathBidirectionalDijkstra(val totalVertices: Int) {
     private val adjList = List(totalVertices) { mutableListOf<Edge>() }
 
     fun addEdge(from: Int, to: Int, weight: Long) {
+        require(from in 0..<totalVertices) {
+            "Total vertices are: $totalVertices, but from is: $from"
+        }
+        require(to in 0..<totalVertices) {
+            "Total vertices are: $totalVertices, but to is: $to"
+        }
+        require(weight >= 0) {
+            "Dijkstra requires non-negative weight!"
+        }
         adjList[from].add(Edge(to, weight))
         adjList[to].add(Edge(from, weight))
     }
@@ -50,7 +59,7 @@ class ShortestPathBidirectionalDijkstra(val totalVertices: Int) {
         )
         backwardQueue.add(0L to target)
 
-        var min = Long.MAX_VALUE
+        var currentShortestDistance = Long.MAX_VALUE
         var bestFrom = -1
         var bestTo = -1
 
@@ -66,9 +75,9 @@ class ShortestPathBidirectionalDijkstra(val totalVertices: Int) {
             val forwardMin = forwardQueue.peek().first
             val backwardMin = backwardQueue.peek().first
 
-            val bestDist = forwardMin + backwardMin
+            val bestDistance = forwardMin + backwardMin
 
-            if (bestDist >= min) {
+            if (bestDistance >= currentShortestDistance) {
                 break
             }
 
@@ -84,8 +93,8 @@ class ShortestPathBidirectionalDijkstra(val totalVertices: Int) {
                 }
                 if (backwardDist[to] != Long.MAX_VALUE) {
                     val completePathDistance = forwardDistance + weight + backwardDist[to]
-                    if (completePathDistance < min) {
-                        min = completePathDistance
+                    if (completePathDistance < currentShortestDistance) {
+                        currentShortestDistance = completePathDistance
                         bestFrom = forwardVertex
                         bestTo = to
                     }
@@ -104,19 +113,19 @@ class ShortestPathBidirectionalDijkstra(val totalVertices: Int) {
                 }
                 if (forwardDist[to] != Long.MAX_VALUE) {
                     val completePathDistance = backwardDistance + weight + forwardDist[to]
-                    if (completePathDistance < min) {
-                        min = completePathDistance
+                    if (completePathDistance < currentShortestDistance) {
+                        currentShortestDistance = completePathDistance
                         bestFrom = to
                         bestTo = backwardVertex
                     }
                 }
             }
         }
-        if (min == Long.MAX_VALUE) {
+        if (currentShortestDistance == Long.MAX_VALUE) {
             return Result(distance = -1L, path = emptyList())
         }
         val path = reconstructPath(source, target, bestFrom, bestTo, parentsInForward, parentsInBackward)
-        return Result(min, path)
+        return Result(currentShortestDistance, path)
     }
 
     private fun removeStaleEntries(queue: PriorityQueue<Pair<Long, Int>>, dist: LongArray) {
@@ -130,8 +139,10 @@ class ShortestPathBidirectionalDijkstra(val totalVertices: Int) {
         }
     }
 
-    private fun reconstructPath(source: Int, target: Int, bestFrom: Int, bestTo: Int, parentsInForward: IntArray,
-                                parentsInBackward: IntArray): List<Int> {
+    private fun reconstructPath(
+        source: Int, target: Int, bestFrom: Int, bestTo: Int, parentsInForward: IntArray,
+        parentsInBackward: IntArray
+    ): List<Int> {
         val forwardPath = mutableListOf<Int>()
         var curForward = bestFrom
         while (curForward != source) {
@@ -157,10 +168,28 @@ fun main() {
     val shortestPath = ShortestPathBidirectionalDijkstra(totalVertices)
     repeat(totalEdges) {
         val (from, to, weight) = readln().split(" ").map { it.toInt() }
+        // It is guaranteed that weight will be `int` in the input
         shortestPath.addEdge(from - 1, to - 1, weight.toLong())
     }
     val (source, target) = readln().split(" ").map { it.toInt() }
     val result = shortestPath.shortestPath(source - 1, target - 1)
     println(result.distance)
-    println(result.path.joinToString(" "))
+    println(result.path.map { it + 1 }.joinToString(" "))
 }
+
+/**
+ * Sample input:
+ *
+ * 4 4
+ * 1 2 1
+ * 4 1 2
+ * 2 3 2
+ * 1 3 5
+ * 1 3
+ *
+ * Expected output
+ *
+ * 3
+ * 1 2 3
+ *
+ */
