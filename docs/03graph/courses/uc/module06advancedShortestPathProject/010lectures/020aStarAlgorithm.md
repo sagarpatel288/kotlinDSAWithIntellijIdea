@@ -1,10 +1,25 @@
 # A-Star (A*) Algorithm
 
+![005bidirectionalDijkstraVsAstarAlgo.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/005bidirectionalDijkstraVsAstarAlgo.webp)
+
+* Reference: [PhysicsFX](https://youtu.be/JHgk9ZgHXjY?si=hAe_Dq11QiC_B6j0)
+* The image is to help us visually understand the comparison of the bidirectional Dijkstra Vs. A* algorithm.
+
 ![010a*algorithm.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/010a*algorithm.webp)
 
 * An example of having an estimated value is when we have the co-ordinates of our current location, and the co-ordinates of the target location.
 * Then, we can draw a straight line between our current location and the target location.
 * And we ensure that our search does not go far away from that line.
+---
+* To remember the "Admissible Heuristic", we can use the below image:
+
+![015straightLineVsActualPath.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/015straightLineVsActualPath.webp)
+
+* The straight-line distance is the "Admissible Heuristic."
+* It never overestimates the actual distance.
+* The actual distance is always higher (longer) than the Admissible Heuristic.
+  * (The image source is: [https://www.maps.ie/driving-distances/](https://www.maps.ie/driving-distances/))
+
 ---
 * Think of this as a triangle-inequality rule: 
 * The estimate from a location to the destination cannot exceed the cost of taking one step to a neighbor plus the neighbor's estimate.
@@ -43,3 +58,8 @@
 ## Questions
 
 * What is h(t)? Why does it have to be 0? What does it imply?
+* Does it follow the same order of vertices as the Dijkstra's algorithm? Why?
+  * No. It depends on the estimated value.
+  * However, if the estimated value "h" is "0" for all the vertices, then it processes the vertices same as the Dijkstra's algorithm.
+* Do we also call it "Directed search?"
+* When to use: Dijkstra Vs. Bidirectional Dijkstra Vs. A* Vs. Bidirectional A* Vs. BFS, etc.?
