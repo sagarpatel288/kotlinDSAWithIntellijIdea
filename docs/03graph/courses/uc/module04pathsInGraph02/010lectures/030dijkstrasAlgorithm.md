@@ -648,14 +648,55 @@ fun shortestPathUsingDijkstra(source: Int, vertices: List<Vertex>) {
 
 ---
 
-**Min-heap using Binary-Heap**
+**Min-heap using Binary-Heap (With change priority)**
 
 * Building a binary heap is linear: O(V)
 * extractMin and changePriority are logarithmic.
 * So, it is:
 * O(V) + O(V) * T(extractMin) + O(E) * T(changePriority)
-* $= O(V) + O(V log V) + O(E log V)$
-* $= O((V + E) log V)$
+* $= O(V) + O(V \ \log\ V) + O(E \ \log\ V)$
+* $= O((V + E) \ \log\ V)$
+
+---
+
+**Min-heap using Binary-Heap (With lazy delete)**
+
+* Building the heap is: O(V)
+* We add at most E items to the queue: O(E)
+* For each item, we perform: `poll`
+* Each `poll` takes: O(log E)
+* So, `E` polls take: O(E log E)
+* So, it becomes: O(V + E log E)
+* But since, for a simple graph, E is at most $V^2$.
+
+$$
+E = V^{2}
+$$
+
+$\text{Taking the log both sides}$
+
+$$
+\log\ E = \log\ (V^{2})
+$$
+$$
+\log\ E = 2 \log V
+$$
+
+$\text{We drop the constant in complexity analysis}$
+
+$$
+\log\ E = \log V
+$$
+
+
+* So, $E \ \log\ E$ becomes $V \ \log\ V$.
+* So, $O(V + E \ \log\ E)$ becomes $O(V + E \ \log\ V)$.
+
+* Also, $V <= \ \log\ V$.
+* So, we can replace $V$ with $\ \log\ V$.
+* So, $O(V + E \ \log\ V)$ becomes $O(V \ \log\ V + E \ \log\ V)$.
+* And if we factor out the common term $\ log\ V$, we get:
+* $O( (V + E) \ \log\ V)$.
 
 ---
 
