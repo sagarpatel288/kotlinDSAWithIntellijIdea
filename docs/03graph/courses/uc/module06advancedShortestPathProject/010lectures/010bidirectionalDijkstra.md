@@ -8,6 +8,11 @@
 
 * [Practical Visual Comparison By PhysicsFX](https://youtu.be/JHgk9ZgHXjY?si=GGQ_LUa716OMFUZM)
 
+![005dijkstraVsBidirectionalDijkstra.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part01BidirectionalDijkstra/005dijkstraVsBidirectionalDijkstra.webp)
+
+* Reference: [PhysicsFX](https://youtu.be/JHgk9ZgHXjY?si=hAe_Dq11QiC_B6j0)
+* The image is to help us visually understand the comparison of the Dijkstra's algorithm Vs. Bidirectional Dijkstra's algorithm.
+
 ## Concept
 
 * Assume that there are two friends: A and B.
