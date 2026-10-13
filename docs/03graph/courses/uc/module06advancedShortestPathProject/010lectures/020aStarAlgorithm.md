@@ -142,7 +142,7 @@ data class QueueItem(val fScore: Long, val gScore: Long, val vertex: Int)
 
 ## Implementation
 
-* 
+* [A-Star Algorithm.kt](../../../../../../src/courses/uc/course03algorithmsOngraph/courses/uc/module06advancedShortestPathProject/part01concepts/030aStarAlgorithm.kt)
 
 ## Which one to use when
 
