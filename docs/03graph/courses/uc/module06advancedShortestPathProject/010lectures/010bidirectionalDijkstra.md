@@ -406,6 +406,8 @@ if (nextForwardDistance + nextBackwardDistance >= min) {
 * On the other hand, recall that `min` expects: Either the same value or a lower one. 
 * So, either `min` remains the same or it decreases. 
 * It means once the total value becomes equal to or greater than `min`, it cannot produce any lower value than that in the future.
+* This is true due to the property of our `priority queue (min)`.
+* It guarantees that the value that we `poll` cannot be smaller than the previous value.
 * So, the moment the total value becomes equal to or greater than `min`, we can exit early.
 * Because all the subsequent total value will be either the same or the greater value than the previous values.
 * But `min` expects either the same or a lower one.
