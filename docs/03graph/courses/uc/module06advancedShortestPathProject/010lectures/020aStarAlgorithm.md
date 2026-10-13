@@ -5,6 +5,9 @@
 * Reference: [PhysicsFX](https://youtu.be/JHgk9ZgHXjY?si=hAe_Dq11QiC_B6j0)
 * The image is to help us visually understand the comparison of the bidirectional Dijkstra Vs. A* algorithm.
 
+* Another visual (interactive) presentation is:
+* [Red Blob Games](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
+
 ![010a*algorithm.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/010a*algorithm.webp)
 
 * An example of having an estimated value is when we have the co-ordinates of our current location, and the co-ordinates of the target location.
