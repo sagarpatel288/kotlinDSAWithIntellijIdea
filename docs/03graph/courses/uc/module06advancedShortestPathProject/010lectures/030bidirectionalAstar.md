@@ -31,8 +31,24 @@
 * `f(v)`, which is `f(v) = g(v) + h(v)`.
 * `f(v)` is not the actual distance.
 * It means that we cannot conclude it definitely that adding `f(v)` of each priority queue will be the final and actual shortest distance.
+* Think of this like having two different thermometers with different offsets.
+* We cannot conclude the final actual temperature by adding their values.
+* We must first handle the offset.
+* In our case, heuristics are our offsets.
+* So, how do we handle them?
 * So, what do we do?
 ---
+
+**Differences of the heuristics**
+
+* ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
+
+* The positive value indicates that the vertex is near the source and far away from the target.
+* The negative value indicates that the vertex is far away from the source and near the target.
+* If the difference is `0`, it indicates that the vertex is in the middle.
+
+---
+
 * 
 
 ## Questions
