@@ -325,22 +325,27 @@ class MinStackUsingArray(private val capacity: Int) {
      * * We can simplify it as below:
      * ```
      * // Note that `new` is less than the `old` value.
+     * // Suppose that `old` is `5`, and new is `4`.
      * val encoded = 2 * new - old
      * = (new + new) - old
      * // Here, `new` is less than the `old`. `old` is greater than the `new`.
      * // So, we are subtracting a greater value (`old`) from a smaller value (`new`), which gives a negative result.
+     * // For example, it becomes: 4 + (4 - 5)
      * = new + (new - old)
      * = new + (- negative result)
      * // Here, we can see that `new` was already smaller than the `old` value.
      * // On top of that, we are reducing it further, by subtracting the `negative result` from it.
      * // This reduces the `new` value even further.
      * // Hence, it guarantees that the `encoded` value will always be smaller than the current min.
+     * // For example, it becomes: 4 - 1 = 3.
      * = new - negative result
      * ```
      * * Hence, to ensure that the encoded value is always smaller than the current min value, we apply this formula:
      * ```
      * val encoded = 2 * new - old
      * ```
+     * * So that whenever we pop and find that the popped value is smaller than the current min, we understand that
+     * it must be an encoded value.
      *
      * ## Why do we subtract the existing min value during encoding? Why not any other operator?
      *
