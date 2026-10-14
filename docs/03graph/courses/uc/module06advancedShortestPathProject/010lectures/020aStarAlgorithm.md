@@ -1,4 +1,4 @@
-# A-Star (A*) Algorithm
+# A-Star (A*) Algorithm (Also known as Directed Search or Dijkstra with directed search)
 
 ![005bidirectionalDijkstraVsAstarAlgo.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/005bidirectionalDijkstraVsAstarAlgo.webp)
 
@@ -119,6 +119,13 @@ data class QueueItem(val fScore: Long, val gScore: Long, val vertex: Int)
 * When we `poll` the `target` from the priority queue.
 
 ---
+
+* We also call it "Directed Search" because heuristics guide the search.
+* The search is based upon the provided heuristics (estimated values).
+* It is the heuristics driven search.
+* Hence, it is a guided search or directed search.
+
+--- 
 
 ## Time Complexity
 
