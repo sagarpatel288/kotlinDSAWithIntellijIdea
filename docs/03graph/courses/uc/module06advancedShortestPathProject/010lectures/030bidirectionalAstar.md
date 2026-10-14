@@ -36,32 +36,19 @@
 * We must first handle the offset.
 * In our case, heuristics are our offsets.
 * So, how do we handle them?
-* So, what do we do?
+* What do we do?
+* We start with what we have.
 ---
 
-**Differences of the heuristics**
+* Recall the mathematical guarantee we used in the **find min from a stack using an array in O(1)** problem:
 
-* ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
+  * Reference: [Min Stack Using Array.kt](../../../../../../src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video01Stack/03MinStackUsingArray.kt)
 
-* The positive value indicates that the vertex is near the source and far away from the target.
-* The negative value indicates that the vertex is far away from the source and near the target.
-* If the difference is `0`, it indicates that the vertex is in the middle.
+* Similarly, we are looking for a mathematical guarantee when we peek the `min` in the priority queues.
 
 ---
 
-//ToDo: Place this block at the right place.
-
-**The seesaw analogy.**
-
-* Suppose that side A is higher than side B.
-* In other words, side B has more weight than side A.
-* So, side B is near the ground and side A is far away from the ground.
-* If we want to balance them both, what do we need to do?
-* We add some weight on side A and remove some weight from side B.
-* Similarly, to balance the things, we will add positive potential to the forward search.
-* And we will add negative potential to the backward search.
-
----
+> We may start from here. This is the only useful information we have.
 
 * Now, the only information that we know about the heuristics is (or we expect, assume that) the heuristics are consistent, and they satisfy the below consistency condition:
 
@@ -73,6 +60,11 @@ h(u) - h(v) &le; weight(u, v)
 $$
 
 * The consistent heuristics convey that for the adjacent vertices (u, v), the difference of their individual heuristics cannot exceed their edge weight.
+* For example, let us assume that moving from `u` to `v` actually costs us `5`.
+* Then, the difference of their heuristics `h(u) - h(v)` cannot be more than `5`.
+* So, if `h(u)` is `20` and `h(v)` is `25`, then it is consistent and admissible.
+* But if `h(u)` is `20` and `h(v)` is `40`, then it is inconsistent.
+* The entire approach of our bidirectional A* algorithm assumes that we get consistent and admissible (feasible) heuristics. 
 * Using this information, we want to come up with some definite stop condition.
 * In the A-Star algorithm, each vertex gets two heuristics due to forward and backward search.
 * So, it becomes:
@@ -111,9 +103,35 @@ $$
 
 ---
 
-
 * Now, the questions is, how do we accommodate this with our priority queue structure?
-* 
+
+---
+
+> //ToDo: Place this section at the right place.
+
+**Differences of the heuristics**
+
+* ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
+
+* The positive value indicates that the vertex is near the source and far away from the target.
+* The negative value indicates that the vertex is far away from the source and near the target.
+* If the difference is `0`, it indicates that the vertex is in the middle.
+
+---
+
+> //ToDo: Place this block at the right place.
+
+**The seesaw analogy.**
+
+* Suppose that side A is higher than side B.
+* In other words, side B has more weight than side A.
+* So, side B is near the ground and side A is far away from the ground.
+* If we want to balance them both, what do we need to do?
+* We add some weight on side A and remove some weight from side B.
+* Similarly, to balance the things, we will add positive potential to the forward search.
+* And we will add negative potential to the backward search.
+
+---
 
 ## Questions
 
