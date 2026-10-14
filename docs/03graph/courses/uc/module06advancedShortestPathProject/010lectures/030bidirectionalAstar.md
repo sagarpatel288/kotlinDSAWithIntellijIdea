@@ -49,6 +49,20 @@
 
 ---
 
+//ToDo: Place this block at the right place.
+
+**The seesaw analogy.**
+
+* Suppose that side A is higher than side B.
+* In other words, side B has more weight than side A.
+* So, side B is near the ground and side A is far away from the ground.
+* If we want to balance them both, what do we need to do?
+* We add some weight on side A and remove some weight from side B.
+* Similarly, to balance the things, we will add positive potential to the forward search.
+* And we will add negative potential to the backward search.
+
+---
+
 * Now, the only information that we know about the heuristics is (or we expect, assume that) the heuristics are consistent, and they satisfy the below consistency condition:
 
 $$
@@ -112,10 +126,14 @@ $$
 * I feel disconnected. I believe I am missing many things and hence, I am unable to connect with the implementation with proper reasoning and understanding. 
 ---
 * How does taking the difference of the heuristics help? I understood what it indicates. And now I am trying to understand its importance, need, impact, and contribution to solution. What does it contribute to the solution? How does it contribute to the solution? It might be a part of the bigger picture that I might be missing.
+  * Also, I am unable to connect (reason about) these two pieces: (1) It is one thing to understand the meaning of positive and negative potentials. I believe that the positive potential indicates that the vertex is near the source and far away from the target. Whereas, the negative potential indicates that the vertex is far away from the source and near the target. But (2) adding positive potential value to the forward queue search and adding negative potential value to the backward queue search, so that when we combine them, they cancel out each other (then why do we add them in the first place at all?), seems arbitrary (abstract, disconnected) to me.
 * How did we take that p(v)? On what basis? How did we come up with that formula? Why that formula only? What does it indicate? Why do we use p(v)? How does it help? Does it indicate initial potential of any vertex or general potential of any vertex at any time? I believe it is to come up with some ground level information using which we can get a deterministic lower bound, but I am unsure.
 * I believe there must be some reason behind our goal to come up with these formulas for the forward and backward search priority queues. For example, if we take the reference of the `min stack using an array in O(1)` example, we multiply the value by `2` whenever we get the value that is less than the current minimum. Because it is a mathematical guarantee that the value will be smaller than the current min. So that whenever we pop the item and if it is less than the current min, we understand that it is an encoded value. Once we find that it is an encoded value, we can restore the previous minimum to the global `min` variable using the encoded value. Similarly, I believe there must be some concrete reason (maybe a mathematical guarantee or something else) behind these formulas. They might be establishing some guarantee.
 * What is the general, overall idea, intuition, inspiration, and association principle for this entire process? I believe we are doing this process to come up with a reliable, deterministic, and confident stopping condition. But I am unable to connect all these different pieces together.
 * I believe it all starts with this consistency guarantee: $h(u) &le; weight(u, v) + h(v)$. Which is, $h(u) - h(v) &le; weight(u, v)$. I believe that consistent heuristics convey that: "The difference of the individual heuristics of two adjacent vertices cannot exceed their edge weight." So, we might want to come up with a relevant stop condition. If we want to start from this information, and build all the other formulas and connections, including the formulas of forward and backward search priority queues, how do we do that? Using this information, we want to come up with some definite stop condition. Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification. I believe this will work for me. This will help me connect everything and make sense of everything. I believe this will help me understand why we do what we do.
-* Why don't we do something like we process by f(v), but we make the stop condition same as the bidirectional Dijkstra by using the actual distance (`gScore`) of the priority queue's item? I believe the reason is that the entire A* algorithm is based on and uses the estimated values to guide the search and to determine the actual shortest path. Now, I believe that there is a possibility that the next item (or any subsequent) item with higher heuristics (potential) has the shortest path. I am unsure about the answer to this question.   
+* Why did we choose p(v) as the half of the q(v)? How does it help?
+* How did we come up with this priority formula where we multiply the actual distance by 2 and then add either the positive potential or the negative potential? Why do we multiply the actual distance by 2? How does it help?
+* Why don't we do something like we process by f(v), but we make the stop condition same as the bidirectional Dijkstra by using the actual distance (`gScore`) of the priority queue's item? I believe the reason is that the entire A* algorithm is based on and uses the estimated values (heuristics) to guide the search and to determine the actual shortest path. Now, I believe that there is a possibility that the next (or any subsequent) item with higher heuristics (potential) has (can have) the shortest path. Although, I am unsure about my understanding (Is it true? How?) to this question.
+  * Also, ultimately, the forward min priority + backward min priority ends up with the actual value only. Then, why don't we directly use the `gScore` (actual distance)? 
 * I understand that this process requires consistent heuristics. In general, do we get consistent heuristics or inconsistent heuristics? What will be the solution for the inconsistent heuristics? Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
 * We may need to take actual values using the simplest possible graph to understand the stop condition.
