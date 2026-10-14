@@ -6,6 +6,35 @@
 * [Bidirectional Dijkstra.md](010bidirectionalDijkstra.md)
 * [Bidirectional Astar.md](030bidirectionalAstar.md)
 
+## Thought Process
+
+* Let us recall the overview of the bidirectional Dijkstra's process.
+* We search in two directions: Forward and backward.
+* We take 2 arrays to store the distance: Forward and backward.
+* We take 2 priority queues: Forward and backward.
+* We store `(distance, vertex)` in each queue.
+* The `distance` is the actual distance from the source vertex to the `vertex`.
+* The distance associated with the polled vertex is the final.
+* The vertex cannot get a smaller (shorter) distance than that.
+* Also, if the vertex that we poll from one queue has a tentative distance stored in the relevant distance array of the other side, then:
+* `forwardDist[u] + weight(u, v) + backwardDist[v]` = `complete path`.
+* If this complete path is less than the shortest complete path found so far, then we update the global `min` or `shortestPathDistance` variable.
+* It means that the global `min` is our upper bound, and it expects a lower value.
+* Also, the item that we remove from the queue cannot be smaller than the previous item, because we do not allow negative weights.
+* It means that the item that we poll from the queue is our lower bound.
+* It says that "the next item cannot be smaller than me!".
+* All these together, give us the stop condition:
+* Stop when: `lowerBound >= upperBound`.
+* I.e., stop when: `forwardDist[u] + weight(u, v) + backwardDist[v] >= min`.
+* One of the critical parts that makes this possible is the fact that we store the actual distance in the priority queues.
+* However, in the A* algorithm, we store:
+* `f(v)`, which is `f(v) = g(v) + h(v)`.
+* `f(v)` is not the actual distance.
+* It means that we cannot conclude it definitely that adding `f(v)` of each priority queue will be the final and actual shortest distance.
+* So, what do we do?
+---
+* 
+
 ## Questions
 
 * How does the difference of the heuristic from the target to the vertex v, and from the source to the vertex, v help? Why did we take the difference instead of taking the addition that we do in the bidirectional Dijkstra? What causes this change? Is there any role of the heuristic consistency there (that the difference between the heuristic u and heuristic v must be equal to or smaller than the edge weight between u and v)? What role? Why do we have this consistency? What if the heuristics are not consistent? What if they don't satisfy this consistency? Or maybe we are trying to ensure consistent heuristics through these formulas and math for the definite point (stop condition). I believe the answer is in the term "balanced priorities." I am unsure. What does that term mean, what does it indicate, what is the importance of that term? 
