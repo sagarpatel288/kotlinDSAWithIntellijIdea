@@ -52,10 +52,54 @@
 * Now, the only information that we know about the heuristics is (or we expect, assume that) the heuristics are consistent, and they satisfy the below consistency condition:
 
 $$
-h(u) &le; weight(u, v) + h(v)
+h(u) &le; weight(u, v) + h(v)  
+$$
+$$
+h(u) - h(v) &le; weight(u, v)
 $$
 
+* The consistent heuristics convey that for the adjacent vertices (u, v), the difference of their individual heuristics cannot exceed their edge weight.
 * Using this information, we want to come up with some definite stop condition.
+* In the A-Star algorithm, each vertex gets two heuristics due to forward and backward search.
+* So, it becomes:
+
+$$
+\text{For u}: h_{T}(u) - h_{S}(u) 
+$$
+
+$$
+\text{For v}: h_{T}(v) - h_{S}(v)
+$$
+
+* And their difference becomes:
+
+$$
+|\ (\ h_{T}(u)  -  h_{S}(u) \ )\ - (\ h_{T}(v)  -  h_{S}(v) \ )\ |
+$$
+
+$$
+|\ (\ h_{T}(u)  -  h_{S}(v) \ )\ | + |\ (\ h_{T}(u)  -  h_{S}(v) \ )\ |
+$$
+
+$$
+&le; |\ weight(u, v) + weight(u,v)\ |
+$$
+
+$$
+&le; 2\ ( \ weight(u, v) \ )
+$$
+
+* Using this condition, we want to stop when:
+
+$$
+&ge; 2\ ( \ weight(u, v) \ )
+$$
+
+---
+
+
+* Now, the questions is, how do we accommodate this with our priority queue structure?
+* 
 
 ## Questions
 
@@ -71,6 +115,7 @@ $$
 * How did we take that p(v)? On what basis? How did we come up with that formula? Why that formula only? What does it indicate? Why do we use p(v)? How does it help? Does it indicate initial potential of any vertex or general potential of any vertex at any time? I believe it is to come up with some ground level information using which we can get a deterministic lower bound, but I am unsure.
 * I believe there must be some reason behind our goal to come up with these formulas for the forward and backward search priority queues. For example, if we take the reference of the `min stack using an array in O(1)` example, we multiply the value by `2` whenever we get the value that is less than the current minimum. Because it is a mathematical guarantee that the value will be smaller than the current min. So that whenever we pop the item and if it is less than the current min, we understand that it is an encoded value. Once we find that it is an encoded value, we can restore the previous minimum to the global `min` variable using the encoded value. Similarly, I believe there must be some concrete reason (maybe a mathematical guarantee or something else) behind these formulas. They might be establishing some guarantee.
 * What is the general, overall idea, intuition, inspiration, and association principle for this entire process? I believe we are doing this process to come up with a reliable, deterministic, and confident stopping condition. But I am unable to connect all these different pieces together.
-* I believe it all starts with this consistency guarantee: $h(u) &le; weight(u, v) + h(v)$. If we want to start from this information, and build all the other formulas and connections, including the formulas of forward and backward search priority queues, how do we do that? Using this information, we want to come up with some definite stop condition.Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification. I believe this will work for me. This will help me connect everything and make sense of everything. I believe this will help me understand why we do what we do.
+* I believe it all starts with this consistency guarantee: $h(u) &le; weight(u, v) + h(v)$. Which is, $h(u) - h(v) &le; weight(u, v)$. I believe that consistent heuristics convey that: "The difference of the individual heuristics of two adjacent vertices cannot exceed their edge weight." So, we might want to come up with a relevant stop condition. If we want to start from this information, and build all the other formulas and connections, including the formulas of forward and backward search priority queues, how do we do that? Using this information, we want to come up with some definite stop condition. Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification. I believe this will work for me. This will help me connect everything and make sense of everything. I believe this will help me understand why we do what we do.
+* Why don't we do something like we process by f(v), but we make the stop condition same as the bidirectional Dijkstra by using the actual distance (`gScore`) of the priority queue's item? I believe the reason is that the entire A* algorithm is based on and uses the estimated values to guide the search and to determine the actual shortest path. Now, I believe that there is a possibility that the next item (or any subsequent) item with higher heuristics (potential) has the shortest path. I am unsure about the answer to this question.   
 * I understand that this process requires consistent heuristics. In general, do we get consistent heuristics or inconsistent heuristics? What will be the solution for the inconsistent heuristics? Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
-* We may need to take actual values using the simplest possible graph to understand the process.
+* We may need to take actual values using the simplest possible graph to understand the stop condition.
