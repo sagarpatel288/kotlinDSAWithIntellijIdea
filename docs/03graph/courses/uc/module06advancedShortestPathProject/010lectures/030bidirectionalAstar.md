@@ -106,28 +106,31 @@ $$
 
 ---
 
-* Now, the questions is, how do we accommodate this with our priority queue structure?
+* Now, the questions is, how do we accommodate and integrate this with our priority queue structure?
 * Our goal is... // ToDo: Finish from here...
 
 ---
 
-* Imagine that instead of the actual graph, we take an adjusted graph.
+* Imagine that instead of the actual graph, we take a mathematical copy of it.
+* We have some difficulties at the moment to properly measure the shortest path.
+* Because each priority queue has `f(v)`, and the addition (summation) of each pure and plain `f(v)` does not give us a reliable `lower bound` for the stop condition.
+* So, we take an adjusted graph.
+* We will change certain things, but it is guaranteed that the optimal shortest path of the original graph will remain the same in the adjusted graph, too.
 * In the adjusted graph, each vertex gets something called, potential.
 * We can compare it with our actual (real) theory.
-* The potential of the imaginary and adjusted graph is heuristic in our real situation.
-* We can call it potential, heuristic, or an adjustment.
-* This adjustment is consistent.
-* It means that it has some mathematical consistency.
+* The potential of the imaginary and adjusted graph is heuristic in our original graph.
+* The heuristics of the original graph are consistent.
+* So, our potentials must be consistent, too.
+* It means that it must have some mathematical consistency.
 * And this mathematical consistency is:
 
 $$
-w_{p}(u, v) = w(u, v) + h(v) - h(u)
+w_{p}(u, v) = w(u, v) + p(v) - p(u)
 $$
 
-* It means that the adjusted edge weight is equal to the actual edge weight, plus the difference between the heuristic of the destination (ending) vertex of the edge and the heuristic of the starting vertex of the edge.
-* This is a mathematical guarantee that we get.
-* This is not something that we invent.
-* It is assumed. It is expected. It is there. It is given. 
+* It means that the adjusted edge weight is equal to the actual edge weight, plus the difference between the potential of the destination (ending) vertex of the edge and the potential of the starting vertex of the edge.
+* Why this formula only? How did we come up with this formula? 
+* How does that work?
 
 ---
 
@@ -136,16 +139,16 @@ $$
 * When we use the adjusted formula, we get:
 
 $$
-w(S, A) + h(A) - h(S) + w(A, B) + h(B) - h(A) + w(B, T) + h(T) - h(B)
+w(S, A) + p(A) - p(S) + w(A, B) + p(B) - p(A) + w(B, T) + p(T) - p(B)
 $$
 
 $$
-w_{p}(S, T) = w(S, T) + h(T) - h(S)
+w_{p}(S, T) = w(S, T) + p(T) - p(S)
 $$
 
-* The magical part is, almost all the adjustments cancel out, and what remains is the actual edge weight + the difference between the target's adjustment and the source's adjustment!
+* The magical part is, almost all the potentials cancel out, and what remains is the actual edge weight + the difference between the target's potential and the source's potential!
 * And this is the result of the adjusted graph.
-* So, we can say that the value of the shortest path is the actual value + the difference between the target's adjustment and the source's adjustment.
+* So, we can say that the value of the shortest path is the actual value + the difference between the target's potential and the source's potential.
 * The shortest path itself of the original graph and the shortest path in the adjusted graph remain the same.
 * Changing their numerical values consistently does not change the actual shortest path.
 * But we cannot adjust the graph by any random, arbitrary values.
@@ -155,25 +158,28 @@ $$
 * Our potential formula is:
 
 $$
-w_{p}(S, T) = w(S, T) + h(T) - h(S)
+w_{p}(S, T) = w(S, T) + p(T) - p(S)
 $$
 
 * We can re-write it in the general form to apply it on any vertex as below:
 
 $$
-w_{p}(u, v) = w(u, v) + h(v) - h(u)
+w_{p}(u, v) = w(u, v) + p(v) - p(u)
 $$
 
 $$
-|\ h(u) - h(v)\ | &le; w(u, v)
+|\ p(u) - p(v)\ | &le; w(u, v)
 $$
 
 * It aligns with our heuristic consistency.
+* They both have the same form.
 * How do we integrate this insight and information?
+* We talked about the potential consistency and rules.
+* But what will be the potential for each vertex?
 
 ---
 
-* Now, we know that in the bidirectional search, we take two searches.
+* We know that in the bidirectional search, we take two searches.
 * Forward and backward.
 * Let us first try to visualize and understand it.
 
@@ -187,7 +193,7 @@ $$
 
 * Each vertex gets two heuristics: Forward and backward.
 * For example, the vertex v gets: $h_{S}(v)$ and $h_{T}(v)$.
-* Their difference is the potential for the vertex: $h_{T}(v) - h_{S}(v)$.
+* Their difference is the potential for the vertex: $q(v) = h_{T}(v) - h_{S}(v)$.
 * Why difference? 
 * Because:
 * The positive value indicates that the vertex is near the source and far away from the target.
@@ -204,7 +210,7 @@ $$
 * So, the gap is the difference between the estimated values of the forward search and the backward search.
 * It means that the potential of a vertex, v is:
 
-$p(v) = h_{T}(v) - h_{S}(v)$
+$q(v) = h_{T}(v) - h_{S}(v)$
 
 * What if we take their sum value?
 * As we can see in the image, if we take their sum value, it naturally gives the same answer. 
@@ -252,6 +258,7 @@ $p(v) = h_{T}(v) - h_{S}(v)$
 * I understand that this process requires consistent heuristics. In general, do we get consistent heuristics or inconsistent heuristics? What will be the solution for the inconsistent heuristics? Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
 * We may need to take actual values using the simplest possible graph to understand the stop condition.
 ---
-* Are heuristic and potential the same thing? It seems that they are different, but I mixed them and treated them as one! I used them interchangeably! What is the difference between them? How do they relate to each other?
+* Are heuristic and potential the same thing? It seems that they are different, but I mixed them and treated them as one! I used them interchangeably! What is the difference between them? How do they relate to each other? Are we trying to imagine that the original graph has heuristics, but the adjusted graph has potentials? Are we trying to say that in the original graph, we have actual edge weights and each vertex has a heuristic value. Whereas, in the imaginary graph, we have adjusted edge weights, and each vertex has a potential? How does having potentials instead of heuristics help? How does this transformation (even though if it is imaginary or a mathematical copy or whatever) help? 
 * Regarding: p(v) - p(u) <= w(u, v) How did we conclude that to avoid any negative edge weight, the potential difference must be less than or equal to the edge weight?
+* What is the difference between p(v) and q(v)? How do they relate? What do they convey? The potential of a vertex v is p(v) or q(v)?
 * 
