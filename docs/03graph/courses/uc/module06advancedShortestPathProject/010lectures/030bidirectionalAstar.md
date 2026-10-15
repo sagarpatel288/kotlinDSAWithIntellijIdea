@@ -171,8 +171,21 @@ $$
 |\ p(u) - p(v)\ | &le; w(u, v)
 $$
 
+* It means that the change in the potential while going from `u` to `v` can be up to (at most) $w(u, v)$.
 * It aligns with our heuristic consistency.
 * They both have the same form.
+* We know the heuristic consistency, which is as below:
+
+$$
+h(u) &le; weight(u, v) + h(v)
+$$
+
+$$
+h(u) - h(v) &le; weight(u, v)
+$$
+
+
+
 * How do we integrate this insight and information?
 * We talked about the potential consistency and rules.
 * But what will be the potential for each vertex?
@@ -219,6 +232,57 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * So, it doesn't help as much as taking their difference help.
 * This is the same reason we don't take their multiplication.
 * What if we take division?
+
+---
+
+* Now, we are trying to connect and relate heuristics, potentials, their individual differences, etc. together to... (complete this.)
+* We know that the potential must satisfy the below expression:
+
+$$
+|\ p(u) - p(v)\ | &le; w(u, v)
+$$
+
+* And we also know the heuristic consistency as below:
+
+$$
+|\ h_{S}(u) - h_{S}(v)\ | &le; w(u, v)
+$$
+
+* And it is true for the backward search, too.
+
+$$
+|\ h_{T}(u) - h_{T}(v)\ | &le; w(u, v)
+$$
+
+* And we know that:
+
+$$
+q(v) = h_{T}(v) - h_{S}(v)
+$$
+
+* Now, we want to know how much change we can get in the potentials while going from `u` to `v` so that (complete this... why are we trying to know this?)
+* So, it becomes:
+
+$$
+q(u) - q(v) = |\ (h_{T}(u) - h_{S}(u)) - (h_{T}(v) - h_{S}(v))\ |  
+$$
+
+$$
+= |\ (h_{T}(u) - h_{T}(v))\ | + |\ (h_{S}(u) - h_{S}(v))\ |  
+$$
+
+$$
+&le; 2\ weight(u, v)
+$$
+
+$$
+q(u) - q(v) &le; 2\ weight(u, v)
+$$
+
+* It means that the change in the potential while going from `u` to `v` be up to (at most) $2\ weight(u, v)$.
+* But earlier, we derived that it can be up to (at most) $&le; weight(u, v)$ only.
+* 
+
 ---
 
 > //ToDo: Place this block at the right place.
@@ -258,7 +322,9 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * I understand that this process requires consistent heuristics. In general, do we get consistent heuristics or inconsistent heuristics? What will be the solution for the inconsistent heuristics? Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
 * We may need to take actual values using the simplest possible graph to understand the stop condition.
 ---
-* Are heuristic and potential the same thing? It seems that they are different, but I mixed them and treated them as one! I used them interchangeably! What is the difference between them? How do they relate to each other? Are we trying to imagine that the original graph has heuristics, but the adjusted graph has potentials? Are we trying to say that in the original graph, we have actual edge weights and each vertex has a heuristic value. Whereas, in the imaginary graph, we have adjusted edge weights, and each vertex has a potential? How does having potentials instead of heuristics help? How does this transformation (even though if it is imaginary or a mathematical copy or whatever) help? 
+* Are heuristic and potential the same thing? It seems that they are different, but I mixed them and treated them as one! I used them interchangeably! What is the difference between them? How do they relate to each other? Are we trying to imagine that the original graph has heuristics, but the adjusted graph has potentials? Are we trying to say that in the original graph, we have actual edge weights and each vertex has a heuristic value. Whereas, in the imaginary graph, we have adjusted edge weights, and each vertex has a potential? How does having potentials instead of heuristics help? How does this transformation (even though if it is imaginary or a mathematical copy or whatever) help? Or are we trying to say (convey, proof) that the original graph is already a mathematically transformed graph where we can consider heuristics as potentials?  
 * Regarding: p(v) - p(u) <= w(u, v) How did we conclude that to avoid any negative edge weight, the potential difference must be less than or equal to the edge weight?
-* What is the difference between p(v) and q(v)? How do they relate? What do they convey? The potential of a vertex v is p(v) or q(v)?
-* 
+* What is the difference between p(v) and q(v)? How do they relate? What do they convey? The potential of a vertex v is p(v) or q(v)? Are we using it interchangeably?
+* Why did we try to know the difference between q(u) and q(v)? Where do we want to reach? What is the role of knowing this into the final stopping condition?
+* When you said that "We have discovered a problem: the difference \(q\) can change by as much as \(2w\), but our potential needs to change by at most \(w\). What should we do? Divide by two:" and then you used the expression: $p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}$, but we only derived and explained $q(v) = h_{T}(v) - h_{S}(v)$. So, from where and how did we derive this p(v) expression, even without the factor $\frac{1}{2}$? Or did we just replace q(v) with p(v) and then added the factor $\frac{1}{2}$ to come up with the definite expression (for what?)? I am disconnected here.
+* I understand that in the normal A* search, we use `f(v) = g(v) + h(v)`. Here, we use `f(v) = g(v) + p(v)` for the forward search, and `f(v) = g(v) - p(v)` for the backward search, where $p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}$. If this is true, then our goal is to reach from `h(v)` to its replacement `p(v)` step-by-step. Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.   
