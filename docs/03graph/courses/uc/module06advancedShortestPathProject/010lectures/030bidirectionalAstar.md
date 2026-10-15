@@ -35,33 +35,23 @@
 * We cannot conclude the final actual temperature by adding their values.
 * We must first handle the offset.
 * In our case, heuristics are our offsets.
-* So, how do we handle them?
-* So, what do we do?
+* It means that we cannot add pure and plain `f(v)` to each priority queue.
+* We need to modify it in such a way that can give us a helpful mathematical guarantee about the lower bound.
+* So, we need to add a modified `f(v)` to each priority queue.
+* How do we do that?
+* What do we do?
+* We start with what we have.
 ---
 
-**Differences of the heuristics**
+* Recall the mathematical guarantee we used in the **find min from a stack using an array in O(1)** problem:
 
-* ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
+  * Reference: [Min Stack Using Array.kt](../../../../../../src/courses/uc/course02dataStructures/module01/section02stacksAndQueues/video01Stack/03MinStackUsingArray.kt)
 
-* The positive value indicates that the vertex is near the source and far away from the target.
-* The negative value indicates that the vertex is far away from the source and near the target.
-* If the difference is `0`, it indicates that the vertex is in the middle.
+* Similarly, we are looking for a mathematical guarantee when we peek the `min` in the priority queues.
 
 ---
 
-//ToDo: Place this block at the right place.
-
-**The seesaw analogy.**
-
-* Suppose that side A is higher than side B.
-* In other words, side B has more weight than side A.
-* So, side B is near the ground and side A is far away from the ground.
-* If we want to balance them both, what do we need to do?
-* We add some weight on side A and remove some weight from side B.
-* Similarly, to balance the things, we will add positive potential to the forward search.
-* And we will add negative potential to the backward search.
-
----
+> We may start from here. This is the only useful information we have.
 
 * Now, the only information that we know about the heuristics is (or we expect, assume that) the heuristics are consistent, and they satisfy the below consistency condition:
 
@@ -73,6 +63,11 @@ h(u) - h(v) &le; weight(u, v)
 $$
 
 * The consistent heuristics convey that for the adjacent vertices (u, v), the difference of their individual heuristics cannot exceed their edge weight.
+* For example, let us assume that moving from `u` to `v` actually costs us `5`.
+* Then, the difference of their heuristics `h(u) - h(v)` cannot be more than `5`.
+* So, if `h(u)` is `20` and `h(v)` is `25`, then it is consistent and admissible.
+* But if `h(u)` is `20` and `h(v)` is `40`, then it is inconsistent.
+* The entire approach of our bidirectional A* algorithm assumes that we get consistent and admissible (feasible) heuristics. 
 * Using this information, we want to come up with some definite stop condition.
 * In the A-Star algorithm, each vertex gets two heuristics due to forward and backward search.
 * So, it becomes:
@@ -111,9 +106,80 @@ $$
 
 ---
 
-
 * Now, the questions is, how do we accommodate this with our priority queue structure?
+* Our goal is... // ToDo: Finish from here...
+
+---
+
+* Imagine that instead of the actual graph, we take an adjusted graph.
+* In the adjusted graph, each vertex gets something called, potential.
+* We can compare it with our actual (real) theory.
+* The potential of the imaginary and adjusted graph is heuristic in our real situation.
+* We can call it potential, heuristic, or an adjustment.
+* This adjustment is consistent.
+* It means that it has some mathematical consistency.
+* And this mathematical consistency is:
+
+$$
+w_{p}(u, v) = w(u, v) + h(v) - h(u)
+$$
+
+* It means that the adjusted edge weight is equal to the actual edge weight, plus the difference between the heuristic of the destination (ending) vertex of the edge and the heuristic of the starting vertex of the edge.
+* This is a mathematical guarantee that we get.
+* This is not something that we invent.
+* It is assumed. It is expected. It is there. It is given. 
+
+---
+
+* The reason behind this mathematical guarantee of the consistency is interesting.
+* Suppose that our path is: S → A → B → T
+* When we use the adjusted formula, we get:
+
+$$
+w(S, A) + h(A) - h(S) + w(A, B) + h(B) - h(A) + w(B, T) + h(T) - h(B)
+$$
+
+$$
+w_{p}(S, T) = w(S, T) + h(T) - h(S)
+$$
+
+* The magical part is, almost all the adjustments cancel out, and what remains is the actual edge weight + the difference between the target's adjustment and the source's adjustment!
+* And this is the result of the adjusted graph.
+* So, we can say that the value of the shortest path is the actual value + the difference between the target's adjustment and the source's adjustment.
+* The shortest path itself of the original graph and the shortest path in the adjusted graph remain the same.
+* Changing their numerical values consistently does not change the actual shortest path.
+
+---
+
 * 
+
+---
+
+> //ToDo: Place this section at the right place.
+
+**Differences of the heuristics**
+
+* ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
+
+* The positive value indicates that the vertex is near the source and far away from the target.
+* The negative value indicates that the vertex is far away from the source and near the target.
+* If the difference is `0`, it indicates that the vertex is in the middle.
+
+---
+
+> //ToDo: Place this block at the right place.
+
+**The seesaw analogy.**
+
+* Suppose that side A is higher than side B.
+* In other words, side B has more weight than side A.
+* So, side B is near the ground and side A is far away from the ground.
+* If we want to balance them both, what do we need to do?
+* We add some weight on side A and remove some weight from side B.
+* Similarly, to balance the things, we will add positive potential to the forward search.
+* And we will add negative potential to the backward search.
+
+---
 
 ## Questions
 
@@ -137,3 +203,6 @@ $$
   * Also, ultimately, the forward min priority + backward min priority ends up with the actual value only. Then, why don't we directly use the `gScore` (actual distance)? 
 * I understand that this process requires consistent heuristics. In general, do we get consistent heuristics or inconsistent heuristics? What will be the solution for the inconsistent heuristics? Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
 * We may need to take actual values using the simplest possible graph to understand the stop condition.
+---
+* Are heuristic and potential the same thing?
+* 
