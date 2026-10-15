@@ -1,5 +1,7 @@
 # A-Star (A*) Algorithm (Also known as Directed Search or Dijkstra with directed search)
 
+## References
+
 ![005bidirectionalDijkstraVsAstarAlgo.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/005bidirectionalDijkstraVsAstarAlgo.webp)
 
 * Reference: [PhysicsFX](https://youtu.be/JHgk9ZgHXjY?si=hAe_Dq11QiC_B6j0)
@@ -7,6 +9,13 @@
 
 * Another visual (interactive) presentation is:
 * [Red Blob Games](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
+
+* As usual, a beautiful card-stack presentation by Computerphile:
+* [Computerphile](https://youtu.be/ySN5Wnu88nE?si=xBD_WvNpgeVx0PG6)
+* This is so good! 
+* It clearly shows how the algorithm works better and differently from the Dijkstra with good heuristics.
+
+## Thought Process
 
 ![010a*algorithm.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/010a*algorithm.webp)
 
