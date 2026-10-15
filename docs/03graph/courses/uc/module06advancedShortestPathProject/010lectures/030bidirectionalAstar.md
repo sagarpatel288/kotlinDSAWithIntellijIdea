@@ -35,7 +35,10 @@
 * We cannot conclude the final actual temperature by adding their values.
 * We must first handle the offset.
 * In our case, heuristics are our offsets.
-* So, how do we handle them?
+* It means that we cannot add pure and plain `f(v)` to each priority queue.
+* We need to modify it in such a way that can give us a helpful mathematical guarantee about the lower bound.
+* So, we need to add a modified `f(v)` to each priority queue.
+* How do we do that?
 * What do we do?
 * We start with what we have.
 ---
@@ -104,6 +107,51 @@ $$
 ---
 
 * Now, the questions is, how do we accommodate this with our priority queue structure?
+* Our goal is... // ToDo: Finish from here...
+
+---
+
+* Imagine that instead of the actual graph, we take an adjusted graph.
+* In the adjusted graph, each vertex gets something called, potential.
+* We can compare it with our actual (real) theory.
+* The potential of the imaginary and adjusted graph is heuristic in our real situation.
+* We can call it potential, heuristic, or an adjustment.
+* This adjustment is consistent.
+* It means that it has some mathematical consistency.
+* And this mathematical consistency is:
+
+$$
+w_{p}(u, v) = w(u, v) + h(v) - h(u)
+$$
+
+* It means that the adjusted edge weight is equal to the actual edge weight, plus the difference between the heuristic of the destination (ending) vertex of the edge and the heuristic of the starting vertex of the edge.
+* This is a mathematical guarantee that we get.
+* This is not something that we invent.
+* It is assumed. It is expected. It is there. It is given. 
+
+---
+
+* The reason behind this mathematical guarantee of the consistency is interesting.
+* Suppose that our path is: S → A → B → T
+* When we use the adjusted formula, we get:
+
+$$
+w(S, A) + h(A) - h(S) + w(A, B) + h(B) - h(A) + w(B, T) + h(T) - h(B)
+$$
+
+$$
+w_{p}(S, T) = w(S, T) + h(T) - h(S)
+$$
+
+* The magical part is, almost all the adjustments cancel out, and what remains is the actual edge weight + the difference between the target's adjustment and the source's adjustment!
+* And this is the result of the adjusted graph.
+* So, we can say that the value of the shortest path is the actual value + the difference between the target's adjustment and the source's adjustment.
+* The shortest path itself of the original graph and the shortest path in the adjusted graph remain the same.
+* Changing their numerical values consistently does not change the actual shortest path.
+
+---
+
+* 
 
 ---
 
@@ -155,3 +203,6 @@ $$
   * Also, ultimately, the forward min priority + backward min priority ends up with the actual value only. Then, why don't we directly use the `gScore` (actual distance)? 
 * I understand that this process requires consistent heuristics. In general, do we get consistent heuristics or inconsistent heuristics? What will be the solution for the inconsistent heuristics? Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
 * We may need to take actual values using the simplest possible graph to understand the stop condition.
+---
+* Are heuristic and potential the same thing?
+* 
