@@ -148,10 +148,34 @@ $$
 * So, we can say that the value of the shortest path is the actual value + the difference between the target's adjustment and the source's adjustment.
 * The shortest path itself of the original graph and the shortest path in the adjusted graph remain the same.
 * Changing their numerical values consistently does not change the actual shortest path.
+* But we cannot adjust the graph by any random, arbitrary values.
+* We want to ensure that it does not produce negative edge weight.
+* Because our algorithm does not work reliably when an edge can have a negative weight.
+* So, how do we ensure that?
+* Our potential formula is:
+
+$$
+w_{p}(S, T) = w(S, T) + h(T) - h(S)
+$$
+
+* We can re-write it in the general form to apply it on any vertex as below:
+
+$$
+w_{p}(u, v) = w(u, v) + h(v) - h(u)
+$$
+
+$$
+|\ h(u) - h(v)\ | &le; w(u, v)
+$$
+
+* It aligns with our heuristic consistency.
+* How do we integrate this insight and information?
 
 ---
 
-* 
+* Now, we know that in the bidirectional search, we take two searches.
+* Forward and backward.
+* Let us first try to visualize and understand it.
 
 ---
 
@@ -161,10 +185,34 @@ $$
 
 * ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
 
+* Each vertex gets two heuristics: Forward and backward.
+* For example, the vertex v gets: $h_{S}(v)$ and $h_{T}(v)$.
+* Their difference is the potential for the vertex: $h_{T}(v) - h_{S}(v)$.
+* Why difference? 
+* Because:
 * The positive value indicates that the vertex is near the source and far away from the target.
 * The negative value indicates that the vertex is far away from the source and near the target.
 * If the difference is `0`, it indicates that the vertex is in the middle.
+* Hence, the difference gives us directional information.
+* And it aligns with our directed search.
+* Think of it like:
+* We have the forward search estimation.
+* We have the backward search estimation.
+* And then we have their difference.
+* The difference is the gap.
+* The gap indicates how much they disagree with each other!
+* So, the gap is the difference between the estimated values of the forward search and the backward search.
+* It means that the potential of a vertex, v is:
 
+$p(v) = h_{T}(v) - h_{S}(v)$
+
+* What if we take their sum value?
+* As we can see in the image, if we take their sum value, it naturally gives the same answer. 
+* For example, if $h_{S}(A)$ is 2, and $h_{T}(A)$ is 10, their sum is 12.
+* For another vertex, if $h_{S}(F)$ is 10, and $h_{T}(F)$ is 2, their sum is also 12.
+* So, it doesn't help as much as taking their difference help.
+* This is the same reason we don't take their multiplication.
+* What if we take division?
 ---
 
 > //ToDo: Place this block at the right place.
@@ -204,5 +252,6 @@ $$
 * I understand that this process requires consistent heuristics. In general, do we get consistent heuristics or inconsistent heuristics? What will be the solution for the inconsistent heuristics? Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
 * We may need to take actual values using the simplest possible graph to understand the stop condition.
 ---
-* Are heuristic and potential the same thing?
+* Are heuristic and potential the same thing? It seems that they are different, but I mixed them and treated them as one! I used them interchangeably! What is the difference between them? How do they relate to each other?
+* Regarding: p(v) - p(u) <= w(u, v) How did we conclude that to avoid any negative edge weight, the potential difference must be less than or equal to the edge weight?
 * 
