@@ -176,7 +176,7 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * So, we calculate it as: `99 (distance from target) - 1 (distance from source) = 98`!
 * But the person has traveled only 1 km!
 * The calculation or representation doubles the progress.
-* It is tempting to think that if the result is twice as much as the expected value, then why not just cut the result in the half?
+* It is tempting to think that if the result is as much as twice the expected value, then why not just cut the result in the half?
 * If we half the result, it becomes `49`, which seems worse.
 * There is still something that we need to improve!
 
@@ -336,9 +336,17 @@ $$
 q(u) - q(v) &le; 2\ weight(u, v)
 $$
 
-* It means that the change in the potential while going from `u` to `v` be up to (at most) $2\ weight(u, v)$.
-* But earlier, we derived that it can be up to (at most) $&le; weight(u, v)$ only.
-*
+* It means that the change (difference) in the $q$ while going from `u` to `v` be up to (at most) $2\ weight(u, v)$.
+* And earlier, we have derived that the change (difference) in the potential, $p$ while going from `u` to `v` can be up to (at most) $\ weight(u, v)$ only.
+* If we directly use $q$ as the potential, we might get the change up to (at most) $2\ weight(u, v)$.
+* So, we use $\frac{q}{2}$ as the potential instead of $q$.
+* Hence, the potential for each vertex becomes $p = \frac{q}{2}$.
+* It means that the potential of vertex, v is $p(v) = \frac{q(v)}{2}$.
+* And now, if we replace $q(v)$ with its actual value (definition), we get our final potential function for the vertex, v as:
+
+$$
+p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}
+$$
 
 ---
 
