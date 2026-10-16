@@ -51,6 +51,74 @@
 
 ---
 
+* In the A-Star algorithm, each vertex gets two heuristics due to forward and backward search.
+* For example, there will be two heuristics for vertex, v as below:
+
+$$
+\text{Forward search:}\ h_{S}(v)
+$$
+
+* It conveys the estimated remaining distance from the vertex, v to the target.
+
+$$
+\text{Backward search:}\ h_{T}(v)
+$$
+
+* It conveys the estimated remaining distance from the vertex, v to the source.
+* So, they measure different things.
+* They represent different things.
+* They give different values.
+* They have different goals.
+* We want to align that.
+* We want them to measure and represent the same thing.
+* We want them to share a common goal.
+* We can try to understand this with an analogy.
+* Suppose that we have someone that reports the quantity in millilitre, whereas the other person reports the same quantity in liter.
+* If we want to them to take a certain action when the quantity reaches a certain level, we need some mathematical transformation of their measurement units that they both can follow.
+* In short, we need to align their measurement units, they both need to use the same measurement unit, so that they both can follow the common (shared) goal.
+* Similarly, in our current situation, forward search moves towards the target.
+* The forward search heuristics indicate the estimated remaining distance to the target.
+* The backward search moves towards the source.
+* The backward search heuristics indicate the estimated remaining distance to the source.
+* If we want to share a common goal with them, we need some mathematical transformation.
+
+---
+
+**Differences of the heuristics**
+
+* ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
+
+* Each vertex gets two heuristics: Forward and backward.
+* For example, the vertex v gets: $h_{S}(v)$ and $h_{T}(v)$.
+* Their difference is the potential for the vertex: $q(v) = h_{T}(v) - h_{S}(v)$.
+* Why difference?
+* Because:
+* The positive value indicates that the vertex is near the source and far away from the target.
+* The negative value indicates that the vertex is far away from the source and near the target.
+* If the difference is `0`, it indicates that the vertex is in the middle.
+* Hence, the difference gives us directional information.
+* And it aligns with our directed search.
+* Think of it like:
+* We have the forward search estimation.
+* We have the backward search estimation.
+* And then we have their difference.
+* The difference is the gap.
+* The gap indicates how much they disagree with each other!
+* So, the gap is the difference between the estimated values of the forward search and the backward search.
+* It means that the potential of a vertex, v is:
+
+$q(v) = h_{T}(v) - h_{S}(v)$
+
+* What if we take their sum value?
+* As we can see in the image, if we take their sum value, it naturally gives the same answer.
+* For example, if $h_{S}(A)$ is 2, and $h_{T}(A)$ is 10, their sum is 12.
+* For another vertex, if $h_{S}(F)$ is 10, and $h_{T}(F)$ is 2, their sum is also 12.
+* So, it doesn't help as much as taking their difference help.
+* This is the same reason we don't take their multiplication.
+* What if we take division?
+
+---
+
 > We may start from here. This is the only useful information we have.
 
 * Now, the only information that we know about the heuristics is (or we expect, assume that) the heuristics are consistent, and they satisfy the below consistency condition:
@@ -69,7 +137,9 @@ $$
 * But if `h(u)` is `20` and `h(v)` is `40`, then it is inconsistent.
 * The entire approach of our bidirectional A* algorithm assumes that we get consistent and admissible (feasible) heuristics. 
 * Using this information, we want to come up with some definite stop condition.
-* In the A-Star algorithm, each vertex gets two heuristics due to forward and backward search.
+
+---
+
 * So, it becomes:
 
 $$
@@ -198,40 +268,7 @@ $$
 
 ---
 
-> //ToDo: Place this section at the right place.
 
-**Differences of the heuristics**
-
-* ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
-
-* Each vertex gets two heuristics: Forward and backward.
-* For example, the vertex v gets: $h_{S}(v)$ and $h_{T}(v)$.
-* Their difference is the potential for the vertex: $q(v) = h_{T}(v) - h_{S}(v)$.
-* Why difference? 
-* Because:
-* The positive value indicates that the vertex is near the source and far away from the target.
-* The negative value indicates that the vertex is far away from the source and near the target.
-* If the difference is `0`, it indicates that the vertex is in the middle.
-* Hence, the difference gives us directional information.
-* And it aligns with our directed search.
-* Think of it like:
-* We have the forward search estimation.
-* We have the backward search estimation.
-* And then we have their difference.
-* The difference is the gap.
-* The gap indicates how much they disagree with each other!
-* So, the gap is the difference between the estimated values of the forward search and the backward search.
-* It means that the potential of a vertex, v is:
-
-$q(v) = h_{T}(v) - h_{S}(v)$
-
-* What if we take their sum value?
-* As we can see in the image, if we take their sum value, it naturally gives the same answer. 
-* For example, if $h_{S}(A)$ is 2, and $h_{T}(A)$ is 10, their sum is 12.
-* For another vertex, if $h_{S}(F)$ is 10, and $h_{T}(F)$ is 2, their sum is also 12.
-* So, it doesn't help as much as taking their difference help.
-* This is the same reason we don't take their multiplication.
-* What if we take division?
 
 ---
 
@@ -308,7 +345,9 @@ $$
 * For the source vertex S and the target vertex T, we still apply the actual cost from the source to the vertex v + the actual cost from the vertex v to the target = the complete path. But I believe I am missing the idea that connects us with these actual costs. And I also believe that the complications (difficulties) come from the fact that we store `f` to the priority queue, and not merely the actual values. So maybe, all these formulas are to get idea of the actual values from the stored heuristics, but I am unsure. 
 * Why do we have a different main while loop condition than the bidirectional Dijkstra? Why do we process even if one of the queues is exhausted/empty? What does that indicate? How does that help?
 * I feel disconnected. I believe I am missing many things and hence, I am unable to connect with the implementation with proper reasoning and understanding. 
+ 
 ---
+
 * How does taking the difference of the heuristics help? I understood what it indicates. And now I am trying to understand its importance, need, impact, and contribution to solution. What does it contribute to the solution? How does it contribute to the solution? It might be a part of the bigger picture that I might be missing.
   * Also, I am unable to connect (reason about) these two pieces: (1) It is one thing to understand the meaning of positive and negative potentials. I believe that the positive potential indicates that the vertex is near the source and far away from the target. Whereas, the negative potential indicates that the vertex is far away from the source and near the target. But (2) adding positive potential value to the forward queue search and adding negative potential value to the backward queue search, so that when we combine them, they cancel out each other (then why do we add them in the first place at all?), seems arbitrary (abstract, disconnected) to me.
 * How did we take that p(v)? On what basis? How did we come up with that formula? Why that formula only? What does it indicate? Why do we use p(v)? How does it help? Does it indicate initial potential of any vertex or general potential of any vertex at any time? I believe it is to come up with some ground level information using which we can get a deterministic lower bound, but I am unsure.
@@ -321,10 +360,16 @@ $$
   * Also, ultimately, the forward min priority + backward min priority ends up with the actual value only. Then, why don't we directly use the `gScore` (actual distance)? 
 * I understand that this process requires consistent heuristics. In general, do we get consistent heuristics or inconsistent heuristics? What will be the solution for the inconsistent heuristics? Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
 * We may need to take actual values using the simplest possible graph to understand the stop condition.
+
 ---
+
 * Are heuristic and potential the same thing? It seems that they are different, but I mixed them and treated them as one! I used them interchangeably! What is the difference between them? How do they relate to each other? Are we trying to imagine that the original graph has heuristics, but the adjusted graph has potentials? Are we trying to say that in the original graph, we have actual edge weights and each vertex has a heuristic value. Whereas, in the imaginary graph, we have adjusted edge weights, and each vertex has a potential? How does having potentials instead of heuristics help? How does this transformation (even though if it is imaginary or a mathematical copy or whatever) help? Or are we trying to say (convey, proof) that the original graph is already a mathematically transformed graph where we can consider heuristics as potentials?  
 * Regarding: p(v) - p(u) <= w(u, v) How did we conclude that to avoid any negative edge weight, the potential difference must be less than or equal to the edge weight?
 * What is the difference between p(v) and q(v)? How do they relate? What do they convey? The potential of a vertex v is p(v) or q(v)? Are we using it interchangeably?
 * Why did we try to know the difference between q(u) and q(v)? Where do we want to reach? What is the role of knowing this into the final stopping condition?
 * When you said that "We have discovered a problem: the difference \(q\) can change by as much as \(2w\), but our potential needs to change by at most \(w\). What should we do? Divide by two:" and then you used the expression: $p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}$, but we only derived and explained $q(v) = h_{T}(v) - h_{S}(v)$. So, from where and how did we derive this p(v) expression, even without the factor $\frac{1}{2}$? Or did we just replace q(v) with p(v) and then added the factor $\frac{1}{2}$ to come up with the definite expression (for what?)? I am disconnected here.
-* I understand that in the normal A* search, we use `f(v) = g(v) + h(v)`. Here, we use `f(v) = g(v) + p(v)` for the forward search, and `f(v) = g(v) - p(v)` for the backward search, where $p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}$. If this is true, then our goal is to reach from `h(v)` to its replacement `p(v)` step-by-step. Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.   
+* I understand that in the normal A* search, we use `f(v) = g(v) + h(v)`. Here, we use `f(v) = g(v) + p(v)` for the forward search, and `f(v) = g(v) - p(v)` for the backward search, where $p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}$. If this is true, then our goal is to reach from `h(v)` to its replacement `p(v)` step-by-step. Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
+ 
+---
+
+//ToDo: Add questions to confirm our understanding.
