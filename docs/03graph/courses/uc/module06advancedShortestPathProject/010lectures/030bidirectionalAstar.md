@@ -127,11 +127,17 @@ $$
 
 **Differences of the heuristics**
 
+* We know that in the bidirectional search, we take two searches.
+* Forward and backward.
+* Let us first try to visualize and understand it.
+
 * ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
 
 * Each vertex gets two heuristics: Forward and backward.
-* For example, the vertex v gets: $h_{S}(v)$ and $h_{T}(v)$.
-* Their difference is the potential for the vertex: $q(v) = h_{T}(v) - h_{S}(v)$.
+* We denote the estimated remaining distance of the vertex, v to the target as: $h_{S}(v)$.
+* Similarly, we denote the estimated remaining distance of the vertex, v to the source as: $h_{T}(v)$. 
+* So, the vertex, v gets: $h_{S}(v)$ and $h_{T}(v)$.
+* We denote their difference as: $q(v) = h_{T}(v) - h_{S}(v)$.
 * Why difference?
 * Because:
 * The positive value indicates that the vertex is near the source and far away from the target.
@@ -146,7 +152,7 @@ $$
 * The difference is the gap.
 * The gap indicates how much they disagree with each other!
 * So, the gap is the difference between the estimated values of the forward search and the backward search.
-* It means that the potential of a vertex, v is:
+* Hence, the difference between both the heuristics of the vertex, v is:
 
 $q(v) = h_{T}(v) - h_{S}(v)$
 
@@ -161,7 +167,7 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 
 ---
 
-* Using the subtraction (the difference) between the forward and backward heuristic, we get directional information.
+* Using the subtraction (the difference) between the forward and backward heuristics, we get directional information.
 * But we still have a problem.
 * Suppose that the person A travels from the source towards the target.
 * We know that as the person moves, their distance from the source increases and their distance to the target decreases.
@@ -170,7 +176,7 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * So, we calculate it as: `99 (distance from target) - 1 (distance from source) = 98`!
 * But the person has traveled only 1 km!
 * The calculation or representation doubles the progress.
-* It is tempting to think that if the result is double the expected value, then why not just cut it in the half?
+* It is tempting to think that if the result is twice as much as the expected value, then why not just cut the result in the half?
 * If we half the result, it becomes `49`, which seems worse.
 * There is still something that we need to improve!
 
@@ -186,6 +192,142 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * Now, the person moves 1 km away from the source.
 * So, it becomes: $\frac{99 - 1}{2} = 49$, as a **shared value**!
 * For 1 km of progress, we get exactly 1 km of difference in the **shared value**!  
+
+---
+
+* The **shared value** is called the **potential**.
+* The potential of vertex, v is $p(v)$.
+* $p(v) = \frac{q(v)}{2}$. 
+
+---
+
+* Imagine that instead of the actual graph, we take a mathematical copy of it.
+* We have some difficulties at the moment to properly measure the shortest path.
+* Because each priority queue has `f(v)`, and the addition (summation) of each pure and plain `f(v)` does not give us a reliable `lower bound` for the stop condition.
+* So, we take an adjusted graph.
+* We will change certain things, but it is guaranteed that the optimal shortest path of the original graph will remain the same in the adjusted graph, too.
+* In the adjusted graph, each vertex gets something called, potential.
+* We can compare it with our actual (real) theory.
+* The heuristics of the original graph are consistent.
+* So, our potentials must be consistent, too.
+* It means that it must have some mathematical consistency.
+* And this mathematical consistency is:
+
+$$
+w_{p}(u, v) = w(u, v) + p(v) - p(u)
+$$
+
+* It means that the adjusted edge weight is equal to the actual edge weight, plus the difference between the potential of the destination (ending) vertex of the edge and the potential of the starting vertex of the edge.
+* Why this formula only? How did we come up with this formula?
+* How does that work?
+
+---
+
+* The reason behind this mathematical guarantee of the consistency is interesting.
+* Suppose that our path is: S → A → B → T
+* When we use the adjusted formula, we get:
+
+$$
+w(S, A) + p(A) - p(S) + w(A, B) + p(B) - p(A) + w(B, T) + p(T) - p(B)
+$$
+
+$$
+w_{p}(S, T) = w(S, T) + p(T) - p(S)
+$$
+
+* The magical part is, almost all the potentials cancel out, and what remains is the actual edge weight + the difference between the target's potential and the source's potential!
+* And this is the result of the adjusted graph.
+* So, we can say that the value of the shortest path is the actual value + the difference between the target's potential and the source's potential.
+* The shortest path itself of the original graph and the shortest path in the adjusted graph remain the same.
+* Changing their numerical values consistently does not change the actual shortest path.
+* But we cannot adjust the graph by any random, arbitrary values.
+* We want to ensure that it does not produce negative edge weight.
+* Because our algorithm does not work reliably when an edge can have a negative weight.
+* So, how do we ensure that?
+* Our potential formula is:
+
+$$
+w_{p}(S, T) = w(S, T) + p(T) - p(S)
+$$
+
+* We can re-write it in the general form to apply it on any vertex as below:
+
+$$
+w_{p}(u, v) = w(u, v) + p(v) - p(u)
+$$
+
+$$
+|\ p(u) - p(v)\ | &le; w(u, v)
+$$
+
+* How did we come up with the above formula/expression?
+* It means that the change in the potential while going from `u` to `v` can be up to (at most) $w(u, v)$.
+* It aligns with our heuristic consistency.
+* They both have the same form.
+* We know the heuristic consistency, which is as below:
+
+$$
+h(u) &le; weight(u, v) + h(v)
+$$
+
+$$
+h(u) - h(v) &le; weight(u, v)
+$$
+
+
+* How do we integrate this insight and information?
+* We talked about the potential consistency and rules.
+* But what will be the potential for each vertex?
+
+---
+
+* Now, we are trying to connect and relate heuristics, potentials, their individual differences, etc., together to... (complete this.)
+* We know that the potential must satisfy the below expression:
+
+$$
+|\ p(u) - p(v)\ | &le; w(u, v)
+$$
+
+* And we also know the heuristic consistency as below:
+
+$$
+|\ h_{S}(u) - h_{S}(v)\ | &le; w(u, v)
+$$
+
+* And it is true for the backward search, too.
+
+$$
+|\ h_{T}(u) - h_{T}(v)\ | &le; w(u, v)
+$$
+
+* And we know that:
+
+$$
+q(v) = h_{T}(v) - h_{S}(v)
+$$
+
+* Now, we want to know how much change we can get in the potentials while going from `u` to `v` so that (complete this... why are we trying to know this?)
+* So, it becomes:
+
+$$
+q(u) - q(v) = |\ (h_{T}(u) - h_{S}(u)) - (h_{T}(v) - h_{S}(v))\ |  
+$$
+
+$$
+= |\ (h_{T}(u) - h_{T}(v))\ | + |\ (h_{S}(u) - h_{S}(v))\ |  
+$$
+
+$$
+&le; 2\ weight(u, v)
+$$
+
+$$
+q(u) - q(v) &le; 2\ weight(u, v)
+$$
+
+* It means that the change in the potential while going from `u` to `v` be up to (at most) $2\ weight(u, v)$.
+* But earlier, we derived that it can be up to (at most) $&le; weight(u, v)$ only.
+*
 
 ---
 
@@ -251,146 +393,7 @@ $$
 
 ---
 
-* Imagine that instead of the actual graph, we take a mathematical copy of it.
-* We have some difficulties at the moment to properly measure the shortest path.
-* Because each priority queue has `f(v)`, and the addition (summation) of each pure and plain `f(v)` does not give us a reliable `lower bound` for the stop condition.
-* So, we take an adjusted graph.
-* We will change certain things, but it is guaranteed that the optimal shortest path of the original graph will remain the same in the adjusted graph, too.
-* In the adjusted graph, each vertex gets something called, potential.
-* We can compare it with our actual (real) theory.
-* The potential of the imaginary and adjusted graph is heuristic in our original graph.
-* The heuristics of the original graph are consistent.
-* So, our potentials must be consistent, too.
-* It means that it must have some mathematical consistency.
-* And this mathematical consistency is:
 
-$$
-w_{p}(u, v) = w(u, v) + p(v) - p(u)
-$$
-
-* It means that the adjusted edge weight is equal to the actual edge weight, plus the difference between the potential of the destination (ending) vertex of the edge and the potential of the starting vertex of the edge.
-* Why this formula only? How did we come up with this formula? 
-* How does that work?
-
----
-
-* The reason behind this mathematical guarantee of the consistency is interesting.
-* Suppose that our path is: S → A → B → T
-* When we use the adjusted formula, we get:
-
-$$
-w(S, A) + p(A) - p(S) + w(A, B) + p(B) - p(A) + w(B, T) + p(T) - p(B)
-$$
-
-$$
-w_{p}(S, T) = w(S, T) + p(T) - p(S)
-$$
-
-* The magical part is, almost all the potentials cancel out, and what remains is the actual edge weight + the difference between the target's potential and the source's potential!
-* And this is the result of the adjusted graph.
-* So, we can say that the value of the shortest path is the actual value + the difference between the target's potential and the source's potential.
-* The shortest path itself of the original graph and the shortest path in the adjusted graph remain the same.
-* Changing their numerical values consistently does not change the actual shortest path.
-* But we cannot adjust the graph by any random, arbitrary values.
-* We want to ensure that it does not produce negative edge weight.
-* Because our algorithm does not work reliably when an edge can have a negative weight.
-* So, how do we ensure that?
-* Our potential formula is:
-
-$$
-w_{p}(S, T) = w(S, T) + p(T) - p(S)
-$$
-
-* We can re-write it in the general form to apply it on any vertex as below:
-
-$$
-w_{p}(u, v) = w(u, v) + p(v) - p(u)
-$$
-
-$$
-|\ p(u) - p(v)\ | &le; w(u, v)
-$$
-
-* It means that the change in the potential while going from `u` to `v` can be up to (at most) $w(u, v)$.
-* It aligns with our heuristic consistency.
-* They both have the same form.
-* We know the heuristic consistency, which is as below:
-
-$$
-h(u) &le; weight(u, v) + h(v)
-$$
-
-$$
-h(u) - h(v) &le; weight(u, v)
-$$
-
-
-
-* How do we integrate this insight and information?
-* We talked about the potential consistency and rules.
-* But what will be the potential for each vertex?
-
----
-
-* We know that in the bidirectional search, we take two searches.
-* Forward and backward.
-* Let us first try to visualize and understand it.
-
----
-
-
-
----
-
-* Now, we are trying to connect and relate heuristics, potentials, their individual differences, etc. together to... (complete this.)
-* We know that the potential must satisfy the below expression:
-
-$$
-|\ p(u) - p(v)\ | &le; w(u, v)
-$$
-
-* And we also know the heuristic consistency as below:
-
-$$
-|\ h_{S}(u) - h_{S}(v)\ | &le; w(u, v)
-$$
-
-* And it is true for the backward search, too.
-
-$$
-|\ h_{T}(u) - h_{T}(v)\ | &le; w(u, v)
-$$
-
-* And we know that:
-
-$$
-q(v) = h_{T}(v) - h_{S}(v)
-$$
-
-* Now, we want to know how much change we can get in the potentials while going from `u` to `v` so that (complete this... why are we trying to know this?)
-* So, it becomes:
-
-$$
-q(u) - q(v) = |\ (h_{T}(u) - h_{S}(u)) - (h_{T}(v) - h_{S}(v))\ |  
-$$
-
-$$
-= |\ (h_{T}(u) - h_{T}(v))\ | + |\ (h_{S}(u) - h_{S}(v))\ |  
-$$
-
-$$
-&le; 2\ weight(u, v)
-$$
-
-$$
-q(u) - q(v) &le; 2\ weight(u, v)
-$$
-
-* It means that the change in the potential while going from `u` to `v` be up to (at most) $2\ weight(u, v)$.
-* But earlier, we derived that it can be up to (at most) $&le; weight(u, v)$ only.
-* 
-
----
 
 > //ToDo: Place this block at the right place.
 
@@ -442,12 +445,7 @@ $$
  
 ---
 
-**To: Google Gemini**
-
-* In your example, you said that for 1 mile, the calculation resulted in 98, and concluded it as 2 miles!
-* And as a solution, you said, half the result, but that makes it even worse, 49!
-* So the calculation interpreted 1 mile as 51 miles!
-* Then why do we go with that solution?
+* 
 
 ---
 
