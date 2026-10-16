@@ -157,6 +157,7 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * So, it doesn't help as much as taking their difference help.
 * This is the same reason we don't take their multiplication.
 * What if we take division?
+* //ToDo: Answer this!
 
 ---
 
@@ -169,9 +170,24 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * So, we calculate it as: `99 (distance from target) - 1 (distance from source) = 98`!
 * But the person has traveled only 1 km!
 * The calculation or representation doubles the progress.
+* It is tempting to think that if the result is double the expected value, then why not just cut it in the half?
+* If we half the result, it becomes `49`, which seems worse.
 * There is still something that we need to improve!
 
 --- 
+
+* Let us retry.
+* We don't just half the result.
+* We half the every single location.
+* And we also adjust our perspective and interpretation.
+* Initially, the person A is at the source.
+* That is, `0` km away from the source, and `100` km away from the target.
+* We calculate it as: $\frac{100 - 0}{2} = 50$, as a **shared value**!
+* Now, the person moves 1 km away from the source.
+* So, it becomes: $\frac{99 - 1}{2} = 49$, as a **shared value**!
+* For 1 km of progress, we get exactly 1 km of difference in the **shared value**!  
+
+---
 
 > We may start from here. This is the only useful information we have.
 
@@ -424,6 +440,15 @@ $$
 * When you said that "We have discovered a problem: the difference \(q\) can change by as much as \(2w\), but our potential needs to change by at most \(w\). What should we do? Divide by two:" and then you used the expression: $p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}$, but we only derived and explained $q(v) = h_{T}(v) - h_{S}(v)$. So, from where and how did we derive this p(v) expression, even without the factor $\frac{1}{2}$? Or did we just replace q(v) with p(v) and then added the factor $\frac{1}{2}$ to come up with the definite expression (for what?)? I am disconnected here.
 * I understand that in the normal A* search, we use `f(v) = g(v) + h(v)`. Here, we use `f(v) = g(v) + p(v)` for the forward search, and `f(v) = g(v) - p(v)` for the backward search, where $p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}$. If this is true, then our goal is to reach from `h(v)` to its replacement `p(v)` step-by-step. Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
  
+---
+
+**To: Google Gemini**
+
+* In your example, you said that for 1 mile, the calculation resulted in 98, and concluded it as 2 miles!
+* And as a solution, you said, half the result, but that makes it even worse, 49!
+* So the calculation interpreted 1 mile as 51 miles!
+* Then why do we go with that solution?
+
 ---
 
 //ToDo: Add questions to confirm our understanding.
