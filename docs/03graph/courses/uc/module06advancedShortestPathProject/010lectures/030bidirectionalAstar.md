@@ -84,6 +84,47 @@ $$
 
 ---
 
+* Suppose that a couple, A and B want to purchase a house.
+* A wants to purchase the house near the target.
+* We can think of it like the forward search.
+* B wants to purchase the house near the source.
+* We can think of it like the backward search.
+* If they focus only on their own preference, they both end up with having two different choices.
+* Let us assume that the source is at `0` and the target is at `100`.
+* As A moves towards the target, their distance from the source is increased, and their distance to the target is decreased.
+* Similarly, as B moves toward the source, their distance from the target is increased, and their distance to the source is decreased.
+* Now, the house that is 10 km from the source, is 90 km from the target.
+* If we take their total, `90 (distance from target) + 10 (distance from source)`, it becomes `100`.
+* Similarly, the house that is 50 km from the source, is 50 km from the target.
+* If we take their total, `50 (distance from target) + 50 (distance from source)`, it is still `100`.
+* And if the house is 90 km from the source, it is 10 km from the target.
+* And their total, `10 (distance from target) + 90 (distance from source)` is still `100`.
+* In short, we will always get `100` if we take their total using the addition (summation).
+* That's the constant heuristic.
+* And a constant heuristic turns bidirectional A* into two individual Dijkstra.
+* One might finish earlier than the other.
+* But we don't get any benefits.
+* In fact, we invest double, (two searches, two priority queues, etc.), but gets the same performance as of a normal Dijkstra.
+* So, we need to change the way we are trying to align the two searches.
+
+---
+
+* Now, instead of taking their total, we try to take their differences.
+* If the house is 10 km from the source, it is 90 km from the target.
+* And their difference is `90 (distance from target) - 10 (distance from source) = 80` km.
+* If the house is 50 km from the source, it is 50 km from the target.
+* And their difference is `50 (distance from target) - 50 (distance from source) = 0` km.
+* If the house is 90 km from the source, it is 10 km from the target.
+* And their difference is `90 (distance from target) - 10 (distance from source) = -80` km.
+* See the pattern.
+* We are getting difference answers.
+* And if we notice, if the house is near the source, we get a positive value.
+* And if the house is in the middle, we get zero `0`.
+* And if the house is near the target, we get a negative value.
+* So, the difference gives us directional information.
+
+---
+
 **Differences of the heuristics**
 
 * ![030differenceInBidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/030differenceInBidirectionalAstar.webp)
@@ -118,6 +159,19 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * What if we take division?
 
 ---
+
+* Using the subtraction (the difference) between the forward and backward heuristic, we get directional information.
+* But we still have a problem.
+* Suppose that the person A travels from the source towards the target.
+* We know that as the person moves, their distance from the source increases and their distance to the target decreases.
+* Initially, the person is at `0`.
+* Now, suppose that the person travels 1 km from the source.
+* So, we calculate it as: `99 (distance from target) - 1 (distance from source) = 98`!
+* But the person has traveled only 1 km!
+* The calculation or representation doubles the progress.
+* There is still something that we need to improve!
+
+--- 
 
 > We may start from here. This is the only useful information we have.
 
