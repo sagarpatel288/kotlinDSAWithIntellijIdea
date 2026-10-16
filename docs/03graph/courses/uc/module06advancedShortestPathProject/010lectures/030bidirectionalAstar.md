@@ -256,11 +256,22 @@ $$
 w_{p}(u, v) = w(u, v) + p(v) - p(u)
 $$
 
+* To ensure that $w_{p}(u, v)$ is non-negative, it must be true that: 
+
+$$
+w_{p}(u, v) &ge; 0
+$$
+
+* We can substitute it as:
+
+$$
+w(u, v) + p(v) - p(u) &ge; 0
+$$
+
 $$
 |\ p(u) - p(v)\ | &le; w(u, v)
 $$
 
-* How did we come up with the above formula/expression?
 * It means that the change in the potential while going from `u` to `v` can be up to (at most) $w(u, v)$.
 * It aligns with our heuristic consistency.
 * They both have the same form.
