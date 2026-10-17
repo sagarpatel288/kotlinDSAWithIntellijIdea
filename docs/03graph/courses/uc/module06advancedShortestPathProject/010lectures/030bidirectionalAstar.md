@@ -31,6 +31,8 @@
 * `f(v)`, which is `f(v) = g(v) + h(v)`.
 * `f(v)` is not the actual distance.
 * It means that we cannot conclude it definitely that adding `f(v)` of each priority queue will be the final and actual shortest distance.
+* Because even though each estimation is consistent, it does not have to be accurate.
+* And on top of that, we have two different estimations (heuristics) for each vertex.
 * Think of this like having two different thermometers with different offsets.
 * We cannot conclude the final actual temperature by adding their values.
 * We must first handle the offset.
@@ -44,7 +46,53 @@
 
 ---
 
-* The only information that we know about the heuristics is (or we expect, assume that) the heuristics are consistent, and they satisfy the below consistency condition:
+* We need `h(v)` to guide the search, but we don't want it to be the part of the calculation that defines the stop condition.
+* We know that whenever we `peek` in our priority queues, each of them give us the `min`.
+* We want to use this `min` to define the stop condition.
+* In other words, we want to use this `min` to deterministically (definitely) conclude whether the next value has the possibility to provide the shortest path than the current global `shortestPath`.
+* But the problem is that each `min` includes `h(v)`.
+* And `h(v)` prevents us from such a definite conclusion.
+* So, we want to use maths to come up with a situation where when we add `min` from each priority queue, their corresponding `h(v)` cancels out each other.
+* For example, a normal stop condition looks like:
+
+```kotlin
+
+if (forwardMin + backwardMin >= shortestPath) {
+    return
+}
+
+```
+
+* Now, if the `peek` of the forward search priority queue gives us `g(v) + x` and the `peek` of the backward search priority queue gives us `g(v) - x`, then:
+
+$$
+\text{forwardMin + backwardMin}
+$$
+$$
+= (forwardSearchMin(v) + x) + (backwardSearchMin(v) - x)
+$$
+$$
+= forwardSearchMin(v) + backwardSearchMin(v)
+$$
+
+* We can see that the offset of each `peek` cancels out each other.
+* And what remains is the actual values. 
+* But we still have an issue.
+* The `forwardSearchMin` represents the value from the vertex to the target.
+* The `backwardSearchMin` represents the value from the vertex to the source.
+* They have different goals.
+* They measure different things.
+* We want them to share a common goal and measure the same thing.
+* But isn't it true that if we connect them, their combined value represents the complete path? That's what we did in the bidirectional Dijkstra, right?
+* Yes, if it happens to store only the actual distance values!
+* But didn't we say that if we cancel out `+x` and `-x`, what remains is the actual values?
+* Yes, but these actual values measure and represent different things.
+* This seems marry-go-round!
+* //ToDo: Answer this! Resolve this!
+
+---
+
+* The only information that we know about the heuristics is (or we expect, assume) that the heuristics are consistent, and they satisfy the below consistency condition:
 
 $$
 h(u) &le; weight(u, v) + h(v)  
@@ -207,10 +255,11 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 
 --- 
 
+* The problem is that we did not consider and calculate the initial position properly.
 * Let us retry.
 * We don't just half the result.
 * We half the every single location.
-* And we also adjust our perspective and interpretation.
+* And we also adjust our method, perspective, and interpretation.
 * Initially, the person A is at the source.
 * That is, `0` km away from the source, and `100` km away from the target.
 * We calculate it as: $\frac{100 - 0}{2} = 50$, as a **shared value**!
