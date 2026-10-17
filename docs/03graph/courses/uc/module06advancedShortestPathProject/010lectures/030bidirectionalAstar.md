@@ -31,6 +31,8 @@
 * `f(v)`, which is `f(v) = g(v) + h(v)`.
 * `f(v)` is not the actual distance.
 * It means that we cannot conclude it definitely that adding `f(v)` of each priority queue will be the final and actual shortest distance.
+* Because even though each estimation is consistent, it does not have to be accurate.
+* And on top of that, we have two different estimations (heuristics) for each vertex.
 * Think of this like having two different thermometers with different offsets.
 * We cannot conclude the final actual temperature by adding their values.
 * We must first handle the offset.
@@ -41,6 +43,77 @@
 * How do we do that?
 * What do we do?
 * We start with what we have.
+
+---
+
+* We need `h(v)` to guide the search, but we don't want it to be the part of the calculation that defines the stop condition.
+* We know that whenever we `peek` in our priority queues, each of them give us the `min`.
+* We want to use this `min` to define the stop condition.
+* In other words, we want to use this `min` to deterministically (definitely) conclude whether the next value has the possibility to provide the shortest path than the current global `shortestPath`.
+* But the problem is that each `min` includes `h(v)`.
+* And `h(v)` prevents us from such a definite conclusion.
+* So, we want to use maths to come up with a situation where when we add `min` from each priority queue, their corresponding `h(v)` cancels out each other.
+* For example, a normal stop condition looks like:
+
+```kotlin
+
+if (forwardMin + backwardMin >= shortestPath) {
+    return
+}
+
+```
+
+* Now, if the `peek` of the forward search priority queue gives us `g(v) + x` and the `peek` of the backward search priority queue gives us `g(v) - x`, then:
+
+$$
+\text{forwardMin + backwardMin}
+$$
+$$
+= (forwardSearchMin(v) + x) + (backwardSearchMin(v) - x)
+$$
+$$
+= forwardSearchMin(v) + backwardSearchMin(v)
+$$
+
+* We can see that the offset of each `peek` cancels out each other.
+* And what remains is the actual values. 
+* But we still have an issue.
+* The `forwardSearchMin` represents the value from the vertex to the target.
+* The `backwardSearchMin` represents the value from the vertex to the source.
+* They have different goals.
+* They measure different things.
+* We want them to share a common goal and measure the same thing.
+* But isn't it true that if we connect them, their combined value represents the complete path? That's what we did in the bidirectional Dijkstra, right?
+* Yes, if it happens to store only the actual distance values!
+* But didn't we say that if we cancel out `+x` and `-x`, what remains is the actual values?
+* Yes, but these actual values measure and represent different things.
+* This seems marry-go-round!
+* //ToDo: Answer this! Resolve this!
+
+---
+
+* The only information that we know about the heuristics is (or we expect, assume) that the heuristics are consistent, and they satisfy the below consistency condition:
+
+$$
+h(u) &le; weight(u, v) + h(v)  
+$$
+$$
+h(u) - h(v) &le; weight(u, v)
+$$
+
+* The consistent heuristics convey that for the adjacent vertices (u, v), the difference of their individual heuristics cannot exceed their edge weight.
+* For example, let us assume that moving from `u` to `v` actually costs us `5`.
+* Then, the difference of their heuristics `h(u) - h(v)` cannot be more than `5`.
+* So, if `h(u)` is `20` and `h(v)` is `25`, then it is consistent and admissible.
+* But if `h(u)` is `20` and `h(v)` is `40`, then it is inconsistent.
+* The entire approach of our bidirectional A* algorithm assumes that we get consistent and admissible (feasible) heuristics.
+* Using this information, we want to come up with some definite stop condition.
+
+---
+
+* Now, the questions is, how do we accommodate and integrate this with our priority queue structure?
+* Our goal is... // ToDo: Finish from here...
+
 ---
 
 * Recall the mathematical guarantee we used in the **find min from a stack using an array in O(1)** problem:
@@ -182,10 +255,11 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 
 --- 
 
+* The problem is that we did not consider and calculate the initial position properly.
 * Let us retry.
 * We don't just half the result.
 * We half the every single location.
-* And we also adjust our perspective and interpretation.
+* And we also adjust our method, perspective, and interpretation.
 * Initially, the person A is at the source.
 * That is, `0` km away from the source, and `100` km away from the target.
 * We calculate it as: $\frac{100 - 0}{2} = 50$, as a **shared value**!
@@ -339,7 +413,9 @@ $$
 * It means that the change (difference) in the $q$ while going from `u` to `v` be up to (at most) $2\ weight(u, v)$.
 * And earlier, we have derived that the change (difference) in the potential, $p$ while going from `u` to `v` can be up to (at most) $\ weight(u, v)$ only.
 * If we directly use $q$ as the potential, we might get the change up to (at most) $2\ weight(u, v)$.
+* But we have seen it earlier that to ensure the non-negative edge-weight, this change in the potential must be at most $weight(u, v)$.
 * So, we use $\frac{q}{2}$ as the potential instead of $q$.
+* That makes this change in the potential at most $weight(u, v)$.
 * Hence, the potential for each vertex becomes $p = \frac{q}{2}$.
 * It means that the potential of vertex, v is $p(v) = \frac{q(v)}{2}$.
 * And now, if we replace $q(v)$ with its actual value (definition), we get our final potential function for the vertex, v as:
@@ -347,70 +423,6 @@ $$
 $$
 p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}
 $$
-
----
-
-> We may start from here. This is the only useful information we have.
-
-* Now, the only information that we know about the heuristics is (or we expect, assume that) the heuristics are consistent, and they satisfy the below consistency condition:
-
-$$
-h(u) &le; weight(u, v) + h(v)  
-$$
-$$
-h(u) - h(v) &le; weight(u, v)
-$$
-
-* The consistent heuristics convey that for the adjacent vertices (u, v), the difference of their individual heuristics cannot exceed their edge weight.
-* For example, let us assume that moving from `u` to `v` actually costs us `5`.
-* Then, the difference of their heuristics `h(u) - h(v)` cannot be more than `5`.
-* So, if `h(u)` is `20` and `h(v)` is `25`, then it is consistent and admissible.
-* But if `h(u)` is `20` and `h(v)` is `40`, then it is inconsistent.
-* The entire approach of our bidirectional A* algorithm assumes that we get consistent and admissible (feasible) heuristics. 
-* Using this information, we want to come up with some definite stop condition.
-
----
-
-* So, it becomes:
-
-$$
-\text{For u}: h_{T}(u) - h_{S}(u) 
-$$
-
-$$
-\text{For v}: h_{T}(v) - h_{S}(v)
-$$
-
-* And their difference becomes:
-
-$$
-|\ (\ h_{T}(u)  -  h_{S}(u) \ )\ - (\ h_{T}(v)  -  h_{S}(v) \ )\ |
-$$
-
-$$
-|\ (\ h_{T}(u)  -  h_{S}(v) \ )\ | + |\ (\ h_{T}(u)  -  h_{S}(v) \ )\ |
-$$
-
-$$
-&le; |\ weight(u, v) + weight(u,v)\ |
-$$
-
-$$
-&le; 2\ ( \ weight(u, v) \ )
-$$
-
-* Using this condition, we want to stop when:
-
-$$
-&ge; 2\ ( \ weight(u, v) \ )
-$$
-
----
-
-* Now, the questions is, how do we accommodate and integrate this with our priority queue structure?
-* Our goal is... // ToDo: Finish from here...
-
----
 
 
 
