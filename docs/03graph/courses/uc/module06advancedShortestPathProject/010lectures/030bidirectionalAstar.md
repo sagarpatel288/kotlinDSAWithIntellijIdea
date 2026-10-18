@@ -427,6 +427,7 @@ $$
 * How do we integrate this insight and information?
 * We talked about the potential consistency and rules.
 * But what will be the potential for each vertex?
+* What will be the value of this `p`?
 
 ---
 
@@ -487,6 +488,8 @@ $$
 $$
 p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}
 $$
+
+* This is the exact value of our potential `p(v)` that we are going to use.
 
 ---
 
