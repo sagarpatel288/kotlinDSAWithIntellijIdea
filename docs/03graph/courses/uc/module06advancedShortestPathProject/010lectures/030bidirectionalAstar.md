@@ -490,6 +490,7 @@ p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}
 $$
 
 * This is the exact value of our potential `p(v)` that we are going to use.
+* Where and how do we use this potential?
 
 ---
 
@@ -504,6 +505,67 @@ $$
 * We add some weight on side A and remove some weight from side B.
 * Similarly, to balance the things, we will add positive potential to the forward search.
 * And we will add negative potential to the backward search.
+
+---
+
+**TL;DR**
+
+* Each priority gets: `f(v) = g(v) + h(v)`, where `g(v)` is the actual distance value, and `h(v)` is an estimated remaining distance value from the vertex.
+* So, we cannot use the existing structure of `f(v)` to confidently provide the lower bound.
+* Hence, we want to replace `h(v)` of each `f(v)` with `x` in such a way that when we add `f(v)` of each priority queue, the `x` of each `f(v)` cancels each other out.
+* So that what remains are the actual values that we can use to confidently provide the lower bound.
+* Now, if we want to replace `h(v)` with `x`, then this `x` must follow the same consistency and invariants that `h(v)` follows.
+* `h(u) <= w(u, v) + h(v)`.
+* `h(u) - h(v) <= w(u, v)`.
+* The heuristic consistency says that the difference between the heuristic values of two adjacent vertices `(u, v)` must be at most `weight(u, v)`.
+* It means that the difference of the replacement should also be at most `weight(u, v)` for the `edge(u, v)`.
+* Suppose that we denote this replacement term as, `q`.
+* Now, we take `q = h(u) - h(v)`.
+* Here, `h(u)` represents the heuristic value of the vertex, `u`.
+* And similarly, `h(v)` represents the heuristic value of the vertex, `v`.
+* So, `q` represents the difference between the heuristic values of the adjacent vertices `(u, v)` for the `edge(u, v)`.
+* In a bidirectional A* search, each vertex gets two heuristics.
+* So, the vertex, `u` gets: `hf(u)` and `hb(u)`.
+* Similarly, the vertex, `v` gets: `hf(v)` and `hb(v)`.
+* So, their difference becomes: `{ hf(u) + hb(u) } - { hf(v) + hb(v) }`.
+* For a bidirectional (undirected) graph: `| { hf(u) + hb(u) } | - | { hf(v) + hb(v) } |`.
+* Which is: `| hf(u) - hf(v) | + | hb(u) - hb(v) |`.
+* And as per the heuristic consistency: `<= weight(u, v) + weight(u, v)`
+* Which is: `2weight(u, v)`.
+* So, this is a mismatch with our consistency invariant.
+* Because the difference must be at most `weight(u, v)`.
+* So, instead of taking `q`, we take `q/2`.
+* Finally, the replacement becomes: `p = q/2`.
+* We call it, potential.
+* If we substitute `q` with its actual value, it becomes:
+* $p = \frac{hb - hf}{2}$.
+* So, for any vertex `u`, its potential will be: $p(u) = \frac{hb(u) - hf(u)}{2}$.
+* We can represent the backward search heuristic value of `u` as $h_T(u)$ instead of $hb(u)$.
+* Similarly, we can represent the forward search heuristic value of `u` as $h_S(u)$ instead of $hf(u)$.
+* But the underlying meaning remains the same.
+* So, finally, instead of `h`, we add this potential value, `p` to each priority queue.
+* And we use `+p` for the forward search priority queue, and `-p` for the backward search priority queue.
+* So that when we `peek`, and perform `forwardMin + backwardMin`, they cancel each other out.
+* So, finally, we replace `g(v) + h(v)` with `fg(v) + p` for the forward search, and `bg(v) - p` for the backward search priority queue.
+* So, for the forward search priority queue, it becomes:
+
+$$
+fg(v) + \frac{h_T(v) - h_S(v)}{2}
+$$
+
+* And for the backward search priority queue, it becomes:
+
+$$
+bg(v) - \frac{h_T(v) - h_S(v)}{2}
+$$
+
+* When we `peek`, and perform `forwardMin + backwardMin`, it becomes:
+
+$$
+fg(v) + bg(v)
+$$
+
+* Which is the value that we can confidently use for the lower bound.
 
 ---
 
