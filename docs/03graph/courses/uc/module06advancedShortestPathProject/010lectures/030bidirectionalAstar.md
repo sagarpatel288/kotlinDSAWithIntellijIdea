@@ -299,28 +299,65 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * It means that it must have some mathematical consistency.
 * We know that the replacement, the adjustment, the potential that we use must align with the original heuristic consistency.
 * Suppose that we denote this potential as `p`.
-* Then, we want to ensure that:
+* Then, we want to ensure that it aligns with:
+
+$$
+h(u) - h(v) &le; w(u, v)
+$$
+
+* So, we use:
 
 $$
 p(u) - p(v) &le; w(u, v)
 $$
 
-* Now, we represent the edge weight of this adjusted graph, the mathematical copy of the original graph, as:
+* The difference `p(u) - p(v)` represents the transition from one vertex (`u`) to another (`v`).
+* The amount added when leaving `u` is related to the amount removed when entering or leaving the adjacent vertex, `v` so that the adjustments cancel along a complete route.
+* If we rearrange:
+
+$$
+0 &le; w(u, v) + p(v) - p(u)
+$$
+
+* Which is:
+
+$$
+w(u, v) + p(v) - p(u) &ge; 0
+$$
+
+* And it satisfies the consistency and non-negative edge-weight invariant.
+* With this adjustment, the edge's adjusted weight may differ from its original weight.
+* We represent the edge weight of this adjusted graph, which is the mathematical copy of the original graph, as:
 
 $$
 w_{p}(u, v)
 $$
 
-* And we are adding `p(v) - p(u)` for the edge weight (u, v).
 * So, it becomes:
 
 $$
 w_{p}(u, v) = w(u, v) + p(v) - p(u)
 $$
 
-* It means that the adjusted edge weight is equal to the actual edge weight, plus the difference between the potential of the destination (ending) vertex of the edge and the potential of the starting vertex of the edge.
-* Why this formula only? How did we come up with this formula?
-* How does that work?
+* Here, it is guaranteed that the adjusted edge-weight $w_{p}(u, v)$ is non-negative.
+* And that the adjusted edge weight is equal to the actual edge weight, plus the difference between the potential of the destination (ending) vertex of the edge and the potential of the starting vertex of the edge.
+* This means:
+
+$$
+\text{adjustment(u, v)} = p(v) - p(u)
+$$
+
+* It conveys:
+* Start at `u`, whose potential is `p(u)`.
+* Move to `v`, whose potential is `p(v)`.
+* Adjust the edge cost (weight) by the change in the potential.
+* And this is how, the adjusted edge weight becomes:
+
+$$
+w_{p}(u, v) = w(u, v) + p(v) - p(u)
+$$
+
+* What does it do? How does it work? How does it help?
 
 ---
 
