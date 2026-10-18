@@ -297,7 +297,22 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * The heuristics of the original graph are consistent.
 * So, our potentials must be consistent, too.
 * It means that it must have some mathematical consistency.
-* And this mathematical consistency is:
+* We know that the replacement, the adjustment, the potential that we use must align with the original heuristic consistency.
+* Suppose that we denote this potential as `p`.
+* Then, we want to ensure that:
+
+$$
+p(u) - p(v) &le; w(u, v)
+$$
+
+* Now, we represent the edge weight of this adjusted graph, the mathematical copy of the original graph, as:
+
+$$
+w_{p}(u, v)
+$$
+
+* And we are adding `p(v) - p(u)` for the edge weight (u, v).
+* So, it becomes:
 
 $$
 w_{p}(u, v) = w(u, v) + p(v) - p(u)
