@@ -24,14 +24,15 @@
 * `forwardDist[u] + weight(u, v) + backwardDist[v]` = `complete path`.
 * If this complete path is less than the shortest complete path found so far, then we update the global `min` or `shortestPathDistance` variable.
 * It means that the global `min` is our upper bound, and it expects a lower value.
-* Also, the item that we remove from the queue cannot be smaller than the previous item, because we do not allow negative weights.
+* Also, the item that we peek or poll from the queue cannot be smaller than the previous item, because we do not allow negative weights.
 * It means that the item that we peek or poll from the queue is our lower bound.
 * It says that "the next item cannot be smaller than me!".
 * All these together, give us the stop condition:
 * Stop when: `lowerBound >= upperBound`.
 * I.e., stop when: `forwardPeek + backwardPeek >= min`.
 * That is to say, stop when: Lowest distance in the forward search queue + the lowest distance in the backward search queue >= current global shortest complete path. 
-* One of the critical parts that makes this possible is the fact that we store the actual distance in the priority queues.
+* Because it is mathematically guaranteed that if the current `forwardPeek + backwardPeek >= min`, then no future `forwardPeek + backwardPeek` can be smaller than the current global shortest path, `min`.
+* One of the critical parts that makes this guarantee possible is the fact that we store the actual distance in the priority queues.
 * However, in the A* algorithm, we store:
 * `f(v)`, which is `f(v) = g(v) + h(v)`.
 * `f(v)` is not the actual distance.
@@ -115,6 +116,8 @@ $$
 * But if `h(u)` is `20` and `h(v)` is `40`, then it is inconsistent.
 * The entire approach of our bidirectional A* algorithm assumes that we get consistent and admissible (feasible) heuristics.
 * Using this information, we want to come up with some definite stop condition.
+* It means that if we want to replace `fg(v) + hs(v)` with `fg(v) + x`, and `bg(v) + ht(v)` with `bg(v) - x`, then we must ensure that the `x` that we use aligns with $h(u) - h(v) &le; weight(u, v)$.
+* In other words, if the replacement for `hs(v)`, and `ht(v)` is `x`, then their difference must never exceed the actual edge weight `weight(u, v)`.
 
 ---
 
@@ -152,6 +155,7 @@ $$
 * We want to align that.
 * We want them to measure and represent the same thing.
 * We want them to share a common goal.
+* We want to represent `hs(v)` and `ht(v)` in the common term, say `x`.
 * We can try to understand this with an analogy.
 * Suppose that we have someone that reports the quantity in millilitre, whereas the other person reports the same quantity in liter.
 * If we want to them to take a certain action when the quantity reaches a certain level, we need some mathematical transformation of their measurement units that they both can follow.
@@ -243,7 +247,8 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * So, it doesn't help as much as taking their difference help.
 * This is the same reason we don't take their multiplication.
 * What if we take division?
-* //ToDo: Answer this!
+* The division gives ratio, which is incompatible with graph algorithms in a sense that we expect a linear mathematical curve where graph weights represent additive, linear costs (mileage).
+* For example, when moving from S to T, we want values that consistently (linearly) increases or decreases, not the values that produces curves.
 
 ---
 
@@ -265,7 +270,7 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * The problem is that we did not consider and calculate the initial position properly.
 * Let us retry.
 * We don't just half the result.
-* We half the every single location.
+* We half the every single step and property we consider and use.
 * And we also adjust our method, perspective, and interpretation.
 * Initially, the person A is at the source.
 * That is, `0` km away from the source, and `100` km away from the target.
