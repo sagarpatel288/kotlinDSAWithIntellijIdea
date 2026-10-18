@@ -16,21 +16,28 @@
 * The `distance` is the actual distance from the source vertex to the `vertex`.
 * The distance associated with the polled vertex is the final.
 * The vertex cannot get a smaller (shorter) distance than that.
-* Also, if the vertex that we poll from one queue has a tentative distance stored in the relevant distance array of the other side, then:
+* After that, we inspect the outgoing edges of this polled vertex.
+* Each edge has two vertices: Start and end.
+* The polled vertex is the start vertex (say, `u`).
+* And at the end of the outgoing edge, we get the end vertex as: (to, weight).
+* If the end vertex (say, `v`) that we get from the outgoing edge has a tentative distance stored in the relevant distance array of the other side, then:
 * `forwardDist[u] + weight(u, v) + backwardDist[v]` = `complete path`.
 * If this complete path is less than the shortest complete path found so far, then we update the global `min` or `shortestPathDistance` variable.
 * It means that the global `min` is our upper bound, and it expects a lower value.
 * Also, the item that we remove from the queue cannot be smaller than the previous item, because we do not allow negative weights.
-* It means that the item that we poll from the queue is our lower bound.
+* It means that the item that we peek or poll from the queue is our lower bound.
 * It says that "the next item cannot be smaller than me!".
 * All these together, give us the stop condition:
 * Stop when: `lowerBound >= upperBound`.
-* I.e., stop when: `forwardDist[u] + weight(u, v) + backwardDist[v] >= min`.
+* I.e., stop when: `forwardPeek + backwardPeek >= min`.
+* That is to say, stop when: Lowest distance in the forward search queue + the lowest distance in the backward search queue >= current global shortest complete path. 
 * One of the critical parts that makes this possible is the fact that we store the actual distance in the priority queues.
 * However, in the A* algorithm, we store:
 * `f(v)`, which is `f(v) = g(v) + h(v)`.
 * `f(v)` is not the actual distance.
+* It is a guess, an estimated value.
 * It means that we cannot conclude it definitely that adding `f(v)` of each priority queue will be the final and actual shortest distance.
+* The current value of each `f(v)` prevents us from confidently knowing the true lower bound.
 * Because even though each estimation is consistent, it does not have to be accurate.
 * And on top of that, we have two different estimations (heuristics) for each vertex.
 * Think of this like having two different thermometers with different offsets.
@@ -47,12 +54,12 @@
 ---
 
 * We need `h(v)` to guide the search, but we don't want it to be the part of the calculation that defines the stop condition.
-* We know that whenever we `peek` in our priority queues, each of them give us the `min`.
-* We want to use this `min` to define the stop condition.
-* In other words, we want to use this `min` to deterministically (definitely) conclude whether the next value has the possibility to provide the shortest path than the current global `shortestPath`.
-* But the problem is that each `min` includes `h(v)`.
+* We know that whenever we `peek` in our priority queues, each of them give us the lowest value.
+* We want to use this value to define the stop condition.
+* In other words, we want to use this `f(v)` to deterministically (definitely) conclude whether the next value has the possibility to provide the shortest path than the current global `shortestPath`.
+* But the problem is that each `f(v)` includes `h(v)`.
 * And `h(v)` prevents us from such a definite conclusion.
-* So, we want to use maths to come up with a situation where when we add `min` from each priority queue, their corresponding `h(v)` cancels out each other.
+* So, we want to use maths to come up with a situation where when we add `f(v)` from each priority queue, their corresponding `h(v)` cancels out each other.
 * For example, a normal stop condition looks like:
 
 ```kotlin
@@ -63,32 +70,32 @@ if (forwardMin + backwardMin >= shortestPath) {
 
 ```
 
-* Now, if the `peek` of the forward search priority queue gives us `g(v) + x` and the `peek` of the backward search priority queue gives us `g(v) - x`, then:
+* Now, if the `peek` of the forward search priority queue gives us `fg(v) + x` and the `peek` of the backward search priority queue gives us `bg(v) - x`, then:
 
 $$
 \text{forwardMin + backwardMin}
 $$
 $$
-= (forwardSearchMin(v) + x) + (backwardSearchMin(v) - x)
+= (fg(v) + x) + (bg(v) - x)
 $$
 $$
-= forwardSearchMin(v) + backwardSearchMin(v)
+= fg(v) + bg(v)
 $$
 
 * We can see that the offset of each `peek` cancels out each other.
-* And what remains is the actual values. 
+* And what remains is the actual values that we can confidently use for the lower bounds.
 * But we still have an issue.
-* The `forwardSearchMin` represents the value from the vertex to the target.
-* The `backwardSearchMin` represents the value from the vertex to the source.
+* The `fg(v)` represents the value from the vertex to the target.
+* The `bg(v)` represents the value from the vertex to the source.
 * They have different goals.
 * They measure different things.
 * We want them to share a common goal and measure the same thing.
 * But isn't it true that if we connect them, their combined value represents the complete path? That's what we did in the bidirectional Dijkstra, right?
 * Yes, if it happens to store only the actual distance values!
 * But didn't we say that if we cancel out `+x` and `-x`, what remains is the actual values?
-* Yes, but these actual values measure and represent different things.
-* This seems marry-go-round!
-* //ToDo: Answer this! Resolve this!
+* Yes, but first, we need to convert the forward search queue item `fg(v) + hs(v)` into `fg(v)+ x`, and backward search queue item `bg(v) + ht(v)` into `bg(v) - x`.
+* And then, we will exactly use: `forwardSearchQueueItem + backwardSearchQueueItem` confidently.
+* So, how do we convert?
 
 ---
 
@@ -424,7 +431,7 @@ $$
 p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}
 $$
 
-
+---
 
 > //ToDo: Place this block at the right place.
 
