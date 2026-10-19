@@ -196,10 +196,16 @@ $$
 * Now, instead of taking their total, we try to take their differences.
 * If the house is 10 km from the source, it is 90 km from the target.
 * And their difference is `90 (distance from target) - 10 (distance from source) = 80` km.
+* The value is positive.
+* It means that it is near the source.
 * If the house is 50 km from the source, it is 50 km from the target.
 * And their difference is `50 (distance from target) - 50 (distance from source) = 0` km.
+* The value is zero.
+* It means the vertex is in the middle.
 * If the house is 90 km from the source, it is 10 km from the target.
-* And their difference is `90 (distance from target) - 10 (distance from source) = -80` km.
+* And their difference is `10 (distance from target) - 90 (distance from source) = -80` km.
+* The value is negative.
+* It means that the vertex is near the target.
 * See the pattern.
 * We are getting difference answers.
 * And if we notice, if the house is near the source, we get a positive value.
@@ -278,6 +284,14 @@ $q(v) = h_{T}(v) - h_{S}(v)$
 * Now, the person moves 1 km away from the source.
 * So, it becomes: $\frac{99 - 1}{2} = 49$, as a **shared value**!
 * For 1 km of progress, we get exactly 1 km of difference in the **shared value**!  
+* Also, the difference 50 - 49 = 1 is a positive value.
+* It means that the vertex is near the source.
+* Similarly, if the vertex is 90 km away from the source, and 10 km away from the target:
+* $\frac{10 - 90}{2} = -40$.
+* The value is negative, and the difference 50 - 40 is 10.
+* It means that the vertex is near the target, 10 km away from the target.
+* Hence, one single value gives us two values: 
+* The distance from the source as well as the distance from the target.
 
 ---
 
@@ -569,44 +583,157 @@ $$
 
 ---
 
+* The value that we add to the forward search priority queue is:
+
+$$
+f(v) = fg(v) + \frac{h_{T}(v) - h_{S}(v)}{2}
+$$
+
+
+* And the value that we add to the backward search priority queue is:
+
+$$
+b(v) = bg(v) - \frac{h_{T}(v) - h_{S}(v)}{2}
+$$
+
+* We perform their summation to get the lower bound.
+
+$$
+f(v) + b(v) 
+$$
+
+* If it is greater than or equal to the global shortest complete path, we return (exit).
+
+```kotlin
+
+if (f(v) + b(v) >= min) {
+    return    
+}
+
+```
+
+* How do we set the global shortest complete path?
+* When we inspect the outgoing edges of the polled vertex, we get a complete path.
+* If the polled vertex is `u`, and the outgoing edge is edge(u, v), then:
+
+$$
+\text{Complete path} = \text{forwardSearchDist[u] + weight(u, v) + backwardSearchDist[v]}
+$$
+
+* If this complete path is smaller than the current global shortest path distance, then we update (replace) the global shortest path with this complete path value. 
+
+---
+
+* The potential part of the equation is fine, but it can introduce fraction because of the division by 2.
+* If we want non-decimal (whole number, whole integer) value, then we multiply by 2:
+
+$$
+2f(v) = 2fg(v) + 2 * \frac{h_{T}(v) - h_{S}(v)}{2} = 2fg(v) + (h_{T}(v) - h_{S}(v)) 
+$$
+
+* And
+
+$$
+2b(v) = 2bg(v) - 2 * \frac{h_{T}(v) - h_{S}(v)}{2} = 2bg(v) - (h_{T}(v) - h_{S}(v))
+$$
+
+* It means that we would add as much as twice the actual value to each priority queue.
+* It means that when we perform their addition for the lower bound, `f(v) + b(v)`, it is as much as twice the actual value.
+* So, to make the comparison fair, when we compare this with the upper bound (the global shortest path distance value), we also multiply the upper bound by 2.
+
+$$
+\text{ lower bound} >= 2 * \text{ upper bound}
+$$
+
+```kotlin
+
+if (lowerbound >= (2 * upperBound)) {
+    return
+}
+
+```
+
+---
+
 ## Questions
 
-* How does the difference of the heuristic from the target to the vertex v, and from the source to the vertex, v help? Why did we take the difference instead of taking the addition that we do in the bidirectional Dijkstra? What causes this change? Is there any role of the heuristic consistency there (that the difference between the heuristic u and heuristic v must be equal to or smaller than the edge weight between u and v)? What role? Why do we have this consistency? What if the heuristics are not consistent? What if they don't satisfy this consistency? Or maybe we are trying to ensure consistent heuristics through these formulas and math for the definite point (stop condition). I believe the answer is in the term "balanced priorities." I am unsure. What does that term mean, what does it indicate, what is the importance of that term? 
+* What is the ultimate goal of these complicated process, formulas, transformation, replacement, etc.? Why is it more complex than the bidirectional Dijkstra?
+  * The bidirectional Dijkstra uses actual values.
+  * Each priority queue contains only the actual values, `g(v)`.
+  * The A-Star (A*) algorithm is a guided search.
+  * It uses heuristics (estimated values) along with the actual values.
+  * Each priority queue contains `f(v) = g(v) + h(v)`, where `h(v)` is the estimated value.
+  * When the actual value is mixed with the estimated values, it becomes difficult to provide the stop condition confidently.
+  * We want to filter out those heuristics and retain only the actual values when we perform summation (addition) of each priority queue's `peek` values.
+  * So that we can confidently provide the stop condition.
+  * 
+* Why did we take the difference of the heuristics, `q = hf - hb`? What does it indicate? How does it help?
+  * We want to replace the heuristics in such a way that when we perform the summation (addition) of each priority queue's `peek` item, only the actual (factual) values remain, and the estimated values cancel each other out.
+  * So that we can provide the stop condition confidently.
+  * For that, we need to replace the heuristics with some values.
+  * But we cannot replace the heuristics with any random, arbitrary values.
+  * There are five reasons behind taking the difference of the heuristics. 
+  * First, to understand how much change is allowed for the replacement of the heuristics.
+  * The replacement of the heuristics must follow the consistency and invariants of the heuristics and the algorithm.
+  * If we replace the heuristics with some potential, the difference between the potentials must align (follow) the current heuristic consistency and invariants.
+  * Second, the difference gives us directional information.
+  * Third, it helps us balance the priority queues.
+  * Fourth, it becomes a reliable shared measurement. 
+  * Fifth, all these together, help us to provide the stop condition confidently.
+  * 
+* Why didn't we take addition, multiplication, division, or something else? What is the problem with that?
+  * If we take addition of the heuristics, we end up with getting the constant values throughout the exploration.
+  * For example, suppose that the distance between the source and the target, is 100 km.
+  * If the vertex is 10 km away from the source, it is 90 km away from the target.
+  * Their addition gives us 100 km.
+  * If the vertex is 20 km away from the source, it is 80 km away from the target.
+  * Their addition gives us 100 km.
+  * The constant values cause bidirectional A* to behave as a normal Dijkstra.
+  * We lose the benefit of guided (directed) search.
+  * This is true for the multiplication, too.
+  * For example, we get the same result for 10 * 90 or 90 * 10.
+  * Division provides fractional values.
+  * It produces curves.
+  * Subtraction provides linear values.
+  * The algorithm and the context are suitable, and efficient with the linear progress.
+  * For example, if we go from one place to another place, either it increases or decreases the distance.
+  * We expect linear progress.
+  * Curves make it more complex.
+  * 
+* Does the same approach work when heuristics are inconsistent?
+  * If the heuristics do not produce negative edge-weight, then we re-open the closed vertex as soon as we find that a shorter complete path can go through it.
+  * It explores slightly more vertices than the consistent heuristics.
+  * However, if the heuristics introduce negative edge-weight, then the algorithm breaks.
+  * The algorithm works only when there is no negative edge-weight.
+  * 
 * What do we mean by "balance the forward and the backward search around the same potential?"
+  * If the distance between the source and the target, is 100 km, then we get two different values for any particular location of the vertex.
+  * For example, if the vertex is 10 km away from the source, then it is 90 km away from the target.
+  * Here, 10 and 90 are two different values.
+  * We are trying to make it one.
+  * For example, initially, for the vertex at source, it becomes:
+  * {Distance from the target - distance from the source} / 2 = {100 - 0} / 2 = 50.
+  * Now, for the vertex that is 10 km away from the source, and 90 km away from the target:
+  * {Distance from the target - distance from the source} / 2 = {90 - 10} / 2 = 40.
+  * Here, the difference between 50 and 40 is 10.
+  * Also, 40 is a positive value.
+  * So, it indicates that the vertex is 10 km away from the source.
+  * If it was a negative value, then it would indicate that the vertex is 10 km away from the target.
+  * So, we use the single value to decide the location of the vertex.
+  * A single value provides two information:
+  * The distance from the source as well as the distance from the target.
+  * We treat this single value as `+x` for the forward search and `-x` for the backward search.
+  * That's the part of balancing each priority queue.
+  * So that when we perform addition of their `peek`, they cancel each other out.
+  * When they cancel each other out, what remains is the factual data.
+  * Another meaning of **balancing the search**, is that we explore the priority queue with fewer vertices.
+  * So that we can finish the exploration fast, and come to the conclusion faster.
+  * So that we don't consume more CPU memory and time.
+  * That's the part of optimization.
+  * 
 * Why do we add the positive potential to the forward queue and the same negative potential to the backward queue? What does it indicate? What does it do? How does it help?
-* How did we get the equations of the forward and backward queue? How do we justify those equations?  
-* For the source vertex S and the target vertex T, we still apply the actual cost from the source to the vertex v + the actual cost from the vertex v to the target = the complete path. But I believe I am missing the idea that connects us with these actual costs. And I also believe that the complications (difficulties) come from the fact that we store `f` to the priority queue, and not merely the actual values. So maybe, all these formulas are to get idea of the actual values from the stored heuristics, but I am unsure. 
-* Why do we have a different main while loop condition than the bidirectional Dijkstra? Why do we process even if one of the queues is exhausted/empty? What does that indicate? How does that help?
-* I feel disconnected. I believe I am missing many things and hence, I am unable to connect with the implementation with proper reasoning and understanding. 
- 
+  * So that they cancel each other out when we perform addition of their `peek` values.
+  * When they cancel each other out, what remains is the factual data.
+  * And because of the factual data, we can provide the stop condition confidently.
+  * 
 ---
-
-* How does taking the difference of the heuristics help? I understood what it indicates. And now I am trying to understand its importance, need, impact, and contribution to solution. What does it contribute to the solution? How does it contribute to the solution? It might be a part of the bigger picture that I might be missing.
-  * Also, I am unable to connect (reason about) these two pieces: (1) It is one thing to understand the meaning of positive and negative potentials. I believe that the positive potential indicates that the vertex is near the source and far away from the target. Whereas, the negative potential indicates that the vertex is far away from the source and near the target. But (2) adding positive potential value to the forward queue search and adding negative potential value to the backward queue search, so that when we combine them, they cancel out each other (then why do we add them in the first place at all?), seems arbitrary (abstract, disconnected) to me.
-* How did we take that p(v)? On what basis? How did we come up with that formula? Why that formula only? What does it indicate? Why do we use p(v)? How does it help? Does it indicate initial potential of any vertex or general potential of any vertex at any time? I believe it is to come up with some ground level information using which we can get a deterministic lower bound, but I am unsure.
-* I believe there must be some reason behind our goal to come up with these formulas for the forward and backward search priority queues. For example, if we take the reference of the `min stack using an array in O(1)` example, we multiply the value by `2` whenever we get the value that is less than the current minimum. Because it is a mathematical guarantee that the value will be smaller than the current min. So that whenever we pop the item and if it is less than the current min, we understand that it is an encoded value. Once we find that it is an encoded value, we can restore the previous minimum to the global `min` variable using the encoded value. Similarly, I believe there must be some concrete reason (maybe a mathematical guarantee or something else) behind these formulas. They might be establishing some guarantee.
-* What is the general, overall idea, intuition, inspiration, and association principle for this entire process? I believe we are doing this process to come up with a reliable, deterministic, and confident stopping condition. But I am unable to connect all these different pieces together.
-* I believe it all starts with this consistency guarantee: $h(u) &le; weight(u, v) + h(v)$. Which is, $h(u) - h(v) &le; weight(u, v)$. I believe that consistent heuristics convey that: "The difference of the individual heuristics of two adjacent vertices cannot exceed their edge weight." So, we might want to come up with a relevant stop condition. If we want to start from this information, and build all the other formulas and connections, including the formulas of forward and backward search priority queues, how do we do that? Using this information, we want to come up with some definite stop condition. Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification. I believe this will work for me. This will help me connect everything and make sense of everything. I believe this will help me understand why we do what we do.
-* Why did we choose p(v) as the half of the q(v)? How does it help?
-* How did we come up with this priority formula where we multiply the actual distance by 2 and then add either the positive potential or the negative potential? Why do we multiply the actual distance by 2? How does it help?
-* Why don't we do something like we process by f(v), but we make the stop condition same as the bidirectional Dijkstra by using the actual distance (`gScore`) of the priority queue's item? I believe the reason is that the entire A* algorithm is based on and uses the estimated values (heuristics) to guide the search and to determine the actual shortest path. Now, I believe that there is a possibility that the next (or any subsequent) item with higher heuristics (potential) has (can have) the shortest path. Although, I am unsure about my understanding (Is it true? How?) to this question.
-  * Also, ultimately, the forward min priority + backward min priority ends up with the actual value only. Then, why don't we directly use the `gScore` (actual distance)? 
-* I understand that this process requires consistent heuristics. In general, do we get consistent heuristics or inconsistent heuristics? What will be the solution for the inconsistent heuristics? Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
-* We may need to take actual values using the simplest possible graph to understand the stop condition.
-
----
-
-* Are heuristic and potential the same thing? It seems that they are different, but I mixed them and treated them as one! I used them interchangeably! What is the difference between them? How do they relate to each other? Are we trying to imagine that the original graph has heuristics, but the adjusted graph has potentials? Are we trying to say that in the original graph, we have actual edge weights and each vertex has a heuristic value. Whereas, in the imaginary graph, we have adjusted edge weights, and each vertex has a potential? How does having potentials instead of heuristics help? How does this transformation (even though if it is imaginary or a mathematical copy or whatever) help? Or are we trying to say (convey, proof) that the original graph is already a mathematically transformed graph where we can consider heuristics as potentials?  
-* Regarding: p(v) - p(u) <= w(u, v) How did we conclude that to avoid any negative edge weight, the potential difference must be less than or equal to the edge weight?
-* What is the difference between p(v) and q(v)? How do they relate? What do they convey? The potential of a vertex v is p(v) or q(v)? Are we using it interchangeably?
-* Why did we try to know the difference between q(u) and q(v)? Where do we want to reach? What is the role of knowing this into the final stopping condition?
-* When you said that "We have discovered a problem: the difference \(q\) can change by as much as \(2w\), but our potential needs to change by at most \(w\). What should we do? Divide by two:" and then you used the expression: $p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}$, but we only derived and explained $q(v) = h_{T}(v) - h_{S}(v)$. So, from where and how did we derive this p(v) expression, even without the factor $\frac{1}{2}$? Or did we just replace q(v) with p(v) and then added the factor $\frac{1}{2}$ to come up with the definite expression (for what?)? I am disconnected here.
-* I understand that in the normal A* search, we use `f(v) = g(v) + h(v)`. Here, we use `f(v) = g(v) + p(v)` for the forward search, and `f(v) = g(v) - p(v)` for the backward search, where $p(v) = \frac{h_{T}(v) - h_{S}(v)}{2}$. If this is true, then our goal is to reach from `h(v)` to its replacement `p(v)` step-by-step. Start from what we already know using the association principle. Use metaphors, analogies, oversimplification, non-technical examples, layman's language, and then model each point into the actual technical explanation and implementation, step by step, with justification.
- 
----
-
-* 
-
----
-
-//ToDo: Add questions to confirm our understanding.
