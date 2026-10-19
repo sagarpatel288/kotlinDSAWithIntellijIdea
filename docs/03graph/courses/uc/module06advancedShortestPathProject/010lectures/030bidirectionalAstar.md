@@ -371,25 +371,155 @@ $$
 w_{p}(u, v) = w(u, v) + p(v) - p(u)
 $$
 
+* There is also a critical interpretation here.
+
+> The adjusted edge weight of the edge(u, v), where we are going from u to v, is equal to the original edge weight + the potential of the end-vertex - the potential of the start-vertex.
+
 * What does it do? How does it work? How does it help?
 
 ---
 
 * The reason behind this mathematical guarantee of the consistency is interesting.
-* Suppose that our path is: S → A → B → T
-* When we use the adjusted formula, we get:
+* Suppose that our forward search path is: S → A → B → v,
+* When we use the adjusted edge-weight formula, we get:
 
 $$
-w(S, A) + p(A) - p(S) + w(A, B) + p(B) - p(A) + w(B, T) + p(T) - p(B)
+w(S, A) + p(A) - p(S) + w(A, B) + p(B) - p(A) + w(B, v) + p(v) - p(B)
 $$
 
 $$
-w_{p}(S, T) = w(S, T) + p(T) - p(S)
+w_{p}(S, v) = w(S, v) + p(v) - p(S)
 $$
 
-* The magical part is, almost all the potentials cancel out, and what remains is the actual edge weight + the difference between the target's potential and the source's potential!
+* The critical interpretation here is:
+
+> The adjusted weight of the forward search path is the original weight cost + the potential of the ending vertex - the potential of the source vertex. p(v) - p(S) is critical here.
+
+* If the end-vertex is, x, then it becomes:
+
+$$
+w_{p}(S, x) = w(S, x) + p(x) - p(S)
+$$
+
+* If the end-vertex is, y, then it will be:
+
+$$
+w_{p}(S, y) = w(S, y) + p(y) - p(S)
+$$
+
+* This gives us another strong interpretation.
+
+> p(S) is the constant that we get for any adjusted edge-weight during the forward search.
+
+* To understand this, let us assume that we have the following values:
+
+```markdown
+
+2, 4, 7, 12
+```
+
+
+* Now, we increase each value by 2.
+* So, it becomes:
+
+```markdown
+
+4, 6, 9, 14
+```
+
+
+* The interesting thing is that increasing each value by the same weight (value) does not change the difference between them.
+* For example:
+
+```markdown
+
+(4 - 2) = (6 - 4) = 2
+(7 - 4) = (9 - 6) = 3
+(12 - 7) = (14 - 9) = 5
+(7 - 2) = (9 - 4) = 5
+(12 - 4) = (14 - 6) = 8
+(12 - 2) = (14 - 4) = 10
+```
+
+* Now, the critical part: 
+* If we remove the constant value that we added to each value, it does not change their relative value and order to each other.
+* For example,
+
+```markdown
+
+(4 - 2) = (6 - 4) = 2 - 2 = 0
+(7 - 4) = (9 - 6) = 3 - 2 = 1
+(12 - 7) = (14 - 9) = 5 - 2 = 3
+(7 - 2) = (9 - 4) = 5 - 2 = 3
+(12 - 4) = (14 - 6) = 8 - 2 = 6
+(12 - 2) = (14 - 4) = 10 - 2 = 8
+```
+
+* In the forward search, $p(S)$ is the value that we always subtract.
+* If we ignore it, it does not change the relative value and order.
+* For example, suppose that $p(S) = 5$.
+* Then:
+
+| Vertex | $G_{f}(v)$ | $p(v)$ | $G'_{f}(v)=G_{f}(v)+p(v)-5$ |
+|:------:|:----------:|:------:|:---------------------------:|
+|   A    |     10     |   3    |              8              |
+|   B    |     7      |   4    |              6              |
+|   C    |     12     |   1    |              8              |
+
+* So, the formula for the forward search becomes:
+
+$$
+w_{p}(S, v) = w(S, v) + p(v)  
+$$
+
+* Similarly, suppose that the backward search path is: T → x → y → v,
+* Then, according to the adjusted edge-weight formula, in the original graph, we get:
+
+$$
+w(v, y) + p(y) - p(v) + w(y, x) + p(x) - p(y) + w(x, T) + p(T) - p(x)
+$$
+
+$$
+w_{p}(v, T) = w(v, T) + p(T) - p(v)
+$$
+
+* Similar to the forward search, we always get $p(T)$ in the backward search.
+* In the backward search, $p(T)$ is the value that we always add.
+* If we ignore it, it does not change the relative value and order.
+* For example, suppose that $p(T) = 8$.
+* Then:
+
+| Vertex | $G_{b}(v)$ | $p(v)$ | $G'_{b}(v) = G_{b}(v) + 8 - p(v)$ | $G_{b}(v)-p(v)$ |
+|:------:|:----------:|:------:|:---------------------------------:|:---------------:|
+|   A    |     10     |   3    |                15                 |        7        |
+|   B    |     7      |   4    |                11                 |        3        |
+|   C    |     12     |   1    |                19                 |       11        |
+
+* So, the formula for the backward search becomes:
+
+$$
+w_{p}(v, T) = w(v, T) - p(v)
+$$
+
+* This is how we get `+x` for the forward search and `-x` for the backward search.
+* Now, if we add forward search and backward search, it becomes:
+
+$$
+w_{p}(S, v) + w_{p}(v, T) = w(S, v) + p(v) + w(v, T) - p(v)
+$$
+
+$$
+w_{p}(S, v) + w_{p}(v, T) = w(S, v) + w(v, T)
+$$
+
+* This is how the potentials cancel each other out.
+* The magical part is, almost all the potentials cancel out, and what remains is the actual edge weight + the difference between the start-vertex's potential and the end-vertex's potential!
+* This is how we get the actual values from `forward search priority + backward search priority` that we can use confidently as a lower bound!
 * And this is the result of the adjusted graph.
-* So, we can say that the value of the shortest path is the actual value + the difference between the target's potential and the source's potential.
+* 
+---
+
+* So, we can say that the value of the shortest path is the actual value + the difference between the end-vertex's potential and the start-vertex's potential.
 * The shortest path itself of the original graph and the shortest path in the adjusted graph remain the same.
 * Changing their numerical values consistently does not change the actual shortest path.
 * But we cannot adjust the graph by any random, arbitrary values.
@@ -508,8 +638,6 @@ $$
 
 ---
 
-> //ToDo: Place this block at the right place.
-
 **The seesaw analogy.**
 
 * Suppose that side A is higher than side B.
@@ -519,6 +647,18 @@ $$
 * We add some weight on side A and remove some weight from side B.
 * Similarly, to balance the things, we will add positive potential to the forward search.
 * And we will add negative potential to the backward search.
+
+---
+
+* We have the final potential value to replace the heuristics:
+* Recall the potential formula with the adjusted weight:
+
+$$
+w_{p}(S, T) = w(S, T) + p(T) - p(S)
+$$
+
+* What does it indicate?
+* 
 
 ---
 
@@ -666,6 +806,20 @@ if (lowerbound >= (2 * upperBound)) {
   * When the actual value is mixed with the estimated values, it becomes difficult to provide the stop condition confidently.
   * We want to filter out those heuristics and retain only the actual values when we perform summation (addition) of each priority queue's `peek` values.
   * So that we can confidently provide the stop condition.
+  * 
+* Why do we take something called, potential instead of the existing heuristics?
+  * We can call anything, not necessarily the potential.
+  * In fact, what we call potential is a special combination of the existing heuristics only.
+  * Why this arrangement? Because we want to replace the existing heuristics in such a way that when we perform addition of each `peek` item, the heuristics cancel each other out, and what remains should be the factual data.
+  * Why do we want to filter the heuristics and retain only the factual data?
+  * So that we can provide a confident stop condition.
+  * But we cannot take any arbitrary replacement.
+  * The replacement must follow the existing heuristic consistency and invariants.
+  *  
+* What is the existing heuristic consistency and invariants?
+  * If `u` and `v` are two adjacent vertices, directly connected via an edge(u, v), then the difference between their heuristics `h(u) - h(v)` must be less than or equal to (at most) the `weight(u, v)`.
+  * The shortest path of the existing graph should be the shortest path in the adjusted graph.
+  * Also, we must ensure that there will be no negative-edge-weight in the adjusted graph.
   * 
 * Why did we take the difference of the heuristics, `q = hf - hb`? What does it indicate? How does it help?
   * We want to replace the heuristics in such a way that when we perform the summation (addition) of each priority queue's `peek` item, only the actual (factual) values remain, and the estimated values cancel each other out.
