@@ -86,16 +86,18 @@ $$
 * We can see that the offset of each `peek` cancels out each other.
 * And what remains is the actual values that we can confidently use for the lower bounds.
 * But we still have an issue.
-* The `fg(v)` represents the value from the vertex to the target.
-* The `bg(v)` represents the value from the vertex to the source.
+* The `fg(v)` represents the actual value from the source to the vertex, v for the forward search priority queue.
+* The `bg(v)` represents the actual value from the vertex, v to the target for the backward search priority queue.
 * They have different goals.
 * They measure different things.
 * We want them to share a common goal and measure the same thing.
-* But isn't it true that if we connect them, their combined value represents the complete path? That's what we did in the bidirectional Dijkstra, right?
+* But isn't it true that if we connect them, their combined value represents the complete path? 
+* That's what we did in the bidirectional Dijkstra, right?
 * Yes, if it happens to store only the actual distance values!
 * But didn't we say that if we cancel out `+x` and `-x`, what remains is the actual values?
-* Yes, but first, we need to convert the forward search queue item `fg(v) + hs(v)` into `fg(v)+ x`, and backward search queue item `bg(v) + ht(v)` into `bg(v) - x`.
-* And then, we will exactly use: `forwardSearchQueueItem + backwardSearchQueueItem` confidently.
+* Yes, but first, we need to convert the forward search queue item `fg(v) + hs(v)` into `fg(v)+ x`. 
+* And similarly, backward search queue item `bg(v) + ht(v)` into `bg(v) - x`.
+* And then, we will exactly use: `forwardSearchPeek + backwardSearchPeek` confidently.
 * So, how do we convert?
 
 ---
@@ -796,6 +798,17 @@ if (lowerbound >= (2 * upperBound)) {
 }
 
 ```
+
+//ToDo: 
+
+* I am unsure about this order, but we need to check.
+* I believe `+p` and `-p` proof comes before `<= 2weight(u, v)` problem.
+* Because when we apply the heuristic difference consistency to some path, (S, T), we observe and prove that.
+* We observe and prove that for the forward search, `p(S)` is constant, and we can ignore it.
+* So, for the forward search, the formula becomes: `fg(v) + p(v)`.
+* Similarly, we observe and prove that for the backward search, `p(T)` is constant, and we can ignore it.
+* So, for the backward search, the formula becomes: `bg(v) - p(v)`.
+* But then we observe another problem.
 
 ---
 
