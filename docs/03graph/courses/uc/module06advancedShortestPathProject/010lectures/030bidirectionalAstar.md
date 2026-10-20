@@ -88,6 +88,15 @@ $$
 * But we still have an issue.
 * The `fg(v)` represents the actual value from the source to the vertex, v for the forward search priority queue.
 * The `bg(v)` represents the actual value from the vertex, v to the target for the backward search priority queue.
+* As we have seen in the normal A* algorithm, a heuristic value represents the estimated remaining distance to the goal.
+* In a normal A* algorithm, we use only one search direction, and hence only one goal direction: Target.
+* But in a bidirectional A* algorithm, we use two searches, and hence two goals.
+* The two searches we use in the bidirectional A* algorithm: Forward search and backward search.
+* For the forward search, the goal is: Target.
+* For the backward search, the goal is: Source.
+* Two searches = Two goals = Two heuristics for each vertex.
+* Forward search uses `heuristicToTarget[vertex]`, that represents the estimated remaining distance to the target.
+* Backward search uses `heuristicToSource[vertex]`, that represents the estimated remaining distance to the source.
 * They have different goals.
 * They measure different things.
 * We want them to share a common goal and measure the same thing.
