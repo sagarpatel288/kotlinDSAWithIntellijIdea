@@ -662,6 +662,47 @@ $$
 
 ---
 
+## Steps
+
+**Input:**
+
+* We get total vertices, total edges, and for each edge: from, to, weight.
+* For each vertex: Heuristic value from source and to target.
+* Source and target.
+
+**Output**
+
+* The shortest path distance from the source to the target.
+
+**Steps**
+
+* Build the graph using the adjacency list.
+* Why? Because bidirectional A* also uses the core logic of Dijkstra.
+* 2 searches: Forward and backward.
+* 2 arrays to store the distance: forwardDist and backwardDist.
+* 2 arrays to store the parents: forwardParents and backwardParents.
+* 2 priority queues to explore the graph.
+* Each priority queue stores: f(v), g(v), vertex.
+* f(v) represents the adjustment.
+* For the forward search priority queue, fs(v) = 2fg(v) + p(v)
+* For the backward search priority queue, bs(v) = 2bg(v) - p(v)
+* g(v) is the actual value.
+* And potential p(v) = heuristicsToTarget(v) - heuristicsFromSource(v). 
+* We start with the source.
+* The actual distance value from the source to the source is 0.
+* So, fs(source) = p for the source.
+* Similarly, for the backward search priority queue, bs(source) = -p.
+* Now, as long as none of the queues are empty, we repeat.
+* We peek through each queue.
+* If (forwardMin + backwardMin) >= 2 * bestDistance, we return the result.
+* Otherwise, we proceed with the queue that has a smaller size.
+* We poll, and inspect outgoing edges.
+* We attempt edge relaxation.
+* For every successful edge relaxation: 
+* We update the corresponding priority queue, and parents.
+
+---
+
 **TL;DR**
 
 * Each priority gets: `f(v) = g(v) + h(v)`, where `g(v)` is the actual distance value, and `h(v)` is an estimated remaining distance value from the vertex.
