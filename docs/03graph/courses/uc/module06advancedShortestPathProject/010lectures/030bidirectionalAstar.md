@@ -111,6 +111,15 @@ $$
 
 ---
 
+* We start with what we know.
+* We know that weight is associated with an edge.
+* For example, weight(u, v) represents the value for the edge(u, v), where u and v are adjacent vertices connected through an edge.
+* Similarly, a heuristic value is associated with a vertex.
+* For example, h(v) represents the estimated remaining distance (value) from the vertex, v to the goal (target).
+* So, the replacement of h(v) should represent some value associated with the corresponding vertex, v.
+* For example, it can be h'(v), q(v), or p(v), or in whichever (whatever) way we want to denote (represent) it.
+* Conventionally, we start with q(v) and finalize p(v) as we will see it gradually.
+* And finally, the heuristic consistency.
 * The only information that we know about the heuristics is (or we expect, assume) that the heuristics are consistent, and they satisfy the below consistency condition:
 
 $$
@@ -126,6 +135,12 @@ $$
 * So, if `h(u)` is `20` and `h(v)` is `25`, then it is consistent and admissible.
 * But if `h(u)` is `20` and `h(v)` is `40`, then it is inconsistent.
 * The entire approach of our bidirectional A* algorithm assumes that we get consistent and admissible (feasible) heuristics.
+* It means that if the replacement of h(u) is q(u) and the replacement of h(v) is q(v), then:
+* The difference q(u) - q(v) must be consistent (align) with the difference h(u) - h(v).
+* The replacement values can be different. 
+* But the value about how much it can change while going from u to v should align with (follow) the heuristic consistency.
+* For example, the value of q(u) and q(v) can be different from h(u) and h(v) respectively.
+* But their difference, q(u) - q(v) should align with (follow) the difference of h(u) - h(v).
 * Using this information, we want to come up with some definite stop condition.
 * It means that if we want to replace `fg(v) + hs(v)` with `fg(v) + x`, and `bg(v) + ht(v)` with `bg(v) - x`, then we must ensure that the `x` that we use aligns with $h(u) - h(v) &le; weight(u, v)$.
 * In other words, if the replacement for `hs(v)`, and `ht(v)` is `x`, then their difference must never exceed the actual edge weight `weight(u, v)`.
