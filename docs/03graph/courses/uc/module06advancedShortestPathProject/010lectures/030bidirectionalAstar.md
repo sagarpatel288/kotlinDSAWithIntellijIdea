@@ -233,9 +233,9 @@ $$
 * The value is negative.
 * It means that the vertex is near the target.
 * See the pattern.
-* We are getting difference answers.
+* We are getting different answers.
 * And if we notice, if the house is near the source, we get a positive value.
-* And if the house is in the middle, we get zero `0`.
+* And if the house is in the middle, we get `0` (zero).
 * And if the house is near the target, we get a negative value.
 * So, the difference gives us directional information.
 
@@ -833,6 +833,15 @@ if (lowerbound >= (2 * upperBound)) {
 * Similarly, we observe and prove that for the backward search, `p(T)` is constant, and we can ignore it.
 * So, for the backward search, the formula becomes: `bg(v) - p(v)`.
 * But then we observe another problem.
+
+---
+
+## Dry-Run
+
+![040bidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/040bidirectionalAstar.webp)
+
+* The illustration might be skipping a few steps.
+* But the core idea remains the same.
 
 ---
 
