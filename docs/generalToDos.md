@@ -7,6 +7,7 @@
   * [Edge Cases](#edge-cases)
   * [Common Mistakes](#common-mistakes)
   * [Format](#format)
+  * [What to say during the interview? How to explain?](#what-to-say-during-the-interview-how-to-explain)
 <!-- TOC -->
 
 ## Topics
@@ -75,6 +76,10 @@
 ## Common Mistakes
 
 * Integer overflow
+
+## Clarify
+
+* Can arithmetic operations cause overflow?  
 
 ## Format
 
