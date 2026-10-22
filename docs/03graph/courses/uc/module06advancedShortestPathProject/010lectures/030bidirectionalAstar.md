@@ -886,6 +886,40 @@ if (lowerbound >= (2 * upperBound)) {
 
 ---
 
+## Complexity analysis
+
+**Time complexity**
+
+* Initialization of `dist` and `parent` arrays.
+* We assign the value to each vertex.
+* So, it takes: O(V).
+
+---
+
+* Building the heap takes O(V).
+* While loop: As long as none of the queues is empty.
+* Each queue contains: priority, actual distance, and vertex.
+* How do we add? When do we add?
+* For each edge relaxation.
+* This is an undirectional (bidirectional) graph.
+* So, we might get each vertex twice the time.
+* For example, for u - v, and for v - u.
+* Each "add" operation to queue takes logarithmic time.
+* We add "E" items to each queue.
+* So, the add operation takes a total of: O(E log E) time.
+* But for a simple graph, E <= V^2.
+* So, it simplifies to: O(E log V).
+* So, the total time complexity becomes: O((V + E) log V).
+
+---
+
+**Space complexity**
+
+* 2 dist, each: O(V)
+* 2 queues, each: O(E)
+* The adjacency list: Edges of each vertex: O(V + E)
+* So, the total space complexity becomes: O(V + E)
+
 ## Questions
 
 * What is the ultimate goal of these complicated process, formulas, transformation, replacement, etc.? Why is it more complex than the bidirectional Dijkstra?
