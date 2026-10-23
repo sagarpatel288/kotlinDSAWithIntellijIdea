@@ -111,7 +111,113 @@ $$
 $$
 
 * We can test this formula on (for) a path from S to T.
-* The idea is to connect the two information we have:
+* Suppose that the path is: S → a → b → T.
+* For each edge, we get:
+
+$$
+l_{p}(S, a) = l(S, a) + \pi(a) - \pi(S)
+$$
+
+$$
+l_{p}(a, b) = l(a, b) + \pi(b) - \pi(a)
+$$
+
+$$
+l_{p}(b, T) = l(b, T) + \pi(T) - \pi(b)
+$$
+
+* And if we consider the complete path:
+
+$$
+l_{p}(S, T) = l(S, a) + \pi(a) - \pi(S) + l(a, b) + \pi(b) - \pi(a) + l(b, T) + \pi(T) - \pi(b) 
+$$
+
+$$
+l_{p}(S, T) = l(S, a) - \pi(S) + l(a, b) + l(b, T) + \pi(T)
+$$
+
+$$
+l_{p}(S, T) = l(S, T) - \pi(S) + \pi(T)
+$$
+
+* For any path (P), if the start-vertex `S` is fixed, and the end-vertex `T` is fixed, then:
+
+$$
+l_{p}(P) = l(P) - \pi(S) + \pi(T)
+$$
+
+* In the formula (expression), `P` represents the path we chose.
+* `S` is the fixed start-vertex.
+* And `T` is the fixed end-vertex.
+* The change in the potential $\pi(T) - \pi(S)$ does not depend on the path we chose.
+* And this is an important finding (conclusion).
+* It represents the overall picture:
+
+$$
+\text{Adjusted edge weight = Original edge weight - Potential of the start vertex + Potential of the end vertex}
+$$
+
+* All the intermediate labels (potentials) disappeared.
+* It means that if the start-vertex `S` is fixed, and the end-vertex `T` is fixed, then no matter what path we chose, we can calculate the adjusted edge weight for any path.
+* Because whatever path we chose, we just have to add the overall change in the potential to the original value.
+* And the overall change in the potential is:
+
+$$
+\text{Potential of the end-vertex - Potential of the start-vertex}
+$$
+
+* For example, we can have two different paths, $P_{1}$ and $P_{2}$.
+* Then:
+
+$$
+l_{\pi}(P_{1}) = l(P_{1}) - \pi(S) + \pi(T)
+$$
+
+$$
+l_{\pi}(P_{2}) = l(P_{2}) - \pi(S) + \pi(T)
+$$
+
+* The important point to notice here is that no matter which path we chose, the term $\pi(T) - \pi(S)$ remains the same as long as for both the paths, the start-vertex is S and the end-vertex is T.
+* It means that we want to find the relative change, we get:
+
+$$
+l_\pi(P_{2}) - l_\pi(P_{1}) = l(P_{2}) - \pi(S) + \pi(T) - l(P_{1}) + \pi(S) - \pi(T)
+$$
+
+$$
+l_\pi(P_{2}) - l_\pi(P_{1}) = l(P_{2}) - l(P_{1})
+$$
+
+* It means that the relative change of the adjusted edge weight in the adjusted graph is equal to the relative change in the original graph.
+* We can understand this with a small example:
+
+| Student | Original score | Fixed bonus | New score |
+|---------|----------------|-------------|-----------|
+| A       | 70             | +10         | 80        |
+| B       | 90             | +10         | 100       |
+
+* Adding a fixed bonus represents the potential.
+* The difference of the old score = 90 - 70 = 20.
+* The difference of the new score = 100 - 80 = 20.
+* The difference of the new score = The difference of the old score.
+* We can apply the same idea to the graph.
+* 
+---
+
+* Suppose that $\pi(T)$ is `7` and $\pi(S)$ is `4`.
+* So, the adjustment (change) becomes: $\pi(T) - \pi(S) = 7 - 4 = 3$.
+* Now, if $l(P_{1})$ is $10$ and $l(P_{2})$ is $15$, their difference is 15 - 10 = 5.
+* And $l(P_{1})$ is the shortest path.
+* Now, in the adjusted graph, with potential adjustment, $l_{\pi}(P_1)$ becomes $l(P_{1}) + 3 = 10 + 3 = 13$.
+* And $l_{\pi}(P_2)$ becomes $l(P_{2}) + 3 = 15 + 3 = 18$.
+* Their difference is still $18 - 13 = 5$, and $l_{\pi}(P_1)$ is still the shortest path.
+* This is an important achievement.
+* The original shortest path of the original graph remains the shortest path in the adjusted graph, too.
+* That's what we wanted to ensure and achieve.
+
+---
+
+* Now, the idea is to connect the two information we have:
 * The actual edge weight + the estimated remaining value to the target.
 * When we combine, we get:
 
