@@ -38,7 +38,11 @@
 * The estimate from a location to the destination cannot exceed the cost of taking one step to a neighbor plus the neighbor's estimate.
 ---
 * A consistent heuristic satisfies a stronger condition for every edge from u to v:
-* $h(u) <= weight(u, v) + h(v)$
+* $h(u) &le; weight(u, v) + h(v)$
+* $h(u) - h(v) &le; weight(u, v)$
+* The formula indicates that: 
+* Moving from `u` to `v`, if we take the difference of their heuristics, it must be $&le; weight(u, v)$.
+* Where, `u` is the start-vertex, and `v` is the end-vertex.
 ---
 
 | Heuristic | Admissible? | Consistent? | Can A* guarantee the optimal path?                                                                                |
@@ -65,6 +69,64 @@
 * And so on...
 ---
 * Note that the A-Star algorithm without any heuristic values is the Dijkstra's Algorithm.
+---
+
+* In the A* algorithm, each vertex gets an estimated remaining value to the target.
+* We call it a heuristic or sometimes, a potential of the vertex.
+* So, each vertex gets a potential.
+* How? Through a potential function.
+* But this potential function has to ensure that it does not change the original shortest path.
+* It can change the individual edge weights, but the original shortest path must remain the shortest one in the new graph, too.
+* We call this new graph an adjusted graph, where each vertex gets potential from a potential function.
+* We denote (express) this relation as:
+
+$$
+\pi: V &rightarrow; R 
+$$
+
+* It means that $\pi(v)$ gives some real number.
+* Now, suppose that a vertex `u` has the potential, $\pi(u)$.
+* And the vertex `v` has the potential, $\pi(v)$.
+* If we move from `u` to `v`, the change in their potential becomes:
+
+$$
+\pi(v) - \pi(u)
+$$
+
+* Think of it like the change in the bank balance = final balance - initial balance.
+* Or, change in the temperature = final temperature - initial temperature.
+* And adjusted (new) bank balance = Original bank balance + Change in the bank balance.
+* Or, adjusted (new) temperature = Original temperature + Change in the temperature.
+* Similarly,
+* Adjusted (new) edge weight = Original edge weight + Change in the potentials.
+
+$$
+l_{\pi}(u, v) = l(u, v) - \pi(u) + \pi(v)
+$$
+
+* It says that:
+
+$$
+\text{Adjusted edge weight = Original edge weight - Start vertex's potential + End vertex's potential}
+$$
+
+* We can test this formula on (for) a path from S to T.
+* The idea is to connect the two information we have:
+* The actual edge weight + the estimated remaining value to the target.
+* When we combine, we get:
+
+$$
+\text{ Estimated total cost = Actual cost incurred + Estimated remaining cost}
+$$
+
+$$
+f(v) = g(v) + h(v)
+$$
+
+* The heuristic does not change the true result.
+* It may change the order in which we explore the vertices compared to Dijkstra's algorithm.
+
+
 ---
 
 ## Steps to code
