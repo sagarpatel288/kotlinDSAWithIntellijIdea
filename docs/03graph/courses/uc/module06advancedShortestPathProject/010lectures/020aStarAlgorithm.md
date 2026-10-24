@@ -89,16 +89,29 @@
 * The problem is that the Dijkstra's algorithm uses factual data g(v) to prioritize the exploration.
 * So, if we want to reuse the Dijkstra's algorithm even when we have heuristics, we need to find a way to transform the heuristics into factual data.
 * We want to transform and integrate the heuristics into the factual data, and then we want to reuse the Dijkstra's algorithm.
-* But to reuse the Dijkstra's algorithm, we need to ensure that the transformation of the heuristics, and the actual values we use should not change the original shortest path.
+* But to reuse the Dijkstra's algorithm, we need to ensure that the transformation of the heuristics, and the actual values we use must not change the original shortest path.
 * In other words, we can assume that on one side, we have the original graph.
 * And on the other side, we have the transformed (adjusted) graph.
 * And we want to ensure that the shortest path in the original graph and the shortest path in the adjusted graph, are the same.
 
 ---
 
+* Now, the goal is to find a way to transform the A* graph (the graph that has heuristics) into an ordinary graph so that we can apply an ordinary shortest path algorithm like the Dijkstra's algorithm on it.
+* But the condition is that the transformation should not change how the original A* graph (the graph that has heuristics) prioritize the order of exploration.
+* In other words, the shortest path algorithm like Dijkstra should respect (follow) the natural order of the A* algorithm that uses heuristics as a guided (directed) search.
+* This is possible only if we can transform the A* algorithm's priority (f(v) = g(v) + h(v)) into an ordinary edge-weight that the Dijkstra's algorithm can naturally follow and use.
+* Because Dijkstra's algorithm follows (seeks) shortest edge-weight.
+* However, as Dijkstra uses factual data, we need factual data instead of the heuristics (which is an estimated remaining value based on an educated guess).
+* We call such a replacement: Potential.
+* So, in the transformed graph, each vertex gets something called potential instead of heuristics.
+* Now, in order to apply Dijkstra, we need to ensure the Dijkstra consistency and invariants, too.
+* 
+
+---
+
 * In the A* algorithm, each vertex gets an estimated remaining value to the target.
-* We call it a heuristic or sometimes, a potential of the vertex.
-* So, each vertex gets a potential.
+* We call it a heuristic of the vertex. 
+* And in the transformed (adjusted) graph, each vertex gets the potential based on the associated heuristic and edge-weight.
 * How? Through a potential function.
 * But this potential function has to ensure that it does not change the original shortest path.
 * It can change the individual edge weights, but the original shortest path must remain the shortest one in the new graph, too.
@@ -133,13 +146,49 @@ $$
 l_{\pi}(u, v) = l(u, v) - \pi(u) + \pi(v)
 $$
 
+or
+
+$$
+w_{\pi}(u, v) = w(u, v) - \pi(u) + \pi(v)
+$$
+
 * It says that:
 
 $$
 \text{Adjusted edge weight = Original edge weight - Start vertex's potential + End vertex's potential}
 $$
 
-* We can test this formula on (for) a path from S to T.
+* At this stage, we don't know (or we have not derived) yet the value of $\pi$.
+* For example, we don't know (or we have not derived) yet the value of $\pi(u)$ or $\pi(v)$.
+* But we have derived that whatever the value we get, there is a relationship between their differences, original edge weight, and new edge weight. 
+* Also, the formula looks similar to the original heuristics:
+
+$$
+h(u) &le; w(u, v) + h(v)
+$$
+
+$$
+h(u) - h(v) &le; w(u, v)
+$$
+
+* And:
+
+$$
+0 &le; w(u, v) - h(u) + h(v)
+$$
+
+---
+
+* We want to ensure that the transformed graph follows the same priority order as of the original graph.
+* The original graph has heuristics and the priority is:
+
+$$
+f(v) = g(v) + h(v)
+$$ 
+
+---
+
+* Now, suppose that the transformed path is from S to T.
 * Suppose that the path is: S → a → b → T.
 * For each edge, we get:
 
@@ -176,9 +225,11 @@ l_{p}(P) = l(P) - \pi(S) + \pi(T)
 $$
 
 * In the formula (expression), `P` represents the path we chose.
+* So, `P` can be any path for which `S` is the start-vertex, and `T` is the end-vertex.
 * `S` is the fixed start-vertex.
 * And `T` is the fixed end-vertex.
 * The change in the potential $\pi(T) - \pi(S)$ does not depend on the path we chose.
+* It means that any path in the transformed (adjusted) graph receives the same adjustment: $\pi(T) - \pi(S)$.
 * And this is an important finding (conclusion).
 * It represents the overall picture:
 
@@ -243,6 +294,107 @@ $$
 * This is an important achievement.
 * The original shortest path of the original graph remains the shortest path in the adjusted graph, too.
 * That's what we wanted to ensure and achieve.
+
+---
+
+* Now, suppose that the original cost of moving from S to v is $g(v)$.
+* The corresponding cost in the transformed graph is $g_\pi(v)$.
+* If we apply the adjustment formula, we get:
+
+$$
+g_\pi(v) = g(v) - \pi(S) + \pi(v)
+$$
+
+* Now, we compare it with the heuristic consistency for the same traversal:
+
+$$
+f(v) = g(v) + h(v)
+$$
+
+* If we compare:
+
+$$
+g(v) - \pi(S) + \pi(v) = g(v) + h(v)
+$$
+
+$$
+\pi(v) - \pi(S) = h(v)
+$$
+
+* But we have seen it earlier that $\pi(S)$ is the constant.
+* So, removing or ignoring it does not change the result.
+* Hence, it becomes:
+
+$$
+\pi(v) = h(v)
+$$
+
+* It means that the potential will be equal to the heuristic.
+* If we apply the values:
+
+$$
+g_\pi(v) = g(v) - \pi(S) + \pi(v)
+$$
+
+$$
+g_\pi(v) = g(v) - h(S) + h(v)
+$$
+
+$$
+g_\pi(v) = g(v) + h(v) - h(S)
+$$
+
+$$
+g_\pi(v) = f(v) - h(S)
+$$
+
+* And since h(S) is the constant (it is fixed and it does not depend on v),
+
+$$
+g_\pi(v) = f(v)
+$$
+
+* Which conveys that the order (priority) of exploration in the transformed graph will be the same as the order (priority) of the original graph.
+* This is another achievement we wanted to ensure.
+* So, we have successfully unlocked one more achievement.
+
+---
+
+* Finally, we want to ensure that the transformed graph does not contain any negative edge-weight.
+* We have:
+
+$$
+w_\pi(u, v) = w(u, v) - \pi(u) + \pi(v)
+$$
+
+$$
+w_\pi(u, v) = w(u, v) - h(u) + h(v)
+$$
+
+* Dijkstra requires:
+
+$$
+w_\pi(u, v) &ge; 0
+$$
+
+* Substituting (using the corresponding values):
+
+$$
+w(u, v) - h(u) + h(v) &ge; 0 
+$$
+
+$$
+w(u, v) + h(v) &ge; h(u)
+$$
+
+* Which is:
+
+$$
+h(u) &le; w(u, v) + h(v)
+$$
+
+* Which is exactly the condition we wanted to ensure.
+* This proves that the transformed graph does not contain any negative edge as long as the heuristics are consistent and we use potentials such that $\pi(u) = h(u)$.
 
 ---
 
