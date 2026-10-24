@@ -53,6 +53,7 @@
 | D         | No          | Yes         | Not possible under the standard definitions when $h(t)=0$ and edge costs are nonnegative                          |
 
 ---
+
 * How do we choose a good heuristic?
 * Normally, we get the heuristic from the input itself.
 * But in general, a heuristic depends on the true meaning of the edge weight and movement rules (capabilities).
@@ -67,8 +68,32 @@
 * When the straight-line (diagonal) distance between the source and the target, is lower bound, such as geometric movement with distance-based cost, we use the **Euclidean Distance**.
 * $h = \sqrt{(x_1 - x_2)^{2} + (y_1 - y_2)^{2}}$
 * And so on...
+
 ---
+
+* We take an example (analogy) to understand the comparison of Dijkstra and A star algorithm.
+* Suppose that we are riding a bicycle on a flat ground, from point S to point T.
+* The ground is flat.
+* So, the effort is directly proportional to the distance we pedal.
+* Now, we tilt the ground, make the starting point S to the top at the uphill, and end-point T at the bottom of the downhill.
+* It does not change the length (distance) between S and T.
+* But suddenly, the perceived effort has changed.
+* It becomes effortless to move from S to T because of the gravity!
+* And it becomes extremely difficult to move from T to S because of the gravity!
+* In the A star algorithm, potential is the mathematical gravity that tilts the graph towards the target (destination).
+
+---
+
 * Note that the A-Star algorithm without any heuristic values is the Dijkstra's Algorithm.
+* But is it possible to reuse the familiar Dijkstra's algorithm even when we have heuristics?
+* The problem is that the Dijkstra's algorithm uses factual data g(v) to prioritize the exploration.
+* So, if we want to reuse the Dijkstra's algorithm even when we have heuristics, we need to find a way to transform the heuristics into factual data.
+* We want to transform and integrate the heuristics into the factual data, and then we want to reuse the Dijkstra's algorithm.
+* But to reuse the Dijkstra's algorithm, we need to ensure that the transformation of the heuristics, and the actual values we use should not change the original shortest path.
+* In other words, we can assume that on one side, we have the original graph.
+* And on the other side, we have the transformed (adjusted) graph.
+* And we want to ensure that the shortest path in the original graph and the shortest path in the adjusted graph, are the same.
+
 ---
 
 * In the A* algorithm, each vertex gets an estimated remaining value to the target.
@@ -84,6 +109,7 @@ $$
 \pi: V &rightarrow; R 
 $$
 
+* It means that the function $\pi$ maps the vertex, V to some real number, R.
 * It means that $\pi(v)$ gives some real number.
 * Now, suppose that a vertex `u` has the potential, $\pi(u)$.
 * And the vertex `v` has the potential, $\pi(v)$.
@@ -97,6 +123,9 @@ $$
 * Or, change in the temperature = final temperature - initial temperature.
 * And adjusted (new) bank balance = Original bank balance + Change in the bank balance.
 * Or, adjusted (new) temperature = Original temperature + Change in the temperature.
+* For example, if the bank balance goes from 10 to 25, then:
+* Change in the bank balance = 25 - 10 = 15.
+* New bank balance = Original + Change in the bank balance = 10 + 15 = 25.
 * Similarly,
 * Adjusted (new) edge weight = Original edge weight + Change in the potentials.
 
@@ -178,7 +207,7 @@ l_{\pi}(P_{2}) = l(P_{2}) - \pi(S) + \pi(T)
 $$
 
 * The important point to notice here is that no matter which path we chose, the term $\pi(T) - \pi(S)$ remains the same as long as for both the paths, the start-vertex is S and the end-vertex is T.
-* It means that we want to find the relative change, we get:
+* It means that if we want to find the relative change, we get:
 
 $$
 l_\pi(P_{2}) - l_\pi(P_{1}) = l(P_{2}) - \pi(S) + \pi(T) - l(P_{1}) + \pi(S) - \pi(T)
