@@ -86,12 +86,27 @@
 
 * Note that the A-Star algorithm without any heuristic values is the Dijkstra's Algorithm.
 * But is it possible to reuse the familiar Dijkstra's algorithm even when we have heuristics?
-* The problem is that the Dijkstra's algorithm uses factual data g(v) to prioritize the exploration.
+* The problem is that the Dijkstra's algorithm uses factual data `g(v)` to prioritize the exploration.
+* But in A-Star, we have heuristics, and we cannot use and treat them as `g(v)` for Dijkstra, because heuristics are estimated values.
+* So, we cannot consider heuristics as definite, actual, final, or confident values like `g(v)`.
+* However, even though heuristics are not definite values, there is something definite about them.
+* And it is: Heuristic consistency.
+* The heuristic consistency ensures that:
+
+$$
+h(u) &le; w(u, v) + h(v)
+$$
+
+$$
+h(u) - h(v) &le; w(u, v)
+$$
+
 * So, if we want to reuse the Dijkstra's algorithm even when we have heuristics, we need to find a way to transform the heuristics into factual data.
-* We want to transform and integrate the heuristics into the factual data, and then we want to reuse the Dijkstra's algorithm.
-* But to reuse the Dijkstra's algorithm, we need to ensure that the transformation of the heuristics, and the actual values we use must not change the original shortest path.
-* In other words, we can assume that on one side, we have the original graph.
-* And on the other side, we have the transformed (adjusted) graph.
+* And to transform the heuristics into definite values, we can use the heuristic consistency.
+* Using the heuristic consistency, we come up with some definite (actual, factual) values on which we can apply Dijkstra's algorithm.
+* Also, to reuse the Dijkstra's algorithm, we need to ensure that the transformation of the heuristics, and the actual values we use must not change the original shortest path.
+* In other words, we can assume that on one side, we have the original graph with heuristics.
+* And on the other side, we have the transformed (adjusted) graph with definite values.
 * And we want to ensure that the shortest path in the original graph and the shortest path in the adjusted graph, are the same.
 
 ---
@@ -108,6 +123,8 @@
 * 
 
 ---
+
+![019aStarTransformation.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/019aStarTransformation.webp)
 
 * In the A* algorithm, each vertex gets an estimated remaining value to the target.
 * We call it a heuristic of the vertex. 
