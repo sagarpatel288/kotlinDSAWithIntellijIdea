@@ -128,7 +128,13 @@ $$
 
 * In the A* algorithm, each vertex gets an estimated remaining value to the target.
 * We call it a heuristic of the vertex. 
-* And in the transformed (adjusted) graph, each vertex gets the potential based on the associated heuristic and edge-weight.
+* Instead of heuristics, we want to use some definite values based on the definite heuristic consistency.
+* Let us call this definite value, a potential.
+* And let us denote this definite value as: $\pi(v)$.
+* It means that the potential of each vertex is based on the heuristic consistency.
+* And we want to ensure that the order of exploration of the original A-Star algorithm should be the same in the transformed graph when we apply Dijkstra's algorithm on it.
+* It means that we need to consider edge-weight, too.
+* So, in the transformed (adjusted) graph, each vertex gets the potential based on the associated heuristic and edge-weight.
 * How? Through a potential function.
 * But this potential function has to ensure that it does not change the original shortest path.
 * It can change the individual edge weights, but the original shortest path must remain the shortest one in the new graph, too.
