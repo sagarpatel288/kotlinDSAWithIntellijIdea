@@ -156,12 +156,15 @@ $$
 ---
 * Now, suppose that a vertex `u` has the potential, $\pi(u)$.
 * And the vertex `v` has the potential, $\pi(v)$.
+* At this point, we don't know the exact values of $\pi(u)$ and $\pi(v)$, yet.
+* But we know how much it can be changed as we move from `u` to `v`.
 * If we move from `u` to `v`, the change in their potential becomes:
 
 $$
 \pi(v) - \pi(u)
 $$
 
+* The change in their potential is a definite value.
 * Think of it like the change in the bank balance = final balance - initial balance.
 * Or, change in the temperature = final temperature - initial temperature.
 * And adjusted (new) bank balance = Original bank balance + Change in the bank balance.
@@ -262,7 +265,8 @@ $$
 * And `T` is the fixed end-vertex.
 * The change in the potential $\pi(T) - \pi(S)$ does not depend on the path we chose.
 * It means that any path in the transformed (adjusted) graph receives the same adjustment: $\pi(T) - \pi(S)$.
-* And this is an important finding (conclusion).
+* And if every path receives the same adjustment for the transformed graph, then it means that it maintains the original order of exploration.
+* This is an important finding (conclusion).
 * It represents the overall picture:
 
 $$
@@ -380,7 +384,7 @@ $$
 g_\pi(v) = f(v) - h(S)
 $$
 
-* And since h(S) is the constant (it is fixed and it does not depend on v),
+* And since h(S) is the constant (it is fixed, and it does not depend on v),
 
 $$
 g_\pi(v) = f(v)
