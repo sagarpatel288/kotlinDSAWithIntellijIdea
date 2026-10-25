@@ -147,6 +147,13 @@ $$
 
 * It means that the function $\pi$ maps the vertex, V to some real number, R.
 * It means that $\pi(v)$ gives some real number.
+* The potential function $\pi(v)$ produces a value for the vertex, `v`.
+* We want to come up with a situation where if we change the potential of `(u, v)`, then it would change the edge-weight.
+* And it should align with the original edge-weight in a sense that it should maintain the order of exploration.
+* The order of exploration should be the same in both the graphs.
+* Also, the shortest path should be the same in both the graphs.
+* 
+---
 * Now, suppose that a vertex `u` has the potential, $\pi(u)$.
 * And the vertex `v` has the potential, $\pi(v)$.
 * If we move from `u` to `v`, the change in their potential becomes:
@@ -175,6 +182,8 @@ $$
 w_{\pi}(u, v) = w(u, v) - \pi(u) + \pi(v)
 $$
 
+* We can think of it as increasing the existing edge-weight of the adjacent vertices `(u, v)` by the difference of their potentials.
+* It means that we add the difference of the potentials to the existing edge-weight to get the new edge weight on which we can apply Dijkstra's algorithm.
 * It says that:
 
 $$
