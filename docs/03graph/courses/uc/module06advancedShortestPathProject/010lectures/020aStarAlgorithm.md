@@ -396,6 +396,34 @@ $$
 
 ---
 
+* Recap:
+* In Dijkstra, we arrange priority based on the actual value, `g(v)`.
+* Because of the actual value, `g(v)`, we could provide the stop condition (lower bound) confidently.
+* In A*, we get estimated values (heuristics).
+* To use Dijkstra on A*, we need to transform these estimated values into definite values.
+* And we want to ensure that the transformation should maintain the original order of exploration of the A* graph.
+* So, we come up with a function `pi` that assigns each vertex a definite value.
+* We call such a value a potential.
+* So, each vertex gets a potential.
+* As we move from `u` to `v`, the change in the potential becomes: `pi(v) - pi(u)`.
+* We add this change in the original edge weight to produce a new edge weight.
+* So, it becomes: `w_pi(u, v) = w(u, v) - pi(u) + pi(v)`
+* If we apply this formula to each edge for the path from S to T, then:
+* For any path, P:
+* `g_pi(P) = g(P) - pi(S) + pi(T)`
+* If the target is, v instead of T, then it becomes:
+* `g_pi(P) = g(P) - pi(S) + pi(v)`
+* We can notice that irrespective of the path and the end-vertex, we get the common constant term: `- pi(S)`.
+* If we ignore the constant, it becomes:
+* `g_pi(v) = g(v) + pi(v)`.
+* If we compare it with the A* heuristic formula:
+* `f(v) = g(v) + h(v)`.
+* We get: `pi(v) = h(v)`, and it makes `g_pi(v) = f(v)`.
+* It means that we can consider the heuristic value `h(v)` as the definite value `pi(v)`.
+* And it neither changes the order of exploration nor the shortest path.
+
+---
+
 * Finally, we want to ensure that the transformed graph does not contain any negative edge-weight.
 * We have:
 
