@@ -54,6 +54,110 @@
 
 ---
 
+* In the [normal A* algorithm](020aStarAlgorithm.md), we derived that:
+
+$$
+w_\pi(u, v) = w(u, v) + \pi(v) - \pi(u)
+$$
+
+* If we apply this formula in bidirectional A*, each edge gets two weights due to two searches:
+* Forward search and backward search.
+* For example, the edge(u, v) gets:
+
+$$
+w_{f\pi}(u, v) = w(u, v) + \pi_{f}(v) - \pi_{f}(u)
+$$
+
+* And
+
+$$
+w_{b\pi}(u, v) = w(u, v) + \pi_{b}(u) - \pi_{b}(v)
+$$
+
+* And because it is the same graph, the edge weight should be the same.
+* For example, we expect that:
+
+$$
+w_{f\pi}(u, v) = w_{b\pi}(u, v) 
+$$
+
+$$
+w(u, v) + \pi_{f}(v) - \pi_{f}(u) = w(u, v) + \pi_{b}(u) - \pi_{b}(v)
+$$
+
+$$
+\pi_{f}(v) - \pi_{f}(u) = \pi_{b}(u) - \pi_{b}(v)
+$$
+
+$$
+\pi_{f}(v) + \pi_{b}(v) = \pi_{b}(u) + \pi_{f}(u)
+$$
+
+$$
+\pi_{f}(v) + \pi_{b}(v) = \pi_{f}(u) + \pi_{b}(u)
+$$
+
+$$
+\pi_{f}(u) + \pi_{b}(u) = \pi_{f}(v) + \pi_{b}(v) 
+$$
+
+* What does it convey?
+* It says that the sum of two potentials at one endpoint must equal to the sum of two potentials at the other endpoint.
+* It means that if there is an edge(u, v), then the sum of forward and backward potentials of `u` and the sum of forward and backward potentials of `v`, must be the same.
+* Now, if we denote:
+
+$$
+\pi_{f}(v) + \pi_{b}(v) = Q(v)
+$$
+
+* And
+
+$$
+\pi_{f}(u) + \pi_{b}(u) = Q(u)
+$$
+
+* Then:
+
+$$
+Q(u) = Q(v)
+$$
+
+* Now, suppose there is another edge that connects `v` to `w` as edge(v, w).
+* Then,
+
+$$
+Q(v) = Q(w)
+$$
+
+* It means that:
+
+$$
+Q(u) = Q(v) = Q(w) = \text{.... And so on....}
+$$
+
+* They all represent the same value.
+* Let us denote this same value as C.
+* So:
+
+$$
+Q(u) = Q(v) = Q(w) = \text{.... And so on....} = C
+$$
+
+* If we substitute Q(x) with its actual value, then:
+
+$$
+\pi_{f}(u) + \pi_{b}(u) = \pi_{f}(v) + \pi_{b}(v) = \pi_{f}(w) + \pi_{b}(w) = C
+$$
+
+* We need to construct a potential for each vertex that must satisfy this condition.
+* How do we do that?
+
+---
+
+* 
+
+---
+
 * We need `h(v)` to guide the search, but we don't want it to be the part of the calculation that defines the stop condition.
 * We know that whenever we `peek` in our priority queues, each of them give us the lowest value.
 * We want to use this value to define the stop condition.
@@ -129,6 +233,7 @@ $$
 h(u) - h(v) &le; weight(u, v)
 $$
 
+* This is the heuristic consistency formula when we move from `u` to `v`.
 * The consistent heuristics convey that for the adjacent vertices (u, v), the difference of their individual heuristics cannot exceed their edge weight.
 * For example, let us assume that moving from `u` to `v` actually costs us `5`.
 * Then, the difference of their heuristics `h(u) - h(v)` cannot be more than `5`.
