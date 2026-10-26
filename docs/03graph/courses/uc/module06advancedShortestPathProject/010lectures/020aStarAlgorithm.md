@@ -132,7 +132,7 @@ $$
 * Let us call this definite value, a potential.
 * And let us denote this definite value as: $\pi(v)$.
 * It means that the potential of each vertex is based on the heuristic consistency.
-* And we want to ensure that the order of exploration of the original A-Star algorithm should be the same in the transformed graph when we apply Dijkstra's algorithm on it.
+* And we want to ensure that the order of exploration of the original A-Star algorithm should remain the same in the transformed graph when we apply Dijkstra's algorithm on it.
 * It means that we need to consider edge-weight, too.
 * So, in the transformed (adjusted) graph, each vertex gets the potential based on the associated heuristic and edge-weight.
 * How? Through a potential function.
