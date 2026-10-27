@@ -154,7 +154,135 @@ $$
 
 ---
 
+* For the sake of simplicity, we take: 
+
+$$
+a = \pi_{f}(v);\text{ and }\ b = \pi_{r}(v)
+$$
+
+* Then, we want to replace `a` and `b` with `x` and `y` respectively, such that:
+
+$$
+x + y = 0
+$$
+
+* It is possible, if (when):
+
+$$
+y = -x
+$$
+
+* And we want to ensure that their difference remains the same.
+* In other words, the difference between the new values (x - y) should be the same as the difference of the old values (a - b).
+* So:
+
+$$
+x - y = a - b
+$$
+
+$$
+x - (-x) = a - b
+$$
+
+$$
+2x = a - b
+$$
+
+$$
+x = \frac{a - b}{2}
+$$
+
+* And since, $y = -x$;
+
+$$
+y = \frac{b - a}{2}
+$$
+
+* So that:
+
+$$
+x + y = \frac{a - b}{2} + \frac{b - a}{2} = \frac{a - b + b - a}{2} = 0
+$$
+
+* We finally apply the conventional notation to `x` as $p_{f}(v)$ and `y` as $p_{r}(v)$.
+* It means that the new values (using the old values) will be:
+
+$$
+x = p_{f}(v) = \frac{a - b}{2}
+$$
+
+$$
+x = p_{f}(v) = \frac{\pi_{f}(v) - \pi_{r}(v)}{2}
+$$
+
+* And
+
+$$
+y = p_{r}(v) = \frac{b - a}{2}
+$$
+
+$$
+y = p_{r}(v) = \frac{\pi_{r}(v) - \pi_{f}(v)}{2}
+$$
+
+* These are the two values (potentials) for each vertex that we need to use in bidirectional A* algorithm.
+
+---
+
+* We can understand this with an example.
+* Suppose that the original forward potential is $\pi_{f}(v) = 10$ and $\pi_{r}(v) = 4$.
+* Then:
+
+$$
+p_{f}(v) = \frac{\pi_{f}(v) - \pi_{r}(v)}{2} = \frac{10 - 4}{2} = \frac{6}{2} = 3
+$$
+
+* And
+
+$$
+p_{r}(v) = \frac{\pi_{r}(v) - \pi_{f}(v)}{2} = \frac{4 - 10}{2} = \frac{- 6}{2} = -3
+$$
+
+* So that:
+
+$$
+p_{f}(v) + p_{r}(v) = 3 - 3 = 0
+$$
+
+---
+
+* Recap:
+* $\pi_{f}(v)$: Original forward search potential of vertex, v.
+* $\pi_{r}(v)$: Original backward search potential of vertex, v.
+* $p_{f}(v)$: New forward search potential of vertex, v.
+* $p_{r}(v)$: New backward search potential of vertex, v.
 * 
+* We want to ensure that:
+* 
+$p_{f}(v) + p_{r}(v) = 0$
+$p_{r}(v) = -p_{f}(v)$
+ 
+* And we want to ensure that:
+ 
+$p_{f}(v) - p_{r}(v) = \pi_{f}(v) - \pi_{r}(v)$
+ 
+$p_{f}(v) - (- p_{f}(v)) = \pi_{f}(v) - \pi_{r}(v)$
+ 
+$2p_{f}(v) = \pi_{f}(v) - \pi_{r}(v)$
+ 
+$$
+p_{f}(v) = \frac{\pi_{f}(v) - \pi_{r}(v)}{2}
+$$
+ 
+* And since:
+ 
+$p_{r}(v) = -p_{f}(v)$
+ 
+So:
+
+$$ 
+p_{r}(v) = \frac{\pi_{r}(v) - \pi_{f}(v)}{2}
+$$
 
 ---
 
