@@ -1225,6 +1225,68 @@ if (forwardPeek + backwardPeek >= 2 * shortestPath) {
 
 ---
 
+* Now, we say that a feasible potential function gives a lower bound of the actual distance.
+* This is connected with the admissible heuristics that never overestimate the actual distance.
+* Suppose that the source vertex is `v`, the target vertex is `t`, the actual shortest remaining distance is `d(v, t)`, then we expect that `h(v) <= d(v, t)`.
+* How can we achieve such an admissible heuristic or potential for a vertex?
+* We know that it is guaranteed that the original graph does not have any negative edge.
+* And we know that the transformed graph also follows the consistency and invariants of the original graph.
+* So, all the edges of the transformed graph must be non-negative.
+
+$$
+w_\pi(v, t) = w(v, t) + \pi(t) - \pi(v)
+$$
+
+* And it is true for any edge.
+* So, the general representation can be:
+
+$$
+w_\pi(P) &ge; 0
+$$
+
+* And we know that for any path where the starting vertex is `v`, and the end-target vertex is `t`:
+
+$$
+w_\pi(P) = w(P) + \pi(t) - \pi(v)
+$$
+
+* If we combine these two conditions, we get:
+
+$$
+w(P) + \pi(t) - \pi(v) &ge; 0
+$$
+
+$$
+w(P) + \pi(t) &ge; \pi(v)
+$$
+
+* Now, we know that the admissible estimated remaining cost to target must be zero (`0`).
+* So, the corresponding potential of the target should also be $&le; 0$.
+* And so, adding $\pi(t)$ cannot increase $w(P)$.
+* So, we can say:
+
+$$
+w(P) &ge; \pi(v)
+$$
+
+* It says that the feasible potential cannot exceed the actual path cost.
+* The potential of `v` cannot exceed the actual cost of any path from `v` to `t`.
+* It means that:
+
+$$
+\pi(v) &le; d(v, t)
+$$
+
+* It means that if we want a feasible, admissible heuristic of vertex `v`, then:
+
+$$
+h(v) &le; d(v, t)
+$$
+
+* It means that a feasible potential $\pi(t)$ normalized to zero (`0`) at the end-target vertex `t` can serve as an admissible heuristic.
+
+---
+
 ## Dry-Run
 
 ![040bidirectionalAstar.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/040bidirectionalAstar.webp)
