@@ -396,7 +396,8 @@ $$
 
 ---
 
-* Recap:
+**Recap**
+
 * In Dijkstra, we arrange priority based on the actual value, `g(v)`.
 * Because of the actual value, `g(v)`, we could provide the stop condition (lower bound) confidently.
 * In A*, we get estimated values (heuristics).
@@ -458,7 +459,7 @@ h(u) &le; w(u, v) + h(v)
 $$
 
 * Which is exactly the condition we wanted to ensure.
-* This proves that the transformed graph does not contain any negative edge as long as the heuristics are consistent and we use potentials such that $\pi(u) = h(u)$.
+* This proves that the transformed graph does not contain any negative edge as long as the heuristics are consistent, and we use potentials such that $\pi(u) = h(u)$.
 
 ---
 
@@ -477,6 +478,81 @@ $$
 * The heuristic does not change the true result.
 * It may change the order in which we explore the vertices compared to Dijkstra's algorithm.
 
+
+---
+
+**TL;DR**
+
+* In Dijkstra, we use actual, factual, definite data, `g(v)`.
+* Because of definite `g(v)`, we can confidently provide and reliably use priorities and a definite stop condition based on it. 
+* But A-Star algorithm uses heuristics (estimated values).
+* We need heuristics to improve the performance.
+* We use it as a guided (directed) search.
+* But heuristics are not definite values.
+* They might be or they might not be.
+* So, how can we provide priorities and the stop condition confidently and reliably?
+* We don't want to discard heuristics, because we want it for the guided search.
+* Guided search is the strength (positive aspect) we get from heuristics.
+* But we also get uncertainty problem (negative aspect) from the same heuristics.
+* We want to use the positive aspects of the heuristics, and solve the negative aspects.
+* We want to use the heuristics information for the guided search.
+* But we want to transform it into some definite values.
+* It means that these definite values will integrate (include, use) the heuristic information.
+* And the output (representation) will be some definite values.
+* We assume such definite values.
+* We call it, a potential.
+* Each vertex gets some potential based on its heuristic value.
+* These potential values will integrate (include) positive aspects of the heuristics.
+* The positive aspects of the heuristics come from their consistency and invariants.
+* It means that these potential values must follow the same heuristic consistency and invariants.
+* So that we can use the positive aspects of the heuristics through these potential values.
+* What are these consistency and invariants?
+
+$$
+h(u) &le; w(u, v) + h(v)
+$$
+
+$$
+h(u) - h(v) &le; w(u, v)
+$$
+
+* So, we start with the difference between the potential values of two adjacent vertices of edge(u, v).
+* We can represent the change in their potential values while moving from `u` to `v` as:
+
+$$
+\pi(v) - \pi(u)
+$$
+
+* It represents the change in the potential values while moving from `u` to `v` for edge(u, v).
+* This is the additional difference the original edge weight gets.
+* We can represent it as:
+
+$$
+w_{\pi}(u, v) = w(u, v) + \pi(v) - \pi(u)
+$$
+
+* Which simplifies to: 
+
+$$
+g_{\pi}(v) = g(v) + \pi(v) - \pi(S)
+$$
+
+* On the other hand, the original heuristic priority function for the vertex, v is:
+
+$$
+f(v) = g(v) + h(v)
+$$
+
+* If we compare both, we get:
+
+$$
+\pi(v) = h(v)
+$$
+
+* Because $\pi(S)$ is the constant that applies to any path, and hence, we can ignore it.
+* It means that we can use the existing heuristic values reliably for the priority and the stop condition.
+* However, the final accuracy depends on whether the heuristics are consistent or not.
+* Admissible heuristics and heuristic consistency improve the accuracy and efficiency.
 
 ---
 
