@@ -286,6 +286,10 @@ $$
 
 ---
 
+* What do we do with this new potential? How do we use it? How does it help?
+
+---
+
 * We need `h(v)` to guide the search, but we don't want it to be the part of the calculation that defines the stop condition.
 * We know that whenever we `peek` in our priority queues, each of them give us the lowest value.
 * We want to use this value to define the stop condition.
@@ -1066,6 +1070,158 @@ if (lowerbound >= (2 * upperBound)) {
 * Similarly, we observe and prove that for the backward search, `p(T)` is constant, and we can ignore it.
 * So, for the backward search, the formula becomes: `bg(v) - p(v)`.
 * But then we observe another problem.
+
+---
+
+**TL;DR**
+
+* In the [A-StarAlgorithm.md](020aStarAlgorithm.md), we saw that:
+
+$$
+w_{\pi}(u, v) = w(u, v) + \pi(v) - \pi(u)
+$$
+
+* In the bidirectional A*, we get two searches.
+* So, for the forward search, we get:
+
+$$
+w_{\pi f}(u, v) = w(u, v) + \pi_{f}(v) - \pi_{f}(u) 
+$$
+
+* And:
+
+$$
+w_{\pi b}(u, v) = w(u, v) + \pi_{b}(u) - \pi_{b}(v)
+$$
+
+* For the same graph, the edge weight of some edge(u, v) should be the same whether we calculate it from the forward search or from the backward search.
+* So:
+
+$$
+w_{\pi f}(u, v) = w_{\pi b}(u, v)
+$$
+
+$$
+w(u, v) + \pi_{f}(v) - \pi_{f}(u) = w(u, v) + \pi_{b}(u) - \pi_{b}(v)
+$$
+
+$$
+\pi_{f}(v) - \pi_{f}(u) = \pi_{b}(u) - \pi_{b}(v)
+$$
+
+$$
+\pi_{f}(v) + \pi_{b}(v) = \pi_{b}(u) + \pi_{f}(u)
+$$
+
+$$
+\pi_{f}(u) + \pi_{b}(u) = \pi_{f}(v) + \pi_{b}(v)
+$$
+
+* It means that we need to come up with values such that the sum of both the potential values of any vertex must be equal to the sum of both the potential values of any other vertex.
+* Which simplifies to:
+
+$$
+Q(u) = Q(v) = Q(w) = \text{ And so on... } = \text{ Some constant, } C
+$$
+
+* It means that if we denote $\pi_{f}(u)$ as `a` and $\pi_{b}(u)$ as `b`, then we need to come up with some values `x` and `y` such that:
+
+$$
+x + y = 0
+$$
+
+$$
+y = -x
+$$
+
+* And:
+
+$$
+x - y = a - b
+$$
+
+* If we substitute `y` with `-x`, then: 
+
+$$
+x - (-x) = a - b
+$$
+
+$$
+2x = a - b
+$$
+
+$$
+x = \frac{a - b}{2}
+$$
+
+* And since, $y = -x$
+
+$$
+y = \frac{b - a}{2}
+$$
+
+* If we perform, `x + y`, we get:
+
+$$
+\frac{a - b}{2} + \frac{b - a}{2} = \frac{a - b + b - a}{2} = 0
+$$
+
+* Which satisfies the requirement.
+* If we substitute `a` and `b` with their original values, and denote `x` and `y` as $p_f$ and $p_b$, we get:
+
+$$
+p_{f}(v) = \frac{\pi_{f}(v) - \pi_{b}(v)}{2}
+$$
+
+* And:
+
+$$
+p_{b}(v) = \frac{\pi_{b}(v) - \pi_{f}(v)}{2}
+$$
+
+* We need to use these potential values for the priority and for the stop condition.
+* From the perspective of the core priority function of the A* algorithm, these are the values of `h(v)` in `f(v) = g(v) + h(v)`.
+* However, to avoid fractional (decimal) calculation, we multiply it by `2`:
+
+$$
+2p_{f}(v) = 2(\frac{\pi_{f}(v) - \pi_{b}(v)}{2}) = \pi_{f}(v) - \pi_{b}(v) 
+$$
+
+* And:
+
+$$
+2p_{b}(v) = 2 (\frac{\pi_{b} (v) - \pi_{f} (v)}{2}) = \pi_{b}(v) - \pi_{f}(v)
+$$
+
+* If $\pi_{f}(v) - \pi_{b}(v)$ is some potential, `P`, then:
+
+$$
+2p_{f}(v) = P
+$$
+
+* And
+
+$$
+2p_{b}(v) = -P
+$$
+
+* Since we multiply `h(v)` by `2`, we also multiply `g(v)` by 2.
+* So, we store the priority as:
+
+```markdown
+
+2f(v) = 2g(v) + 2h(v)
+```
+
+* And since we multiply the priority by `2`, we multiply the original shortest path by `2` for the fair comparison:
+
+```kotlin
+
+if (forwardPeek + backwardPeek >= 2 * shortestPath) {
+    // stop
+}
+
+```
 
 ---
 
