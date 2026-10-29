@@ -195,7 +195,13 @@ $$
 
 * At this stage, we don't know (or we have not derived) yet the value of $\pi$.
 * For example, we don't know (or we have not derived) yet the value of $\pi(u)$ or $\pi(v)$.
-* But we have derived that whatever the value we get, there is a relationship between their differences, original edge weight, and new edge weight. 
+* But we have derived that whatever the value we get, there is a relationship between their differences, original edge weight, and new edge weight.
+* And if moving from `u` to `v` gets us closer to some target vertex `t`, then $\pi(v) &le; \pi(u)$.
+* It means that $\pi(v) - \pi(u)$ gives us a negative result.
+* And we subtract the result of $\pi(v) - \pi(u)$ from $w(u, v)$.
+* It means that the value of $w_{\pi}(u, v) &le; w(u, v)$.
+* And we know that Dijkstra's algorithm explores the edge with the smaller value.
+* So, $w_{\pi}(u, v)$ gets the priority.
 * Also, the formula looks similar to the original heuristics:
 
 $$
