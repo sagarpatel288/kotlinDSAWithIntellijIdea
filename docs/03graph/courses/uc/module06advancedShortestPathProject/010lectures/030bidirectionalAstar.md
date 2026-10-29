@@ -1284,6 +1284,21 @@ h(v) &le; d(v, t)
 $$
 
 * It means that a feasible potential $\pi(t)$ normalized to zero (`0`) at the end-target vertex `t` can serve as an admissible heuristic.
+* The feasible potential $\pi(t)$ normalized to zero (`0`) at the end-target vertex `t` conveys that the distance from the vertex `t` to the end-target vertex `t` (itself) is zero (`0`), which is obvious.
+
+---
+
+* What is the example of a feasible, admissible potential? 
+* Euclidean Distance.
+* We can use geometry of the map (like Euclidean Distance) as the feasible potentials (or admissible and consistent heuristics) for the guided search algorithms like normal A* or bidirectional A*. 
+* How can we say that? How does that help? Is it true?
+
+![016euclideanHelpsInAstarAlgo.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/016euclideanHelpsInAstarAlgo.webp)
+
+* 
+
+
+
 
 ---
 
@@ -1466,4 +1481,22 @@ $$
   * When they cancel each other out, what remains is the factual data.
   * And because of the factual data, we can provide the stop condition confidently.
   * 
+* What is the difference between a feasible potential and an admissible heuristic?
+  * A heuristic value is associated with the original graph, where it conveys the estimated remaining distance of the vertex to the target.
+  * A potential value is associated with the transformed graph, where it helps to provide an edge-weight.
+  * The term feasibility is used for the transformed graph where each vertex gets a potential based on its heuristic value.
+  * The feasible potential and an admissible heuristic are associated with each other.
+  * Their exact values may or may not be different, but they represent different structure, perspective, and properties. 
+  * However, an admissible heuristic can help us get the feasible potential.
+  * One of the desired properties of a heuristic is that it should never overestimate the actual distance.
+  * $h(v) &le; d(v, t)$
+  * We call such a heuristic an admissible heuristic.
+  * Euclidean Distance helps us to get such an admissible heuristic.
+  * Similarly, one of the desired properties of a potential is that it should never introduce a negative edge-weight.
+  * $w_{\pi}(u, v) = w(u, v) - \pi(u) + \pi(v) &ge; 0$
+  * We call such a potential a feasible potential.
+* What is the difference between an admissible heuristic and a consistent heuristic?
+  * A heuristic represents the estimated remaining distance to the target. 
+  * An admissible heuristic never overestimates the actual distance.
+  * A consistent heuristic is associated with the behavior across the edges.
 ---
