@@ -22,21 +22,37 @@
 * An example of having an estimated value is when we have the co-ordinates of our current location, and the co-ordinates of the target location.
 * Then, we can draw a straight line between our current location and the target location.
 * And we ensure that our search does not go far away from that line.
+
 ---
+
 * To remember the "Admissible Heuristic", we can use the below image:
 
 ![015straightLineVsActualPath.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/015straightLineVsActualPath.webp)
 
+![016euclideanHelpsInAstarAlgo.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/016euclideanHelpsInAstarAlgo.webp)
+
 * The straight-line distance is the "Admissible Heuristic."
 * It never overestimates the actual distance.
-* The actual distance is always higher (longer) than the Admissible Heuristic.
+* It represents the lower bound.
+* The actual distance cannot be lower (shorter) than the admissible heuristic.
+* The actual distance is at least (minimum) the admissible heuristic.
+* The actual distance is always higher (longer) than or equal to the Admissible Heuristic.
   * (The image source is: [https://www.maps.ie/driving-distances/](https://www.maps.ie/driving-distances/))
 * If $h(v)$ is a heuristic (estimated) value, and $d^{*}(v, t)$ is the actual value from the vertex to the target that we do not know yet, then we prefer that: 
-* $0 <= h(v) <= d^{*}(v, t)$ 
+* $0 <= h(v) <= d^{*}(v, t)$
+ 
 ---
-* Think of this as a triangle-inequality rule: 
+
+* Think of this as a triangle-inequality rule:
+
+![015straightLineVsActualPath.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/015straightLineVsActualPath.webp)
+
+![016euclideanHelpsInAstarAlgo.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/016euclideanHelpsInAstarAlgo.webp)
+
 * The estimate from a location to the destination cannot exceed the cost of taking one step to a neighbor plus the neighbor's estimate.
+ 
 ---
+
 * A consistent heuristic satisfies a stronger condition for every edge from u to v:
 * $h(u) &le; weight(u, v) + h(v)$
 * $h(u) - h(v) &le; weight(u, v)$
@@ -371,6 +387,7 @@ $$
 \pi(v) = h(v)
 $$
 
+* It means that for the transformed graph, we can consider an admissible heuristic value as a feasible potential to apply Dijkstra's algorithm and to provide the priority and the stop condition reliably, with confidence.
 * It means that the potential will be equal to the heuristic.
 * If we apply the values:
 
@@ -556,9 +573,243 @@ $$
 $$
 
 * Because $\pi(S)$ is the constant that applies to any path, and hence, we can ignore it.
-* It means that we can use the existing heuristic values reliably for the priority and the stop condition.
+* It means that for the transformed graph, we can use the existing admissible heuristic values as feasible potentials reliably for the priority and the stop condition.
 * However, the final accuracy depends on whether the heuristics are consistent or not.
 * Admissible heuristics and heuristic consistency improve the accuracy and efficiency.
+
+---
+
+* Now, we say that a feasible potential function gives a lower bound of the actual distance.
+* This is connected with the admissible heuristics that never overestimate the actual distance.
+* Suppose that the source vertex is `v`, the target vertex is `t`, the actual shortest remaining distance is `d(v, t)`, then we expect that `h(v) <= d(v, t)`.
+* How can we achieve such an admissible heuristic or potential for a vertex?
+* We know that it is guaranteed that the original graph does not have any negative edge.
+* And we know that the transformed graph also follows the consistency and invariants of the original graph.
+* So, all the edges of the transformed graph must be non-negative.
+
+$$
+w_\pi(v, t) = w(v, t) + \pi(t) - \pi(v)
+$$
+
+* And it is true for any edge.
+* So, the general representation can be:
+
+$$
+w_\pi(P) &ge; 0
+$$
+
+* And we know that for any path where the starting vertex is `v`, and the end-target vertex is `t`:
+
+$$
+w_\pi(P) = w(P) + \pi(t) - \pi(v)
+$$
+
+* If we combine these two conditions, we get:
+
+$$
+w(P) + \pi(t) - \pi(v) &ge; 0
+$$
+
+$$
+w(P) + \pi(t) &ge; \pi(v)
+$$
+
+* Now, we know that the admissible estimated remaining cost to target must be zero (`0`).
+* So, the corresponding potential of the target should also be $&le; 0$.
+* And so, adding $\pi(t)$ cannot increase $w(P)$.
+* So, we can say:
+
+$$
+w(P) &ge; \pi(v)
+$$
+
+* It says that the feasible potential cannot exceed the actual path cost.
+* The potential of `v` cannot exceed the actual cost of any path from `v` to `t`.
+* It means that:
+
+$$
+\pi(v) &le; d(v, t)
+$$
+
+* It means that if we want a feasible, admissible heuristic of vertex `v`, then:
+
+$$
+h(v) &le; d(v, t)
+$$
+
+* It means that a feasible potential $\pi(t)$ normalized to zero (`0`) at the end-target vertex `t` can serve as an admissible heuristic.
+* The feasible potential $\pi(t)$ normalized to zero (`0`) at the end-target vertex `t` conveys that the distance from the vertex `t` to the end-target vertex `t` (itself) is zero (`0`), which is obvious.
+
+---
+
+* What is the example of a feasible, admissible potential and corresponding admissible and consistent heuristics?
+* Euclidean Distance.
+* We can use geometry of the map (like Euclidean Distance) as the feasible potentials (or admissible and consistent heuristics) for the guided search algorithms like normal A* or bidirectional A*.
+
+![015straightLineVsActualPath.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/015straightLineVsActualPath.webp)
+
+* The actual (real) path doesn't have to be the Euclidean Distance because in real life, we don't always get straight-line path between source and the target.
+* But even if the path between the source and the target, is a straight line, Euclidean Distance satisfies the property of the admissible heuristic and a feasible potential.
+* Because if we consider Euclidean Distance as `h(v)` or $\pi(v)$ or $p(v)$, and the actual shortest path $d(v, t)$, then $\pi(v) &le; d(v, t)$ holds true.
+* Because if we denote the Euclidean distance as $d_{E}(v, t)$, then the value of actual shortest distance is $d(v, t) = d_{E}(v, t)$.
+* And we considered the Euclidean Distance $d_{E}(v, t)$ as `h(v)`, $\pi(v)$, or $p(v)$.
+* So, $\pi(v) = d_{E}(v, t)$.
+* And $d(v, t) = d_{E}(v, t)$.
+* Which satisfies the condition of feasible potential, which is: $\pi(v) &le; d(v, t)$.
+* Let us try to understand this a bit more deeply.
+* Let us start with what we know.
+
+$$
+d(v, t) = \text{The actual shortest distance (path) from v to t}
+$$
+
+$$
+d_{E}(v, t) = \text{Euclidean distance between v and t}
+$$
+
+![016euclideanHelpsInAstarAlgo.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/016euclideanHelpsInAstarAlgo.webp)
+
+* According to the triangle inequality, the actual shortest distance must be at least the Euclidean distance.
+* In other words, Euclidean distance is the lower bound.
+
+$$
+d_{E}(v, t) &le; d(v, t) 
+$$
+
+* For example, if $d_{E}(v, t)$ is 8 Km, then $d(v, t)$ must be at least 8 km.
+* In other words, $d(v, t)$ cannot be smaller than 8 km.
+* $d(v, t)$ must be 8 Km or more.
+* It means that $d_{E}(v, t)$ is the lower bound for $d(v, t)$.
+* And we relate this with an admissible heuristic or a feasible potential.
+* We have seen it earlier that an admissible heuristic represents the lower bound.
+* And here, the Euclidean Distance represents the lower bound.
+* So, Euclidean distance is an example of an admissible heuristic.
+* If we use Euclidean distance as the heuristic, then our priority becomes:
+
+$$
+f(v) = g(v) + h(v)
+$$
+
+$$
+h(v) = d_{E}(v, t)
+$$
+
+$$
+f(v) = g(v) + d_{E}(v, t)
+$$
+
+* We transform this original graph into the graph that uses potentials, so that we can apply Dijkstra's algorithm on it.
+
+$$
+w_{\pi}(u, v) = w(u, v) - \pi(u) + \pi(v)
+$$
+
+* And we have seen it earlier that we can consider the admissible heuristic value of a vertex as a feasible potential in the transformed graph.
+* And then we can apply (use) Dijkstra's algorithm on the transformed graph and provide the priority and stop condition reliably, with confidence.
+* So, we take:
+
+$$
+\pi(v) = h(v) = d_{E}(v, t)
+$$
+
+* Taking the Euclidean distance as the admissible heuristic and a feasible potential aligns with the condition (property) of a feasible potential that requires that it should be zero at the target.
+* Because the Euclidean distance of the target, from the target to the target is zero.
+* Another condition of a feasible potential is that it should not introduce any negative edge weight.
+* If we consider Euclidean distance as a feasible potential, and we recall the formula:
+
+$$
+w_{\pi}(u, v) &ge; 0
+$$
+
+$$
+w(u, v) - \pi(u) + \pi(v) &ge; 0
+$$
+
+$$
+w(u, v) + \pi(v) &ge; \pi(u)
+$$
+
+$$
+\pi(u) &le; w(u, v) + \pi(v)
+$$
+
+* Which aligns with the triangle inequality.
+* Recall that we have taken (considered) $\pi(u) = d_{E}(v, t)$.
+* It means that $\pi(u)$ represents the straight-line distance.
+* So, in terms (language) of the Euclidean distance, it says: 
+
+> The straight-line distance from `u` to the target is at most the path that goes from `u` to `v` and then `v` to the target.
+
+* In other words (if we rearrange):
+
+$$
+w(u, v) + \pi(v) &ge; \pi(u)
+$$
+
+> The actual path (distance) from `u` to the target (may or may not be via some other vertex, `v`) is at least (equal to or more than the) straight-line distance from `u` to the target.
+
+* We can understand it better with the images below:
+
+![015straightLineVsActualPath.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/015straightLineVsActualPath.webp)
+
+![016euclideanHelpsInAstarAlgo.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/016euclideanHelpsInAstarAlgo.webp)
+
+---
+
+* How can a Euclidean distance be a feasible potential value? 
+
+![015straightLineVsActualPath.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/015straightLineVsActualPath.webp)
+
+![016euclideanHelpsInAstarAlgo.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/016euclideanHelpsInAstarAlgo.webp)
+
+* According to the triangle inequality,
+
+$$
+w(u, v) &ge; d_{E}(u, v)
+$$
+
+* And the Euclidean distance between `u` and `t` is at least the Euclidean distance between `u` and `v` and the Euclidean distance between `v` and `t`.
+* We can understand it as: The straight-line distance between `u` and `t` must be less than or equal to the straight-line distance between `u` and `v` + (plus) the straight-line distance between `v` and `t`.
+* In simple words, the direct path (distance) between `u` and `t` must be smaller than or equal than the path that connects `u` and `t` indirectly via some other vertex (detour), `v`. 
+
+$$
+d_{E}(u, t) &le; d_{E}(u, v) + d_{E}(v, t)
+$$
+
+* Now, if we take (consider) the feasible potential $\pi(u) = d_{E}(u, t)$, then:
+
+$$
+\pi(u) = d_{E}(u, t)
+$$
+
+* Substituting the values of: $d_{E}(u, t)$:
+
+$$
+\pi(u) &le; d_{E}(u, v) + d_{E}(v, t)
+$$
+
+* Now, we have seen that the actual distance $d(u, v) &ge; d_{E}(u, v)$.
+* So, we can take $d(u, v)$ instead of $d_{E}(u, v)$ for the lower bound.
+* And $d_{E}(v, t)$ represents the Euclidean distance (feasible potential) for the vertex, `v`, from the vertex, `v` to the target vertex, `t`.
+* So, we can replace $d_{E}(v, t)$ with $\pi(v)$ for the presentation.
+* Hence:
+
+$$
+\pi(u) &le; d(u, v) + \pi(v)
+$$
+
+$$
+d(u, v) - \pi(u) + \pi(v) &ge; 0
+$$
+
+* And we know that the left expression is the transformed edge-weight, $d_{\pi}(u, v)$.
+* So:
+
+$$
+d_{\pi}(u, v) &ge; 0
+$$
+
+* Which proves that Euclidean distance is a feasible potential.
 
 ---
 
