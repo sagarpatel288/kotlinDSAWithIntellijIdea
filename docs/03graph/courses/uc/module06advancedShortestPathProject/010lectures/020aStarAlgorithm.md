@@ -809,7 +809,43 @@ $$
 d_{\pi}(u, v) &ge; 0
 $$
 
+* It means that if we use Euclidean distance as an admissible heuristic in the original graph, and as a feasible potential in the transformed graph, then all the edge-weights will be non-negative in the transformed graph.
 * Which proves that Euclidean distance is a feasible potential.
+
+---
+
+**Recap: Euclidean distance is an admissible heuristic and a feasible potential**
+
+* $f(v) = g(v) + h(v)$
+* If we take $h(v)$ as a Euclidean distance, then:
+* $h(v) = \pi(v) = d_{E}(v, t)$
+* According to the Euclidean distance: 
+* $\pi(t) = d_{E}(t, t) = 0$.
+* According to the triangle inequality:
+* $\pi(v) &le; d(v, t)$
+* Now, we take an edge-weight of the transformed graph:
+* $w_{\pi}(u, v) &ge; 0$
+* $w(u, v) - \pi(u) + \pi(v) &ge; 0$
+* $\pi(u) &le; w(u, v) + \pi(v)$
+* And as we have taken the Euclidean distance as an admissible heuristic and a feasible potential, the expression conveys that:
+* The Euclidean distance of `u` is less than or equal to the actual distance.
+* In other words, the actual distance is at least the Euclidean distance.
+* It means that the Euclidean distance is a lower bound.
+* It means that:
+* $d_{E}(u, v) &le; d(u, v)$
+* And according to the triangle inequality:
+* $d_{E}(u, t) &le; d_{E}(u, v) + d_{E}(v, t)$
+* Now, $d(u, v) &ge; d_{E}(u, v)$.
+* So, we can replace $d_{E}(u, v)$ with $d(u, v)$ for the lower bound.
+* Also, $d_{E}(v, t)$ is $\pi(v)$.
+* So, it becomes:
+* $\pi(u) &le; d(u, v) + \pi(v)$.
+* If we represent $d(u, v)$ as $w(u, v)$ for the edge-weight:
+* $\pi(u) &le; w(u, v) + \pi(v)$.
+* $0 &le; w(u, v) - \pi(u) + \pi(v)$.
+* $0 &le; w_{\pi}(u, v)$.
+* $w_{\pi}(u, v) &ge; 0$
+* It means that when we take Euclidean distance as an admissible heuristic and a feasible potential, it is guaranteed that we don't get any negative edge-weight in the transformed graph.
 
 ---
 
