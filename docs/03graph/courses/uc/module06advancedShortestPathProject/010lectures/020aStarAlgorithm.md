@@ -851,6 +851,24 @@ $$
 
 ---
 
+**Landmarks**
+
+* Regarding the shortest path, we started with the Dijkstra's algorithm.
+* Then, we optimized it with Bidirectional Dijkstra's Algorithm.
+* Then, we came up with the A* (A-Star) algorithm that uses heuristics.
+* We further improved it using the Bidirectional A* (A-Star) algorithm.
+* Now, we come up with the concept called, Landmarks.
+
+![090landmarks.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/090landmarks.webp)
+
+* If we know the shortest path distance of $L_{Ref}$, then it becomes easy and fast to find the shortest path distance of all the other vertices.
+* And ultimately, it becomes easy and fast to find the shortest path distance of the source vertex.
+* The idea is to pre-calculate and pre-find the shortest path distance of such vertices.
+* We call such a helper, intermediate vertex a landmark.
+* There can be many landmarks.
+
+---
+
 ## Steps to code
 
 * We start from the source. 
