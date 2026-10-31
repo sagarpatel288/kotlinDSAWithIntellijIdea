@@ -816,6 +816,8 @@ $$
 
 **Recap: Euclidean distance is an admissible heuristic and a feasible potential**
 
+![022euclideanIsAdmissibleFeasible.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/022euclideanIsAdmissibleFeasible.webp)
+
 * $f(v) = g(v) + h(v)$
 * If we take $h(v)$ as a Euclidean distance, then:
 * $h(v) = \pi(v) = d_{E}(v, t)$
