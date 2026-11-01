@@ -866,6 +866,35 @@ $$
 * The idea is to pre-calculate and pre-find the shortest path distance of such vertices.
 * We call such a helper, intermediate vertex a landmark.
 * There can be many landmarks.
+* Similarly:
+
+![100landmarks02.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/100landmarks02.webp)
+
+* If we know the distance of a few vertices, then it helps us get some idea about the quality of heuristics of the vertices whose distance is unknown.
+* For example, as shown in the image, and as per the triangle inequality:
+
+$$
+d(S, T) &le; d(S, a) + d(a, T)
+$$
+
+* We know the values of $d(S, T)$ and $d(S, a)$.
+
+$$
+d(S, T) - d(S, a) &le; d(a, T)
+$$
+
+$$
+d(a, T) &ge; d(S, T) - d(S, a)
+$$
+
+* It means that now we have some idea about the lower bound of the heuristic value of the vertex, `a`.
+* In fact, we expect that:
+
+$$
+h(a) = d(S, T) - d(S, a) 
+$$
+
+* 
 
 ---
 
