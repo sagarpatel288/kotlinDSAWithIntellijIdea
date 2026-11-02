@@ -894,7 +894,59 @@ $$
 h(a) = d(S, T) - d(S, a) 
 $$
 
-* 
+* It means that if we know a landmark distance, then it helps us get the admissible heuristic and a feasible potential.
+
+---
+
+* We can choose (select) any arbitrary vertex as a landmark.
+* We will learn that how knowing the distance from this landmark to all the other vertices helps find the shortest distance from a single fixed source to the single fixed target.
+* Now, we know that if we want to use this information to find the shortest path using the A* algorithm, then this information must satisfy two invariants:
+  * A feasible potential of the target should be zero: $\pi(t) = 0$.
+  * No negative edge weight. It means that:
+
+$$
+w_{\pi}(u, v) = w(u, v) - \pi(u) + \pi(v)
+$$
+
+* And:
+
+$$
+w_{\pi}(u, v) &ge; 0
+$$
+
+
+* Now, the question or requirement is:
+* How can we use the landmark distance information to produce (construct) a mathematically transformed graph that satisfies these requirements/invariants?
+* We start with a simple example.
+
+![110landmarks03.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/110landmarks03.webp)
+
+* The landmark vertex is `A`.
+* We know:
+
+$$
+\pi(A) = d(A, T)
+$$
+
+$$
+d(A, V)
+$$
+
+* Then, for some vertex, `V`, we want to ensure that:
+
+$$
+\pi(V) = d(V, T) = d(A, T) - d(A, V) \text{ is a feasible potential.} 
+$$
+
+* Here, the vertex, `V` is any arbitrary vertex.
+* So, we start with the assumption that `V` is the target `T`.
+* In that case:
+
+$$
+\pi(T) = d(T, T) = d(A, T) - d(A, T) = 0
+$$
+
+* Which satisfies our first requirement that a feasible potential should be zero at the target.
 
 ---
 
