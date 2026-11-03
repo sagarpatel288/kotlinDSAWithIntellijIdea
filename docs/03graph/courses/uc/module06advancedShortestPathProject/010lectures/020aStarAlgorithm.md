@@ -901,8 +901,8 @@ $$
 * We can choose (select) any arbitrary vertex as a landmark.
 * We will learn that how knowing the distance from this landmark to all the other vertices helps find the shortest distance from a single fixed source to the single fixed target.
 * Now, we know that if we want to use this information to find the shortest path using the A* algorithm, then this information must satisfy two invariants:
-  * A feasible potential of the target should be zero: $\pi(t) = 0$.
-  * No negative edge weight. It means that:
+* A feasible potential of the target should be zero: $\pi(t) = 0$.
+* No negative edge weight. It means that:
 
 $$
 w_{\pi}(u, v) = w(u, v) - \pi(u) + \pi(v)
@@ -914,7 +914,7 @@ $$
 w_{\pi}(u, v) &ge; 0
 $$
 
-
+* And the third requirement is that the constructed heuristic and potential must be the lower bound of an actual path.
 * Now, the question or requirement is:
 * How can we use the landmark distance information to produce (construct) a mathematically transformed graph that satisfies these requirements/invariants?
 * We start with a simple example.
@@ -947,6 +947,137 @@ $$
 $$
 
 * Which satisfies our first requirement that a feasible potential should be zero at the target.
+
+---
+
+* The second requirement is that the transformed graph must not have any negative edge-weight.
+* If we represent the transformed edge-weight for every edge as $w_{\pi}(u, v)$, then:
+
+$$
+w_{\pi}(u, v) &ge; 0
+$$
+
+* And we know that:
+
+$$
+w_{\pi}(u, v) = w(u, v) - \pi(u) + \pi(v)
+$$
+
+* It means that, we want to ensure that:
+
+$$
+w(u, v) - \pi(u) + \pi(v) &ge; 0
+$$
+
+* We start with what we know:
+
+![110landmarks03.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/110landmarks03.webp)
+
+$$
+d(v, t) = d(A, t) - d(A, v)
+$$
+
+$$
+\pi(v) = d(A, t) - d(A, v)
+$$
+
+* Similarly, for some vertex, `u`:
+
+$$
+d(u, t) = d(A, t) - d(A, v)
+$$
+
+$$
+\pi(u) = d(A, t) - d(A, u)
+$$
+
+* If we use these values in:
+
+$$
+w_{\pi}(u, v) = w(u, v) - \pi(u) + \pi(v)
+$$
+
+$$
+w_{\pi}(u, v) = w(u, v) - ( d(A, t) - d(A, u) ) + ( d(A, t) - d(A, v) )
+$$
+
+$$
+w_{\pi}(u, v) = w(u, v) - d(A, t) + d(A, u) + d(A, t) - d(A, v)
+$$
+
+$$
+w_{\pi}(u, v) = w(u, v) + d(A, u) - d(A, v)
+$$
+
+* Here, $d(A, u)$ indicates the shortest distance from A to u.
+* $w(u, v)$ indicates the edge(u, v).
+* $d(A, v)$ indicates the shortest distance from A to v.
+* Now, if we know the shortest distance from A to u, the edge(u, v), then one of the possible routes from A to v is $d(A, u) + w(u, v)$.
+* And according to the triangle inequality, we also know that the direct path $d(A, v)$ cannot be greater than going from `A` to `v` via some vertex, `u`.
+* So:
+
+$$
+d(A, v) &le; d(A, u) + w(u, v)
+$$
+
+$$
+d(A, v) - d(A, u) &le; w(u, v)
+$$
+
+* Moving the distance terms on the other side:
+
+$$
+0 &le; w(u, v) - d(A, v) + d(A, u)
+$$
+
+$$
+w(u, v) + d(A, u) - d(A, v) &ge; 0
+$$
+
+$$
+w_{\pi}(u, v) &ge; 0
+$$
+
+* It proves that the resulting edge-weight will be non-negative.
+
+---
+
+* The third requirement is that the constructed heuristic or potential must be a lower bound of the actual path.
+* So, we start with what we know and what we have.
+
+![110landmarks03.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/110landmarks03.webp)
+
+* We know that:
+
+$$
+d(v, t) = d(A, t) - d(A, v)
+$$
+
+$$
+\pi(v) = d(A, t) - d(A, v)
+$$
+
+* Now, assume that the path $d(A, t)$ goes through some vertex, `v`.
+
+$$
+d(A, t) = d(A, v) + d(v, t)
+$$
+
+* But according to the triangle inequality, the shortest path that connects `A` and `t`, that is $d(A, t)$ cannot be greater than the path that connects `A` and `t` via some vertex, `v`.
+
+$$
+d(A, t) &le; d(A, v) + d(v, t)
+$$
+
+$$
+d(A, t) - d(A, v) &le; d(v, t)
+$$
+
+$$
+\pi(v) &le; d(v, t)
+$$
+
+* It means that the heuristic or/and potential we construct using the landmark is a lower bound of the actual distance.
 
 ---
 
