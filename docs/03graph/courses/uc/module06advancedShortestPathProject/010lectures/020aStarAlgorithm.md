@@ -883,6 +883,11 @@ $$
 d(S, T) - d(S, a) &le; d(a, T)
 $$
 
+* This is an interesting insight.
+* It says:
+
+> Landmark distance d(S, T) - distance from the vertex `a` to landmark = Distance of the vertex, `a`. 
+
 $$
 d(a, T) &ge; d(S, T) - d(S, a)
 $$
@@ -1081,7 +1086,52 @@ $$
 
 ---
 
-* Reversed Landmarks 
+* Landmark position 
+
+![120landmarks03.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/120landmarks03.webp)
+
+* The landmark position is flexible.
+* Any landmark works.
+* It doesn't have to be strictly before or after the vertex, before or after the target.
+* The important thing is:
+* When we have the distance from the landmark to the target, and the distance from the vertex to the landmark, then we can get some idea about the distance from the vertex to the target.
+* For example, for the right image:
+
+$$
+d(V, T) = d(V, A) - d(T, A)
+$$
+
+* And according to the triangle inequality:
+
+$$
+d(A, T) &le; d(A, V) + d(V, T)
+$$
+
+* Can we prove that the distance d(V, T) we achieve in this way is the lower bound for the vertex, V?
+
+$$
+d(A, T) - d(A, V) &le; d(V, T)
+$$
+
+or
+
+$$
+d(V, T) &ge; d(A, T) - d(A, V)
+$$
+
+* This conveys that even if we don't know the actual distance from the vertex, V to the target, T, we know the lower bound: $d(A, T) - d(A, V)$.
+* The actual distance from the vertex, V to the target, T must be greater than: 
+* $d(A, T) - d(A, V)$.
+
+---
+
+![120landmarks03.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/120landmarks03.webp)
+
+* Now, according to the triangle inequality, we also know that:
+
+$$
+d(V, A) &le; d(V, T) + d(T, A)
+$$
 
 ---
 
