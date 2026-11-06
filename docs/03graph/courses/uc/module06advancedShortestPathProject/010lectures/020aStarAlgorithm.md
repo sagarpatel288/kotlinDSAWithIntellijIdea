@@ -1133,7 +1133,55 @@ $$
 d(V, A) &le; d(V, T) + d(T, A)
 $$
 
+$$
+d(V, T) &ge; d(V, A) - d(T, A)
+$$
+
+* But earlier, we saw that:
+
+$$
+d(V, T) &ge; d(A, T) - d(A, V)
+$$
+
+* Which one do we choose?
+* Let us understand that with an example.
+* Suppose that:
+
+$$
+d(A, T) - d(A, V) = 8
+$$
+
+* Which means,
+
+$$
+d(V, T) &ge; 8
+$$
+
+* And
+
+$$
+d(V, A) - d(T, A) = 11
+$$
+
+$$
+d(V, T) &ge; 11
+$$
+
+* Which one to choose?
+* We know that an admissible heuristic and a feasible potential is always a lower bound.
+* We don't want a situation where we expect the actual distance `8`, but later find it as `11`.
+* But if we set the lower bound to `11`, and later find the actual distance as `8`, then it is acceptable.
+* It means that when we have multiple values, we choose the `max` among them as the lower bound.
+
+$$
+d(V, T) = \pi(V) = maxOf(d(A,T) - d(A, V), d(V, A) - d(T, A))
+$$
+
 ---
+
+* So far, we have used only one landmark.
+* But in reality, we can have many landmarks.
+* 
 
 ## Steps to code
 
