@@ -1122,6 +1122,8 @@ $$
 * This conveys that even if we don't know the actual distance from the vertex, V to the target, T, we know the lower bound: $d(A, T) - d(A, V)$.
 * The actual distance from the vertex, V to the target, T must be greater than: 
 * $d(A, T) - d(A, V)$.
+* Here, we can represent $d(A, T) - d(A, V)$ as $h_{A}(V)$.
+* Where, $h_{A}(V)$ is a landmark based heuristic of the vertex `V`.
 
 ---
 
@@ -1179,9 +1181,24 @@ $$
 
 ---
 
-* So far, we have used only one landmark.
-* But in reality, we can have many landmarks.
-* 
+![130beforeAndAfterLandmarks.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part02AstartAlgorithm/130beforeAndAfterLandmarks.webp)
+
+* So, we can have many landmarks.
+* For example, we can have three landmarks: A, B, and C.
+* And accordingly: 
+* $h_{A}(V)$ 
+* $h_{B}(V)$, 
+* And $h_{C}(V)$
+* Now, when it comes to decide the lower bound of $h(V)$, we perform:
+
+$$
+h(V) = maxOf(h_{A}(V), h_{B}(V), h_{C}(V))
+$$
+
+* We select a few landmarks before the vertex.
+* And we select a few landmarks after the vertex.
+* And then we calculate different heuristics of the vertex based on different landmarks.
+* And then we select the maximum heuristic as the lower bound for the vertex.
 
 ## Steps to code
 
