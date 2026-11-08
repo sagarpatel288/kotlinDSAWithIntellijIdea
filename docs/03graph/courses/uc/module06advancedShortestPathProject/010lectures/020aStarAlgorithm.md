@@ -1200,6 +1200,53 @@ $$
 * And then we calculate different heuristics of the vertex based on different landmarks.
 * And then we select the maximum heuristic as the lower bound for the vertex.
 
+---
+
+* How do we select a good landmark?
+* We select multiple landmarks.
+* One before the starting vertex, and the one after the end-vertex.
+* Each landmark works as a reference point.
+* The ultimate goal of having multiple good landmarks is to get a good lower bound for any vertex.
+* The core (heart) of the idea is the triangle inequality.
+* We select the maximum lower bound for an admissible heuristic and a feasible potential.
+* Finally, A* uses this lower bound of each vertex as a guided search.
+* A* algorithm arranges the priority based on this lower bound of each vertex.
+* We explore the vertices based on this priority.
+
+---
+
+* Time and space complexity with landmarks:
+* We calculate the distance between each vertex and each landmark.
+* We use Dijkstra's algorithm for that.
+* If we have `K` landmarks, then pre-processing all landmarks take:
+
+$$
+O(K((V + E) \log V))
+$$
+
+* We store the distance between each vertex and each landmark.
+* So, it takes:
+
+$$
+O(KV)
+$$
+
+* To select the maximum lower bound, we scan all the K landmarks for a particular vertex:
+
+$$
+O(K)
+$$
+
+* And we do that for `V` vertices:
+
+$$
+O(KV)
+$$
+
+* 
+
+---
+
 ## Steps to code
 
 * We start from the source. 
