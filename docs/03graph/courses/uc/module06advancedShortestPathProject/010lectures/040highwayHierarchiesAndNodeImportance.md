@@ -60,4 +60,4 @@ $$
 
 ---
 
-* 
+Contraction Hierarchies
