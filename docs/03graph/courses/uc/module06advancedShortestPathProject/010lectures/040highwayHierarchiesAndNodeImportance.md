@@ -60,4 +60,55 @@ $$
 
 ---
 
-Contraction Hierarchies
+**Contraction Hierarchies**
+
+* What if we preprocess the graph to find the shortest path?
+* But we don’t know the source and the destination beforehand.
+* Also, there can be millions of vertices.
+* It is not feasible to find the shortest path for all the vertices from all the other vertices.
+* The concept we use to solve the problem is called contraction hierarchies.
+* We virtually remove intersections, obstacles, stops, etc.
+* But we preserve the path.
+* We assign a rank to each vertex.
+* We record an order in which the vertices are visited.
+* We do this for all the vertices, for the entire graph.
+* This process is called preprocessing.
+
+---
+
+![010contractionHierarchies.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/010contractionHierarchies.webp)
+
+* The idea is:
+* Identify intersections.
+* Bypass them.
+* Do not destroy the shortest route.
+
+---
+
+* Which vertices do we identify as intersections?
+* How do we ensure that we do not destroy the shortest route?
+
+---
+
+* Contraction hierarchies do not discover and identify intersections.
+* It is something that we get beforehand as a part of the input.
+
+|    Real-world element   |    Graph representation    |
+|:-----------------------:|:--------------------------:|
+| Road intersection       | Vertex                     |
+| T-junction              | Vertex                     |
+| Roundabout connection   | Vertex or several vertices |
+| Road segment            | Edge                       |
+| Travel time or distance | Edge weight                |
+| One-way road            | Directed edge              |
+
+
+* We generally create vertices at locations that matter for routing, such as:
+* Road junctions
+* Changes in connectivity
+* Road endpoints
+* Places where a route can enter or leave a road
+* Places that change the route
+* Etc.
+
+* The exact graph construction is a separate preprocessing step that happens before contraction hierarchies.
