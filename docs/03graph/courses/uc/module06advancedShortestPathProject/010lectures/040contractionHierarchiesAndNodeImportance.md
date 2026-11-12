@@ -156,3 +156,24 @@ $$
 * "The shortest path from A to C goes via B and A to C costs 5".
 * If yes, how?
 * If no, then what does it answer? How?
+* Can we say that the preprocessed graph (map) is a zoomed out version of the original graph (map)?
+* If yes, then how does it help?
+* Do ranks act as a guide for the search? How?
+* How does the representation of the shortest path as upward from the source and downward to the target help? Why isn't it a linear path?
+
+---
+
+**Recap**
+
+* We imagine the idea of contraction hierarchies as a flyover (overpass).
+* The term “contraction” refers to the process of reducing the number of nodes in a graph.
+* We hide less important nodes and edges, making the graph simpler.
+* But they are still there, just hidden.
+* The term “hierarchies” refers to the process of organizing nodes based on their importance.
+* To organize nodes based on their importance, we use ranks.
+* We use ranks to guide the search process.
+* We imagine the search process as moving upwards from the source and downwards towards the target.
+* Moving upwards from the source indicates moving through the higher-ranked nodes.
+* Similarly, moving downwards towards the target indicates moving through the lower-ranked nodes.
+
+--- 
