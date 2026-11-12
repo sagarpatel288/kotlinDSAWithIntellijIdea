@@ -1,7 +1,22 @@
-# Highway hierarchies and node importance
+# Contraction hierarchies and node importance
 
 ---
 
+**References**
+
+* [Illustrative Contraction Hierarchies By System Underground](https://youtu.be/xe1CbmJfMcU)
+
+---
+
+* The main purpose of the contraction hierarchy is to preprocess and prepare the map beforehand so that finding the shortest path becomes faster.
+* We need to preprocess and prepare the map beforehand for the multiple queries.
+* We don't know the future source and the future target.
+* And there can be different source and target for different queries.
+* So, how do we preprocess and prepare the graph (map, network)?
+
+---
+
+* We compare contraction hierarchies with a flyover (overpass).
 * What happens when we travel from our home, which is in a different state to a friend's home, which is in another state?
 * We start with the local streets, then enter into a highway, then a bigger highway, maybe an interstate highway. 
 * And as we reach closer to the friend's home, we enter into the smaller highway, and eventually, into the local streets.
@@ -78,10 +93,14 @@ $$
 
 ![010contractionHierarchies.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/010contractionHierarchies.webp)
 
+* In contraction hierarchy, we contract (remove) an unimportant vertex (like vertex B in the image) and connect its neighbors directly (like A and C in the image).
+* Here, the term hierarchy represents ranking of nodes from least important to most important.
 * The idea is:
-* Identify intersections.
+* Identify the least important intersections.
 * Bypass them.
+* For example, the vertex B in the image.
 * Do not destroy the shortest route.
+* For example, $d(A, C)$ is still $5$.
 
 ---
 
@@ -112,3 +131,28 @@ $$
 * Etc.
 
 * The exact graph construction is a separate preprocessing step that happens before contraction hierarchies.
+
+---
+
+* The goal is to prepare a preprocessed map that knows important routes (paths) vs. unimportant routes (paths).
+* How do we define important vs. unimportant paths?
+* How do we define ranks?
+* Do we define ranks based on the distance (edge weight)? How?
+* Does the higher edge weight get the higher rank?
+* How do we use ranks?
+* How do we treat different ranks?
+* How does the map treat and use different ranks?
+
+
+---
+
+* Do we take the least important intersections, and hide them?
+* Does it mean that we hide the vertices with the lowest rank?
+* How do we hide/bypass/treat vertices or edge-weights with the lowest ranks?
+* What if a vertex is a part of the shortest path? Do we still hide it? How? Why?
+* What does it mean by building/creating a direct mathematical bridge/shortcut? How does it help? When do we do that? Why do we do that? How do we do that?
+* Suppose that the original graph has edge(A, B) with weight 3, edge(B, C) with weight 2.
+* Now, do we preprocess the graph such that it answers:
+* "The shortest path from A to C goes via B and A to C costs 5".
+* If yes, how?
+* If no, then what does it answer? How?
