@@ -17,6 +17,9 @@
 ---
 
 * We compare contraction hierarchies with a flyover (overpass).
+
+![020highwayAnalogy.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/020highwayAnalogy.webp)
+
 * What happens when we travel from our home, which is in a different state to a friend's home, which is in another state?
 * We start with the local streets, then enter into a highway, then a bigger highway, maybe an interstate highway. 
 * And as we reach closer to the friend's home, we enter into the smaller highway, and eventually, into the local streets.
@@ -52,7 +55,7 @@
 
 ---
 
-* How do we find (evaluate, calculate, determine) the importance? 
+* How do we find (evaluate, calculate, determine, define, and assign) the importance? 
 
 ---
 
@@ -84,7 +87,7 @@ $$
 * The concept we use to solve the problem is called contraction hierarchies.
 * We virtually remove intersections, obstacles, stops, etc.
 * But we preserve the path.
-* We assign a rank to each vertex.
+* We assign a rank to each vertex based on the importance.
 * We record an order in which the vertices are visited.
 * We do this for all the vertices, for the entire graph.
 * This process is called preprocessing.
@@ -93,7 +96,7 @@ $$
 
 ![010contractionHierarchies.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/010contractionHierarchies.webp)
 
-* In contraction hierarchy, we contract (remove) an unimportant vertex (like vertex B in the image) and connect its neighbors directly (like A and C in the image).
+* In contraction hierarchy, we contract (hide) an unimportant vertex (like vertex B in the image) and connect its neighbors directly (like A and C in the image).
 * Here, the term hierarchy represents ranking of nodes from least important to most important.
 * The idea is:
 * Identify the least important intersections.
@@ -101,10 +104,29 @@ $$
 * For example, the vertex B in the image.
 * Do not destroy the shortest route.
 * For example, $d(A, C)$ is still $5$.
+* We do not delete or remove the vertex, $B$.
+* We just hide it.
+* The vertex $B$ is the part of the route (path) $AC$.
+* The path $AC$ goes through $B$.
+* If we remove (delete) the vertex $B$ in reality, then we break the route $AC$.
+* Also, we cannot delete a vertex arbitrarily.
+* Because for some query, $B$ can be a source, a destination, or a part of the path.
+* So, we don't delete the vertex $B$.
+* We just hide it.
+* We call it **vertex contraction** or **node contraction**.
+* After the vertex contraction, we may need to create a shortcut.
+* Creating the corresponding shortcut is a possible consequences of the vertex contraction.
+* For example, after we contract (hide) the vertex $B$, creating a shortcut that connects the vertex $A$ and $C$ is essential.
+* The shortcut must preserve the original cost.
+* For example, the shortest path $d(A, C)$ from $A$ to $C$ that goes via $B$ in the original graph costs $5$.
+* So, in the modified graph also, after contracting (hiding) $B$ and creating the shortcut (direct connection) $AC$, the shortest path $d(A, C)$ still costs $5$.
+* However, sometimes the vertex contraction does not require creating a shortcut.
 
 ---
 
 * Which vertices do we identify as intersections?
+* Based on the importance (rank).
+* How do we define and assign the importance (rank)?
 * How do we ensure that we do not destroy the shortest route?
 
 ---
@@ -135,9 +157,9 @@ $$
 ---
 
 * The goal is to prepare a preprocessed map that knows important routes (paths) vs. unimportant routes (paths).
-* How do we define important vs. unimportant paths?
-* How do we define ranks?
-* Do we define ranks based on the distance (edge weight)? How?
+* How do we define and assign important vs. unimportant paths?
+* How do we define and assign ranks?
+* Do we define and assign ranks based on the distance (edge weight)? How?
 * Does the higher edge weight get the higher rank?
 * How do we use ranks?
 * How do we treat different ranks?
@@ -151,6 +173,8 @@ $$
 * How do we hide/bypass/treat vertices or edge-weights with the lowest ranks?
 * What if a vertex is a part of the shortest path? Do we still hide it? How? Why?
 * What does it mean by building/creating a direct mathematical bridge/shortcut? How does it help? When do we do that? Why do we do that? How do we do that?
+* In which case a vertex contraction does not require creating a corresponding shortcut? Why?
+* When do we skip building/creating a shortcut? Why?
 * Suppose that the original graph has edge(A, B) with weight 3, edge(B, C) with weight 2.
 * Now, do we preprocess the graph such that it answers:
 * "The shortest path from A to C goes via B and A to C costs 5".
@@ -161,6 +185,19 @@ $$
 * Do ranks act as a guide for the search? How?
 * How does the representation of the shortest path as upward from the source and downward to the target help? Why isn't it a linear path?
 
+---
+
+* For the given contraction example of 2-6-1-4-3-5, where the edge weight is 2,3,2,1,2 respectively:
+  * Why didn't we perform contraction of `6` that could have created the direct connection (shortcut) between `2` and `5` with cost `10`?
+  * We performed the contraction of `2`, but not for `6`. Was it possible (legal) to perform the contraction of `6` before `2`? Why? 
+* Do we add the shortcut only if there is no existing direct connection (link)?
+* Do we add the shortcut if the direct connection (link) between two vertices has larger value than the alternate route via one or more vertices? 
+  * For example, suppose that `edge(u, v)` is `3`, `edge(v, w)` is `2`, and `edge(u, w)` is `8`.
+  * Here, the direct connection (link) between `u` and `w` already exists.
+  * But it is costlier than the alternate route that connects `u` and `w` via `v`.
+  * So, do we perform contraction on `v` and add a shortcut (direct link) `edge(u, w)` that costs `5`? Why?
+* Does witness path mean direct connection (link)?
+* 
 ---
 
 **Recap**
