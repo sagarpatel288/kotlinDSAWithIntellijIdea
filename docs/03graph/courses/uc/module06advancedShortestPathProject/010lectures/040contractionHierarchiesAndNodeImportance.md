@@ -30,7 +30,7 @@
 * We store this information.
 * Later, when we ask (once or frequently), we do not have to recalculate it every time at runtime on demand.
 * We compare this with an analogy where we travel from a source to a destination via a flyover (overpass, highway) instead of going through the local villages, tolls, and signals.
-* If such a 
+* If there is no flyover (overpass), we build one. 
 * So technically, what do we do? 
 * And how do we do it?
 
