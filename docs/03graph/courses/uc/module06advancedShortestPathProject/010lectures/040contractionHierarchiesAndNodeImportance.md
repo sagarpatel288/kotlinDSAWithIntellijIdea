@@ -18,6 +18,24 @@
 
 * We compare contraction hierarchies with a flyover (overpass).
 
+![010contractionHierarchies.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/010contractionHierarchies.webp)
+
+![020highwayAnalogy.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/020highwayAnalogy.webp)
+
+![030contractionHierarchies.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/030contractionHierarchies.webp)
+
+* The first and the third image represent the idea.
+* Suppose that there are 10 vertices between a source and a target.
+* We find the shortest path between this source and the target.
+* We store this information.
+* Later, when we ask (once or frequently), we do not have to recalculate it every time at runtime on demand.
+* We compare this with an analogy where we travel from a source to a destination via a flyover (overpass, highway) instead of going through the local villages, tolls, and signals.
+* If such a 
+* So technically, what do we do? 
+* And how do we do it?
+
+---
+
 ![020highwayAnalogy.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/020highwayAnalogy.webp)
 
 * What happens when we travel from our home, which is in a different state to a friend's home, which is in another state?
@@ -96,6 +114,10 @@ $$
 
 ![010contractionHierarchies.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/010contractionHierarchies.webp)
 
+![030contractionHierarchies.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/030contractionHierarchies.webp)
+
+![040whenToAvoidContraction.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/040whenToAvoidContraction.webp)
+
 * In contraction hierarchy, we contract (hide) an unimportant vertex (like vertex B in the image) and connect its neighbors directly (like A and C in the image).
 * Here, the term hierarchy represents ranking of nodes from least important to most important.
 * The idea is:
@@ -121,6 +143,20 @@ $$
 * For example, the shortest path $d(A, C)$ from $A$ to $C$ that goes via $B$ in the original graph costs $5$.
 * So, in the modified graph also, after contracting (hiding) $B$ and creating the shortcut (direct connection) $AC$, the shortest path $d(A, C)$ still costs $5$.
 * However, sometimes the vertex contraction does not require creating a shortcut.
+
+---
+
+* The order in which we select and perform contractions on the vertices matter.
+* It can change the shortcuts (start-vertex and end-vertex), the number of shortcuts, the number of edges in the augmented graph, preprocessing time and efficiency, etc.
+* For the efficient order, we use node importance (rank).
+* For example, a road that connects a highway is more important than the road that connects a small local street.
+* We generally contract the less important vertices first.
+* The vertices that we contract before (earlier) get lower ranks.
+* The vertices that we contract later get higher ranks.
+* In this way, the rank of a vertex $r(v)$ represents the position of the vertex in the contraction order.
+* We may or may not know the importance (rank) of each vertex in advance.
+* But we estimate it using the characteristics of the graph.
+* How?
 
 ---
 
@@ -187,6 +223,8 @@ $$
 
 ---
 
+* What is a witness search?
+* What is a witness path?
 * For the given contraction example of 2-6-1-4-3-5, where the edge weight is 2,3,2,1,2 respectively:
   * Why didn't we perform contraction of `6` that could have created the direct connection (shortcut) between `2` and `5` with cost `10`?
   * We performed the contraction of `2`, but not for `6`. Was it possible (legal) to perform the contraction of `6` before `2`? Why? 
@@ -197,6 +235,7 @@ $$
   * But it is costlier than the alternate route that connects `u` and `w` via `v`.
   * So, do we perform contraction on `v` and add a shortcut (direct link) `edge(u, w)` that costs `5`? Why?
 * Does witness path mean direct connection (link)?
+* Isn't it true that finding the witness path to decide whether we need to create a shortcut or not means running Dijkstra from one vertex to another vertex? And we might do it for all the vertices. And in this way, isn't it expensive as we might run Dijkstra on each vertex instead of one fixed source and one fixed target? Doesn't it seem to be exponential (polynomial) as we might run Dijkstra $V^2$ times?
 * 
 ---
 
