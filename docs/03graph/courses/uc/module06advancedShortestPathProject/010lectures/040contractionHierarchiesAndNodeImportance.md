@@ -77,6 +77,13 @@
 
 ---
 
+* Shortcuts add more edges to the augmented graph.
+* The number of shortcuts depend on the contraction order.
+* The contraction order depends on the ranks.
+* So, the way we define the ranks decides plays critical role in the search performance.
+
+---
+
 * Suppose that `V` represents the locations (vertices).
 * And `E` represents the roads (edges) that connect these locations (vertices).
 * These `V` and `E` are parts of our graph, `G`.
@@ -253,3 +260,28 @@ $$
 * Similarly, moving downwards towards the target indicates moving through the lower-ranked nodes.
 
 --- 
+
+**How do contraction hierarchy and ranks help?**
+
+* It makes the query for the shortest path faster.
+* How?
+* The hierarchy is designed (implemented) so that the shortest path gets a specific pattern:
+
+> Increasing importance → Highest importance → Decreasing importance
+ 
+* For example, the shortest path might get the following rank order visit:
+
+> 1 → 3 → 5 → 4 → 2
+
+* How does the shortest path get that order? How does that help?
+* It indicates that for any source and any target, the augmented graph has the shortest path whose first portion is increasing in rank, and the second portion is decreasing in rank.
+* How does the augmented graph get that pattern? How does that help?
+* This characteristic makes bidirectional search faster.
+* How does this characteristic make the bidirectional search faster?
+* When we apply this to the bidirectional search, both the searches move towards the higher-ranked vertices.
+* Each search gets very specific goal, direction, and pattern.
+
+![050rankPattern.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/050rankPattern.webp)
+
+---
+
