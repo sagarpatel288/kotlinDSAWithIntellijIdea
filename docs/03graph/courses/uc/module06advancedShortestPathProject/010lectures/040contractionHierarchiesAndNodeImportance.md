@@ -285,3 +285,85 @@ $$
 
 ---
 
+**Incoming and outgoing edges (degree)**
+
+![060incomingOutgoingEdges.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/060incomingOutgoingEdges.webp)
+
+* A vertex might have different numbers of incoming and outgoing edges.
+* And this matters for the contraction.
+* Different number of incoming and outgoing edges can produce different consequences of the contraction.
+* And ultimately, different contraction consequences can have different search performance.
+
+---
+
+**Symbols**
+
+* $s(v)$: Number of shortcuts added.
+* $in(v)$: Incoming degree = Incoming edges of the vertex $v$.
+* $out(v)$: Outgoing degree = Outgoing edges of the vertex $v$.
+
+---
+
+**Edge Difference: $ed(v)$**
+
+* We want to minimize the number of edges in the augmented graph.
+
+---
+
+* How is it possible that adding a shortcut can remove incoming and outgoing edges?
+
+---
+
+* Suppose that contracting a vertex:
+  * Adds 5 shortcuts.
+  * Removes 3 incoming edges.
+  * Removes 3 outgoing edges.
+* Then the edge difference is:
+
+$ed(v) = s(v) - in(v) - out(v)$
+
+$ed(v) = 5 - 3 - 3 = -1$
+
+* It indicates that the total number of edges are decreased by 1.
+* 
+
+---
+
+* Why contracting all the vertices of one particular region before touching another region makes the contraction hierarchy unbalanced?
+
+---
+
+**Symbols**
+
+* $cn(v)$ = Contracted neighbors of the vertex $v$.
+* $sc(v)$ = Shortcut cover: Number of shortcuts the neighbors (of the vertex $v$) require to or from (via) the vertex $v$. 
+  * Number of shortcuts the neighbors of the vertex $v$ require + The shortcuts that pass through the vertex $v$ (for the neighbors of the vertex $v$).
+  * If this number is large, it means that many neighbors depend on the vertex $v$ for their corresponding shortcuts.
+  * The shortcut cover answers: How many neighbors would require new connections (shortcut) if I disappear?
+  * We prefer (or prioritize) the smaller shortcut cover.
+  * It means that we first contract the vertices having smaller shortcut cover.
+  * Recall that each contraction has the possibility to create a new shortcut edge.
+  * And preferring (prioritizing) the smaller shortcut cover means an attempt to introduce (produce) a fewer new shortcut edges.
+  * If we have a fewer edges in the augmented graph, then the search performance becomes faster.
+  * 
+
+---
+
+* Why do we want to avoid creating large (long) upward paths in the hierarchy?
+
+---
+
+**Symbols**
+
+* $L(v)$: Node level: An upper bound on the number of edges require to reach the vertex $v$ from any source in the augmented graph.
+  * In simple words: We will need a maximum of $L(v)$ number of edges to reach the vertex $v$ from any source (in the augmented graph).
+  * It indicates the depth of the vertex $v$ in the hierarchy.
+  * We prefer contracting the vertices with the smaller node level.
+
+---
+
+* What is the difference between the shortcut cover and the node level?
+* Why do we say that initially $L(v) = 0$?
+* After contracting the vertex $v$, how does it become: $L(u) = maxOf(L(u), L(v) + 1)$? (Where `u` is the neighbor of `v`).
+
+---
