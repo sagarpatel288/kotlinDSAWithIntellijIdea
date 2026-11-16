@@ -325,7 +325,9 @@ $ed(v) = s(v) - in(v) - out(v)$
 $ed(v) = 5 - 3 - 3 = -1$
 
 * It indicates that the total number of edges are decreased by 1.
-* 
+* The edge difference answers: How many extra edges will this contraction leave behind?
+* If the edge difference is small, contracting the vertex is attractive from the perspective of the graph size.
+* The smaller the edge difference, the fewer the edges, the faster the search performance.
 
 ---
 
@@ -336,6 +338,8 @@ $ed(v) = 5 - 3 - 3 = -1$
 **Symbols**
 
 * $cn(v)$ = Contracted neighbors of the vertex $v$.
+  * A vertex with a fewer already contracted neighbor vertices receives a better score under this criterion.
+  * Contracted neighbors answers: How many of my neighbors have already been contracted (removed, hidden)?
 * $sc(v)$ = Shortcut cover: Number of shortcuts the neighbors (of the vertex $v$) require to or from (via) the vertex $v$. 
   * Number of shortcuts the neighbors of the vertex $v$ require + The shortcuts that pass through the vertex $v$ (for the neighbors of the vertex $v$).
   * If this number is large, it means that many neighbors depend on the vertex $v$ for their corresponding shortcuts.
@@ -349,6 +353,7 @@ $ed(v) = 5 - 3 - 3 = -1$
 
 ---
 
+* Why do we say that a vertex having a fewer already contracted neighbors receives a better score? How?
 * Why do we want to avoid creating large (long) upward paths in the hierarchy?
 
 ---
@@ -365,5 +370,9 @@ $ed(v) = 5 - 3 - 3 = -1$
 * What is the difference between the shortcut cover and the node level?
 * Why do we say that initially $L(v) = 0$?
 * After contracting the vertex $v$, how does it become: $L(u) = maxOf(L(u), L(v) + 1)$? (Where `u` is the neighbor of `v`).
+
+---
+
+* 
 
 ---
