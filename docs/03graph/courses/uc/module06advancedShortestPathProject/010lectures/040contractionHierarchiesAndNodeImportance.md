@@ -122,7 +122,7 @@
 * Compare its updated importance with the current `min` of the priority queue.
 * If it is still the least important, contract it.
 * Otherwise, put it back to the priority queue with its updated importance.
-* Repeat.
+* Repeat until we contract all the vertices.
 * The augmented graph will have all the original edges, connections, and additionally, shortcuts.
 * We also record the order in which we contract the vertices.
 * The order represents the rank of the vertices.
@@ -492,6 +492,48 @@ $I(v) = ed(v) + cn(v) + sc(v) + L(v)$
 
 ---
 
-* 
+**Complexity analysis**
+
+* We have two different major/main operations:
+* Preprocessing and query processing.
+* Let us look at the components we have:
+
+$$
+V = \text{ Total vertices}
+$$
+
+$$
+E = \text{ Total edges}
+$$
+
+$$
+E^{+} = \text{ Total new edges}
+$$
+
+$$
+S = \text{ Total shortcuts we add}
+$$
+
+
+$$
+E^{+} = E \ + \ S
+$$
+
+**Space Complexity**
+
+* What are the different things do we store?
+* Vertices, V.
+* Edges, E.
+* Importance information.
+* Shortcuts, S.
+* Priority queue.
+* Ranks (Contraction order).
+* The dominant terms are:
+
+$O(V + E + S)$
+
+---
+
+* What is the difference between new edges and shortcuts? Aren't they the same?
 
 ---
