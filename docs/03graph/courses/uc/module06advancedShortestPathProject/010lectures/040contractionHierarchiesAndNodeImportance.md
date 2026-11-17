@@ -373,6 +373,41 @@ $ed(v) = 5 - 3 - 3 = -1$
 
 ---
 
-* 
+**Importance**
+
+* $ed(v)$: Edge difference: We prefer a smaller value.
+* $cn(v)$: Already-contracted neighbors: We prefer a smaller value.
+* $sc(v)$: Shortcut cover: Neighbors depend on `v`: Possible shortcuts require: We prefer a smaller value.
+* $L(v)$: Depth: Reachability: We prefer a smaller value.
+* If we denote the importance of the vertex `v` as $I(v)$, then:
+
+$I(v) = ed(v) + cn(v) + sc(v) + L(v)$
+
+* We contract the vertex with the smallest importance first.
+
+---
+
+**How do we use the importance?**
+
+* We calculate the importance of each vertex once.
+* Insert the vertices into the priority queue.
+* Extract the least importance vertex.
+* Recalculate the importance after the contraction.
+* Compare its updated importance with the current `min` of the priority queue.
+* If it is still the least important, contract it.
+* Otherwise, put it back to the priority queue with its updated importance.
+* Repeat.
+
+---
+
+* How contracting a vertex can:
+  * increase the number of shortcuts its neighbors require? How? With example.
+  * increase the already-contracted neighbors? How? With example.
+  * change the node level? How? With example.
+  * change the edge-difference? How? With example.
+
+---
+
+
 
 ---
