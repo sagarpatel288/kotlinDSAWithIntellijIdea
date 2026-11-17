@@ -392,6 +392,8 @@ $I(v) = ed(v) + cn(v) + sc(v) + L(v)$
 * We calculate the importance of each vertex once.
 * Insert the vertices into the priority queue.
 * Extract the least importance vertex.
+* Contract and add required shortcuts.
+* Update affected vertices.
 * Recalculate the importance after the contraction.
 * Compare its updated importance with the current `min` of the priority queue.
 * If it is still the least important, contract it.
@@ -408,6 +410,23 @@ $I(v) = ed(v) + cn(v) + sc(v) + L(v)$
 
 ---
 
+**Recalling the technical terms**
 
+* Preprocessing
+* Edge Difference
+* Shortcut Cover
+* Already Contracted Neighbors
+* Node Level
+* Importance
+* Rank
+* Augmented Graph
+* Contraction
+* Shortcut
+* Witness Path
+* Node Order
+
+---
+
+* 
 
 ---
