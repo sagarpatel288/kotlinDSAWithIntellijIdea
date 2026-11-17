@@ -85,6 +85,14 @@
 * And if we contract (hide, bypass) this vertex, we will need more shortcuts for the neighbors.
 * More shortcuts means more edges.
 * So, to optimize this process, we check whether the already better shortcut exists.
+* We call it witness search, and we provide a limit to the witness search.
+* The witness search helps us determine whether there is already a better shortcut exists.
+* And the limit we provide to the witness search defines how long (how much) we want to search.
+* This limit impacts the efficiency and search performance.
+* Higher the limit, more the accuracy.
+* Lower the limit, unnecessary shortcuts.
+* We balance.
+* We prefer unnecessary shortcuts over accidentally losing existing shortest paths.
 * We add the shortcut only if there is no better shortcut exists.
 * Also, we do not select the vertices for the contraction arbitrarily.
 * We add vertices to the priority queue based on their importance.
@@ -297,6 +305,7 @@ $$
 
 * What is a witness search?
 * What is a witness path?
+* What is a witness limit / search limit?
 * For the given contraction example of 2-6-1-4-3-5, where the edge weight is 2,3,2,1,2 respectively:
   * Why didn't we perform contraction of `6` that could have created the direct connection (shortcut) between `2` and `5` with cost `10`?
   * We performed the contraction of `2`, but not for `6`. Was it possible (legal) to perform the contraction of `6` before `2`? Why? 
@@ -463,7 +472,7 @@ $I(v) = ed(v) + cn(v) + sc(v) + L(v)$
 * Compare its updated importance with the current `min` of the priority queue.
 * If it is still the least important, contract it.
 * Otherwise, put it back to the priority queue with its updated importance.
-* Repeat.
+* Repeat until we contract all the vertices.
 
 ---
 
@@ -519,6 +528,26 @@ $$
 E^{+} = E \ + \ S
 $$
 
+* Graph structure and implementation can change the complexity.
+* For example, suppose that we want to contract the vertex `v`.
+* And it has `p` predecessors and `q` successors.
+* The combination of predecessors and successors is: $p * q$.
+* Now, there are two major associated operations that use predecessors and successors.
+* Witness search and adding shortcuts.
+* If we have more predecessors and successors, then we have to check more vertices and edges for the witness path.
+* Similarly, if we have more predecessors and successors, then we might end up with adding more shortcuts.
+* More shortcuts means more edges, and having more edges can increase the search time.
+* We can give the general formula or major time factors as:
+
+$$
+T_{preprocessing} = T_{ordering} + T_{contraction} + T_{witness_search}  
+$$
+
+* The order conveys the preprocessing actions:
+  * We order the vertices based on the importance.
+  * We extract the vertices for the contraction.
+  * Before each contraction, we perform a witness search.
+
 **Space Complexity**
 
 * What are the different things do we store?
@@ -535,5 +564,6 @@ $O(V + E + S)$
 ---
 
 * What is the difference between new edges and shortcuts? Aren't they the same?
+* Despite having all the complexities, can't we provide the upper bound time complexity for the best, average, and worst case?
 
 ---
