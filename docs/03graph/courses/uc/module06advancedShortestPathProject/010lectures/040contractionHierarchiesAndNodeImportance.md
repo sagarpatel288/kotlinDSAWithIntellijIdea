@@ -66,6 +66,71 @@
 
 ---
 
+**The contraction process overview**
+
+* Suppose that we receive a huge road network.
+* We want to preprocess and prepare the graph in advance for the shortest path queries.
+* But we don't know the future source and the future target yet.
+* And there can be many different sources and targets in different queries.
+* Each query can have a different source and a different target.
+* So, we cannot simply delete a vertex.
+* But we can build flyovers between different vertices.
+* It does not destroy the existing edges.
+* It adds more edges, and we call them shortcuts.
+* Instead of deleting a vertex, we contract (hide, bypass) it.
+* But before contracting a vertex, we check various things.
+* Such as routes passing through it.
+* Because if there are more routes passing through it, it means that the dependency of the vertex is more.
+* In other words, more neighbors depend on this vertex.
+* And if we contract (hide, bypass) this vertex, we will need more shortcuts for the neighbors.
+* More shortcuts means more edges.
+* So, to optimize this process, we check whether the already better shortcut exists.
+* We add the shortcut only if there is no better shortcut exists.
+* Also, we do not select the vertices for the contraction arbitrarily.
+* We add vertices to the priority queue based on their importance.
+* The importance is the sum of edge difference, contracted neighbors, shortcut covers, and node level.
+* Edge difference of the vertex `v` $ed(v)$ is the sum of new shortcuts we add, incoming edges to `v` we remove, and the outgoing edges from `v` we remove.
+* We denote new shortcuts we add if we contract `v` as: $s(v)$
+* We denote incoming edges to `v` as: $in(v)$
+* We denote outgoing edges from `v` as: $out(v)$
+* Then, if we contract `v`, then the edge difference is: $s(v) - in(v) - out(v)$
+* The edge difference answers: How many new edges do contracting the vertex leave behind?
+* So, we prefer the smaller value of the edge difference.
+* Contracted neighbors of the vertex `v` $cn(v)$ is the number of already contracted neighbors of the vertex `v`.
+* A vertex with a fewer already-contracted vertex receives a better score.
+* The $cn(v)$ answers: How many neighbors of the vertex `v` are already contracted?
+* The shortcut cover of the vertex `v` $sc(v)$ answers how many shortcuts we may need to add if we contract the vertex `v`.
+* If there are more vertices (neighbors) whose paths go through `v`, then the dependency of the vertex `v` is more.
+* It means that if we contract `v`, we might have to add more shortcuts.
+* Adding more shortcuts means adding more edges.
+* Having more edges means having a higher processing and calculation time.
+* So, we prefer a smaller value for the $sc(v)$.
+* The level (depth) of the vertex `v` is $L(v)$, and it represents the reachability of the vertex `v`.
+* $L(v)$ represents (answers) the maximum time (upper bound) we may need to reach the vertex `v`.
+* The importance of a vertex `v` $I(v)$ is the sum of these four values:
+* $I(v) = ed(v) + sc(v) + cn(v) + L(v)$.
+* Based on this importance, we add vertices to the priority queue.
+* Then, we extract the vertex having the least importance.
+* Contract and add required shortcuts.
+* Contracting a vertex can:
+  * increase the number of shortcuts its neighbors require.
+  * increase the already-contracted neighbors.
+  * change the node level.
+  * change the edge-difference.
+* Update affected vertices.
+* Recalculate the importance after the contraction.
+* Compare its updated importance with the current `min` of the priority queue.
+* If it is still the least important, contract it.
+* Otherwise, put it back to the priority queue with its updated importance.
+* Repeat.
+* The augmented graph will have all the original edges, connections, and additionally, shortcuts.
+* We also record the order in which we contract the vertices.
+* The order represents the rank of the vertices.
+* Later, the query algorithm uses the rank to search only in the upward direction from both the end-points (searches).
+* In this way, we expect to get much smaller search space.
+
+---
+
 * How do we assign the importance?
 * Highways cover the most distance. So, they get the highest importance.
 * Regional roads that connect highways get the middle importance.
@@ -73,7 +138,7 @@
 
 ---
 
-* How do we find (evaluate, calculate, determine, define, and assign) the importance? 
+* How do we find (define, evaluate, calculate, determine, and assign) the importance? 
 
 ---
 
