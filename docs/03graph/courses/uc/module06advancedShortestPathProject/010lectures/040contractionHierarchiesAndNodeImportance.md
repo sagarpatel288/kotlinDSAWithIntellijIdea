@@ -4,6 +4,8 @@
 
 **References**
 
+![070comparison.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/070comparison.webp)
+
 * [Illustrative Contraction Hierarchies By System Underground](https://youtu.be/xe1CbmJfMcU)
 
 ---
@@ -131,10 +133,16 @@
 * If it is still the least important, contract it.
 * Otherwise, put it back to the priority queue with its updated importance.
 * Repeat until we contract all the vertices.
+* The order in which we contract the vertices is called, Node Order.
+* The position of the vertex in this Node Order is the Rank of the vertex.
 * The augmented graph will have all the original edges, connections, and additionally, shortcuts.
-* We also record the order in which we contract the vertices.
-* The order represents the rank of the vertices.
-* Later, the query algorithm uses the rank to search only in the upward direction from both the end-points (searches).
+* We also record the order in which we contract the vertices (Node Order).
+* And we also record the rank of each vertex.
+* This is how we preprocess the original graph and transform it into an augmented graph.
+* Once we are done with the preprocessing, we process the actual queries.
+* The query algorithm uses bidirectional Dijkstra.
+* Each query uses ranks.
+* The query algorithm uses the rank to search only in the upward direction from both the end-points (searches).
 * In this way, we expect to get much smaller search space.
 
 ---
@@ -492,12 +500,12 @@ $I(v) = ed(v) + cn(v) + sc(v) + L(v)$
 * Already Contracted Neighbors
 * Node Level
 * Importance
-* Rank
 * Augmented Graph
 * Contraction
 * Shortcut
 * Witness Path
 * Node Order
+* Rank
 
 ---
 
@@ -567,3 +575,21 @@ $O(V + E + S)$
 * Despite having all the complexities, can't we provide the upper bound time complexity for the best, average, and worst case?
 
 ---
+
+**The core algorithm**
+
+* The query algorithm uses bidirectional Dijkstra on the upward edges in the augmented graph.
+* Normally, we use `V`, and `E` for the original graph.
+* So, if we use $V_{q}$, and $E_{q}$ for the augmented graph, then:
+
+$$
+O( \ (V_{q} + E_{q})\ \log \ V_{q})
+$$
+
+---
+
+**Why do we preprocess a graph instead of running the search algorithm directly on the original graph?**
+
+* Because we can pay a one-time preparation cost, and use it for multiple queries.
+
+
