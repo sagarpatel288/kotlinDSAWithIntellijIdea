@@ -592,4 +592,34 @@ $$
 
 * Because we can pay a one-time preparation cost, and use it for multiple queries.
 
+**What is a shortcut?**
 
+* A shortcut is an artificial (virtual) edge in the augmented graph that represents an existing path of the original graph with the same total cost that goes through intermediate vertices.
+* The shortcut is an express flyover (overpass) part of the augmented graph that quickly gives the actual distance between the two vertices without going through intermediate vertices.
+
+**If $d(u, v)$ costs 4, $d(v, w)$ costs 7, what will be the cost of the shortcut?** 
+
+* 11
+
+* If an alternate route $d(u, w)$ costs 9, do we need that shortcut from `u` to `w` that bypasses `v`?
+
+* No.
+
+**How do we find whether the better (cheaper) alternate already exists?**
+
+* Using the witness search.
+
+**Should a witness search include the vertex that we want to contract? Why?**
+
+* No. Because contracting the vertex means bypassing (hiding) the vertex.
+* And by doing so, we find a way to connect the predecessors and successors of the vertex.
+* In other words, we might build a shortcut to connect the predecessors and successors without the vertex.
+* The shortcut would exclude the vertex, because that's what we do by contracting the vertex.
+* The witness search checks whether such a shortcut, a better (cheaper) shortcut already exists.
+* So, the witness search also excludes the vertex that we are going to contract.
+* If we find a better shortcut or even the equivalent shortcut, we may still contract the vertex, but we avoid creating the unnecessary shortcut.
+
+**Can a shortcut be used to create another shortcut?**
+
+* Yes.
+* We can create a shortcut from the existing shortcut edge.
