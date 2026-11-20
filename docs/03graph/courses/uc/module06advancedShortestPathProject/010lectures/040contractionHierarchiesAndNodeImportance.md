@@ -623,3 +623,26 @@ $$
 
 * Yes.
 * We can create a shortcut from the existing shortcut edge.
+
+**What is a rank of a vertex?**
+
+* A rank is a position of the vertex in the contraction order.
+* A later-contracted vertex has the higher rank.
+* It means that we first contract vertices with the lower ranks.
+* Or in other words, the vertices we contract first, get the lower ranks.
+
+**How does a contraction order affect the performance?**
+
+* A different contraction order can produce a different shortcut, a different number of shortcuts, a different size of the augmented graph, and hence, a different search space.
+
+**Does it mean that a bad contraction order produce an incorrect result?**
+
+* No.
+* The correct algorithm still produces the correct result.
+* A bad contraction order mainly affects (decreases) the efficiency.
+
+**What is the specific pattern each search get?**
+
+* Both the forward and the backward search move upwards toward the common peak point.
+
+**What is the difference between ranks and importance?**
