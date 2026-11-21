@@ -10,7 +10,7 @@
 
 ---
 
-* The main purpose of the contraction hierarchy is to preprocess and prepare the map beforehand so that finding the shortest path becomes faster.
+* The main purpose of the contraction hierarchy is to preprocess and prepare the map beforehand so that finding the shortest path becomes faster, and it also reduces the search space.
 * We need to preprocess and prepare the map beforehand for the multiple queries.
 * We don't know the future source and the future target.
 * And there can be different source and target for different queries.
@@ -645,4 +645,139 @@ $$
 
 * Both the forward and the backward search move upwards toward the common peak point.
 
+**What is a contraction hierarchy? What problem does it solve?**
+
+* The term "Contraction" is associated with vertices.
+* We contract the vertices.
+* Contracting a vertex means virtually hiding the vertex and if required, we build a flyover (an overpass), a shortcut to connect their predecessors and successors.
+* The actual distance remains the same.
+* The shortcut just bypasses the intermediate vertex or vertices.
+* So that during the actual queries, we don't have to go through the intermediate vertices.
+* And it makes the search query faster.
+* Whereas the term "Hierarchy" is associated with "importance".
+* We don't randomly select and contract the vertices.
+* We contract the vertices based on their importance, which creates a particular "hierarchy" of the "contraction".
+* In simple words, it is an order (sequence) of contraction.
+* The sequence of contraction affects the shortcuts we create, the number of shortcuts, graph size, and ultimately, the search performance.
+* So, a contraction hierarchy is a process where we preprocess the original graph and convert it into an augmented graph by contracting the vertices in a particular order based on their importance.
+* Because of this preprocess, when we get the actual queries, the search can become faster, and we can also get a reduced search space.
+
+**Why is preprocessing necessary? How does it help? What if we don't preprocess?**
+
+* By preprocessing, we pay the price (cost) once, but later all the different search queries become faster, and we also get reduced space.
+* If we don't preprocess, we have to apply Dijkstra, Bidirectional Dijkstra, A*, or Bidirectional A* on each query.
+* It means each query will take: $O(V + E) \ \log V$.
+* If we preprocess, the total queries will take: $O(V + E)\ \log V$.
+
+**What is vertex contraction?**
+
+* A vertex contraction is a preprocess where we bypass (hide) the vertex, and if required, we build a flyover (a shortcut) that connects its predecessors and successors.
+* We consider the vertex that we contract as an intermediate vertex.
+* When we bypass the intermediate vertex, a later query does not have to go through it.
+* It makes the search faster, and it also reduces the search space.
+
+**What is a shortcut? How do we calculate its weight?**
+
+* A shortcut is a virtual edge that connects predecessors and successors without the intermediate vertex/vertices.
+* It does not change the actual cost.
+* So, if $d(u, v)$ is `5` and $d(v, w)$ is `3`, then the shortcut must be $s(u, w) &le; 8$.
+* To find and calculate the shortcut between the predecessor and successor of the contracting vertex, `v` by running one of the search algorithms like Dijkstra, Bidirectional Dijkstra, A*, or Bidirectional A* on its predecessors and successors that does not go through the contracting vertex, `v`.
+* If we find a better shortcut that costs $s(u, w) &le; 8$, then we don't create the new shortcut unnecessarily, but we still contract the vertex, `v`.
+
+**What is a witness path?**
+
+* A witness path is an existing and a better or equivalent shortcut than we get one by contracting a vertex.
+* In such a case, we don't create a new shortcut unnecessarily.
+
+**How does withness search work?**
+
+* We contract the vertex.
+* And we perform one of the search algorithms like Dijkstra, Bidirectional Dijkstra, A*, or Bidirectional A* on its predecessors and successors based on the defined limit to check if a better or equivalent shortcut already exists.
+* The limit defines how many predecessors and successors we check.
+* The higher the limit, the fewer the unnecessary shortcuts.
+* The lower the limit, more the unnecessary shortcuts.
+* We prefer unnecessary shortcuts over avoiding the existing shortcuts.
+
+**Why do we use Dijkstra for the witness search?**
+
+*
+
+**Why do we ignore the contracting vertex during the witness search?**
+
+* When we contract a vertex, we need to ensure that we don't break the existing connection between its predecessors and successors.
+* We need to find a way to check whether its predecessors and successors are connected.
+* If they are not connected, we build a flyover (a shortcut) between them that bypasses (skips) the contracting vertex.
+* The total distance remains the same.
+* But we also need to ensure that we don't build unnecessary connections/shortcuts.
+* We use witness search to find if there is a better or equivalent shortcut already exists between the predecessors and successors of the contracting vertex.
+* That's why the witness search bypasses the contracting vertex.
+
+**Why is the witness condition: $distance &le; candidateShortcutWeight$?**
+
+* The purpose of the witness search is to check whether a better or equivalent shortcut already exists that bypasses the contracting vertex and connects its predecessors and successors.
+* If the value of building the new shortcut is already equivalent or greater than the existing one, then we get an unnecessary shortcut.
+* Unnecessary shortcuts means more edges, and more edges means more time for the traversal and search.
+* We want to build (introduce) a new shortcut only when its weight is strictly less than the existing shortcut.
+* If the **candidate shortcut weight** is equivalent or greater than the existing shortcut, then there is no need to add an unnecessary shortcut.
+
+**Does adding a shortcut change the shortest path distance?**
+
+* No.
+* The shortcut that we add represents the actual distance only.
+
+**What is an augmented graph?**
+
+* An augmented graph is $G_{o} = V + E'$, where $E' = E + S$, where $S$ = newly added shortcuts (edges).
+* In simple words, an augmented graph contains the same number of vertices, but more edges than the original graph.
+
+**What is a contraction order and a vertex rank?**
+
+* We don't contract the vertices arbitrarily.
+* We contract the vertices based on their importance.
+* Importance of the vertex `v` is: $I(v) = ed(v) + sc(v) + cn(v) + L(v)$.
+* The smaller the importance, the better the contraction.
+* We first contract the vertices with smaller importance.
+* This produces a particular sequence, an order in which we contract the vertices.
+* The position of a particular vertex in this sequence represents the vertex rank.
+
+**Why does contraction order affect query performance?**
+
+* A different contraction order produces a different shortcut, a different number of shortcuts, a different graph size.
+* And a different graph size means different search performance.
+
+**Why do we use Bidirectional Dijkstra on the upward edges?**
+
+* For each query, each search moves upwards towards the higher ranked vertices.
+* From the perspective of the single forward search that starts from the source, the search path moves upwards towards the higher ranks, might get some straight stability, followed by moving downwards towards the target vertex.
+* We compare it with the highway traversal, where we leave from the local street, merge into the highway, and moves into the local street.
+* When we perform bidirectional search, both the forward search and the backward search move upward toward the higher ranked vertices and meet at the peek point.
+* We get this pattern due to contraction hierarchies that contracts the vertices based on their importance and assigns the ranks based on the position of the vertex in the contraction sequence.
+
+
+**How do we reconstruct the original path from the shortcuts?**
+
+* Using the stored information of the contracted vertices.
+
+**What are the trade-offs between the preprocessing time, memory, and query time?**
+
+* We pay once for the preprocessing, might consume a little extra memory to store various information, but both of these make each search query faster by reducing the search space considerably.
+
+**An example of contracting a vertex**
+
+![080contractionExample.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/080contractionExample.webp)
+
+* As shown in the image, suppose that we are contracting the vertex, `B`.
+* It means we are going to connect `A` and `C`.
+* Before adding the shortcut, we check if there is already a better or equivalent shortcut exists.
+* There is an alternate route: `A → D → C`, but it costs more: `9`.
+* So, we add the shortcut in the augmented graph that connects `A` and `C`.
+* It is similar to build a flyover (an overpass).
+* The weight of this shortcut will be `7`.
+* The shortcut will store the information that the original route goes through `B`.
+* Then, we remove `B` and its incidents from the active graph.
+* It is similar to bypass intermediate vertices.
+* And the augmented graph receives a new edge (the shortcut) that connects `A` and `C`.
+
 **What is the difference between ranks and importance?**
+
+* 
