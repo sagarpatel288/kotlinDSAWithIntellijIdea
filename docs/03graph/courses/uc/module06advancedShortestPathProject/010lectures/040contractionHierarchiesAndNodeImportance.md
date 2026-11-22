@@ -764,7 +764,7 @@ $$
 
 **An example of contracting a vertex**
 
-![080contractionExample.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/080contractionExample.webp)
+![090contractionExample.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/090contractionExample.webp)
 
 * As shown in the image, suppose that we are contracting the vertex, `B`.
 * It means we are going to connect `A` and `C`.
