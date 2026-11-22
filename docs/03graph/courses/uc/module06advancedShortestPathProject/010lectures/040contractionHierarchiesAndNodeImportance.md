@@ -665,7 +665,13 @@ $$
 * However, whether we create the shortcut or not due to the witness path, we still contract the vertex.
 * Once we contract the vertex, we remove it from the active graph, the graph that we are preprocessing, the original graph, now modified.
 * It is like removing processed files and tasks from the desk.
-* Whereas the term "Hierarchy" is associated with the concept of "importance".
+* Both the active graph and the augmented graph get the shortcut.
+* The shortcuts we add to the active graph can work as witness path.
+* It means that the active graph might end up with having only shortcuts.
+* However, it is not necessary.
+* The active graph can contain a few shortcuts and a few edges between the vertices that have not been contracted.
+* Whereas the augmented graph will always have both the original paths and also the shortcuts.
+* The term "Hierarchy" is associated with the concept of "importance".
 * We don't randomly select and contract the vertices.
 * We contract the vertices based on their importance, which creates a particular "hierarchy" of the "contraction".
 * In simple words, it is an order (sequence) of contraction.
