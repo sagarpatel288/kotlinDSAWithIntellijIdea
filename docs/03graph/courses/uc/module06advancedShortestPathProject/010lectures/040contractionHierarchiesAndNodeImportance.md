@@ -652,15 +652,35 @@ $$
 * Contracting a vertex means virtually hiding the vertex and if required, we build a flyover (an overpass), a shortcut to connect their predecessors and successors.
 * The actual distance remains the same.
 * The shortcut just bypasses the intermediate vertex or vertices.
-* So that during the actual queries, we don't have to go through the intermediate vertices.
+* The shortcut preserves the information like the original path, intermediate vertices, the weight to and from these intermediate vertices, the contracted vertex, the original weight from the start-vertex to end-vertex of the shortcut edge, rank of the vertex, etc. 
+* So that during the actual queries, we get all the required information even though we don't go through the intermediate vertices.
 * And it makes the search query faster.
-* Whereas the term "Hierarchy" is associated with "importance".
+* But we don't create a shortcut arbitrarily.
+* We perform a witness search with a pre-defined limit.
+* The limit decides how far, how deep, how many vertices, how many alternate paths we want to check.
+* The higher the limit, the lower the unnecessary shortcuts.
+* We prefer unnecessary shortcuts over avoiding the existing shortcuts to balance the cost and performance.
+* If the witness search finds that a better (cheaper or equivalent) shortcut already exists, we don't create unnecessary shortcut.
+* We call this existing better shortcut a witness path.
+* However, whether we create the shortcut or not due to the witness path, we still contract the vertex.
+* Once we contract the vertex, we remove it from the active graph, the graph that we are preprocessing, the original graph, now modified.
+* It is like removing processed files and tasks from the desk.
+* Whereas the term "Hierarchy" is associated with the concept of "importance".
 * We don't randomly select and contract the vertices.
 * We contract the vertices based on their importance, which creates a particular "hierarchy" of the "contraction".
 * In simple words, it is an order (sequence) of contraction.
+* The order or sequence in which we contract the vertices is called **Node Order**.
+* The position of a vertex in this sequence is called the **rank of the vertex**.
 * The sequence of contraction affects the shortcuts we create, the number of shortcuts, graph size, and ultimately, the search performance.
 * So, a contraction hierarchy is a process where we preprocess the original graph and convert it into an augmented graph by contracting the vertices in a particular order based on their importance.
-* Because of this preprocess, when we get the actual queries, the search can become faster, and we can also get a reduced search space.
+* Because of this preprocess, each search query gets a particular pattern. 
+* When we get the actual queries, we perform bidirectional search.
+* Each search moves upwards towards the higher ranked vertices.
+* We compare this with a real-life example where we leave the local street, merge into a highway, enter into the local streets towards the target.
+* But when we search (travel) from both the sides, each side moves upwards towards the highway.
+* A highway bypasses (skips) many intermediate local streets, villages, signals, tolls, etc.
+* Because of this pattern, we reduce considerable search space.
+* And the search becomes faster.
 
 **Why is preprocessing necessary? How does it help? What if we don't preprocess?**
 
