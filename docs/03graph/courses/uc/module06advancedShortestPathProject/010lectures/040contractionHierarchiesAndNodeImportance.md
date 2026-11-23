@@ -135,6 +135,11 @@
 * The importance of a vertex `v` $I(v)$ is the sum of these four values:
 * $I(v) = ed(v) + sc(v) + cn(v) + L(v)$.
 * Based on this importance, we add vertices to the priority queue.
+* We contract the less important vertices, first (earlier).
+* We contract the more important vertices, later.
+* It means that when it comes to adding the vertices into the priority queue, we insert the vertices based on their importance in order from lower to higher.
+* A vertex with the smallest (least) importance goes into the priority queue the first.
+* A vertex with the highest importance goes into the priority queue the last.
 * Then, we extract the vertex having the least importance.
 * Contract and add required shortcuts.
 * Contracting a vertex can:
