@@ -6,7 +6,11 @@
 
 ![070comparison.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/070comparison.webp)
 
+* [I liked this most: Veritasium • and 2swap](https://youtu.be/kS-CGkiPetQ)
+
 * [Illustrative Contraction Hierarchies By System Underground](https://youtu.be/xe1CbmJfMcU)
+
+* [Illustrative explanation by Decomplex](https://youtu.be/bnKdS4csSoI)
 
 ---
 
@@ -166,6 +170,9 @@
 * And the least important vertex gets the smallest rank.
 * We contract the vertex that has the highest importance, the last.
 * The vertex with the highest importance gets the highest rank.
+* Notice that ranks do not strictly represent the sequence of vertices we visit in the graph.
+* Ranks are more like labels, where each label indicates importance.
+* Ranks are associated with the contraction sequence, not the path sequence.
 * The augmented graph will have all the original edges, connections, and additionally, shortcuts.
 * We also record the order in which we contract the vertices (Node Order).
 * And we also record the rank of each vertex.
@@ -677,6 +684,14 @@ $$
 * It means that we first contract vertices with the lower ranks.
 * Or in other words, the vertices we contract first, get the lower ranks.
 
+**How does contracting a vertex can change many things like the vertex itself, the importance of the vertex, the neighbors of the vertex, the importance of the neighbors, potential shortcuts, etc.? What are the things does it change? Why? How? Such changes might force us to preprocess the graph again and again, on every change, and recalculate many things, and it might cost us more. How do we solve it?**
+
+* 
+
+**After extracting the min candidate from the priority queue, why and how do we recalculate its importance again? What could have changed its importance so that we have to recalculate it?**
+
+* 
+
 **How does a contraction order affect the performance?**
 
 * A different contraction order can produce a different shortcut, a different number of shortcuts, a different size of the augmented graph, and hence, a different search space.
@@ -866,6 +881,20 @@ $$
 
 *
 
+**Is it true that as the source and the target are close to each other, we get a fewer shortcuts, or we get more unpacked shortcuts, or in other words, we get more real edges. And if the source and the target are far away, we get more shortcuts, and we unpack them gradually? Somehow, I am thinking this shortcut concept as adding masks, or layers, and as we search, we kind of keep zooming out (unpacking the shortcuts).**
 
+* 
+
+**Is it true that the more the shortcut covers the intermediate vertices, the better the shortcut is?**
+
+* 
+
+**Is it true that the sequence of contraction or the ranks of the vertices do not have anything to do with the position of the vertices in the graph? It does not strictly indicate the sequence in which we visit the vertices in the graph. For example, a vertex with a higher rank can sit before the vertex having a lower rank.** 
+
+* 
+
+**Why and how does it work, what makes it possible that the shortest, fastest path from s to t goes through the vertices that are more important than both s and t?** 
+
+* 
 
 Audit this document. What am I missing? Answer the unanswered, incomplete, or wrong answered questions. What needs to correct? Justify with my explanation preferences.
