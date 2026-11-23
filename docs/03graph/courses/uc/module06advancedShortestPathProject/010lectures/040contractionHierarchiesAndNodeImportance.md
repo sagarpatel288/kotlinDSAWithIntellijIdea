@@ -655,6 +655,14 @@ $$
 * Yes.
 * We can create a shortcut from the existing shortcut edge.
 
+**If adding shortcuts increases the total number of edges, how can it improve the search performance?**
+
+* The search performance improvement does not come only from the shortcuts.
+* It comes from the combination of the shortcuts and the ranks.
+* The arrangement ensures that the bidirectional search traverse (moves) only upwards towards the higher-ranked vertices.
+* And it reduces the search space considerably.
+* That's how we improve the search performance.
+
 **What is a rank of a vertex?**
 
 * A rank is a position of the vertex in the contraction order.
