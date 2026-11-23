@@ -659,6 +659,8 @@ $$
 
 * No, but we assign each vertex a rank.
 * And based on these ranks, we contract the vertices and add shortcuts.
+* Also, before adding a shortcut, we perform a witness search.
+* If we find a witness path, we do not add the shortcut.
 
 **But adding shortcuts increases the total number of edges. How can it improve the search performance?**
 
