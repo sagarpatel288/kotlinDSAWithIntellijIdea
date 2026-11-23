@@ -153,8 +153,14 @@
 * If it is still the least important, contract it.
 * Otherwise, put it back to the priority queue with its updated importance.
 * Repeat until we contract all the vertices.
-* The order in which we contract the vertices is called, Node Order.
-* The position of the vertex in this Node Order is the Rank of the vertex.
+* The order in which we contract the vertices is called, **Node Order**.
+* The position of the vertex in this Node Order is the **Rank of the vertex**.
+* The rank order (sequence) starts from the smallest value, (e.g., 1) and keeps increasing gradually.
+* We can associate it with the importance.
+* It aligns with the concept (notion, theory, idea) that we first contract the least important vertex.
+* And the least important vertex gets the smallest rank.
+* We contract the vertex that has the highest importance, the last.
+* The vertex with the highest importance gets the highest rank.
 * The augmented graph will have all the original edges, connections, and additionally, shortcuts.
 * We also record the order in which we contract the vertices (Node Order).
 * And we also record the rank of each vertex.
