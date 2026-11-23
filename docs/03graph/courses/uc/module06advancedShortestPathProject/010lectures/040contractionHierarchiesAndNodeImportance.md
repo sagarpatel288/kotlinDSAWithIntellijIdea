@@ -168,7 +168,7 @@
 * Once we are done with the preprocessing, we process the actual queries.
 * The query algorithm uses bidirectional Dijkstra.
 * Each query uses ranks.
-* The query algorithm uses the rank to search only in the upward direction from both the end-points (searches).
+* The query algorithm uses the rank to search only in the upward direction (towards the higher ranks) from both the end-points (searches).
 * In this way, we expect to get much smaller search space.
 
 ---
@@ -834,8 +834,14 @@ $$
 
 * 
 
+**What arrangement makes the bidirectional search move upward towards the higher rank? How does this become possible and correct?**
+
+* 
+
 **Why Bidirectional Dijkstra only? Can't we run Bidirectional A-Star on the preprocessed graph?**
 
 *
+
+
 
 Audit this document. What am I missing? What needs to correct? Justify with my explanation preferences.
