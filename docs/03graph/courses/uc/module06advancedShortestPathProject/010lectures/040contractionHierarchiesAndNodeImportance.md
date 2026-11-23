@@ -33,6 +33,14 @@
 * Later, when we ask (once or frequently), we do not have to recalculate it every time at runtime on demand.
 * We compare this with an analogy where we travel from a source to a destination via a flyover (overpass, highway) instead of going through the local villages, tolls, and signals.
 * If there is no flyover (overpass), we build one. 
+* We can think about the preprocess as if we use this flyover information to build an index (table of content).
+* So that later when we want to know the distance (page number) of a particular chapter (vertex), we already have a ready-made answer.
+* The index (table of content) shows only the titles, and hides other details.
+* But that doesn't mean that those details are gone.
+* The details still remain in the book.
+* The huge benefit is that we don't have to start from the first page for every search query.
+* The index (table of content) acts as a guided search.
+* And it makes each search query faster.
 * So technically, what do we do? 
 * And how do we do it?
 
@@ -807,3 +815,9 @@ $$
 **What is the difference between ranks and importance?**
 
 * 
+
+**Why Bidirectional Dijkstra only? Can't we run Bidirectional A-Star on the preprocessed graph?**
+
+*
+
+Audit this document. What am I missing? What needs to correct? Justify with my explanation preferences.
