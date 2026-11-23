@@ -655,7 +655,12 @@ $$
 * Yes.
 * We can create a shortcut from the existing shortcut edge.
 
-**If adding shortcuts increases the total number of edges, how can it improve the search performance?**
+**Do we add shortcuts for each pair of the vertices?**
+
+* No, but we assign each vertex a rank.
+* And based on these ranks, we contract the vertices and add shortcuts.
+
+**But adding shortcuts increases the total number of edges. How can it improve the search performance?**
 
 * The search performance improvement does not come only from the shortcuts.
 * It comes from the combination of the shortcuts and the ranks.
