@@ -14,7 +14,12 @@
 * We need to preprocess and prepare the map beforehand for the multiple queries.
 * We don't know the future source and the future target.
 * And there can be different source and target for different queries.
-* So, how do we preprocess and prepare the graph (map, network)?
+* Also, the contraction hierarchy is useful only when the map is nearly stable.
+* Because if the map keeps changing, we might have to preprocess and prepare it again and again.
+* And that might beat (defeat) our purpose which is to make the search queries faster.
+* But if we frequently spend time on preprocessing and preparing the map again and again, it might cost us more.
+* So, a stable or at least almost a stable map is required for the contraction hierarchy.
+* Now, how do we preprocess and prepare the graph (map, network)? What do we do? How? Why?
 
 ---
 
@@ -834,6 +839,10 @@ $$
 
 * 
 
+**We add vertices into the priority queue based on their importance in order of from the least importance to the highest importance. Then, how come a search query makes a pattern that should keep increasing the ranks instead of increasing and then decreasing?**
+
+*
+
 **What arrangement makes the bidirectional search move upward towards the higher rank? How does this become possible and correct?**
 
 * 
@@ -844,4 +853,4 @@ $$
 
 
 
-Audit this document. What am I missing? What needs to correct? Justify with my explanation preferences.
+Audit this document. What am I missing? Answer the unanswered, incomplete, or wrong answered questions. What needs to correct? Justify with my explanation preferences.
