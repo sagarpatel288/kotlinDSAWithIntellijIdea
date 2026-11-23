@@ -34,7 +34,8 @@
 * We compare this with an analogy where we travel from a source to a destination via a flyover (overpass, highway) instead of going through the local villages, tolls, and signals.
 * If there is no flyover (overpass), we build one. 
 * We can think about the preprocess as if we use this flyover information to build an index (table of content).
-* So that later when we want to know the distance (page number) of a particular chapter (vertex), we already have a ready-made answer.
+* So that later when we want to know the distance (page number) of a particular chapter (vertex), we already have a ready-made answer (page number).
+* The index (table of content) is our list of shortcuts. 
 * The index (table of content) shows only the titles, and hides other details.
 * But that doesn't mean that those details are gone.
 * The details still remain in the book.
@@ -94,15 +95,21 @@
 * In other words, more neighbors depend on this vertex.
 * And if we contract (hide, bypass) this vertex, we will need more shortcuts for the neighbors.
 * More shortcuts means more edges.
-* So, to optimize this process, we check whether the already better shortcut exists.
-* We call it witness search, and we provide a limit to the witness search.
-* The witness search helps us determine whether there is already a better shortcut exists.
-* And the limit we provide to the witness search defines how long (how much) we want to search.
+* Also, to optimize this process, we check whether the already better (cheaper) shortcut exists.
+* We call it a witness search, and we provide a limit to the witness search.
+* The witness search helps us determine whether there is already a better (cheaper) shortcut exists.
+* And the limit we provide to the witness search defines how long (how much, how far, how deep) we want to search.
 * This limit impacts the efficiency and search performance.
-* Higher the limit, more the accuracy.
-* Lower the limit, unnecessary shortcuts.
+* The higher the limit, the more the accuracy.
+* The lower the limit, the more the unnecessary shortcuts.
 * We balance.
 * We prefer unnecessary shortcuts over accidentally losing existing shortest paths.
+* It means our priority is clear:
+1. A few additional unnecessary shortcuts are fine. 
+2. It means that it is Okay to lose (avoid) existing shortcuts, and introduce a few additional, unnecessary shortcuts.
+3. But it doesn't mean that we keep adding the new shortcuts randomly, and arbitrarily.
+4. It is all about the balance and priority.
+5. That's why we use the limit.
 * We add the shortcut only if there is no better shortcut exists.
 * Also, we do not select the vertices for the contraction arbitrarily.
 * We add vertices to the priority queue based on their importance.
