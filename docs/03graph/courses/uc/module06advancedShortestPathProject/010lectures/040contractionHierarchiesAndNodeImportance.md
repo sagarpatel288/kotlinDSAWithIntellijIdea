@@ -44,12 +44,12 @@
 * If there is no flyover (overpass), we build one. 
 * We can think about the preprocess as if we use this flyover information to build an index (table of content).
 * So that later when we want to know the distance (page number) of a particular chapter (vertex), we already have a ready-made answer (page number).
-* The index (table of content) is our list of shortcuts. 
-* The index (table of content) shows only the titles, and hides other details.
+* The index (table of contents) is our list of shortcuts. 
+* The index (table of contents) shows only the titles, and hides other details.
 * But that doesn't mean that those details are gone.
 * The details still remain in the book.
 * The huge benefit is that we don't have to start from the first page for every search query.
-* The index (table of content) acts as a guided search.
+* The index (table of contents) acts as a guided search.
 * And it makes each search query faster.
 * So technically, what do we do? 
 * And how do we do it?
@@ -182,6 +182,20 @@
 * Each query uses ranks.
 * The query algorithm uses the rank to search only in the upward direction (towards the higher ranks) from both the end-points (searches).
 * In this way, we expect to get much smaller search space.
+
+---
+
+* This is a mathematical magic (flow, guarantee, fact) that if we contract the vertices based on their ranks, from the lowest to the highest, we get the mountain like shape, uphill (rising) shape (slope), or downhill (falling) shape (slope).
+* If all the intermediate vertices, we call them interior vertices, if each interior vertex has a lower rank than the two endpoints, then we only get a falling slope (downhill).
+* Otherwise, we always get a mountain like shape.
+* The forward search uses the uphill, whereas the backward search uses the downhill, which is from the perspective of the backward search, an uphill only!
+* That's why we say that both the searches move upward towards the peak point.
+* This is interesting.
+* Let us see it.
+
+![120mountainshape02.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/120mountainshape02.webp)
+
+![130mountainshape03.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/130mountainshape03.webp)
 
 ---
 
