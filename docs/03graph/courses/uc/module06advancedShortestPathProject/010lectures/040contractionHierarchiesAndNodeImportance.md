@@ -23,6 +23,10 @@
 * And that might beat (defeat) our purpose which is to make the search queries faster.
 * But if we frequently spend time on preprocessing and preparing the map again and again, it might cost us more.
 * So, a stable or at least almost a stable map is required for the contraction hierarchy.
+* If the graph (map, network) is not stable, we use a customized contraction hierarchy.
+* The customized contraction hierarchy makes it easy, and fast to update the values.
+* For example, when a particular route (path) gets a traffic-trap, we update the value of the corresponding route in the augmented graph.
+* But before understanding the customized contraction hierarchy, let us learn and understand the standard (normal, base) contraction hierarchy.
 * Now, how do we preprocess and prepare the graph (map, network)? What do we do? How? Why?
 
 ---
@@ -56,37 +60,15 @@
 
 ---
 
-![020highwayAnalogy.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/020highwayAnalogy.webp)
-
-* What happens when we travel from our home, which is in a different state to a friend's home, which is in another state?
-* We start with the local streets, then enter into a highway, then a bigger highway, maybe an interstate highway. 
-* And as we reach closer to the friend's home, we enter into the smaller highway, and eventually, into the local streets.
-* This is the general pattern and inspiration for the intuition.
-
-1. Leave residential street.
-2. Enter into the main road.
-3. Join a state highway.
-4. Join a national highway.
-5. Leave the highway as we reach near the destination.
-6. Travel through the local roads to reach the destination.
-
-* The journey starts and ends on local roads.
-* But the long distance journey happens on highways.
-* We can classify them roughly as:
-
-1. Local roads near the source and destination.
-2. Regional roads that connect highways.
-3. Highways that cover the major distance.
-
-* We want to focus on the highway that connects the regional road that connects the local road to the source and the destination.
-* But how do we apply this filter?
-* Based on the importance.
-* We want to focus on the local roads near the source that connect regional roads that connect highways that connect regional roads towards the target that connect the local roads near the target.
-* If a local road near the source does not connect a regional road or a highway that can reach the target, it is not important to us.
-
----
-
 **The contraction process overview**
+
+![010contractionHierarchies.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/010contractionHierarchies.webp)
+
+![030contractionHierarchies.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/030contractionHierarchies.webp)
+
+![090contractionExample.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/090contractionExample.webp)
+
+![100contractionExample02.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/100contractionExample02.webp)
 
 * Suppose that we receive a huge road network.
 * We want to preprocess and prepare the graph in advance for the shortest path queries.
@@ -94,10 +76,19 @@
 * And there can be many different sources and targets in different queries.
 * Each query can have a different source and a different target.
 * So, we cannot simply delete a vertex.
+* It would break the connectivity.
 * But we can build flyovers between different vertices.
-* It does not destroy the existing edges.
+* That can quickly tell us the distance between the two vertices without going through the intermediate vertices.
+* It does not destroy the existing edges and connections.
 * It adds more edges, and we call them shortcuts.
-* Instead of deleting a vertex, we contract (hide, bypass) it.
+* Shortcuts preserve the existing connections.
+* For example, suppose we contract (hide, bypass) a vertex, `v`.
+* Then, we need to ensure that we preserve all the paths (routes) that go through `v`.
+* Maybe, there are already a few existing paths.
+* Maybe, we need to build (add) a few shortcuts to preserve the existing connections.
+* We perform a witness search to decide whether we need to add shortcuts or not, and how many.
+* If we find that an existing path (route) 
+* Notice that instead of deleting a vertex, we contract (hide, bypass) it.
 * But before contracting a vertex, we check various things.
 * Such as routes passing through it.
 * Because if there are more routes passing through it, it means that the dependency of the vertex is more.
@@ -120,7 +111,11 @@
 4. It is all about the balance and priority.
 5. That's why we use the limit.
 * We add the shortcut only if there is no better shortcut exists.
-* Also, we do not select the vertices for the contraction arbitrarily.
+* Also, we might think that adding shortcuts increases edges.
+* And the more the edges, the greater the graph size.
+* And if we increase the graph size, how can the search query become faster?
+* The answer lies in the contraction sequence and the consequences of it.
+* We do not select the vertices for the contraction arbitrarily.
 * We add vertices to the priority queue based on their importance.
 * The importance is the sum of edge difference, contracted neighbors, shortcut covers, and node level.
 * Edge difference of the vertex `v` $ed(v)$ is the sum of new shortcuts we add, incoming edges to `v` we remove, and the outgoing edges from `v` we remove.
@@ -150,7 +145,7 @@
 * A vertex with the smallest (least) importance goes into the priority queue the first.
 * A vertex with the highest importance goes into the priority queue the last.
 * Then, we extract the vertex having the least importance.
-* Contract and add required shortcuts.
+* We contract it and add required shortcuts.
 * Contracting a vertex can:
   * increase the number of shortcuts its neighbors require.
   * increase the already-contracted neighbors.
@@ -177,11 +172,18 @@
 * We also record the order in which we contract the vertices (Node Order).
 * And we also record the rank of each vertex.
 * This is how we preprocess the original graph and transform it into an augmented graph.
+* Contraction hierarchy is a part of the preprocessing, not the search query.
 * Once we are done with the preprocessing, we process the actual queries.
-* The query algorithm uses bidirectional Dijkstra.
+* The query algorithm uses a search algorithm like bidirectional Dijkstra.
 * Each query uses ranks.
 * The query algorithm uses the rank to search only in the upward direction (towards the higher ranks) from both the end-points (searches).
-* In this way, we expect to get much smaller search space.
+* When we search only upwards towards higher-ranked vertices, we skip many lower-ranked vertices.
+* That reduces the search space significantly.
+* And this is where and how we save the time.
+* This is where and how our search becomes faster, despite having more edges.
+* Yes, the augmented graph might have more edges, but we also skip more edges.
+* That's the purpose of those additional edges (shortcuts).
+* Let us learn and understand this visually.
 
 ---
 
@@ -196,6 +198,53 @@
 ![120mountainshape02.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/120mountainshape02.webp)
 
 ![130mountainshape03.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/130mountainshape03.webp)
+
+![140onlyForwardSearch.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/140onlyForwardSearch.webp)
+
+![150onlyBackwardSearch.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/150onlyBackwardSearch.webp)
+
+* We contract the vertex based on its importance.
+* The importance depends on the edge difference, shortcut cover, contracted-neighbors, and level of the vertex.
+* Based on the position in the contraction sequence, a vertex gets a rank.
+* From the perspective of the importance or ranks, we contract the vertices in the order of the lowest importance to the highest importance.
+* The process is developed in such a way that it guarantees that we get a mountain like shape or a slope.
+* The process eliminates the valleys.
+* Because of this process, it becomes possible to search the shortest path by moving upwards. 
+* And when we only move upwards, towards the higher-ranked vertices, we avoid lower-ranked vertices.
+* In other words, we reduce the search space significantly.
+* And that's how our search gets the better (higher) speed (performance).
+
+---
+
+* The inspiration of developing such a process can be understood by the real-life example.
+
+![020highwayAnalogy.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/020highwayAnalogy.webp)
+
+* What happens when we travel from our home, which is in a different state to a friend's home, which is in another state?
+* We start with the local streets, then enter into a highway, then a bigger highway, maybe an interstate highway (The upward journey).
+* And as we reach closer to the friend's home, we enter into the smaller highway, and eventually, into the local streets (The downward journey).
+* This is the general pattern and inspiration for the intuition.
+
+1. Leave residential street.
+2. Enter into the main road.
+3. Join a state highway.
+4. Join a national highway.
+5. Leave the highway as we reach near the destination.
+6. Travel through the local roads to reach the destination.
+
+* The journey starts and ends on local roads.
+* But the long distance journey happens on highways.
+* We can classify them roughly as:
+
+1. Local roads near the source and destination.
+2. Regional roads that connect highways.
+3. Highways that cover the major distance.
+
+* We want to focus on the highway that connects the regional road that connects the local road to the source and the destination.
+* But how do we apply this filter?
+* Based on the importance.
+* We want to focus on the local roads near the source that connect regional roads that connect highways that connect regional roads towards the target that connect the local roads near the target.
+* If a local road near the source does not connect a regional road or a highway that can reach the target, it is not important to us.
 
 ---
 
@@ -213,7 +262,8 @@
 * Shortcuts add more edges to the augmented graph.
 * The number of shortcuts depend on the contraction order.
 * The contraction order depends on the ranks.
-* So, the way we define the ranks decides plays critical role in the search performance.
+* Ranks depend on the definition of the importance.
+* So, the way we define the importance plays critical role in the search performance.
 
 ---
 
@@ -244,6 +294,7 @@ $$
 * It is not feasible to find the shortest path for all the vertices from all the other vertices.
 * The concept we use to solve the problem is called contraction hierarchies.
 * We virtually remove intersections, obstacles, stops, etc.
+* It is like going through a flyover (an overpass highway) to bypass the local streets, tolls, signals, etc.
 * But we preserve the path.
 * We assign a rank to each vertex based on the importance.
 * We record an order in which the vertices are visited.
@@ -600,7 +651,7 @@ $$
 * We can give the general formula or major time factors as:
 
 $$
-T_{preprocessing} = T_{ordering} + T_{contraction} + T_{witness_search}  
+T_{preprocessing} = T_{ordering} + T_{contraction} + T_{witness\_search}  
 $$
 
 * The order conveys the preprocessing actions:
@@ -718,7 +769,7 @@ $$
 
 **What is the specific pattern each search get?**
 
-* Both the forward and the backward search move upwards toward the common peak point.
+* Both the forward and the backward search move upward toward the common peak (highest-ranked) point (vertex).
 
 **What is a contraction hierarchy? What problem does it solve?**
 
@@ -775,7 +826,8 @@ $$
 * A vertex contraction is a preprocess where we bypass (hide) the vertex, and if required, we build a flyover (a shortcut) that connects its predecessors and successors.
 * We consider the vertex that we contract as an intermediate vertex.
 * When we bypass the intermediate vertex, a later query does not have to go through it.
-* It makes the search faster, and it also reduces the search space.
+* It reduces the search space.
+* Hence, it makes the search faster.
 
 **What is a shortcut? How do we calculate its weight?**
 
@@ -787,8 +839,11 @@ $$
 
 **What is a witness path?**
 
-* A witness path is an existing and a better or equivalent shortcut than we get one by contracting a vertex.
+* A witness path is an existing and a better (shorter) or equivalent shortcut than we get one by contracting a vertex.
 * In such a case, we don't create a new shortcut unnecessarily.
+* The witness path does not go through the subject vertex (the vertex that we are considering to contract, that we are going to contract).
+* But it connects the neighbors (incoming edges and outgoing edges, neighbors, ancestors and successors) of the subject vertex without going through it (without going through the subject vertex).
+* If the cost of such an existing path (the witness path) is no more than going through the subject vertex, then we contract the vertex, but we don't add the new shortcut.
 
 **How does withness search work?**
 
@@ -851,7 +906,7 @@ $$
 * For each query, each search moves upwards towards the higher ranked vertices.
 * From the perspective of the single forward search that starts from the source, the search path moves upwards towards the higher ranks, might get some straight stability, followed by moving downwards towards the target vertex.
 * We compare it with the highway traversal, where we leave from the local street, merge into the highway, and moves into the local street.
-* When we perform bidirectional search, both the forward search and the backward search move upward toward the higher ranked vertices and meet at the peek point.
+* When we perform bidirectional search, both the forward search and the backward search move upward toward the higher-ranked vertices and meet at the peak point.
 * We get this pattern due to contraction hierarchies that contracts the vertices based on their importance and assigns the ranks based on the position of the vertex in the contraction sequence.
 
 
@@ -881,15 +936,42 @@ $$
 
 **What is the difference between ranks and importance?**
 
-* 
+* We define the importance of a vertex, `v` as:
 
-**We add vertices into the priority queue based on their importance in order of from the least importance to the highest importance. Then, how come a search query makes a pattern that should keep increasing the ranks instead of increasing and then decreasing?**
+$$
+I(v) = ed(v) + sc(v) + cn(v) + l(v)
+$$
 
-*
+* Based on the importance, we contract the vertices.
+* We contract the vertices in order of from the least importance to the highest importance.
+* Whereas the rank of the vertex `v`, `r(v)` is the position of it in this contraction sequence.
 
-**What arrangement makes the bidirectional search move upward towards the higher rank? How does this become possible and correct?**
+**We add vertices into the priority queue based on their importance in order of from the least importance to the highest importance. Then, how come a search query makes a pattern that first increases and then decreases instead of keep increasing? What arrangement makes the bidirectional search (each search) move upward towards the higher rank? How does this become possible and correct? Why and how does it work, what makes it possible that the shortest, fastest path from s to t goes through the vertices that are more important than both s and t?**
 
-* 
+![120mountainshape02.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/120mountainshape02.webp)
+
+![130mountainshape03.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/130mountainshape03.webp)
+
+![140onlyForwardSearch.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/140onlyForwardSearch.webp)
+
+![150onlyBackwardSearch.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/150onlyBackwardSearch.webp)
+
+* Rank means the position of a vertex in the contraction sequence.
+* It does not indicate the position of a vertex in the graph.
+* The rank does not necessarily mean the position in which we visit the vertices in the graph.
+* Ranks are only in the increasing order from the perspective of its definition and value.
+* But these ranks might be scattered in a random order throughout the graph.
+* The order in which the vertices are positioned in the graph are not based on the ranks.
+* Positions of the vertices come first, and these positions are mostly fixed. 
+* Ranks come later, based on the contraction sequence.
+* In the augmented graph, we might visit a higher-ranked vertex first before the lower-ranked vertex, and still, it doesn't have to strictly be in this sequence.
+* As we traverse the augmented graph, the ranks might go up and down, randomly.
+* The process where we contract the vertices in the order of from the least importance (lowest-rank) to the highest importance (highest-rank) makes it possible to get this mountain-like shape or slope.
+* If the ranks and positions of the vertices in the graph are aligned, we might get a slope.
+* For example, if the positions of the vertices and ranks of the vertices increase together in the augmented graph of a linear fashion, we get a rising (uphill) slope.
+* That means, only the forward search will do all the work.
+* Similarly, if the ranks of the vertices keep decreasing, but the positions of the vertices keep increasing as we traverse the graph, we get a downhill slope.
+* In such cases, only the backward search will do all the work.
 
 **Why Bidirectional Dijkstra only? Can't we run Bidirectional A-Star on the preprocessed graph?**
 
@@ -907,8 +989,22 @@ $$
 
 * 
 
-**Why and how does it work, what makes it possible that the shortest, fastest path from s to t goes through the vertices that are more important than both s and t?** 
+**How does a highly connected vertex introduce more edges (shortcuts)?** 
 
-* 
+![060incomingOutgoingEdges.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/060incomingOutgoingEdges.webp)
 
-Audit this document. What am I missing? Answer the unanswered, incomplete, or wrong answered questions. What needs to correct? Justify with my explanation preferences.
+* If the vertex that we are going to contract has more incoming and outgoing edges, it means that we have to create more shortcuts to preserve the paths of its neighbors that go through it.
+* Hence, it causes more shortcuts.
+
+---
+
+# Insights
+
+* Ranks do not necessarily indicate the sequence of vertices we visit in the graph.
+* The search algorithm runs on the augmented graph.
+* The search moves only upwards towards higher-ranked vertices, and skips the lower-ranked vertices.
+* That's how and that's why our search gets the better (higher) speed (performance).
+
+---
+
+* Audit this document. What am I missing? Answer the unanswered, incomplete, or wrong answered questions. What needs to correct? Justify with my explanation preferences.
