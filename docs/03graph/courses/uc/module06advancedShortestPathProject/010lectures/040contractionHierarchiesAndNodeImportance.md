@@ -83,21 +83,23 @@
 * It adds more edges, and we call them shortcuts.
 * Shortcuts preserve the existing connections.
 * For example, suppose we contract (hide, bypass) a vertex, `v`.
-* Then, we need to ensure that we preserve all the paths (routes) that go through `v`.
+* And notice that contracting a vertex does not mean that we completely forget about the vertex.
+* We need to ensure that we preserve all the paths (routes) that go through `v`.
 * Maybe, there are already a few existing paths.
 * Maybe, we need to build (add) a few shortcuts to preserve the existing connections.
 * We perform a witness search to decide whether we need to add shortcuts or not, and how many.
-* If we find that an existing path (route) 
-* Notice that instead of deleting a vertex, we contract (hide, bypass) it.
-* But before contracting a vertex, we check various things.
-* Such as routes passing through it.
+* If we find that a path already exists that does not go through the candidate vertex, and it does not cost more than the path that goes through the vertex, then we avoid creating unnecessary shortcuts.
+* We call such a path a witness path.
+* And the process to find a witness path is called the witness search.
+* It is like we get the candidate vertex for the contraction.
+* But before contracting the vertex, we calculate the need and cost of contracting it.
+* Such as neighbors (incoming and outgoing edges), and routes passing through it.
 * Because if there are more routes passing through it, it means that the dependency of the vertex is more.
 * In other words, more neighbors depend on this vertex.
 * And if we contract (hide, bypass) this vertex, we will need more shortcuts for the neighbors.
 * More shortcuts means more edges.
-* Also, to optimize this process, we check whether the already better (cheaper) shortcut exists.
-* We call it a witness search, and we provide a limit to the witness search.
-* The witness search helps us determine whether there is already a better (cheaper) shortcut exists.
+* Also, we provide a limit to the witness search.
+* The witness search helps us determine whether there is already a better (cheaper) or equivalent shortcut exists.
 * And the limit we provide to the witness search defines how long (how much, how far, how deep) we want to search.
 * This limit impacts the efficiency and search performance.
 * The higher the limit, the more the accuracy.
@@ -109,8 +111,8 @@
 2. It means that it is Okay to lose (avoid) existing shortcuts, and introduce a few additional, unnecessary shortcuts.
 3. But it doesn't mean that we keep adding the new shortcuts randomly, and arbitrarily.
 4. It is all about the balance and priority.
-5. That's why we use the limit.
-* We add the shortcut only if there is no better shortcut exists.
+5. That's why and how we use the limit.
+* We add the shortcut only if there is no better or equivalent shortcut exists.
 * Also, we might think that adding shortcuts increases edges.
 * And the more the edges, the greater the graph size.
 * And if we increase the graph size, how can the search query become faster?
@@ -167,7 +169,7 @@
 * The vertex with the highest importance gets the highest rank.
 * Notice that ranks do not strictly represent the sequence of vertices we visit in the graph.
 * Ranks are more like labels, where each label indicates importance.
-* Ranks are associated with the contraction sequence, not the path sequence.
+* Ranks are associated with the position in the contraction sequence, not the position in the graph.
 * The augmented graph will have all the original edges, connections, and additionally, shortcuts.
 * We also record the order in which we contract the vertices (Node Order).
 * And we also record the rank of each vertex.
@@ -176,7 +178,7 @@
 * Once we are done with the preprocessing, we process the actual queries.
 * The query algorithm uses a search algorithm like bidirectional Dijkstra.
 * Each query uses ranks.
-* The query algorithm uses the rank to search only in the upward direction (towards the higher ranks) from both the end-points (searches).
+* The query algorithm uses the ranks to search only in the upward direction (towards the higher ranks) from both the end-points (searches).
 * When we search only upwards towards higher-ranked vertices, we skip many lower-ranked vertices.
 * That reduces the search space significantly.
 * And this is where and how we save the time.
@@ -213,6 +215,12 @@
 * And when we only move upwards, towards the higher-ranked vertices, we avoid lower-ranked vertices.
 * In other words, we reduce the search space significantly.
 * And that's how our search gets the better (higher) speed (performance).
+
+---
+
+**Recap**
+
+* Importance → Contraction Sequence → Ranks → Search upwards towards higher-ranked vertices 
 
 ---
 
@@ -998,9 +1006,23 @@ $$
 
 ---
 
+**Does a witness path go through the candidate vertex? Why?**
+
+* No.
+* Because having a witness path means that a better (cheaper) or equivalent shortcut already exists that connects the neighbors (incoming and outgoing edges, ancestors and successors) of the candidate vertex, without going through the candidate vertex.
+* If there is no witness path, we build a shortcut that connects the neighbors (incoming and outgoing edges, ancestors and successors) of the candidate vertex without going through the candidate vertex.
+* So, a shortcut does not go through the candidate vertex.
+* Hence, the fair comparison, calculation, consideration for a shortcut that align with our purpose and consequences do not go through the candidate vertex.
+* This is why and how a witness path does not go through the candidate vertex.
+
+---
+
 # Insights
 
+* Witness path does not go through the candidate vertex.
 * Ranks do not necessarily indicate the sequence of vertices we visit in the graph.
+* Ranks follow contraction. 
+* First, contraction happens. And then, according to the position in the contraction sequence, the vertex gets a rank. 
 * The search algorithm runs on the augmented graph.
 * The search moves only upwards towards higher-ranked vertices, and skips the lower-ranked vertices.
 * That's how and that's why our search gets the better (higher) speed (performance).
