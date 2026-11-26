@@ -90,6 +90,7 @@
 * We perform a witness search to decide whether we need to add shortcuts or not, and how many.
 * If we find that a path already exists that does not go through the candidate vertex, and it does not cost more than the path that goes through the vertex, then we avoid creating unnecessary shortcuts.
 * We call such a path a witness path.
+* The cost of the witness path is no more than the cost of the path that goes through the candidate vertex.
 * And the process to find a witness path is called the witness search.
 * It is like we get the candidate vertex for the contraction.
 * But before contracting the vertex, we calculate the need and cost of contracting it.
@@ -170,12 +171,16 @@
 * Notice that ranks do not strictly represent the sequence of vertices we visit in the graph.
 * Ranks are more like labels, where each label indicates importance.
 * Ranks are associated with the position in the contraction sequence, not the position in the graph.
-* The augmented graph will have all the original edges, connections, and additionally, shortcuts.
+* The augmented graph will have all the original edges, connections, contracted vertices, incidents, and additionally, shortcuts.
 * We also record the order in which we contract the vertices (Node Order).
 * And we also record the rank of each vertex.
 * This is how we preprocess the original graph and transform it into an augmented graph.
 * Contraction hierarchy is a part of the preprocessing, not the search query.
 * Once we are done with the preprocessing, we process the actual queries.
+* The search query uses (happens on, applies to) the augmented graph.
+* There is no fixed sources and targets.
+* Any vertex, including the vertices we contracted, can be a source, a target, or a part of the shortest path.
+* This is the reason, the search queries use the augmented graph, and not the original graph.
 * The query algorithm uses a search algorithm like bidirectional Dijkstra.
 * Each query uses ranks.
 * The query algorithm uses the ranks to search only in the upward direction (towards the higher ranks) from both the end-points (searches).
@@ -204,6 +209,8 @@
 ![140onlyForwardSearch.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/140onlyForwardSearch.webp)
 
 ![150onlyBackwardSearch.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/150onlyBackwardSearch.webp)
+
+![160mountainshape04.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/160mountainshape04.webp)
 
 * We contract the vertex based on its importance.
 * The importance depends on the edge difference, shortcut cover, contracted-neighbors, and level of the vertex.
@@ -1017,12 +1024,22 @@ $$
 
 ---
 
+**What is the cost of a witness path?**
+
+* The cost of the witness path is no more than the cost of the path that goes through the candidate vertex.
+
+---
+
 # Insights
 
 * Witness path does not go through the candidate vertex.
 * Ranks do not necessarily indicate the sequence of vertices we visit in the graph.
 * Ranks follow contraction. 
 * First, contraction happens. And then, according to the position in the contraction sequence, the vertex gets a rank. 
+* During the preprocessing, the priority queue uses the importance for the contraction hierarchy.
+* During the search algorithm, the priority queue uses the value according to the search algorithm.
+* For example, for the Dijkstra, it uses the tentative distance.
+* For A-star algorithm, it uses the `f(v) = g(v) + h(v)`; where `g(v)` is actual distance, and `h(v)` is an educated estimated value (heuristic).
 * The search algorithm runs on the augmented graph.
 * The search moves only upwards towards higher-ranked vertices, and skips the lower-ranked vertices.
 * That's how and that's why our search gets the better (higher) speed (performance).
