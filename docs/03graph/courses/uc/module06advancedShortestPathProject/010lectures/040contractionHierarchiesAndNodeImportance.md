@@ -1030,6 +1030,27 @@ $$
 
 ---
 
+**How do we perform a witness search?**
+
+* We run a normal Dijkstra's algorithm on the predecessor of the candidate vertex and avoid the path that goes through the candidate vertex.
+* It means that we don't add the candidate vertex to the priority queue.
+* And we don't extract it, process it from the priority queue.
+* In other words, we want to find if there exists a path that connects the predecessors and the successors of the candidate vertex without going through it.
+* And the cost must be no more than the path that goes through the candidate vertex.
+* But the candidate vertex can have many neighbors, predecessors and successors.
+* In other words, there can be many paths that go through the candidate vertex in the original graph.
+* And in that case, our witness search might become slow.
+* So, to optimize it, we introduce a limit, a stop condition.
+* When we find that exploring a witness path is becoming more expensive than adding an unnecessary shortcut, we stop.
+* Or maybe, we find that the distance between the predecessor and the extracted vertex is so big, that it cannot be shorter or equivalent than the sum of the incoming and outgoing edge weight of the candidate vertex.
+* Another idea is to limit the hops.
+* For example, we can explore, for example, at most five edges from the predecessor.
+* In any case, this reveals that the cost of exploring the witness path must not exceed than the cost of adding an unnecessary shortcut.
+* In this way, we might add a few unnecessary shortcuts, but our preprocessing becomes faster.
+* This is a trade-off that we deliberately choose.
+
+---
+
 # Insights
 
 * Witness path does not go through the candidate vertex.
