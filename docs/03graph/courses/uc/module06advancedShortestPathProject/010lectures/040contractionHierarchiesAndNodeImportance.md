@@ -1032,6 +1032,8 @@ $$
 
 **How do we perform a witness search?**
 
+![170witnessLimit.webp](../../../../../../assets/images/03graph/courses/uc/module06advancedShortestPathProject/part03ContractionHierarchies/170witnessLimit.webp)
+
 * We run a normal Dijkstra's algorithm on the predecessor of the candidate vertex and avoid the path that goes through the candidate vertex.
 * It means that we don't add the candidate vertex to the priority queue.
 * And we don't extract it, process it from the priority queue.
@@ -1042,10 +1044,16 @@ $$
 * And in that case, our witness search might become slow.
 * So, to optimize it, we introduce a limit, a stop condition.
 * When we find that exploring a witness path is becoming more expensive than adding an unnecessary shortcut, we stop.
-* Or maybe, we find that the distance between the predecessor and the extracted vertex is so big, that it cannot be shorter or equivalent than the sum of the incoming and outgoing edge weight of the candidate vertex.
-* Another idea is to limit the hops.
+* We have three different ideas to limit the witness search and speed up the preprocessing.
+* First, when we find that the distance between the predecessor and the extracted vertex is so big, that it cannot be shorter or equivalent than some maximum sum of the incoming and outgoing edge weight of the candidate vertex.
+* The second idea is by using the hops (outgoing edges of the extracted vertices).
+* And by hops (jumps), we mean inspecting the outgoing edges of the extracted vertices.
+* For example, we inspect the outgoing edges of the neighbors of the source.
+* And third, we can restrict (limit) how far, how deep, how much further we want to search.
 * For example, we can explore, for example, at most five edges from the predecessor.
-* In any case, this reveals that the cost of exploring the witness path must not exceed than the cost of adding an unnecessary shortcut.
+* The third limit is the real trade-off.
+* It clearly prioritizes adding unnecessary shortcuts over avoiding existing shortcuts to speed up the preprocessing time.
+* This reveals that the cost of exploring the witness path must not exceed than the cost of adding an unnecessary shortcut.
 * In this way, we might add a few unnecessary shortcuts, but our preprocessing becomes faster.
 * This is a trade-off that we deliberately choose.
 
